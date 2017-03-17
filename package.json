@@ -1,0 +1,8 @@
+{
+  "name": "screeps",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "git@github.com:canisminor1990/screeps.git",
+  "author": "canisminor1990 <canisminor1990@gmail.com>",
+  "license": "MIT"
+}
