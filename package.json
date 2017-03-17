@@ -1,8 +1,24 @@
 {
-  "name": "screeps",
-  "version": "1.0.0",
-  "main": "index.js",
-  "repository": "git@github.com:canisminor1990/screeps.git",
-  "author": "canisminor1990 <canisminor1990@gmail.com>",
-  "license": "MIT"
+	"name": "tutorial-1",
+	"version": "1.0.0",
+	"main": "index.js",
+	"license": "MIT",
+	"dependencies": {
+		"babel-plugin-add-module-exports": "^0.2.1",
+		"babel-plugin-dev-expression": "^0.2.1",
+		"babel-plugin-lodash": "^3.2.11",
+		"babel-plugin-loop-optimizer": "^1.2.3",
+		"babel-plugin-transform-decorators-legacy": "^1.3.4",
+		"babel-plugin-transform-react-remove-prop-types": "^0.3.2",
+		"babel-plugin-transform-runtime": "^6.23.0",
+		"babel-preset-es2015": "^6.24.0",
+		"babel-preset-react": "^6.23.0",
+		"babel-preset-stage-0": "^6.22.0",
+		"gulp": "^3.9.1",
+		"gulp-babel": "^6.1.2",
+		"ScreepsAutocomplete": "https://github.com/Garethp/ScreepsAutocomplete.git"
+	},
+	"scripts": {
+		"build": "babel -d dist/ src/"
+	}
 }
