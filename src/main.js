@@ -3,7 +3,7 @@ import roleUpgrader from'./role.upgrader';
 
 function autoSpawn(roleSpawn, maxNum) {
 	const roleNumber = _.filter(Game.creeps, (creep) => creep.memory.role == roleSpawn).length;
-	if (roleNumber.length < maxNum) {
+	if (roleNumber < maxNum) {
 		const newName = Game.spawns['Spawn1'].createCreep(
 			[WORK, CARRY, MOVE],
 			`${roleSpawn}${roleNumber + 1}`,
