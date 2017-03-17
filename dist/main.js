@@ -10,6 +10,16 @@ var _role4 = _interopRequireDefault(_role3);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+function autoSpawn(roleSpawn, maxNum) {
+	var roleNumber = _.filter(Game.creeps, function (creep) {
+		return creep.memory.role == roleSpawn;
+	}).length;
+	if (roleNumber.length < maxNum) {
+		var newName = Game.spawns['Spawn1'].createCreep([WORK, CARRY, MOVE], '' + roleSpawn + (roleNumber + 1), { role: roleSpawn });
+		console.log('制造新角色: ' + newName);
+	}
+}
+
 module.exports.loop = function () {
 
 	for (var name in Memory.creeps) {
@@ -19,10 +29,8 @@ module.exports.loop = function () {
 		}
 	}
 
-	var harvesters = _.filter(Game.creeps, function (creep) {
-		return creep.memory.role == 'harvester';
-	});
-	console.log('Harvesters: ' + harvesters.length);
+	autoSpawn('harvester', 2);
+	autoSpawn('upgrader', 1);
 
 	if (harvesters.length < 2) {
 		var newName = Game.spawns['Spawn1'].createCreep([WORK, CARRY, MOVE], undefined, { role: 'harvester' });

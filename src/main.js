@@ -1,25 +1,37 @@
 import roleHarvester from './role.harvester';
 import roleUpgrader from'./role.upgrader';
 
+function autoSpawn(roleSpawn, maxNum) {
+	const roleNumber = _.filter(Game.creeps, (creep) => creep.memory.role == roleSpawn).length;
+	if (roleNumber.length < maxNum) {
+		const newName = Game.spawns['Spawn1'].createCreep(
+			[WORK, CARRY, MOVE],
+			`${roleSpawn}${roleNumber + 1}`,
+			{role: roleSpawn}
+		);
+		console.log('制造新角色: ' + newName);
+	}
+}
+
 module.exports.loop = () => {
 
-	for (var name in Memory.creeps) {
+	for (let name in Memory.creeps) {
 		if (!Game.creeps[name]) {
 			delete Memory.creeps[name];
 			console.log('Clearing non-existing creep memory:', name);
 		}
 	}
 
-	var harvesters = _.filter(Game.creeps, (creep) => creep.memory.role == 'harvester');
-	console.log('Harvesters: ' + harvesters.length);
+	autoSpawn('harvester', 2)
+	autoSpawn('upgrader', 1)
 
 	if (harvesters.length < 2) {
-		var newName = Game.spawns['Spawn1'].createCreep([WORK, CARRY, MOVE], undefined, {role: 'harvester'});
+		const newName = Game.spawns['Spawn1'].createCreep([WORK, CARRY, MOVE], undefined, {role: 'harvester'});
 		console.log('Spawning new harvester: ' + newName);
 	}
 
 	if (Game.spawns['Spawn1'].spawning) {
-		var spawningCreep = Game.creeps[Game.spawns['Spawn1'].spawning.name];
+		const spawningCreep = Game.creeps[Game.spawns['Spawn1'].spawning.name];
 		Game.spawns['Spawn1'].room.visual.text(
 			'[制造]' + spawningCreep.memory.role,
 			Game.spawns['Spawn1'].pos.x + 1,
