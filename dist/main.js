@@ -16,7 +16,7 @@ function autoSpawn(roleSpawn, maxNum) {
 	}).length;
 	if (roleNumber.length < maxNum) {
 		var newName = Game.spawns['Spawn1'].createCreep([WORK, CARRY, MOVE], '' + roleSpawn + (roleNumber + 1), { role: roleSpawn });
-		console.log('制造新角色: ' + newName);
+		console.log('Spawn: ' + newName);
 	}
 }
 
@@ -34,7 +34,7 @@ module.exports.loop = function () {
 
 	if (Game.spawns['Spawn1'].spawning) {
 		var spawningCreep = Game.creeps[Game.spawns['Spawn1'].spawning.name];
-		Game.spawns['Spawn1'].room.visual.text('[制造]' + spawningCreep.memory.role, Game.spawns['Spawn1'].pos.x + 1, Game.spawns['Spawn1'].pos.y, { align: 'left', opacity: 0.8 });
+		Game.spawns['Spawn1'].room.visual.text('[Spawn]' + spawningCreep.memory.role, Game.spawns['Spawn1'].pos.x + 1, Game.spawns['Spawn1'].pos.y, { align: 'left', opacity: 0.8 });
 	}
 
 	for (var _name in Game.creeps) {
