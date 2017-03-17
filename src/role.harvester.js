@@ -24,4 +24,4 @@ var roleHarvester = {
 	}
 };
 
-module.exports = roleHarvester;
+export default roleHarvester;

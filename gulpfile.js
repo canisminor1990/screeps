@@ -21,9 +21,14 @@ function createBabelConfig(babelEnv) {
 	};
 }
 
-gulp.task("default", function () {
+gulp.task('default', () => {
+	gulp.watch([
+		           'src/**/*.js'
+	           ], ['js']);
+});
+
+gulp.task("js", () => {
 	return gulp.src(['src/**/*.js'])
 	           .pipe(babel(createBabelConfig('cjs')))
-	           // .pipe(gulpEs3ify())
 	           .pipe(gulp.dest('dist'));
 });

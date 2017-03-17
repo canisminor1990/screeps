@@ -1,5 +1,6 @@
 'use strict';
 
+exports.__esModule = true;
 var roleUpgrader = {
 
 	/** @param {Creep} creep **/
@@ -27,4 +28,5 @@ var roleUpgrader = {
 	}
 };
 
-module.exports = roleUpgrader;
+exports.default = roleUpgrader;
+module.exports = exports['default'];

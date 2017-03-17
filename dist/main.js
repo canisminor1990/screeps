@@ -1,7 +1,14 @@
 'use strict';
 
-var roleHarvester = require('./role.harvester');
-var roleUpgrader = require('./role.upgrader');
+var _role = require('./role.harvester');
+
+var _role2 = _interopRequireDefault(_role);
+
+var _role3 = require('./role.upgrader');
+
+var _role4 = _interopRequireDefault(_role3);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 module.exports.loop = function () {
 
@@ -24,16 +31,18 @@ module.exports.loop = function () {
 
 	if (Game.spawns['Spawn1'].spawning) {
 		var spawningCreep = Game.creeps[Game.spawns['Spawn1'].spawning.name];
-		Game.spawns['Spawn1'].room.visual.text('🛠️' + spawningCreep.memory.role, Game.spawns['Spawn1'].pos.x + 1, Game.spawns['Spawn1'].pos.y, { align: 'left', opacity: 0.8 });
+		Game.spawns['Spawn1'].room.visual.text('🌝' + spawningCreep.memory.role, Game.spawns['Spawn1'].pos.x + 1, Game.spawns['Spawn1'].pos.y, { align: 'left', opacity: 0.8 });
 	}
 
-	for (var name in Game.creeps) {
-		var creep = Game.creeps[name];
-		if (creep.memory.role == 'harvester') {
-			roleHarvester.run(creep);
-		}
-		if (creep.memory.role == 'upgrader') {
-			roleUpgrader.run(creep);
+	for (var _name in Game.creeps) {
+		var creep = Game.creeps[_name];
+		switch (creep.memory.role) {
+			case 'harvester':
+				_role2.default.run(creep);
+				break;
+			case 'upgrader':
+				_role4.default.run(creep);
+				break;
 		}
 	}
 };

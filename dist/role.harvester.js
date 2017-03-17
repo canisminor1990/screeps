@@ -1,5 +1,6 @@
 'use strict';
 
+exports.__esModule = true;
 var roleHarvester = {
 
 	/** @param {Creep} creep **/
@@ -24,4 +25,5 @@ var roleHarvester = {
 	}
 };
 
-module.exports = roleHarvester;
+exports.default = roleHarvester;
+module.exports = exports['default'];
