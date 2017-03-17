@@ -25,7 +25,6 @@ module.exports.loop = () => {
 	autoSpawn('harvester', 2)
 	autoSpawn('upgrader', 1)
 
-
 	if (Game.spawns['Spawn1'].spawning) {
 		const spawningCreep = Game.creeps[Game.spawns['Spawn1'].spawning.name];
 		Game.spawns['Spawn1'].room.visual.text(
@@ -39,7 +38,8 @@ module.exports.loop = () => {
 		const creep = Game.creeps[name];
 		switch (creep.memory.role) {
 			case 'harvester':
-				roleHarvester.run(creep);
+				(Game.spawns['Spawn1'].energy < 300) ?
+				roleHarvester.run(creep) : roleUpgrader.run(creep);
 				break;
 			case 'upgrader':
 				roleUpgrader.run(creep);
