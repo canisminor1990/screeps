@@ -4,7 +4,7 @@ exports.__esModule = true;
 var roleUpgrader = {
 	run: function run(creep) {
 
-		if (creep.carry.energy == 0) {
+		if (creep.carry.energy < 50) {
 			var sources = creep.room.find(FIND_SOURCES);
 			if (creep.harvest(sources[0]) == ERR_NOT_IN_RANGE) {
 				creep.say('harvest');
