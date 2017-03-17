@@ -41,7 +41,7 @@ module.exports.loop = function () {
 		var creep = Game.creeps[_name];
 		switch (creep.memory.role) {
 			case 'harvester':
-				_role2.default.run(creep);
+				Game.spawns['Spawn1'].energy < 300 ? _role2.default.run(creep) : _role4.default.run(creep);
 				break;
 			case 'upgrader':
 				_role4.default.run(creep);

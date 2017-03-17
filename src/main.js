@@ -45,6 +45,5 @@ module.exports.loop = () => {
 				roleUpgrader.run(creep);
 				break;
 		}
-
 	}
 }
