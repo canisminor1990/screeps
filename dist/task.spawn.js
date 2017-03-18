@@ -14,7 +14,7 @@ var taskSpawn = function taskSpawn(number, body) {
             var roleNumber = _.filter(Game.creeps, function (creep) {
                 return creep.memory.role == roleSpawn;
             }).length;
-            if (roleNumber < maxNum) {
+            if (number[key][_i] > 0 && roleNumber < maxNum) {
                 Game.spawns['Spawn1'].createCreep(body[key], '' + roleSpawn + Math.floor(Math.random() * 100), { role: roleSpawn, source: _i });
                 console.log('Spawn:', roleSpawn, _i);
             }

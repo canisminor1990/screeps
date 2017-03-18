@@ -1,6 +1,5 @@
 const taskFindMiner = (creep) => {
 
-
     const rawSource = creep.room.find(FIND_SOURCES)[creep.memory.source]
     let minerTarget;
     for (let name in Game.creeps) {
