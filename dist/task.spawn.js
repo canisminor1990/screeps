@@ -1,15 +1,8 @@
 'use strict';
 
 exports.__esModule = true;
-
-var _entries = require('babel-runtime/core-js/object/entries');
-
-var _entries2 = _interopRequireDefault(_entries);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
 var taskSpawn = function taskSpawn(json) {
-    json = (0, _entries2.default)(json);
+    json = Object.entries(json);
     var _a = json;
 
     var _f = function _f(data) {
