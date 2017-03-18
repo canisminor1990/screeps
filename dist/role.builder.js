@@ -14,7 +14,7 @@ var roleBuilder = {
 		}
 		var targets = creep.room.find(FIND_CONSTRUCTION_SITES);
 		if (creep.memory.building && targets.length) {
-			var num = void 0;
+			var num = 0;
 
 			switch (creep.memory.role) {
 				case 'harvester':
@@ -35,7 +35,7 @@ var roleBuilder = {
 			}
 		} else {
 			var sources = creep.room.find(FIND_SOURCES);
-			var source = void 0;
+			var source = sources[0];
 			switch (creep.memory.role) {
 				case 'harvester':
 					source = sources[1];
