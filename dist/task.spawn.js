@@ -31,9 +31,6 @@ exports.default = taskSpawn;
 
 function getNowFormatDate() {
 	var date = new Date();
-	var seperator2 = ":";
-
-	var currentdate = date.getHours() + seperator2 + date.getMinutes() + seperator2 + date.getSeconds();
-	return currentdate;
+	return [date.getHours(), date.getMinutes(), date.getSeconds()].join(':');
 }
 module.exports = exports['default'];
