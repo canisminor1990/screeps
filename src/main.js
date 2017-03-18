@@ -32,7 +32,7 @@ module.exports = {
 			switch (creep.memory.role) {
 				case 'harvester':
 					(Game.spawns['Spawn1'].energy < 300) ?
-							roleHarvester.run(creep) : roleUpgrader.run(creep);
+							roleHarvester.run(creep) : roleBuilder.run(creep);
 					break;
 				case 'upgrader':
 					roleUpgrader.run(creep);
