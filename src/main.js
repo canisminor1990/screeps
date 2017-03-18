@@ -24,26 +24,28 @@ module.exports = {
                 {align: 'left', opacity: 0.8});
         }
 
+        const targets = creep.room.find(FIND_STRUCTURES, {
+            filter: (structure) => {
+                return (structure.structureType == STRUCTURE_EXTENSION ||
+                    structure.structureType == STRUCTURE_SPAWN ||
+                    structure.structureType == STRUCTURE_TOWER) && structure.energy < structure.energyCapacity;
+            }
+        });
 
         for (let name in Game.creeps) {
             const creep = Game.creeps[name];
             switch (creep.memory.role) {
                 case 'harvester':
-                    var targets = creep.room.find(FIND_STRUCTURES, {
-                        filter: (structure) => {
-                            return (structure.structureType == STRUCTURE_EXTENSION ||
-                                structure.structureType == STRUCTURE_SPAWN ||
-                                structure.structureType == STRUCTURE_TOWER) && structure.energy < structure.energyCapacity;
-                        }
-                    });
                     (targets.length > 0) ?
                         roleHarvester.run(creep,targets[0]) : roleBuilder.run(creep);
                     break;
                 case 'upgrader':
-                    roleUpgrader.run(creep);
+                    (targets.length > 0) ?
+                        roleHarvester.run(creep,targets[0]) : roleUpgrader.run(creep);
                     break;
                 case 'builder':
-                    roleBuilder.run(creep);
+                    (targets.length > 0) ?
+                        roleHarvester.run(creep,targets[0]) : roleBuilder.run(creep);
                     break;
             }
         }

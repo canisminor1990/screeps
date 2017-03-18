@@ -22,22 +22,23 @@ module.exports = {
             Game.spawns['Spawn1'].room.visual.text('[Spawn]' + spawningCreep.memory.role, Game.spawns['Spawn1'].pos.x + 1, Game.spawns['Spawn1'].pos.y, { align: 'left', opacity: 0.8 });
         }
 
+        var targets = creep.room.find(FIND_STRUCTURES, {
+            filter: function filter(structure) {
+                return (structure.structureType == STRUCTURE_EXTENSION || structure.structureType == STRUCTURE_SPAWN || structure.structureType == STRUCTURE_TOWER) && structure.energy < structure.energyCapacity;
+            }
+        });
+
         for (var _name in Game.creeps) {
-            var creep = Game.creeps[_name];
-            switch (creep.memory.role) {
+            var _creep = Game.creeps[_name];
+            switch (_creep.memory.role) {
                 case 'harvester':
-                    var targets = creep.room.find(FIND_STRUCTURES, {
-                        filter: function filter(structure) {
-                            return (structure.structureType == STRUCTURE_EXTENSION || structure.structureType == STRUCTURE_SPAWN || structure.structureType == STRUCTURE_TOWER) && structure.energy < structure.energyCapacity;
-                        }
-                    });
-                    targets.length > 0 ? _role.roleHarvester.run(creep, targets[0]) : _role.roleBuilder.run(creep);
+                    targets.length > 0 ? _role.roleHarvester.run(_creep, targets[0]) : _role.roleBuilder.run(_creep);
                     break;
                 case 'upgrader':
-                    _role.roleUpgrader.run(creep);
+                    targets.length > 0 ? _role.roleHarvester.run(_creep, targets[0]) : _role.roleUpgrader.run(_creep);
                     break;
                 case 'builder':
-                    _role.roleBuilder.run(creep);
+                    targets.length > 0 ? _role.roleHarvester.run(_creep, targets[0]) : _role.roleBuilder.run(_creep);
                     break;
             }
         }
