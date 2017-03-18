@@ -19,7 +19,7 @@ var roleUpgrader = {
 		}
 
 		if (creep.memory.upgrading) {
-			creep.moveTo(creep.room.controller, { visualizePathStyle: { stroke: '#ffffff' } });
+			creep.moveTo(28.24, { visualizePathStyle: { stroke: '#ffffff' } });
 			creep.upgradeController(creep.room.controller);
 		} else {
 			(0, _task.taskFindMiner)(creep);
