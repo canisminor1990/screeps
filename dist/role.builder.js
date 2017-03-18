@@ -16,7 +16,10 @@ var roleBuilder = {
 		if (creep.memory.building && targets.length) {
 			var num = 0;
 			for (var i = 0; i < targets.length; i++) {
-				targets[i].toString().match('road') ? num = i : null;
+				if (targets[i].toString().match('road')) {
+					num = i;
+					break;
+				}
 			}
 			if (creep.build(targets[num]) == ERR_NOT_IN_RANGE) {
 				creep.moveTo(targets[num], { visualizePathStyle: { stroke: '#ffffff' } });
