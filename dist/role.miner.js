@@ -12,7 +12,7 @@ var roleMiner = {
             var targets = creep.pos.findInRange(FIND_MY_CREEPS, 1);
             for (var i = 0; i < targets.length; i++) {
                 var num = targets[i].carryCapacity - targets[i].carry.energy;
-                console.log(creep.transfer(targets[i], RESOURCE_ENERGY, num > creep.carry.energy ? creep.carry.energy : num));
+                creep.transfer(targets[i], RESOURCE_ENERGY, num > creep.carry.energy ? creep.carry.energy : num);
             }
         }
     }
