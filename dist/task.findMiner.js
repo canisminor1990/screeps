@@ -4,17 +4,21 @@ Object.defineProperty(exports, "__esModule", {
     value: true
 });
 var taskFindMiner = function taskFindMiner(creep) {
+
+    var rawSource = creep.room.find(FIND_SOURCES)[creep.memory.source];
+    var minerTarget = void 0;
     for (var name in Game.creeps) {
-        var _miner = Game.creeps[name];
-        if (_miner.memory.role === 'miner' && creep.memory.source === creep.memory.source) {
-            return _miner;
+        var miner = Game.creeps[name];
+        if (miner.memory.role === 'miner' && creep.memory.source === creep.memory.source) {
+            minerTarget = miner;
             break;
         }
     }
-    if (miner.carry.energy < miner.carryCapacity) {
+
+    if (minerTarget.carry.energy < minerTarget.carryCapacity) {
         return creep.harvest(rawSource) === ERR_NOT_IN_RANGE ? creep.moveTo(rawSource, { visualizePathStyle: { stroke: '#ffaa00' } }) : null;
     } else {
-        return creep.moveTo(miner, { visualizePathStyle: { stroke: '#ffaa00' } });
+        return creep.moveTo(minerTarget, { visualizePathStyle: { stroke: '#ffaa00' } });
     }
 };
 
