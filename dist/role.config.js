@@ -1,4 +1,4 @@
-'use strict';
+"use strict";
 
 Object.defineProperty(exports, "__esModule", {
     value: true
@@ -11,10 +11,9 @@ var roleConfig = {
         miner: 0
     },
     body: {
-
         miner: [MOVE, WORK, WORK, CARRY],
         harvester: [MOVE, MOVE, MOVE, WORK, CARRY],
-        upgrader: [MOVE, MOVE, CARRY, CARRY, CARRY],
+        upgrader: [MOVE, MOVE, CARRY, CARRY, WORK],
         builder: [MOVE, MOVE, MOVE, WORK, CARRY]
     }
 };
@@ -33,37 +32,12 @@ var roleConfig = {
 function buildBody(obj) {
     var array = [];
     for (var key in obj) {
-        var keyType = void 0;
-        switch (key) {
-            case 'work':
-                keyType = WORK;
-                break;
-            case 'move':
-                keyType = MOVE;
-                break;
-            case 'attack':
-                keyType = ATTACK;
-                break;
-            case 'ganged_attack':
-                keyType = RANGED_ATTACK;
-                break;
-            case 'heal':
-                keyType = HEAL;
-                break;
-            case 'claim':
-                keyType = CLAIM;
-                break;
-            case 'tough':
-                keyType = TOUGH;
-                break;
-        }
-
         for (var num = 0; num < obj[key]; num++) {
-            array.push(keyType);
+            array.push(key);
         }
     }
     return array;
 }
 
 exports.default = roleConfig;
-module.exports = exports['default'];
+module.exports = exports["default"];
