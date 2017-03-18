@@ -15,7 +15,7 @@ module.exports = {
 			}
 		}
 
-		(0, _task.taskSpawn)('harvester', 4);
+		(0, _task.taskSpawn)('harvester', 6);
 		(0, _task.taskSpawn)('upgrader', 1);
 		(0, _task.taskSpawn)('builder', 1);
 

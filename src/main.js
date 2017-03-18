@@ -14,7 +14,7 @@ module.exports = {
 			}
 		}
 
-		taskSpawn('harvester', 4)
+		taskSpawn('harvester', 6)
 		taskSpawn('upgrader', 1)
 		taskSpawn('builder', 1)
 
