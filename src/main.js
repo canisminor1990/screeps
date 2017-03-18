@@ -1,5 +1,6 @@
 import roleHarvester from './role.harvester';
 import roleUpgrader from'./role.upgrader';
+import roleBuilder from'./role.builder';
 
 function autoSpawn(roleSpawn, maxNum) {
 	const roleNumber = _.filter(Game.creeps, (creep) => creep.memory.role == roleSpawn).length;
@@ -26,6 +27,7 @@ module.exports.loop = () => {
 
 	autoSpawn('harvester', 2)
 	autoSpawn('upgrader', 1)
+	autoSpawn('builder', 1)
 
 	if (Game.spawns['Spawn1'].spawning) {
 		const spawningCreep = Game.creeps[Game.spawns['Spawn1'].spawning.name];
@@ -45,6 +47,9 @@ module.exports.loop = () => {
 				break;
 			case 'upgrader':
 				roleUpgrader.run(creep);
+				break;
+			case 'builder':
+				roleBuilder.run(creep);
 				break;
 		}
 	}

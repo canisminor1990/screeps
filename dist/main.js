@@ -8,6 +8,10 @@ var _role3 = require('./role.upgrader');
 
 var _role4 = _interopRequireDefault(_role3);
 
+var _role5 = require('./role.builder');
+
+var _role6 = _interopRequireDefault(_role5);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function autoSpawn(roleSpawn, maxNum) {
@@ -15,7 +19,7 @@ function autoSpawn(roleSpawn, maxNum) {
 		return creep.memory.role == roleSpawn;
 	}).length;
 	if (roleNumber < maxNum) {
-		var newName = Game.spawns['Spawn1'].createCreep([WORK, CARRY, MOVE], '' + roleSpawn + Math.floor(Math.random() * 10));
+		var newName = Game.spawns['Spawn1'].createCreep([WORK, CARRY, MOVE], '' + roleSpawn + Math.floor(Math.random() * 10), { role: roleSpawn });
 		console.log('Spawn: ' + newName);
 	}
 }
@@ -31,6 +35,7 @@ module.exports.loop = function () {
 
 	autoSpawn('harvester', 2);
 	autoSpawn('upgrader', 1);
+	autoSpawn('builder', 1);
 
 	if (Game.spawns['Spawn1'].spawning) {
 		var spawningCreep = Game.creeps[Game.spawns['Spawn1'].spawning.name];
@@ -45,6 +50,9 @@ module.exports.loop = function () {
 				break;
 			case 'upgrader':
 				_role4.default.run(creep);
+				break;
+			case 'builder':
+				_role6.default.run(creep);
 				break;
 		}
 	}
