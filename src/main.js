@@ -1,4 +1,4 @@
-import {roleConfig, roleHarvester, roleUpgrader, roleBuilder} from './role';
+import {roleConfig, roleHarvester, roleUpgrader, roleBuilder,roleMiner} from './role';
 import {taskSpawn} from './task';
 
 
@@ -48,6 +48,9 @@ module.exports = {
                 case 'builder':
                     (targets.length > 0) ?
                         roleHarvester.run(creep, targets[0]) : roleBuilder.run(creep);
+                    break;
+                case 'miner':
+                    roleMiner.run(creep);
                     break;
             }
         }

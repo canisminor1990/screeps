@@ -41,6 +41,9 @@ module.exports = {
                 case 'builder':
                     targets.length > 0 ? _role.roleHarvester.run(creep, targets[0]) : _role.roleBuilder.run(creep);
                     break;
+                case 'miner':
+                    _role.roleMiner.run(creep);
+                    break;
             }
         }
     }
