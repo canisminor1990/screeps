@@ -25,7 +25,6 @@ module.exports = {
         }
 
 
-
         for (let name in Game.creeps) {
             const creep = Game.creeps[name];
             const targets = creep.room.find(FIND_STRUCTURES, {
@@ -38,15 +37,15 @@ module.exports = {
             switch (creep.memory.role) {
                 case 'harvester':
                     (targets.length > 0) ?
-                        roleHarvester.run(creep,targets[0]) : roleBuilder.run(creep);
+                        roleHarvester.run(creep, targets[0]) : roleBuilder.run(creep);
                     break;
                 case 'upgrader':
                     (targets.length > 0) ?
-                        roleHarvester.run(creep,targets[0]) : roleUpgrader.run(creep);
+                        roleHarvester.run(creep, targets[0]) : roleUpgrader.run(creep);
                     break;
                 case 'builder':
                     (targets.length > 0) ?
-                        roleHarvester.run(creep,targets[0]) : roleBuilder.run(creep);
+                        roleHarvester.run(creep, targets[0]) : roleBuilder.run(creep);
                     break;
             }
         }

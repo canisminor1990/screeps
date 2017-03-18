@@ -1,9 +1,9 @@
 const roleConfig = {
     number: {
-        harvester: 8,
-        upgrader: 1,
-        builder: 1,
-        miner: 0,
+        harvester: [0,8],
+        upgrader: [1],
+        builder: [1],
+        miner: [0],
     },
     body: {
         miner: buildBody({move: 1, work: 2, carry: 1}),
