@@ -11,7 +11,7 @@ var taskSpawn = function taskSpawn(number, body) {
             maxNum = maxNum + number[key][i];
         }
         for (var _i = 0; _i < number[key].length; _i++) {
-            roleNumber = _.filter(Game.creeps, function (creep) {
+            var roleNumber = _.filter(Game.creeps, function (creep) {
                 return creep.memory.role == roleSpawn;
             }).length;
 

@@ -7,7 +7,7 @@ const taskSpawn = (number, body) => {
             maxNum = maxNum + number[key][i]
         }
         for (let i = 0; i < number[key].length; i++) {
-                roleNumber = _.filter(Game.creeps, (creep) => creep.memory.role == roleSpawn).length;
+            const roleNumber = _.filter(Game.creeps, (creep) => creep.memory.role == roleSpawn).length;
 
             if (roleNumber < maxNum) {
 
