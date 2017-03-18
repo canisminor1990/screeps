@@ -5,7 +5,7 @@ var _role = require('./role');
 var _task = require('./task');
 
 module.exports = {
-	taskBuild: taskBuild,
+
 	loop: function loop() {
 
 		for (var name in Memory.creeps) {

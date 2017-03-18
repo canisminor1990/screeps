@@ -4,7 +4,7 @@ import {taskSpawn} from './task';
 
 
 module.exports = {
-	taskBuild: taskBuild,
+
 	loop: () => {
 
 		for (let name in Memory.creeps) {
