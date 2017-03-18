@@ -23,8 +23,14 @@ function createBabelConfig(babelEnv) {
 
 gulp.task('default', () => {
 	gulp.watch([
-		           'src/**/*.js'
-	           ], ['js']);
+		'src/**/*.js'
+	], ['js']);
+});
+
+gulp.task("test", () => {
+	return gulp.src(['temp/src/**/*.js'])
+			.pipe(babel(createBabelConfig('cjs')))
+			.pipe(gulp.dest('dist'));
 });
 
 gulp.task("js", () => {

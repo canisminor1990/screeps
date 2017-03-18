@@ -1,20 +1,5 @@
-import roleHarvester from './role.harvester';
-import roleUpgrader from'./role.upgrader';
-import roleBuilder from'./role.builder';
-
-function autoSpawn(roleSpawn, maxNum) {
-	const roleNumber = _.filter(Game.creeps, (creep) => creep.memory.role == roleSpawn).length;
-	if (roleNumber < maxNum) {
-		const newName = Game.spawns['Spawn1'].createCreep(
-				[WORK,
-				 CARRY,
-				 MOVE],
-				`${roleSpawn}${Math.floor(Math.random() * 10)}`,
-				{role: roleSpawn}
-		);
-		console.log('Spawn: ' + newName);
-	}
-}
+import {roleHarvester, roleUpgrader, roleBuilder} from './role';
+import {taskSpawn} from './task';
 
 module.exports.loop = () => {
 
@@ -25,9 +10,9 @@ module.exports.loop = () => {
 		}
 	}
 
-	autoSpawn('harvester', 2)
-	autoSpawn('upgrader', 1)
-	autoSpawn('builder', 1)
+	taskSpawn('harvester', 2)
+	taskSpawn('upgrader', 1)
+	taskSpawn('builder', 1)
 
 	if (Game.spawns['Spawn1'].spawning) {
 		const spawningCreep = Game.creeps[Game.spawns['Spawn1'].spawning.name];
