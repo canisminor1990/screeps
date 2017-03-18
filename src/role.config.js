@@ -1,6 +1,6 @@
 export default {
     number: {
-        miner: 3,
+        miner: 0,
         harvester: 8,
         upgrader: 1,
         builder: 1,

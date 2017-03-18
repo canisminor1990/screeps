@@ -1,4 +1,4 @@
-import {roleHarvester, roleUpgrader, roleBuilder} from './role';
+import {roleConfig,roleHarvester, roleUpgrader, roleBuilder} from './role';
 import {taskSpawn} from './task';
 
 
@@ -13,11 +13,7 @@ module.exports = {
             }
         }
 
-        taskSpawn({
-            'harvester': 8,
-            'upgrader': 1,
-            'builder': 1,
-        })
+        taskSpawn(roleConfig.number,roleConfig.body)
 
         if (Game.spawns['Spawn1'].spawning) {
             const spawningCreep = Game.creeps[Game.spawns['Spawn1'].spawning.name];

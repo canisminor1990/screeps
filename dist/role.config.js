@@ -5,7 +5,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = {
     number: {
-        miner: 3,
+        miner: 0,
         harvester: 8,
         upgrader: 1,
         builder: 1
