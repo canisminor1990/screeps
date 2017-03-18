@@ -1,7 +1,7 @@
 {
-	"name": "tutorial-1",
+	"name": "cm-screeps",
 	"version": "1.0.0",
-	"main": "index.js",
+	"main": "dist/main.js",
 	"license": "MIT",
 	"dependencies": {
 		"babel-plugin-add-module-exports": "^0.2.1",
