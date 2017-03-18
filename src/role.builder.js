@@ -33,7 +33,7 @@ const roleBuilder = {
 			}
 		}
 		else {
-			var sources = creep.room.find(FIND_SOURCES);
+			var sources = Memory.source;
 			let source = sources[0];
 			switch (creep.memory.role) {
 				case 'harvester':

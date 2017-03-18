@@ -31,4 +31,13 @@ Object.defineProperty(exports, 'roleBuilder', {
   }
 });
 
+var _role4 = require('./role.config');
+
+Object.defineProperty(exports, 'roleConfig', {
+  enumerable: true,
+  get: function get() {
+    return _interopRequireDefault(_role4).default;
+  }
+});
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }

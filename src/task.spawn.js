@@ -7,9 +7,7 @@ const taskSpawn = (obj) => {
             roleNumber = _.filter(Game.creeps, (creep) => creep.memory.role == roleSpawn).length;
         if (roleNumber < maxNum) {
             const newName = Game.spawns['Spawn1'].createCreep(
-                [WORK,
-                    CARRY,
-                    MOVE],
+                [WORK, CARRY, MOVE],
                 `${roleSpawn}${Math.floor(Math.random() * 10)}`,
                 {role: roleSpawn}
             );

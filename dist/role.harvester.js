@@ -7,7 +7,7 @@ var roleHarvester = {
 	run: function run(creep) {
 
 		if (creep.carry.energy < creep.carryCapacity) {
-			var sources = creep.room.find(FIND_SOURCES);
+			var sources = Memory.source;
 			var source = sources[0];
 			switch (creep.memory.role) {
 				case 'harvester':
