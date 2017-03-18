@@ -1,8 +1,17 @@
 'use strict';
 
-exports.__esModule = true;
+(Object.defineProperty(exports, "__esModule", {
+    value: true
+}), function _objectEntries(obj) {
+    var entries = [];
+    var keys = Object.keys(obj);
+
+    for (var k = 0; k < keys.length; ++k) entries.push([keys[k], obj[keys[k]]]);
+
+    return entries;
+})
 var taskSpawn = function taskSpawn(json) {
-    json = Object.entries(json);
+    json = _objectEntries(json);
     var _a = json;
 
     var _f = function _f(data) {

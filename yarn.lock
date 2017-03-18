@@ -48,7 +48,7 @@ babel-code-frame@^6.22.0:
     esutils "^2.0.2"
     js-tokens "^3.0.0"
 
-babel-core@^6.0.2, babel-core@^6.24.0:
+babel-core@^6.0.2, babel-core@^6.20.0, babel-core@^6.24.0:
   version "6.24.0"
   resolved "http://r.cnpmjs.org/babel-core/download/babel-core-6.24.0.tgz#8f36a0a77f5c155aed6f920b844d23ba56742a02"
   dependencies:
@@ -508,6 +508,12 @@ babel-plugin-transform-es2015-unicode-regex@^6.22.0:
     babel-runtime "^6.22.0"
     regexpu-core "^2.0.0"
 
+babel-plugin-transform-es2017-object-entries@^0.0.3:
+  version "0.0.3"
+  resolved "http://r.cnpmjs.org/babel-plugin-transform-es2017-object-entries/download/babel-plugin-transform-es2017-object-entries-0.0.3.tgz#64ce280eb920d04e2c609bdd2244aa244217e1c1"
+  dependencies:
+    babel-core "^6.20.0"
+
 babel-plugin-transform-exponentiation-operator@^6.22.0:
   version "6.22.0"
   resolved "http://r.cnpmjs.org/babel-plugin-transform-exponentiation-operator/download/babel-plugin-transform-exponentiation-operator-6.22.0.tgz#d57c8335281918e54ef053118ce6eb108468084d"
@@ -530,16 +536,18 @@ babel-plugin-transform-function-bind@^6.22.0:
     babel-plugin-syntax-function-bind "^6.8.0"
     babel-runtime "^6.22.0"
 
+babel-plugin-transform-object-entries@^1.0.0:
+  version "1.0.0"
+  resolved "http://r.cnpmjs.org/babel-plugin-transform-object-entries/download/babel-plugin-transform-object-entries-1.0.0.tgz#1a03754b323099f1d5c5c12c9dea70e6b3a1497f"
+  dependencies:
+    babel-runtime "^6.9.0"
+
 babel-plugin-transform-object-rest-spread@^6.22.0:
   version "6.23.0"
   resolved "http://r.cnpmjs.org/babel-plugin-transform-object-rest-spread/download/babel-plugin-transform-object-rest-spread-6.23.0.tgz#875d6bc9be761c58a2ae3feee5dc4895d8c7f921"
   dependencies:
     babel-plugin-syntax-object-rest-spread "^6.8.0"
     babel-runtime "^6.22.0"
-
-babel-plugin-transform-react-remove-prop-types@^0.3.2:
-  version "0.3.2"
-  resolved "http://r.cnpmjs.org/babel-plugin-transform-react-remove-prop-types/download/babel-plugin-transform-react-remove-prop-types-0.3.2.tgz#6da8d834c6d7ad8ab02f956509790cfaa01ffe19"
 
 babel-plugin-transform-regenerator@^6.22.0:
   version "6.22.0"
@@ -636,7 +644,7 @@ babel-register@^6.24.0:
     mkdirp "^0.5.1"
     source-map-support "^0.4.2"
 
-babel-runtime@^6.18.0, babel-runtime@^6.2.0, babel-runtime@^6.22.0:
+babel-runtime@^6.18.0, babel-runtime@^6.2.0, babel-runtime@^6.22.0, babel-runtime@^6.23.0, babel-runtime@^6.9.0:
   version "6.23.0"
   resolved "http://r.cnpmjs.org/babel-runtime/download/babel-runtime-6.23.0.tgz#0a9489f144de70efb3ce4300accdb329e2fc543b"
   dependencies:
