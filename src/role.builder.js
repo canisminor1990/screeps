@@ -1,3 +1,5 @@
+import {taskFindMiner} from './task'
+
 const roleBuilder = {
     run: (creep) => {
 
@@ -11,41 +13,12 @@ const roleBuilder = {
         }
         const targets = creep.room.find(FIND_CONSTRUCTION_SITES);
         if (creep.memory.building && targets.length) {
-            let num = 0;
-
-            switch (creep.memory.role) {
-                case 'harvester':
-                    for (let i = 0; i < targets.length; i++) {
-                        if (targets[i].toString().match('road')) {
-                            num = i;
-                            break
-                        }
-                    }
-                    break;
-                case 'builder':
-                    num = 0
-                    break;
-            }
-
-
-            if (creep.build(targets[num]) == ERR_NOT_IN_RANGE) {
-                creep.moveTo(targets[num], {visualizePathStyle: {stroke: '#ffffff'}});
+            if (creep.build(targets[0]) == ERR_NOT_IN_RANGE) {
+                creep.moveTo(targets[0], {visualizePathStyle: {stroke: '#ffffff'}});
             }
         }
         else {
-            var sources = creep.room.find(FIND_SOURCES);
-            let source = sources[0];
-            switch (creep.memory.role) {
-                case 'harvester':
-                    source = sources[1]
-                    break;
-                case 'builder':
-                    source = sources[0]
-                    break;
-            }
-            if (creep.harvest(source) == ERR_NOT_IN_RANGE) {
-                creep.moveTo(source, {visualizePathStyle: {stroke: '#ffaa00'}});
-            }
+            taskFindMiner(creep)
         }
     }
 }

@@ -8,7 +8,6 @@ var _task = require('./task');
 
 var roleHarvester = {
     run: function run(creep, targets) {
-
         if (creep.carry.energy < creep.carryCapacity) {
             (0, _task.taskFindMiner)(creep);
         } else {

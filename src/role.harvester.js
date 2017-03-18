@@ -2,7 +2,6 @@ import {taskFindMiner} from './task'
 
 const roleHarvester = {
     run: (creep, targets) => {
-
         if (creep.carry.energy < creep.carryCapacity) {
             taskFindMiner(creep)
         }
