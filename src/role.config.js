@@ -2,7 +2,7 @@ const roleConfig = {
     number: {
         harvester: [0, 8],
         upgrader: [1],
-        builder: [1],
+        builder: [0,1],
         miner: [1, 2],
     },
     body: {
