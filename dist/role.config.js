@@ -3,7 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
-exports.default = {
+var roleConfig = {
     number: {
         harvester: 8,
         upgrader: 1,
@@ -63,4 +63,6 @@ function buildBody(obj) {
     }
     return array;
 }
+
+exports.default = roleConfig;
 module.exports = exports['default'];

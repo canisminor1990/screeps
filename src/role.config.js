@@ -1,4 +1,4 @@
-export default {
+const roleConfig = {
     number: {
         harvester: 8,
         upgrader: 1,
@@ -12,6 +12,8 @@ export default {
         builder: buildBody({move: 3, work: 1, carry: 1}),
     }
 }
+
+
 
 /*
  "move": 50,
@@ -59,3 +61,5 @@ function buildBody(obj) {
     }
     return array;
 }
+
+export default roleConfig;

@@ -1,4 +1,4 @@
-import {roleConfig,roleHarvester, roleUpgrader, roleBuilder} from './role';
+import {roleConfig, roleHarvester, roleUpgrader, roleBuilder} from './role';
 import {taskSpawn} from './task';
 
 
