@@ -15,7 +15,7 @@ var taskSpawn = function taskSpawn(number, body) {
 				return creep.memory.role == roleSpawn;
 			}).length;
 			if (number[key][_i] > 0 && roleNumber < maxNum && Game.spawns['Spawn1'].canCreateCreep(body[key]) === OK) {
-				Game.spawns['Spawn1'].createCreep(body[key], '' + roleSpawn + Date.parse(new Date()), { role: roleSpawn, source: _i });
+				Game.spawns['Spawn1'].createCreep(body[key], roleSpawn + ':' + getNowFormatDate, { role: roleSpawn, source: _i });
 				console.log('Spawn:', roleSpawn, _i);
 			}
 		}
@@ -27,4 +27,13 @@ var taskSpawn = function taskSpawn(number, body) {
 };
 
 exports.default = taskSpawn;
+
+
+function getNowFormatDate() {
+	var date = new Date();
+	var seperator2 = ":";
+
+	var currentdate = date.getHours() + seperator2 + date.getMinutes() + seperator2 + date.getSeconds();
+	return currentdate;
+}
 module.exports = exports['default'];

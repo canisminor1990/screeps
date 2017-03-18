@@ -11,7 +11,7 @@ const taskSpawn = (number, body) => {
 			if (number[key][i] > 0 && roleNumber < maxNum && Game.spawns['Spawn1'].canCreateCreep(body[key]) === OK) {
 				Game.spawns['Spawn1'].createCreep(
 						body[key],
-						`${roleSpawn}${Date.parse(new Date())}`,
+						`${roleSpawn}:${getNowFormatDate}`,
 						{role: roleSpawn, source: i}
 				);
 				console.log('Spawn:', roleSpawn, i);
@@ -21,3 +21,13 @@ const taskSpawn = (number, body) => {
 }
 
 export default taskSpawn;
+
+
+function getNowFormatDate() {
+	var date = new Date();
+	var seperator2 = ":";
+
+	var currentdate = date.getHours() + seperator2 + date.getMinutes()
+			+ seperator2 + date.getSeconds();
+	return currentdate;
+}
