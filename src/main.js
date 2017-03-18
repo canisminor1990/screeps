@@ -16,7 +16,7 @@ module.exports = {
 
 		taskSpawn('harvester', 8)
 		taskSpawn('upgrader', 1)
-		taskSpawn('builder', 2)
+		taskSpawn('builder', 1)
 
 		if (Game.spawns['Spawn1'].spawning) {
 			const spawningCreep = Game.creeps[Game.spawns['Spawn1'].spawning.name];
