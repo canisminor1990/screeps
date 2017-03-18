@@ -1,5 +1,8 @@
 'use strict';
 
+exports.__esModule = true;
+exports.taskBuild = taskBuild;
+
 var _role = require('./role');
 
 var _task = require('./task');
