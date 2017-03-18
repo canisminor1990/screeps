@@ -11,7 +11,7 @@ const taskSpawn = (number, body) => {
 			if (number[key][i] > 0 && roleNumber < maxNum && Game.spawns['Spawn1'].canCreateCreep(body[key]) === OK) {
 				Game.spawns['Spawn1'].createCreep(
 						body[key],
-						`${roleSpawn}:${getNowFormatDate}`,
+						`[${roleSpawn}]${getNowFormatDate}`,
 						{role: roleSpawn, source: i}
 				);
 				console.log('Spawn:', roleSpawn, i);
