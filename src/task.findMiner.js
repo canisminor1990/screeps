@@ -3,7 +3,7 @@ const taskFindMiner = (creep) => {
     const rawSource = creep.room.find(FIND_SOURCES)[creep.memory.source]
     let minerTarget;
     for (let name in Game.creeps) {
-        const miner = Game.creeps[name];
+        let miner = Game.creeps[name];
         if (miner.memory.role === 'miner' && creep.memory.source === creep.memory.source) {
             minerTarget = miner;
             break;
