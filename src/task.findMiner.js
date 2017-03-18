@@ -7,7 +7,12 @@ const taskFindMiner = (creep) => {
         }
 
         const rawSource = creep.room.find(FIND_SOURCES)[creep.memory.source]
-        return (miner.carry.energy < miner.carryCapacity) ? rawSource : miner;
+
+        if (miner.carry.energy < miner.carryCapacity) {
+            return (creep.harvest(rawSource) == ERR_NOT_IN_RANGE) ? creep.moveTo(rawSource, {visualizePathStyle: {stroke: '#ffaa00'}}) : null;
+        } else {
+            return  creep.moveTo(miner, {visualizePathStyle: {stroke: '#ffaa00'}});
+        }
     }
 }
 

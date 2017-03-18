@@ -4,7 +4,7 @@ const roleHarvester = {
     run: (creep, targets) => {
 
         if (creep.carry.energy < creep.carryCapacity) {
-            creep.moveTo(taskFindMiner(creep), {visualizePathStyle: {stroke: '#ffaa00'}});
+            taskFindMiner(creep)
         }
         else {
             if (creep.transfer(targets, RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
