@@ -33,7 +33,7 @@ const roleBuilder = {
 			}
 		}
 		else {
-			const Memory = JSON.parse(RawMemory.get());var sources = Memory.source;
+			var sources = creep.pos.find(FIND_SOURCES);
 			let source = sources[0];
 			switch (creep.memory.role) {
 				case 'harvester':

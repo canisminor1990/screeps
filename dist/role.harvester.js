@@ -7,7 +7,7 @@ var roleHarvester = {
 	run: function run(creep) {
 
 		if (creep.carry.energy < creep.carryCapacity) {
-			var Memory = JSON.parse(RawMemory.get());var sources = Memory.source;
+			var sources = creep.pos.find(FIND_SOURCES);
 			var source = sources[0];
 			switch (creep.memory.role) {
 				case 'harvester':

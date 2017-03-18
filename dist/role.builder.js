@@ -36,7 +36,7 @@ var roleBuilder = {
 				creep.moveTo(targets[num], { visualizePathStyle: { stroke: '#ffffff' } });
 			}
 		} else {
-			var Memory = JSON.parse(RawMemory.get());var sources = Memory.source;
+			var sources = creep.pos.find(FIND_SOURCES);
 			var source = sources[0];
 			switch (creep.memory.role) {
 				case 'harvester':
