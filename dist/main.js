@@ -15,9 +15,9 @@ module.exports = {
 			}
 		}
 
-		(0, _task.taskSpawn)('harvester', 2);
-		(0, _task.taskSpawn)('upgrader', 2);
-		(0, _task.taskSpawn)('builder', 2);
+		(0, _task.taskSpawn)('harvester', 4);
+		(0, _task.taskSpawn)('upgrader', 1);
+		(0, _task.taskSpawn)('builder', 1);
 
 		if (Game.spawns['Spawn1'].spawning) {
 			var spawningCreep = Game.creeps[Game.spawns['Spawn1'].spawning.name];

@@ -3,8 +3,21 @@ const roleHarvester = {
 
 		if (creep.carry.energy < creep.carryCapacity) {
 			var sources = creep.room.find(FIND_SOURCES);
-			if (creep.harvest(sources[1]) == ERR_NOT_IN_RANGE) {
-				creep.moveTo(sources[1], {visualizePathStyle: {stroke: '#ffaa00'}});
+			let source = sources[0]
+			switch (creep.memory.role) {
+				case 'harvester':
+					source = sources[1]
+					break;
+				case 'upgrader':
+					source = sources[0]
+					break;
+				case 'builder':
+					source = sources[0]
+					break;
+			}
+
+			if (creep.harvest(source) == ERR_NOT_IN_RANGE) {
+				creep.moveTo(source, {visualizePathStyle: {stroke: '#ffaa00'}});
 			}
 		}
 		else {
