@@ -19,6 +19,6 @@
 		"ScreepsAutocomplete": "https://github.com/Garethp/ScreepsAutocomplete.git"
 	},
 	"scripts": {
-		"build": "babel -d dist/ src/"
+		"build": "gulp js; git sync"
 	}
 }
