@@ -1,22 +1,15 @@
 'use strict';
 
-(Object.defineProperty(exports, "__esModule", {
+Object.defineProperty(exports, "__esModule", {
     value: true
-}), function _objectEntries(obj) {
-    var entries = [];
-    var keys = Object.keys(obj);
-
-    for (var k = 0; k < keys.length; ++k) entries.push([keys[k], obj[keys[k]]]);
-
-    return entries;
-})
+});
 var taskSpawn = function taskSpawn(json) {
-    json = _objectEntries(json);
-    var _a = json;
+    key = Object.key(json);
+    value = Object.key(json);
 
-    var _f = function _f(data) {
-        var roleSpawn = data[0],
-            maxNum = data[1],
+    var _loop = function _loop(i) {
+        var roleSpawn = key[i],
+            maxNum = value[i],
             roleNumber = _.filter(Game.creeps, function (creep) {
             return creep.memory.role == roleSpawn;
         }).length;
@@ -26,13 +19,24 @@ var taskSpawn = function taskSpawn(json) {
         }
     };
 
-    var _r = [];
-
-    for (var _i = 0; _i < _a.length; _i++) {
-        _r.push(_f(_a[_i], _i, _a));
+    for (var i = 0; i < key.length; i++) {
+        _loop(i);
     }
-
-    _r;
+    // json.map(data => {
+    //     const roleSpawn = data[0],
+    //         maxNum = data[1],
+    //         roleNumber = _.filter(Game.creeps, (creep) => creep.memory.role == roleSpawn).length;
+    //     if (roleNumber < maxNum) {
+    //         const newName = Game.spawns['Spawn1'].createCreep(
+    //             [WORK,
+    //                 CARRY,
+    //                 MOVE],
+    //             `${roleSpawn}${Math.floor(Math.random() * 10)}`,
+    //             {role: roleSpawn}
+    //         );
+    //         console.log('Spawn: ' + newName);
+    //     }
+    // })
 };
 
 exports.default = taskSpawn;

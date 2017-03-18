@@ -7,8 +7,8 @@ const BabelConfig = {
         'babel-preset-stage-0',
     ],
     plugins: [
-        'babel-plugin-transform-es2017-object-entries',
         'babel-plugin-transform-runtime',
+        'babel-plugin-transform-object-entries',
         "babel-plugin-dev-expression", // 替换 __DEV__  invariant warning
         'babel-plugin-add-module-exports',  // 解决es6 export default问题
         'babel-plugin-transform-decorators-legacy', // 支持装饰器

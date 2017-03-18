@@ -542,6 +542,10 @@ babel-plugin-transform-object-entries@^1.0.0:
   dependencies:
     babel-runtime "^6.9.0"
 
+babel-plugin-transform-object-enumerables@^6.13.0:
+  version "6.13.0"
+  resolved "http://r.cnpmjs.org/babel-plugin-transform-object-enumerables/download/babel-plugin-transform-object-enumerables-6.13.0.tgz#303af7a51978e9fc5b84ca0cba4a3b2455ba810f"
+
 babel-plugin-transform-object-rest-spread@^6.22.0:
   version "6.23.0"
   resolved "http://r.cnpmjs.org/babel-plugin-transform-object-rest-spread/download/babel-plugin-transform-object-rest-spread-6.23.0.tgz#875d6bc9be761c58a2ae3feee5dc4895d8c7f921"
