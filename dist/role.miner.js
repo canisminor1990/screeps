@@ -10,8 +10,10 @@ var roleMiner = {
             creep.harvest(source) == ERR_NOT_IN_RANGE ? creep.moveTo(source, { visualizePathStyle: { stroke: '#ffaa00' } }) : null;
         } else {
             var targets = creep.pos.findInRange(FIND_MY_CREEPS, 1);
-            var num = targets[0].carryCapacity - targets[0].carry.energy;
-            console.log(creep.transfer(targets[0], RESOURCE_ENERGY, num > creep.carry.energy ? creep.carry.energy : num));
+            for (var i = 0; i < targets.length; i++) {
+                var num = targets[i].carryCapacity - targets[i].carry.energy;
+                console.log(creep.transfer(targets[i], RESOURCE_ENERGY, num > creep.carry.energy ? creep.carry.energy : num));
+            }
         }
     }
 };
