@@ -6,12 +6,16 @@ const taskSpawn = (number, body) => {
 			const maxNum = number[key][i]
 			const roleNumber = _.filter(Game.creeps, (creep) => creep.memory.role == roleSpawn && creep.memory.source == i).length;
 			if (number[key][i] > 0 && roleNumber < maxNum && Game.spawns['Spawn1'].canCreateCreep(body[key]) === OK) {
+				const name = `[${roleSpawn}]${getNowFormatDate()}`
 				Game.spawns['Spawn1'].createCreep(
 						body[key],
-						`[${roleSpawn}]${getNowFormatDate()}`,
+						name,
 						{role: roleSpawn, source: i}
 				);
-				console.log('Spawn:', roleSpawn, i);
+				console.log(['Spawn:',
+				             name,
+				             'Source:',
+				             i].join(' '));
 			}
 		}
 	}
