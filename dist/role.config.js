@@ -6,7 +6,7 @@ Object.defineProperty(exports, "__esModule", {
 var roleConfig = {
     number: {
         harvester: [0, 8],
-        upgrader: [1],
+        upgrader: [2],
         builder: [0, 1],
         miner: [1, 2]
     },

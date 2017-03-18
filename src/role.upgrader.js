@@ -13,8 +13,9 @@ const roleUpgrader = {
 		}
 
 		if (creep.memory.upgrading) {
-			creep.moveTo(28.24, {visualizePathStyle: {stroke: '#ffffff'}})
-			creep.upgradeController(creep.room.controller)
+			const controller = creep.room.controller
+			creep.moveTo(controller, {visualizePathStyle: {stroke: '#ffffff'}})
+			creep.upgradeController(controller)
 		}
 		else {
             taskFindMiner(creep)
