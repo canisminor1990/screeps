@@ -18,6 +18,6 @@
 		"ScreepsAutocomplete": "https://github.com/Garethp/ScreepsAutocomplete.git"
 	},
 	"scripts": {
-		"build": "gulp js; git sync"
+		"build": "gulp js && git add -A && git commit -m 'updata' && git push"
 	}
 }
