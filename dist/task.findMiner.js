@@ -10,14 +10,14 @@ var taskFindMiner = function taskFindMiner(creep) {
             return miner;
             break;
         }
-
-        var rawSource = creep.room.find(FIND_SOURCES)[creep.memory.source];
-
-        if (miner.carry.energy < miner.carryCapacity) {
-            return creep.harvest(rawSource) === ERR_NOT_IN_RANGE ? creep.moveTo(rawSource, { visualizePathStyle: { stroke: '#ffaa00' } }) : null;
-        } else {
-            return creep.moveTo(miner, { visualizePathStyle: { stroke: '#ffaa00' } });
-        }
+        return creep.moveTo(miner, { visualizePathStyle: { stroke: '#ffaa00' } });
+        // const rawSource = creep.room.find(FIND_SOURCES)[creep.memory.source]
+        //
+        // if (miner.carry.energy < miner.carryCapacity) {
+        //     return (creep.harvest(rawSource) === ERR_NOT_IN_RANGE) ? creep.moveTo(rawSource, {visualizePathStyle: {stroke: '#ffaa00'}}) : null;
+        // } else {
+        //     return  creep.moveTo(miner, {visualizePathStyle: {stroke: '#ffaa00'}});
+        // }
     }
 };
 
