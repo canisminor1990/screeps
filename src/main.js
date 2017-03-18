@@ -5,8 +5,11 @@ function autoSpawn(roleSpawn, maxNum) {
 	const roleNumber = _.filter(Game.creeps, (creep) => creep.memory.role == roleSpawn).length;
 	if (roleNumber < maxNum) {
 		const newName = Game.spawns['Spawn1'].createCreep(
-			[WORK, CARRY, MOVE],
-			`${roleSpawn}${Math.floor(Math.random()*10)}`
+				[WORK,
+				 CARRY,
+				 MOVE],
+				`${roleSpawn}${Math.floor(Math.random() * 10)}`,
+				{role: roleSpawn}
 		);
 		console.log('Spawn: ' + newName);
 	}
@@ -27,10 +30,10 @@ module.exports.loop = () => {
 	if (Game.spawns['Spawn1'].spawning) {
 		const spawningCreep = Game.creeps[Game.spawns['Spawn1'].spawning.name];
 		Game.spawns['Spawn1'].room.visual.text(
-			'[Spawn]' + spawningCreep.memory.role,
-			Game.spawns['Spawn1'].pos.x + 1,
-			Game.spawns['Spawn1'].pos.y,
-			{align: 'left', opacity: 0.8});
+				'[Spawn]' + spawningCreep.memory.role,
+				Game.spawns['Spawn1'].pos.x + 1,
+				Game.spawns['Spawn1'].pos.y,
+				{align: 'left', opacity: 0.8});
 	}
 
 	for (let name in Game.creeps) {
@@ -38,7 +41,7 @@ module.exports.loop = () => {
 		switch (creep.memory.role) {
 			case 'harvester':
 				(Game.spawns['Spawn1'].energy < 300) ?
-				roleHarvester.run(creep) : roleUpgrader.run(creep);
+						roleHarvester.run(creep) : roleUpgrader.run(creep);
 				break;
 			case 'upgrader':
 				roleUpgrader.run(creep);
