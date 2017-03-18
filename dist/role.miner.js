@@ -11,7 +11,8 @@ var roleHarvester = {
         }
 
         if (creep.carry.energy < creep.carryCapacity) {
-
+            var _targets = creep.pos.findInRange(FIND_MY_CREEPS, 3),
+                sources = Memory.source;
             var _source = sources[0];
             switch (creep.memory.role) {
                 case 'harvester':
