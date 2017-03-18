@@ -5,9 +5,8 @@ Object.defineProperty(exports, "__esModule", {
 });
 var taskSpawn = function taskSpawn(number, body) {
     var _loop = function _loop(key) {
-
         var roleSpawn = key;
-        for (var i = 0; i < number[key].length; i++) {
+        for (var i = -1; i < number[key].length; i++) {
             var maxNum = number[key][i],
                 roleNumber = _.filter(Game.creeps, function (creep) {
                 return creep.memory.role == roleSpawn;
