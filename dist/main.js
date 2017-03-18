@@ -5,7 +5,7 @@ var _role = require('./role');
 var _task = require('./task');
 
 function taskBuild(x, y, type) {
-	if (x, y, type) {
+	if (x && y && type) {
 		Game.spawns['Spawn1'].room.createConstructionSite(x, y, 'STRUCTURE_' + type.toUpperCase());
 		console.log('[Build] STRUCTURE_' + type.toUpperCase() + ' in x:' + x + ' y:' + y);
 	} else {
