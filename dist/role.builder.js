@@ -12,13 +12,14 @@ var roleBuilder = {
 			creep.memory.building = true;
 			creep.say('[B]build');
 		}
-
-		if (creep.memory.building) {
-			var targets = creep.room.find(FIND_CONSTRUCTION_SITES);
-			if (targets.length) {
-				if (creep.build(targets[0]) == ERR_NOT_IN_RANGE) {
-					creep.moveTo(targets[0], { visualizePathStyle: { stroke: '#ffffff' } });
-				}
+		var targets = creep.room.find(FIND_CONSTRUCTION_SITES);
+		if (creep.memory.building && targets.length) {
+			var num = 0;
+			for (var i; i < targets.length; i++) {
+				targets[i].match('road') ? num = i : null;
+			}
+			if (creep.build(targets[num]) == ERR_NOT_IN_RANGE) {
+				creep.moveTo(targets[num], { visualizePathStyle: { stroke: '#ffffff' } });
 			}
 		} else {
 			var sources = creep.room.find(FIND_SOURCES);

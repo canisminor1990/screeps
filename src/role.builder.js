@@ -9,13 +9,14 @@ const roleBuilder = {
 			creep.memory.building = true;
 			creep.say('[B]build');
 		}
-
-		if (creep.memory.building) {
-			var targets = creep.room.find(FIND_CONSTRUCTION_SITES);
-			if (targets.length) {
-				if (creep.build(targets[0]) == ERR_NOT_IN_RANGE) {
-					creep.moveTo(targets[0], {visualizePathStyle: {stroke: '#ffffff'}});
-				}
+		const targets = creep.room.find(FIND_CONSTRUCTION_SITES);
+		if (creep.memory.building && targets.length) {
+			let num = 0
+			for (let i; i < targets.length; i++) {
+				(targets[i].match('road')) ? num = i : null;
+			}
+			if (creep.build(targets[num]) == ERR_NOT_IN_RANGE) {
+				creep.moveTo(targets[num], {visualizePathStyle: {stroke: '#ffffff'}});
 			}
 		}
 		else {
