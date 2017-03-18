@@ -11,10 +11,11 @@ var roleConfig = {
         miner: 0
     },
     body: {
-        miner: buildBody({ move: 1, work: 2, carry: 1 }),
-        harvester: buildBody({ move: 3, work: 1, carry: 1 }),
-        upgrader: buildBody({ move: 1, work: 1, carry: 3 }),
-        builder: buildBody({ move: 3, work: 1, carry: 1 })
+
+        miner: [MOVE, WORK, WORK, CARRY],
+        harvester: [MOVE, MOVE, MOVE, WORK, CARRY],
+        upgrader: [MOVE, MOVE, CARRY, CARRY, CARRY],
+        builder: [MOVE, MOVE, MOVE, WORK, CARRY]
     }
 };
 
