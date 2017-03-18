@@ -60,8 +60,7 @@ function buildBody(obj) {
         for (var num = 0; num < obj[key]; num++) {
             array.push(keyType);
         }
-
-        return array;
     }
+    return array;
 }
 module.exports = exports['default'];

@@ -56,6 +56,7 @@ function buildBody(obj) {
             array.push(keyType)
         }
 
-        return array;
+
     }
+    return array;
 }
