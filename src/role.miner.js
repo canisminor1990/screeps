@@ -1,7 +1,7 @@
 const roleMiner = {
-    run: (creep, pos = 0) => {
+    run: (creep) => {
         if (creep.carry.energy < creep.carryCapacity) {
-            const source = creep.room.find(FIND_SOURCES)[pos];
+            const source = creep.room.find(FIND_SOURCES)[creep.memory.source];
             (creep.harvest(source) == ERR_NOT_IN_RANGE) ? creep.moveTo(source, {visualizePathStyle: {stroke: '#ffaa00'}}) : null;
         }
         else {

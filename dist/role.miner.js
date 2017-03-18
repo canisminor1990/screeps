@@ -5,10 +5,8 @@ Object.defineProperty(exports, "__esModule", {
 });
 var roleMiner = {
     run: function run(creep) {
-        var pos = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 0;
-
         if (creep.carry.energy < creep.carryCapacity) {
-            var source = creep.room.find(FIND_SOURCES)[pos];
+            var source = creep.room.find(FIND_SOURCES)[creep.memory.source];
             creep.harvest(source) == ERR_NOT_IN_RANGE ? creep.moveTo(source, { visualizePathStyle: { stroke: '#ffaa00' } }) : null;
         } else {
             var targets = creep.pos.findInRange(FIND_MY_CREEPS, 3);
