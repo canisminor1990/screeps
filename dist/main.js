@@ -26,7 +26,12 @@ module.exports = {
             var creep = Game.creeps[_name];
             switch (creep.memory.role) {
                 case 'harvester':
-                    Game.spawns['Spawn1'].energy < 300 ? _role.roleHarvester.run(creep) : _role.roleBuilder.run(creep);
+                    var targets = creep.room.find(FIND_STRUCTURES, {
+                        filter: function filter(structure) {
+                            return (structure.structureType == STRUCTURE_EXTENSION || structure.structureType == STRUCTURE_SPAWN || structure.structureType == STRUCTURE_TOWER) && structure.energy < structure.energyCapacity;
+                        }
+                    });
+                    targets.length > 0 ? _role.roleHarvester.run(creep, targets[0]) : _role.roleBuilder.run(creep);
                     break;
                 case 'upgrader':
                     _role.roleUpgrader.run(creep);
