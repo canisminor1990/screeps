@@ -15,7 +15,7 @@ function autoSpawn(roleSpawn, maxNum) {
 		return creep.memory.role == roleSpawn;
 	}).length;
 	if (roleNumber < maxNum) {
-		var newName = Game.spawns['Spawn1'].createCreep([WORK, CARRY, MOVE], '' + roleSpawn + (roleNumber + 1), { role: roleSpawn });
+		var newName = Game.spawns['Spawn1'].createCreep([WORK, CARRY, MOVE], '' + roleSpawn + Math.random());
 		console.log('Spawn: ' + newName);
 	}
 }

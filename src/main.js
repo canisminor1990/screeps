@@ -6,8 +6,7 @@ function autoSpawn(roleSpawn, maxNum) {
 	if (roleNumber < maxNum) {
 		const newName = Game.spawns['Spawn1'].createCreep(
 			[WORK, CARRY, MOVE],
-			`${roleSpawn}${roleNumber + 1}`,
-			{role: roleSpawn}
+			`${roleSpawn}${Math.random()}`
 		);
 		console.log('Spawn: ' + newName);
 	}
