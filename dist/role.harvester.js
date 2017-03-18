@@ -3,6 +3,9 @@
 Object.defineProperty(exports, "__esModule", {
 	value: true
 });
+
+var _task = require('./task');
+
 var roleHarvester = {
 	run: function run(creep, targets) {
 

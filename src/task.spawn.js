@@ -15,8 +15,6 @@ const taskSpawn = (number, body) => {
                 console.log('Spawn: ' + newName);
             }
         }
-
-
     }
 }
 

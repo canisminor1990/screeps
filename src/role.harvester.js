@@ -1,3 +1,5 @@
+import {taskFindMiner} from './task'
+
 const roleHarvester = {
 	run: (creep,targets) => {
 

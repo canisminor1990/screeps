@@ -13,4 +13,13 @@ Object.defineProperty(exports, 'taskSpawn', {
   }
 });
 
+var _task2 = require('./task.findMiner');
+
+Object.defineProperty(exports, 'taskFindMiner', {
+  enumerable: true,
+  get: function get() {
+    return _interopRequireDefault(_task2).default;
+  }
+});
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
