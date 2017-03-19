@@ -30,7 +30,7 @@ var taskFindMiner = function taskFindMiner(creep) {
         }
     } else {
         var targetsContainer = creep.room.memory.structures.filter(function (structure) {
-            return structure.structureType == STRUCTURE_CONTAINER && structure.store["energy"] < structure.storeCapacity;
+            return structure.structureType == STRUCTURE_CONTAINER && structure.store["energy"] > 0;
         })[0];
         creep.moveTo(targetsContainer, { reusePathL: 8, visualizePathStyle: { stroke: '#ffffff' } });
     }

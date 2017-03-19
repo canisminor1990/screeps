@@ -21,7 +21,7 @@ const taskFindMiner = (creep) => {
                 }) : null;
         }
     } else {
-        const targetsContainer = creep.room.memory.structures.filter(structure => structure.structureType == STRUCTURE_CONTAINER && structure.store["energy"] < structure.storeCapacity
+        const targetsContainer = creep.room.memory.structures.filter(structure => structure.structureType == STRUCTURE_CONTAINER && structure.store["energy"] > 0
         )[0]
         creep.moveTo(targetsContainer, {reusePathL: 8, visualizePathStyle: {stroke: '#ffffff'}});
     }
