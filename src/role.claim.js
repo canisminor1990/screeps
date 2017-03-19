@@ -5,6 +5,6 @@ export default (creep) => {
         reusePath: 8,
         visualizePathStyle: {stroke: '#ffffff'}
     })
-    creep.claimController(controller)
+    creep.attackController(controller)
 
 }

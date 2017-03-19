@@ -12,7 +12,7 @@ exports.default = function (creep) {
         reusePath: 8,
         visualizePathStyle: { stroke: '#ffffff' }
     });
-    creep.claimController(controller);
+    creep.attackController(controller);
 };
 
 module.exports = exports['default'];
