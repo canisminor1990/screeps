@@ -7,7 +7,7 @@ const roleMiner = {
 		else {
 			const targets = creep.pos.findInRange(FIND_MY_CREEPS, 1);
 			for (let i = 0; i < targets.length; i++) {
-				if (targets.memory.role != 'miner') {
+				if (targets[i].memory.role != 'miner') {
 					let num = targets[i].carryCapacity - targets[i].carry.energy;
 					creep.transfer(targets[i], RESOURCE_ENERGY, (num > creep.carry.energy) ? creep.carry.energy : num)
 				}
