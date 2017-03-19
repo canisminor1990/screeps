@@ -17,7 +17,7 @@ var taskFindMiner = function taskFindMiner(creep) {
             minerEnergy = miner[i].carry.energy;
         }
     }
-    if (minerTarget && minerTarget.carry.energy >= 50) {
+    if (minerTarget && minerEnergy >= 50) {
         creep.moveTo(minerTarget, { reusePathL: 8, visualizePathStyle: { stroke: '#ffaa00' } });
     } else {
         var source = mySpawn.room.memory.source[creep.memory.source];
