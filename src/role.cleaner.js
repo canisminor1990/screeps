@@ -1,3 +1,5 @@
+import {taskContainer} from './task'
+
 export default (creep) => {
 
     const targets = creep.pos.findClosestByPath(FIND_STRUCTURES, {
@@ -23,12 +25,6 @@ export default (creep) => {
             creep.moveTo(targets, {reusePath: 8, visualizePathStyle: {stroke: '#ffffff'}});
         }
     } else {
-        const targetsContainer = creep.room.memory.structures.filter(structure => (
-                structure.structureType == STRUCTURE_CONTAINER
-            ) && structure.store["energy"] < structure.storeCapacity
-        )[0]
-        if (targetsContainer && creep.transfer(targetsContainer, RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
-            creep.moveTo(targetsContainer, {reusePath: 8, visualizePathStyle: {stroke: '#ffffff'}});
-        }
+        taskContainer(creep)
     }
 };

@@ -4,6 +4,8 @@ Object.defineProperty(exports, "__esModule", {
     value: true
 });
 
+var _task = require('./task');
+
 exports.default = function (creep) {
 
     var targets = creep.pos.findClosestByPath(FIND_STRUCTURES, {
@@ -26,12 +28,7 @@ exports.default = function (creep) {
             creep.moveTo(targets, { reusePath: 8, visualizePathStyle: { stroke: '#ffffff' } });
         }
     } else {
-        var targetsContainer = creep.room.memory.structures.filter(function (structure) {
-            return structure.structureType == STRUCTURE_CONTAINER && structure.store["energy"] < structure.storeCapacity;
-        })[0];
-        if (targetsContainer && creep.transfer(targetsContainer, RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
-            creep.moveTo(targetsContainer, { reusePath: 8, visualizePathStyle: { stroke: '#ffffff' } });
-        }
+        (0, _task.taskContainer)(creep);
     }
 };
 

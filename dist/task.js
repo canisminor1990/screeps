@@ -22,4 +22,13 @@ Object.defineProperty(exports, 'taskBuild', {
   }
 });
 
+var _task3 = require('./task.container');
+
+Object.defineProperty(exports, 'taskContainer', {
+  enumerable: true,
+  get: function get() {
+    return _interopRequireDefault(_task3).default;
+  }
+});
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }

@@ -4,6 +4,8 @@ Object.defineProperty(exports, "__esModule", {
     value: true
 });
 
+var _task = require('./task');
+
 exports.default = function (creep) {
     var room = 'W81S66';
     var myRoom = Game.spawns['Spawn1'];
@@ -46,14 +48,7 @@ exports.default = function (creep) {
                     creep.moveTo(targets, { reusePath: 8, visualizePathStyle: { stroke: '#ffffff' } });
                 }
             } else {
-                var targetsContainer = creep.pos.findInRange(FIND_STRUCTURES, { filter: function filter(structure) {
-                        return structure.structureType == STRUCTURE_CONTAINER && structure.store["energy"] < structure.storeCapacity;
-                    } });
-                if (targetsContainer) {
-                    if (creep.transfer(targetsContainer, RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
-                        creep.moveTo(targetsContainer, { reusePath: 8, visualizePathStyle: { stroke: '#ffffff' } });
-                    }
-                }
+                (0, _task.taskContainer)(creep);
             }
         }
     }

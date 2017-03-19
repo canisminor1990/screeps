@@ -1,3 +1,4 @@
+import {taskContainer} from './task'
 export default (creep) => {
     const room = 'W81S66';
     const myRoom = Game.spawns['Spawn1']
@@ -42,12 +43,7 @@ export default (creep) => {
                     creep.moveTo(targets, {reusePath: 8, visualizePathStyle: {stroke: '#ffffff'}});
                 }
             } else {
-                const targetsContainer = creep.pos.findInRange(FIND_STRUCTURES,{filter: structure => structure.structureType == STRUCTURE_CONTAINER && structure.store["energy"] < structure.storeCapacity});
-                if (targetsContainer) {
-                    if (creep.transfer(targetsContainer, RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
-                        creep.moveTo(targetsContainer, {reusePath: 8, visualizePathStyle: {stroke: '#ffffff'}});
-                    }
-                }
+                taskContainer(creep)
             }
         }
     }
