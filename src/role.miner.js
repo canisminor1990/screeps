@@ -11,8 +11,10 @@ const roleMiner = {
 				filter: tCreep => tCreep.memory.role !== 'miner'
 			});
 			for (let name in targets) {
-				let num = targets[name].carryCapacity - targets[name].carry.energy;
-				creep.transfer(targets[name], RESOURCE_ENERGY, (num > creep.carry.energy) ? creep.carry.energy : num)
+				if (targets[name].carry.energy < 50) {
+					let num = targets[name].carryCapacity - targets[name].carry.energy;
+					creep.transfer(targets[name], RESOURCE_ENERGY, (num > creep.carry.energy) ? creep.carry.energy : num)
+				}
 			}
 		}
 	}

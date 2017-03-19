@@ -18,8 +18,10 @@ var roleMiner = {
 				}
 			});
 			for (var name in targets) {
-				var num = targets[name].carryCapacity - targets[name].carry.energy;
-				creep.transfer(targets[name], RESOURCE_ENERGY, num > creep.carry.energy ? creep.carry.energy : num);
+				if (targets[name].carry.energy < 50) {
+					var num = targets[name].carryCapacity - targets[name].carry.energy;
+					creep.transfer(targets[name], RESOURCE_ENERGY, num > creep.carry.energy ? creep.carry.energy : num);
+				}
 			}
 		}
 	}
