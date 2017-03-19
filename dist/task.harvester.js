@@ -4,7 +4,11 @@ Object.defineProperty(exports, "__esModule", {
     value: true
 });
 
-var _task = require('./task');
+var _task = require('./task.container');
+
+var _task2 = _interopRequireDefault(_task);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 exports.default = function (creep) {
     "use strict";
@@ -21,7 +25,7 @@ exports.default = function (creep) {
             visualizePathStyle: { stroke: '#ffffff' }
         }) : null;
     } else {
-        (0, _task.taskContainer)(creep);
+        (0, _task2.default)(creep);
     }
 };
 

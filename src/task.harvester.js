@@ -1,4 +1,4 @@
-import {taskContainer} from './task'
+import taskContainer from './task.container'
 
 export default (creep) => {
     "use strict";
