@@ -6,9 +6,9 @@ Object.defineProperty(exports, "__esModule", {
 
 exports.default = function (creep) {
     if (creep.carry.energy < creep.carryCapacity) {
-
-        if (creep.room.name !== 'W81S66') {
-            creep.moveTo(new RoomPosition(27, 21, 'W81S66'));
+        var room = 'W82S67';
+        if (creep.room.name !== room) {
+            creep.moveTo(new RoomPosition(39, 39, room));
         } else {
             var source = creep.findClosestByPath(FIND_SOURCES);
             var pickup = creep.pos.findInRange(FIND_DROPPED_ENERGY, 4);

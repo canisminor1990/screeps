@@ -1,8 +1,8 @@
 export default (creep) => {
     if (creep.carry.energy < creep.carryCapacity) {
-
-        if (creep.room.name !== 'W81S66') {
-            creep.moveTo(new RoomPosition(27, 21, 'W81S66'));
+        const room = 'W82S67'
+        if (creep.room.name !== room) {
+            creep.moveTo(new RoomPosition(39, 39, room));
         } else {
             const source = creep.findClosestByPath(FIND_SOURCES)
             const pickup = creep.pos.findInRange(FIND_DROPPED_ENERGY, 4);
