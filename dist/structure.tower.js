@@ -11,21 +11,13 @@ var _config2 = _interopRequireDefault(_config);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 exports.default = function (tower) {
-    "use strict";
-
-    var closestDamagedStructure = tower.pos.findClosestByRange(FIND_STRUCTURES, {
-        filter: function filter(structure) {
-            return _config2.default.repair(structure);
-        }
-    });
-
-    if (closestDamagedStructure) {
-        tower.repair(closestDamagedStructure);
-    }
-
-    var closestHostile = tower.pos.findClosestByRange(FIND_HOSTILE_CREEPS);
-    if (closestHostile) {
-        tower.attack(closestHostile);
+    if (tower.energy > 0) {
+        var closestDamagedStructure = tower.pos.findClosestByRange(FIND_STRUCTURES, { filter: function filter(structure) {
+                return _config2.default.repair(structure);
+            } });
+        closestDamagedStructure ? tower.repair(closestDamagedStructure) : null;
+        var closestHostile = tower.pos.findClosestByRange(FIND_HOSTILE_CREEPS);
+        closestHostile && closestHostile.owner != "Ruo" ? tower.attack(closestHostile) : null;
     }
 };
 
