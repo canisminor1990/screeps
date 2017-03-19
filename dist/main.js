@@ -16,6 +16,7 @@ module.exports = {
 		mySpawn.room.memory = {
 			structures: mySpawn.room.find(FIND_STRUCTURES),
 			constructionSites: mySpawn.room.find(FIND_CONSTRUCTION_SITES),
+			source: mySpawn.room.find(FIND_SOURCES),
 			miner: mySpawn.room.find(FIND_MY_CREEPS, { filter: function filter(miner) {
 					return miner.memory.role === "miner";
 				} })

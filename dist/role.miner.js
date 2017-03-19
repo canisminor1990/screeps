@@ -3,11 +3,14 @@
 Object.defineProperty(exports, "__esModule", {
 	value: true
 });
+var mySpawn = Game.spawns['Spawn1'];
 var roleMiner = {
 	run: function run(creep) {
 
-		var source = creep.room.find(FIND_SOURCES)[creep.memory.source];
-		creep.harvest(source) == ERR_NOT_IN_RANGE ? creep.moveTo(source, { visualizePathStyle: { stroke: '#ffaa00' } }) : null;
+		if (creep.carry.energy < creep.carryCapacity) {
+			var source = mySpawn.room.memory.source[creep.memory.source];
+			creep.harvest(source) == ERR_NOT_IN_RANGE ? creep.moveTo(source, { visualizePathStyle: { stroke: '#ffaa00' } }) : null;
+		}
 
 		var targets = creep.pos.findInRange(FIND_MY_CREEPS, 1);
 		for (var i = 0; i < targets.length; i++) {

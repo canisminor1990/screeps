@@ -1,8 +1,11 @@
+const mySpawn = Game.spawns['Spawn1'];
 const roleMiner = {
 	run: (creep) => {
 
-		const source = creep.room.find(FIND_SOURCES)[creep.memory.source];
-		(creep.harvest(source) == ERR_NOT_IN_RANGE) ? creep.moveTo(source, {visualizePathStyle: {stroke: '#ffaa00'}}) : null;
+		if (creep.carry.energy < creep.carryCapacity) {
+			const source = mySpawn.room.memory.source[creep.memory.source];
+			(creep.harvest(source) == ERR_NOT_IN_RANGE) ? creep.moveTo(source, {visualizePathStyle: {stroke: '#ffaa00'}}) : null;
+		}
 
 		const targets = creep.pos.findInRange(FIND_MY_CREEPS, 1);
 		for (let i = 0; i < targets.length; i++) {
