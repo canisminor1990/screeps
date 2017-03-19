@@ -1,7 +1,7 @@
 const role = {
     number: {
         farMiner: [1],
-        farHarvester: [4],
+        farHarvester: [5],
         harvester: [0, 6],
         upgrader: [2],
         builder: [0, 2],
