@@ -41,7 +41,7 @@ exports.default = function (creep) {
         }
 
         if (maxName, maxNum != 0) {
-            creep.transfer(targets[maxName], RESOURCE_ENERGY, maxNum > creep.carry.energy ? creep.carry.energy : maxNum);
+            creep.transfer(targets[maxName], RESOURCE_ENERGY);
             creep.say('transfer:' + maxNum);
         } else if (!farTargets[0]) {
             var targetsContainer = creep.pos.findInRange(FIND_STRUCTURES, 6, { filter: function filter(structure) {

@@ -30,7 +30,7 @@ export default (creep) => {
         }
 
         if (maxName, maxNum != 0) {
-            creep.transfer(targets[maxName], RESOURCE_ENERGY, (maxNum > creep.carry.energy) ? creep.carry.energy : maxNum);
+            creep.transfer(targets[maxName], RESOURCE_ENERGY);
             creep.say('transfer:' + maxNum)
         }
         else if (!farTargets[0]) {
