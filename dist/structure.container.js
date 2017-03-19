@@ -7,7 +7,7 @@ Object.defineProperty(exports, "__esModule", {
 exports.default = function (container) {
     var targets = container.pos.findInRange(FIND_MY_CREEPS, 1, {
         filter: function filter(tCreep) {
-            return tCreep.memory.role !== 'miner';
+            return tCreep.memory.role !== 'miner' && tCreep.memory.role !== 'cleaner';
         }
     });
 

@@ -1,6 +1,6 @@
 export default (container) => {
     const targets = container.pos.findInRange(FIND_MY_CREEPS, 1, {
-        filter: tCreep => tCreep.memory.role !== 'miner'
+        filter: tCreep => tCreep.memory.role !== 'miner' && tCreep.memory.role !== 'cleaner'
     });
 
     let maxNum = 0, maxName;
