@@ -1,5 +1,5 @@
 import {taskFindMiner} from './task'
-
+const mySpawn = Game.spawns['Spawn1'];
 const roleHarvester = {
     run: (creep, targets) => {
         if (creep.carry.energy < creep.carryCapacity) {

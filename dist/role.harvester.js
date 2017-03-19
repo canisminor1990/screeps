@@ -6,6 +6,7 @@ Object.defineProperty(exports, "__esModule", {
 
 var _task = require('./task');
 
+var mySpawn = Game.spawns['Spawn1'];
 var roleHarvester = {
     run: function run(creep, targets) {
         if (creep.carry.energy < creep.carryCapacity) {
