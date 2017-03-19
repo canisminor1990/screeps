@@ -1,6 +1,6 @@
 import {roleConfig, roleHarvester, roleUpgrader, roleBuilder, roleMiner} from './role';
 import {taskSpawn} from './task';
-
+const mySpawn = Game.spawns['Spawn1'];
 module.exports = {
 
 	loop: () => {
@@ -14,25 +14,28 @@ module.exports = {
 
 		taskSpawn(roleConfig.number, roleConfig.body)
 
-		if (Game.spawns['Spawn1'].spawning) {
-			const spawningCreep = Game.creeps[Game.spawns['Spawn1'].spawning.name];
-			Game.spawns['Spawn1'].room.visual.text(
+		if (mySpawn.spawning) {
+			const spawningCreep = Game.creeps[mySpawn.spawning.name];
+			mySpawn.room.visual.text(
 					'[Spawn]' + spawningCreep.memory.role,
-					Game.spawns['Spawn1'].pos.x + 1,
-					Game.spawns['Spawn1'].pos.y,
+					mySpawn.pos.x + 1,
+					mySpawn.pos.y,
 					{align: 'left', opacity: 0.8});
 		}
 
-		// Game.spawns['Spawn1'].room.memory = Game.spawns['Spawn1'].room
-		Game.spawns['Spawn1'].room.memory.structures = Game.spawns['Spawn1'].room.find(FIND_STRUCTURES);
+		mySpawn.room.memory = {
+			structures: mySpawn.room.find(FIND_STRUCTURES),
+			constructionSites: mySpawn.room.find(FIND_CONSTRUCTION_SITES),
+			...other
+		}
 
-		const targetsHarvest = Game.spawns['Spawn1'].room.memory.structures.filter((structure) => {
+		const targetsHarvest = mySpawn.room.memory.structures.filter((structure) => {
 			return (structure.structureType == STRUCTURE_EXTENSION ||
 					structure.structureType == STRUCTURE_SPAWN ||
 					structure.structureType == STRUCTURE_TOWER) && structure.energy < structure.energyCapacity;
 		})
 
-		const targetsBuild = Game.spawns['Spawn1'].room.find(FIND_CONSTRUCTION_SITES);
+		const targetsBuild = mySpawn.room.memory.constructionSites;
 
 		for (let name in Game.creeps) {
 			const creep = Game.creeps[name];

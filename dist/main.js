@@ -1,9 +1,16 @@
 'use strict';
 
+var _extends2 = require('babel-runtime/helpers/extends');
+
+var _extends3 = _interopRequireDefault(_extends2);
+
 var _role = require('./role');
 
 var _task = require('./task');
 
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var mySpawn = Game.spawns['Spawn1'];
 module.exports = {
 
 	loop: function loop() {
@@ -17,19 +24,21 @@ module.exports = {
 
 		(0, _task.taskSpawn)(_role.roleConfig.number, _role.roleConfig.body);
 
-		if (Game.spawns['Spawn1'].spawning) {
-			var spawningCreep = Game.creeps[Game.spawns['Spawn1'].spawning.name];
-			Game.spawns['Spawn1'].room.visual.text('[Spawn]' + spawningCreep.memory.role, Game.spawns['Spawn1'].pos.x + 1, Game.spawns['Spawn1'].pos.y, { align: 'left', opacity: 0.8 });
+		if (mySpawn.spawning) {
+			var spawningCreep = Game.creeps[mySpawn.spawning.name];
+			mySpawn.room.visual.text('[Spawn]' + spawningCreep.memory.role, mySpawn.pos.x + 1, mySpawn.pos.y, { align: 'left', opacity: 0.8 });
 		}
 
-		// Game.spawns['Spawn1'].room.memory = Game.spawns['Spawn1'].room
-		Game.spawns['Spawn1'].room.memory.structures = Game.spawns['Spawn1'].room.find(FIND_STRUCTURES);
+		mySpawn.room.memory = (0, _extends3.default)({
+			structures: mySpawn.room.find(FIND_STRUCTURES),
+			constructionSites: mySpawn.room.find(FIND_CONSTRUCTION_SITES)
+		}, other);
 
-		var targetsHarvest = Game.spawns['Spawn1'].room.memory.structures.filter(function (structure) {
+		var targetsHarvest = mySpawn.room.memory.structures.filter(function (structure) {
 			return (structure.structureType == STRUCTURE_EXTENSION || structure.structureType == STRUCTURE_SPAWN || structure.structureType == STRUCTURE_TOWER) && structure.energy < structure.energyCapacity;
 		});
 
-		var targetsBuild = Game.spawns['Spawn1'].room.find(FIND_CONSTRUCTION_SITES);
+		var targetsBuild = mySpawn.room.memory.constructionSites;
 
 		for (var _name in Game.creeps) {
 			var creep = Game.creeps[_name];
