@@ -12,7 +12,7 @@ var roleHarvester = {
         if (creep.carry.energy < creep.carryCapacity) {
 
             var pickup = creep.pos.findInRange(FIND_DROPPED_ENERGY, 2);
-            if (pickup.length > 0 && creep.harvest.pickup(pickup[0]) == ERR_NOT_IN_RANGE) {
+            if (pickup.length > 0 && creep.pickup(pickup[0]) == ERR_NOT_IN_RANGE) {
                 creep.moveTo(pickup[0], { visualizePathStyle: { stroke: '#33b446' } });
             } else {
                 (0, _task.taskFindMiner)(creep);
