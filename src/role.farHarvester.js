@@ -1,5 +1,5 @@
 export default (creep) => {
-    if (creep.energy < creep.energyCapacity) {
+    if (creep.carry.energy < creep.carryCapacity) {
 
         if (creep.room.name !== 'W81S66') {
             creep.moveTo(new RoomPosition(27, 21, 'W81S66'));
