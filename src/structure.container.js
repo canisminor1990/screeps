@@ -12,7 +12,12 @@ export default (container) => {
         }
     }
     if (maxName, maxNum != 0) {
-        creep.transfer(targets[maxName], RESOURCE_ENERGY, (maxNum > container.store['energy']) ? container.store['energy'] : maxNum);
-        creep.say('transfer:' + maxNum)
+        container.transfer(targets[maxName], RESOURCE_ENERGY, (maxNum > container.store['energy']) ? container.store['energy'] : maxNum);
+        console.log()
+        container.room.visual.text(
+            '[Transfer]' + maxNum,
+            container.pos.x + 1,
+            container.pos.y,
+            {align: 'left', opacity: 0.8});
     }
 }
