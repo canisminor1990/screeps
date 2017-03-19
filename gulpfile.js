@@ -12,7 +12,7 @@ const BabelConfig = {
         'babel-plugin-add-module-exports',  // 解决es6 export default问题
         'babel-plugin-transform-decorators-legacy', // 支持装饰器
         "babel-plugin-lodash", // 优化缩减lodash
-        "babel-plugin-loop-optimizer" // map, forEach
+        // "babel-plugin-loop-optimizer" // map, forEach
     ]
 };
 
