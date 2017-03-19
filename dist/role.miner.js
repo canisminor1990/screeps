@@ -6,7 +6,10 @@ Object.defineProperty(exports, "__esModule", {
 var mySpawn = Game.spawns['Spawn1'];
 var roleMiner = {
 	run: function run(creep) {
-
+		var pickup = creep.pos.findInRange(RESOURCE_ENERGY, 1);
+		if (pickup) {
+			creep.pickup(pickup[0]);
+		}
 		if (creep.carry.energy < creep.carryCapacity) {
 			var source = mySpawn.room.memory.source[creep.memory.source];
 			creep.harvest(source) == ERR_NOT_IN_RANGE ? creep.moveTo(source, { visualizePathStyle: { stroke: '#ffaa00' } }) : null;
