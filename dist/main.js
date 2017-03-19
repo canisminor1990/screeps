@@ -64,7 +64,7 @@ module.exports = {
                     role.miner(creep);
                     break;
                 case 'cleaner':
-                    targetsPickup.length > 0 ? role.cleaner(creep, targetsHarvest[0], targetsPickup[0]) : role.harvester(creep);
+                    targetsPickup.length > 0 ? role.cleaner(creep) : role.harvester(creep);
                     break;
             }
         }

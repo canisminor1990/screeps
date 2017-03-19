@@ -4,7 +4,14 @@ Object.defineProperty(exports, "__esModule", {
     value: true
 });
 
-exports.default = function (creep, targets, pickup) {
+exports.default = function (creep) {
+
+    var targets = creep.pos.findClosestByPath(FIND_STRUCTURES, {
+        filter: function filter(structure) {
+            return (structure.structureType == STRUCTURE_EXTENSION || structure.structureType == STRUCTURE_SPAWN || structure.structureType == STRUCTURE_TOWER) && structure.energy < structure.energyCapacity;
+        }
+    }),
+        pickup = creep.pos.findClosestByPath(FIND_DROPPED_ENERGY);
 
     if (!creep.memory.pickup && pickup && creep.carry.energy < creep.carryCapacity) {
         creep.say('pickup');

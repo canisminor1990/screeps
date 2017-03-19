@@ -1,4 +1,14 @@
-export default (creep, targets, pickup) => {
+export default (creep) => {
+
+    const targets = creep.pos.findClosestByPath(FIND_STRUCTURES, {
+            filter: structure => (
+                structure.structureType == STRUCTURE_EXTENSION ||
+                structure.structureType == STRUCTURE_SPAWN ||
+                structure.structureType == STRUCTURE_TOWER
+            ) && structure.energy < structure.energyCapacity
+        }),
+
+        pickup = creep.pos.findClosestByPath(FIND_DROPPED_ENERGY)
 
     if (!creep.memory.pickup && pickup && creep.carry.energy < creep.carryCapacity) {
         creep.say('pickup')
