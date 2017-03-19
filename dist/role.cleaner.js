@@ -4,7 +4,6 @@ Object.defineProperty(exports, "__esModule", {
     value: true
 });
 
-var _task = require('./task');
 
 var roleCleaner = {
     run: function run(creep, targets, pickup) {

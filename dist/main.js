@@ -20,7 +20,7 @@ module.exports = {
             miner: mySpawn.room.find(FIND_MY_CREEPS, { filter: function filter(miner) {
                     return miner.memory.role === "miner";
                 } }),
-            drop: creep.room.find(FIND_DROPPED_ENERGY)
+            drop: mySpawn.room.find(FIND_DROPPED_ENERGY)
         };
 
         var targetsHarvest = mySpawn.room.memory.structures.filter(function (structure) {
@@ -36,22 +36,22 @@ module.exports = {
         var targetsPickup = mySpawn.room.memory.drop;
 
         for (var name in Game.creeps) {
-            var _creep = Game.creeps[name];
-            switch (_creep.memory.role) {
+            var creep = Game.creeps[name];
+            switch (creep.memory.role) {
                 case 'harvester':
-                    targetsHarvest.length > 0 ? _role.roleHarvester.run(_creep, targetsHarvest[0]) : _role.roleBuilder.run(_creep, targetsBuild[0]);
+                    targetsHarvest.length > 0 ? _role.roleHarvester.run(creep, targetsHarvest[0]) : _role.roleBuilder.run(creep, targetsBuild[0]);
                     break;
                 case 'upgrader':
-                    _role.roleUpgrader.run(_creep);
+                    _role.roleUpgrader.run(creep);
                     break;
                 case 'builder':
-                    targetsBuild.length > 0 ? _role.roleBuilder.run(_creep, targetsBuild[0], halfBroken[0]) : _role.roleHarvester.run(_creep, targetsHarvest[0]);
+                    targetsBuild.length > 0 ? _role.roleBuilder.run(creep, targetsBuild[0], halfBroken[0]) : _role.roleHarvester.run(creep, targetsHarvest[0]);
                     break;
                 case 'miner':
-                    _role.roleMiner.run(_creep);
+                    _role.roleMiner.run(creep);
                     break;
                 case 'cleaner':
-                    targetsPickup.length > 0 ? _role.roleMiner.run(_creep, targetsHarvest[0], targetsPickup[0]) : _role.roleHarvester.run(_creep, targetsHarvest[0]);
+                    targetsPickup.length > 0 ? _role.roleMiner.run(creep, targetsHarvest[0], targetsPickup[0]) : _role.roleHarvester.run(creep, targetsHarvest[0]);
                     break;
             }
         }

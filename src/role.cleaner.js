@@ -1,4 +1,4 @@
-import {taskFindMiner} from './task'
+
 
 const roleCleaner = {
     run: (creep, targets,pickup) => {
