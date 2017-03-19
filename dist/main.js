@@ -24,9 +24,7 @@ module.exports = {
                 } }),
             drop: mySpawn.room.find(FIND_DROPPED_ENERGY)
         };
-        var targetsHarvest = mySpawn.room.memory.structures.filter(function (structure) {
-            return (structure.structureType == STRUCTURE_EXTENSION || structure.structureType == STRUCTURE_SPAWN || structure.structureType == STRUCTURE_TOWER) && structure.energy < structure.energyCapacity;
-        });
+
         var targetsBuild = mySpawn.room.memory.constructionSites;
         var targetsPickup = mySpawn.room.memory.drop;
 
@@ -58,7 +56,7 @@ module.exports = {
                     role.farHarvester(creep);
                     break;
                 case 'harvester':
-                    targetsHarvest.length > 0 || targetsBuild.length == 0 ? role.harvester(creep) : role.builder(creep);
+                    role.harvester(creep);
                     break;
                 case 'upgrader':
                     role.upgrader(creep);

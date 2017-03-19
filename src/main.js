@@ -13,12 +13,7 @@ module.exports = {
             miner: mySpawn.room.find(FIND_MY_CREEPS, {filter: (miner) => miner.memory.role === "miner"}),
             drop: mySpawn.room.find(FIND_DROPPED_ENERGY)
         }
-        const targetsHarvest = mySpawn.room.memory.structures.filter(structure => (
-                structure.structureType == STRUCTURE_EXTENSION ||
-                structure.structureType == STRUCTURE_SPAWN ||
-                structure.structureType == STRUCTURE_TOWER
-            ) && structure.energy < structure.energyCapacity
-        )
+
         const targetsBuild = mySpawn.room.memory.constructionSites;
         const targetsPickup = mySpawn.room.memory.drop;
 
@@ -51,8 +46,7 @@ module.exports = {
                     role.farHarvester(creep)
                     break;
                 case 'harvester':
-                    (targetsHarvest.length > 0 || targetsBuild.length == 0 ) ?
-                        role.harvester(creep) : role.builder(creep);
+                    role.harvester(creep)
                     break;
                 case 'upgrader':
                     role.upgrader(creep);
