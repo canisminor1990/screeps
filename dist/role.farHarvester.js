@@ -10,10 +10,20 @@ exports.default = function (creep) {
     if (creep.carry.energy < creep.carryCapacity) {
 
         var source = Game.getObjectById('5873bc3511e3e4361b4d7390');
-        creep.harvest(source) == ERR_NOT_IN_RANGE ? creep.moveTo(source, {
-            reusePath: 8,
-            visualizePathStyle: { stroke: '#ffffff' }
-        }) : null;
+        var miner = creep.pos.findInRange(FIND_MY_CREEPS, 5, { filter: function filter(creepRole) {
+                return creepRole.role == 'farMiner';
+            } })[0];
+
+        if (!miner) {
+            creep.harvest(source) == ERR_NOT_IN_RANGE ? creep.moveTo(source, {
+                reusePath: 8,
+                visualizePathStyle: { stroke: '#ffffff' }
+            }) : null;
+        } else {
+            creep.moveTo(miner, {
+                reusePath: 8,
+                visualizePathStyle: { stroke: '#ffffff' } });
+        }
     } else {
         if (creep.room.name !== myRoom.room.name) {
             creep.moveTo(myRoom, { reusePath: 8, visualizePathStyle: { stroke: '#ffffff' } });
