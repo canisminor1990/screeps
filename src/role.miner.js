@@ -35,23 +35,12 @@ export default (creep) => {
             creep.transfer(targets[maxName], RESOURCE_ENERGY, (maxNum > creep.carry.energy) ? creep.carry.energy : maxNum);
             creep.say('transfer:' + maxNum)
         } else if (!farTargets[0]) {
-
-            const targetsContainer = creep.pos.findInRange(FIND_STRUCTURES, 6, {
-                filter: structure => structure.structureType == STRUCTURE_CONTAINER && structure.store["energy"] < structure.storeCapacity
-            })[0];
-
-
-            if (targetsContainer) {
-                const cEnergy = targetsContainer.storeCapacity - targetsContainer.store["energy"];
-                if (creep.transfer(
-                        targetsContainer,
-                        RESOURCE_ENERGY,
-                        (cEnergy > creep.carry.energy) ? creep.carry.energy : cEnergy
-                    ) == ERR_NOT_IN_RANGE) {
-
-                    creep.moveTo(targetsContainer, {reusePathL: 8, visualizePathStyle: {stroke: '#ffffff'}});
-                }
-
+            const targetsContainer = mySpawn.room.memory.structures.filter(structure => (
+                    structure.structureType == STRUCTURE_CONTAINER
+                ) && structure.store["energy"] < structure.storeCapacity
+            )[0]
+            if (targetsContainer && creep.transfer(targetsContainer, RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
+                creep.moveTo(targetsContainer, {reusePathL: 8, visualizePathStyle: {stroke: '#ffffff'}});
             }
         }
     }
