@@ -44,10 +44,10 @@ module.exports = {
             const structure = mySpawn.room.memory.structures[name];
             switch (structure.structureType) {
                 case 'tower':
-                    structureTower.run(structure);
+                    structureTower(structure);
                     break;
                 case 'container':
-                    (targetsHarvest.length == 0 ) ? structureContainer.run(structure, targetsHarvest[0]) : null;
+                    (targetsHarvest.length == 0 ) ? structureContainer(structure, targetsHarvest[0]) : null;
                     break;
             }
         }
