@@ -8,7 +8,7 @@ var roleConfig = {
         harvester: [0, 8],
         upgrader: [2],
         builder: [0, 2],
-        miner: [1, 3]
+        miner: [1, 4]
     },
     body: { //300 + 5 * 5 = 550
         miner: buildBody({ move: 1, work: 4, carry: 2 }), // 3
