@@ -13,9 +13,9 @@ Object.defineProperty(exports, "structureTower", {
   }
 });
 
-var _structure2 = require("./structure.conainer");
+var _structure2 = require("./structure.container");
 
-Object.defineProperty(exports, "structureCnainer", {
+Object.defineProperty(exports, "structureContainer", {
   enumerable: true,
   get: function get() {
     return _interopRequireDefault(_structure2).default;

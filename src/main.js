@@ -1,5 +1,5 @@
 import {roleConfig, roleHarvester, roleUpgrader, roleBuilder, roleMiner, roleCleaner} from './role';
-import {structureTower,structureConainer} from './structure';
+import {structureTower, structureContainer} from './structure';
 import {taskSpawn} from './task';
 const mySpawn = Game.spawns['Spawn1'];
 module.exports = {
@@ -46,8 +46,8 @@ module.exports = {
                 case 'tower':
                     structureTower.run(structure);
                     break;
-                case 'conainer':
-                    structureConainer.run(structure);
+                case 'container':
+                    (targetsHarvest.length == 0 ) ? structureContainer.run(structure, targetsHarvest[0]) : null;
                     break;
             }
         }

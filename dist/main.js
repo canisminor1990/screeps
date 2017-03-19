@@ -43,8 +43,8 @@ module.exports = {
                 case 'tower':
                     _structure.structureTower.run(structure);
                     break;
-                case 'conainer':
-                    _structure.structureConainer.run(structure);
+                case 'container':
+                    targetsHarvest.length == 0 ? _structure.structureContainer.run(structure, targetsHarvest[0]) : null;
                     break;
             }
         }
