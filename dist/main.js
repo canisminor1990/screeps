@@ -25,9 +25,9 @@ module.exports = {
 		});
 
 		var targetsBuild = mySpawn.room.memory.constructionSites;
-		var _a = Game.creeps;
 
-		var _f = function _f(creep) {
+		for (var name in Game.creeps) {
+			var creep = Game.creeps[name];
 			switch (creep.memory.role) {
 				case 'harvester':
 					targetsHarvest.length > 0 ? _role.roleHarvester.run(creep, targetsHarvest[0]) : _role.roleBuilder.run(creep);
@@ -42,15 +42,7 @@ module.exports = {
 					_role.roleMiner.run(creep);
 					break;
 			}
-		};
-
-		var _r = [];
-
-		for (var _i = 0; _i < _a.length; _i++) {
-			_r.push(_f(_a[_i], _i, _a));
 		}
-
-		_r;
 	}
 
 };
