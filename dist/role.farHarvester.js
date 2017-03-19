@@ -6,7 +6,7 @@ Object.defineProperty(exports, "__esModule", {
 
 exports.default = function (creep) {
     if (creep.carry.energy < creep.carryCapacity) {
-        var room = 'W82S67';
+        var room = 'W81S66';
         var source = creep.pos.findClosestByPath(FIND_SOURCES);
         creep.harvest(source) == ERR_NOT_IN_RANGE ? creep.moveTo(new RoomPosition(39, 39, room)) : null;
         console.log(creep.harvest(source));
