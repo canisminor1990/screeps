@@ -7,11 +7,11 @@ const roleConfig = {
         cleaner: [1],
     },
     body: {//300 + 5 * 5 = 550
-        harvester: {move: 5, work: 1, carry: 3}, // 350
+        harvester: {move: 3, work: 1, carry: 4}, // 350
         upgrader: {move: 1, work: 2, carry: 2}, // 350
-        builder: {move: 3, work: 1, carry: 3}, // 350
+        builder: {move: 4, work: 2, carry: 4}, // 350
         miner: {move: 1, work: 4, carry: 2}, // 3
-        cleaner: {move: 5, work: 1, carry: 3}, // 350
+        cleaner: {move: 3, work: 1, carry: 4}, // 350
     }
 }
 
