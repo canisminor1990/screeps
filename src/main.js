@@ -1,19 +1,11 @@
-import {roleConfig, roleHarvester, roleUpgrader, roleBuilder, roleMiner, roleCleaner} from './role';
+import {roleHarvester, roleUpgrader, roleBuilder, roleMiner, roleCleaner} from './role';
 import {structureTower, structureContainer} from './structure';
-import {taskSpawn} from './task';
 const mySpawn = Game.spawns['Spawn1'];
 module.exports = {
 
     loop: () => {
-        taskSpawn(roleConfig.number, roleConfig.body)
-        if (mySpawn.spawning) {
-            const spawningCreep = Game.creeps[mySpawn.spawning.name];
-            mySpawn.room.visual.text(
-                '[Spawn]' + spawningCreep.memory.role,
-                mySpawn.pos.x + 1,
-                mySpawn.pos.y,
-                {align: 'left', opacity: 0.8});
-        }
+
+
         mySpawn.room.memory = {
             structures: mySpawn.room.find(FIND_STRUCTURES),
             constructionSites: mySpawn.room.find(FIND_CONSTRUCTION_SITES),
@@ -21,28 +13,25 @@ module.exports = {
             miner: mySpawn.room.find(FIND_MY_CREEPS, {filter: (miner) => miner.memory.role === "miner"}),
             drop: mySpawn.room.find(FIND_DROPPED_ENERGY)
         }
-
         const targetsHarvest = mySpawn.room.memory.structures.filter(structure => (
                 structure.structureType == STRUCTURE_EXTENSION ||
                 structure.structureType == STRUCTURE_SPAWN ||
                 structure.structureType == STRUCTURE_TOWER
             ) && structure.energy < structure.energyCapacity
         )
-
-
         const halfBroken = mySpawn.room.memory.structures.filter(structure =>
             (structure.hits / structure.hitsMax) < 0.5 && structure.hits < 5000
         )
-
-
         const targetsBuild = mySpawn.room.memory.constructionSites;
-
         const targetsPickup = mySpawn.room.memory.drop;
 
 
         for (let name in mySpawn.room.memory.structures) {
             const structure = mySpawn.room.memory.structures[name];
             switch (structure.structureType) {
+                case 'spawn':
+                    structureSpawn(structure);
+                    break;
                 case 'tower':
                     structureTower(structure);
                     break;

@@ -4,17 +4,11 @@ var _role = require('./role');
 
 var _structure = require('./structure');
 
-var _task = require('./task');
-
 var mySpawn = Game.spawns['Spawn1'];
 module.exports = {
 
     loop: function loop() {
-        (0, _task.taskSpawn)(_role.roleConfig.number, _role.roleConfig.body);
-        if (mySpawn.spawning) {
-            var spawningCreep = Game.creeps[mySpawn.spawning.name];
-            mySpawn.room.visual.text('[Spawn]' + spawningCreep.memory.role, mySpawn.pos.x + 1, mySpawn.pos.y, { align: 'left', opacity: 0.8 });
-        }
+
         mySpawn.room.memory = {
             structures: mySpawn.room.find(FIND_STRUCTURES),
             constructionSites: mySpawn.room.find(FIND_CONSTRUCTION_SITES),
@@ -24,22 +18,21 @@ module.exports = {
                 } }),
             drop: mySpawn.room.find(FIND_DROPPED_ENERGY)
         };
-
         var targetsHarvest = mySpawn.room.memory.structures.filter(function (structure) {
             return (structure.structureType == STRUCTURE_EXTENSION || structure.structureType == STRUCTURE_SPAWN || structure.structureType == STRUCTURE_TOWER) && structure.energy < structure.energyCapacity;
         });
-
         var halfBroken = mySpawn.room.memory.structures.filter(function (structure) {
             return structure.hits / structure.hitsMax < 0.5 && structure.hits < 5000;
         });
-
         var targetsBuild = mySpawn.room.memory.constructionSites;
-
         var targetsPickup = mySpawn.room.memory.drop;
 
         for (var name in mySpawn.room.memory.structures) {
             var structure = mySpawn.room.memory.structures[name];
             switch (structure.structureType) {
+                case 'spawn':
+                    structureSpawn(structure);
+                    break;
                 case 'tower':
                     (0, _structure.structureTower)(structure);
                     break;

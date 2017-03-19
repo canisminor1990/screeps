@@ -22,4 +22,13 @@ Object.defineProperty(exports, "structureContainer", {
   }
 });
 
+var _structure3 = require("./structure.spawn");
+
+Object.defineProperty(exports, "structureSpawn", {
+  enumerable: true,
+  get: function get() {
+    return _interopRequireDefault(_structure3).default;
+  }
+});
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }

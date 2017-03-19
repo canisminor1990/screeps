@@ -1,8 +1,11 @@
-const mySpawn = Game.spawns['Spawn1'];
+import {roleConfig} from './role';
 
-const taskSpawn = (number, body) => {
+export default (spawn) => {
 
-    if (mySpawn.energy >= 300) {
+    const number = roleConfig.number,
+        body = roleConfig.body;
+
+    if (spawn.energy >= 300) {
 
         for (let name in Memory.creeps) {
             if (!Game.creeps[name]) {
@@ -35,17 +38,16 @@ const taskSpawn = (number, body) => {
 
     }
 
-    if (mySpawn.spawning) {
-        const spawningCreep = Game.creeps[mySpawn.spawning.name];
-        mySpawn.room.visual.text(
+    if (spawn.spawning) {
+        const spawningCreep = Game.creeps[spawn.spawning.name];
+        spawn.room.visual.text(
             '[Spawn]' + spawningCreep.memory.role,
-            mySpawn.pos.x + 1,
-            mySpawn.pos.y,
+            spawn.pos.x + 1,
+            spawn.pos.y,
             {align: 'left', opacity: 0.8});
     }
 }
 
-export default taskSpawn;
 
 function getNowFormatDate() {
     const date = new Date();
