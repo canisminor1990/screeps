@@ -7,7 +7,7 @@ Object.defineProperty(exports, "__esModule", {
 exports.default = function (creep) {
     var room = 'W81S66';
     var myRoom = Game.spawns['Spawn1'];
-    if (creep.carry.energy < creep.carryCapacity) {
+    if (creep.carry.energy == 0) {
 
         var source = Game.getObjectById('5873bc3511e3e4361b4d7390');
         var miner = creep.pos.findInRange(FIND_MY_CREEPS, 5, { filter: function filter(creepRole) {

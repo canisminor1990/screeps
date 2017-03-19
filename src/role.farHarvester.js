@@ -1,7 +1,7 @@
 export default (creep) => {
     const room = 'W81S66';
     const myRoom = Game.spawns['Spawn1']
-    if (creep.carry.energy < creep.carryCapacity) {
+    if (creep.carry.energy == 0 ) {
 
         const source = Game.getObjectById('5873bc3511e3e4361b4d7390');
         const miner = creep.pos.findInRange(FIND_MY_CREEPS, 5, {filter: creepRole => creepRole.memory.role == 'farMiner'})[0]
