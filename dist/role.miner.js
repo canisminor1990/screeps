@@ -25,6 +25,12 @@ var roleMiner = {
                     return tCreep.memory.role !== 'miner';
                 }
             });
+            var farTargets = creep.pos.findInRange(FIND_MY_CREEPS, 5, {
+                filter: function filter(tCreep) {
+                    return tCreep.memory.role !== 'miner';
+                }
+            });
+
             var maxNum = 0,
                 maxName = void 0;
             for (var name in targets) {
@@ -38,6 +44,13 @@ var roleMiner = {
             if (maxName, maxNum != 0) {
                 creep.transfer(targets[maxName], RESOURCE_ENERGY, maxNum > creep.carry.energy ? creep.carry.energy : maxNum);
                 creep.say('transfer:' + maxNum);
+            } else if (!farTargets[0]) {
+                var targetsContainer = mySpawn.room.memory.structures.filter(function (structure) {
+                    return structure.structureType == STRUCTURE_CONTAINER && structure.store["energy"] < structure.storeCapacity;
+                })[0];
+                if (targetsContainer && creep.transfer(targetsContainer, RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
+                    creep.moveTo(targetsContainer, { reusePathL: 8, visualizePathStyle: { stroke: '#ffffff' } });
+                }
             }
         }
     }

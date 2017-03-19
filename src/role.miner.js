@@ -18,6 +18,10 @@ const roleMiner = {
             const targets = creep.pos.findInRange(FIND_MY_CREEPS, 1, {
                 filter: tCreep => tCreep.memory.role !== 'miner'
             });
+            const farTargets = creep.pos.findInRange(FIND_MY_CREEPS, 5, {
+                filter: tCreep => tCreep.memory.role !== 'miner'
+            });
+
             let maxNum = 0, maxName;
             for (let name in targets) {
                 let num = targets[name].carryCapacity - targets[name].carry.energy;
@@ -30,6 +34,14 @@ const roleMiner = {
             if (maxName, maxNum != 0) {
                 creep.transfer(targets[maxName], RESOURCE_ENERGY, (maxNum > creep.carry.energy) ? creep.carry.energy : maxNum);
                 creep.say('transfer:' + maxNum)
+            } else if (!farTargets[0]){
+                const targetsContainer = mySpawn.room.memory.structures.filter(structure => (
+                        structure.structureType == STRUCTURE_CONTAINER
+                    ) && structure.store["energy"] < structure.storeCapacity
+                )[0]
+                if (targetsContainer && creep.transfer(targetsContainer, RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
+                    creep.moveTo(targetsContainer, {reusePathL: 8, visualizePathStyle: {stroke: '#ffffff'}});
+                }
             }
         }
     }
