@@ -6,7 +6,7 @@ const roleMiner = {
 			const source = mySpawn.room.memory.source[creep.memory.source];
 			const pickup = creep.pos.findInRange(FIND_DROPPED_ENERGY, 0);
 			if (pickup.length > 0 && pickup[0] == OK) {
-				creep.pickup(pickup[0])
+				creep.say('pickup')
 			} else {
 				(creep.harvest(source) == ERR_NOT_IN_RANGE) ? creep.moveTo(source, {visualizePathStyle: {stroke: '#ffaa00'}}) : null;
 			}
@@ -16,8 +16,9 @@ const roleMiner = {
 				filter: tCreep => tCreep.memory.role !== 'miner'
 			});
 			for (let name in targets) {
-					let num = targets[name].carryCapacity - targets[name].carry.energy;
-					creep.transfer(targets[name], RESOURCE_ENERGY, (num > creep.carry.energy) ? creep.carry.energy : num)
+				let num = targets[name].carryCapacity - targets[name].carry.energy;
+				creep.transfer(targets[name], RESOURCE_ENERGY, (num > creep.carry.energy) ? creep.carry.energy : num);
+				creep.say('transfer:'+num)
 			}
 		}
 	}
