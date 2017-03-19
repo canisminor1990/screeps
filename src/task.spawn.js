@@ -14,10 +14,12 @@ const taskSpawn = (number, body) => {
 		for (let i = 0; i < number[key].length; i++) {
 			const maxNum = number[key][i]
 			const roleNumber = _.filter(Game.creeps, (creep) => creep.memory.role == roleSpawn && creep.memory.source == i).length;
-			if (number[key][i] > 0 && roleNumber < maxNum && Game.spawns['Spawn1'].canCreateCreep(body[key]) === OK) {
+			const roleBody = buildBody(body[key])
+
+			if (number[key][i] > 0 && roleNumber < maxNum && Game.spawns['Spawn1'].canCreateCreep(roleBody) === OK) {
 				const name = `[${roleSpawn}]${getNowFormatDate()}`
 				Game.spawns['Spawn1'].createCreep(
-						body[key],
+						roleBody,
 						name,
 						{role: roleSpawn, source: i}
 				);
@@ -46,4 +48,14 @@ function getNowFormatDate() {
 	return [date.getHours(),
 	        date.getMinutes(),
 	        date.getSeconds()].join(':')
+}
+
+function buildBody(obj) {
+	let array = [];
+	for (let key in obj) {
+		for (let num = 0; num < obj[key]; num++) {
+			array.push(key)
+		}
+	}
+	return array;
 }

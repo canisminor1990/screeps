@@ -22,9 +22,11 @@ var taskSpawn = function taskSpawn(number, body) {
 			var roleNumber = _.filter(Game.creeps, function (creep) {
 				return creep.memory.role == roleSpawn && creep.memory.source == i;
 			}).length;
-			if (number[key][i] > 0 && roleNumber < maxNum && Game.spawns['Spawn1'].canCreateCreep(body[key]) === OK) {
+			var roleBody = buildBody(body[key]);
+
+			if (number[key][i] > 0 && roleNumber < maxNum && Game.spawns['Spawn1'].canCreateCreep(roleBody) === OK) {
 				var _name = '[' + roleSpawn + ']' + getNowFormatDate();
-				Game.spawns['Spawn1'].createCreep(body[key], _name, { role: roleSpawn, source: i });
+				Game.spawns['Spawn1'].createCreep(roleBody, _name, { role: roleSpawn, source: i });
 				console.log(['Spawn:', _name, 'Source:', i].join(' '));
 			}
 		};
@@ -50,5 +52,15 @@ exports.default = taskSpawn;
 function getNowFormatDate() {
 	var date = new Date();
 	return [date.getHours(), date.getMinutes(), date.getSeconds()].join(':');
+}
+
+function buildBody(obj) {
+	var array = [];
+	for (var key in obj) {
+		for (var num = 0; num < obj[key]; num++) {
+			array.push(key);
+		}
+	}
+	return array;
 }
 module.exports = exports['default'];
