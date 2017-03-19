@@ -16,7 +16,7 @@ exports.default = function (creep) {
 
     var targets = creep.pos.findClosestByPath(FIND_CONSTRUCTION_SITES),
         halfBroken = creep.pos.findInRange(FIND_STRUCTURES, 5, { filter: function filter(structure) {
-            return _config2.default.repair(structure);
+            return _config2.default.repair(structure) && structure.structureType != STRUCTURE_WALL;
         } })[0];
 
     if (creep.memory.building && creep.carry.energy == 0) {
