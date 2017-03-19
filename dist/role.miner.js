@@ -12,12 +12,14 @@ var roleMiner = {
 			creep.harvest(source) == ERR_NOT_IN_RANGE ? creep.moveTo(source, { visualizePathStyle: { stroke: '#ffaa00' } }) : null;
 		}
 
-		var targets = creep.pos.findInRange(FIND_MY_CREEPS, 1);
-		for (var i = 0; i < targets.length; i++) {
-			if (targets[i].memory.role != 'miner') {
-				var num = targets[i].carryCapacity - targets[i].carry.energy;
-				creep.transfer(targets[i], RESOURCE_ENERGY, num > creep.carry.energy ? creep.carry.energy : num);
+		var targets = creep.pos.findInRange(FIND_MY_CREEPS, 1, {
+			filter: function filter(tCreep) {
+				return tCreep.memory.role !== 'miner';
 			}
+		});
+		for (var name in targets) {
+			var num = targets[name].carryCapacity - targets[name].carry.energy;
+			creep.transfer(targets[name], RESOURCE_ENERGY, num > creep.carry.energy ? creep.carry.energy : num);
 		}
 	}
 };

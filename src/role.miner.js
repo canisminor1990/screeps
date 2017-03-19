@@ -7,13 +7,12 @@ const roleMiner = {
 			(creep.harvest(source) == ERR_NOT_IN_RANGE) ? creep.moveTo(source, {visualizePathStyle: {stroke: '#ffaa00'}}) : null;
 		}
 
-		const targets = creep.pos.findInRange(FIND_MY_CREEPS, 1);
-		for (let i = 0; i < targets.length; i++) {
-			if (targets[i].memory.role != 'miner') {
-				let num = targets[i].carryCapacity - targets[i].carry.energy;
-				creep.transfer(targets[i], RESOURCE_ENERGY, (num > creep.carry.energy) ? creep.carry.energy : num)
-			}
-
+		const targets = creep.pos.findInRange(FIND_MY_CREEPS, 1, {
+			filter: tCreep => tCreep.memory.role !== 'miner'
+		});
+		for (let name in targets) {
+			let num = targets[name].carryCapacity - targets[name].carry.energy;
+			creep.transfer(targets[name], RESOURCE_ENERGY, (num > creep.carry.energy) ? creep.carry.energy : num)
 		}
 	}
 };
