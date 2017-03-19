@@ -32,7 +32,7 @@ var roleMiner = {
 				}
 			}
 
-			if (maxName, maxNum) {
+			if (maxName, maxNum != 0) {
 				creep.transfer(targets[maxName], RESOURCE_ENERGY, maxNum > creep.carry.energy ? creep.carry.energy : maxNum);
 				creep.say('transfer:' + maxNum);
 			}
