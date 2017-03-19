@@ -9,15 +9,11 @@ exports.default = function (creep) {
     var myRoom = Game.spawns['Spawn1'];
     if (creep.carry.energy < creep.carryCapacity) {
 
-        if (creep.room.name == room) {
-            var source = creep.pos.findClosestByPath(FIND_SOURCES);
-            creep.harvest(source) == ERR_NOT_IN_RANGE ? creep.moveTo(27, 21, {
-                reusePath: 8,
-                visualizePathStyle: { stroke: '#ffffff' }
-            }) : null;
-        } else {
-            creep.moveTo(new RoomPosition(27, 21, room), { reusePath: 8, visualizePathStyle: { stroke: '#ffffff' } });
-        }
+        var source = creep.pos.findClosestByPath(FIND_SOURCES);
+        creep.harvest(source) == ERR_NOT_IN_RANGE ? creep.moveTo(new RoomPosition(27, 21, room), {
+            reusePath: 8,
+            visualizePathStyle: { stroke: '#ffffff' }
+        }) : null;
     } else {
         if (creep.room.name !== myRoom.room.name) {
             creep.moveTo(myRoom, { reusePath: 8, visualizePathStyle: { stroke: '#ffffff' } });
