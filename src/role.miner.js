@@ -1,7 +1,7 @@
 const mySpawn = Game.spawns['Spawn1'];
 const roleMiner = {
 	run: (creep) => {
-		const pickup = creep.pos.findInRange(RESOURCE_ENERGY, 1);
+		const pickup = creep.pos.findInRange(FIND_DROPPED_ENERGY, 1);
 		if (pickup) {
 			console.log('[Pickup]: ' + creep.pickup(pickup[0]))
 		}

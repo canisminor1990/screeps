@@ -6,7 +6,7 @@ Object.defineProperty(exports, "__esModule", {
 var mySpawn = Game.spawns['Spawn1'];
 var roleMiner = {
 	run: function run(creep) {
-		var pickup = creep.pos.findInRange(RESOURCE_ENERGY, 1);
+		var pickup = creep.pos.findInRange(FIND_DROPPED_ENERGY, 1);
 		if (pickup) {
 			console.log('[Pickup]: ' + creep.pickup(pickup[0]));
 		}
