@@ -4,19 +4,21 @@ const roleMiner = {
 
 		if (creep.carry.energy < creep.carryCapacity) {
 			const source = mySpawn.room.memory.source[creep.memory.source];
-
+			const pickup = creep.pos.findInRange(FIND_DROPPED_ENERGY, 1);
+			if (pickup.length > 0) {
+				creep.say('pickup')
+				creep.pickup(pickup[0])
+			} else {
 				(creep.harvest(source) == ERR_NOT_IN_RANGE) ? creep.moveTo(source, {visualizePathStyle: {stroke: '#ffaa00'}}) : null;
 			}
-
+		}
 		if (creep.carry.energy >= 50) {
 			const targets = creep.pos.findInRange(FIND_MY_CREEPS, 1, {
 				filter: tCreep => tCreep.memory.role !== 'miner'
 			});
 			for (let name in targets) {
-
 					let num = targets[name].carryCapacity - targets[name].carry.energy;
 					creep.transfer(targets[name], RESOURCE_ENERGY, (num > creep.carry.energy) ? creep.carry.energy : num)
-
 			}
 		}
 	}
