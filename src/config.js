@@ -32,5 +32,5 @@ const repair = (structure) => (structure.hits / structure.hitsMax) < 0.5 && stru
 
 export default {
     role: role,
-    repaire: repair,
+    repair: repair,
 };

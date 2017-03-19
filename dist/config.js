@@ -38,6 +38,6 @@ var repair = function repair(structure) {
 
 exports.default = {
     role: role,
-    repaire: repair
+    repair: repair
 };
 module.exports = exports["default"];
