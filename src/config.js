@@ -11,7 +11,7 @@ const role = {
         upgrader: {move: 1, work: 2, carry: 2}, // 350
         builder: {move: 3, work: 2, carry: 2}, // 350
         miner: {move: 1, work: 4, carry: 2}, // 3
-        cleaner: {move: 3, work: 1, carry: 4}, // 350
+        cleaner: {move: 2, work: 1, carry: 2}, // 350
     }
 }
 
