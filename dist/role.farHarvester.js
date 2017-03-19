@@ -11,7 +11,7 @@ exports.default = function (creep) {
 
         var source = Game.getObjectById('5873bc3511e3e4361b4d7390');
         var miner = creep.pos.findInRange(FIND_MY_CREEPS, 5, { filter: function filter(creepRole) {
-                return creepRole.role == 'farMiner';
+                return creepRole.memory.role == 'farMiner';
             } })[0];
 
         if (!miner) {

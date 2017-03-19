@@ -4,7 +4,7 @@ export default (creep) => {
     if (creep.carry.energy < creep.carryCapacity) {
 
         const source = Game.getObjectById('5873bc3511e3e4361b4d7390');
-        const miner = creep.pos.findInRange(FIND_MY_CREEPS, 5, {filter: creepRole => creepRole.role == 'farMiner'})[0]
+        const miner = creep.pos.findInRange(FIND_MY_CREEPS, 5, {filter: creepRole => creepRole.memory.role == 'farMiner'})[0]
 
         if (!miner) {
             (creep.harvest(source) == ERR_NOT_IN_RANGE) ? creep.moveTo(source, {
