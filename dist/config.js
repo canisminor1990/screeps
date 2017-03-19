@@ -22,7 +22,7 @@ var role = {
 };
 
 var repair = function repair(structure) {
-    return structure.hits / structure.hitsMax < 0.5 && structure.hits < 8000;
+    return structure.hits / structure.hitsMax < 0.5 && structure.hits < 6000;
 };
 
 /*
