@@ -27,7 +27,10 @@ module.exports = {
 				) && structure.energy < structure.energyCapacity
 		)
 
-		const targetsContainer= []
+		const targetsContainer = mySpawn.room.memory.structures.filter(structure => (
+						structure.structureType == STRUCTURE_CONTAINER
+				) && structure.store < structure.storeCapacity
+		)
 
 		const halfBroken = mySpawn.room.memory.structures.filter(structure =>
 				(structure.hits / structure.hitsMax) < 0.5 && structure.hits < 5000
@@ -38,7 +41,7 @@ module.exports = {
 			const creep = Game.creeps[name];
 			switch (creep.memory.role) {
 				case 'harvester':
-					(targetsHarvest.length > 0 || targetsContainer > 0) ?
+					(targetsHarvest.length > 0 || targetsContainer.length > 0) ?
 							roleHarvester.run(creep, targetsHarvest[0], targetsContainer[0]) : roleBuilder.run(creep, targetsBuild[0], halfBroken[0]);
 					break;
 				case 'upgrader':
