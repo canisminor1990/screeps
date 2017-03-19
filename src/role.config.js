@@ -1,6 +1,6 @@
 const roleConfig = {
     number: {
-        harvester: [0, 6],
+        harvester: [1, 6],
         upgrader: [2],
         builder: [0,2],
         miner: [1, 3],
