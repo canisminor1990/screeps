@@ -6,7 +6,7 @@ Object.defineProperty(exports, "__esModule", {
 
 var _structure = require("./structure.tower");
 
-Object.defineProperty(exports, "structureTower", {
+Object.defineProperty(exports, "tower", {
   enumerable: true,
   get: function get() {
     return _interopRequireDefault(_structure).default;
@@ -15,7 +15,7 @@ Object.defineProperty(exports, "structureTower", {
 
 var _structure2 = require("./structure.container");
 
-Object.defineProperty(exports, "structureContainer", {
+Object.defineProperty(exports, "container", {
   enumerable: true,
   get: function get() {
     return _interopRequireDefault(_structure2).default;
@@ -24,7 +24,7 @@ Object.defineProperty(exports, "structureContainer", {
 
 var _structure3 = require("./structure.spawn");
 
-Object.defineProperty(exports, "structureSpawn", {
+Object.defineProperty(exports, "spawn", {
   enumerable: true,
   get: function get() {
     return _interopRequireDefault(_structure3).default;

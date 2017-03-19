@@ -1,4 +1,4 @@
-import {roleConfig} from './role';
+import roleConfig from './role.config';
 
 export default (spawn) => {
 

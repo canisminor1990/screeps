@@ -6,7 +6,7 @@ Object.defineProperty(exports, "__esModule", {
 
 var _role = require('./role.harvester');
 
-Object.defineProperty(exports, 'roleHarvester', {
+Object.defineProperty(exports, 'harvester', {
   enumerable: true,
   get: function get() {
     return _interopRequireDefault(_role).default;
@@ -15,7 +15,7 @@ Object.defineProperty(exports, 'roleHarvester', {
 
 var _role2 = require('./role.upgrader');
 
-Object.defineProperty(exports, 'roleUpgrader', {
+Object.defineProperty(exports, 'upgrader', {
   enumerable: true,
   get: function get() {
     return _interopRequireDefault(_role2).default;
@@ -24,7 +24,7 @@ Object.defineProperty(exports, 'roleUpgrader', {
 
 var _role3 = require('./role.builder');
 
-Object.defineProperty(exports, 'roleBuilder', {
+Object.defineProperty(exports, 'builder', {
   enumerable: true,
   get: function get() {
     return _interopRequireDefault(_role3).default;
@@ -33,7 +33,7 @@ Object.defineProperty(exports, 'roleBuilder', {
 
 var _role4 = require('./role.miner');
 
-Object.defineProperty(exports, 'roleMiner', {
+Object.defineProperty(exports, 'miner', {
   enumerable: true,
   get: function get() {
     return _interopRequireDefault(_role4).default;
@@ -42,19 +42,10 @@ Object.defineProperty(exports, 'roleMiner', {
 
 var _role5 = require('./role.cleaner');
 
-Object.defineProperty(exports, 'roleCleaner', {
+Object.defineProperty(exports, 'cleaner', {
   enumerable: true,
   get: function get() {
     return _interopRequireDefault(_role5).default;
-  }
-});
-
-var _role6 = require('./role.config');
-
-Object.defineProperty(exports, 'roleConfig', {
-  enumerable: true,
-  get: function get() {
-    return _interopRequireDefault(_role6).default;
   }
 });
 

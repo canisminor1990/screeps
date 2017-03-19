@@ -1,3 +1,3 @@
-export {default as structureTower} from "./structure.tower"
-export {default as structureContainer} from "./structure.container"
-export {default as structureSpawn} from "./structure.spawn"
+export {default as tower} from "./structure.tower"
+export {default as container} from "./structure.container"
+export {default as spawn} from "./structure.spawn"

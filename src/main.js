@@ -1,5 +1,5 @@
-import {roleHarvester, roleUpgrader, roleBuilder, roleMiner, roleCleaner} from './role';
-import {structureTower, structureContainer,structureSpawn} from './structure';
+import * as role from './role';
+import * as structure from './structure';
 const mySpawn = Game.spawns['Spawn1'];
 module.exports = {
 
@@ -27,16 +27,16 @@ module.exports = {
 
 
         for (let name in mySpawn.room.memory.structures) {
-            const structure = mySpawn.room.memory.structures[name];
-            switch (structure.structureType) {
+            const structureName = mySpawn.room.memory.structures[name];
+            switch (structureName.structureType) {
                 case 'spawn':
-                    structureSpawn(structure);
+                    structure.spawn(structureName);
                     break;
                 case 'tower':
-                    structureTower(structure);
+                    structure.tower(structureName);
                     break;
                 case 'container':
-                    (targetsHarvest.length == 0 ) ? structureContainer(structure, targetsHarvest[0]) : null;
+                    (targetsHarvest.length == 0 ) ? structure.container(structureName, targetsHarvest[0]) : null;
                     break;
             }
         }
@@ -46,19 +46,19 @@ module.exports = {
             switch (creep.memory.role) {
                 case 'harvester':
                     (targetsHarvest.length > 0 || targetsBuild.length == 0 ) ?
-                        roleHarvester(creep, targetsHarvest[0]) : roleBuilder(creep, targetsBuild[0]);
+                        role.harvester(creep, targetsHarvest[0]) : role.builder(creep, targetsBuild[0]);
                     break;
                 case 'upgrader':
-                    roleUpgrader(creep);
+                    role.upgrader(creep);
                     break;
                 case 'builder':
-                    (targetsBuild.length > 0) ? roleBuilder(creep, targetsBuild[0], halfBroken[0]) : roleHarvester(creep, targetsHarvest[0])
+                    (targetsBuild.length > 0) ? role.builder(creep, targetsBuild[0], halfBroken[0]) : role.harvester(creep, targetsHarvest[0])
                     break;
                 case 'miner':
-                    roleMiner(creep);
+                    role.miner(creep);
                     break;
                 case 'cleaner':
-                    (targetsPickup.length > 0 ) ? roleCleaner(creep, targetsHarvest[0], targetsPickup[0]) : roleHarvester(creep, targetsHarvest[0])
+                    (targetsPickup.length > 0 ) ? role.cleaner(creep, targetsHarvest[0], targetsPickup[0]) : role.harvester(creep, targetsHarvest[0])
                     break;
             }
         }
