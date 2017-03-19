@@ -3,7 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
-var mySpawn = Game.spawns['Spawn1'];
+
 
 var taskFindMiner = function taskFindMiner(creep) {
     var source = mySpawn.room.memory.source[creep.memory.source];
@@ -29,7 +29,7 @@ var taskFindMiner = function taskFindMiner(creep) {
             }) : null;
         }
     } else {
-        var targetsContainer = mySpawn.room.memory.structures.filter(function (structure) {
+        var targetsContainer = creep.room.memory.structures.filter(function (structure) {
             return structure.structureType == STRUCTURE_CONTAINER && structure.store["energy"] < structure.storeCapacity;
         })[0];
         creep.moveTo(targetsContainer, { reusePathL: 8, visualizePathStyle: { stroke: '#ffffff' } });

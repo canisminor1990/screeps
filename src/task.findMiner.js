@@ -1,4 +1,4 @@
-const mySpawn = Game.spawns['Spawn1'];
+
 
 const taskFindMiner = (creep) => {
     const source = mySpawn.room.memory.source[creep.memory.source];
@@ -21,7 +21,7 @@ const taskFindMiner = (creep) => {
                 }) : null;
         }
     } else {
-        const targetsContainer = mySpawn.room.memory.structures.filter(structure => (
+        const targetsContainer = creep.room.memory.structures.filter(structure => (
                 structure.structureType == STRUCTURE_CONTAINER
             ) && structure.store["energy"] < structure.storeCapacity
         )[0]
