@@ -4,10 +4,11 @@ Object.defineProperty(exports, "__esModule", {
     value: true
 });
 
-exports.default = function (container) {
+exports.default = function (container, targetsHarvest, targetsBuild) {
+
     var targets = container.pos.findInRange(FIND_MY_CREEPS, 1, {
         filter: function filter(tCreep) {
-            return tCreep.memory.role !== 'miner' && tCreep.memory.role !== 'cleaner';
+            return tCreep.memory.role !== 'miner' && tCreep.memory.role !== 'cleaner' && targetsHarvest > 0 ? tCreep.memory.role !== 'harvester' && tCreep.memory.role !== 'farHarvester' : null && (targetsBuild = 0) ? tCreep.memory.role !== 'builder' : null;
         }
     });
 
