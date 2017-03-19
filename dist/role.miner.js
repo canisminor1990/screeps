@@ -10,7 +10,7 @@ var roleMiner = {
 		if (creep.carry.energy < creep.carryCapacity) {
 			var source = mySpawn.room.memory.source[creep.memory.source];
 			var pickup = creep.pos.findInRange(FIND_DROPPED_ENERGY, 1);
-			if (pickup) {
+			if (pickup.length > 0) {
 				creep.say('pickup');
 				creep.pickup(pickup[0]);
 			} else {
