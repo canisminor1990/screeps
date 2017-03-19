@@ -1,14 +1,8 @@
 'use strict';
 
-var _extends2 = require('babel-runtime/helpers/extends');
-
-var _extends3 = _interopRequireDefault(_extends2);
-
 var _role = require('./role');
 
 var _task = require('./task');
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var mySpawn = Game.spawns['Spawn1'];
 module.exports = {
@@ -29,10 +23,10 @@ module.exports = {
 			mySpawn.room.visual.text('[Spawn]' + spawningCreep.memory.role, mySpawn.pos.x + 1, mySpawn.pos.y, { align: 'left', opacity: 0.8 });
 		}
 
-		mySpawn.room.memory = (0, _extends3.default)({
+		mySpawn.room.memory = {
 			structures: mySpawn.room.find(FIND_STRUCTURES),
 			constructionSites: mySpawn.room.find(FIND_CONSTRUCTION_SITES)
-		}, other);
+		};
 
 		var targetsHarvest = mySpawn.room.memory.structures.filter(function (structure) {
 			return (structure.structureType == STRUCTURE_EXTENSION || structure.structureType == STRUCTURE_SPAWN || structure.structureType == STRUCTURE_TOWER) && structure.energy < structure.energyCapacity;

@@ -25,8 +25,7 @@ module.exports = {
 
 		mySpawn.room.memory = {
 			structures: mySpawn.room.find(FIND_STRUCTURES),
-			constructionSites: mySpawn.room.find(FIND_CONSTRUCTION_SITES),
-			...other
+			constructionSites: mySpawn.room.find(FIND_CONSTRUCTION_SITES)
 		}
 
 		const targetsHarvest = mySpawn.room.memory.structures.filter((structure) => {
