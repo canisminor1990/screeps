@@ -3,7 +3,7 @@ const role = {
         harvester: [0, 6],
         upgrader: [2],
         builder: [0, 2],
-        miner: [1, 3],
+        miner: [1, 2],
         cleaner: [1],
     },
     body: {//300 + 5 * 5 = 550
