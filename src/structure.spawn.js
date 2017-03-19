@@ -5,37 +5,34 @@ export default (spawn) => {
     const number = config.role.number,
         body = config.role.body;
 
-    if (spawn.energy >= 300) {
 
-        for (let name in Memory.creeps) {
-            if (!Game.creeps[name]) {
-                delete Memory.creeps[name];
-                console.log('Clearing non-existing creep memory:', name);
+    for (let name in Memory.creeps) {
+        if (!Game.creeps[name]) {
+            delete Memory.creeps[name];
+            console.log('Clearing non-existing creep memory:', name);
+        }
+    }
+
+    for (let key in number) {
+        const roleSpawn = key;
+        for (let i = 0; i < number[key].length; i++) {
+            const maxNum = number[key][i]
+            const roleNumber = _.filter(Game.creeps, (creep) => creep.memory.role == roleSpawn && creep.memory.source == i).length;
+            const roleBody = buildBody(body[key])
+
+            if (number[key][i] > 0 && roleNumber < maxNum && Game.spawns['Spawn1'].canCreateCreep(roleBody) === OK) {
+                const name = `[${roleSpawn}]${getNowFormatDate()}`
+                Game.spawns['Spawn1'].createCreep(
+                    roleBody,
+                    name,
+                    {role: roleSpawn, source: i}
+                );
+                console.log(['Spawn:',
+                    name,
+                    'Source:',
+                    i].join(' '));
             }
         }
-
-        for (let key in number) {
-            const roleSpawn = key;
-            for (let i = 0; i < number[key].length; i++) {
-                const maxNum = number[key][i]
-                const roleNumber = _.filter(Game.creeps, (creep) => creep.memory.role == roleSpawn && creep.memory.source == i).length;
-                const roleBody = buildBody(body[key])
-
-                if (number[key][i] > 0 && roleNumber < maxNum && Game.spawns['Spawn1'].canCreateCreep(roleBody) === OK) {
-                    const name = `[${roleSpawn}]${getNowFormatDate()}`
-                    Game.spawns['Spawn1'].createCreep(
-                        roleBody,
-                        name,
-                        {role: roleSpawn, source: i}
-                    );
-                    console.log(['Spawn:',
-                        name,
-                        'Source:',
-                        i].join(' '));
-                }
-            }
-        }
-
     }
 
     if (spawn.spawning) {

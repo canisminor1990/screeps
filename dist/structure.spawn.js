@@ -15,40 +15,37 @@ exports.default = function (spawn) {
     var number = _config2.default.role.number,
         body = _config2.default.role.body;
 
-    if (spawn.energy >= 300) {
-
-        for (var name in Memory.creeps) {
-            if (!Game.creeps[name]) {
-                delete Memory.creeps[name];
-                console.log('Clearing non-existing creep memory:', name);
-            }
+    for (var name in Memory.creeps) {
+        if (!Game.creeps[name]) {
+            delete Memory.creeps[name];
+            console.log('Clearing non-existing creep memory:', name);
         }
+    }
 
-        var _loop = function _loop(key) {
-            var roleSpawn = key;
+    var _loop = function _loop(key) {
+        var roleSpawn = key;
 
-            var _loop2 = function _loop2(i) {
-                var maxNum = number[key][i];
-                var roleNumber = _.filter(Game.creeps, function (creep) {
-                    return creep.memory.role == roleSpawn && creep.memory.source == i;
-                }).length;
-                var roleBody = buildBody(body[key]);
+        var _loop2 = function _loop2(i) {
+            var maxNum = number[key][i];
+            var roleNumber = _.filter(Game.creeps, function (creep) {
+                return creep.memory.role == roleSpawn && creep.memory.source == i;
+            }).length;
+            var roleBody = buildBody(body[key]);
 
-                if (number[key][i] > 0 && roleNumber < maxNum && Game.spawns['Spawn1'].canCreateCreep(roleBody) === OK) {
-                    var _name = '[' + roleSpawn + ']' + getNowFormatDate();
-                    Game.spawns['Spawn1'].createCreep(roleBody, _name, { role: roleSpawn, source: i });
-                    console.log(['Spawn:', _name, 'Source:', i].join(' '));
-                }
-            };
-
-            for (var i = 0; i < number[key].length; i++) {
-                _loop2(i);
+            if (number[key][i] > 0 && roleNumber < maxNum && Game.spawns['Spawn1'].canCreateCreep(roleBody) === OK) {
+                var _name = '[' + roleSpawn + ']' + getNowFormatDate();
+                Game.spawns['Spawn1'].createCreep(roleBody, _name, { role: roleSpawn, source: i });
+                console.log(['Spawn:', _name, 'Source:', i].join(' '));
             }
         };
 
-        for (var key in number) {
-            _loop(key);
+        for (var i = 0; i < number[key].length; i++) {
+            _loop2(i);
         }
+    };
+
+    for (var key in number) {
+        _loop(key);
     }
 
     if (spawn.spawning) {
