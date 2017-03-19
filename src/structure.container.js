@@ -5,7 +5,7 @@ export default (container, targetsHarvest, targetsBuild) => {
         filter: tCreep =>
         tCreep.memory.role !== 'miner' &&
         tCreep.memory.role !== 'cleaner' &&
-        ((targetsHarvest > 0) ? (tCreep.memory.role !== 'harvester' && tCreep.memory.role !== 'farHarvester') : null) &&
+        ((targetsHarvest = 0) ? (tCreep.memory.role !== 'harvester' && tCreep.memory.role !== 'farHarvester') : null) &&
         ((targetsBuild = 0) ? tCreep.memory.role !== 'builder' : null)
     });
 
