@@ -17,7 +17,7 @@ const roleCleaner = {
                 const targetsContainer = mySpawn.room.memory.structures.filter(structure => (
                         structure.structureType == STRUCTURE_CONTAINER
                     ) && structure.store['energy'] < structure.storeCapacity
-                )
+                )[0]
                 if (targetsContainer && creep.transfer(targetsContainer, RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
                     creep.moveTo(targetsContainer, {visualizePathStyle: {reusePathL: 8,stroke: '#ffffff'}});
                 }
