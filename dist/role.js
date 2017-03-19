@@ -40,12 +40,21 @@ Object.defineProperty(exports, 'roleMiner', {
   }
 });
 
-var _role5 = require('./role.config');
+var _role5 = require('./role.cleaner');
+
+Object.defineProperty(exports, 'roleCleaner', {
+  enumerable: true,
+  get: function get() {
+    return _interopRequireDefault(_role5).default;
+  }
+});
+
+var _role6 = require('./role.config');
 
 Object.defineProperty(exports, 'roleConfig', {
   enumerable: true,
   get: function get() {
-    return _interopRequireDefault(_role5).default;
+    return _interopRequireDefault(_role6).default;
   }
 });
 
