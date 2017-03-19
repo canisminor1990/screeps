@@ -9,7 +9,7 @@ const role = {
         cleaner: [1],
     },
     body: {//300 + 5 * 5 = 550
-        farMiner: {move: 1, work: 4, carry: 2}, // 3
+        farMiner: {move: 2, work: 4, carry: 2}, // 3
         farHarvester: {move: 3, work: 1, carry: 4}, // 350
         harvester: {move: 3, work: 1, carry: 4}, // 350
         upgrader: {move: 1, work: 2, carry: 2}, // 350
