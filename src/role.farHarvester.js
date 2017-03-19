@@ -12,10 +12,7 @@ export default (creep) => {
                         visualizePathStyle: {stroke: '#ffaa00'}
                     }) : null;
             } else {
-                (creep.harvest(source) == ERR_NOT_IN_RANGE) ? creep.moveTo(source, {
-                        reusePath: 8,
-                        visualizePathStyle: {stroke: '#ffaa00'}
-                    }) : null;
+                (creep.harvest(source) == ERR_NOT_IN_RANGE) ? creep.moveTo(new RoomPosition(39, 39, room)) : null;
             }
         }
     }
