@@ -17,6 +17,8 @@ const role = {
     }
 }
 
+const repair = (structure) => (structure.hits / structure.hitsMax) < 0.5 && structure.hits < 8000
+
 /*
  "move": 50,
  "work": 100,
@@ -30,5 +32,5 @@ const role = {
 
 export default {
     role: role,
-    repaire: (structure) => (structure.hits / structure.hitsMax) < 0.5 && structure.hits < 8000
+    repaire: repair,
 };

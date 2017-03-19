@@ -21,6 +21,10 @@ var role = {
         cleaner: { move: 2, work: 1, carry: 2 } }
 };
 
+var repair = function repair(structure) {
+    return structure.hits / structure.hitsMax < 0.5 && structure.hits < 8000;
+};
+
 /*
  "move": 50,
  "work": 100,
@@ -34,8 +38,6 @@ var role = {
 
 exports.default = {
     role: role,
-    repaire: function repaire(structure) {
-        return structure.hits / structure.hitsMax < 0.5 && structure.hits < 8000;
-    }
+    repaire: repair
 };
 module.exports = exports["default"];
