@@ -9,8 +9,8 @@ var taskFindMiner = function taskFindMiner(creep) {
 	var minerTarget = void 0,
 	    minerEnergy = 0;
 	var miner = Game.spawns['Spawn1'].room.find(FIND_MY_CREEPS, {
-		filter: function filter(creep) {
-			return creep.memory.role === "miner" && creep.memory.source === miner.memory.source;
+		filter: function filter(miner) {
+			return miner.memory.role === "miner" && creep.memory.source === miner.memory.source;
 		}
 	});
 	for (var i = 0; i < miner.length; i++) {
