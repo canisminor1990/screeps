@@ -1,30 +1,28 @@
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
-    value: true
+	value: true
 });
 
 var _task = require('./task');
 
 var roleBuilder = {
-    run: function run(creep) {
+	run: function run(creep, targets) {
 
-        if (creep.memory.building && creep.carry.energy == 0) {
-            creep.memory.building = false;
-        }
-        if (!creep.memory.building && creep.carry.energy == creep.carryCapacity) {
-            creep.memory.building = true;
-            creep.say('[B]build');
-        }
-        var targets = creep.room.find(FIND_CONSTRUCTION_SITES);
-        if (creep.memory.building && targets.length) {
-            if (creep.build(targets[0]) == ERR_NOT_IN_RANGE) {
-                creep.moveTo(targets[0], { visualizePathStyle: { stroke: '#ffffff' } });
-            }
-        } else {
-            (0, _task.taskFindMiner)(creep);
-        }
-    }
+		if (creep.memory.building && creep.carry.energy == 0) {
+			creep.memory.building = false;
+		}
+		if (!creep.memory.building && creep.carry.energy == creep.carryCapacity) {
+			creep.memory.building = true;
+			creep.say('[B]build');
+		}
+
+		if (creep.build(targets) == ERR_NOT_IN_RANGE) {
+			creep.moveTo(targets, { visualizePathStyle: { stroke: '#ffffff' } });
+		} else {
+			(0, _task.taskFindMiner)(creep);
+		}
+	}
 };
 
 exports.default = roleBuilder;
