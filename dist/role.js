@@ -49,4 +49,13 @@ Object.defineProperty(exports, 'cleaner', {
   }
 });
 
+var _role6 = require('./role.farHarvester');
+
+Object.defineProperty(exports, 'farHarvester', {
+  enumerable: true,
+  get: function get() {
+    return _interopRequireDefault(_role6).default;
+  }
+});
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
