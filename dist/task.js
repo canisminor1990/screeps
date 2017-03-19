@@ -31,4 +31,13 @@ Object.defineProperty(exports, 'taskContainer', {
   }
 });
 
+var _task4 = require('./task.harvester');
+
+Object.defineProperty(exports, 'taskHarvester', {
+  enumerable: true,
+  get: function get() {
+    return _interopRequireDefault(_task4).default;
+  }
+});
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }

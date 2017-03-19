@@ -1,4 +1,4 @@
-import {taskContainer} from './task'
+import {taskHarvester} from './task'
 export default (creep) => {
     const room = 'W81S66';
     const myRoom = Game.spawns['Spawn1']
@@ -30,21 +30,7 @@ export default (creep) => {
         if (creep.room.name !== myRoom.room.name) {
             creep.moveTo(myRoom, {reusePath: 8, visualizePathStyle: {stroke: '#ffffff'}})
         } else {
-            const targets = creep.pos.findClosestByPath(FIND_STRUCTURES, {
-                filter: structure => (
-                    structure.structureType == STRUCTURE_EXTENSION ||
-                    structure.structureType == STRUCTURE_SPAWN ||
-                    structure.structureType == STRUCTURE_TOWER
-                ) && structure.energy < structure.energyCapacity
-            })
-
-            if (targets) {
-                if (creep.transfer(targets, RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
-                    creep.moveTo(targets, {reusePath: 8, visualizePathStyle: {stroke: '#ffffff'}});
-                }
-            } else {
-                taskContainer(creep)
-            }
+            taskHarvester(creep)
         }
     }
 }

@@ -14,13 +14,6 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 exports.default = function (creep) {
 
-    var targets = creep.pos.findClosestByPath(FIND_CONSTRUCTION_SITES),
-        halfBroken = creep.pos.findInRange(FIND_STRUCTURES, 5, {
-        filter: function filter(structure) {
-            return _config2.default.repair(structure) && structure.structureType != STRUCTURE_WALL && structure.structureType != STRUCTURE_RAMPART;
-        }
-    })[0];
-
     if (creep.memory.building && creep.carry.energy == 0) {
         creep.memory.building = false;
     }
@@ -30,6 +23,13 @@ exports.default = function (creep) {
     }
 
     if (creep.memory.building) {
+        var targets = creep.pos.findClosestByPath(FIND_CONSTRUCTION_SITES),
+            halfBroken = creep.pos.findInRange(FIND_STRUCTURES, 5, {
+            filter: function filter(structure) {
+                return _config2.default.repair(structure) && structure.structureType != STRUCTURE_WALL && structure.structureType != STRUCTURE_RAMPART;
+            }
+        })[0];
+
         if (halfBroken) {
             if (creep.repair(halfBroken) == ERR_NOT_IN_RANGE) {
                 creep.moveTo(halfBroken, { visualizePathStyle: { reusePath: 8, stroke: '#ffffff' } });

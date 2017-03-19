@@ -37,19 +37,7 @@ exports.default = function (creep) {
         if (creep.room.name !== myRoom.room.name) {
             creep.moveTo(myRoom, { reusePath: 8, visualizePathStyle: { stroke: '#ffffff' } });
         } else {
-            var targets = creep.pos.findClosestByPath(FIND_STRUCTURES, {
-                filter: function filter(structure) {
-                    return (structure.structureType == STRUCTURE_EXTENSION || structure.structureType == STRUCTURE_SPAWN || structure.structureType == STRUCTURE_TOWER) && structure.energy < structure.energyCapacity;
-                }
-            });
-
-            if (targets) {
-                if (creep.transfer(targets, RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
-                    creep.moveTo(targets, { reusePath: 8, visualizePathStyle: { stroke: '#ffffff' } });
-                }
-            } else {
-                (0, _task.taskContainer)(creep);
-            }
+            (0, _task.taskHarvester)(creep);
         }
     }
 };

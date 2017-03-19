@@ -8,25 +8,18 @@ var _task = require('./task');
 
 exports.default = function (creep) {
 
-    var targets = creep.pos.findClosestByPath(FIND_STRUCTURES, {
-        filter: function filter(structure) {
-            return (structure.structureType == STRUCTURE_EXTENSION || structure.structureType == STRUCTURE_SPAWN || structure.structureType == STRUCTURE_TOWER) && structure.energy < structure.energyCapacity;
-        }
-    });
+    if (creep.carry.energy == 0) {
+        creep.memory.full = false;
+    }
+    if (creep.carry.energy == creep.carryCapacity) {
+        creep.memory.full = true;
+    }
 
-    if (creep.carry.energy < creep.carryCapacity) {
+    if (!creep.memory.full) {
         var pickup = creep.pos.findInRange(FIND_DROPPED_ENERGY, 2);
-        if (pickup.length > 0 && creep.pickup(pickup[0]) == ERR_NOT_IN_RANGE) {
-            creep.moveTo(pickup[0], { reusePath: 8, visualizePathStyle: { stroke: '#33b446' } });
-        } else {
-            (0, _task.taskFindMiner)(creep);
-        }
-    } else if (targets) {
-        if (creep.transfer(targets, RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
-            creep.moveTo(targets, { reusePath: 8, visualizePathStyle: { stroke: '#ffffff' } });
-        }
+        pickup.length > 0 && creep.pickup(pickup[0]) == ERR_NOT_IN_RANGE ? creep.moveTo(pickup[0], { reusePath: 8, visualizePathStyle: { stroke: '#33b446' } }) : (0, _task.taskFindMiner)(creep);
     } else {
-        (0, _task.taskContainer)(creep);
+        (0, _task.taskHarvester)(creep);
     }
 };
 
