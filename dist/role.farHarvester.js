@@ -8,7 +8,13 @@ exports.default = function (creep) {
     var room = 'W81S66';
     var myRoom = Game.spawns['Spawn1'];
     if (creep.carry.energy == 0) {
+        creep.memory.full = false;
+    }
+    if (creep.carry.energy == creep.carryCapacity) {
+        creep.memory.full = true;
+    }
 
+    if (!creep.memory.full) {
         var source = Game.getObjectById('5873bc3511e3e4361b4d7390');
         var miner = creep.pos.findInRange(FIND_MY_CREEPS, 5, { filter: function filter(creepRole) {
                 return creepRole.memory.role == 'farMiner';
@@ -22,7 +28,8 @@ exports.default = function (creep) {
         } else {
             creep.moveTo(miner, {
                 reusePath: 8,
-                visualizePathStyle: { stroke: '#ffffff' } });
+                visualizePathStyle: { stroke: '#ffffff' }
+            });
         }
     } else {
         if (creep.room.name !== myRoom.room.name) {
