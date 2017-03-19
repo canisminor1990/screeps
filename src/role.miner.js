@@ -15,11 +15,16 @@ const roleMiner = {
 			const targets = creep.pos.findInRange(FIND_MY_CREEPS, 1, {
 				filter: tCreep => tCreep.memory.role !== 'miner'
 			});
+			let maxNum = 0, maxName;
 			for (let name in targets) {
 				let num = targets[name].carryCapacity - targets[name].carry.energy;
-				creep.transfer(targets[name], RESOURCE_ENERGY, (num > creep.carry.energy) ? creep.carry.energy : num);
-				creep.say('transfer:'+num)
+				if (num > maxNum) {
+					maxNum = num;
+					maxName = name
+				}
 			}
+			creep.transfer(targets[maxName], RESOURCE_ENERGY, (maxNum > creep.carry.energy) ? creep.carry.energy : maxNum);
+			creep.say('transfer:' + maxNum)
 		}
 	}
 };

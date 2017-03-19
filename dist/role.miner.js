@@ -22,11 +22,17 @@ var roleMiner = {
 					return tCreep.memory.role !== 'miner';
 				}
 			});
+			var maxNum = 0,
+			    maxName = void 0;
 			for (var name in targets) {
 				var num = targets[name].carryCapacity - targets[name].carry.energy;
-				creep.transfer(targets[name], RESOURCE_ENERGY, num > creep.carry.energy ? creep.carry.energy : num);
-				creep.say('transfer:' + num);
+				if (num > maxNum) {
+					maxNum = num;
+					maxName = name;
+				}
 			}
+			creep.transfer(targets[maxName], RESOURCE_ENERGY, maxNum > creep.carry.energy ? creep.carry.energy : maxNum);
+			creep.say('transfer:' + maxNum);
 		}
 	}
 };
