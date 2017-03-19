@@ -25,7 +25,9 @@ module.exports = {
 		var targetsHarvest = mySpawn.room.memory.structures.filter(function (structure) {
 			return (structure.structureType == STRUCTURE_EXTENSION || structure.structureType == STRUCTURE_SPAWN || structure.structureType == STRUCTURE_TOWER || structure.structureType == STRUCTURE_CONTAINER) && structure.energy < structure.energyCapacity;
 		});
-
+		var halfBroken = mySpawn.room.memory.structures(function (structure) {
+			return structure.hits / structure.hitsMax < 0.5;
+		});
 		var targetsBuild = mySpawn.room.memory.constructionSites;
 
 		for (var name in Game.creeps) {
@@ -38,7 +40,7 @@ module.exports = {
 					_role.roleUpgrader.run(creep);
 					break;
 				case 'builder':
-					targetsBuild.length > 0 ? _role.roleBuilder.run(creep, targetsBuild[0]) : _role.roleHarvester.run(creep, targetsHarvest[0]);
+					targetsBuild.length > 0 ? _role.roleBuilder.run(creep, targetsBuild[0], halfBroken[0]) : _role.roleHarvester.run(creep, targetsHarvest[0]);
 					break;
 				case 'miner':
 					_role.roleMiner.run(creep);

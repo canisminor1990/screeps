@@ -16,18 +16,20 @@ module.exports = {
 		mySpawn.room.memory = {
 			structures: mySpawn.room.find(FIND_STRUCTURES),
 			constructionSites: mySpawn.room.find(FIND_CONSTRUCTION_SITES),
-			source : mySpawn.room.find(FIND_SOURCES),
+			source: mySpawn.room.find(FIND_SOURCES),
 			miner: mySpawn.room.find(FIND_MY_CREEPS, {filter: (miner) => miner.memory.role === "miner"})
 		}
 
 		const targetsHarvest = mySpawn.room.memory.structures.filter(structure => (
-				structure.structureType == STRUCTURE_EXTENSION ||
-				structure.structureType == STRUCTURE_SPAWN ||
-				structure.structureType == STRUCTURE_TOWER ||
-				structure.structureType == STRUCTURE_CONTAINER
+						structure.structureType == STRUCTURE_EXTENSION ||
+						structure.structureType == STRUCTURE_SPAWN ||
+						structure.structureType == STRUCTURE_TOWER ||
+						structure.structureType == STRUCTURE_CONTAINER
 				) && structure.energy < structure.energyCapacity
 		)
-
+		const halfBroken = mySpawn.room.memory.structures(structure =>
+				(structure.hits / structure.hitsMax) < 0.5
+		)
 		const targetsBuild = mySpawn.room.memory.constructionSites;
 
 		for (let name in Game.creeps) {
@@ -41,7 +43,7 @@ module.exports = {
 					roleUpgrader.run(creep);
 					break;
 				case 'builder':
-					(targetsBuild.length > 0) ? roleBuilder.run(creep, targetsBuild[0]) : roleHarvester.run(creep, targetsHarvest[0])
+					(targetsBuild.length > 0) ? roleBuilder.run(creep, targetsBuild[0], halfBroken[0]) : roleHarvester.run(creep, targetsHarvest[0])
 					break;
 				case 'miner':
 					roleMiner.run(creep);
