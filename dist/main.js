@@ -26,7 +26,7 @@ module.exports = {
 			return (structure.structureType == STRUCTURE_EXTENSION || structure.structureType == STRUCTURE_SPAWN || structure.structureType == STRUCTURE_TOWER || structure.structureType == STRUCTURE_CONTAINER) && structure.energy < structure.energyCapacity;
 		});
 		var halfBroken = mySpawn.room.memory.structures.filter(function (structure) {
-			return structure.hits / structure.hitsMax < 0.5;
+			return structure.hits / structure.hitsMax < 0.5 && structure.hits < 5000;
 		});
 		var targetsBuild = mySpawn.room.memory.constructionSites;
 

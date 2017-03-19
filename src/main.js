@@ -28,7 +28,7 @@ module.exports = {
 				) && structure.energy < structure.energyCapacity
 		)
 		const halfBroken = mySpawn.room.memory.structures.filter(structure =>
-				(structure.hits / structure.hitsMax) < 0.5
+				(structure.hits / structure.hitsMax) < 0.5 && structure.hits < 5000
 		)
 		const targetsBuild = mySpawn.room.memory.constructionSites;
 
