@@ -31,8 +31,11 @@ var roleMiner = {
 					maxName = name;
 				}
 			}
-			creep.transfer(targets[maxName], RESOURCE_ENERGY, maxNum > creep.carry.energy ? creep.carry.energy : maxNum);
-			creep.say('transfer:' + maxNum);
+
+			if (maxName, maxNum) {
+				creep.transfer(targets[maxName], RESOURCE_ENERGY, maxNum > creep.carry.energy ? creep.carry.energy : maxNum);
+				creep.say('transfer:' + maxNum);
+			}
 		}
 	}
 };
