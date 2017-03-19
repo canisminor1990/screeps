@@ -9,13 +9,6 @@ module.exports = {
 
 	loop: function loop() {
 
-		for (var name in Memory.creeps) {
-			if (!Game.creeps[name]) {
-				delete Memory.creeps[name];
-				console.log('Clearing non-existing creep memory:', name);
-			}
-		}
-
 		(0, _task.taskSpawn)(_role.roleConfig.number, _role.roleConfig.body);
 
 		if (mySpawn.spawning) {
@@ -37,8 +30,8 @@ module.exports = {
 
 		var targetsBuild = mySpawn.room.memory.constructionSites;
 
-		for (var _name in Game.creeps) {
-			var creep = Game.creeps[_name];
+		for (var name in Game.creeps) {
+			var creep = Game.creeps[name];
 
 			switch (creep.memory.role) {
 				case 'harvester':
@@ -48,9 +41,7 @@ module.exports = {
 					_role.roleUpgrader.run(creep);
 					break;
 				case 'builder':
-
 					targetsBuild.length > 0 ? _role.roleBuilder.run(creep, targetsBuild[0]) : _role.roleHarvester.run(creep, targetsHarvest[0]);
-
 					break;
 				case 'miner':
 					_role.roleMiner.run(creep);

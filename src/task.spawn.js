@@ -1,4 +1,13 @@
+const mySpawn = Game.spawns['Spawn1'];
+
 const taskSpawn = (number, body) => {
+
+	for (let name in Memory.creeps) {
+		if (!Game.creeps[name]) {
+			delete Memory.creeps[name];
+			console.log('Clearing non-existing creep memory:', name);
+		}
+	}
 
 	for (let key in number) {
 		const roleSpawn = key;
@@ -18,6 +27,15 @@ const taskSpawn = (number, body) => {
 				             i].join(' '));
 			}
 		}
+	}
+
+	if (mySpawn.spawning) {
+		const spawningCreep = Game.creeps[mySpawn.spawning.name];
+		mySpawn.room.visual.text(
+				'[Spawn]' + spawningCreep.memory.role,
+				mySpawn.pos.x + 1,
+				mySpawn.pos.y,
+				{align: 'left', opacity: 0.8});
 	}
 }
 

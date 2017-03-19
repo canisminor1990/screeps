@@ -5,12 +5,7 @@ module.exports = {
 
 	loop: () => {
 
-		for (let name in Memory.creeps) {
-			if (!Game.creeps[name]) {
-				delete Memory.creeps[name];
-				console.log('Clearing non-existing creep memory:', name);
-			}
-		}
+
 
 		taskSpawn(roleConfig.number, roleConfig.body)
 
@@ -49,9 +44,7 @@ module.exports = {
 					roleUpgrader.run(creep);
 					break;
 				case 'builder':
-
 					(targetsBuild.length > 0) ? roleBuilder.run(creep, targetsBuild[0]) : roleHarvester.run(creep, targetsHarvest[0])
-
 					break;
 				case 'miner':
 					roleMiner.run(creep);
