@@ -25,9 +25,7 @@ module.exports = {
 		)
 
 		const targetsBuild = mySpawn.room.memory.constructionSites;
-
-		for (let name in Game.creeps) {
-			const creep = Game.creeps[name];
+		Game.creeps.forEach(creep => {
 			switch (creep.memory.role) {
 				case 'harvester':
 					(targetsHarvest.length > 0) ?
@@ -43,7 +41,8 @@ module.exports = {
 					roleMiner.run(creep);
 					break;
 			}
-		}
+		})
+
 	}
 
 }
