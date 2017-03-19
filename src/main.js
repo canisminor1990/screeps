@@ -56,7 +56,7 @@ module.exports = {
                     roleMiner.run(creep);
                     break;
                 case 'cleaner':
-                    (targetsPickup.length > 0 ) ? roleMiner.run(creep, targetsHarvest[0], targetsPickup[0]) : roleHarvester.run(creep, targetsHarvest[0])
+                    (targetsPickup.length > 0 ) ? roleCleaner.run(creep, targetsHarvest[0], targetsPickup[0]) : roleHarvester.run(creep, targetsHarvest[0])
                     break;
             }
         }
