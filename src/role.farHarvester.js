@@ -3,8 +3,8 @@ export default (creep) => {
     const myRoom = Game.spawns['Spawn1']
     if (creep.carry.energy < creep.carryCapacity) {
 
-        const source = creep.pos.findClosestByPath(FIND_SOURCES);
-        (creep.harvest(source) == ERR_NOT_IN_RANGE) ? creep.moveTo(new RoomPosition(27, 21, room), {
+        const source = Game.getObjectById('5873bc3511e3e4361b4d7390');
+        (creep.harvest(source) == ERR_NOT_IN_RANGE) ? creep.moveTo(source, {
                 reusePath: 8,
                 visualizePathStyle: {stroke: '#ffffff'}
             }) : null;
