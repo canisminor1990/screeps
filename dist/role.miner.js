@@ -52,8 +52,12 @@ exports.default = function (creep) {
                 }
             })[0];
 
-            if (targetsContainer && creep.transfer(targetsContainer, RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
-                creep.moveTo(targetsContainer, { reusePathL: 8, visualizePathStyle: { stroke: '#ffffff' } });
+            if (targetsContainer) {
+                var cEnergy = targetsContainer.storeCapacity - targetsContainer.store["energy"];
+                if (creep.transfer(targetsContainer, RESOURCE_ENERGY, cEnergy > creep.carry.energy ? creep.carry.energy : cEnergy) == ERR_NOT_IN_RANGE) {
+
+                    creep.moveTo(targetsContainer, { reusePathL: 8, visualizePathStyle: { stroke: '#ffffff' } });
+                }
             }
         }
     }
