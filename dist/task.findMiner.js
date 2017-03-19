@@ -7,7 +7,7 @@ var taskFindMiner = function taskFindMiner(creep) {
 
     var rawSource = creep.room.find(FIND_SOURCES)[creep.memory.source];
     var minerTarget = void 0,
-        minerEnergy = void 0;
+        minerEnergy = 0;
     for (var name in Game.creeps) {
         var miner = Game.creeps[name];
         if (miner.memory.role === 'miner' && creep.memory.source === miner.memory.source) {

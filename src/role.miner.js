@@ -18,3 +18,10 @@ const roleMiner = {
 };
 
 export default roleMiner;
+
+
+// Game.spawns['Spawn1'].room.find(FIND_MY_CREEPS, {
+// 	filter: (creep) => {
+// 		return creep.memory.role === "miner"
+// 	}
+// });
