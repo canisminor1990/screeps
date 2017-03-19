@@ -5,16 +5,16 @@ Object.defineProperty(exports, "__esModule", {
 });
 var roleConfig = {
     number: {
-        harvester: [0, 12],
+        harvester: [0, 8],
         upgrader: [2],
         builder: [0, 2],
         miner: [1, 3]
     },
-    body: {
-        miner: buildBody({ move: 1, work: 2, carry: 2 }), // 350
-        harvester: buildBody({ move: 3, work: 1, carry: 2 }), // 350
-        upgrader: buildBody({ move: 1, work: 2, carry: 2 }), // 350
-        builder: buildBody({ move: 3, work: 1, carry: 2 }) }
+    body: { //300 + 5 * 5 = 550
+        miner: buildBody({ move: 1, work: 4, carry: 2 }), // 3
+        harvester: buildBody({ move: 6, work: 1, carry: 3 }), // 350
+        upgrader: buildBody({ move: 1, work: 4, carry: 2 }), // 350
+        builder: buildBody({ move: 6, work: 1, carry: 3 }) }
 };
 
 /*

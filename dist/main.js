@@ -39,7 +39,7 @@ module.exports = {
                     _role.roleUpgrader.run(creep);
                     break;
                 case 'builder':
-                    _role.roleBuilder.run(creep);
+                    targets.length > 0 ? _role.roleHarvester.run(creep, targets[0]) : _role.roleBuilder.run(creep);
                     break;
                 case 'miner':
                     _role.roleMiner.run(creep);
