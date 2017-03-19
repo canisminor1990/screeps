@@ -43,7 +43,7 @@ module.exports = {
                     structure.tower(structureName);
                     break;
                 case 'container':
-                    targetsHarvest.length == 0 ? structure.container(structureName, targetsHarvest[0]) : null;
+                    targetsHarvest.length == 0 || targetsBuild.length > 0 ? structure.container(structureName) : null;
                     break;
             }
         }
