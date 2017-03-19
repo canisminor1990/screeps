@@ -6,7 +6,14 @@ Object.defineProperty(exports, "__esModule", {
 
 var _task = require('./task');
 
-exports.default = function (creep, targets) {
+exports.default = function (creep) {
+
+    var targets = creep.pos.findClosestByPath(FIND_STRUCTURES, {
+        filter: function filter(structure) {
+            return (structure.structureType == STRUCTURE_EXTENSION || structure.structureType == STRUCTURE_SPAWN || structure.structureType == STRUCTURE_TOWER) && structure.energy < structure.energyCapacity;
+        }
+    });
+
     if (creep.carry.energy < creep.carryCapacity) {
         var pickup = creep.pos.findInRange(FIND_DROPPED_ENERGY, 2);
         if (pickup.length > 0 && creep.pickup(pickup[0]) == ERR_NOT_IN_RANGE) {

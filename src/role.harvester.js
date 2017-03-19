@@ -1,5 +1,14 @@
 import {taskFindMiner} from './task'
-export default (creep, targets) => {
+export default (creep) => {
+
+    const targets = creep.pos.findClosestByPath(FIND_STRUCTURES, {
+        filter: structure => (
+            structure.structureType == STRUCTURE_EXTENSION ||
+            structure.structureType == STRUCTURE_SPAWN ||
+            structure.structureType == STRUCTURE_TOWER
+        ) && structure.energy < structure.energyCapacity
+    })
+
     if (creep.carry.energy < creep.carryCapacity) {
         const pickup = creep.pos.findInRange(FIND_DROPPED_ENERGY, 2);
         if (pickup.length > 0 && creep.pickup(pickup[0]) == ERR_NOT_IN_RANGE) {
