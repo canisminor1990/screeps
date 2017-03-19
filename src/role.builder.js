@@ -3,7 +3,9 @@ import config from './config'
 export default (creep) => {
 
     const targets = creep.pos.findClosestByPath(FIND_CONSTRUCTION_SITES),
-        halfBroken = creep.pos.findInRange(FIND_STRUCTURES, 5, {filter: structure => config.repair(structure) && structure.structureType != STRUCTURE_WALL})[0];
+        halfBroken = creep.pos.findInRange(FIND_STRUCTURES, 5, {
+            filter: structure => config.repair(structure) && structure.structureType != (STRUCTURE_WALL || STRUCTURE_RAMPART)
+        })[0];
 
     if (creep.memory.building && creep.carry.energy == 0) {
         creep.memory.building = false;
