@@ -67,4 +67,13 @@ Object.defineProperty(exports, 'farMiner', {
   }
 });
 
+var _role8 = require('./role.claim');
+
+Object.defineProperty(exports, 'claim', {
+  enumerable: true,
+  get: function get() {
+    return _interopRequireDefault(_role8).default;
+  }
+});
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }

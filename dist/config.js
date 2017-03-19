@@ -5,6 +5,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 var role = {
     number: {
+        claim: [1],
         farMiner: [1],
         farHarvester: [5],
         harvester: [0, 6],
@@ -14,6 +15,7 @@ var role = {
         cleaner: [1]
     },
     body: { //300 + 5 * 5 = 550
+        claim: { move: 1, claim: 1 },
         farMiner: { move: 3, work: 4, carry: 3 }, // 3
         farHarvester: { move: 3, work: 1, carry: 4 }, // 350
         harvester: { move: 3, work: 1, carry: 4 }, // 350
