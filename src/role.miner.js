@@ -3,7 +3,7 @@ const roleMiner = {
 	run: (creep) => {
 		const pickup = creep.pos.findInRange(FIND_DROPPED_ENERGY, 1);
 		if (pickup) {
-			console.log('[Pickup]: ' + creep.pickup(pickup[0]))
+			console.log('[Pickup]: ' + pickup[0] + creep.pickup(pickup[0]))
 		}
 		if (creep.carry.energy < creep.carryCapacity) {
 			const source = mySpawn.room.memory.source[creep.memory.source];
