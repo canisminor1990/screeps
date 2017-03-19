@@ -26,14 +26,12 @@ module.exports = {
 		// Game.spawns['Spawn1'].room.memory = Game.spawns['Spawn1'].room
 		Game.spawns['Spawn1'].room.memory.structures = Game.spawns['Spawn1'].room.find(FIND_STRUCTURES);
 
+		const targetsHarvest = Game.spawns['Spawn1'].room.memory.structures.filter((structure) => {
+			return (structure.structureType == STRUCTURE_EXTENSION ||
+					structure.structureType == STRUCTURE_SPAWN ||
+					structure.structureType == STRUCTURE_TOWER) && structure.energy < structure.energyCapacity;
+		})
 
-		const targetsHarvest = Game.spawns['Spawn1'].room.find(FIND_STRUCTURES, {
-			filter: (structure) => {
-				return (structure.structureType == STRUCTURE_EXTENSION ||
-						structure.structureType == STRUCTURE_SPAWN ||
-						structure.structureType == STRUCTURE_TOWER) && structure.energy < structure.energyCapacity;
-			}
-		});
 		const targetsBuild = Game.spawns['Spawn1'].room.find(FIND_CONSTRUCTION_SITES);
 
 		for (let name in Game.creeps) {
