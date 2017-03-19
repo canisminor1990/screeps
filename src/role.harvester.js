@@ -15,9 +15,12 @@ const roleHarvester = {
                 creep.moveTo(targets, {reusePathL: 8, visualizePathStyle: {stroke: '#ffffff'}});
             }
         } else {
-            const targetsContainer = mySpawn.room.memory.structures.filter(structure => structure.structureType == STRUCTURE_CONTAINER)
-            if (targetsContainer[0] && creep.transfer(targetsContainer[0], RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
-                creep.moveTo(targetsContainer[0], {reusePathL: 8, visualizePathStyle: {stroke: '#ffffff'}});
+            const targetsContainer = mySpawn.room.memory.structures.filter(structure => (
+                    structure.structureType == STRUCTURE_CONTAINER
+                ) && structure.store["energy"] < structure.storeCapacity
+            )[0]
+            if (targetsContainer && creep.transfer(targetsContainer, RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
+                creep.moveTo(targetsContainer, {reusePathL: 8, visualizePathStyle: {stroke: '#ffffff'}});
             }
         }
     }
