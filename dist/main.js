@@ -25,10 +25,11 @@ module.exports = {
 		Game.spawns['Spawn1'].room.memory = Game.spawns['Spawn1'].room;
 		Game.spawns['Spawn1'].room.memory.structures = Game.spawns['Spawn1'].room.find(FIND_STRUCTURES);
 
-		var targetsHarvest = Game.spawns['Spawn1'].room.memory.structures.filter(function (structure) {
-			return (structure.structureType == STRUCTURE_EXTENSION || structure.structureType == STRUCTURE_SPAWN || structure.structureType == STRUCTURE_TOWER) && structure.energy < structure.energyCapacity;
+		var targetsHarvest = Game.spawns['Spawn1'].room.find(FIND_STRUCTURES, {
+			filter: function filter(structure) {
+				return (structure.structureType == STRUCTURE_EXTENSION || structure.structureType == STRUCTURE_SPAWN || structure.structureType == STRUCTURE_TOWER) && structure.energy < structure.energyCapacity;
+			}
 		});
-
 		var targetsBuild = Game.spawns['Spawn1'].room.find(FIND_CONSTRUCTION_SITES);
 
 		for (var _name in Game.creeps) {
