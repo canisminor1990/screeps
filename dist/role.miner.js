@@ -13,7 +13,7 @@ exports.default = function (creep) {
             creep.say('pickup');
         } else {
             creep.harvest(source) == ERR_NOT_IN_RANGE ? creep.moveTo(source, {
-                reusePathL: 8,
+                reusePath: 8,
                 visualizePathStyle: { stroke: '#ffaa00' }
             }) : null;
         }
@@ -49,12 +49,12 @@ exports.default = function (creep) {
                 } })[0];
             if (targetsContainer) {
                 if (creep.transfer(targetsContainer, RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
-                    creep.moveTo(targetsContainer, { reusePathL: 8, visualizePathStyle: { stroke: '#ffffff' } });
+                    creep.moveTo(targetsContainer, { reusePath: 8, visualizePathStyle: { stroke: '#ffffff' } });
                 }
             } else {
                 var targetsBuild = creep.pos.findInRange(FIND_CONSTRUCTION_SITES, 6)[0];
                 if (creep.build(targetsBuild) == ERR_NOT_IN_RANGE) {
-                    creep.moveTo(targetsBuild, { visualizePathStyle: { reusePathL: 8, stroke: '#ffffff' } });
+                    creep.moveTo(targetsBuild, { visualizePathStyle: { reusePath: 8, stroke: '#ffffff' } });
                 }
             }
         }

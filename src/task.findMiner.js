@@ -11,16 +11,16 @@ const taskFindMiner = (creep) => {
         }
 
         if (minerTarget && minerEnergy >= 50) {
-            creep.moveTo(minerTarget, {reusePathL: 8, visualizePathStyle: {stroke: '#ffaa00'}});
+            creep.moveTo(minerTarget, {reusePath: 8, visualizePathStyle: {stroke: '#ffaa00'}});
         } else {
             (creep.harvest(source) == ERR_NOT_IN_RANGE) ? creep.moveTo(source, {
-                    reusePathL: 8,
+                    reusePath: 8,
                     visualizePathStyle: {stroke: '#ffaa00'}
                 }) : null;
         }
     } else {
         const targetsContainer = creep.pos.findClosestByPath(FIND_STRUCTURES, {filter: structure => structure.structureType == STRUCTURE_CONTAINER && structure.store["energy"] > 0})
-        creep.moveTo(targetsContainer, {reusePathL: 8, visualizePathStyle: {stroke: '#ffffff'}});
+        creep.moveTo(targetsContainer, {reusePath: 8, visualizePathStyle: {stroke: '#ffffff'}});
     }
 }
 

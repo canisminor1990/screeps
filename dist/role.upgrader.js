@@ -18,7 +18,7 @@ exports.default = function (creep) {
 
     if (creep.memory.upgrading) {
         var controller = creep.room.controller;
-        creep.moveTo(controller, { reusePathL: 8, visualizePathStyle: { stroke: '#ffffff' } });
+        creep.moveTo(controller, { reusePath: 8, visualizePathStyle: { stroke: '#ffffff' } });
         creep.upgradeController(controller);
     } else {
         (0, _task.taskFindMiner)(creep);

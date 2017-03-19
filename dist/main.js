@@ -52,13 +52,13 @@ module.exports = {
             var creep = Game.creeps[_name];
             switch (creep.memory.role) {
                 case 'harvester':
-                    targetsHarvest.length > 0 || targetsBuild.length == 0 ? role.harvester(creep) : role.builder(creep, targetsBuild[0]);
+                    targetsHarvest.length > 0 || targetsBuild.length == 0 ? role.harvester(creep) : role.builder(creep);
                     break;
                 case 'upgrader':
                     role.upgrader(creep);
                     break;
                 case 'builder':
-                    targetsBuild.length > 0 ? role.builder(creep, targetsBuild[0], halfBroken[0]) : role.harvester(creep);
+                    targetsBuild.length > 0 ? role.builder(creep) : role.harvester(creep);
                     break;
                 case 'miner':
                     role.miner(creep);

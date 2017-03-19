@@ -11,7 +11,7 @@ export default  (creep) => {
 
     if (creep.memory.upgrading) {
         const controller = creep.room.controller
-        creep.moveTo(controller, {reusePathL: 8, visualizePathStyle: {stroke: '#ffffff'}})
+        creep.moveTo(controller, {reusePath: 8, visualizePathStyle: {stroke: '#ffffff'}})
         creep.upgradeController(controller)
     }
     else {
