@@ -5,6 +5,6 @@ export default (creep) => {
         reusePath: 8,
         visualizePathStyle: {stroke: '#ffffff'}
     })
-    console.log(creep.claimController(controller))
+    console.log(creep.reserveController(controller))
 
 }
