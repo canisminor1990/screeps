@@ -11,7 +11,7 @@ exports.default = function (creep) {
 
         if (creep.room.name == room) {
             var source = creep.pos.findClosestByPath(FIND_SOURCES);
-            creep.harvest(source) == ERR_NOT_IN_RANGE ? creep.moveTo(new RoomPosition(27, 21, room), {
+            creep.harvest(source) == ERR_NOT_IN_RANGE ? creep.moveTo(27, 21, {
                 reusePath: 8,
                 visualizePathStyle: { stroke: '#ffffff' }
             }) : null;
