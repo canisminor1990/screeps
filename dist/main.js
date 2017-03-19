@@ -22,7 +22,7 @@ module.exports = {
 			Game.spawns['Spawn1'].room.visual.text('[Spawn]' + spawningCreep.memory.role, Game.spawns['Spawn1'].pos.x + 1, Game.spawns['Spawn1'].pos.y, { align: 'left', opacity: 0.8 });
 		}
 
-		Game.spawns['Spawn1'].room.memory = Game.spawns['Spawn1'].room;
+		// Game.spawns['Spawn1'].room.memory = Game.spawns['Spawn1'].room
 		Game.spawns['Spawn1'].room.memory.structures = Game.spawns['Spawn1'].room.find(FIND_STRUCTURES);
 
 		var targetsHarvest = Game.spawns['Spawn1'].room.find(FIND_STRUCTURES, {

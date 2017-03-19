@@ -23,7 +23,7 @@ module.exports = {
 					{align: 'left', opacity: 0.8});
 		}
 
-		Game.spawns['Spawn1'].room.memory = Game.spawns['Spawn1'].room
+		// Game.spawns['Spawn1'].room.memory = Game.spawns['Spawn1'].room
 		Game.spawns['Spawn1'].room.memory.structures = Game.spawns['Spawn1'].room.find(FIND_STRUCTURES);
 
 
