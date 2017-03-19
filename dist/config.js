@@ -10,7 +10,7 @@ var role = {
         farHarvester: [5],
         harvester: [0, 6],
         upgrader: [2],
-        builder: [0, 2],
+        builder: [0, 3],
         miner: [1, 2],
         cleaner: [1]
     },
