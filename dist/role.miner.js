@@ -25,7 +25,7 @@ exports.default = function (creep) {
                 return tCreep.memory.role !== 'miner';
             }
         });
-        var farTargets = creep.pos.findInRange(FIND_MY_CREEPS, 6, {
+        var farTargets = creep.pos.findInRange(FIND_MY_CREEPS, 4, {
             filter: function filter(tCreep) {
                 return tCreep.memory.role !== 'miner';
             }

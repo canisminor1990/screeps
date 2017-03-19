@@ -18,7 +18,7 @@ export default (creep) => {
         const targets = creep.pos.findInRange(FIND_MY_CREEPS, 1, {
             filter: tCreep => tCreep.memory.role !== 'miner'
         });
-        const farTargets = creep.pos.findInRange(FIND_MY_CREEPS, 6, {
+        const farTargets = creep.pos.findInRange(FIND_MY_CREEPS, 4, {
             filter: tCreep => tCreep.memory.role !== 'miner'
         });
 
