@@ -41,12 +41,6 @@ export default (creep) => {
             )[0]
             if (targetsContainer && creep.transfer(targetsContainer, RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
                 creep.moveTo(targetsContainer, {reusePathL: 8, visualizePathStyle: {stroke: '#ffffff'}});
-            } else {
-                const build = creep.pos.findInRange(FIND_CONSTRUCTION_SITES, 5)[0]
-                if (creep.build(build) == ERR_NOT_IN_RANGE) {
-                    creep.moveTo(build, {visualizePathStyle: {reusePathL: 8, stroke: '#ffffff'}});
-                }
-
             }
         }
     }
