@@ -9,10 +9,9 @@ const taskFindMiner = (creep) => {
             minerEnergy = miner[i].carry.energy
         }
     }
-    if (minerTarget) {
+    if (minerTarget && minerTarget.carry.energy >= 50) {
         creep.moveTo(minerTarget, {reusePathL: 8, visualizePathStyle: {stroke: '#ffaa00'}});
     } else {
-
         const source = mySpawn.room.memory.source[creep.memory.source];
         (creep.harvest(source) == ERR_NOT_IN_RANGE) ? creep.moveTo(source, {
                 reusePathL: 8,
