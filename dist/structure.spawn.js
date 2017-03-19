@@ -4,16 +4,16 @@ Object.defineProperty(exports, "__esModule", {
     value: true
 });
 
-var _role = require('./role.config');
+var _config = require('./config');
 
-var _role2 = _interopRequireDefault(_role);
+var _config2 = _interopRequireDefault(_config);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 exports.default = function (spawn) {
 
-    var number = _role2.default.number,
-        body = _role2.default.body;
+    var number = _config2.default.role.number,
+        body = _config2.default.role.body;
 
     if (spawn.energy >= 300) {
 

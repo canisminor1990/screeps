@@ -4,18 +4,18 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _task = require('./task.spawn');
+var _task = require('./task.findMiner');
 
-Object.defineProperty(exports, 'taskSpawn', {
+Object.defineProperty(exports, 'taskFindMiner', {
   enumerable: true,
   get: function get() {
     return _interopRequireDefault(_task).default;
   }
 });
 
-var _task2 = require('./task.findMiner');
+var _task2 = require('./task.build');
 
-Object.defineProperty(exports, 'taskFindMiner', {
+Object.defineProperty(exports, 'taskBuild', {
   enumerable: true,
   get: function get() {
     return _interopRequireDefault(_task2).default;

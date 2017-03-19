@@ -1,4 +1,4 @@
-const roleConfig = {
+const role = {
     number: {
         harvester: [0, 6],
         upgrader: [2],
@@ -26,4 +26,6 @@ const roleConfig = {
  "claim": 600
  */
 
-export default roleConfig;
+export default {
+    role: role
+};

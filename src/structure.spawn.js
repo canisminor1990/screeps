@@ -1,9 +1,9 @@
-import roleConfig from './role.config';
+import config from './config';
 
 export default (spawn) => {
 
-    const number = roleConfig.number,
-        body = roleConfig.body;
+    const number = config.role.number,
+        body = config.role.body;
 
     if (spawn.energy >= 300) {
 
