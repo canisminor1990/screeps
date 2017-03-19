@@ -43,7 +43,7 @@ module.exports = {
             const creep = Game.creeps[name];
             switch (creep.memory.role) {
                 case 'harvester':
-                    (targetsHarvest.length > 0 ) ?
+                    (targetsHarvest.length > 0 || targetsBuild.length == 0 ) ?
                         roleHarvester.run(creep, targetsHarvest[0]) : roleBuilder.run(creep, targetsBuild[0]);
                     break;
                 case 'upgrader':
