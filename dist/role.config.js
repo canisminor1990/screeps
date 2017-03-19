@@ -9,14 +9,14 @@ var roleConfig = {
         upgrader: [2],
         builder: [0, 2],
         miner: [1, 3],
-        cleanr: [1]
+        cleaner: [1]
     },
     body: { //300 + 5 * 5 = 550
         harvester: { move: 5, work: 1, carry: 3 }, // 350
         upgrader: { move: 1, work: 2, carry: 2 }, // 350
         builder: { move: 3, work: 1, carry: 3 }, // 350
         miner: { move: 1, work: 4, carry: 2 }, // 3
-        cleanr: { move: 5, work: 1, carry: 3 } }
+        cleaner: { move: 5, work: 1, carry: 3 } }
 };
 
 /*
