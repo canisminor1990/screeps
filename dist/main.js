@@ -23,7 +23,9 @@ module.exports = {
 		};
 
 		var targetsHarvest = mySpawn.room.memory.structures.filter(function (structure) {
-			return (structure.structureType == STRUCTURE_EXTENSION || structure.structureType == STRUCTURE_SPAWN || structure.structureType == STRUCTURE_TOWER || structure.structureType == STRUCTURE_CONTAINER) && structure.energy < structure.energyCapacity;
+			return (structure.structureType == STRUCTURE_EXTENSION || structure.structureType == STRUCTURE_SPAWN || structure.structureType == STRUCTURE_TOWER
+			// structure.structureType == STRUCTURE_CONTAINER
+			) && structure.energy < structure.energyCapacity;
 		});
 		var halfBroken = mySpawn.room.memory.structures.filter(function (structure) {
 			return structure.hits / structure.hitsMax < 0.5 && structure.hits < 5000;
@@ -34,7 +36,7 @@ module.exports = {
 			var creep = Game.creeps[name];
 			switch (creep.memory.role) {
 				case 'harvester':
-					targetsHarvest.length > 0 ? _role.roleHarvester.run(creep, targetsHarvest[0]) : _role.roleBuilder.run(creep);
+					targetsHarvest.length > 0 ? _role.roleHarvester.run(creep, targetsHarvest[0]) : _role.roleBuilder.run(creep, targetsBuild[0], halfBroken[0]);
 					break;
 				case 'upgrader':
 					_role.roleUpgrader.run(creep);

@@ -23,8 +23,8 @@ module.exports = {
 		const targetsHarvest = mySpawn.room.memory.structures.filter(structure => (
 						structure.structureType == STRUCTURE_EXTENSION ||
 						structure.structureType == STRUCTURE_SPAWN ||
-						structure.structureType == STRUCTURE_TOWER ||
-						structure.structureType == STRUCTURE_CONTAINER
+						structure.structureType == STRUCTURE_TOWER
+						// structure.structureType == STRUCTURE_CONTAINER
 				) && structure.energy < structure.energyCapacity
 		)
 		const halfBroken = mySpawn.room.memory.structures.filter(structure =>
@@ -37,7 +37,7 @@ module.exports = {
 			switch (creep.memory.role) {
 				case 'harvester':
 					(targetsHarvest.length > 0) ?
-							roleHarvester.run(creep, targetsHarvest[0]) : roleBuilder.run(creep);
+							roleHarvester.run(creep, targetsHarvest[0]) : roleBuilder.run(creep, targetsBuild[0], halfBroken[0]);
 					break;
 				case 'upgrader':
 					roleUpgrader.run(creep);
