@@ -3,15 +3,15 @@
 Object.defineProperty(exports, "__esModule", {
 	value: true
 });
+var mySpawn = Game.spawns['Spawn1'];
+
 var taskFindMiner = function taskFindMiner(creep) {
 	//
 	// const rawSource = creep.room.find(FIND_SOURCES)[creep.memory.source]
 	var minerTarget = void 0,
 	    minerEnergy = 0;
-	var miner = Game.spawns['Spawn1'].room.find(FIND_MY_CREEPS, {
-		filter: function filter(miner) {
-			return miner.memory.role === "miner" && creep.memory.source === miner.memory.source;
-		}
+	var miner = mySpawn.room.memory.miner.filter(function (miner) {
+		return creep.memory.source === miner.memory.source;
 	});
 	for (var i = 0; i < miner.length; i++) {
 		if (minerEnergy < miner[i].carry.energy) {
