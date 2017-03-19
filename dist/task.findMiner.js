@@ -6,11 +6,11 @@ Object.defineProperty(exports, "__esModule", {
 
 
 var taskFindMiner = function taskFindMiner(creep) {
-    var source = mySpawn.room.memory.source[creep.memory.source];
+    var source = creep.room.memory.source[creep.memory.source];
     if (source.energy != 0) {
         var minerTarget = void 0,
             minerEnergy = 0;
-        var miner = mySpawn.room.memory.miner.filter(function (miner) {
+        var miner = creep.room.memory.miner.filter(function (miner) {
             return creep.memory.source === miner.memory.source;
         });
         for (var i = 0; i < miner.length; i++) {

@@ -1,10 +1,10 @@
 
 
 const taskFindMiner = (creep) => {
-    const source = mySpawn.room.memory.source[creep.memory.source];
+    const source = creep.room.memory.source[creep.memory.source];
     if (source.energy != 0) {
         let minerTarget, minerEnergy = 0;
-        const miner = mySpawn.room.memory.miner.filter(miner => creep.memory.source === miner.memory.source)
+        const miner = creep.room.memory.miner.filter(miner => creep.memory.source === miner.memory.source)
         for (let i = 0; i < miner.length; i++) {
             if (minerEnergy < miner[i].carry.energy) {
                 minerTarget = miner[i];
