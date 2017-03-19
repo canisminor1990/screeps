@@ -5,7 +5,6 @@ const roleBuilder = {
 
         if (creep.memory.building && creep.carry.energy == 0) {
             creep.memory.building = false;
-            creep.say('[B]harvest');
         }
         if (!creep.memory.building && creep.carry.energy == creep.carryCapacity) {
             creep.memory.building = true;
