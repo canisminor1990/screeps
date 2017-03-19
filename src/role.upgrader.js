@@ -16,10 +16,7 @@ const roleUpgrader = {
 			creep.moveTo(controller, {visualizePathStyle: {stroke: '#ffffff'}})
 			creep.upgradeController(controller)
 		}
-		else {
-            taskFindMiner(creep)
-		}
-
+		else {taskFindMiner(creep)}
 	}
 };
 

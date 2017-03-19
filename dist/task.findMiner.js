@@ -6,8 +6,6 @@ Object.defineProperty(exports, "__esModule", {
 var mySpawn = Game.spawns['Spawn1'];
 
 var taskFindMiner = function taskFindMiner(creep) {
-	//
-	// const rawSource = creep.room.find(FIND_SOURCES)[creep.memory.source]
 	var minerTarget = void 0,
 	    minerEnergy = 0;
 	var miner = mySpawn.room.memory.miner.filter(function (miner) {

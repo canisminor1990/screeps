@@ -4,11 +4,7 @@ const mySpawn = Game.spawns['Spawn1'];
 module.exports = {
 
 	loop: () => {
-
-
-
 		taskSpawn(roleConfig.number, roleConfig.body)
-
 		if (mySpawn.spawning) {
 			const spawningCreep = Game.creeps[mySpawn.spawning.name];
 			mySpawn.room.visual.text(
@@ -17,13 +13,11 @@ module.exports = {
 					mySpawn.pos.y,
 					{align: 'left', opacity: 0.8});
 		}
-
 		mySpawn.room.memory = {
 			structures: mySpawn.room.find(FIND_STRUCTURES),
 			constructionSites: mySpawn.room.find(FIND_CONSTRUCTION_SITES),
 			miner: mySpawn.room.find(FIND_MY_CREEPS, {filter: (miner) => miner.memory.role === "miner"})
 		}
-
 		const targetsHarvest = mySpawn.room.memory.structures.filter(structure => (
 				structure.structureType == STRUCTURE_EXTENSION ||
 				structure.structureType == STRUCTURE_SPAWN ||
@@ -31,10 +25,7 @@ module.exports = {
 		)
 
 		const targetsBuild = mySpawn.room.memory.constructionSites;
-
-		for (let name in Game.creeps) {
-			const creep = Game.creeps[name];
-
+		Game.creeps.map(creep => {
 			switch (creep.memory.role) {
 				case 'harvester':
 					(targetsHarvest.length > 0) ?
@@ -50,7 +41,7 @@ module.exports = {
 					roleMiner.run(creep);
 					break;
 			}
-		}
+		})
 	}
 
 }
