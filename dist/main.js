@@ -21,8 +21,9 @@ module.exports = {
 					return miner.memory.role === "miner";
 				} })
 		};
+
 		var targetsHarvest = mySpawn.room.memory.structures.filter(function (structure) {
-			return (structure.structureType == STRUCTURE_EXTENSION || structure.structureType == STRUCTURE_SPAWN || structure.structureType == STRUCTURE_TOWER) && structure.energy < structure.energyCapacity;
+			return (structure.structureType == STRUCTURE_EXTENSION || structure.structureType == STRUCTURE_SPAWN || structure.structureType == STRUCTURE_TOWER || structure.structureType == STRUCTURE_CONTAINER) && structure.energy < structure.energyCapacity;
 		});
 
 		var targetsBuild = mySpawn.room.memory.constructionSites;

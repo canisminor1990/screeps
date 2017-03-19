@@ -19,10 +19,13 @@ module.exports = {
 			source : mySpawn.room.find(FIND_SOURCES),
 			miner: mySpawn.room.find(FIND_MY_CREEPS, {filter: (miner) => miner.memory.role === "miner"})
 		}
+
 		const targetsHarvest = mySpawn.room.memory.structures.filter(structure => (
 				structure.structureType == STRUCTURE_EXTENSION ||
 				structure.structureType == STRUCTURE_SPAWN ||
-				structure.structureType == STRUCTURE_TOWER) && structure.energy < structure.energyCapacity
+				structure.structureType == STRUCTURE_TOWER ||
+				structure.structureType == STRUCTURE_CONTAINER
+				) && structure.energy < structure.energyCapacity
 		)
 
 		const targetsBuild = mySpawn.room.memory.constructionSites;
