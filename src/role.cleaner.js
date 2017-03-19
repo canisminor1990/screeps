@@ -1,3 +1,4 @@
+const mySpawn = Game.spawns['Spawn1'];
 const roleCleaner = {
     run: (creep, targets, pickup) => {
 

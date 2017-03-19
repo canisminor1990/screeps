@@ -3,6 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
+var mySpawn = Game.spawns['Spawn1'];
 var roleCleaner = {
     run: function run(creep, targets, pickup) {
 

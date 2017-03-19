@@ -23,7 +23,7 @@ var roleHarvester = {
         } else {
             var targetsContainer = mySpawn.room.memory.structures.filter(function (structure) {
                 return structure.structureType == STRUCTURE_CONTAINER && structure.store < structure.storeCapacity;
-            });
+            })[0];
             if (targetsContainer && creep.transfer(targetsContainer, RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
                 creep.moveTo(targetsContainer, { reusePathL: 8, visualizePathStyle: { stroke: '#ffffff' } });
             }
