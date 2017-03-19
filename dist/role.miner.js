@@ -45,11 +45,18 @@ exports.default = function (creep) {
             creep.transfer(targets[maxName], RESOURCE_ENERGY, maxNum > creep.carry.energy ? creep.carry.energy : maxNum);
             creep.say('transfer:' + maxNum);
         } else if (!farTargets[0]) {
-            var targetsContainer = mySpawn.room.memory.structures.filter(function (structure) {
-                return structure.structureType == STRUCTURE_CONTAINER && structure.store["energy"] < structure.storeCapacity;
-            })[0];
-            if (targetsContainer && creep.transfer(targetsContainer, RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
-                creep.moveTo(targetsContainer, { reusePathL: 8, visualizePathStyle: { stroke: '#ffffff' } });
+            var targetsContainer = creep.pos.findInRange(FIND_STRUCTURES, 6, { filter: function filter(structure) {
+                    return structure.structureType == STRUCTURE_CONTAINER && structure.store["energy"] < structure.storeCapacity;
+                } })[0];
+            if (targetsContainer) {
+                if (creep.transfer(targetsContainer, RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
+                    creep.moveTo(targetsContainer, { reusePathL: 8, visualizePathStyle: { stroke: '#ffffff' } });
+                }
+            } else {
+                var targetsBuild = creep.pos.findInRange(FIND_CONSTRUCTION_SITES, 6)[0];
+                if (creep.build(targetsBuild) == ERR_NOT_IN_RANGE) {
+                    creep.moveTo(targetsBuild, { visualizePathStyle: { reusePathL: 8, stroke: '#ffffff' } });
+                }
             }
         }
     }
