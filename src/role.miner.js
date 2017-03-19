@@ -34,7 +34,7 @@ export default (creep) => {
             creep.say('transfer:' + maxNum)
         }
         else if (!farTargets[0]) {
-            const targetsContainer = creep.pos.findInRange(FIND_STRUCTURES, 6, {filter: (structure => structure.structureType == STRUCTURE_CONTAINER && structure.store["energy"] < structure.storeCapacity)})[0]
+            const targetsContainer = creep.pos.findInRange(FIND_STRUCTURES, 6, {filter: structure => structure.structureType == STRUCTURE_CONTAINER && structure.store["energy"] < structure.storeCapacity})[0]
             if (targetsContainer) {
                 if (creep.transfer(targetsContainer, RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
                     creep.moveTo(targetsContainer, {reusePath: 8, visualizePathStyle: {stroke: '#ffffff'}});
