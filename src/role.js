@@ -5,3 +5,4 @@ export {default as miner} from'./role.miner';
 export {default as cleaner} from'./role.cleaner';
 // far
 export {default as farHarvester} from './role.farHarvester';
+export {default as farMiner} from './role.farMiner';

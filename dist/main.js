@@ -48,6 +48,9 @@ module.exports = {
         for (var _name in Game.creeps) {
             var creep = Game.creeps[_name];
             switch (creep.memory.role) {
+                case 'farMiner':
+                    role.farMiner(creep);
+                    break;
                 case 'farHarvester':
                     role.farHarvester(creep);
                     break;

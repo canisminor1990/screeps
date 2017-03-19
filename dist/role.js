@@ -58,4 +58,13 @@ Object.defineProperty(exports, 'farHarvester', {
   }
 });
 
+var _role7 = require('./role.farMiner');
+
+Object.defineProperty(exports, 'farMiner', {
+  enumerable: true,
+  get: function get() {
+    return _interopRequireDefault(_role7).default;
+  }
+});
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
