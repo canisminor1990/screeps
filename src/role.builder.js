@@ -1,9 +1,9 @@
 import {taskFindMiner} from './task'
-
+import config from './config'
 export default (creep) => {
 
     const targets = creep.pos.findClosestByPath(FIND_CONSTRUCTION_SITES),
-        halfBroken = creep.pos.findInRange(FIND_STRUCTURES, 5, {filter: structure => (structure.hits / structure.hitsMax) < 0.5 && structure.hits < 5000})[0];
+        halfBroken = creep.pos.findInRange(FIND_STRUCTURES, 5, {filter: structure => config.repair(structure)})[0];
 
     if (creep.memory.building && creep.carry.energy == 0) {
         creep.memory.building = false;

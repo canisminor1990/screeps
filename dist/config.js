@@ -33,6 +33,9 @@ var role = {
  */
 
 exports.default = {
-    role: role
+    role: role,
+    repaire: function repaire(structure) {
+        return structure.hits / structure.hitsMax < 0.5 && structure.hits < 8000;
+    }
 };
 module.exports = exports["default"];

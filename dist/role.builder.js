@@ -6,11 +6,17 @@ Object.defineProperty(exports, "__esModule", {
 
 var _task = require('./task');
 
+var _config = require('./config');
+
+var _config2 = _interopRequireDefault(_config);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
 exports.default = function (creep) {
 
     var targets = creep.pos.findClosestByPath(FIND_CONSTRUCTION_SITES),
         halfBroken = creep.pos.findInRange(FIND_STRUCTURES, 5, { filter: function filter(structure) {
-            return structure.hits / structure.hitsMax < 0.5 && structure.hits < 5000;
+            return _config2.default.repair(structure);
         } })[0];
 
     if (creep.memory.building && creep.carry.energy == 0) {
