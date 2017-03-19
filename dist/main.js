@@ -31,7 +31,7 @@ module.exports = {
             var structure = mySpawn.room.memory.structures[name];
             switch (structure.structureType) {
                 case 'spawn':
-                    structureSpawn(structure);
+                    (0, _structure.structureSpawn)(structure);
                     break;
                 case 'tower':
                     (0, _structure.structureTower)(structure);

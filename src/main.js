@@ -1,5 +1,5 @@
 import {roleHarvester, roleUpgrader, roleBuilder, roleMiner, roleCleaner} from './role';
-import {structureTower, structureContainer} from './structure';
+import {structureTower, structureContainer,structureSpawn} from './structure';
 const mySpawn = Game.spawns['Spawn1'];
 module.exports = {
 
