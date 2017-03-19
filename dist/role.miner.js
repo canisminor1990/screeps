@@ -3,12 +3,11 @@
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
-var mySpawn = Game.spawns['Spawn1'];
 
 exports.default = function (creep) {
 
     if (creep.carry.energy < creep.carryCapacity) {
-        var source = mySpawn.room.memory.source[creep.memory.source];
+        var source = creep.room.memory.source[creep.memory.source];
         var pickup = creep.pos.findInRange(FIND_DROPPED_ENERGY, 0);
         if (pickup.length > 0 && creep.pickup(pickup[0]) == OK) {
             creep.say('pickup');

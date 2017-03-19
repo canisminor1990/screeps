@@ -3,7 +3,6 @@
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
-var mySpawn = Game.spawns['Spawn1'];
 
 exports.default = function (creep, targets, pickup) {
 
@@ -20,7 +19,7 @@ exports.default = function (creep, targets, pickup) {
             creep.moveTo(targets, { reusePathL: 8, visualizePathStyle: { stroke: '#ffffff' } });
         }
     } else {
-        var targetsContainer = mySpawn.room.memory.structures.filter(function (structure) {
+        var targetsContainer = creep.room.memory.structures.filter(function (structure) {
             return structure.structureType == STRUCTURE_CONTAINER && structure.store["energy"] < structure.storeCapacity;
         })[0];
         if (targetsContainer && creep.transfer(targetsContainer, RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {

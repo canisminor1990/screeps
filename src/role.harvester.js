@@ -1,6 +1,5 @@
 import {taskFindMiner} from './task'
-const mySpawn = Game.spawns['Spawn1'];
-const roleHarvester = (creep, targets) => {
+export default (creep, targets) => {
     if (creep.carry.energy < creep.carryCapacity) {
         const pickup = creep.pos.findInRange(FIND_DROPPED_ENERGY, 2);
         if (pickup.length > 0 && creep.pickup(pickup[0]) == ERR_NOT_IN_RANGE) {
@@ -14,7 +13,7 @@ const roleHarvester = (creep, targets) => {
             creep.moveTo(targets, {reusePathL: 8, visualizePathStyle: {stroke: '#ffffff'}});
         }
     } else {
-        const targetsContainer = mySpawn.room.memory.structures.filter(structure => (
+        const targetsContainer = creep.room.memory.structures.filter(structure => (
                 structure.structureType == STRUCTURE_CONTAINER
             ) && structure.store["energy"] < structure.storeCapacity
         )[0]
@@ -23,5 +22,3 @@ const roleHarvester = (creep, targets) => {
         }
     }
 }
-
-export default roleHarvester;

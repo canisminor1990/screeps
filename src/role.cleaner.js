@@ -1,5 +1,3 @@
-const mySpawn = Game.spawns['Spawn1'];
-
 export default (creep, targets, pickup) => {
 
     if (!creep.memory.pickup && pickup && creep.carry.energy < creep.carryCapacity) {
@@ -15,7 +13,7 @@ export default (creep, targets, pickup) => {
             creep.moveTo(targets, {reusePathL: 8, visualizePathStyle: {stroke: '#ffffff'}});
         }
     } else {
-        const targetsContainer = mySpawn.room.memory.structures.filter(structure => (
+        const targetsContainer = creep.room.memory.structures.filter(structure => (
                 structure.structureType == STRUCTURE_CONTAINER
             ) && structure.store["energy"] < structure.storeCapacity
         )[0]

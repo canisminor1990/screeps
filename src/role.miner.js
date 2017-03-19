@@ -1,9 +1,7 @@
-const mySpawn = Game.spawns['Spawn1'];
-
 export default (creep) => {
 
     if (creep.carry.energy < creep.carryCapacity) {
-        const source = mySpawn.room.memory.source[creep.memory.source];
+        const source = creep.room.memory.source[creep.memory.source];
         const pickup = creep.pos.findInRange(FIND_DROPPED_ENERGY, 0);
         if (pickup.length > 0 && creep.pickup(pickup[0]) == OK) {
             creep.say('pickup')

@@ -1,5 +1,3 @@
-
-
 const taskFindMiner = (creep) => {
     const source = creep.room.memory.source[creep.memory.source];
     if (source.energy != 0) {

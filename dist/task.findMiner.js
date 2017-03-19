@@ -3,8 +3,6 @@
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
-
-
 var taskFindMiner = function taskFindMiner(creep) {
     var source = creep.room.memory.source[creep.memory.source];
     if (source.energy != 0) {

@@ -6,8 +6,7 @@ Object.defineProperty(exports, "__esModule", {
 
 var _task = require('./task');
 
-var mySpawn = Game.spawns['Spawn1'];
-var roleHarvester = function roleHarvester(creep, targets) {
+exports.default = function (creep, targets) {
     if (creep.carry.energy < creep.carryCapacity) {
         var pickup = creep.pos.findInRange(FIND_DROPPED_ENERGY, 2);
         if (pickup.length > 0 && creep.pickup(pickup[0]) == ERR_NOT_IN_RANGE) {
@@ -20,7 +19,7 @@ var roleHarvester = function roleHarvester(creep, targets) {
             creep.moveTo(targets, { reusePathL: 8, visualizePathStyle: { stroke: '#ffffff' } });
         }
     } else {
-        var targetsContainer = mySpawn.room.memory.structures.filter(function (structure) {
+        var targetsContainer = creep.room.memory.structures.filter(function (structure) {
             return structure.structureType == STRUCTURE_CONTAINER && structure.store["energy"] < structure.storeCapacity;
         })[0];
         if (targetsContainer && creep.transfer(targetsContainer, RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
@@ -29,5 +28,4 @@ var roleHarvester = function roleHarvester(creep, targets) {
     }
 };
 
-exports.default = roleHarvester;
 module.exports = exports['default'];
