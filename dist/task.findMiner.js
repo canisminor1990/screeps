@@ -18,11 +18,14 @@ var taskFindMiner = function taskFindMiner(creep) {
         }
     }
     if (minerTarget) {
-        creep.moveTo(minerTarget, { visualizePathStyle: { stroke: '#ffaa00' } });
+        creep.moveTo(minerTarget, { reusePathL: 8, visualizePathStyle: { stroke: '#ffaa00' } });
     } else {
 
         var source = mySpawn.room.memory.source[creep.memory.source];
-        creep.harvest(source) == ERR_NOT_IN_RANGE ? creep.moveTo(source, { visualizePathStyle: { stroke: '#ffaa00' } }) : null;
+        creep.harvest(source) == ERR_NOT_IN_RANGE ? creep.moveTo(source, {
+            reusePathL: 8,
+            visualizePathStyle: { stroke: '#ffaa00' }
+        }) : null;
     }
 };
 

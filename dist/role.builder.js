@@ -20,11 +20,11 @@ var roleBuilder = {
         if (creep.memory.building) {
             if (halfBroken) {
                 if (creep.repair(halfBroken) == ERR_NOT_IN_RANGE) {
-                    creep.moveTo(halfBroken, { visualizePathStyle: { stroke: '#ffffff' } });
+                    creep.moveTo(halfBroken, { visualizePathStyle: { reusePathL: 8, stroke: '#ffffff' } });
                 }
             } else {
                 if (creep.build(targets) == ERR_NOT_IN_RANGE) {
-                    creep.moveTo(targets, { visualizePathStyle: { stroke: '#ffffff' } });
+                    creep.moveTo(targets, { visualizePathStyle: { reusePathL: 8, stroke: '#ffffff' } });
                 }
             }
         } else {
