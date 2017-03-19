@@ -11,11 +11,9 @@ const roleBuilder = {
 			creep.say('[B]build');
 		}
 
-		if (creep.build(targets) == ERR_NOT_IN_RANGE) {
+		if (creep.memory.building && creep.build(targets) == ERR_NOT_IN_RANGE) {
 			creep.moveTo(targets, {visualizePathStyle: {stroke: '#ffffff'}});
-		}
-
-		else {
+		} else {
 			taskFindMiner(creep)
 		}
 	}
