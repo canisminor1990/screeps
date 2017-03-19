@@ -2,6 +2,8 @@
 
 var _role = require('./role');
 
+var _structure = require('./structure');
+
 var _task = require('./task');
 
 var mySpawn = Game.spawns['Spawn1'];
@@ -35,8 +37,20 @@ module.exports = {
 
         var targetsPickup = mySpawn.room.memory.drop;
 
-        for (var name in Game.creeps) {
-            var creep = Game.creeps[name];
+        for (var name in mySpawn.room.memory.structures) {
+            var structure = mySpawn.room.memory.structures[name];
+            switch (structure.structureType) {
+                case 'tower':
+                    _structure.structureTower.run(structure);
+                    break;
+                case 'conainer':
+                    _structure.structureConainer.run(structure);
+                    break;
+            }
+        }
+
+        for (var _name in Game.creeps) {
+            var creep = Game.creeps[_name];
             switch (creep.memory.role) {
                 case 'harvester':
                     targetsHarvest.length > 0 || targetsBuild.length == 0 ? _role.roleHarvester.run(creep, targetsHarvest[0]) : _role.roleBuilder.run(creep, targetsBuild[0]);

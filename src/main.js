@@ -1,4 +1,5 @@
 import {roleConfig, roleHarvester, roleUpgrader, roleBuilder, roleMiner, roleCleaner} from './role';
+import {structureTower,structureConainer} from './structure';
 import {taskSpawn} from './task';
 const mySpawn = Game.spawns['Spawn1'];
 module.exports = {
@@ -38,6 +39,18 @@ module.exports = {
 
         const targetsPickup = mySpawn.room.memory.drop;
 
+
+        for (let name in mySpawn.room.memory.structures) {
+            const structure = mySpawn.room.memory.structures[name];
+            switch (structure.structureType) {
+                case 'tower':
+                    structureTower.run(structure);
+                    break;
+                case 'conainer':
+                    structureConainer.run(structure);
+                    break;
+            }
+        }
 
         for (let name in Game.creeps) {
             const creep = Game.creeps[name];
