@@ -53,19 +53,19 @@ module.exports = {
             var creep = Game.creeps[_name];
             switch (creep.memory.role) {
                 case 'harvester':
-                    targetsHarvest.length > 0 || targetsBuild.length == 0 ? _role.roleHarvester.run(creep, targetsHarvest[0]) : _role.roleBuilder.run(creep, targetsBuild[0]);
+                    targetsHarvest.length > 0 || targetsBuild.length == 0 ? (0, _role.roleHarvester)(creep, targetsHarvest[0]) : (0, _role.roleBuilder)(creep, targetsBuild[0]);
                     break;
                 case 'upgrader':
-                    _role.roleUpgrader.run(creep);
+                    (0, _role.roleUpgrader)(creep);
                     break;
                 case 'builder':
-                    targetsBuild.length > 0 ? _role.roleBuilder.run(creep, targetsBuild[0], halfBroken[0]) : _role.roleHarvester.run(creep, targetsHarvest[0]);
+                    targetsBuild.length > 0 ? (0, _role.roleBuilder)(creep, targetsBuild[0], halfBroken[0]) : (0, _role.roleHarvester)(creep, targetsHarvest[0]);
                     break;
                 case 'miner':
-                    _role.roleMiner.run(creep);
+                    (0, _role.roleMiner)(creep);
                     break;
                 case 'cleaner':
-                    targetsPickup.length > 0 ? _role.roleCleaner.run(creep, targetsHarvest[0], targetsPickup[0]) : _role.roleHarvester.run(creep, targetsHarvest[0]);
+                    targetsPickup.length > 0 ? (0, _role.roleCleaner)(creep, targetsHarvest[0], targetsPickup[0]) : (0, _role.roleHarvester)(creep, targetsHarvest[0]);
                     break;
             }
         }

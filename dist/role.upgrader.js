@@ -6,26 +6,23 @@ Object.defineProperty(exports, "__esModule", {
 
 var _task = require('./task');
 
-var roleUpgrader = {
-    run: function run(creep) {
+exports.default = function (creep) {
 
-        if (creep.memory.upgrading && creep.carry.energy == 0) {
-            creep.memory.upgrading = false;
-        }
-        if (!creep.memory.upgrading && creep.carry.energy > 50) {
-            creep.memory.upgrading = true;
-            creep.say('[U]upgrade');
-        }
+    if (creep.memory.upgrading && creep.carry.energy == 0) {
+        creep.memory.upgrading = false;
+    }
+    if (!creep.memory.upgrading && creep.carry.energy > 50) {
+        creep.memory.upgrading = true;
+        creep.say('[U]upgrade');
+    }
 
-        if (creep.memory.upgrading) {
-            var controller = creep.room.controller;
-            creep.moveTo(controller, { reusePathL: 8, visualizePathStyle: { stroke: '#ffffff' } });
-            creep.upgradeController(controller);
-        } else {
-            (0, _task.taskFindMiner)(creep);
-        }
+    if (creep.memory.upgrading) {
+        var controller = creep.room.controller;
+        creep.moveTo(controller, { reusePathL: 8, visualizePathStyle: { stroke: '#ffffff' } });
+        creep.upgradeController(controller);
+    } else {
+        (0, _task.taskFindMiner)(creep);
     }
 };
 
-exports.default = roleUpgrader;
 module.exports = exports['default'];

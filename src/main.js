@@ -57,19 +57,19 @@ module.exports = {
             switch (creep.memory.role) {
                 case 'harvester':
                     (targetsHarvest.length > 0 || targetsBuild.length == 0 ) ?
-                        roleHarvester.run(creep, targetsHarvest[0]) : roleBuilder.run(creep, targetsBuild[0]);
+                        roleHarvester(creep, targetsHarvest[0]) : roleBuilder(creep, targetsBuild[0]);
                     break;
                 case 'upgrader':
-                    roleUpgrader.run(creep);
+                    roleUpgrader(creep);
                     break;
                 case 'builder':
-                    (targetsBuild.length > 0) ? roleBuilder.run(creep, targetsBuild[0], halfBroken[0]) : roleHarvester.run(creep, targetsHarvest[0])
+                    (targetsBuild.length > 0) ? roleBuilder(creep, targetsBuild[0], halfBroken[0]) : roleHarvester(creep, targetsHarvest[0])
                     break;
                 case 'miner':
-                    roleMiner.run(creep);
+                    roleMiner(creep);
                     break;
                 case 'cleaner':
-                    (targetsPickup.length > 0 ) ? roleCleaner.run(creep, targetsHarvest[0], targetsPickup[0]) : roleHarvester.run(creep, targetsHarvest[0])
+                    (targetsPickup.length > 0 ) ? roleCleaner(creep, targetsHarvest[0], targetsPickup[0]) : roleHarvester(creep, targetsHarvest[0])
                     break;
             }
         }
