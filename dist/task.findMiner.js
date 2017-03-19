@@ -5,7 +5,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 var taskFindMiner = function taskFindMiner(creep) {
     var source = creep.room.memory.source[creep.memory.source];
-    if (source.energy != 0) {
+    if (source.energy > 0) {
         var minerTarget = void 0,
             minerEnergy = 0;
         var miner = creep.room.memory.miner.filter(function (miner) {
@@ -27,9 +27,9 @@ var taskFindMiner = function taskFindMiner(creep) {
             }) : null;
         }
     } else {
-        var targetsContainer = creep.room.memory.structures.filter(function (structure) {
-            return structure.structureType == STRUCTURE_CONTAINER && structure.store["energy"] > 0;
-        })[0];
+        var targetsContainer = creep.pos.findClosestByPath(FIND_STRUCTURES, { filter: function filter(structure) {
+                return structure.structureType == STRUCTURE_CONTAINER && structure.store["energy"] > 0;
+            } });
         creep.moveTo(targetsContainer, { reusePathL: 8, visualizePathStyle: { stroke: '#ffffff' } });
     }
 };
