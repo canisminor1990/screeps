@@ -145,8 +145,9 @@ var mySpawn = Game.spawns['Spawn1'];
 
 module.exports.loop = function () {
 
+    console.log(0);
     (0, _Timer2.default)(5, function () {
-        "use strict";
+        console.log(1);
     });
 
     mySpawn.room.memory = {

@@ -7,12 +7,9 @@ const mySpawn = Game.spawns['Spawn1'];
 
 module.exports.loop = () => {
 
-
+    console.log(0)
     Timer(5,() => {
-        "use strict";
-
-
-
+       console.log(1)
     })
 
     mySpawn.room.memory = {
