@@ -5,12 +5,7 @@ import {Timer} from './_util/Timer'
 
 const mySpawn = Game.spawns['Spawn1'];
 
-let timer = new Timer(2, ()=>console.log(2));
-module.exports.loop = () => {
-    console.log(0)
-    timer.run()
-
-
+let root = new Timer(2, ()=>{
     mySpawn.room.memory = {
         structures: mySpawn.room.find(FIND_STRUCTURES),
         constructionSites: mySpawn.room.find(FIND_CONSTRUCTION_SITES),
@@ -18,6 +13,14 @@ module.exports.loop = () => {
         miner: mySpawn.room.find(FIND_MY_CREEPS, {filter: (miner) => miner.memory.role === "miner"}),
         drop: mySpawn.room.find(FIND_DROPPED_ENERGY)
     }
+});
+
+
+
+
+module.exports.loop = () => {
+
+    root.run()
 
 
     const targetsHarvest = mySpawn.room.memory.structures.filter(structure =>
