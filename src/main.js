@@ -1,7 +1,7 @@
 import 'screeps-perf';
 import * as role from './role';
 import * as structure from './structure';
-import {Timer} from './_util/Timer'
+import Timer from './_util/Timer'
 const mySpawn = Game.spawns['Spawn1'];
 
 

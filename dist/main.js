@@ -135,6 +135,10 @@ var structure = _interopRequireWildcard(_structure);
 
 var _Timer = __webpack_require__(5);
 
+var _Timer2 = _interopRequireDefault(_Timer);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
 var mySpawn = Game.spawns['Spawn1'];
@@ -147,7 +151,7 @@ module.exports.loop = function () {
     var targetsBuild = mySpawn.room.memory.constructionSites;
     var targetsPickup = mySpawn.room.memory.drop;
 
-    (0, _Timer.Timer)(5, function () {
+    (0, _Timer2.default)(5, function () {
         "use strict";
 
         mySpawn.room.memory = {
