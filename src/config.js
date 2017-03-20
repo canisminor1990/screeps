@@ -4,7 +4,7 @@ const role = {
         farMiner: [1],
         farHarvester: [5],
         harvester: [0, 6],
-        upgrader: [2],
+        upgrader: [3],
         builder: [0, 3],
         miner: [1, 2],
         cleaner: [1],
