@@ -147,7 +147,7 @@ module.exports.loop = function () {
     var targetsBuild = mySpawn.room.memory.constructionSites;
     var targetsPickup = mySpawn.room.memory.drop;
 
-    _Timer.Timer.run(5, function () {
+    (0, _Timer.Timer)(5, function () {
         "use strict";
 
         mySpawn.room.memory = {

@@ -18,7 +18,7 @@ module.exports.loop = () => {
     const targetsBuild = mySpawn.room.memory.constructionSites;
     const targetsPickup = mySpawn.room.memory.drop;
 
-    Timer.run(5,() => {
+    Timer(5,() => {
         "use strict";
         mySpawn.room.memory = {
             structures: mySpawn.room.find(FIND_STRUCTURES),
