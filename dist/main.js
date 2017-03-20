@@ -432,10 +432,7 @@ var Timer = exports.Timer = function () {
 
         this.tick = tick;
         this.func = func;
-        Memory.timer = {
-            tick: tick,
-            timeout: Game.time
-        };
+        Memory.timer[tick] = Game.time;
     }
 
     _createClass(Timer, [{
