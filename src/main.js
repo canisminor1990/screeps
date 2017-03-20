@@ -5,16 +5,13 @@ import {Timer} from './_util/Timer'
 
 const mySpawn = Game.spawns['Spawn1'];
 
-let root = new Timer(2, ()=>{
 
-});
 
 
 
 
 module.exports.loop = () => {
 
-    root.run()
     mySpawn.room.memory = {
         structures: mySpawn.room.find(FIND_STRUCTURES),
         constructionSites: mySpawn.room.find(FIND_CONSTRUCTION_SITES),
