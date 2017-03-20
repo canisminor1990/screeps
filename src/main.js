@@ -21,7 +21,12 @@ module.exports = {
 		)
 		const targetsBuild   = mySpawn.room.memory.constructionSites;
 		const targetsPickup  = mySpawn.room.memory.drop;
-
+		console.log([
+			            '[Log]',
+			            'Harvest:', targetsHarvest.length,
+			            'Build:', targetsBuild.length,
+		              'Pickup:',targetsPickup.length,
+		            ].join(' '))
 		for (let name in mySpawn.room.memory.structures) {
 			const structureName = mySpawn.room.memory.structures[name];
 			switch (structureName.structureType) {
@@ -33,7 +38,6 @@ module.exports = {
 					break;
 				case 'container':
 					structure.container(structureName, targetsHarvest.length, targetsBuild.length)
-
 					break;
 			}
 		}
