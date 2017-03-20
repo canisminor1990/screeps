@@ -421,30 +421,12 @@ Object.defineProperty(exports, "__esModule", {
     value: true
 });
 
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-var Timer = exports.Timer = function () {
-    function Timer(tick, func) {
-        _classCallCheck(this, Timer);
-
-        this.tick = tick;
-        this.func = func;
-        this.last = Game.time;
-    }
-
-    _createClass(Timer, [{
-        key: "run",
-        value: function run() {
-            if (Game.time - this.last < this.tick) return;
-            this.last = Game.time;
-            this.func(this);
-        }
-    }]);
-
-    return Timer;
-}();
+exports.default = function (tick, func) {
+    var last = Game.time;
+    if (Game.time - last < tick) return;
+    func;
+    last = Game.time;
+};
 
 /***/ }),
 /* 6 */
