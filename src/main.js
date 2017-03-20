@@ -3,9 +3,10 @@ import * as role from './role';
 import * as structure from './structure';
 const mySpawn = Game.spawns['Spawn1'];
 
-let a = 0
+let a = {b: 0}
 module.exports.loop = () => {
-    console.log(Game.time,a++)
+    a.b++
+    console.log(Game.time,JSON.stringify(a))
 
 
     mySpawn.room.memory = {
