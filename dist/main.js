@@ -269,17 +269,16 @@ Object.defineProperty(exports, "__esModule", {
 exports.default = function (creep) {
 	"use strict";
 
-	var targetsContainer = creep.pos.findClosestByPath(FIND_STRUCTURES, { filter: function filter(structure) {
+	var targetsContainer = creep.pos.findClosestByPath(FIND_STRUCTURES, {
+		filter: function filter(structure) {
 			return structure.structureType == STRUCTURE_CONTAINER && structure.store["energy"] < structure.storeCapacity;
-		} });
-	if (targetsContainer) {
-		if (creep.transfer(targetsContainer, RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
-			creep.moveTo(targetsContainer, { reusePath: 8, visualizePathStyle: { stroke: '#3f51b5' } });
 		}
+	});
+	if (targetsContainer) {
+		creep.transfer(targetsContainer, RESOURCE_ENERGY) == ERR_NOT_IN_RANGE ? creep.moveTo(targetsContainer, { reusePath: 8, visualizePathStyle: { stroke: '#3f51b5' } }) : null;
 	} else {
 		var controller = creep.room.controller;
-		creep.moveTo(controller, { reusePath: 8, visualizePathStyle: { stroke: '#ffffff' } });
-		creep.upgradeController(controller);
+		creep.upgradeController(controller) == ERR_NOT_IN_RANGE ? creep.moveTo(controller, { reusePath: 8, visualizePathStyle: { stroke: '#ffffff' } }) : null;
 	}
 };
 
