@@ -139,7 +139,11 @@ function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj;
 
 var mySpawn = Game.spawns['Spawn1'];
 
-var root = new _Timer.Timer(2, function () {
+var root = new _Timer.Timer(2, function () {});
+
+module.exports.loop = function () {
+
+    root.run();
     mySpawn.room.memory = {
         structures: mySpawn.room.find(FIND_STRUCTURES),
         constructionSites: mySpawn.room.find(FIND_CONSTRUCTION_SITES),
@@ -149,11 +153,6 @@ var root = new _Timer.Timer(2, function () {
             } }),
         drop: mySpawn.room.find(FIND_DROPPED_ENERGY)
     };
-});
-
-module.exports.loop = function () {
-
-    root.run();
 
     var targetsHarvest = mySpawn.room.memory.structures.filter(function (structure) {
         return (structure.structureType == STRUCTURE_EXTENSION || structure.structureType == STRUCTURE_SPAWN || structure.structureType == STRUCTURE_TOWER) && structure.energy < structure.energyCapacity;
