@@ -2,6 +2,7 @@ export default (container, targetsHarvest, targetsBuild) => {
 
 	let targets = container.pos.findInRange(FIND_MY_CREEPS, 2, {
 		filter: creep =>
+		creep.carry.energy < creep.carryCapacity &&
 		creep.memory.role !== 'miner' &&
 		creep.memory.role !== 'cleaner'
 	});
@@ -17,7 +18,6 @@ export default (container, targetsHarvest, targetsBuild) => {
 	}
 
 	if (targets[0]) {
-		console.log(targets[0])
 		if (container.transfer(targets[0], RESOURCE_ENERGY) == OK) {
 			container.room.visual.text(
 				'[Transfer]',

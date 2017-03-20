@@ -855,7 +855,7 @@ exports.default = function (container, targetsHarvest, targetsBuild) {
 
 	var targets = container.pos.findInRange(FIND_MY_CREEPS, 2, {
 		filter: function filter(creep) {
-			return creep.memory.role !== 'miner' && creep.memory.role !== 'cleaner';
+			return creep.carry.energy < creep.carryCapacity && creep.memory.role !== 'miner' && creep.memory.role !== 'cleaner';
 		}
 	});
 
@@ -872,7 +872,6 @@ exports.default = function (container, targetsHarvest, targetsBuild) {
 	}
 
 	if (targets[0]) {
-		console.log(targets[0]);
 		if (container.transfer(targets[0], RESOURCE_ENERGY) == OK) {
 			container.room.visual.text('[Transfer]', container.pos.x + 1, container.pos.y, { align: 'left', opacity: 0.8 });
 		}
