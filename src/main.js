@@ -1,24 +1,23 @@
 import 'screeps-perf';
 import * as role from './role';
 import * as structure from './structure';
-import {Timer} from './_util/Timer'
+import {Loop} from './_util/Loop'
 
 const mySpawn = Game.spawns['Spawn1'];
 
 
-
+let loop =
+    new Loop()
+        .start(() => console.log('Started!'))
+        .tick(() => timing = {})
+        .every(2, () => timing[2] = true)
+        .every(5, () => timing[5] = true)
+        .getLoop();
 
 
 
 module.exports.loop = () => {
-
-    mySpawn.room.memory = {
-        structures: mySpawn.room.find(FIND_STRUCTURES),
-        constructionSites: mySpawn.room.find(FIND_CONSTRUCTION_SITES),
-        source: mySpawn.room.find(FIND_SOURCES),
-        miner: mySpawn.room.find(FIND_MY_CREEPS, {filter: (miner) => miner.memory.role === "miner"}),
-        drop: mySpawn.room.find(FIND_DROPPED_ENERGY)
-    }
+    loop();
 
     const targetsHarvest = mySpawn.room.memory.structures.filter(structure =>
         (
@@ -31,7 +30,7 @@ module.exports.loop = () => {
     const targetsPickup = mySpawn.room.memory.drop;
 
 
-    console.log([
+    if (timing[2])  console.log([
         '[Log]',
         'Harvest:', targetsHarvest.length,
         'Build:', targetsBuild.length,
