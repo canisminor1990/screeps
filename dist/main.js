@@ -849,30 +849,21 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 
 Object.defineProperty(exports, "__esModule", {
-    value: true
+	value: true
 });
 
 exports.default = function (container, targetsHarvest, targetsBuild) {
 
-    var targets = container.pos.findInRange(FIND_MY_CREEPS, 1, {
-        filter: function filter(tCreep) {
-            return tCreep.memory.role !== 'miner' && tCreep.memory.role !== 'cleaner' && ((targetsHarvest = 0) ? tCreep.memory.role !== 'harvester' && tCreep.memory.role !== 'farHarvester' : null) && ((targetsBuild = 0) ? tCreep.memory.role !== 'builder' : null);
-        }
-    });
+	var targets = container.pos.findInRange(FIND_MY_CREEPS, 1, {
+		filter: function filter(tCreep) {
+			return tCreep.memory.role !== 'miner' && tCreep.memory.role !== 'cleaner' && ((targetsHarvest = 0) ? tCreep.memory.role !== 'harvester' && tCreep.memory.role !== 'farHarvester' : null) && ((targetsBuild = 0) ? tCreep.memory.role !== 'builder' : null);
+		}
+	})[0];
 
-    var maxNum = 0,
-        maxName = void 0;
-    for (var name in targets) {
-        var num = targets[name].carryCapacity - targets[name].carry.energy;
-        if (num > maxNum) {
-            maxNum = num;
-            maxName = name;
-        }
-    }
-    if (maxName, maxNum != 0) {
-        container.transfer(targets[maxName], RESOURCE_ENERGY, maxNum > container.store['energy'] ? container.store['energy'] : maxNum);
-        container.room.visual.text('[Transfer]' + maxNum, container.pos.x + 1, container.pos.y, { align: 'left', opacity: 0.8 });
-    }
+	if (targets) {
+		container.transfer(targets, RESOURCE_ENERGY);
+		container.room.visual.text('[Transfer]', container.pos.x + 1, container.pos.y, { align: 'left', opacity: 0.8 });
+	}
 };
 
 /***/ }),
