@@ -1,6 +1,6 @@
 export default (container, targetsHarvest, targetsBuild) => {
 
-	const targets = container.pos.findInRange(FIND_MY_CREEPS, 1, {
+	const targets = container.pos.findInRange(FIND_MY_CREEPS, 2, {
 		filter: tCreep =>
 		tCreep.memory.role !== 'miner' &&
 		tCreep.memory.role !== 'cleaner' &&
