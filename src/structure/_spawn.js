@@ -8,7 +8,7 @@ export default (spawn) => {
 	for (let name in Memory.creeps) {
 		if (!Game.creeps[name]) {
 			delete Memory.creeps[name];
-			console.log('[Clean] ', name);
+			console.log(['[Clean]', name].join(' '));
 		}
 	}
 
