@@ -6,8 +6,10 @@ const mySpawn = Game.spawns['Spawn1'];
 let a = 0
 
 module.exports.loop = () => {
-    let b = a
-    console.log(b, a++)
+    let b = a;
+    a++;
+
+    console.log(Game.time,a,b)
 
 
     mySpawn.room.memory = {

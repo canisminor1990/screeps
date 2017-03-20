@@ -141,7 +141,9 @@ var a = 0;
 
 module.exports.loop = function () {
     var b = a;
-    console.log(b, a++);
+    a++;
+
+    console.log(Game.time, a, b);
 
     mySpawn.room.memory = {
         structures: mySpawn.room.find(FIND_STRUCTURES),
