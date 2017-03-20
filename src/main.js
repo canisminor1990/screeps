@@ -1,21 +1,13 @@
 import 'screeps-perf';
 import * as role from './role';
 import * as structure from './structure';
+import {Timer} from './_util/Timer'
 const mySpawn = Game.spawns['Spawn1'];
 
-let a = {b: 0}
+
 module.exports.loop = () => {
-    a.b++
-    console.log(Game.time,JSON.stringify(a))
 
 
-    mySpawn.room.memory = {
-        structures: mySpawn.room.find(FIND_STRUCTURES),
-        constructionSites: mySpawn.room.find(FIND_CONSTRUCTION_SITES),
-        source: mySpawn.room.find(FIND_SOURCES),
-        miner: mySpawn.room.find(FIND_MY_CREEPS, {filter: (miner) => miner.memory.role === "miner"}),
-        drop: mySpawn.room.find(FIND_DROPPED_ENERGY)
-    }
     const targetsHarvest = mySpawn.room.memory.structures.filter(structure =>
         (
             structure.structureType == STRUCTURE_EXTENSION ||
@@ -25,12 +17,28 @@ module.exports.loop = () => {
     )
     const targetsBuild = mySpawn.room.memory.constructionSites;
     const targetsPickup = mySpawn.room.memory.drop;
-    // console.log([
-    //     '[Log]',
-    //     'Harvest:', targetsHarvest.length,
-    //     'Build:', targetsBuild.length,
-    //     'Pickup:', targetsPickup.length,
-    // ].join(' '))
+
+    Timer.run(5,() => {
+        "use strict";
+        mySpawn.room.memory = {
+            structures: mySpawn.room.find(FIND_STRUCTURES),
+            constructionSites: mySpawn.room.find(FIND_CONSTRUCTION_SITES),
+            source: mySpawn.room.find(FIND_SOURCES),
+            miner: mySpawn.room.find(FIND_MY_CREEPS, {filter: (miner) => miner.memory.role === "miner"}),
+            drop: mySpawn.room.find(FIND_DROPPED_ENERGY)
+        }
+
+        console.log([
+            '[Log]',
+            'Harvest:', targetsHarvest.length,
+            'Build:', targetsBuild.length,
+            'Pickup:', targetsPickup.length,
+        ].join(' '))
+
+    })
+
+
+
     for (let name in mySpawn.room.memory.structures) {
         const structureName = mySpawn.room.memory.structures[name];
         switch (structureName.structureType) {
