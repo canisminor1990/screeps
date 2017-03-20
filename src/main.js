@@ -7,7 +7,7 @@ const mySpawn = Game.spawns['Spawn1'];
 
 
 module.exports.loop = () => {
-    if (Timer(2)) {
+
         mySpawn.room.memory = {
             structures: mySpawn.room.find(FIND_STRUCTURES),
             constructionSites: mySpawn.room.find(FIND_CONSTRUCTION_SITES),
@@ -15,8 +15,6 @@ module.exports.loop = () => {
             miner: mySpawn.room.find(FIND_MY_CREEPS, {filter: (miner) => miner.memory.role === "miner"}),
             drop: mySpawn.room.find(FIND_DROPPED_ENERGY)
         }
-    }
-
 
     const targetsHarvest = mySpawn.room.memory.structures.filter(structure =>
         (

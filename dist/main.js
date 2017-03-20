@@ -140,17 +140,16 @@ function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj;
 var mySpawn = Game.spawns['Spawn1'];
 
 module.exports.loop = function () {
-    if ((0, _util.Timer)(2)) {
-        mySpawn.room.memory = {
-            structures: mySpawn.room.find(FIND_STRUCTURES),
-            constructionSites: mySpawn.room.find(FIND_CONSTRUCTION_SITES),
-            source: mySpawn.room.find(FIND_SOURCES),
-            miner: mySpawn.room.find(FIND_MY_CREEPS, { filter: function filter(miner) {
-                    return miner.memory.role === "miner";
-                } }),
-            drop: mySpawn.room.find(FIND_DROPPED_ENERGY)
-        };
-    }
+
+    mySpawn.room.memory = {
+        structures: mySpawn.room.find(FIND_STRUCTURES),
+        constructionSites: mySpawn.room.find(FIND_CONSTRUCTION_SITES),
+        source: mySpawn.room.find(FIND_SOURCES),
+        miner: mySpawn.room.find(FIND_MY_CREEPS, { filter: function filter(miner) {
+                return miner.memory.role === "miner";
+            } }),
+        drop: mySpawn.room.find(FIND_DROPPED_ENERGY)
+    };
 
     var targetsHarvest = mySpawn.room.memory.structures.filter(function (structure) {
         return (structure.structureType == STRUCTURE_EXTENSION || structure.structureType == STRUCTURE_SPAWN || structure.structureType == STRUCTURE_TOWER) && structure.energy < structure.energyCapacity;
