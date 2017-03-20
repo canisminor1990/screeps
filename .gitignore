@@ -7,5 +7,9 @@
 .DS_Store
 npm-debug.log*
 
+screeps-multimeter.json
+.screeps-multimeter.history
+
 /temp
 /temp_rou
+
