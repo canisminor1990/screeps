@@ -1,4 +1,4 @@
-import { taskHarvester } from './task'
+import { taskHarvester } from '../task'
 export default (creep) => {
 	const room   = 'W81S66';
 	const myRoom = Game.spawns['Spawn1']

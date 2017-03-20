@@ -1,4 +1,4 @@
-import config from './config'
+import config from '../config'
 export default (tower) => {
     if (tower.energy > 0) {
         const closestDamagedStructure = tower.pos.findClosestByRange(FIND_STRUCTURES, {filter: structure => config.repair(structure)});
