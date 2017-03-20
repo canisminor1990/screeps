@@ -1,20 +1,20 @@
 import 'screeps-perf';
 import * as role from './role';
 import * as structure from './structure';
-import {Timer} from './_util'
+import {Timer,Build} from './_util'
 
 const mySpawn = Game.spawns['Spawn1'];
 
 
 module.exports.loop = () => {
 
-        mySpawn.room.memory = {
-            structures: mySpawn.room.find(FIND_STRUCTURES),
-            constructionSites: mySpawn.room.find(FIND_CONSTRUCTION_SITES),
-            source: mySpawn.room.find(FIND_SOURCES),
-            miner: mySpawn.room.find(FIND_MY_CREEPS, {filter: (miner) => miner.memory.role === "miner"}),
-            drop: mySpawn.room.find(FIND_DROPPED_ENERGY)
-        }
+    mySpawn.room.memory = {
+        structures: mySpawn.room.find(FIND_STRUCTURES),
+        constructionSites: mySpawn.room.find(FIND_CONSTRUCTION_SITES),
+        source: mySpawn.room.find(FIND_SOURCES),
+        miner: mySpawn.room.find(FIND_MY_CREEPS, {filter: (miner) => miner.memory.role === "miner"}),
+        drop: mySpawn.room.find(FIND_DROPPED_ENERGY)
+    }
 
     const targetsHarvest = mySpawn.room.memory.structures.filter(structure =>
         (
@@ -72,7 +72,15 @@ module.exports.loop = () => {
         }
     }
 
-    if (Timer(5)) {
+    if (Timer(10)) {
+        if (Game.getObjectById('5873bc3511e3e4361b4d7392').level == 4) {
+            Build(23, 15, 'storage')
+            Build(16, 15, 'extension')
+            Build(17, 15, 'extension')
+            Build(18, 16, 'extension')
+            Build(17, 16, 'extension')
+            Build(23, 16, 'extension')
+        }
         console.log([
             '[Log]',
             'Harvest:', targetsHarvest.length,

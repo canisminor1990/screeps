@@ -87,15 +87,6 @@ Object.defineProperty(exports, 'taskFindMiner', {
   }
 });
 
-var _build = __webpack_require__(20);
-
-Object.defineProperty(exports, 'taskBuild', {
-  enumerable: true,
-  get: function get() {
-    return _interopRequireDefault(_build).default;
-  }
-});
-
 var _container = __webpack_require__(3);
 
 Object.defineProperty(exports, 'taskContainer', {
@@ -125,15 +116,15 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 __webpack_require__(4);
 
-var _role = __webpack_require__(15);
+var _role = __webpack_require__(16);
 
 var role = _interopRequireWildcard(_role);
 
-var _structure = __webpack_require__(19);
+var _structure = __webpack_require__(20);
 
 var structure = _interopRequireWildcard(_structure);
 
-var _util = __webpack_require__(6);
+var _util = __webpack_require__(7);
 
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
@@ -202,7 +193,15 @@ module.exports.loop = function () {
         }
     }
 
-    if ((0, _util.Timer)(5)) {
+    if ((0, _util.Timer)(10)) {
+        if (Game.getObjectById('5873bc3511e3e4361b4d7392').level == 4) {
+            (0, _util.Build)(23, 15, 'storage');
+            (0, _util.Build)(16, 15, 'extension');
+            (0, _util.Build)(17, 15, 'extension');
+            (0, _util.Build)(18, 16, 'extension');
+            (0, _util.Build)(17, 16, 'extension');
+            (0, _util.Build)(23, 16, 'extension');
+        }
         console.log(['[Log]', 'Harvest:', targetsHarvest.length, 'Build:', targetsBuild.length, 'Pickup:', targetsPickup.length].join(' '));
     }
 };
@@ -416,13 +415,15 @@ module.exports = function (options) {
 
 
 Object.defineProperty(exports, "__esModule", {
-    value: true
+	value: true
 });
 
-exports.default = function (tick) {
-    if (Memory.timer[tick] && Game.time - Memory.timer[tick] < tick) return false;
-    Memory.timer[tick] = Game.time;
-    return true;
+exports.default = function (x, y, type) {
+	if (x && y && type) {
+		console.log('[Build] ' + type + ' in x:' + x + ' y:' + y, Game.spawns['Spawn1'].room.createConstructionSite(x, y, type));
+	} else {
+		console.log('You can build: ' + ['spawn', 'extension', 'road', 'constructedWall', 'rampart', 'keeperLair', 'portal', 'controller', 'link', 'storage', 'tower', 'observer', 'powerBank', 'powerSpawn', 'extractor', 'lab', 'terminal', 'container', 'nuker'].join('|'));
+	}
 };
 
 /***/ }),
@@ -433,10 +434,27 @@ exports.default = function (tick) {
 
 
 Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+exports.default = function (tick) {
+    if (Memory.timer[tick] && Game.time - Memory.timer[tick] < tick) return false;
+    Memory.timer[tick] = Game.time;
+    return true;
+};
+
+/***/ }),
+/* 7 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _timer = __webpack_require__(5);
+var _timer = __webpack_require__(6);
 
 Object.defineProperty(exports, 'Timer', {
   enumerable: true,
@@ -445,10 +463,19 @@ Object.defineProperty(exports, 'Timer', {
   }
 });
 
+var _build = __webpack_require__(5);
+
+Object.defineProperty(exports, 'Build', {
+  enumerable: true,
+  get: function get() {
+    return _interopRequireDefault(_build).default;
+  }
+});
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 /***/ }),
-/* 7 */
+/* 8 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -497,7 +524,7 @@ exports.default = function (creep) {
 };
 
 /***/ }),
-/* 8 */
+/* 9 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -526,7 +553,7 @@ exports.default = function (creep) {
 };
 
 /***/ }),
-/* 9 */
+/* 10 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -561,7 +588,7 @@ exports.default = function (creep) {
 };
 
 /***/ }),
-/* 10 */
+/* 11 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -617,7 +644,7 @@ exports.default = function (creep) {
 };
 
 /***/ }),
-/* 11 */
+/* 12 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -670,7 +697,7 @@ exports.default = function (creep) {
 };
 
 /***/ }),
-/* 12 */
+/* 13 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -700,7 +727,7 @@ exports.default = function (creep) {
 };
 
 /***/ }),
-/* 13 */
+/* 14 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -768,7 +795,7 @@ exports.default = function (creep) {
 };
 
 /***/ }),
-/* 14 */
+/* 15 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -800,7 +827,7 @@ exports.default = function (creep) {
 };
 
 /***/ }),
-/* 15 */
+/* 16 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -810,7 +837,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _harvester = __webpack_require__(12);
+var _harvester = __webpack_require__(13);
 
 Object.defineProperty(exports, 'harvester', {
   enumerable: true,
@@ -819,7 +846,7 @@ Object.defineProperty(exports, 'harvester', {
   }
 });
 
-var _upgrader = __webpack_require__(14);
+var _upgrader = __webpack_require__(15);
 
 Object.defineProperty(exports, 'upgrader', {
   enumerable: true,
@@ -828,7 +855,7 @@ Object.defineProperty(exports, 'upgrader', {
   }
 });
 
-var _builder = __webpack_require__(7);
+var _builder = __webpack_require__(8);
 
 Object.defineProperty(exports, 'builder', {
   enumerable: true,
@@ -837,7 +864,7 @@ Object.defineProperty(exports, 'builder', {
   }
 });
 
-var _miner = __webpack_require__(13);
+var _miner = __webpack_require__(14);
 
 Object.defineProperty(exports, 'miner', {
   enumerable: true,
@@ -846,7 +873,7 @@ Object.defineProperty(exports, 'miner', {
   }
 });
 
-var _cleaner = __webpack_require__(9);
+var _cleaner = __webpack_require__(10);
 
 Object.defineProperty(exports, 'cleaner', {
   enumerable: true,
@@ -855,7 +882,7 @@ Object.defineProperty(exports, 'cleaner', {
   }
 });
 
-var _farHarvester = __webpack_require__(10);
+var _farHarvester = __webpack_require__(11);
 
 Object.defineProperty(exports, 'farHarvester', {
   enumerable: true,
@@ -864,7 +891,7 @@ Object.defineProperty(exports, 'farHarvester', {
   }
 });
 
-var _farMiner = __webpack_require__(11);
+var _farMiner = __webpack_require__(12);
 
 Object.defineProperty(exports, 'farMiner', {
   enumerable: true,
@@ -873,7 +900,7 @@ Object.defineProperty(exports, 'farMiner', {
   }
 });
 
-var _claim = __webpack_require__(8);
+var _claim = __webpack_require__(9);
 
 Object.defineProperty(exports, 'claim', {
   enumerable: true,
@@ -885,7 +912,7 @@ Object.defineProperty(exports, 'claim', {
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 /***/ }),
-/* 16 */
+/* 17 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -924,7 +951,7 @@ exports.default = function (container, targetsHarvest, targetsBuild) {
 };
 
 /***/ }),
-/* 17 */
+/* 18 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1000,7 +1027,7 @@ function buildBody(obj) {
 }
 
 /***/ }),
-/* 18 */
+/* 19 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1028,7 +1055,7 @@ exports.default = function (tower) {
 };
 
 /***/ }),
-/* 19 */
+/* 20 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1038,7 +1065,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _tower = __webpack_require__(18);
+var _tower = __webpack_require__(19);
 
 Object.defineProperty(exports, "tower", {
   enumerable: true,
@@ -1047,7 +1074,7 @@ Object.defineProperty(exports, "tower", {
   }
 });
 
-var _container = __webpack_require__(16);
+var _container = __webpack_require__(17);
 
 Object.defineProperty(exports, "container", {
   enumerable: true,
@@ -1056,7 +1083,7 @@ Object.defineProperty(exports, "container", {
   }
 });
 
-var _spawn = __webpack_require__(17);
+var _spawn = __webpack_require__(18);
 
 Object.defineProperty(exports, "spawn", {
   enumerable: true,
@@ -1066,25 +1093,6 @@ Object.defineProperty(exports, "spawn", {
 });
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-/***/ }),
-/* 20 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-	value: true
-});
-
-exports.default = function (x, y, type) {
-	if (x && y && type) {
-		console.log('[Build] ' + type + ' in x:' + x + ' y:' + y, Game.spawns['Spawn1'].room.createConstructionSite(x, y, type));
-	} else {
-		console.log('You can build: ' + ['spawn', 'extension', 'road', 'constructedWall', 'rampart', 'keeperLair', 'portal', 'controller', 'link', 'storage', 'tower', 'observer', 'powerBank', 'powerSpawn', 'extractor', 'lab', 'terminal', 'container', 'nuker'].join('|'));
-	}
-};
 
 /***/ }),
 /* 21 */
