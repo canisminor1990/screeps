@@ -7,8 +7,8 @@ const mySpawn = Game.spawns['Spawn1'];
 
 module.exports.loop = () => {
 
-
-    let timer = new Timer(5, ()=>console.log(0));
+    console.log(0)
+    let timer = new Timer(2, ()=>console.log(2));
     timer.run.bind(timer);
 
 

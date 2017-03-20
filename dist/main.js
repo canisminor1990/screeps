@@ -141,8 +141,9 @@ var mySpawn = Game.spawns['Spawn1'];
 
 module.exports.loop = function () {
 
-    var timer = new _Timer.Timer(5, function () {
-        return console.log(0);
+    console.log(0);
+    var timer = new _Timer.Timer(2, function () {
+        return console.log(2);
     });
     timer.run.bind(timer);
 
