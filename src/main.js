@@ -1,13 +1,9 @@
 import 'screeps-perf';
 import * as role from './role';
 import * as structure from './structure';
-import {Timer} from './_util/Timer'
+import Timer from './_util/Timer'
 
 const mySpawn = Game.spawns['Spawn1'];
-
-
-
-
 
 
 module.exports.loop = () => {
@@ -30,14 +26,14 @@ module.exports.loop = () => {
     const targetsBuild = mySpawn.room.memory.constructionSites;
     const targetsPickup = mySpawn.room.memory.drop;
 
-
-    console.log([
-        '[Log]',
-        'Harvest:', targetsHarvest.length,
-        'Build:', targetsBuild.length,
-        'Pickup:', targetsPickup.length,
-    ].join(' '))
-
+    if (Timer(5)) {
+        console.log([
+            '[Log]',
+            'Harvest:', targetsHarvest.length,
+            'Build:', targetsBuild.length,
+            'Pickup:', targetsPickup.length,
+        ].join(' '))
+    }
 
     for (let name in mySpawn.room.memory.structures) {
         const structureName = mySpawn.room.memory.structures[name];
