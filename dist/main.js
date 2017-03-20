@@ -860,6 +860,8 @@ exports.default = function (container, targetsHarvest, targetsBuild) {
 		}
 	})[0];
 
+	console.log(targets);
+
 	if (targets) {
 		container.transfer(targets, RESOURCE_ENERGY);
 		container.room.visual.text('[Transfer]', container.pos.x + 1, container.pos.y, { align: 'left', opacity: 0.8 });
