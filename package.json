@@ -3,24 +3,28 @@
 	"version": "1.0.0",
 	"main": "dist/main.js",
 	"license": "MIT",
+	"keywords": [
+		"webpack"
+	],
 	"dependencies": {
 		"ScreepsAutocomplete": "https://github.com/Garethp/ScreepsAutocomplete.git",
-		"babel-plugin-add-module-exports": "^0.2.1",
-		"babel-plugin-dev-expression": "^0.2.1",
-		"babel-plugin-lodash": "^3.2.11",
-		"babel-plugin-loop-optimizer": "^1.2.3",
-		"babel-plugin-transform-decorators-legacy": "^1.3.4",
-		"babel-plugin-transform-es2017-object-entries": "^0.0.3",
-		"babel-plugin-transform-object-entries": "^1.0.0",
-		"babel-plugin-transform-object-enumerables": "^6.13.0",
-		"babel-plugin-transform-runtime": "^6.23.0",
-		"babel-preset-es2015": "^6.24.0",
-		"babel-preset-stage-0": "^6.22.0",
-		"babel-runtime": "^6.23.0",
-		"gulp": "^3.9.1",
-		"gulp-babel": "^6.1.2"
+		"babel-core": "^6.5.2",
+		"babel-eslint": "^6.0.2",
+		"babel-loader": "^6.2.3",
+		"babel-preset-es2015": "^6.5.0",
+		"babel-preset-react": "^6.5.0",
+		"babel-preset-stage-2": "^6.5.0",
+		"eslint": "^2.2.0",
+		"eslint-config-airbnb": "^6.0.0",
+		"eslint-plugin-flowtype": "^2.1.0",
+		"eslint-plugin-react": "^4.0.0",
+		"screeps-globals": "0.0.1",
+		"screeps-perf": "0.0.1",
+		"screeps-profiler": "^1.1.2",
+		"screeps-webpack-plugin": "^1.1.0",
+		"webpack": "^2.2.1"
 	},
 	"scripts": {
-		"build": "gulp js && git add -A && git commit -m 'updata' && git push"
+		"build": "webpack src/main.js && git add -A && git commit -m 'updata' && git push"
 	}
 }
