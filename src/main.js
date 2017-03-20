@@ -25,7 +25,7 @@ module.exports.loop = () => {
     )
     const targetsBuild = mySpawn.room.memory.constructionSites;
     const targetsPickup = mySpawn.room.memory.drop;
-
+    console.log(1)
     if (Timer(5)) {
         console.log([
             '[Log]',

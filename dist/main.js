@@ -160,7 +160,7 @@ module.exports.loop = function () {
     });
     var targetsBuild = mySpawn.room.memory.constructionSites;
     var targetsPickup = mySpawn.room.memory.drop;
-
+    console.log(1);
     if ((0, _Timer2.default)(5)) {
         console.log(['[Log]', 'Harvest:', targetsHarvest.length, 'Build:', targetsBuild.length, 'Pickup:', targetsPickup.length].join(' '));
     }
