@@ -142,7 +142,7 @@ function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj;
 var mySpawn = Game.spawns['Spawn1'];
 
 // let timer = new Timer(2, ()=>console.log(2));
-module.exports.loop = new _Loop.Loop().tick(function () {
+module.exports.loop = function () {
     // console.log(0)
     // timer.run()
 
@@ -209,11 +209,7 @@ module.exports.loop = new _Loop.Loop().tick(function () {
                 break;
         }
     }
-}).every(2, function () {
-    return console.log(2);
-}).every(5, function () {
-    return console.log(5);
-}).getLoop();
+};
 
 /***/ }),
 /* 2 */
