@@ -145,12 +145,6 @@ var mySpawn = Game.spawns['Spawn1'];
 
 module.exports.loop = function () {
 
-    var targetsHarvest = mySpawn.room.memory.structures.filter(function (structure) {
-        return (structure.structureType == STRUCTURE_EXTENSION || structure.structureType == STRUCTURE_SPAWN || structure.structureType == STRUCTURE_TOWER) && structure.energy < structure.energyCapacity;
-    });
-    var targetsBuild = mySpawn.room.memory.constructionSites;
-    var targetsPickup = mySpawn.room.memory.drop;
-
     (0, _Timer2.default)(5, function () {
         "use strict";
 
@@ -163,9 +157,15 @@ module.exports.loop = function () {
                 } }),
             drop: mySpawn.room.find(FIND_DROPPED_ENERGY)
         };
-
-        console.log(['[Log]', 'Harvest:', targetsHarvest.length, 'Build:', targetsBuild.length, 'Pickup:', targetsPickup.length].join(' '));
     });
+
+    var targetsHarvest = mySpawn.room.memory.structures.filter(function (structure) {
+        return (structure.structureType == STRUCTURE_EXTENSION || structure.structureType == STRUCTURE_SPAWN || structure.structureType == STRUCTURE_TOWER) && structure.energy < structure.energyCapacity;
+    });
+    var targetsBuild = mySpawn.room.memory.constructionSites;
+    var targetsPickup = mySpawn.room.memory.drop;
+
+    console.log(['[Log]', 'Harvest:', targetsHarvest.length, 'Build:', targetsBuild.length, 'Pickup:', targetsPickup.length].join(' '));
 
     for (var name in mySpawn.room.memory.structures) {
         var structureName = mySpawn.room.memory.structures[name];

@@ -8,16 +8,6 @@ const mySpawn = Game.spawns['Spawn1'];
 module.exports.loop = () => {
 
 
-    const targetsHarvest = mySpawn.room.memory.structures.filter(structure =>
-        (
-            structure.structureType == STRUCTURE_EXTENSION ||
-            structure.structureType == STRUCTURE_SPAWN ||
-            structure.structureType == STRUCTURE_TOWER
-        ) && structure.energy < structure.energyCapacity
-    )
-    const targetsBuild = mySpawn.room.memory.constructionSites;
-    const targetsPickup = mySpawn.room.memory.drop;
-
     Timer(5,() => {
         "use strict";
         mySpawn.room.memory = {
@@ -28,15 +18,27 @@ module.exports.loop = () => {
             drop: mySpawn.room.find(FIND_DROPPED_ENERGY)
         }
 
-        console.log([
-            '[Log]',
-            'Harvest:', targetsHarvest.length,
-            'Build:', targetsBuild.length,
-            'Pickup:', targetsPickup.length,
-        ].join(' '))
+
 
     })
 
+    const targetsHarvest = mySpawn.room.memory.structures.filter(structure =>
+        (
+            structure.structureType == STRUCTURE_EXTENSION ||
+            structure.structureType == STRUCTURE_SPAWN ||
+            structure.structureType == STRUCTURE_TOWER
+        ) && structure.energy < structure.energyCapacity
+    )
+    const targetsBuild = mySpawn.room.memory.constructionSites;
+    const targetsPickup = mySpawn.room.memory.drop;
+
+
+    console.log([
+        '[Log]',
+        'Harvest:', targetsHarvest.length,
+        'Build:', targetsBuild.length,
+        'Pickup:', targetsPickup.length,
+    ].join(' '))
 
 
     for (let name in mySpawn.room.memory.structures) {
