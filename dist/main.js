@@ -933,7 +933,7 @@ exports.default = function (spawn) {
 
 function getNowFormatDate() {
 	var date = new Date();
-	return [date.getHours(), date.getMinutes(), date.getSeconds()].join(':');
+	return [date.getHours(), date.getMinutes(), date.getSeconds()].join('');
 }
 
 function buildBody(obj) {

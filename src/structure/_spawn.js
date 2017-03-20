@@ -42,7 +42,7 @@ function getNowFormatDate() {
 	const date = new Date();
 	return [date.getHours(),
 	        date.getMinutes(),
-	        date.getSeconds()].join(':')
+	        date.getSeconds()].join('')
 }
 
 function buildBody(obj) {
