@@ -64,7 +64,7 @@ module.exports =
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 22);
+/******/ 	return __webpack_require__(__webpack_require__.s = 23);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -78,7 +78,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _findMiner = __webpack_require__(20);
+var _findMiner = __webpack_require__(21);
 
 Object.defineProperty(exports, 'taskFindMiner', {
   enumerable: true,
@@ -87,7 +87,7 @@ Object.defineProperty(exports, 'taskFindMiner', {
   }
 });
 
-var _build = __webpack_require__(19);
+var _build = __webpack_require__(20);
 
 Object.defineProperty(exports, 'taskBuild', {
   enumerable: true,
@@ -105,7 +105,7 @@ Object.defineProperty(exports, 'taskContainer', {
   }
 });
 
-var _harvester = __webpack_require__(21);
+var _harvester = __webpack_require__(22);
 
 Object.defineProperty(exports, 'taskHarvester', {
   enumerable: true,
@@ -125,41 +125,38 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 __webpack_require__(4);
 
-var _role = __webpack_require__(14);
+var _role = __webpack_require__(15);
 
 var role = _interopRequireWildcard(_role);
 
-var _structure = __webpack_require__(18);
+var _structure = __webpack_require__(19);
 
 var structure = _interopRequireWildcard(_structure);
 
-var _Timer = __webpack_require__(5);
+var _util = __webpack_require__(6);
 
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
 var mySpawn = Game.spawns['Spawn1'];
 
 module.exports.loop = function () {
-
-    mySpawn.room.memory = {
-        structures: mySpawn.room.find(FIND_STRUCTURES),
-        constructionSites: mySpawn.room.find(FIND_CONSTRUCTION_SITES),
-        source: mySpawn.room.find(FIND_SOURCES),
-        miner: mySpawn.room.find(FIND_MY_CREEPS, { filter: function filter(miner) {
-                return miner.memory.role === "miner";
-            } }),
-        drop: mySpawn.room.find(FIND_DROPPED_ENERGY)
-    };
+    if ((0, _util.Timer)(2)) {
+        mySpawn.room.memory = {
+            structures: mySpawn.room.find(FIND_STRUCTURES),
+            constructionSites: mySpawn.room.find(FIND_CONSTRUCTION_SITES),
+            source: mySpawn.room.find(FIND_SOURCES),
+            miner: mySpawn.room.find(FIND_MY_CREEPS, { filter: function filter(miner) {
+                    return miner.memory.role === "miner";
+                } }),
+            drop: mySpawn.room.find(FIND_DROPPED_ENERGY)
+        };
+    }
 
     var targetsHarvest = mySpawn.room.memory.structures.filter(function (structure) {
         return (structure.structureType == STRUCTURE_EXTENSION || structure.structureType == STRUCTURE_SPAWN || structure.structureType == STRUCTURE_TOWER) && structure.energy < structure.energyCapacity;
     });
     var targetsBuild = mySpawn.room.memory.constructionSites;
     var targetsPickup = mySpawn.room.memory.drop;
-    console.log(1);
-    if ((0, _Timer.Timer)(5)) {
-        console.log(['[Log]', 'Harvest:', targetsHarvest.length, 'Build:', targetsBuild.length, 'Pickup:', targetsPickup.length].join(' '));
-    }
 
     for (var name in mySpawn.room.memory.structures) {
         var structureName = mySpawn.room.memory.structures[name];
@@ -204,6 +201,10 @@ module.exports.loop = function () {
                 targetsPickup.length > 0 ? role.cleaner(creep) : role.harvester(creep);
                 break;
         }
+    }
+
+    if ((0, _util.Timer)(5)) {
+        console.log(['[Log]', 'Harvest:', targetsHarvest.length, 'Build:', targetsBuild.length, 'Pickup:', targetsPickup.length].join(' '));
     }
 };
 
@@ -418,15 +419,37 @@ module.exports = function (options) {
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
-exports.Timer = Timer;
-function Timer(tick) {
+
+exports.default = function (tick) {
     if (Memory.timer[tick] && Game.time - Memory.timer[tick] < tick) return false;
     Memory.timer[tick] = Game.time;
     return true;
-}
+};
 
 /***/ }),
 /* 6 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _timer = __webpack_require__(5);
+
+Object.defineProperty(exports, 'Timer', {
+  enumerable: true,
+  get: function get() {
+    return _interopRequireDefault(_timer).default;
+  }
+});
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+/***/ }),
+/* 7 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -475,7 +498,7 @@ exports.default = function (creep) {
 };
 
 /***/ }),
-/* 7 */
+/* 8 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -504,7 +527,7 @@ exports.default = function (creep) {
 };
 
 /***/ }),
-/* 8 */
+/* 9 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -539,7 +562,7 @@ exports.default = function (creep) {
 };
 
 /***/ }),
-/* 9 */
+/* 10 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -595,7 +618,7 @@ exports.default = function (creep) {
 };
 
 /***/ }),
-/* 10 */
+/* 11 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -648,7 +671,7 @@ exports.default = function (creep) {
 };
 
 /***/ }),
-/* 11 */
+/* 12 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -678,7 +701,7 @@ exports.default = function (creep) {
 };
 
 /***/ }),
-/* 12 */
+/* 13 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -746,7 +769,7 @@ exports.default = function (creep) {
 };
 
 /***/ }),
-/* 13 */
+/* 14 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -778,7 +801,7 @@ exports.default = function (creep) {
 };
 
 /***/ }),
-/* 14 */
+/* 15 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -788,7 +811,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _harvester = __webpack_require__(11);
+var _harvester = __webpack_require__(12);
 
 Object.defineProperty(exports, 'harvester', {
   enumerable: true,
@@ -797,7 +820,7 @@ Object.defineProperty(exports, 'harvester', {
   }
 });
 
-var _upgrader = __webpack_require__(13);
+var _upgrader = __webpack_require__(14);
 
 Object.defineProperty(exports, 'upgrader', {
   enumerable: true,
@@ -806,7 +829,7 @@ Object.defineProperty(exports, 'upgrader', {
   }
 });
 
-var _builder = __webpack_require__(6);
+var _builder = __webpack_require__(7);
 
 Object.defineProperty(exports, 'builder', {
   enumerable: true,
@@ -815,7 +838,7 @@ Object.defineProperty(exports, 'builder', {
   }
 });
 
-var _miner = __webpack_require__(12);
+var _miner = __webpack_require__(13);
 
 Object.defineProperty(exports, 'miner', {
   enumerable: true,
@@ -824,7 +847,7 @@ Object.defineProperty(exports, 'miner', {
   }
 });
 
-var _cleaner = __webpack_require__(8);
+var _cleaner = __webpack_require__(9);
 
 Object.defineProperty(exports, 'cleaner', {
   enumerable: true,
@@ -833,7 +856,7 @@ Object.defineProperty(exports, 'cleaner', {
   }
 });
 
-var _farHarvester = __webpack_require__(9);
+var _farHarvester = __webpack_require__(10);
 
 Object.defineProperty(exports, 'farHarvester', {
   enumerable: true,
@@ -842,7 +865,7 @@ Object.defineProperty(exports, 'farHarvester', {
   }
 });
 
-var _farMiner = __webpack_require__(10);
+var _farMiner = __webpack_require__(11);
 
 Object.defineProperty(exports, 'farMiner', {
   enumerable: true,
@@ -851,7 +874,7 @@ Object.defineProperty(exports, 'farMiner', {
   }
 });
 
-var _claim = __webpack_require__(7);
+var _claim = __webpack_require__(8);
 
 Object.defineProperty(exports, 'claim', {
   enumerable: true,
@@ -863,7 +886,7 @@ Object.defineProperty(exports, 'claim', {
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 /***/ }),
-/* 15 */
+/* 16 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -902,7 +925,7 @@ exports.default = function (container, targetsHarvest, targetsBuild) {
 };
 
 /***/ }),
-/* 16 */
+/* 17 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -978,7 +1001,7 @@ function buildBody(obj) {
 }
 
 /***/ }),
-/* 17 */
+/* 18 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1006,7 +1029,7 @@ exports.default = function (tower) {
 };
 
 /***/ }),
-/* 18 */
+/* 19 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1016,7 +1039,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _tower = __webpack_require__(17);
+var _tower = __webpack_require__(18);
 
 Object.defineProperty(exports, "tower", {
   enumerable: true,
@@ -1025,7 +1048,7 @@ Object.defineProperty(exports, "tower", {
   }
 });
 
-var _container = __webpack_require__(15);
+var _container = __webpack_require__(16);
 
 Object.defineProperty(exports, "container", {
   enumerable: true,
@@ -1034,7 +1057,7 @@ Object.defineProperty(exports, "container", {
   }
 });
 
-var _spawn = __webpack_require__(16);
+var _spawn = __webpack_require__(17);
 
 Object.defineProperty(exports, "spawn", {
   enumerable: true,
@@ -1046,7 +1069,7 @@ Object.defineProperty(exports, "spawn", {
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 /***/ }),
-/* 19 */
+/* 20 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1065,7 +1088,7 @@ exports.default = function (x, y, type) {
 };
 
 /***/ }),
-/* 20 */
+/* 21 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1110,7 +1133,7 @@ var taskFindMiner = function taskFindMiner(creep) {
 exports.default = taskFindMiner;
 
 /***/ }),
-/* 21 */
+/* 22 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1146,7 +1169,7 @@ exports.default = function (creep) {
 };
 
 /***/ }),
-/* 22 */
+/* 23 */
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(1);

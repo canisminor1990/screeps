@@ -1,20 +1,22 @@
 import 'screeps-perf';
 import * as role from './role';
 import * as structure from './structure';
-import {Timer} from './_util/Timer'
+import {Timer} from './_util'
 
 const mySpawn = Game.spawns['Spawn1'];
 
 
 module.exports.loop = () => {
-
-    mySpawn.room.memory = {
-        structures: mySpawn.room.find(FIND_STRUCTURES),
-        constructionSites: mySpawn.room.find(FIND_CONSTRUCTION_SITES),
-        source: mySpawn.room.find(FIND_SOURCES),
-        miner: mySpawn.room.find(FIND_MY_CREEPS, {filter: (miner) => miner.memory.role === "miner"}),
-        drop: mySpawn.room.find(FIND_DROPPED_ENERGY)
+    if (Timer(2)) {
+        mySpawn.room.memory = {
+            structures: mySpawn.room.find(FIND_STRUCTURES),
+            constructionSites: mySpawn.room.find(FIND_CONSTRUCTION_SITES),
+            source: mySpawn.room.find(FIND_SOURCES),
+            miner: mySpawn.room.find(FIND_MY_CREEPS, {filter: (miner) => miner.memory.role === "miner"}),
+            drop: mySpawn.room.find(FIND_DROPPED_ENERGY)
+        }
     }
+
 
     const targetsHarvest = mySpawn.room.memory.structures.filter(structure =>
         (
@@ -25,15 +27,7 @@ module.exports.loop = () => {
     )
     const targetsBuild = mySpawn.room.memory.constructionSites;
     const targetsPickup = mySpawn.room.memory.drop;
-    console.log(1)
-    if (Timer(5)) {
-        console.log([
-            '[Log]',
-            'Harvest:', targetsHarvest.length,
-            'Build:', targetsBuild.length,
-            'Pickup:', targetsPickup.length,
-        ].join(' '))
-    }
+
 
     for (let name in mySpawn.room.memory.structures) {
         const structureName = mySpawn.room.memory.structures[name];
@@ -78,6 +72,15 @@ module.exports.loop = () => {
                 (targetsPickup.length > 0 ) ? role.cleaner(creep) : role.harvester(creep)
                 break;
         }
+    }
+
+    if (Timer(5)) {
+        console.log([
+            '[Log]',
+            'Harvest:', targetsHarvest.length,
+            'Build:', targetsBuild.length,
+            'Pickup:', targetsPickup.length,
+        ].join(' '))
     }
 }
 
