@@ -139,18 +139,7 @@ function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj;
 
 var mySpawn = Game.spawns['Spawn1'];
 
-var loop = new _Loop.Loop().start(function () {
-    return console.log('Started!');
-}).tick(function () {
-    var timing = {};
-}).every(2, function () {
-    return timing[2] = true;
-}).every(5, function () {
-    return timing[5] = true;
-}).getLoop();
-
 module.exports.loop = function () {
-    loop();
 
     var targetsHarvest = mySpawn.room.memory.structures.filter(function (structure) {
         return (structure.structureType == STRUCTURE_EXTENSION || structure.structureType == STRUCTURE_SPAWN || structure.structureType == STRUCTURE_TOWER) && structure.energy < structure.energyCapacity;
@@ -158,7 +147,7 @@ module.exports.loop = function () {
     var targetsBuild = mySpawn.room.memory.constructionSites;
     var targetsPickup = mySpawn.room.memory.drop;
 
-    if (timing[2]) console.log(['[Log]', 'Harvest:', targetsHarvest.length, 'Build:', targetsBuild.length, 'Pickup:', targetsPickup.length].join(' '));
+    console.log(['[Log]', 'Harvest:', targetsHarvest.length, 'Build:', targetsBuild.length, 'Pickup:', targetsPickup.length].join(' '));
 
     for (var name in mySpawn.room.memory.structures) {
         var structureName = mySpawn.room.memory.structures[name];

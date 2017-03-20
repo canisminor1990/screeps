@@ -6,18 +6,11 @@ import {Loop} from './_util/Loop'
 const mySpawn = Game.spawns['Spawn1'];
 
 
-let loop =
-    new Loop()
-        .start(() => console.log('Started!'))
-        .tick(() => {let timing = {}})
-        .every(2, () => timing[2] = true)
-        .every(5, () => timing[5] = true)
-        .getLoop();
 
 
 
 module.exports.loop = () => {
-    loop();
+
 
     const targetsHarvest = mySpawn.room.memory.structures.filter(structure =>
         (
@@ -30,7 +23,7 @@ module.exports.loop = () => {
     const targetsPickup = mySpawn.room.memory.drop;
 
 
-    if (timing[2])  console.log([
+    console.log([
         '[Log]',
         'Harvest:', targetsHarvest.length,
         'Build:', targetsBuild.length,
