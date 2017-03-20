@@ -438,7 +438,8 @@ var Timer = exports.Timer = function () {
     _createClass(Timer, [{
         key: "run",
         value: function run() {
-
+            if (Game.time - Memory.timer[this.tick] < this.tick) return;
+            this.last = Game.time;
             this.func(this);
         }
     }]);
