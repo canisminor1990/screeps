@@ -226,8 +226,8 @@ var role = {
     body: { //300 + 5 * 5 = 550
         claim: { move: 1, claim: 1 },
         farMiner: { move: 3, work: 4, carry: 3 }, // 3
-        farHarvester: { move: 3, work: 1, carry: 4 }, // 350
-        harvester: { move: 2, work: 1, carry: 5 }, // 350
+        farHarvester: { move: 4, work: 1, carry: 4 }, // 350
+        harvester: { move: 3, work: 1, carry: 5 }, // 350
         upgrader: { move: 1, work: 2, carry: 2 }, // 350
         builder: { move: 3, work: 3, carry: 3 }, // 350
         miner: { move: 2, work: 4, carry: 2 }, // 3
