@@ -141,7 +141,10 @@ var mySpawn = Game.spawns['Spawn1'];
 
 module.exports.loop = function () {
 
-    console.log(0);
+    var timer = new _Timer.Timer(5, function () {
+        return console.log(0);
+    });
+    timer.run.bind(timer);
 
     mySpawn.room.memory = {
         structures: mySpawn.room.find(FIND_STRUCTURES),

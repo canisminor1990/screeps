@@ -7,7 +7,10 @@ const mySpawn = Game.spawns['Spawn1'];
 
 module.exports.loop = () => {
 
-    console.log(0)
+
+    let timer = new Timer(5, ()=>console.log(0));
+    timer.run.bind(timer);
+
 
     mySpawn.room.memory = {
         structures: mySpawn.room.find(FIND_STRUCTURES),
