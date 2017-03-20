@@ -8,9 +8,10 @@ export default (container, targetsHarvest, targetsBuild) => {
 		((targetsBuild = 0) ? tCreep.memory.role !== 'builder' : null)
 	})[0];
 
-	console.log(targets)
+
 
 	if (targets) {
+		console.log(targets)
 		container.transfer(targets, RESOURCE_ENERGY);
 		container.room.visual.text(
 				'[Transfer]',
