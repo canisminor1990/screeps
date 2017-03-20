@@ -1,14 +1,14 @@
 import 'screeps-perf';
 import * as role from './role';
 import * as structure from './structure';
-import Timer from './_util/Timer'
+import {Timer} from './_util/Timer'
 const mySpawn = Game.spawns['Spawn1'];
 
 
 module.exports.loop = () => {
 
     console.log(0)
-    Timer(5,() => {
+    Timer.run(5,() => {
        console.log(1)
     })
 

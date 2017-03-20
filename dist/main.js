@@ -135,10 +135,6 @@ var structure = _interopRequireWildcard(_structure);
 
 var _Timer = __webpack_require__(5);
 
-var _Timer2 = _interopRequireDefault(_Timer);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
 var mySpawn = Game.spawns['Spawn1'];
@@ -146,7 +142,7 @@ var mySpawn = Game.spawns['Spawn1'];
 module.exports.loop = function () {
 
     console.log(0);
-    (0, _Timer2.default)(5, function () {
+    _Timer.Timer.run(5, function () {
         console.log(1);
     });
 
@@ -426,12 +422,30 @@ Object.defineProperty(exports, "__esModule", {
     value: true
 });
 
-exports.default = function (tick, func) {
-    var last = Game.time;
-    if (Game.time - last < tick) return;
-    func;
-    last = Game.time;
-};
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+var Timer = exports.Timer = function () {
+    function Timer(tick, func) {
+        _classCallCheck(this, Timer);
+
+        this.tick = tick;
+        this.func = func;
+        this.last = Game.time;
+    }
+
+    _createClass(Timer, [{
+        key: "run",
+        value: function run() {
+            if (Game.time - this.last < this.tick) return;
+            this.last = Game.time;
+            this.func(this);
+        }
+    }]);
+
+    return Timer;
+}();
 
 /***/ }),
 /* 6 */
