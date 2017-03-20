@@ -29,7 +29,7 @@ module.exports.loop = () => {
     const targetsBuild = mySpawn.room.memory.constructionSites;
     const targetsPickup = mySpawn.room.memory.drop;
 
-    console.log('!')
+
     if (timing[2])  console.log([
         '[Log]',
         'Harvest:', targetsHarvest.length,

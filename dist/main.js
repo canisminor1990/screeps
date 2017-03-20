@@ -158,7 +158,6 @@ module.exports.loop = function () {
     var targetsBuild = mySpawn.room.memory.constructionSites;
     var targetsPickup = mySpawn.room.memory.drop;
 
-    console.log('!');
     if (timing[2]) console.log(['[Log]', 'Harvest:', targetsHarvest.length, 'Build:', targetsBuild.length, 'Pickup:', targetsPickup.length].join(' '));
 
     for (var name in mySpawn.room.memory.structures) {
