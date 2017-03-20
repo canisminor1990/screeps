@@ -1,3 +1,4 @@
+import 'screeps-perf';
 import * as role from './role';
 import * as structure from './structure';
 const mySpawn  = Game.spawns['Spawn1'];

@@ -1,4 +1,4 @@
-import {taskHarvester} from './task'
+import {taskHarvester} from '../task'
 
 export default (creep) => {
 

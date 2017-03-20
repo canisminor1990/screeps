@@ -1,4 +1,4 @@
-import {taskFindMiner, taskHarvester} from './task'
+import {taskFindMiner, taskHarvester} from '../task'
 export default (creep) => {
 
     if (creep.carry.energy == 0) {

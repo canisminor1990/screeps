@@ -1,4 +1,4 @@
-import {taskFindMiner} from './task'
+import {taskFindMiner} from '../task'
 export default  (creep) => {
 
     if (creep.memory.upgrading && creep.carry.energy == 0) {
