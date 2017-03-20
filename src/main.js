@@ -1,7 +1,7 @@
 import 'screeps-perf';
 import * as role from './role';
 import * as structure from './structure';
-import {Loop} from './_util/Loop'
+import {Timer} from './_util/Timer'
 
 const mySpawn = Game.spawns['Spawn1'];
 
@@ -9,8 +9,16 @@ const mySpawn = Game.spawns['Spawn1'];
 
 
 
+
 module.exports.loop = () => {
 
+    mySpawn.room.memory = {
+        structures: mySpawn.room.find(FIND_STRUCTURES),
+        constructionSites: mySpawn.room.find(FIND_CONSTRUCTION_SITES),
+        source: mySpawn.room.find(FIND_SOURCES),
+        miner: mySpawn.room.find(FIND_MY_CREEPS, {filter: (miner) => miner.memory.role === "miner"}),
+        drop: mySpawn.room.find(FIND_DROPPED_ENERGY)
+    }
 
     const targetsHarvest = mySpawn.room.memory.structures.filter(structure =>
         (

@@ -133,13 +133,23 @@ var _structure = __webpack_require__(18);
 
 var structure = _interopRequireWildcard(_structure);
 
-var _Loop = __webpack_require__(5);
+var _Timer = __webpack_require__(5);
 
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
 var mySpawn = Game.spawns['Spawn1'];
 
 module.exports.loop = function () {
+
+    mySpawn.room.memory = {
+        structures: mySpawn.room.find(FIND_STRUCTURES),
+        constructionSites: mySpawn.room.find(FIND_CONSTRUCTION_SITES),
+        source: mySpawn.room.find(FIND_SOURCES),
+        miner: mySpawn.room.find(FIND_MY_CREEPS, { filter: function filter(miner) {
+                return miner.memory.role === "miner";
+            } }),
+        drop: mySpawn.room.find(FIND_DROPPED_ENERGY)
+    };
 
     var targetsHarvest = mySpawn.room.memory.structures.filter(function (structure) {
         return (structure.structureType == STRUCTURE_EXTENSION || structure.structureType == STRUCTURE_SPAWN || structure.structureType == STRUCTURE_TOWER) && structure.energy < structure.energyCapacity;
@@ -411,72 +421,24 @@ var _createClass = function () { function defineProperties(target, props) { for 
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-var Loop = exports.Loop = function () {
-    function Loop() {
-        _classCallCheck(this, Loop);
+var Timer = exports.Timer = function () {
+    function Timer(tick, func) {
+        _classCallCheck(this, Timer);
 
-        this.starts = [];
-        this.ticks = [];
-        this.loops = {};
+        this.tick = tick;
+        this.func = func;
     }
 
-    _createClass(Loop, [{
-        key: 'start',
-        value: function start(func) {
-            this.starts.push(func);
-            return this;
-        }
-    }, {
-        key: 'tick',
-        value: function tick(func) {
-            this.ticks.push(func);
-            return this;
-        }
-    }, {
-        key: 'every',
-        value: function every(tick, func) {
-            if (tick < 1) return this.tick(func);
-            if (!this.loops[tick]) this.loops[tick] = [];
-            this.loops[tick].push(func);
-            return this;
-        }
-    }, {
-        key: 'getLoop',
-        value: function getLoop() {
-            if (!Memory.loop) Memory.loop = {};
-            var loop = Memory.loop;
-
-            if (typeof loop.start !== 'number' || Game.time - loop.start > 10) {
-                _.each(this.starts, function (func) {
-                    return func();
-                });
-                loop.start = Game.time;
-                loop.timing = {};
-                for (var time in this.loops) {
-                    loop.timing[time] = Game.time;
-                }
-            }
-
-            return this.loop.bind(this);
-        }
-    }, {
-        key: 'loop',
-        value: function loop() {
-            _.each(this.ticks, function (func) {
-                return func();
-            });
-
-            for (var time in this.loops) {
-                if (Game.time - Memory.loop.timing[time] < time) continue;
-                Memory.loop.timing[time] = Game.time;
-                _.each(this.loops[time], function (func) {
-                    return func();
-                });
-            }
+    _createClass(Timer, [{
+        key: "run",
+        value: function run() {
+            if (Memory.timer[this.tick] && Game.time - Memory.timer[this.tick] < this.tick) return;
+            this.func(this);
+            Memory.timer[this.tick] = Game.time;
         }
     }]);
 
-    return Loop;
+    return Timer;
 }();
 
 /***/ }),
