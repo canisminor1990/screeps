@@ -26,7 +26,7 @@ export default (spawn) => {
 						name,
 						{role: roleSpawn, source: i}
 				);
-				console.log(['Spawn:',
+				console.log(['[Spawn]',
 				             name,
 				             'Source:',
 				             i].join(' '));

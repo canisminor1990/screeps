@@ -912,7 +912,7 @@ exports.default = function (spawn) {
 			if (number[key][i] > 0 && roleNumber < maxNum && Game.spawns['Spawn1'].canCreateCreep(roleBody) === OK) {
 				var _name = '[' + roleSpawn + ']' + getNowFormatDate();
 				Game.spawns['Spawn1'].createCreep(roleBody, _name, { role: roleSpawn, source: i });
-				console.log(['Spawn:', _name, 'Source:', i].join(' '));
+				console.log(['[Spawn]', _name, 'Source:', i].join(' '));
 			}
 		};
 
