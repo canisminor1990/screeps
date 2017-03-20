@@ -1,6 +1,6 @@
 const role = {
     number: {
-        claim: [1],
+        claim: [2],
         farMiner: [1],
         farHarvester: [5],
         harvester: [0, 6],
