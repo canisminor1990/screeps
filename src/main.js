@@ -2,13 +2,13 @@ import 'screeps-perf';
 import * as role from './role';
 import * as structure from './structure';
 import {Timer} from './_util/Timer'
-import {Loop} from './_util/Loop'
+
 const mySpawn = Game.spawns['Spawn1'];
 
-// let timer = new Timer(2, ()=>console.log(2));
+let timer = new Timer(2, ()=>console.log(2));
 module.exports.loop = () => {
-    // console.log(0)
-    // timer.run()
+    console.log(0)
+    timer.run()
 
 
     mySpawn.room.memory = {

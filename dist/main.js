@@ -64,7 +64,7 @@ module.exports =
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 23);
+/******/ 	return __webpack_require__(__webpack_require__.s = 22);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -78,7 +78,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _findMiner = __webpack_require__(21);
+var _findMiner = __webpack_require__(20);
 
 Object.defineProperty(exports, 'taskFindMiner', {
   enumerable: true,
@@ -87,7 +87,7 @@ Object.defineProperty(exports, 'taskFindMiner', {
   }
 });
 
-var _build = __webpack_require__(20);
+var _build = __webpack_require__(19);
 
 Object.defineProperty(exports, 'taskBuild', {
   enumerable: true,
@@ -105,7 +105,7 @@ Object.defineProperty(exports, 'taskContainer', {
   }
 });
 
-var _harvester = __webpack_require__(22);
+var _harvester = __webpack_require__(21);
 
 Object.defineProperty(exports, 'taskHarvester', {
   enumerable: true,
@@ -125,27 +125,26 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 __webpack_require__(4);
 
-var _role = __webpack_require__(15);
+var _role = __webpack_require__(14);
 
 var role = _interopRequireWildcard(_role);
 
-var _structure = __webpack_require__(19);
+var _structure = __webpack_require__(18);
 
 var structure = _interopRequireWildcard(_structure);
 
-var _Timer = __webpack_require__(6);
-
-var _Loop = __webpack_require__(5);
+var _Timer = __webpack_require__(5);
 
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
 var mySpawn = Game.spawns['Spawn1'];
 
-// let timer = new Timer(2, ()=>console.log(2));
+var timer = new _Timer.Timer(2, function () {
+    return console.log(2);
+});
 module.exports.loop = function () {
-    // console.log(0)
-    // timer.run()
-
+    console.log(0);
+    timer.run();
 
     mySpawn.room.memory = {
         structures: mySpawn.room.find(FIND_STRUCTURES),
@@ -423,132 +422,6 @@ Object.defineProperty(exports, "__esModule", {
     value: true
 });
 
-var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"]) _i["return"](); } finally { if (_d) throw _e; } } return _arr; } return function (arr, i) { if (Array.isArray(arr)) { return arr; } else if (Symbol.iterator in Object(arr)) { return sliceIterator(arr, i); } else { throw new TypeError("Invalid attempt to destructure non-iterable instance"); } }; }();
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-var Loop = exports.Loop = function () {
-    function Loop() {
-        _classCallCheck(this, Loop);
-
-        this.every = [];
-        this.loops = new Map();
-
-        if (!Memory.loop) Memory.loop = {};
-        var loop = Memory.loop;
-
-        if (typeof loop.start !== 'number' || Game.time - loop.start > 10) {
-            loop.start = Game.time;
-            loop.timing = {};
-            var _iteratorNormalCompletion = true;
-            var _didIteratorError = false;
-            var _iteratorError = undefined;
-
-            try {
-                for (var _iterator = this.loops.keys()[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
-                    var time = _step.value;
-                    loop.timing['Time: ' + time] = Game.time;
-                }
-            } catch (err) {
-                _didIteratorError = true;
-                _iteratorError = err;
-            } finally {
-                try {
-                    if (!_iteratorNormalCompletion && _iterator.return) {
-                        _iterator.return();
-                    }
-                } finally {
-                    if (_didIteratorError) {
-                        throw _iteratorError;
-                    }
-                }
-            }
-        }
-    }
-
-    _createClass(Loop, [{
-        key: 'tick',
-        value: function tick(func) {
-            this.every.push(func);
-            return this;
-        }
-    }, {
-        key: 'every',
-        value: function every(tick, func) {
-            if (tick < 1) return this.tick(func);
-            if (!this.loops.has(tick)) this.loops.set(tick, []);
-            this.loops.get(tick).push(func);
-            return this;
-        }
-    }, {
-        key: 'getLoop',
-        value: function getLoop() {
-            return this.loop.bind(this);
-        }
-    }, {
-        key: 'loop',
-        value: function (_loop) {
-            function loop() {
-                return _loop.apply(this, arguments);
-            }
-
-            loop.toString = function () {
-                return _loop.toString();
-            };
-
-            return loop;
-        }(function () {
-            _.each(this.every, function (func) {
-                return func();
-            });
-
-            var _iteratorNormalCompletion2 = true;
-            var _didIteratorError2 = false;
-            var _iteratorError2 = undefined;
-
-            try {
-                for (var _iterator2 = this.loops.keys()[Symbol.iterator](), _step2; !(_iteratorNormalCompletion2 = (_step2 = _iterator2.next()).done); _iteratorNormalCompletion2 = true) {
-                    var _step2$value = _slicedToArray(_step2.value, 2),
-                        time = _step2$value[0],
-                        func = _step2$value[1];
-
-                    if (Game.time - loop.timing['Time: ' + time] < time) continue;
-                    loop.timing['Time: ' + time] = Game.time;
-                    func();
-                }
-            } catch (err) {
-                _didIteratorError2 = true;
-                _iteratorError2 = err;
-            } finally {
-                try {
-                    if (!_iteratorNormalCompletion2 && _iterator2.return) {
-                        _iterator2.return();
-                    }
-                } finally {
-                    if (_didIteratorError2) {
-                        throw _iteratorError2;
-                    }
-                }
-            }
-        })
-    }]);
-
-    return Loop;
-}();
-
-/***/ }),
-/* 6 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -559,15 +432,14 @@ var Timer = exports.Timer = function () {
 
         this.tick = tick;
         this.func = func;
-        Memory.timer[tick] = Game.time;
     }
 
     _createClass(Timer, [{
         key: "run",
         value: function run() {
-            if (Game.time - Memory.timer[this.tick] < this.tick) return;
-            Memory.timer[this.tick] = Game.time;
+            if (Memory.timer[this.tick] && Game.time - Memory.timer[this.tick] < this.tick) return;
             this.func(this);
+            Memory.timer[this.tick] = Game.time;
         }
     }]);
 
@@ -575,7 +447,7 @@ var Timer = exports.Timer = function () {
 }();
 
 /***/ }),
-/* 7 */
+/* 6 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -624,7 +496,7 @@ exports.default = function (creep) {
 };
 
 /***/ }),
-/* 8 */
+/* 7 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -653,7 +525,7 @@ exports.default = function (creep) {
 };
 
 /***/ }),
-/* 9 */
+/* 8 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -688,7 +560,7 @@ exports.default = function (creep) {
 };
 
 /***/ }),
-/* 10 */
+/* 9 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -744,7 +616,7 @@ exports.default = function (creep) {
 };
 
 /***/ }),
-/* 11 */
+/* 10 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -797,7 +669,7 @@ exports.default = function (creep) {
 };
 
 /***/ }),
-/* 12 */
+/* 11 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -827,7 +699,7 @@ exports.default = function (creep) {
 };
 
 /***/ }),
-/* 13 */
+/* 12 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -895,7 +767,7 @@ exports.default = function (creep) {
 };
 
 /***/ }),
-/* 14 */
+/* 13 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -927,7 +799,7 @@ exports.default = function (creep) {
 };
 
 /***/ }),
-/* 15 */
+/* 14 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -937,7 +809,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _harvester = __webpack_require__(12);
+var _harvester = __webpack_require__(11);
 
 Object.defineProperty(exports, 'harvester', {
   enumerable: true,
@@ -946,7 +818,7 @@ Object.defineProperty(exports, 'harvester', {
   }
 });
 
-var _upgrader = __webpack_require__(14);
+var _upgrader = __webpack_require__(13);
 
 Object.defineProperty(exports, 'upgrader', {
   enumerable: true,
@@ -955,7 +827,7 @@ Object.defineProperty(exports, 'upgrader', {
   }
 });
 
-var _builder = __webpack_require__(7);
+var _builder = __webpack_require__(6);
 
 Object.defineProperty(exports, 'builder', {
   enumerable: true,
@@ -964,7 +836,7 @@ Object.defineProperty(exports, 'builder', {
   }
 });
 
-var _miner = __webpack_require__(13);
+var _miner = __webpack_require__(12);
 
 Object.defineProperty(exports, 'miner', {
   enumerable: true,
@@ -973,7 +845,7 @@ Object.defineProperty(exports, 'miner', {
   }
 });
 
-var _cleaner = __webpack_require__(9);
+var _cleaner = __webpack_require__(8);
 
 Object.defineProperty(exports, 'cleaner', {
   enumerable: true,
@@ -982,7 +854,7 @@ Object.defineProperty(exports, 'cleaner', {
   }
 });
 
-var _farHarvester = __webpack_require__(10);
+var _farHarvester = __webpack_require__(9);
 
 Object.defineProperty(exports, 'farHarvester', {
   enumerable: true,
@@ -991,7 +863,7 @@ Object.defineProperty(exports, 'farHarvester', {
   }
 });
 
-var _farMiner = __webpack_require__(11);
+var _farMiner = __webpack_require__(10);
 
 Object.defineProperty(exports, 'farMiner', {
   enumerable: true,
@@ -1000,7 +872,7 @@ Object.defineProperty(exports, 'farMiner', {
   }
 });
 
-var _claim = __webpack_require__(8);
+var _claim = __webpack_require__(7);
 
 Object.defineProperty(exports, 'claim', {
   enumerable: true,
@@ -1012,7 +884,7 @@ Object.defineProperty(exports, 'claim', {
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 /***/ }),
-/* 16 */
+/* 15 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1051,7 +923,7 @@ exports.default = function (container, targetsHarvest, targetsBuild) {
 };
 
 /***/ }),
-/* 17 */
+/* 16 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1127,7 +999,7 @@ function buildBody(obj) {
 }
 
 /***/ }),
-/* 18 */
+/* 17 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1155,7 +1027,7 @@ exports.default = function (tower) {
 };
 
 /***/ }),
-/* 19 */
+/* 18 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1165,7 +1037,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _tower = __webpack_require__(18);
+var _tower = __webpack_require__(17);
 
 Object.defineProperty(exports, "tower", {
   enumerable: true,
@@ -1174,7 +1046,7 @@ Object.defineProperty(exports, "tower", {
   }
 });
 
-var _container = __webpack_require__(16);
+var _container = __webpack_require__(15);
 
 Object.defineProperty(exports, "container", {
   enumerable: true,
@@ -1183,7 +1055,7 @@ Object.defineProperty(exports, "container", {
   }
 });
 
-var _spawn = __webpack_require__(17);
+var _spawn = __webpack_require__(16);
 
 Object.defineProperty(exports, "spawn", {
   enumerable: true,
@@ -1195,7 +1067,7 @@ Object.defineProperty(exports, "spawn", {
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 /***/ }),
-/* 20 */
+/* 19 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1214,7 +1086,7 @@ exports.default = function (x, y, type) {
 };
 
 /***/ }),
-/* 21 */
+/* 20 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1259,7 +1131,7 @@ var taskFindMiner = function taskFindMiner(creep) {
 exports.default = taskFindMiner;
 
 /***/ }),
-/* 22 */
+/* 21 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1295,7 +1167,7 @@ exports.default = function (creep) {
 };
 
 /***/ }),
-/* 23 */
+/* 22 */
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(1);
