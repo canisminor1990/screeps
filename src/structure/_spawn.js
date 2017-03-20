@@ -20,7 +20,7 @@ export default (spawn) => {
 			const roleBody = buildBody(body[key])
 
 			if (number[key][i] > 0 && roleNumber < maxNum && Game.spawns['Spawn1'].canCreateCreep(roleBody) === OK) {
-				const name = `[${roleSpawn}]${getNowFormatDate()}`
+				const name = `${roleSpawn}#${getNowFormatDate()}`
 				Game.spawns['Spawn1'].createCreep(roleBody, name, {role: roleSpawn, source: i}
 				);
 				console.log(['[Spawn]', name, 'Source:', i].join(' '));
