@@ -3,13 +3,11 @@ import * as role from './role';
 import * as structure from './structure';
 import {Timer} from './_util/Timer'
 const mySpawn = Game.spawns['Spawn1'];
+
 let timer = new Timer(2, ()=>console.log(2));
-
 module.exports.loop = () => {
-
     console.log(0)
-
-    timer.run.bind(timer);
+    timer.run()
 
 
     mySpawn.room.memory = {

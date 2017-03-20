@@ -138,15 +138,13 @@ var _Timer = __webpack_require__(5);
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
 var mySpawn = Game.spawns['Spawn1'];
+
 var timer = new _Timer.Timer(2, function () {
     return console.log(2);
 });
-
 module.exports.loop = function () {
-
     console.log(0);
-
-    timer.run.bind(timer);
+    timer.run();
 
     mySpawn.room.memory = {
         structures: mySpawn.room.find(FIND_STRUCTURES),
