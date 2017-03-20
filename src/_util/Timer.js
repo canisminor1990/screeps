@@ -8,7 +8,7 @@ export class Timer {
 
     run() {
         if (Game.time - Memory.timer[this.tick] < this.tick) return;
-        this.last = Game.time;
+        Memory.timer[tick] = Game.time
         this.func(this);
     }
 
