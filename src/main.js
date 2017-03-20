@@ -9,7 +9,7 @@ const mySpawn = Game.spawns['Spawn1'];
 let loop =
     new Loop()
         .start(() => console.log('Started!'))
-        .tick(() => timing = {})
+        .tick(() => {let timing = {}})
         .every(2, () => timing[2] = true)
         .every(5, () => timing[5] = true)
         .getLoop();

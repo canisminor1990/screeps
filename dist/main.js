@@ -142,7 +142,7 @@ var mySpawn = Game.spawns['Spawn1'];
 var loop = new _Loop.Loop().start(function () {
     return console.log('Started!');
 }).tick(function () {
-    return timing = {};
+    var timing = {};
 }).every(2, function () {
     return timing[2] = true;
 }).every(5, function () {
