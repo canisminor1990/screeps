@@ -137,7 +137,9 @@ function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj;
 
 var mySpawn = Game.spawns['Spawn1'];
 
+var a = 0;
 module.exports.loop = function () {
+    console.log(Game.time, a++);
 
     mySpawn.room.memory = {
         structures: mySpawn.room.find(FIND_STRUCTURES),
@@ -153,7 +155,12 @@ module.exports.loop = function () {
     });
     var targetsBuild = mySpawn.room.memory.constructionSites;
     var targetsPickup = mySpawn.room.memory.drop;
-    console.log(['[Log]', 'Harvest:', targetsHarvest.length, 'Build:', targetsBuild.length, 'Pickup:', targetsPickup.length].join(' '));
+    // console.log([
+    //     '[Log]',
+    //     'Harvest:', targetsHarvest.length,
+    //     'Build:', targetsBuild.length,
+    //     'Pickup:', targetsPickup.length,
+    // ].join(' '))
     for (var name in mySpawn.room.memory.structures) {
         var structureName = mySpawn.room.memory.structures[name];
         switch (structureName.structureType) {
@@ -871,7 +878,7 @@ exports.default = function (container, targetsHarvest, targetsBuild) {
 
 	if (targets[0]) {
 		if (container.transfer(targets[0], RESOURCE_ENERGY) == OK) {
-			console.log(['[Log]', 'Transfer:', targets[0]].join(' '));
+			// console.log(['[Log]','Transfer:',targets[0]].join(' '))
 			container.room.visual.text('[Transfer]', container.pos.x + 1, container.pos.y, { align: 'left', opacity: 0.8 });
 		}
 	}

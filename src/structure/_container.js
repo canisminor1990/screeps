@@ -19,7 +19,7 @@ export default (container, targetsHarvest, targetsBuild) => {
 
 	if (targets[0]) {
 		if (container.transfer(targets[0], RESOURCE_ENERGY) == OK) {
-			console.log(['[Log]','Transfer:',targets[0]].join(' '))
+			// console.log(['[Log]','Transfer:',targets[0]].join(' '))
 			container.room.visual.text(
 				'[Transfer]',
 				container.pos.x + 1,

@@ -3,11 +3,9 @@ import * as role from './role';
 import * as structure from './structure';
 const mySpawn = Game.spawns['Spawn1'];
 
-
+let a = 0
 module.exports.loop = () => {
-
-
-
+    console.log(Game.time,a++)
 
 
     mySpawn.room.memory = {
@@ -26,12 +24,12 @@ module.exports.loop = () => {
     )
     const targetsBuild = mySpawn.room.memory.constructionSites;
     const targetsPickup = mySpawn.room.memory.drop;
-    console.log([
-        '[Log]',
-        'Harvest:', targetsHarvest.length,
-        'Build:', targetsBuild.length,
-        'Pickup:', targetsPickup.length,
-    ].join(' '))
+    // console.log([
+    //     '[Log]',
+    //     'Harvest:', targetsHarvest.length,
+    //     'Build:', targetsBuild.length,
+    //     'Pickup:', targetsPickup.length,
+    // ].join(' '))
     for (let name in mySpawn.room.memory.structures) {
         const structureName = mySpawn.room.memory.structures[name];
         switch (structureName.structureType) {
