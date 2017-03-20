@@ -147,17 +147,17 @@ module.exports.loop = function () {
 
     (0, _Timer2.default)(5, function () {
         "use strict";
-
-        mySpawn.room.memory = {
-            structures: mySpawn.room.find(FIND_STRUCTURES),
-            constructionSites: mySpawn.room.find(FIND_CONSTRUCTION_SITES),
-            source: mySpawn.room.find(FIND_SOURCES),
-            miner: mySpawn.room.find(FIND_MY_CREEPS, { filter: function filter(miner) {
-                    return miner.memory.role === "miner";
-                } }),
-            drop: mySpawn.room.find(FIND_DROPPED_ENERGY)
-        };
     });
+
+    mySpawn.room.memory = {
+        structures: mySpawn.room.find(FIND_STRUCTURES),
+        constructionSites: mySpawn.room.find(FIND_CONSTRUCTION_SITES),
+        source: mySpawn.room.find(FIND_SOURCES),
+        miner: mySpawn.room.find(FIND_MY_CREEPS, { filter: function filter(miner) {
+                return miner.memory.role === "miner";
+            } }),
+        drop: mySpawn.room.find(FIND_DROPPED_ENERGY)
+    };
 
     var targetsHarvest = mySpawn.room.memory.structures.filter(function (structure) {
         return (structure.structureType == STRUCTURE_EXTENSION || structure.structureType == STRUCTURE_SPAWN || structure.structureType == STRUCTURE_TOWER) && structure.energy < structure.energyCapacity;
