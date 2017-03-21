@@ -3,21 +3,19 @@ const factory = config.role;
 
 export default (spawn) => {
 
-	// const targetsBuild = spawn.room.memory.constructionSites;
-	//
-	// if (!targetsBuild.length) {
-	// 	const builderTargets = spawn.pos.findInRange(FIND_MY_CREEPS, 1, {filter: creep => creep.role == "builder"[0]});
-	// 	if (builderTargets) {
-	// 		spawn.recycleCreep(builderTargets);
-	// 	}
-	// }
+	const targetsBuild = spawn.room.memory.constructionSites;
 
 	for (let name in Memory.creeps) {
-
 		if (!Game.creeps[name]) {
 			delete Memory.creeps[name];
 			console.log(['[Clean]',
 			             name].join(' '));
+		}
+		if (Memory.creeps[name].role = "builder" && targetsBuild.length == 0) {
+			const builderTargets = spawn.pos.findInRange(FIND_MY_CREEPS, 1, {filter: creep => creep.role == "builder"[0]});
+			if (builderTargets) {
+				spawn.recycleCreep(builderTargets);
+			}
 		}
 	}
 
