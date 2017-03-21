@@ -16,13 +16,15 @@ export default (spawn) => {
 		      body      = buildBody(factory[name].body),
 		      number    = factory[name].number,
 		      numberSum = _.sum(number);
-
+		console.log('pre',role)
 		for (let i in number) {
 			const nowNumber = _.filter(Game.creeps, (creep) =>
 			                           creep.memory.role == role &&
 			                           creep.memory.source == i
 			).length;
+			console.log(number[i] , nowNumber)
 			if (number[i] > nowNumber) {
+				console.log('build')
 				if (Game.spawns['Spawn1'].canCreateCreep(body) === OK) {
 					const name = `${role}#${getNowFormatDate()}`
 					Game.spawns['Spawn1'].createCreep(body, name, {role: role, source: i}
