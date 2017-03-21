@@ -1286,8 +1286,7 @@ exports.default = function (creep, target) {
         }
     }
 
-    if (creep.moveByPath(Path) == 0) {
-        Path.shift();
+    if (creep.moveByPath([Path.shift()]) == 0) {
         console.log('ok');
         creep.memory.path = Path;
         delete creep.memory.lastPos;
