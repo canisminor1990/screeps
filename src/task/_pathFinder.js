@@ -15,7 +15,7 @@ export default (creep, target) => {
                 if (!Memory.PathFinder) {
                     Memory.PathFinder = {}
                 }
-                if (!Memory.PathFinder[roomName] || Game.time - Memory.PathFinder.time > 2) {
+                if (!Memory.PathFinder[roomName] || Game.time - Memory.PathFinder.time > 10) {
                     // In this example `room` will always exist, but since PathFinder
                     // supports searches which span multiple rooms you should be careful!
 
@@ -30,15 +30,15 @@ export default (creep, target) => {
                             costs.set(structure.pos.x, structure.pos.y, 0xff);
                         }
                     });
-
+                    Memory.PathFinder[roomName] = costs.serialize();
                     // Avoid creeps in the room
-                    room.find(FIND_CREEPS).forEach((creep) => {
-                        costs.set(creep.pos.x, creep.pos.y, 0xff);
-                    });
+
                 } else {
                     costs = PathFinder.CostMatrix.deserialize(Memory.PathFinder[roomName])
                 }
-                Memory.PathFinder[roomName] = costs.serialize();
+                room.find(FIND_CREEPS).forEach((creep) => {
+                    costs.set(creep.pos.x, creep.pos.y, 0xff);
+                });
                 Memory.PathFinder.time = Game.time
                 return costs;
             }
