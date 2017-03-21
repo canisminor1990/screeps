@@ -1296,6 +1296,7 @@ exports.default = function (creep, target) {
         path = PathFinder.search(creep.pos, goals, opt).path;
     } else {
         path = creep.memory.path;
+        console.log(1);
     }
 
     if (creep.move(creep.pos.getDirectionTo(path.shift())) == OK) {
