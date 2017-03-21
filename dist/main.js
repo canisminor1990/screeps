@@ -1079,23 +1079,33 @@ exports.default = function (spawn) {
 				return creep.memory.role == role && creep.memory.source == i;
 			}).length;
 
-			if (number[i] > nowNumber && Game.spawns['Spawn1'].canCreateCreep(body) === OK) {
-				var _name2 = role + '#' + getNowFormatDate();
-				Game.spawns['Spawn1'].createCreep(body, _name2, { role: role, source: i });
-				console.log(['[Spawn]', _name2, 'Source:', i].join(' '));
-			} else {
-				return {
-					v: {
-						v: void 0
-					}
-				};
+			if (number[i] > nowNumber) {
+
+				if (Game.spawns['Spawn1'].canCreateCreep(body) === OK) {
+					var _name2 = role + '#' + getNowFormatDate();
+					Game.spawns['Spawn1'].createCreep(body, _name2, { role: role, source: i });
+					console.log(['[Spawn]', _name2, 'Source:', i].join(' '));
+				} else {
+					return 'break';
+					return {
+						v: {
+							v: void 0
+						}
+					};
+				}
 			}
 		};
 
-		for (var i in number) {
+		_loop3: for (var i in number) {
 			var _ret2 = _loop2(i);
 
-			if ((typeof _ret2 === 'undefined' ? 'undefined' : _typeof(_ret2)) === "object") return _ret2.v;
+			switch (_ret2) {
+				case 'break':
+					break _loop3;
+
+				default:
+					if ((typeof _ret2 === 'undefined' ? 'undefined' : _typeof(_ret2)) === "object") return _ret2.v;
+			}
 		}
 	};
 
