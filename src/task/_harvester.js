@@ -15,7 +15,7 @@ export default (creep) => {
             ? pathFinder(creep,targets)
             : null;
     } else {
-        const targetsBuild = mySpawn.room.memory.constructionSites;
+        const targetsBuild = creep.room.memory.constructionSites;
         if (creep.role != "builder" && targetsBuild.length > 0){
            const builderTargets =  creep.pos.findClosestByPath(FIND_MY_CREEPS,{filter:creep => creep.role =="builder" && creep.carry['energy'] < creep.carryCapacity});
             (builderTargets && creep.transfer(builderTargets, RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) ?
