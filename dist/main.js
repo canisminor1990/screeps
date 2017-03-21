@@ -171,6 +171,13 @@ module.exports.loop = function () {
 
 	for (var _name in Game.creeps) {
 		var creep = Game.creeps[_name];
+
+		if (!creep.memory) {
+			creep.memory = {
+				role: creep.name.split('#')[0],
+				source: 1
+			};
+		}
 		switch (creep.memory.role) {
 			case 'claim':
 				role.claim(creep);
