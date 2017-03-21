@@ -714,14 +714,14 @@ exports.default = function (creep) {
 					return creepRole.memory.role == 'farMiner';
 				} })[0];
 			if (!miner) {
-				creep.harvest(source) == ERR_NOT_IN_RANGE ? (0, _task.pathFinder)(creep, source) : null;
+				creep.harvest(source) == ERR_NOT_IN_RANGE ? creep.moveTo(source) : null;
 			} else {
-				(0, _task.pathFinder)(creep, miner);
+				creep.moveTo(miner);
 			}
 		}
 	} else {
 		if (creep.room.name !== myRoom.room.name) {
-			(0, _task.pathFinder)(creep, myRoom);
+			creep.moveTo(myRoom);
 			creep.moveTo(myRoom, { reusePath: 8, visualizePathStyle: { stroke: '#ffffff' } });
 		} else {
 			(0, _task.taskHarvester)(creep);
@@ -1234,8 +1234,6 @@ Object.defineProperty(exports, "__esModule", {
 var _util = __webpack_require__(3);
 
 exports.default = function (creep, target) {
-
-	console.log(target);
 
 	if (!target && !target.pos) {
 		return;
