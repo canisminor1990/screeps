@@ -172,7 +172,7 @@ module.exports.loop = function () {
 	for (var _name in Game.creeps) {
 		var creep = Game.creeps[_name];
 
-		if (!creep.memory) {
+		if (!creep.memory.role) {
 			creep.memory = {
 				role: creep.name.split('#')[0],
 				source: 1

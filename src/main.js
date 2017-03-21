@@ -40,7 +40,7 @@ module.exports.loop = () => {
 	for (let name in Game.creeps) {
 		const creep = Game.creeps[name];
 
-		if (!creep.memory){
+		if (!creep.memory.role){
             creep.memory = {
             	role:creep.name.split('#') [0],
 				source:1
