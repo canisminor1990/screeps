@@ -1299,7 +1299,7 @@ exports.default = function (creep, target) {
                 } else {
                     costs = PathFinder.CostMatrix.deserialize(Memory.PathFinder[roomName]);
                 }
-                Memory.PathFinder[roomName] = costs.costs.serialize();
+                Memory.PathFinder[roomName] = costs.serialize();
                 Memory.PathFinder.time = Game.time;
                 return costs;
             }
