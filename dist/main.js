@@ -1279,14 +1279,13 @@ Object.defineProperty(exports, "__esModule", {
 var _util = __webpack_require__(3);
 
 exports.default = function (creep, target) {
-
+	if (!target && !target.pos) return;
 	var Pos = creep.pos;
-	var Path = PathFinder.search(Pos, target.pos, { maxRooms: 2 });
+	var targetPos = target.pos;
+	var Path = PathFinder.search(Pos, targetPos, { maxRooms: 2 });
 	var NextPos = Path.path[0];
 	var Direciton = (0, _util.findDireciton)(Pos, NextPos);
-
 	var NextStep = void 0;
-
 	if (hasRoad(NextPos)) {
 		NextStep = Direciton.direction;
 	} else {
@@ -1298,12 +1297,10 @@ exports.default = function (creep, target) {
 			NextStep = Direciton.direction;
 		}
 	}
-
 	creep.move(NextStep);
 };
 
 function hasRoad(pos) {
-
 	var hasRoad = pos.lookFor(LOOK_STRUCTURES).filter(function (lookObject) {
 		return lookObject.structureType == 'road';
 	});
