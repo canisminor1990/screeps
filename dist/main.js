@@ -1301,8 +1301,8 @@ exports.default = function (creep, target) {
     if (!creep.memory.path || !creep.memory.target || creep.memory.target != target.id) {
         path = PathFinder.search(creep.pos, goals, {
 
-            plainCost: 20,
-            swampCost: 100,
+            plainCost: 5,
+            swampCost: 25,
 
             roomCallback: function roomCallback(roomName) {
                 var costs = void 0,
