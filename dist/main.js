@@ -1060,10 +1060,10 @@ exports.default = function (spawn) {
 		}
 		if (Memory.creeps[name].role = "builder" && targetsBuild.length == 0) {
 			var builderTargets = spawn.pos.findInRange(FIND_MY_CREEPS, 1, { filter: function filter(creep) {
-					return creep.role == "builder"[0];
+					return creep.role == "builder";
 				} });
-			if (builderTargets) {
-				spawn.recycleCreep(builderTargets);
+			if (builderTargets.length > 0) {
+				spawn.recycleCreep(builderTargets[0]);
 			}
 		}
 	}

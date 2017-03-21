@@ -12,9 +12,9 @@ export default (spawn) => {
 			             name].join(' '));
 		}
 		if (Memory.creeps[name].role = "builder" && targetsBuild.length == 0) {
-			const builderTargets = spawn.pos.findInRange(FIND_MY_CREEPS, 1, {filter: creep => creep.role == "builder"[0]});
-			if (builderTargets) {
-				spawn.recycleCreep(builderTargets);
+			const builderTargets = spawn.pos.findInRange(FIND_MY_CREEPS, 1, {filter: creep => creep.role == "builder"});
+			if (builderTargets.length > 0) {
+				spawn.recycleCreep(builderTargets[0]);
 			}
 		}
 	}
