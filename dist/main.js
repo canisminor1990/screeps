@@ -1051,7 +1051,7 @@ exports.default = function (spawn) {
                 return creep.role == "builder"[0];
             } });
         if (builderTargets) {
-            spawn.recycleCreep(builderTarget);
+            spawn.recycleCreep(builderTargets);
         }
     }
 

@@ -8,7 +8,7 @@ export default (spawn) => {
     if (targetsBuild.length == 0) {
         const builderTargets = spawn.pos.findInRange(FIND_MY_CREEPS, 1, {filter: creep => creep.role == "builder"[0]});
         if (builderTargets) {
-            spawn.recycleCreep(builderTarget);
+            spawn.recycleCreep(builderTargets);
         }
     }
 
