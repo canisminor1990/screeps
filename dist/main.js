@@ -1248,7 +1248,8 @@ var _util = __webpack_require__(3);
 exports.default = function (creep, target) {
     if (creep.memory.lastPos && creep.pos.x == creep.memory.lastPos.x && creep.pos.y == creep.memory.lastPos.y && creep.fatigue == 0) {
         creep.moveTo(target);
-
+        delete creep.memory.path;
+        delete creep.memory.lastPos;
         console.log('pathFinder Debug');
         return;
     }
@@ -1279,7 +1280,6 @@ exports.default = function (creep, target) {
         Path.shift();
     } else {
         delete creep.memory.path;
-        delete creep.memory.lastPos;
     }
     creep.memory.path = Path;
 };
