@@ -273,14 +273,11 @@ var repair = function repair(structure) {
 b;
 
 exports.default = {
-	role: role.sort(sortNumber),
+	role: role.sort(function (a, b) {
+		return a.priority - b.priority;
+	}),
 	repair: repair
 };
-
-
-function sortNumber(a, b) {
-	return a.priority - b.priority;
-}
 
 /***/ }),
 /* 3 */

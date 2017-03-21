@@ -64,11 +64,6 @@ const repair = (structure) => (structure.hits / structure.hitsMax) < 0.5 && stru
 b
 
 export default {
-	role  : role.sort(sortNumber),
+	role  : role.sort((a, b) => a.priority - b.priority),
 	repair: repair,
 };
-
-function sortNumber(a,b)
-{
-	return a.priority - b.priority
-}
