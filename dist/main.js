@@ -1260,6 +1260,8 @@ Object.defineProperty(exports, "__esModule", {
 
 var _util = __webpack_require__(3);
 
+var opt = { maxRooms: 1 };
+
 exports.default = function (creep, target) {
     var Path = void 0;
     var Pos = creep.pos;
@@ -1275,7 +1277,7 @@ exports.default = function (creep, target) {
 
     creep.memory.target = target;
     if (!(creep.memory.path && creep.memory.path.length > 0 || target !== creep.memory.target)) {
-        Path = PathFinder.search(Pos, targetPos, { maxRooms: 2 }).path;
+        Path = PathFinder.search(Pos, targetPos, opt).path;
         var NextPos = Path[0];
         if (!hasRoad(NextPos)) {
             delete creep.memory.path;

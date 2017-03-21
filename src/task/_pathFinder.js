@@ -1,4 +1,5 @@
 import {findDireciton} from '../_util'
+const opt = {maxRooms: 1}
 export default (creep, target) => {
     let Path;
     const Pos = creep.pos;
@@ -14,7 +15,7 @@ export default (creep, target) => {
 
     creep.memory.target = target;
     if (!(creep.memory.path && creep.memory.path.length > 0 || target !== creep.memory.target)) {
-        Path = PathFinder.search(Pos, targetPos, {maxRooms: 2}).path;
+        Path = PathFinder.search(Pos, targetPos, opt).path;
         const NextPos = Path[0];
         if (!hasRoad(NextPos)) {
             delete(creep.memory.path);
