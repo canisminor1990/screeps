@@ -1239,51 +1239,54 @@ exports.default = function (creep) {
 
 
 Object.defineProperty(exports, "__esModule", {
-	value: true
+    value: true
 });
 
 var _util = __webpack_require__(3);
 
 exports.default = function (creep, target) {
 
-	if (creep.memory.lastPos && creep.pos.toString() == creep.memory.lastPos.toString()) return creep.moveTo(target);
+    if (creep.memory.lastPos && creep.pos.toString() == creep.memory.lastPos.toString()) {
+        creep.moveTo(target);
+        return;
+    }
 
-	if (!target && !target.pos) {
-		return;
-	}
-	var Pos = creep.pos;
-	var targetPos = target.pos;
-	var Path = PathFinder.search(Pos, targetPos, { maxRooms: 2 });
-	var NextPos = Path.path[0];
+    if (!target && !target.pos) {
+        return;
+    }
+    var Pos = creep.pos;
+    var targetPos = target.pos;
+    var Path = PathFinder.search(Pos, targetPos, { maxRooms: 2 });
+    var NextPos = Path.path[0];
 
-	if (Pos.x && NextPos.x) {
-		var Direciton = (0, _util.findDireciton)(Pos, NextPos);
-		var NextStep = void 0;
-		if (hasRoad(NextPos)) {
-			NextStep = Direciton.direction;
-		} else {
-			if (hasRoad(Direciton.directionFixPos[0])) {
-				NextStep = Direciton.directionFix[0];
-			} else if (hasRoad(Direciton.directionFixPos[1])) {
-				NextStep = Direciton.directionFix[1];
-			} else {
-				NextStep = Direciton.direction;
-			}
-		}
-		creep.move(NextStep);
-	} else {
-		creep.moveTo(target);
-		console.log('notPathfound');
-	}
-	creep.memory.lastPos = Pos;
+    if (Pos.x && NextPos.x) {
+        var Direciton = (0, _util.findDireciton)(Pos, NextPos);
+        var NextStep = void 0;
+        if (hasRoad(NextPos)) {
+            NextStep = Direciton.direction;
+        } else {
+            if (hasRoad(Direciton.directionFixPos[0])) {
+                NextStep = Direciton.directionFix[0];
+            } else if (hasRoad(Direciton.directionFixPos[1])) {
+                NextStep = Direciton.directionFix[1];
+            } else {
+                NextStep = Direciton.direction;
+            }
+        }
+        creep.move(NextStep);
+    } else {
+        creep.moveTo(target);
+        console.log('notPathfound');
+    }
+    creep.memory.lastPos = Pos;
 };
 
 function hasRoad(pos) {
-	var hasRoad = pos.lookFor(LOOK_STRUCTURES).filter(function (lookObject) {
-		return lookObject.structureType == 'road';
-	});
-	var hasCreep = pos.lookFor(LOOK_CREEPS);
-	return hasRoad.length > 0 && hasCreep.length == 0 ? true : false;
+    var hasRoad = pos.lookFor(LOOK_STRUCTURES).filter(function (lookObject) {
+        return lookObject.structureType == 'road';
+    });
+    var hasCreep = pos.lookFor(LOOK_CREEPS);
+    return hasRoad.length > 0 && hasCreep.length == 0 ? true : false;
 }
 
 /***/ }),
