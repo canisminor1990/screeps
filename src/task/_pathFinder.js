@@ -10,7 +10,8 @@ export default (creep, target) => {
         return
     }
 
-    creep.memory.lastPos = Pos;
+    if (creep.fatigue == 0) creep.memory.lastPos = Pos;
+
     creep.memory.target = target;
     if (!(creep.memory.path && creep.memory.path.length > 0 || target !== creep.memory.target)) {
         Path = PathFinder.search(Pos, targetPos, {maxRooms: 2}).path;
