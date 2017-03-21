@@ -1246,35 +1246,36 @@ Object.defineProperty(exports, "__esModule", {
 var _util = __webpack_require__(3);
 
 exports.default = function (creep, target) {
+    var Path = void 0;
     if (creep.memory.lastPos && creep.pos.x == creep.memory.lastPos.x && creep.pos.y == creep.memory.lastPos.y && creep.fatigue == 0) {
-        creep.moveTo(target);
-        delete creep.memory.path;
+        Path = PathFinder.search(Pos, targetPos, { maxRooms: 2 }).path;
         delete creep.memory.lastPos;
         console.log('pathFinder Debug');
         return;
-    }
-    var Pos = creep.pos;
-    creep.memory.lastPos = Pos;
-    creep.memory.target = target;
-    var Path = void 0;
-    if (!creep.memory.path && target == creep.memory.target) {
-        var targetPos = target.pos;
-        Path = PathFinder.search(Pos, targetPos, { maxRooms: 2 }).path;
-        var NextPos = Path[0];
-
-        if (!hasRoad(NextPos)) {
-            var Direciton = (0, _util.findDireciton)(Pos, NextPos);
-            if (hasRoad(Direciton[0])) {
-                Path[0] = Direciton[0];
-            } else if (hasRoad(Direciton[1])) {
-                Path[0] = Direciton[1];
-            }
-        }
-        console.log('no');
     } else {
-        Path = creep.memory.path;
-        console.log('yse');
+        var _Pos = creep.pos;
+        creep.memory.lastPos = _Pos;
+        creep.memory.target = target;
+        if (!creep.memory.path && target == creep.memory.target) {
+            var _targetPos = target.pos;
+            Path = PathFinder.search(_Pos, _targetPos, { maxRooms: 2 }).path;
+            var NextPos = Path[0];
+
+            if (!hasRoad(NextPos)) {
+                var Direciton = (0, _util.findDireciton)(_Pos, NextPos);
+                if (hasRoad(Direciton[0])) {
+                    Path[0] = Direciton[0];
+                } else if (hasRoad(Direciton[1])) {
+                    Path[0] = Direciton[1];
+                }
+            }
+            console.log('no');
+        } else {
+            Path = creep.memory.path;
+            console.log('yse');
+        }
     }
+
     if (creep.moveByPath(Path) == 0) {
         console.log('ok');
         Path.shift();
