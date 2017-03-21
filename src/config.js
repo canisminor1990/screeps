@@ -21,7 +21,7 @@ const role = [
     },
     {
         role: 'harvester',
-        body: {move: 1, work: 1, carry: 2},
+        body: {move: 4, work: 1, carry: 6},
         number: [0, 4],
         priority: 1
     },
