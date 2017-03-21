@@ -1258,10 +1258,9 @@ Object.defineProperty(exports, "__esModule", {
     value: true
 });
 var opt = {
-    maxRooms: 1, // We need to set the defaults costs higher so that we
-    // can set the road cost lower in `roomCallback`
-    plainCost: 2,
-    swampCost: 10,
+    maxRooms: 1,
+    plainCost: 20,
+    swampCost: 100,
 
     roomCallback: function roomCallback(roomName) {
 
@@ -1292,38 +1291,7 @@ var opt = {
 exports.default = function (creep, target) {
 
     var goals = target.pos;
-    var ret = PathFinder.search(creep.pos, goals, {
-        // We need to set the defaults costs higher so that we
-        // can set the road cost lower in `roomCallback`
-        plainCost: 2,
-        swampCost: 10,
-
-        roomCallback: function roomCallback(roomName) {
-
-            var room = Game.rooms[roomName];
-            // In this example `room` will always exist, but since PathFinder
-            // supports searches which span multiple rooms you should be careful!
-            if (!room) return;
-            var costs = new PathFinder.CostMatrix();
-
-            room.find(FIND_STRUCTURES).forEach(function (structure) {
-                if (structure.structureType === STRUCTURE_ROAD) {
-                    // Favor roads over plain tiles
-                    costs.set(structure.pos.x, structure.pos.y, 1);
-                } else if (structure.structureType !== STRUCTURE_CONTAINER && (structure.structureType !== STRUCTURE_RAMPART || !structure.my)) {
-                    // Can't walk through non-walkable buildings
-                    costs.set(structure.pos.x, structure.pos.y, 0xff);
-                }
-            });
-
-            // Avoid creeps in the room
-            room.find(FIND_CREEPS).forEach(function (creep) {
-                costs.set(creep.pos.x, creep.pos.y, 0xff);
-            });
-
-            return costs;
-        }
-    });
+    var ret = PathFinder.search(creep.pos, goals, opt);
 
     var pos = ret.path[0];
     creep.move(creep.pos.getDirectionTo(pos));
