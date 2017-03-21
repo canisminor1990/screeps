@@ -522,7 +522,9 @@ function DirecitonFixPos(creep, pos, roomName) {
 	return new RoomPosition(creep.x + pos[0], creep.y + pos[1], roomName);
 }
 
-function Direciton(pos) {
+function Direciton() {
+	var pos = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : [0, 0];
+
 	var directon = void 0;
 	switch (pos.toString()) {
 		case '0,-1':

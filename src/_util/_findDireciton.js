@@ -43,7 +43,7 @@ function DirecitonFixPos(creep, pos, roomName) {
 
 
 
-function Direciton(pos) {
+function Direciton(pos = [0,0]) {
 	let directon;
 	switch (pos.toString()) {
 		case '0,-1':
