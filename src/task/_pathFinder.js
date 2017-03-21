@@ -2,30 +2,25 @@ import {findDireciton} from '../_util'
 export default (creep, target) => {
 
     if (creep.memory.lastPos && creep.pos.x == creep.memory.lastPos.x && creep.pos.y == creep.memory.lastPos.y && creep.fatigue == 0) {
-        console.log(creep.moveTo(target))
+        creep.moveTo(target)
         return;
     }
 
     const Pos = creep.pos;
     const targetPos = target.pos
-    const Path = PathFinder.search(Pos, targetPos, {maxRooms: 2});
+    let Path = PathFinder.search(Pos, targetPos, {maxRooms: 2});
     const NextPos = Path.path[0];
 
     if (Pos.x && NextPos.x) {
-        const Direciton = findDireciton(Pos, NextPos);
-        let NextStep;
-        if (hasRoad(NextPos)) {
-            NextStep = Direciton.direction
-        } else {
-            if (hasRoad(Direciton.directionFixPos[0])) {
-                NextStep = Direciton.directionFix[0]
-            } else if (hasRoad(Direciton.directionFixPos[1])) {
-                NextStep = Direciton.directionFix[1]
-            } else {
-                NextStep = Direciton.direction
+        if (!hasRoad(NextPos)) {
+            const Direciton = findDireciton(Pos, NextPos);
+            if (hasRoad(Direciton[0])) {
+                Path.path[0] = Direciton[0]
+            } else if (hasRoad(Direciton[1])) {
+                Path.path[1] = Direciton[1]
             }
         }
-        creep.move(NextStep)
+        creep.moveByPath(Path)
     } else {
         creep.moveTo(target)
         console.log('notPathfound')

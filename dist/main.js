@@ -490,71 +490,73 @@ exports.default = function (x, y, type) {
 
 
 Object.defineProperty(exports, "__esModule", {
-	value: true
+    value: true
 });
 
 exports.default = function (pos, nextPos) {
 
-	var directonArray = [[0, -1], [1, -1], [1, 0], [1, 1], [0, 1], [-1, 1], [-1, 0], [-1, -1]];
+    var directonArray = [[0, -1], [1, -1], [1, 0], [1, 1], [0, 1], [-1, 1], [-1, 0], [-1, -1]];
 
-	var directionFix = [],
-	    directonPos = [nextPos.x - pos.x, nextPos.y - pos.y];
+    var directionFix = [],
+        directonPos = [nextPos.x - pos.x, nextPos.y - pos.y];
 
-	for (var i = 0; i < directonArray.length; i++) {
-		if (directonArray[i].toString() == directonPos.toString()) {
-			var nextI = i + 1 <= 7 ? i + 1 : 0,
-			    beforeI = i - 1 >= 0 ? i - 1 : 7;
+    for (var i = 0; i < directonArray.length; i++) {
+        if (directonArray[i].toString() == directonPos.toString()) {
+            var nextI = i + 1 <= 7 ? i + 1 : 0,
+                beforeI = i - 1 >= 0 ? i - 1 : 7;
 
-			directionFix.push(directonArray[nextI]);
-			directionFix.push(directonArray[beforeI]);
-		}
-	}
+            directionFix.push(directonArray[nextI]);
+            directionFix.push(directonArray[beforeI]);
+        }
+    }
+    // return {
+    //     direction      : Direciton(directonPos),
+    //     directionFix   : [Direciton(directionFix[0]), Direciton(directionFix[1])],
+    //     directionFixPos: [
+    //         DirecitonFixPos(pos, directionFix[0], nextPos.roomName),
+    //         DirecitonFixPos(pos, directionFix[1], nextPos.roomName)
+    //     ],
+    // }
 
-	return {
-		direction: Direciton(directonPos),
-		directionFix: [Direciton(directionFix[0]), Direciton(directionFix[1])],
-		directionFixPos: [DirecitonFixPos(pos, directionFix[0], nextPos.roomName), DirecitonFixPos(pos, directionFix[1], nextPos.roomName)]
-	};
+    return [DirecitonFixPos(pos, directionFix[0], nextPos.roomName), DirecitonFixPos(pos, directionFix[1], nextPos.roomName)];
 };
 
 function DirecitonFixPos(creep, pos, roomName) {
-
-	return new RoomPosition(creep.x + pos[0], creep.y + pos[1], roomName);
+    return new RoomPosition(creep.x + pos[0], creep.y + pos[1], roomName);
 }
 
-function Direciton() {
-	var pos = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : [0, 0];
-
-	var directon = void 0;
-	switch (pos.toString()) {
-		case '0,-1':
-			directon = TOP;
-			break;
-		case '1,-1':
-			directon = TOP_RIGHT;
-			break;
-		case '1,0':
-			directon = RIGHT;
-			break;
-		case '1,1':
-			directon = BOTTOM_RIGHT;
-			break;
-		case '0,1':
-			directon = BOTTOM;
-			break;
-		case '-1,1':
-			directon = BOTTOM_LEFT;
-			break;
-		case '-1,0':
-			directon = LEFT;
-			break;
-		case '-1,-1':
-			directon = TOP_LEFT;
-			break;
-	}
-
-	return directon;
-}
+//
+// function Direciton(pos = [0, 0]) {
+//     let directon;
+//     switch (pos.toString()) {
+//         case '0,-1':
+//             directon = TOP
+//             break
+//         case '1,-1':
+//             directon = TOP_RIGHT
+//             break
+//         case '1,0':
+//             directon = RIGHT
+//             break
+//         case '1,1':
+//             directon = BOTTOM_RIGHT
+//             break
+//         case '0,1':
+//             directon = BOTTOM
+//             break
+//         case '-1,1':
+//             directon = BOTTOM_LEFT
+//             break
+//         case '-1,0':
+//             directon = LEFT
+//             break
+//         case '-1,-1':
+//             directon = TOP_LEFT
+//             break
+//     }
+//
+//     return directon;
+// }
 
 // TOP         : 1,
 // TOP_RIGHT   : 2,
@@ -1246,7 +1248,7 @@ var _util = __webpack_require__(3);
 exports.default = function (creep, target) {
 
     if (creep.memory.lastPos && creep.pos.x == creep.memory.lastPos.x && creep.pos.y == creep.memory.lastPos.y && creep.fatigue == 0) {
-        console.log(creep.moveTo(target));
+        creep.moveTo(target);
         return;
     }
 
@@ -1256,20 +1258,15 @@ exports.default = function (creep, target) {
     var NextPos = Path.path[0];
 
     if (Pos.x && NextPos.x) {
-        var Direciton = (0, _util.findDireciton)(Pos, NextPos);
-        var NextStep = void 0;
-        if (hasRoad(NextPos)) {
-            NextStep = Direciton.direction;
-        } else {
-            if (hasRoad(Direciton.directionFixPos[0])) {
-                NextStep = Direciton.directionFix[0];
-            } else if (hasRoad(Direciton.directionFixPos[1])) {
-                NextStep = Direciton.directionFix[1];
-            } else {
-                NextStep = Direciton.direction;
+        if (!hasRoad(NextPos)) {
+            var Direciton = (0, _util.findDireciton)(Pos, NextPos);
+            if (hasRoad(Direciton[0])) {
+                Path.path[0] = Direciton[0];
+            } else if (hasRoad(Direciton[1])) {
+                Path.path[1] = Direciton[1];
             }
         }
-        creep.move(NextStep);
+        creep.moveByPath(Path);
     } else {
         creep.moveTo(target);
         console.log('notPathfound');
