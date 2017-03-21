@@ -222,9 +222,9 @@ var role = {
         claim: [1],
         farMiner: [1],
         farHarvester: [4],
-        harvester: [0, 4],
+        harvester: [0, 2],
         upgrader: [2],
-        builder: [0, 3],
+        builder: [0, 2],
         miner: [1, 2],
         cleaner: [1]
     },
