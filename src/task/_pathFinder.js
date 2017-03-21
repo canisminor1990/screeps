@@ -2,7 +2,7 @@ import {findDireciton} from '../_util'
 export default (creep, target) => {
 
     if (creep.memory.lastPos && creep.pos.toString() == creep.memory.lastPos.toString()) {
-        creep.moveTo(target);
+        console.log(creep.moveTo(target))
         return;
     }
 
