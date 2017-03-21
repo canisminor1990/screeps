@@ -59,7 +59,7 @@ module.exports.loop = () => {
 				role.upgrader(creep);
 				break;
 			case 'builder':
-				(targetsBuild.length > 0) ? role.builder(creep) : role.harvester(creep)
+				role.harvester(creep)
 				break;
 			case 'miner':
 				role.miner(creep);
