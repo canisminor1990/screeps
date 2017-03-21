@@ -1243,6 +1243,13 @@ exports.default = function (creep) {
     if (targets) {
         creep.transfer(targets, RESOURCE_ENERGY) == ERR_NOT_IN_RANGE ? (0, _task.pathFinder)(creep, targets) : null;
     } else {
+        var targetsBuild = mySpawn.room.memory.constructionSites;
+        if (creep.role != "builder" && targetsBuild.length > 0) {
+            var builderTargets = creep.pos.findClosestByPath(FIND_MY_CREEPS, { filter: function filter(creep) {
+                    return creep.role == "builder" && creep.carry['energy'] < creep.carryCapacity;
+                } });
+            builderTargets && creep.transfer(builderTargets, RESOURCE_ENERGY) == ERR_NOT_IN_RANGE ? (0, _task.pathFinder)(creep, builderTargets) : null;
+        }
         (0, _container2.default)(creep);
     }
 };
