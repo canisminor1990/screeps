@@ -1048,21 +1048,14 @@ exports.default = function (spawn) {
 							v: void 0
 						}
 					};
-					return 'break';
 				}
 			}
 		};
 
-		_loop3: for (var i in number) {
+		for (var i in number) {
 			var _ret2 = _loop2(i);
 
-			switch (_ret2) {
-				case 'break':
-					break _loop3;
-
-				default:
-					if ((typeof _ret2 === 'undefined' ? 'undefined' : _typeof(_ret2)) === "object") return _ret2.v;
-			}
+			if ((typeof _ret2 === 'undefined' ? 'undefined' : _typeof(_ret2)) === "object") return _ret2.v;
 		}
 	};
 
@@ -1287,7 +1280,7 @@ function hasRoad(pos) {
 		return lookObject.structureType == 'road';
 	});
 	var hasCreep = pos.lookFor(LOOK_CREEPS);
-	return hasRoad.length > 0 || hasCreep.length > 0 ? true : false;
+	return hasRoad.length > 0 && hasCreep.length == 0 ? true : false;
 }
 
 /***/ }),

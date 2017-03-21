@@ -34,7 +34,7 @@ function hasRoad(pos) {
 	const hasRoad  = pos.lookFor(LOOK_STRUCTURES)
 	                    .filter(lookObject => lookObject.structureType == 'road');
 	const hasCreep = pos.lookFor(LOOK_CREEPS)
-	return (hasRoad.length > 0 || hasCreep.length > 0) ? true : false;
+	return (hasRoad.length > 0 && hasCreep.length == 0) ? true : false;
 }
 
 
