@@ -3,16 +3,17 @@ const factory = config.role;
 
 export default (spawn) => {
 	let nextRun = false
-	// const targetsBuild = spawn.room.memory.constructionSites;
-	//
-	// if (targetsBuild.length == 0) {
-	//     const builderTargets = spawn.pos.findInRange(FIND_MY_CREEPS, 1, {filter: creep => creep.role == "builder"[0]});
-	//     if (builderTargets) {
-	//         spawn.recycleCreep(builderTargets);
-	//     }
-	// }
+	const targetsBuild = spawn.room.memory.constructionSites;
+
+	if (!targetsBuild.length) {
+		const builderTargets = spawn.pos.findInRange(FIND_MY_CREEPS, 1, {filter: creep => creep.role == "builder"[0]});
+		if (builderTargets) {
+			spawn.recycleCreep(builderTargets);
+		}
+	}
 
 	for (let name in Memory.creeps) {
+
 		if (!Game.creeps[name]) {
 			delete Memory.creeps[name];
 			console.log(['[Clean]',
@@ -43,22 +44,21 @@ export default (spawn) => {
 					             name,
 					             'Source:',
 					             i].join(' '));
+					//run
+					if (spawn.spawning) {
+						const spawningCreep = Game.creeps[spawn.spawning.name];
+						spawn.room.visual.text(
+								'[Spawn] ' + spawningCreep.memory.role,
+								spawn.pos.x + 1,
+								spawn.pos.y,
+								{align: 'left', opacity: 0.8});
+					}
+					return
 				} else {
-					nextRun = true
+					return
 				}
 			}
-			if(nextRun) break
 		}
-		if(nextRun) break
-	}
-
-	if (spawn.spawning) {
-		const spawningCreep = Game.creeps[spawn.spawning.name];
-		spawn.room.visual.text(
-				'[Spawn] ' + spawningCreep.memory.role,
-				spawn.pos.x + 1,
-				spawn.pos.y,
-				{align: 'left', opacity: 0.8});
 	}
 }
 
