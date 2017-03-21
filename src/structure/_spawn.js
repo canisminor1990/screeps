@@ -22,7 +22,7 @@ export default (spawn) => {
 			                           creep.memory.role == role &&
 			                           creep.memory.source == i
 			).length;
-			if (numberSum > nowNumber) {
+			if (number[i] > nowNumber) {
 				if (Game.spawns['Spawn1'].canCreateCreep(body) === OK) {
 					const name = `${role}#${getNowFormatDate()}`
 					Game.spawns['Spawn1'].createCreep(body, name, {role: role, source: i}

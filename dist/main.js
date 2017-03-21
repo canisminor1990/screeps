@@ -1032,7 +1032,7 @@ exports.default = function (spawn) {
 			var nowNumber = _.filter(Game.creeps, function (creep) {
 				return creep.memory.role == role && creep.memory.source == i;
 			}).length;
-			if (numberSum > nowNumber) {
+			if (number[i] > nowNumber) {
 				if (Game.spawns['Spawn1'].canCreateCreep(body) === OK) {
 					var _name2 = role + '#' + getNowFormatDate();
 					Game.spawns['Spawn1'].createCreep(body, _name2, { role: role, source: i });
