@@ -25,10 +25,15 @@ const taskFindMiner = (creep) => {
 
 	} else {
 		const targetsContainer = creep.pos.findClosestByPath(FIND_STRUCTURES, {
-			filter: structure => structure.structureType == STRUCTURE_CONTAINER &&
-			                     structure.store["energy"] > 0
+			filter: structure => (
+			(structure.structureType == STRUCTURE_CONTAINER ||
+			 structure.structureType == STRUCTURE_STORAGE ) &&
+			structure.store["energy"] > 0)
 		})
-		pathFinder(creep, targetsContainer)
+
+		if (creep.withdraw(targetsContainer, 'energy') == ERR_NOT_IN_RANGE) {
+			pathFinder(creep, targetsContainer)
+		}
 	}
 }
 
