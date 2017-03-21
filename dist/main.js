@@ -1263,7 +1263,7 @@ exports.default = function (creep, target) {
             if (hasRoad(Direciton[0])) {
                 Path.path[0] = Direciton[0];
             } else if (hasRoad(Direciton[1])) {
-                Path.path[1] = Direciton[1];
+                Path.path[0] = Direciton[1];
             }
         }
         creep.moveByPath(Path);
