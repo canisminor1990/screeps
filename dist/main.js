@@ -1255,24 +1255,19 @@ exports.default = function (creep, target) {
 
     var Pos = creep.pos;
     var targetPos = target.pos;
-    var Path = PathFinder.search(Pos, targetPos, { maxRooms: 2 });
+    var Path = PathFinder.search(Pos, targetPos, { maxRooms: 2 }).path;
     creep.memory.path = Path;
-    var NextPos = Path.path[0];
-
+    var NextPos = Path[0];
     if (Pos.x && NextPos.x) {
         if (!hasRoad(NextPos)) {
             var Direciton = (0, _util.findDireciton)(Pos, NextPos);
             if (hasRoad(Direciton[0])) {
-                console.log(Path.path[0]);
-                Path.path[0] = Direciton[0];
-                console.log(Path.path[0]);
+                Path[0] = Direciton[0];
             } else if (hasRoad(Direciton[1])) {
-                console.log(Path.path[0]);
-                Path.path[0] = Direciton[1];
-                console.log(Path.path[0]);
+                Path[0] = Direciton[1];
             }
         }
-        console.log(creep.moveByPath(Path.path));
+        if (creep.moveByPath(Path.shift()) == 0) {}
     }
     creep.memory.lastPos = Pos;
 };
