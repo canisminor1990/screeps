@@ -1,5 +1,8 @@
 import { findDireciton } from '../_util'
 export default (creep, target) => {
+
+	console.log(target)
+
 	if (!target && !target.pos) {
 		return;
 	}

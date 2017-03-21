@@ -1234,6 +1234,9 @@ Object.defineProperty(exports, "__esModule", {
 var _util = __webpack_require__(3);
 
 exports.default = function (creep, target) {
+
+	console.log(target);
+
 	if (!target && !target.pos) {
 		return;
 	}
