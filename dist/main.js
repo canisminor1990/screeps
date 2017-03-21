@@ -1291,10 +1291,20 @@ var opt = {
 exports.default = function (creep, target) {
 
     var goals = target.pos;
-    var path = PathFinder.search(creep.pos, goals, opt).path;
-    creep.memory.path = path;
+    var path = void 0;
+    if (!creep.memory.path || !creep.memory.target || creep.memory.target != target.id) {
+        path = PathFinder.search(creep.pos, goals, opt).path;
+    } else {
+        path = creep.memory.path;
+    }
 
-    creep.move(creep.pos.getDirectionTo(path.shift()));
+    if (creep.move(creep.pos.getDirectionTo(path.shift())) == OK) {
+        creep.memory.path = path;
+        creep.memory.target = target.id;
+    } else {
+        delete creep.memory.path;
+        delete creep.memory.target;
+    }
 };
 
 /***/ }),

@@ -33,10 +33,20 @@ const opt = {
 export default (creep, target) => {
 
     let goals = target.pos
-    let path = PathFinder.search(creep.pos, goals, opt).path;
-    creep.memory.path = path
+    let path;
+    if (!creep.memory.path || !creep.memory.target || creep.memory.target != target.id) {
+        path = PathFinder.search(creep.pos, goals, opt).path;
+    } else {
+        path = creep.memory.path
+    }
 
-    creep.move(creep.pos.getDirectionTo(path.shift()));
+    if (creep.move(creep.pos.getDirectionTo(path.shift())) == OK) {
+        creep.memory.path = path;
+        creep.memory.target = target.id;
+    } else {
+        delete (creep.memory.path)
+        delete (creep.memory.target)
+    }
 }
 
 
