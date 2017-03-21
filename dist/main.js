@@ -1251,9 +1251,9 @@ exports.default = function (creep) {
     } else {
         var targetsBuild = creep.room.memory.constructionSites;
         if (creep.role != "builder" && targetsBuild.length > 0) {
-            var builderTargets = creep.pos.findClosestByPath(FIND_MY_CREEPS, { filter: function filter(creep) {
+            var builderTargets = creep.pos.findInRange(FIND_MY_CREEPS, 5, { filter: function filter(creep) {
                     return creep.role == "builder" && creep.carry['energy'] < creep.carryCapacity;
-                } });
+                } })[0];
             builderTargets && creep.transfer(builderTargets, RESOURCE_ENERGY) == ERR_NOT_IN_RANGE ? (0, _task.pathFinder)(creep, builderTargets) : null;
         } else {
             (0, _container2.default)(creep);
