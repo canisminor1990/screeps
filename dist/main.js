@@ -273,8 +273,8 @@ var repair = function repair(structure) {
 b;
 
 exports.default = {
-	role: role,
-	repair: repair.sort(sortNumber)
+	role: role.sort(sortNumber),
+	repair: repair
 };
 
 
