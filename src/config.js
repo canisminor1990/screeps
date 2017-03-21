@@ -15,13 +15,13 @@ const role = [
     },
     {
         role: 'farHarvester',
-        body: {move: 4, work: 1, carry: 4},
+        body: {move: 4, work: 0, carry: 4},
         number: [4],
         priority: 5
     },
     {
         role: 'harvester',
-        body: {move: 4, work: 1, carry: 6},
+        body: {move: 4, work: 0, carry: 8},
         number: [0, 4],
         priority: 1
     },
@@ -39,8 +39,8 @@ const role = [
     },
     {
         role: "miner",
-        body: {move: 2, work: 6, carry: 1},
-        number: [1, 2],
+        body: {move: 2, work: 8, carry: 1},
+        number: [1, 1],
         priority: 2
     },
     {
