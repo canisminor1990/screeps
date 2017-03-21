@@ -9,7 +9,7 @@ export default (creep) => {
 		} else {
 
 			(creep.harvest(source) == ERR_NOT_IN_RANGE) ?
-			pathFinder(creep, source) : null;
+					creep.moveTo(source) : null;
 		}
 	}
 	if (creep.carry.energy >= 50) {

@@ -779,7 +779,7 @@ exports.default = function (creep) {
 			creep.moveTo(new RoomPosition(27, 21, 'W81S66'));
 		} else {
 
-			creep.harvest(source) == ERR_NOT_IN_RANGE ? (0, _task.pathFinder)(creep, source) : null;
+			creep.harvest(source) == ERR_NOT_IN_RANGE ? creep.moveTo(source) : null;
 		}
 	}
 	if (creep.carry.energy >= 50) {
