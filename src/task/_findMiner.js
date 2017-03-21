@@ -21,7 +21,7 @@ const taskFindMiner = (creep) => {
     } else {
         let targetsContainer;
         if (creep.role == "builder") {
-            targetsContainer = creep.pos.findClosestByPath(FIND_STRUCTURES, {
+            targetsContainer = creep.pos.findClosestByPath(FIND_MY_STRUCTURES, {
                 filter: structure => (
                 (structure.structureType == STRUCTURE_STORAGE ) &&
                 structure.store["energy"] > 0)
