@@ -623,8 +623,8 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 var mySpawn = Game.spawns['Spawn1'];
 
 exports.default = function (creep) {
-
-    if (creep.memory.building) {
+    var targetsBuild = mySpawn.room.memory.constructionSites;
+    if (targetsBuild.length > 0) {
         creep.memory.building = true;
     } else {
         creep.memory.building = false;

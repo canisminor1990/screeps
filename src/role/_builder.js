@@ -1,11 +1,10 @@
-import {pathFinder,taskFindMiner} from '../task'
+import {pathFinder, taskFindMiner} from '../task'
 import config from '../config'
-
 const mySpawn = Game.spawns['Spawn1'];
 
 export default (creep) => {
-
-    if (creep.memory.building) {
+    const targetsBuild = mySpawn.room.memory.constructionSites;
+    if (targetsBuild.length > 0) {
         creep.memory.building = true;
     } else {
         creep.memory.building = false;
