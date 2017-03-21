@@ -31,6 +31,7 @@ export default (spawn) => {
 					);
 					console.log(['[Spawn]', name, 'Source:', i].join(' '));
 				} else {
+					return
 					break
 				}
 			}

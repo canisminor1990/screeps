@@ -1004,6 +1004,8 @@ Object.defineProperty(exports, "__esModule", {
 	value: true
 });
 
+var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+
 var _config = __webpack_require__(2);
 
 var _config2 = _interopRequireDefault(_config);
@@ -1041,20 +1043,33 @@ exports.default = function (spawn) {
 					Game.spawns['Spawn1'].createCreep(body, _name2, { role: role, source: i });
 					console.log(['[Spawn]', _name2, 'Source:', i].join(' '));
 				} else {
+					return {
+						v: {
+							v: void 0
+						}
+					};
 					return 'break';
 				}
 			}
 		};
 
-		for (var i in number) {
+		_loop3: for (var i in number) {
 			var _ret2 = _loop2(i);
 
-			if (_ret2 === 'break') break;
+			switch (_ret2) {
+				case 'break':
+					break _loop3;
+
+				default:
+					if ((typeof _ret2 === 'undefined' ? 'undefined' : _typeof(_ret2)) === "object") return _ret2.v;
+			}
 		}
 	};
 
 	for (var _name in factory) {
-		_loop(_name);
+		var _ret = _loop(_name);
+
+		if ((typeof _ret === 'undefined' ? 'undefined' : _typeof(_ret)) === "object") return _ret.v;
 	}
 
 	if (spawn.spawning) {
