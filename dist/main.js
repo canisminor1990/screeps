@@ -270,7 +270,6 @@ var repair = function repair(structure) {
  "tough": 10,
  "claim": 600
  */
-b;
 
 exports.default = {
 	role: role.sort(function (a, b) {
