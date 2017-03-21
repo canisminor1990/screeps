@@ -1,3 +1,4 @@
+const mySpawn = Game.spawns['Spawn1'];
 const targetsBuild = mySpawn.room.memory.constructionSites;
 const role = [
     {
