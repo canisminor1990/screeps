@@ -31,16 +31,20 @@ export default (creep, target) => {
 							costs.set(structure.pos.x, structure.pos.y, 0xff);
 						}
 					});
-					Memory.PathFinder[roomName] = costs.serialize();
 					// Avoid creeps in the room
 
+				}
+				if (Game.time != Memory.PathFinder.time) {
+					room.find(FIND_CREEPS).forEach((creep) => {
+						costs.set(creep.pos.x, creep.pos.y, 0xff);
+					});
+					Memory.PathFinder[roomName] = costs.serialize();
+					Memory.PathFinder.time = Game.time
 				} else {
 					costs = PathFinder.CostMatrix.deserialize(Memory.PathFinder[roomName])
 				}
-				room.find(FIND_CREEPS).forEach((creep) => {
-					costs.set(creep.pos.x, creep.pos.y, 0xff);
-				});
-				Memory.PathFinder.time = Game.time
+
+
 				return costs;
 			}
 		}).path;
