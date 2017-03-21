@@ -1255,6 +1255,7 @@ exports.default = function (creep, target) {
         return;
     }
     var Pos = creep.pos;
+    creep.memory.lastPos = Pos;
     var targetPos = target.pos;
     var Path = void 0;
 
@@ -1284,7 +1285,7 @@ exports.default = function (creep, target) {
         delete creep.memory.path;
         delete creep.memory.lastPos;
     }
-    creep.memory.lastPos = Pos;
+
     creep.memory.path = Path;
 };
 

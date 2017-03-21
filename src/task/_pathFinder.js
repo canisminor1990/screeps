@@ -9,6 +9,7 @@ export default (creep, target) => {
         return;
     }
     const Pos = creep.pos;
+    creep.memory.lastPos = Pos;
     const targetPos = target.pos
     let Path;
 
@@ -38,7 +39,7 @@ export default (creep, target) => {
         delete(creep.memory.path);
         delete(creep.memory.lastPos);
     }
-    creep.memory.lastPos = Pos;
+
     creep.memory.path = Path;
 }
 
