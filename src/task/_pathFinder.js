@@ -18,10 +18,10 @@ export default (creep, target) => {
             if (!hasRoad(NextPos)) {
                 delete(creep.memory.path);
                 const Direciton = findDireciton(Pos, NextPos);
-                if (hasRoad(Direciton.road[0])) {
-                    Path[0] = Direciton.path[0]
-                } else if (hasRoad(Direciton.road[1])) {
-                    Path[0] = Direciton.path[1]
+                if (hasRoad(Direciton[0])) {
+                    Path[0] = Direciton[0]
+                } else if (hasRoad(Direciton[1])) {
+                    Path[0] = Direciton[1]
                 }
             }
         } else {
