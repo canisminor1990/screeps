@@ -1265,11 +1265,11 @@ exports.default = function (creep, target) {
     var Pos = creep.pos;
     var targetPos = target.pos;
     if (creep.memory.lastPos && creep.pos.x == creep.memory.lastPos.x && creep.pos.y == creep.memory.lastPos.y && creep.fatigue == 0) {
-        Path = PathFinder.search(Pos, targetPos, { maxRooms: 2 }).path;
+        // Path = PathFinder.search(Pos, targetPos, {maxRooms: 2}).path;
         delete creep.memory.lastPos;
-        // creep.moveTo(target)
+        creep.moveTo(target);
         console.log('pathFinder Debug');
-        // return
+        return;
     } else {
         creep.memory.lastPos = Pos;
         creep.memory.target = target;
