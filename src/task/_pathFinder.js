@@ -7,7 +7,7 @@ export default (creep, target) => {
         Path = PathFinder.search(Pos, targetPos, {maxRooms: 2}).path;
         delete(creep.memory.lastPos);
         console.log('pathFinder Debug')
-        return;
+
     } else {
         creep.memory.lastPos = Pos;
         creep.memory.target = target;
