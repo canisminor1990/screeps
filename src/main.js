@@ -34,6 +34,9 @@ module.exports.loop = () => {
 			case 'tower':
 				structure.tower(structureName);
 				break;
+			case 'container':
+				structure.container(structureName, targetsHarvest.length, targetsBuild.length)
+				break;
 		}
 	}
 
@@ -56,7 +59,7 @@ module.exports.loop = () => {
 				role.upgrader(creep);
 				break;
 			case 'builder':
-				role.harvester(creep)
+				(targetsBuild.length > 0) ? role.builder(creep) : role.harvester(creep)
 				break;
 			case 'miner':
 				role.miner(creep);
