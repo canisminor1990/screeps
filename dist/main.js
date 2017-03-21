@@ -1302,7 +1302,7 @@ exports.default = function (creep) {
 			NextStep = Direciton.direction;
 		}
 	}
-
+	console.log(NextStep);
 	creep.move(NextStep);
 };
 
