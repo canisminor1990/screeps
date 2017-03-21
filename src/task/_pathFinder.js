@@ -11,7 +11,7 @@ export default (creep, target) => {
     } else {
         creep.memory.lastPos = Pos;
         creep.memory.target = target;
-        if (!creep.memory.path && target == creep.memory.target) {
+        if (!creep.memory.path && target !== creep.memory.target) {
             Path = PathFinder.search(Pos, targetPos, {maxRooms: 2}).path;
             const NextPos = Path[0];
             if (!hasRoad(NextPos)) {
@@ -22,15 +22,12 @@ export default (creep, target) => {
                     Path[0] = Direciton[1]
                 }
             }
-            console.log('no')
         } else {
             Path = creep.memory.path;
-            console.log('yse')
         }
     }
 
     if (creep.moveByPath(Path) == 0) {
-        console.log('ok')
         Path.shift()
         creep.memory.path = Path;
         delete(creep.memory.lastPos);
