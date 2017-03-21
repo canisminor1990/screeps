@@ -212,32 +212,52 @@ module.exports.loop = function () {
 
 
 Object.defineProperty(exports, "__esModule", {
-    value: true
+	value: true
 });
-var role = {
-    number: {
-        claim: [1],
-        farMiner: [1],
-        farHarvester: [4],
-        harvester: [0, 2],
-        upgrader: [2],
-        builder: [0, 2],
-        miner: [1, 2],
-        cleaner: [1]
-    },
-    body: { //300 + 5 * 5 = 550
-        claim: { move: 1, claim: 1 },
-        farMiner: { move: 3, work: 4, carry: 3 }, // 3
-        farHarvester: { move: 4, work: 1, carry: 4 }, // 350
-        harvester: { move: 3, work: 1, carry: 6 }, // 350
-        upgrader: { move: 1, work: 4, carry: 2 }, // 350
-        builder: { move: 3, work: 3, carry: 3 }, // 350
-        miner: { move: 2, work: 5, carry: 1 }, // 3
-        cleaner: { move: 2, work: 1, carry: 2 } }
-};
+var role = [{
+	role: "claim",
+	body: { move: 1, claim: 1 },
+	number: [1],
+	priority: 7
+}, {
+	role: "farMiner",
+	body: { move: 3, work: 4, carry: 3 },
+	number: [1],
+	priority: 4
+}, {
+	role: 'farHarvester',
+	body: { move: 4, work: 1, carry: 4 },
+	number: [4],
+	priority: 5
+}, {
+	role: 'harvester',
+	body: { move: 3, work: 1, carry: 6 },
+	number: [0, 2],
+	priority: 1
+}, {
+	role: 'upgrader',
+	body: { move: 1, work: 4, carry: 2 },
+	number: [2],
+	priority: 3
+}, {
+	role: 'builder',
+	body: { move: 3, work: 3, carry: 3 },
+	number: [0, 2],
+	priority: 6
+}, {
+	role: "miner",
+	body: { move: 2, work: 5, carry: 1 },
+	number: [1, 2],
+	priority: 2
+}, {
+	role: 'cleaner',
+	body: { move: 2, work: 1, carry: 2 },
+	number: [1],
+	priority: 8
+}];
 
 var repair = function repair(structure) {
-    return structure.hits / structure.hitsMax < 0.5 && structure.hits < 10000;
+	return structure.hits / structure.hitsMax < 0.5 && structure.hits < 10000;
 };
 
 /*
@@ -252,8 +272,8 @@ var repair = function repair(structure) {
  */
 
 exports.default = {
-    role: role,
-    repair: repair
+	role: role,
+	repair: repair
 };
 
 /***/ }),
@@ -986,10 +1006,9 @@ var _config2 = _interopRequireDefault(_config);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-exports.default = function (spawn) {
+var factory = _config2.default.role;
 
-	var number = _config2.default.role.number,
-	    body = _config2.default.role.body;
+exports.default = function (spawn) {
 
 	for (var name in Memory.creeps) {
 		if (!Game.creeps[name]) {
@@ -998,30 +1017,36 @@ exports.default = function (spawn) {
 		}
 	}
 
-	var _loop = function _loop(key) {
-		var roleSpawn = key;
+	var _loop = function _loop(_name) {
+		var role = factory[_name].role,
+		    body = buildBody(factory[_name].body),
+		    number = factory[_name].number,
+		    numberSum = _.sum(number);
 
 		var _loop2 = function _loop2(i) {
-			var maxNum = number[key][i];
-			var roleNumber = _.filter(Game.creeps, function (creep) {
-				return creep.memory.role == roleSpawn && creep.memory.source == i;
+			var nowNumber = _.filter(Game.creeps, function (creep) {
+				return creep.memory.role == role && creep.memory.source == i;
 			}).length;
-			var roleBody = buildBody(body[key]);
-
-			if (number[key][i] > 0 && roleNumber < maxNum && Game.spawns['Spawn1'].canCreateCreep(roleBody) === OK) {
-				var _name = roleSpawn + '#' + getNowFormatDate();
-				Game.spawns['Spawn1'].createCreep(roleBody, _name, { role: roleSpawn, source: i });
-				console.log(['[Spawn]', _name, 'Source:', i].join(' '));
+			if (numberSum > nowNumber) {
+				if (Game.spawns['Spawn1'].canCreateCreep(body) === OK) {
+					var _name2 = role + '#' + getNowFormatDate();
+					Game.spawns['Spawn1'].createCreep(body, _name2, { role: role, source: i });
+					console.log(['[Spawn]', _name2, 'Source:', i].join(' '));
+				} else {
+					return 'break';
+				}
 			}
 		};
 
-		for (var i = 0; i < number[key].length; i++) {
-			_loop2(i);
+		for (var i in number) {
+			var _ret2 = _loop2(i);
+
+			if (_ret2 === 'break') break;
 		}
 	};
 
-	for (var key in number) {
-		_loop(key);
+	for (var _name in factory) {
+		_loop(_name);
 	}
 
 	if (spawn.spawning) {

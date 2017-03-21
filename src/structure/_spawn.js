@@ -1,9 +1,7 @@
 import config from '../config';
+const factory = config.role;
 
 export default (spawn) => {
-
-	const number = config.role.number,
-			body = config.role.body;
 
 	for (let name in Memory.creeps) {
 		if (!Game.creeps[name]) {
@@ -12,18 +10,26 @@ export default (spawn) => {
 		}
 	}
 
-	for (let key in number) {
-		const roleSpawn = key;
-		for (let i = 0; i < number[key].length; i++) {
-			const maxNum = number[key][i]
-			const roleNumber = _.filter(Game.creeps, (creep) => creep.memory.role == roleSpawn && creep.memory.source == i).length;
-			const roleBody = buildBody(body[key])
+	for (let name in factory) {
+		const role      = factory[name].role,
+		      body      = buildBody(factory[name].body),
+		      number    = factory[name].number,
+		      numberSum = _.sum(number);
 
-			if (number[key][i] > 0 && roleNumber < maxNum && Game.spawns['Spawn1'].canCreateCreep(roleBody) === OK) {
-				const name = `${roleSpawn}#${getNowFormatDate()}`
-				Game.spawns['Spawn1'].createCreep(roleBody, name, {role: roleSpawn, source: i}
-				);
-				console.log(['[Spawn]', name, 'Source:', i].join(' '));
+		for (let i in number) {
+			const nowNumber = _.filter(Game.creeps, (creep) =>
+			                           creep.memory.role == role &&
+			                           creep.memory.source == i
+			).length;
+			if (numberSum > nowNumber) {
+				if (Game.spawns['Spawn1'].canCreateCreep(body) === OK) {
+					const name = `${role}#${getNowFormatDate()}`
+					Game.spawns['Spawn1'].createCreep(body, name, {role: role, source: i}
+					);
+					console.log(['[Spawn]', name, 'Source:', i].join(' '));
+				} else {
+					break
+				}
 			}
 		}
 	}
@@ -31,18 +37,20 @@ export default (spawn) => {
 	if (spawn.spawning) {
 		const spawningCreep = Game.creeps[spawn.spawning.name];
 		spawn.room.visual.text(
-				'[Spawn] ' + spawningCreep.memory.role,
-				spawn.pos.x + 1,
-				spawn.pos.y,
-				{align: 'left', opacity: 0.8});
+			'[Spawn] ' + spawningCreep.memory.role,
+			spawn.pos.x + 1,
+			spawn.pos.y,
+			{align: 'left', opacity: 0.8});
 	}
 }
 
 function getNowFormatDate() {
 	const date = new Date();
-	return [date.getHours(),
-	        date.getMinutes(),
-	        date.getSeconds()].join('')
+	return [
+		date.getHours(),
+		date.getMinutes(),
+		date.getSeconds()
+	].join('')
 }
 
 function buildBody(obj) {

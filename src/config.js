@@ -1,25 +1,53 @@
-const role = {
-    number: {
-        claim: [1],
-        farMiner: [1],
-        farHarvester: [4],
-        harvester: [0, 2],
-        upgrader: [2],
-        builder: [0, 2],
-        miner: [1, 2],
-        cleaner: [1],
-    },
-    body: {//300 + 5 * 5 = 550
-        claim: {move: 1, claim: 1},
-        farMiner: {move: 3, work: 4, carry: 3}, // 3
-        farHarvester: {move: 4, work: 1, carry: 4}, // 350
-        harvester: {move: 3, work: 1, carry: 6}, // 350
-        upgrader: {move: 1, work: 4, carry: 2}, // 350
-        builder: {move: 3, work: 3, carry: 3}, // 350
-        miner: {move: 2, work: 5, carry: 1}, // 3
-        cleaner: {move: 2, work: 1, carry: 2}, // 350
-    }
-}
+const role = [
+	{
+		role    : "claim",
+		body    : {move: 1, claim: 1},
+		number  : [1],
+		priority: 7
+	},
+	{
+		role    : "farMiner",
+		body    : {move: 3, work: 4, carry: 3},
+		number  : [1],
+		priority: 4
+	},
+	{
+		role    : 'farHarvester',
+		body    : {move: 4, work: 1, carry: 4},
+		number  : [4],
+		priority: 5
+	},
+	{
+		role    : 'harvester',
+		body    : {move: 3, work: 1, carry: 6},
+		number  : [0, 2],
+		priority: 1
+	},
+	{
+		role    : 'upgrader',
+		body    : {move: 1, work: 4, carry: 2},
+		number  : [2],
+		priority: 3
+	},
+	{
+		role    : 'builder',
+		body    : {move: 3, work: 3, carry: 3},
+		number  : [0, 2],
+		priority: 6
+	},
+	{
+		role    : "miner",
+		body    : {move: 2, work: 5, carry: 1},
+		number  : [1, 2],
+		priority: 2
+	},
+	{
+		role    : 'cleaner',
+		body    : {move: 2, work: 1, carry: 2},
+		number  : [1],
+		priority: 8
+	}
+]
 
 const repair = (structure) => (structure.hits / structure.hitsMax) < 0.5 && structure.hits < 10000
 
@@ -35,6 +63,6 @@ const repair = (structure) => (structure.hits / structure.hitsMax) < 0.5 && stru
  */
 
 export default {
-    role: role,
-    repair: repair,
+	role  : role,
+	repair: repair,
 };
