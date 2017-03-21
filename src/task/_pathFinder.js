@@ -1,33 +1,43 @@
-import {findDireciton} from '../_util'
-const opt = {maxRooms: 1}
+const opt = {
+    maxRooms: 1,// We need to set the defaults costs higher so that we
+    // can set the road cost lower in `roomCallback`
+    plainCost: 2,
+    swampCost: 10,
+
+    roomCallback: (roomName) => {
+
+        let room = Game.rooms[roomName];
+        // In this example `room` will always exist, but since PathFinder
+        // supports searches which span multiple rooms you should be careful!
+        if (!room) return;
+        let costs = new PathFinder.CostMatrix;
+
+        room.find(FIND_STRUCTURES).forEach((structure) => {
+            if (structure.structureType === STRUCTURE_ROAD) {
+                // Favor roads over plain tiles
+                costs.set(structure.pos.x, structure.pos.y, 1);
+            } else if (structure.structureType !== STRUCTURE_CONTAINER &&
+                (structure.structureType !== STRUCTURE_RAMPART || !structure.my)) {
+                // Can't walk through non-walkable buildings
+                costs.set(structure.pos.x, structure.pos.y, 0xff);
+            }
+        });
+
+        // Avoid creeps in the room
+        room.find(FIND_CREEPS).forEach((creep) => {
+            costs.set(creep.pos.x, creep.pos.y, 0xff);
+        });
+        return costs;
+    }
+}
+
 export default (creep, target) => {
-    let Path;
     const Pos = creep.pos;
     const targetPos = target.pos
-    if (creep.memory.lastPos && creep.pos.x == creep.memory.lastPos.x && creep.pos.y == creep.memory.lastPos.y && creep.fatigue == 0) {
-        delete(creep.memory.lastPos);
-        creep.moveTo(target)
-        console.log('pathFinder Debug')
-        return
-    }
+    let Path;
 
-    if (creep.fatigue == 0) creep.memory.lastPos = Pos;
-
-    creep.memory.target = target;
     if (!(creep.memory.path && creep.memory.path.length > 0 || target !== creep.memory.target)) {
         Path = PathFinder.search(Pos, targetPos, opt).path;
-        const NextPos = Path[0];
-        if (!hasRoad(NextPos)) {
-            delete(creep.memory.path);
-            const Direciton = findDireciton(Pos, NextPos);
-            if (hasRoad(Direciton[0])) {
-                Path[0] = Direciton[0]
-            } else if (hasRoad(Direciton[1])) {
-                Path[0] = Direciton[1]
-            }
-        }
-    } else {
-        Path = creep.memory.path;
     }
 
     if (creep.move(Pos.getDirectionTo(Path.shift())) == 0) {
@@ -36,6 +46,8 @@ export default (creep, target) => {
     } else {
         delete(creep.memory.path);
     }
+
+    creep.memory.target = target;
 }
 
 function hasRoad(pos) {
