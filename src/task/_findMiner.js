@@ -15,10 +15,10 @@ const taskFindMiner = (creep) => {
 		}
 
 		if (minerTarget && minerEnergy >= 50) {
-			creep.moveTo(minerTarget, {reusePath: 8, visualizePathStyle: {stroke: '#ffaa00'}});
+			pathFinder(creep,minerTarget)
 		} else {
 			(creep.harvest(source) == ERR_NOT_IN_RANGE) ?
-			creep.moveTo(source, {reusePath: 8, visualizePathStyle: {stroke: '#ffaa00'}}) : null;
+			pathFinder(creep,source): null;
 		}
 
 	} else {
@@ -26,7 +26,8 @@ const taskFindMiner = (creep) => {
 			filter: structure => structure.structureType == STRUCTURE_CONTAINER &&
 			                     structure.store["energy"] > 0
 		})
-		creep.moveTo(targetsContainer, {reusePath: 8, visualizePathStyle: {stroke: '#ffffff'}});
+		pathFinder(creep,targetsContainer)
+
 	}
 }
 

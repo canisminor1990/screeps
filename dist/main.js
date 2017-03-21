@@ -476,60 +476,60 @@ Object.defineProperty(exports, "__esModule", {
 
 exports.default = function (pos, nextPos) {
 
+	var directonArray = [[0, -1], [1, -1], [1, 0], [1, 1], [0, 1], [-1, 1], [-1, 0], [-1, -1]];
+
 	var directionFix = [],
 	    directonPos = [nextPos.x - pos.x, nextPos.y - pos.y];
-	var directonArray = [[0, 1], [1, 1], [0, 1], [-1, 1], [-1, 0], [-1, -1], [0, -1], [1, -1]];
 
 	for (var i = 0; i < directonArray.length; i++) {
 		if (directonArray[i].toString() == directonPos.toString()) {
-			var nextI = i + 1 < 7 ? i + 1 : 0,
-			    beforeI = i - 1 > 0 ? i - 1 : 7;
+			var nextI = i + 1 <= 7 ? i + 1 : 0,
+			    beforeI = i - 1 >= 0 ? i - 1 : 7;
+
 			directionFix.push(directonArray[nextI]);
 			directionFix.push(directonArray[beforeI]);
 		}
 	}
 
 	return {
-		directionFixPos: [DirecitonFixPos(directionFix[0], nextPos.roomName), DirecitonFixPos(directionFix[1], nextPos.roomName)],
+		direction: Direciton(directonPos),
 		directionFix: [Direciton(directionFix[0]), Direciton(directionFix[1])],
-		direction: Direciton(directonPos)
+		directionFixPos: [DirecitonFixPos(pos, directionFix[0], nextPos.roomName), DirecitonFixPos(pos, directionFix[1], nextPos.roomName)]
 	};
 };
 
-function DirecitonFixPos(pos, roomName) {
+function DirecitonFixPos(creep, pos, roomName) {
 
-	return {
-		x: pos ? pos[0] : 0,
-		y: pos ? pos[1] : 0,
-		roomName: roomName
-	};
+	return new RoomPosition(creep.x + pos[0], creep.y + pos[1], roomName);
 }
 
 function Direciton(pos) {
 	var directon = void 0;
+
+	console.log(pos);
 	switch (pos.toString()) {
-		case '0,1':
+		case '0,-1':
 			directon = TOP;
 			break;
-		case '1,1':
+		case '1,-1':
 			directon = TOP_RIGHT;
 			break;
-		case '0,1':
+		case '1,0':
 			directon = RIGHT;
 			break;
-		case '-1,1':
+		case '1,1':
 			directon = BOTTOM_RIGHT;
 			break;
-		case '-1,0':
+		case '0,1':
 			directon = BOTTOM;
 			break;
-		case '-1,-1':
+		case '-1,1':
 			directon = BOTTOM_LEFT;
 			break;
-		case '0,-1':
+		case '-1,0':
 			directon = LEFT;
 			break;
-		case '1,-1':
+		case '-1,-1':
 			directon = TOP_LEFT;
 			break;
 	}
@@ -1216,9 +1216,9 @@ var taskFindMiner = function taskFindMiner(creep) {
 		}
 
 		if (minerTarget && minerEnergy >= 50) {
-			creep.moveTo(minerTarget, { reusePath: 8, visualizePathStyle: { stroke: '#ffaa00' } });
+			(0, _task.pathFinder)(creep, minerTarget);
 		} else {
-			creep.harvest(source) == ERR_NOT_IN_RANGE ? creep.moveTo(source, { reusePath: 8, visualizePathStyle: { stroke: '#ffaa00' } }) : null;
+			creep.harvest(source) == ERR_NOT_IN_RANGE ? (0, _task.pathFinder)(creep, source) : null;
 		}
 	} else {
 		var targetsContainer = creep.pos.findClosestByPath(FIND_STRUCTURES, {
@@ -1226,7 +1226,7 @@ var taskFindMiner = function taskFindMiner(creep) {
 				return structure.structureType == STRUCTURE_CONTAINER && structure.store["energy"] > 0;
 			}
 		});
-		creep.moveTo(targetsContainer, { reusePath: 8, visualizePathStyle: { stroke: '#ffffff' } });
+		(0, _task.pathFinder)(creep, targetsContainer);
 	}
 };
 
@@ -1261,10 +1261,7 @@ exports.default = function (creep) {
     });
 
     if (targets) {
-        creep.transfer(targets, RESOURCE_ENERGY) == ERR_NOT_IN_RANGE ? creep.moveTo(targets, {
-            reusePath: 8,
-            visualizePathStyle: { stroke: '#ffffff' }
-        }) : null;
+        creep.transfer(targets, RESOURCE_ENERGY) == ERR_NOT_IN_RANGE ? (0, _task.pathFinder)(creep, targets) : null;
     } else {
         (0, _container2.default)(creep);
     }
@@ -1283,37 +1280,34 @@ Object.defineProperty(exports, "__esModule", {
 
 var _util = __webpack_require__(3);
 
-exports.default = function (creep) {
-	var _PathFinder;
-
-	for (var _len = arguments.length, target = Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++) {
-		target[_key - 1] = arguments[_key];
-	}
+exports.default = function (creep, target) {
 
 	var Pos = creep.pos;
-	var Path = (_PathFinder = PathFinder).search.apply(_PathFinder, [Pos].concat(target, [{ maxRooms: 2 }]));
+	var Path = PathFinder.search(Pos, target.pos, { maxRooms: 2 });
 	var NextPos = Path.path[0];
-	var Direciton = (0, _util.findDireciton)(creep.pos, NextPos);
+	var Direciton = (0, _util.findDireciton)(Pos, NextPos);
+	Memory.Direciton = Direciton;
 	var NextStep = void 0;
 
-	// if (hasRoad(NextPos)) {
-	// 	NextStep = Direciton.direction
-	// } else {
-	// 	if (hasRoad(Direciton.directionFixPos[0])) {
-	// 		NextStep = Direciton.directionFix[0]
-	// 	} else if (hasRoad(Direciton.directionFixPos[1])) {
-	// 		NextStep = Direciton.directionFix[1]
-	// 	} else {
-	// 		NextStep = Direciton.direction
-	// 	}
-	// }
-	NextStep = Direciton.direction;
-	console.log(NextStep, Direciton.direction);
+	if (hasRoad(NextPos)) {
+		NextStep = Direciton.direction;
+	} else {
+		if (hasRoad(Direciton.directionFixPos[0])) {
+			NextStep = Direciton.directionFix[0];
+		} else if (hasRoad(Direciton.directionFixPos[1])) {
+			NextStep = Direciton.directionFix[1];
+		} else {
+			NextStep = Direciton.direction;
+		}
+	}
 
-	creep.move(NextStep ? NextStep : Direciton.direction);
+	console.log(NextStep, Path.path[0]);
+
+	creep.move(NextStep);
 };
 
 function hasRoad(pos) {
+	console.log(pos);
 	var hasRoad = pos.lookFor(LOOK_STRUCTURES).filter(function (lookObject) {
 		return lookObject.structureType == 'road';
 	});
