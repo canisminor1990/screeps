@@ -1251,9 +1251,6 @@ exports.default = function (creep, target) {
         return;
     }
 
-    if (!target && !target.pos) {
-        return;
-    }
     var Pos = creep.pos;
     var targetPos = target.pos;
     var Path = PathFinder.search(Pos, targetPos, { maxRooms: 2 });

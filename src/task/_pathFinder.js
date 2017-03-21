@@ -6,9 +6,6 @@ export default (creep, target) => {
         return;
     }
 
-    if (!target && !target.pos) {
-        return;
-    }
     const Pos = creep.pos;
     const targetPos = target.pos
     const Path = PathFinder.search(Pos, targetPos, {maxRooms: 2});
