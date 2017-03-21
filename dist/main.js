@@ -1256,7 +1256,7 @@ exports.default = function (creep, target) {
     }
     var Pos = creep.pos;
     var targetPos = target.pos;
-    var Path = creep.memory.path;
+    var Path = void 0;
 
     if (!creep.memory.path) {
 
@@ -1271,6 +1271,8 @@ exports.default = function (creep, target) {
                 Path[0] = Direciton[1];
             }
         }
+    } else {
+        Path = creep.memory.path;
     }
 
     if (creep.moveByPath(Path) == 0) {

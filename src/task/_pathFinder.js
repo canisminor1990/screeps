@@ -10,7 +10,7 @@ export default (creep, target) => {
     }
     const Pos = creep.pos;
     const targetPos = target.pos
-    let Path = creep.memory.path
+    let Path;
 
     if (!creep.memory.path) {
 
@@ -25,6 +25,8 @@ export default (creep, target) => {
                 Path[0] = Direciton[1]
             }
         }
+    }else {
+        Path = creep.memory.path
     }
 
     if (creep.moveByPath(Path) == 0) {
