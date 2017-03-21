@@ -8,12 +8,12 @@ export default (creep, target) => {
         console.log('pathFinder Debug')
         return;
     }
-
+    const Pos = creep.pos;
+    const targetPos = target.pos
     let Path = creep.memory.path
 
     if (!creep.memory.path) {
-        const Pos = creep.pos;
-        const targetPos = target.pos
+
         Path = PathFinder.search(Pos, targetPos, {maxRooms: 2}).path;
         const NextPos = Path[0];
 

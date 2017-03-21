@@ -1254,17 +1254,17 @@ exports.default = function (creep, target) {
         console.log('pathFinder Debug');
         return;
     }
-
+    var Pos = creep.pos;
+    var targetPos = target.pos;
     var Path = creep.memory.path;
 
     if (!creep.memory.path) {
-        var _Pos = creep.pos;
-        var targetPos = target.pos;
-        Path = PathFinder.search(_Pos, targetPos, { maxRooms: 2 }).path;
+
+        Path = PathFinder.search(Pos, targetPos, { maxRooms: 2 }).path;
         var NextPos = Path[0];
 
         if (!hasRoad(NextPos)) {
-            var Direciton = (0, _util.findDireciton)(_Pos, NextPos);
+            var Direciton = (0, _util.findDireciton)(Pos, NextPos);
             if (hasRoad(Direciton[0])) {
                 Path[0] = Direciton[0];
             } else if (hasRoad(Direciton[1])) {
