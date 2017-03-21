@@ -231,7 +231,7 @@ var role = [{
 	priority: 5
 }, {
 	role: 'harvester',
-	body: { move: 3, work: 1, carry: 6 },
+	body: { move: 4, work: 1, carry: 6 },
 	number: [0, 2],
 	priority: 1
 }, {
