@@ -11,27 +11,27 @@ export default (creep, target) => {
             maxOps: 1000,
             roomCallback: (roomName) => {
                 let costs, room = Game.rooms[roomName];
-                if (!Memory.PathFinder){
+                if (!Memory.PathFinder) {
                     Memory.PathFinder = {}
                     Memory.PathFinder[roomName] = []
                 }
                 costs = Memory.PathFinder[roomName]
-                if (Timer(5)) {
-                    // In this example `room` will always exist, but since PathFinder
-                    // supports searches which span multiple rooms you should be careful!
-                    if (!room) return;
-                    costs = new PathFinder.CostMatrix;
-                    room.find(FIND_STRUCTURES).forEach((structure) => {
-                        if (structure.structureType === STRUCTURE_ROAD) {
-                            // Favor roads over plain tiles
-                            costs.set(structure.pos.x, structure.pos.y, 1);
-                        } else if (structure.structureType !== STRUCTURE_CONTAINER &&
-                            (structure.structureType !== STRUCTURE_RAMPART || !structure.my)) {
-                            // Can't walk through non-walkable buildings
-                            costs.set(structure.pos.x, structure.pos.y, 0xff);
-                        }
-                    });
-                }
+
+                // In this example `room` will always exist, but since PathFinder
+                // supports searches which span multiple rooms you should be careful!
+                if (!room) return;
+                costs = new PathFinder.CostMatrix;
+                room.find(FIND_STRUCTURES).forEach((structure) => {
+                    if (structure.structureType === STRUCTURE_ROAD) {
+                        // Favor roads over plain tiles
+                        costs.set(structure.pos.x, structure.pos.y, 1);
+                    } else if (structure.structureType !== STRUCTURE_CONTAINER &&
+                        (structure.structureType !== STRUCTURE_RAMPART || !structure.my)) {
+                        // Can't walk through non-walkable buildings
+                        costs.set(structure.pos.x, structure.pos.y, 0xff);
+                    }
+                });
+
                 // Avoid creeps in the room
                 room.find(FIND_CREEPS).forEach((creep) => {
                     costs.set(creep.pos.x, creep.pos.y, 0xff);
