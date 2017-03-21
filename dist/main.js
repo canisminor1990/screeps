@@ -830,8 +830,15 @@ exports.default = function (creep) {
 
 	if (!creep.memory.full) {
 
-		var pickup = creep.pos.findInRange(FIND_DROPPED_ENERGY, 2);
-		pickup.length > 0 && creep.pickup(pickup[0]) == ERR_NOT_IN_RANGE ? (0, _task.pathFinder)(creep, pickup[0]) : (0, _task.taskFindMiner)(creep);
+		var targetsContainer = creep.pos.findClosestByPath(FIND_MY_STRUCTURES, {
+			filter: function filter(structure) {
+				return structure.structureType == STRUCTURE_STORAGE && structure.store["energy"] > 0;
+			}
+		});
+
+		if (creep.withdraw(targetsContainer, 'energy') == ERR_NOT_IN_RANGE) {
+			(0, _task.pathFinder)(creep, targetsContainer);
+		}
 	} else {
 		(0, _task.taskHarvester)(creep);
 	}

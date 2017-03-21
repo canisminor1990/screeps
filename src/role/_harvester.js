@@ -10,10 +10,15 @@ export default (creep) => {
 
 	if (!creep.memory.full) {
 
-		const pickup = creep.pos.findInRange(FIND_DROPPED_ENERGY, 2);
-		(pickup.length > 0 && creep.pickup(pickup[0]) == ERR_NOT_IN_RANGE)
-			? pathFinder(creep, pickup[0])
-			: taskFindMiner(creep)
+		let targetsContainer = creep.pos.findClosestByPath(FIND_MY_STRUCTURES, {
+			filter: structure => (
+			(structure.structureType == STRUCTURE_STORAGE ) &&
+			structure.store["energy"] > 0)
+		})
+
+		if (creep.withdraw(targetsContainer, 'energy') == ERR_NOT_IN_RANGE) {
+			pathFinder(creep, targetsContainer)
+		}
 	}
 	else {
 		taskHarvester(creep)
