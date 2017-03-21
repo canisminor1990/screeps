@@ -475,6 +475,8 @@ Object.defineProperty(exports, "__esModule", {
 });
 
 exports.default = function (pos, nextPos) {
+
+	console.log(pos, nextPos);
 	var directionFix = [],
 	    directonPos = [nextPos.x - pos.x, nextPos.y - pos.y];
 	var directonArray = [[0, 1], [1, 1], [0, 1], [-1, 1], [-1, 0], [-1, -1], [0, -1], [1, -1]];

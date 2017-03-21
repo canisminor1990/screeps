@@ -1,4 +1,6 @@
 export default (pos, nextPos) => {
+
+	console.log(pos, nextPos)
 	let directionFix  = [], directonPos = [nextPos.x - pos.x, nextPos.y - pos.y];
 	let directonArray = [
 		[0, 1],

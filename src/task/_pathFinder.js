@@ -18,9 +18,9 @@ export default (creep, ...target) => {
 			NextStep = Direciton.direction
 		}
 	}
-	console.log(NextStep,Direciton.direction)
+	console.log(NextStep, Direciton.direction)
 
-	creep.move((NextStep)?NextStep:Direciton.direction)
+	creep.move((NextStep) ? NextStep : Direciton.direction)
 }
 
 function hasRoad(pos) {
