@@ -26,7 +26,7 @@ export default (creep, target) => {
                 console.log(Path.path[0])
             }
         }
-       console.log( creep.moveByPath(Path))
+       console.log( creep.moveByPath(Path.path))
     }
     creep.memory.lastPos = Pos;
 }
