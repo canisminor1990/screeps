@@ -1268,7 +1268,8 @@ function hasRoad(pos) {
 	var hasRoad = pos.lookFor(LOOK_STRUCTURES).filter(function (lookObject) {
 		return lookObject.structureType == 'road';
 	});
-	return hasRoad.length > 0 ? true : false;
+	var hasCreep = pos.lookFor(LOOK_CREEPS);
+	return hasRoad.length > 0 || hasCreep.length > 0 ? true : false;
 }
 
 /***/ }),

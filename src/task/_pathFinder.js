@@ -31,9 +31,10 @@ export default (creep, target) => {
 }
 
 function hasRoad(pos) {
-	const hasRoad = pos.lookFor(LOOK_STRUCTURES)
-	                   .filter(lookObject => lookObject.structureType == 'road');
-	return (hasRoad.length > 0) ? true : false;
+	const hasRoad  = pos.lookFor(LOOK_STRUCTURES)
+	                    .filter(lookObject => lookObject.structureType == 'road');
+	const hasCreep = pos.lookFor(LOOK_CREEPS)
+	return (hasRoad.length > 0 || hasCreep.length > 0) ? true : false;
 }
 
 
