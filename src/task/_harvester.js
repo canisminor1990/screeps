@@ -12,7 +12,10 @@ export default (creep) => {
 
     if (targets) {
         (creep.transfer(targets, RESOURCE_ENERGY) == ERR_NOT_IN_RANGE)
-            ? pathFinder(creep,targets)
+            ? creep.moveTo(targets, {
+                reusePath: 8,
+                visualizePathStyle: {stroke: '#ffffff'}
+            })
             : null;
     } else {
         taskContainer(creep)

@@ -1216,9 +1216,9 @@ var taskFindMiner = function taskFindMiner(creep) {
 		}
 
 		if (minerTarget && minerEnergy >= 50) {
-			(0, _task.pathFinder)(creep, minerTarget);
+			creep.moveTo(minerTarget, { reusePath: 8, visualizePathStyle: { stroke: '#ffaa00' } });
 		} else {
-			creep.harvest(source) == ERR_NOT_IN_RANGE ? (0, _task.pathFinder)(creep, source) : null;
+			creep.harvest(source) == ERR_NOT_IN_RANGE ? creep.moveTo(source, { reusePath: 8, visualizePathStyle: { stroke: '#ffaa00' } }) : null;
 		}
 	} else {
 		var targetsContainer = creep.pos.findClosestByPath(FIND_STRUCTURES, {
@@ -1226,7 +1226,7 @@ var taskFindMiner = function taskFindMiner(creep) {
 				return structure.structureType == STRUCTURE_CONTAINER && structure.store["energy"] > 0;
 			}
 		});
-		(0, _task.pathFinder)(creep, targetsContainer);
+		creep.moveTo(targetsContainer, { reusePath: 8, visualizePathStyle: { stroke: '#ffffff' } });
 	}
 };
 
@@ -1261,7 +1261,10 @@ exports.default = function (creep) {
     });
 
     if (targets) {
-        creep.transfer(targets, RESOURCE_ENERGY) == ERR_NOT_IN_RANGE ? (0, _task.pathFinder)(creep, targets) : null;
+        creep.transfer(targets, RESOURCE_ENERGY) == ERR_NOT_IN_RANGE ? creep.moveTo(targets, {
+            reusePath: 8,
+            visualizePathStyle: { stroke: '#ffffff' }
+        }) : null;
     } else {
         (0, _container2.default)(creep);
     }
