@@ -1247,22 +1247,21 @@ var _util = __webpack_require__(3);
 
 exports.default = function (creep, target) {
     var Path = void 0;
+    var Pos = creep.pos;
+    var targetPos = target.pos;
     if (creep.memory.lastPos && creep.pos.x == creep.memory.lastPos.x && creep.pos.y == creep.memory.lastPos.y && creep.fatigue == 0) {
         Path = PathFinder.search(Pos, targetPos, { maxRooms: 2 }).path;
         delete creep.memory.lastPos;
         console.log('pathFinder Debug');
         return;
     } else {
-        var _Pos = creep.pos;
-        creep.memory.lastPos = _Pos;
+        creep.memory.lastPos = Pos;
         creep.memory.target = target;
         if (!creep.memory.path && target == creep.memory.target) {
-            var _targetPos = target.pos;
-            Path = PathFinder.search(_Pos, _targetPos, { maxRooms: 2 }).path;
+            Path = PathFinder.search(Pos, targetPos, { maxRooms: 2 }).path;
             var NextPos = Path[0];
-
             if (!hasRoad(NextPos)) {
-                var Direciton = (0, _util.findDireciton)(_Pos, NextPos);
+                var Direciton = (0, _util.findDireciton)(Pos, NextPos);
                 if (hasRoad(Direciton[0])) {
                     Path[0] = Direciton[0];
                 } else if (hasRoad(Direciton[1])) {
