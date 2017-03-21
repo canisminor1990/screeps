@@ -221,8 +221,8 @@ var role = {
         claim: [1],
         farMiner: [1],
         farHarvester: [4],
-        harvester: [0, 6],
-        upgrader: [3],
+        harvester: [0, 4],
+        upgrader: [2],
         builder: [0, 3],
         miner: [1, 2],
         cleaner: [1]
@@ -232,7 +232,7 @@ var role = {
         farMiner: { move: 3, work: 4, carry: 3 }, // 3
         farHarvester: { move: 4, work: 1, carry: 4 }, // 350
         harvester: { move: 3, work: 1, carry: 6 }, // 350
-        upgrader: { move: 1, work: 2, carry: 2 }, // 350
+        upgrader: { move: 1, work: 4, carry: 2 }, // 350
         builder: { move: 3, work: 3, carry: 3 }, // 350
         miner: { move: 2, work: 5, carry: 1 }, // 3
         cleaner: { move: 2, work: 1, carry: 2 } }
