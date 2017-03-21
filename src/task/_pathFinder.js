@@ -1,24 +1,31 @@
 import { findDireciton } from '../_util'
 export default (creep, target) => {
-	if (!target && !target.pos) return;
-	const Pos = creep.pos;
+	if (!target && !target.pos) {
+		return;
+	}
+	const Pos       = creep.pos;
 	const targetPos = target.pos
 	const Path      = PathFinder.search(Pos, targetPos, {maxRooms: 2});
 	const NextPos   = Path.path[0];
-	const Direciton = findDireciton(Pos, NextPos);
-	let NextStep;
-	if (hasRoad(NextPos)) {
-		NextStep = Direciton.direction
-	} else {
-		if (hasRoad(Direciton.directionFixPos[0])) {
-			NextStep = Direciton.directionFix[0]
-		} else if (hasRoad(Direciton.directionFixPos[1])) {
-			NextStep = Direciton.directionFix[1]
-		} else {
+
+	if (Pos.x && NextPos.pos) {
+		const Direciton = findDireciton(Pos, NextPos);
+		let NextStep;
+		if (hasRoad(NextPos)) {
 			NextStep = Direciton.direction
+		} else {
+			if (hasRoad(Direciton.directionFixPos[0])) {
+				NextStep = Direciton.directionFix[0]
+			} else if (hasRoad(Direciton.directionFixPos[1])) {
+				NextStep = Direciton.directionFix[1]
+			} else {
+				NextStep = Direciton.direction
+			}
 		}
+		creep.move(NextStep)
+	} else {
+		creep.moveTo(target)
 	}
-	creep.move(NextStep)
 }
 
 function hasRoad(pos) {

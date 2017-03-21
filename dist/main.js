@@ -1252,25 +1252,32 @@ Object.defineProperty(exports, "__esModule", {
 var _util = __webpack_require__(3);
 
 exports.default = function (creep, target) {
-	if (!target && !target.pos) return;
+	if (!target && !target.pos) {
+		return;
+	}
 	var Pos = creep.pos;
 	var targetPos = target.pos;
 	var Path = PathFinder.search(Pos, targetPos, { maxRooms: 2 });
 	var NextPos = Path.path[0];
-	var Direciton = (0, _util.findDireciton)(Pos, NextPos);
-	var NextStep = void 0;
-	if (hasRoad(NextPos)) {
-		NextStep = Direciton.direction;
-	} else {
-		if (hasRoad(Direciton.directionFixPos[0])) {
-			NextStep = Direciton.directionFix[0];
-		} else if (hasRoad(Direciton.directionFixPos[1])) {
-			NextStep = Direciton.directionFix[1];
-		} else {
+
+	if (Pos.x && NextPos.pos) {
+		var Direciton = (0, _util.findDireciton)(Pos, NextPos);
+		var NextStep = void 0;
+		if (hasRoad(NextPos)) {
 			NextStep = Direciton.direction;
+		} else {
+			if (hasRoad(Direciton.directionFixPos[0])) {
+				NextStep = Direciton.directionFix[0];
+			} else if (hasRoad(Direciton.directionFixPos[1])) {
+				NextStep = Direciton.directionFix[1];
+			} else {
+				NextStep = Direciton.direction;
+			}
 		}
+		creep.move(NextStep);
+	} else {
+		creep.moveTo(target);
 	}
-	creep.move(NextStep);
 };
 
 function hasRoad(pos) {
