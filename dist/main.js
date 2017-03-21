@@ -1018,10 +1018,13 @@ exports.default = function (spawn) {
 	}
 
 	var _loop = function _loop(_name) {
+
 		var role = factory[_name].role,
 		    body = buildBody(factory[_name].body),
 		    number = factory[_name].number,
 		    numberSum = _.sum(number);
+
+		console.log(role);
 
 		var _loop2 = function _loop2(i) {
 			var nowNumber = _.filter(Game.creeps, function (creep) {

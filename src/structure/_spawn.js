@@ -11,10 +11,13 @@ export default (spawn) => {
 	}
 
 	for (let name in factory) {
+
 		const role      = factory[name].role,
 		      body      = buildBody(factory[name].body),
 		      number    = factory[name].number,
 		      numberSum = _.sum(number);
+
+		console.log(role)
 
 		for (let i in number) {
 			const nowNumber = _.filter(Game.creeps, (creep) =>
