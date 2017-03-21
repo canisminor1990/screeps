@@ -15,7 +15,7 @@ export default (creep, target) => {
                 if (!Memory.PathFinder) {
                     Memory.PathFinder = {}
                 }
-                if (!Memory.PathFinder[roomName] || !Memory.PathFinder.time || Game.time - Memory.PathFinder.time > 2) {
+                if (!Memory.PathFinder[roomName] || Game.time - Memory.PathFinder.time > 10) {
                     // In this example `room` will always exist, but since PathFinder
                     // supports searches which span multiple rooms you should be careful!
 
