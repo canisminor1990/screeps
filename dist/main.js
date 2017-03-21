@@ -218,7 +218,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 var role = {
     number: {
-        claim: [2],
+        claim: [0],
         farMiner: [0],
         farHarvester: [0],
         harvester: [0, 6],
