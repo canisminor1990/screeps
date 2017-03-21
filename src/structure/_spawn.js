@@ -3,7 +3,7 @@ const factory = config.role;
 
 export default (spawn) => {
 
-    const targetsBuild = mySpawn.room.memory.constructionSites;
+    const targetsBuild = spawn.room.memory.constructionSites;
 
     if (targetsBuild.length == 0) {
         const builderTargets = spawn.pos.findInRange(FIND_MY_CREEPS, 1, {filter: creep => creep.role == "builder"[0]});

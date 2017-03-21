@@ -1044,7 +1044,7 @@ var factory = _config2.default.role;
 
 exports.default = function (spawn) {
 
-    var targetsBuild = mySpawn.room.memory.constructionSites;
+    var targetsBuild = spawn.room.memory.constructionSites;
 
     if (targetsBuild.length == 0) {
         var builderTargets = spawn.pos.findInRange(FIND_MY_CREEPS, 1, { filter: function filter(creep) {
