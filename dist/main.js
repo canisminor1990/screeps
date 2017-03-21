@@ -1273,6 +1273,7 @@ exports.default = function (creep, target) {
             Path = PathFinder.search(Pos, targetPos, { maxRooms: 2 }).path;
             var NextPos = Path[0];
             if (!hasRoad(NextPos)) {
+                delete creep.memory.path;
                 var Direciton = (0, _util.findDireciton)(Pos, NextPos);
                 if (hasRoad(Direciton.road[0])) {
                     Path[0] = Direciton.path[0];
@@ -1284,7 +1285,7 @@ exports.default = function (creep, target) {
             Path = creep.memory.path;
         }
     }
-    console.log(creep.moveByPath(Path));
+
     if (creep.moveByPath(Path) == 0) {
         Path.shift();
         console.log('ok');

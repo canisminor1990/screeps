@@ -16,6 +16,7 @@ export default (creep, target) => {
             Path = PathFinder.search(Pos, targetPos, {maxRooms: 2}).path;
             const NextPos = Path[0];
             if (!hasRoad(NextPos)) {
+                delete(creep.memory.path);
                 const Direciton = findDireciton(Pos, NextPos);
                 if (hasRoad(Direciton.road[0])) {
                     Path[0] = Direciton.path[0]
@@ -27,7 +28,7 @@ export default (creep, target) => {
             Path = creep.memory.path;
         }
     }
-    console.log(creep.moveByPath(Path))
+
     if (creep.moveByPath(Path) == 0) {
         Path.shift()
         console.log('ok')
