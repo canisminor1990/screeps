@@ -1,30 +1,40 @@
-import { taskFindMiner, pathFinder } from '../task'
+import {pathFinder,taskFindMiner} from '../task'
 import config from '../config'
+
+const mySpawn = Game.spawns['Spawn1'];
+
 export default (creep) => {
 
-	if (creep.memory.building && creep.carry.energy == 0) {
-		creep.memory.building = false;
-	}
-	if (!creep.memory.building && creep.carry.energy == creep.carryCapacity) {
-		creep.memory.building = true;
-		creep.say('[B]build');
-	}
+    if (creep.memory.building) {
+        creep.memory.building = true;
+    } else {
+        creep.memory.building = false;
+        pathFinder(creep, mySpawn)
+    }
 
-	if (creep.memory.building) {
-		const targets    = creep.pos.findClosestByPath(FIND_CONSTRUCTION_SITES),
-		      halfBroken = creep.pos.findInRange(FIND_STRUCTURES, 5, {
-			      filter: structure => config.repair(structure) &&
-			                           structure.structureType != STRUCTURE_WALL &&
-			                           structure.structureType != STRUCTURE_RAMPART
-		      })[0];
+    if (creep.carry.energy == 0) {
+        creep.memory.full = false;
+    }
+    if (creep.carry.energy == creep.carryCapacity) {
+        creep.memory.full = true;
+    }
 
-		(halfBroken && creep.repair(halfBroken) == ERR_NOT_IN_RANGE) ?
-		pathFinder(creep, halfBroken) : null;
 
-		(targets && creep.build(targets) == ERR_NOT_IN_RANGE) ?
-		pathFinder(creep, targets) : null;
+    if (creep.memory.building && creep.memory.full) {
+        const targets = creep.pos.findClosestByPath(FIND_CONSTRUCTION_SITES),
+            halfBroken = creep.pos.findInRange(FIND_STRUCTURES, 5, {
+                filter: structure => config.repair(structure) &&
+                structure.structureType != STRUCTURE_WALL &&
+                structure.structureType != STRUCTURE_RAMPART
+            })[0];
 
-	} else {
-		taskFindMiner(creep)
-	}
+        (halfBroken && creep.repair(halfBroken) == ERR_NOT_IN_RANGE) ?
+            pathFinder(creep, halfBroken) : null;
+
+        (targets && creep.build(targets) == ERR_NOT_IN_RANGE) ?
+            pathFinder(creep, targets) : null;
+
+    } else {
+        taskFindMiner(creep)
+    }
 }

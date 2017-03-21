@@ -609,7 +609,7 @@ exports.default = function (tick) {
 
 
 Object.defineProperty(exports, "__esModule", {
-	value: true
+    value: true
 });
 
 var _task = __webpack_require__(0);
@@ -620,30 +620,38 @@ var _config2 = _interopRequireDefault(_config);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+var mySpawn = Game.spawns['Spawn1'];
+
 exports.default = function (creep) {
 
-	if (creep.memory.building && creep.carry.energy == 0) {
-		creep.memory.building = false;
-	}
-	if (!creep.memory.building && creep.carry.energy == creep.carryCapacity) {
-		creep.memory.building = true;
-		creep.say('[B]build');
-	}
+    if (creep.memory.building) {
+        creep.memory.building = true;
+    } else {
+        creep.memory.building = false;
+        (0, _task.pathFinder)(creep, mySpawn);
+    }
 
-	if (creep.memory.building) {
-		var targets = creep.pos.findClosestByPath(FIND_CONSTRUCTION_SITES),
-		    halfBroken = creep.pos.findInRange(FIND_STRUCTURES, 5, {
-			filter: function filter(structure) {
-				return _config2.default.repair(structure) && structure.structureType != STRUCTURE_WALL && structure.structureType != STRUCTURE_RAMPART;
-			}
-		})[0];
+    if (creep.carry.energy == 0) {
+        creep.memory.full = false;
+    }
+    if (creep.carry.energy == creep.carryCapacity) {
+        creep.memory.full = true;
+    }
 
-		halfBroken && creep.repair(halfBroken) == ERR_NOT_IN_RANGE ? (0, _task.pathFinder)(creep, halfBroken) : null;
+    if (creep.memory.building && creep.memory.full) {
+        var targets = creep.pos.findClosestByPath(FIND_CONSTRUCTION_SITES),
+            halfBroken = creep.pos.findInRange(FIND_STRUCTURES, 5, {
+            filter: function filter(structure) {
+                return _config2.default.repair(structure) && structure.structureType != STRUCTURE_WALL && structure.structureType != STRUCTURE_RAMPART;
+            }
+        })[0];
 
-		targets && creep.build(targets) == ERR_NOT_IN_RANGE ? (0, _task.pathFinder)(creep, targets) : null;
-	} else {
-		(0, _task.taskFindMiner)(creep);
-	}
+        halfBroken && creep.repair(halfBroken) == ERR_NOT_IN_RANGE ? (0, _task.pathFinder)(creep, halfBroken) : null;
+
+        targets && creep.build(targets) == ERR_NOT_IN_RANGE ? (0, _task.pathFinder)(creep, targets) : null;
+    } else {
+        (0, _task.taskFindMiner)(creep);
+    }
 };
 
 /***/ }),
@@ -1178,22 +1186,18 @@ var _task = __webpack_require__(0);
 
 var taskFindMiner = function taskFindMiner(creep) {
 	var source = creep.room.memory.source[creep.memory.source];
-	if (source.energy > 0) {
-
+	if (source.energy > 0 && creep.role != "builder") {
 		var miner = creep.room.memory.miner.filter(function (miner) {
 			return creep.memory.source === miner.memory.source && miner.carry.energy > 0;
 		});
-
 		var minerTarget = void 0,
 		    minerEnergy = 0;
-
 		for (var i = 0; i < miner.length; i++) {
 			if (minerEnergy < miner[i].carry.energy) {
 				minerTarget = miner[i];
 				minerEnergy = miner[i].carry.energy;
 			}
 		}
-
 		if (minerTarget && minerEnergy >= 50) {
 			(0, _task.pathFinder)(creep, minerTarget);
 		} else {
