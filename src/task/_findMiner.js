@@ -20,7 +20,7 @@ const taskFindMiner = (creep) => {
         }
     } else {
         let targetsContainer;
-        if (creep.role != "builder") {
+        if (creep.role == "builder") {
             targetsContainer = creep.pos.findClosestByPath(FIND_STRUCTURES, {
                 filter: structure => (
                 (structure.structureType == STRUCTURE_STORAGE ) &&
