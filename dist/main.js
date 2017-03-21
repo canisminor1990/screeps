@@ -1263,9 +1263,13 @@ exports.default = function (creep, target) {
         if (!hasRoad(NextPos)) {
             var Direciton = (0, _util.findDireciton)(Pos, NextPos);
             if (hasRoad(Direciton[0])) {
-                Path.path = [Direciton[0]];
+                console.log(Path.path[0]);
+                Path.path[0] = Direciton[0];
+                console.log(Path.path[0]);
             } else if (hasRoad(Direciton[1])) {
-                Path.path = [Direciton[1]];
+                console.log(Path.path[0]);
+                Path.path[0] = Direciton[1];
+                console.log(Path.path[0]);
             }
         }
         console.log(creep.moveByPath(Path));
