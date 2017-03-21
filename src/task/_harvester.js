@@ -1,5 +1,5 @@
 import taskContainer from './_container'
-
+import {pathFinder} from '../task'
 export default (creep) => {
     "use strict";
     const targets = creep.pos.findClosestByPath(FIND_STRUCTURES, {
@@ -12,10 +12,7 @@ export default (creep) => {
 
     if (targets) {
         (creep.transfer(targets, RESOURCE_ENERGY) == ERR_NOT_IN_RANGE)
-            ? creep.moveTo(targets, {
-                reusePath: 8,
-                visualizePathStyle: {stroke: '#ffffff'}
-            })
+            ? pathFinder(creep,targets)
             : null;
     } else {
         taskContainer(creep)

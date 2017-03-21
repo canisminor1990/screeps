@@ -1190,6 +1190,9 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 Object.defineProperty(exports, "__esModule", {
 	value: true
 });
+
+var _task = __webpack_require__(0);
+
 var taskFindMiner = function taskFindMiner(creep) {
 	var source = creep.room.memory.source[creep.memory.source];
 	if (source.energy > 0) {
@@ -1209,9 +1212,9 @@ var taskFindMiner = function taskFindMiner(creep) {
 		}
 
 		if (minerTarget && minerEnergy >= 50) {
-			creep.moveTo(minerTarget, { reusePath: 8, visualizePathStyle: { stroke: '#ffaa00' } });
+			(0, _task.pathFinder)(creep, minerTarget);
 		} else {
-			creep.harvest(source) == ERR_NOT_IN_RANGE ? creep.moveTo(source, { reusePath: 8, visualizePathStyle: { stroke: '#ffaa00' } }) : null;
+			creep.harvest(source) == ERR_NOT_IN_RANGE ? (0, _task.pathFinder)(creep, source) : null;
 		}
 	} else {
 		var targetsContainer = creep.pos.findClosestByPath(FIND_STRUCTURES, {
@@ -1219,7 +1222,7 @@ var taskFindMiner = function taskFindMiner(creep) {
 				return structure.structureType == STRUCTURE_CONTAINER && structure.store["energy"] > 0;
 			}
 		});
-		creep.moveTo(targetsContainer, { reusePath: 8, visualizePathStyle: { stroke: '#ffffff' } });
+		(0, _task.pathFinder)(creep, targetsContainer);
 	}
 };
 
@@ -1240,6 +1243,8 @@ var _container = __webpack_require__(4);
 
 var _container2 = _interopRequireDefault(_container);
 
+var _task = __webpack_require__(0);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 exports.default = function (creep) {
@@ -1252,10 +1257,7 @@ exports.default = function (creep) {
     });
 
     if (targets) {
-        creep.transfer(targets, RESOURCE_ENERGY) == ERR_NOT_IN_RANGE ? creep.moveTo(targets, {
-            reusePath: 8,
-            visualizePathStyle: { stroke: '#ffffff' }
-        }) : null;
+        creep.transfer(targets, RESOURCE_ENERGY) == ERR_NOT_IN_RANGE ? (0, _task.pathFinder)(creep, targets) : null;
     } else {
         (0, _container2.default)(creep);
     }
