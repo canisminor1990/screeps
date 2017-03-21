@@ -36,9 +36,9 @@ export default (creep, target) => {
                         costs.set(creep.pos.x, creep.pos.y, 0xff);
                     });
                 } else {
-                    costs = Memory.PathFinder[roomName]
+                    costs = PathFinder.CostMatrix.deserialize(Memory.PathFinder[roomName])
                 }
-                Memory.PathFinder[roomName] = costs;
+                Memory.PathFinder[roomName] = costs.costs.serialize();
                 Memory.PathFinder.time = Game.time
                 return costs;
             }
