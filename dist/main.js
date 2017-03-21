@@ -642,14 +642,15 @@ exports.default = function (creep) {
     }
 
     if (creep.memory.building && creep.carry.energy > 0) {
-        var targets = creep.pos.findClosestByPath(FIND_CONSTRUCTION_SITES),
-            halfBroken = creep.pos.findInRange(FIND_STRUCTURES, 5, {
-            filter: function filter(structure) {
-                return _config2.default.repair(structure) && structure.structureType != STRUCTURE_WALL && structure.structureType != STRUCTURE_RAMPART;
-            }
-        })[0];
-
-        halfBroken && creep.repair(halfBroken) == ERR_NOT_IN_RANGE ? (0, _task.pathFinder)(creep, halfBroken) : null;
+        var targets = creep.pos.findClosestByPath(FIND_CONSTRUCTION_SITES);
+        //     halfBroken = creep.pos.findInRange(FIND_STRUCTURES, 5, {
+        //         filter: structure => config.repair(structure) &&
+        //         structure.structureType != STRUCTURE_WALL &&
+        //         structure.structureType != STRUCTURE_RAMPART
+        //     })[0];
+        //
+        // (halfBroken && creep.repair(halfBroken) == ERR_NOT_IN_RANGE) ?
+        //     pathFinder(creep, halfBroken) : null;
 
         targets && creep.build(targets) == ERR_NOT_IN_RANGE ? (0, _task.pathFinder)(creep, targets) : null;
     }
