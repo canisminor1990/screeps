@@ -46,28 +46,28 @@ function DirecitonFixPos(pos, roomName) {
 function Direciton(pos) {
 	let directon;
 	switch (pos.toString()) {
-		case [0, 1]:
+		case '0,1':
 			directon = TOP
 			break
-		case [1, 1]:
+		case '1,1':
 			directon = TOP_RIGHT
 			break
-		case [0, 1]:
+		case '0,1':
 			directon = RIGHT
 			break
-		case [-1, 1]:
+		case '-1,1':
 			directon = BOTTOM_RIGHT
 			break
-		case [-1, 0]:
+		case '-1,0':
 			directon = BOTTOM
 			break
-		case [-1, -1]:
+		case '-1,-1':
 			directon = BOTTOM_LEFT
 			break
-		case [0, -1]:
+		case '0,-1':
 			directon = LEFT
 			break
-		case [1, -1]:
+		case '1,-1':
 			directon = TOP_LEFT
 			break
 	}
