@@ -7,17 +7,18 @@ export default (creep, ...target) => {
 	const Direciton = findDireciton(creep.pos, NextPos);
 	let NextStep;
 
-	if (hasRoad(NextPos)) {
-		NextStep = Direciton.direction
-	} else {
-		if (hasRoad(Direciton.directionFixPos[0])) {
-			NextStep = Direciton.directionFix[0]
-		} else if (hasRoad(Direciton.directionFixPos[1])) {
-			NextStep = Direciton.directionFix[1]
-		} else {
-			NextStep = Direciton.direction
-		}
-	}
+	// if (hasRoad(NextPos)) {
+	// 	NextStep = Direciton.direction
+	// } else {
+	// 	if (hasRoad(Direciton.directionFixPos[0])) {
+	// 		NextStep = Direciton.directionFix[0]
+	// 	} else if (hasRoad(Direciton.directionFixPos[1])) {
+	// 		NextStep = Direciton.directionFix[1]
+	// 	} else {
+	// 		NextStep = Direciton.direction
+	// 	}
+	// }
+	NextStep = Direciton.direction
 	console.log(NextStep, Direciton.direction)
 
 	creep.move((NextStep) ? NextStep : Direciton.direction)
