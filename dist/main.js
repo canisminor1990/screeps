@@ -271,18 +271,18 @@ Object.defineProperty(exports, "__esModule", {
 
 exports.default = function (creep) {
 	"use strict";
+	// const targetsContainer = creep.pos.findClosestByPath(FIND_STRUCTURES, {
+	// 	filter: structure =>
+	// 	structure.structureType == STRUCTURE_CONTAINER && structure.store["energy"] < structure.storeCapacity
+	// });
+	// if (targetsContainer) {
+	// (creep.transfer(targetsContainer, RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) ?
+	// 		creep.moveTo(targetsContainer, {reusePath: 8, visualizePathStyle: {stroke: '#3f51b5'}}) : null
+	// } else {
 
-	var targetsContainer = creep.pos.findClosestByPath(FIND_STRUCTURES, {
-		filter: function filter(structure) {
-			return structure.structureType == STRUCTURE_CONTAINER && structure.store["energy"] < structure.storeCapacity;
-		}
-	});
-	if (targetsContainer) {
-		creep.transfer(targetsContainer, RESOURCE_ENERGY) == ERR_NOT_IN_RANGE ? creep.moveTo(targetsContainer, { reusePath: 8, visualizePathStyle: { stroke: '#3f51b5' } }) : null;
-	} else {
-		var controller = creep.room.controller;
-		creep.upgradeController(controller) == ERR_NOT_IN_RANGE ? creep.moveTo(controller, { reusePath: 8, visualizePathStyle: { stroke: '#ffffff' } }) : null;
-	}
+	var controller = creep.room.controller;
+	creep.upgradeController(controller) == ERR_NOT_IN_RANGE ? creep.moveTo(controller, { reusePath: 8, visualizePathStyle: { stroke: '#ffffff' } }) : null;
+	// }
 };
 
 /***/ }),
