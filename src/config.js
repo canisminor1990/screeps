@@ -32,7 +32,7 @@ const role = [
 	{
 		role    : 'builder',
 		body    : {move: 3, work: 3, carry: 3},
-		number  : [0, 2],
+		number  : [0, 1],
 		priority: 6
 	},
 	{
