@@ -1277,6 +1277,7 @@ exports.default = function (creep, target) {
 		creep.move(NextStep);
 	} else {
 		creep.moveTo(target);
+		console.log('notPathfound');
 	}
 };
 
