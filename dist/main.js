@@ -1271,11 +1271,14 @@ exports.default = function (creep, target) {
                 Path[0] = Direciton[1];
             }
         }
+        console.log('no');
     } else {
         Path = creep.memory.path;
+        console.log('yse');
     }
 
     if (creep.moveByPath(Path) == 0) {
+        console.log('ok');
         Path.shift();
     } else {
         delete creep.memory.path;
