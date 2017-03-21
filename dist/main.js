@@ -1256,11 +1256,10 @@ exports.default = function (creep, target) {
     }
     var Pos = creep.pos;
     creep.memory.lastPos = Pos;
-    var targetPos = target.pos;
     var Path = void 0;
 
     if (!creep.memory.path) {
-
+        var targetPos = target.pos;
         Path = PathFinder.search(Pos, targetPos, { maxRooms: 2 }).path;
         var NextPos = Path[0];
 

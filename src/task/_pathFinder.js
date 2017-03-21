@@ -10,11 +10,10 @@ export default (creep, target) => {
     }
     const Pos = creep.pos;
     creep.memory.lastPos = Pos;
-    const targetPos = target.pos
     let Path;
 
     if (!creep.memory.path) {
-
+        const targetPos = target.pos
         Path = PathFinder.search(Pos, targetPos, {maxRooms: 2}).path;
         const NextPos = Path[0];
 
