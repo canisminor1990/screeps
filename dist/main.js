@@ -1245,7 +1245,7 @@ var _util = __webpack_require__(3);
 
 exports.default = function (creep, target) {
 
-    if (creep.memory.lastPos && creep.pos.toString() == creep.memory.lastPos.toString()) {
+    if (creep.memory.lastPos && creep.pos.x == creep.memory.lastPos.x && creep.pos.y == creep.memory.lastPos.y) {
         console.log(creep.moveTo(target));
         return;
     }
