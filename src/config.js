@@ -21,7 +21,7 @@ const role = {
     }
 }
 
-const repair = (structure) => (structure.hits / structure.hitsMax) < 0.5 && structure.hits < 10000
+const repair = (structure) => (structure.hits / structure.hitsMax) < 0.5 && structure.hits < 10000 && structure.structureType !== STRUCTURE_CONTAINER
 
 /*
  "move": 50,
