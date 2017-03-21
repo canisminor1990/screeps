@@ -46,6 +46,7 @@ module.exports.loop = () => {
 				source: 1
 			}
 		}
+		creep.memory.role = creep.name.split('#') [0]
 		creep.memory.source = Number(creep.memory.source)
 		switch (creep.memory.role) {
 			case 'claim':
