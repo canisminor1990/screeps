@@ -1,6 +1,6 @@
 export default (pos, nextPos) => {
-	let directionFix = [], directonPos = [nextPos.x - pos.x, nextPos.y - pos.y];
-	let directonArray             = [
+	let directionFix  = [], directonPos = [nextPos.x - pos.x, nextPos.y - pos.y];
+	let directonArray = [
 		[0, 1],
 		[1, 1],
 		[0, 1],
@@ -32,9 +32,10 @@ export default (pos, nextPos) => {
 }
 
 function DirecitonFixPos(pos, roomName) {
+
 	return {
-		x       : pos[0],
-		y       : pos[1],
+		x       : (pos[0]) ? pos[0] : 0,
+		y       : pos[1] ? pos[1] : 0,
 		roomName: roomName
 	}
 
