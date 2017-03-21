@@ -1269,7 +1269,7 @@ exports.default = function (creep, target) {
     } else {
         creep.memory.lastPos = Pos;
         creep.memory.target = target;
-        if (!(creep.memory.path.length > 0 && target !== creep.memory.target)) {
+        if (!(creep.memory.path && creep.memory.path.length > 0 && target !== creep.memory.target)) {
             Path = PathFinder.search(Pos, targetPos, { maxRooms: 2 }).path;
             var NextPos = Path[0];
             if (!hasRoad(NextPos)) {
