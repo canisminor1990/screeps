@@ -166,9 +166,6 @@ module.exports.loop = function () {
 			case 'tower':
 				structure.tower(structureName);
 				break;
-			case 'container':
-				structure.container(structureName, targetsHarvest.length, targetsBuild.length);
-				break;
 		}
 	}
 
