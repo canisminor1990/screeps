@@ -1249,6 +1249,7 @@ exports.default = function (creep, target) {
 
     if (creep.memory.lastPos && creep.pos.x == creep.memory.lastPos.x && creep.pos.y == creep.memory.lastPos.y && creep.fatigue == 0) {
         creep.moveTo(target);
+        console.log('pathFinder Debug');
         return;
     }
 
