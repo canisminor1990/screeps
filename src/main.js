@@ -6,7 +6,7 @@ import {Timer, Build} from './_util'
 const mySpawn = Game.spawns['Spawn1'];
 
 module.exports.loop = () => {
-    PathFinder.use(true);
+    // PathFinder.use(true);
     mySpawn.room.memory = {
         structures: mySpawn.room.find(FIND_STRUCTURES),
         constructionSites: mySpawn.room.find(FIND_CONSTRUCTION_SITES),

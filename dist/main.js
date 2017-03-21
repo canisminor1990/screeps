@@ -140,7 +140,7 @@ function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj;
 var mySpawn = Game.spawns['Spawn1'];
 
 module.exports.loop = function () {
-    PathFinder.use(true);
+    // PathFinder.use(true);
     mySpawn.room.memory = {
         structures: mySpawn.room.find(FIND_STRUCTURES),
         constructionSites: mySpawn.room.find(FIND_CONSTRUCTION_SITES),
