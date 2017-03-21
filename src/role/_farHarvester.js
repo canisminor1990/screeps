@@ -26,7 +26,7 @@ export default (creep) => {
 	}
 	else {
 		if (creep.room.name !== myRoom.room.name) {
-			creep.moveTo(myRoom, {reusePath: 8, visualizePathStyle: {stroke: '#ffffff'}})
+			pathFinder(creep, myRoom)
 		} else {
 			taskHarvester(creep)
 		}

@@ -1,4 +1,4 @@
-import { taskFindMiner, taskHarvester } from '../task'
+import { taskFindMiner, taskHarvester, pathFinder } from '../task'
 export default (creep) => {
 
 	if (creep.carry.energy == 0) {
@@ -12,7 +12,7 @@ export default (creep) => {
 
 		const pickup = creep.pos.findInRange(FIND_DROPPED_ENERGY, 2);
 		(pickup.length > 0 && creep.pickup(pickup[0]) == ERR_NOT_IN_RANGE)
-			? creep.moveTo(pickup[0], {reusePath: 8, visualizePathStyle: {stroke: '#33b446'}})
+			? pathFinder(creep, pickup[0])
 			: taskFindMiner(creep)
 	}
 	else {

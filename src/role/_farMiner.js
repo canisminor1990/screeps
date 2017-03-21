@@ -1,19 +1,15 @@
+import { pathFinder } from '../task'
 export default (creep) => {
 
 	if (creep.carry.energy < creep.carryCapacity) {
 		const source = Game.getObjectById('5873bc3511e3e4361b4d7390');
 
 		if (!source) {
-			creep.moveTo(new RoomPosition(27, 21, 'W81S66'), {
-				reusePath         : 8,
-				visualizePathStyle: {stroke: '#ffffff'}
-			})
+			pathFinder(creep, new RoomPosition(27, 21, 'W81S66'))
 		} else {
 
-			(creep.harvest(source) == ERR_NOT_IN_RANGE) ? creep.moveTo(source, {
-				                                            reusePath         : 8,
-				                                            visualizePathStyle: {stroke: '#ffffff'}
-			                                            }) : null;
+			(creep.harvest(source) == ERR_NOT_IN_RANGE) ?
+			pathFinder(creep, source) : null;
 		}
 	}
 	if (creep.carry.energy >= 50) {
