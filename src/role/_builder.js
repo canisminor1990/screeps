@@ -13,12 +13,14 @@ export default (creep) => {
 
     if (creep.carry.energy == 0) {
         creep.memory.full = false;
-        taskFindMiner(creep)
+
     }
     if (creep.carry.energy == creep.carryCapacity) {
         creep.memory.full = true;
     }
-
+    if (!creep.memory.full && creep.memory.building) {
+        taskFindMiner(creep)
+    }
 
     if (creep.memory.building && creep.carry.energy > 0) {
         const targets = creep.pos.findClosestByPath(FIND_CONSTRUCTION_SITES),

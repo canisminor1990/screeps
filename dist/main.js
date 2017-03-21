@@ -633,10 +633,12 @@ exports.default = function (creep) {
 
     if (creep.carry.energy == 0) {
         creep.memory.full = false;
-        (0, _task.taskFindMiner)(creep);
     }
     if (creep.carry.energy == creep.carryCapacity) {
         creep.memory.full = true;
+    }
+    if (!creep.memory.full && creep.memory.building) {
+        (0, _task.taskFindMiner)(creep);
     }
 
     if (creep.memory.building && creep.carry.energy > 0) {
