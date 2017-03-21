@@ -1044,16 +1044,15 @@ var factory = _config2.default.role;
 
 exports.default = function (spawn) {
 
-    var targetsBuild = spawn.room.memory.constructionSites;
+    // const targetsBuild = spawn.room.memory.constructionSites;
+    //
+    // if (targetsBuild.length == 0) {
+    //     const builderTargets = spawn.pos.findInRange(FIND_MY_CREEPS, 1, {filter: creep => creep.role == "builder"[0]});
+    //     if (builderTargets) {
+    //         spawn.recycleCreep(builderTargets);
+    //     }
+    // }
 
-    if (targetsBuild.length == 0) {
-        var builderTargets = spawn.pos.findInRange(FIND_MY_CREEPS, 1, { filter: function filter(creep) {
-                return creep.role == "builder"[0];
-            } });
-        if (builderTargets) {
-            spawn.recycleCreep(builderTargets);
-        }
-    }
 
     for (var name in Memory.creeps) {
         if (!Game.creeps[name]) {
