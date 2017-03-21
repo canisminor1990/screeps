@@ -2,7 +2,7 @@ const opt = {
     maxRooms: 1,
     plainCost: 20,
     swampCost: 100,
-
+    maxOps: 1000,
     roomCallback: (roomName) => {
 
         let room = Game.rooms[roomName];
@@ -38,7 +38,6 @@ export default (creep, target) => {
         path = PathFinder.search(creep.pos, goals, opt).path;
     } else {
         path = creep.memory.path
-        console.log(1)
     }
 
     if (creep.move(creep.pos.getDirectionTo(path.shift())) == OK) {
