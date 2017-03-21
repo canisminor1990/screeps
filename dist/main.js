@@ -1271,17 +1271,17 @@ exports.default = function (creep, target) {
             swampCost: 100,
             maxOps: 1000,
             roomCallback: function roomCallback(roomName) {
-                var costs = new PathFinder.CostMatrix(),
+                var costs = void 0,
                     room = Game.rooms[roomName];
                 if (!room) return;
                 if (!Memory.PathFinder) {
                     Memory.PathFinder = {};
                 }
-                if (!Memory.PathFinder[roomName] || Game.time - Memory.PathFinder.time > 10) {
+                if (!Memory.PathFinder[roomName] || Game.time - Memory.PathFinder.time > 2) {
                     // In this example `room` will always exist, but since PathFinder
                     // supports searches which span multiple rooms you should be careful!
 
-
+                    costs = new PathFinder.CostMatrix();
                     room.find(FIND_STRUCTURES).forEach(function (structure) {
                         if (structure.structureType === STRUCTURE_ROAD) {
                             // Favor roads over plain tiles
@@ -1292,14 +1292,14 @@ exports.default = function (creep, target) {
                         }
                     });
 
-                    Memory.PathFinder[roomName] = costs;
+                    // Avoid creeps in the room
+                    room.find(FIND_CREEPS).forEach(function (creep) {
+                        costs.set(creep.pos.x, creep.pos.y, 0xff);
+                    });
                 } else {
                     costs = Memory.PathFinder[roomName];
                 }
-                room.find(FIND_CREEPS).forEach(function (creep) {
-                    costs.set(creep.pos.x, creep.pos.y, 0xff);
-                });
-
+                Memory.PathFinder[roomName] = costs;
                 Memory.PathFinder.time = Game.time;
                 return costs;
             }
