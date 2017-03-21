@@ -28,6 +28,8 @@ export default (creep) => {
 			visualizePathStyle: {reusePath: 8, stroke: '#ffffff'}
 		}) : null;
 
+
+
 	} else {
 		taskFindMiner(creep)
 	}

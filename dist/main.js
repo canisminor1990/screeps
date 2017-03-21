@@ -704,26 +704,34 @@ exports.default = function (creep) {
 
 
 Object.defineProperty(exports, "__esModule", {
-    value: true
+	value: true
 });
 
 var _task = __webpack_require__(0);
 
 exports.default = function (creep) {
 
-    if (creep.carry.energy == 0) {
-        creep.memory.full = false;
-    }
-    if (creep.carry.energy == creep.carryCapacity) {
-        creep.memory.full = true;
-    }
+	if (creep.carry.energy == 0) {
+		creep.memory.full = false;
+	}
+	if (creep.carry.energy == creep.carryCapacity) {
+		creep.memory.full = true;
+	}
 
-    if (!creep.memory.full) {
-        var pickup = creep.pos.findInRange(FIND_DROPPED_ENERGY, 2);
-        pickup.length > 0 && creep.pickup(pickup[0]) == ERR_NOT_IN_RANGE ? creep.moveTo(pickup[0], { reusePath: 8, visualizePathStyle: { stroke: '#33b446' } }) : (0, _task.taskFindMiner)(creep);
-    } else {
-        (0, _task.taskHarvester)(creep);
-    }
+	if (!creep.memory.full) {
+
+		var target = creep.pos.findClosestByPath(FIND_STRUCTURES, { filter: { structureType: STRUCTURE_CONTAINER } });
+		if (target) {
+			if (creep.dismantle(target) == ERR_NOT_IN_RANGE) {
+				creep.moveTo(target);
+			}
+		}
+
+		var pickup = creep.pos.findInRange(FIND_DROPPED_ENERGY, 2);
+		pickup.length > 0 && creep.pickup(pickup[0]) == ERR_NOT_IN_RANGE ? creep.moveTo(pickup[0], { reusePath: 8, visualizePathStyle: { stroke: '#33b446' } }) : (0, _task.taskFindMiner)(creep);
+	} else {
+		(0, _task.taskHarvester)(creep);
+	}
 };
 
 /***/ }),
