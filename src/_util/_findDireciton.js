@@ -22,14 +22,7 @@ export default (pos, nextPos) => {
 
 		}
 	}
-console.log(JSON.stringify({
-	                           directionFixPos: [
-		                           DirecitonFixPos(directionFix[0], nextPos.roomName),
-		                           DirecitonFixPos(directionFix[1], nextPos.roomName)
-	                           ],
-	                           directionFix   : [Direciton(directionFix[0]), Direciton(directionFix[1])],
-	                           direction      : Direciton(directonPos)
-                           }))
+
 	return {
 		directionFixPos: [
 			DirecitonFixPos(directionFix[0], nextPos.roomName),
