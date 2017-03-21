@@ -1267,7 +1267,9 @@ exports.default = function (creep, target) {
                 Path[0] = Direciton[1];
             }
         }
-        if (creep.moveByPath(Path.shift()) == 0) {}
+        if (creep.moveByPath(Path) == 0) {
+            Path.shift();
+        }
     }
     creep.memory.lastPos = Pos;
 };
