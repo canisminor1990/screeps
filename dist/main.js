@@ -275,7 +275,7 @@ b;
 exports.default = {
 	role: role,
 	repair: repair.sort(function (a, b) {
-		return a - b;
+		return a.priority - b.priority;
 	})
 };
 
