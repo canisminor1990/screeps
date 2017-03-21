@@ -79,7 +79,7 @@ function Direciton(pos) {
 			break
 	}
 
-	return ;
+	return directon;
 }
 
 // TOP         : 1,
