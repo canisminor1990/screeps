@@ -33,17 +33,10 @@ const opt = {
 export default (creep, target) => {
 
     let goals = target.pos
-    let ret = PathFinder.search(creep.pos, goals, opt);
+    let path = PathFinder.search(creep.pos, goals, opt).path;
+    creep.memory.path = path
 
-    let pos = ret.path[0];
-    creep.move(creep.pos.getDirectionTo(pos));
-}
-
-function hasRoad(pos) {
-    const hasRoad = pos.lookFor(LOOK_STRUCTURES)
-        .filter(lookObject => lookObject.structureType == 'road');
-    const hasCreep = pos.lookFor(LOOK_CREEPS)
-    return (hasRoad.length > 0 && hasCreep.length == 0) ? true : false;
+    creep.move(creep.pos.getDirectionTo(path.shift()));
 }
 
 

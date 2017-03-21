@@ -1291,19 +1291,11 @@ var opt = {
 exports.default = function (creep, target) {
 
     var goals = target.pos;
-    var ret = PathFinder.search(creep.pos, goals, opt);
+    var path = PathFinder.search(creep.pos, goals, opt).path;
+    creep.memory.path = path;
 
-    var pos = ret.path[0];
-    creep.move(creep.pos.getDirectionTo(pos));
+    creep.move(creep.pos.getDirectionTo(path.shift()));
 };
-
-function hasRoad(pos) {
-    var hasRoad = pos.lookFor(LOOK_STRUCTURES).filter(function (lookObject) {
-        return lookObject.structureType == 'road';
-    });
-    var hasCreep = pos.lookFor(LOOK_CREEPS);
-    return hasRoad.length > 0 && hasCreep.length == 0 ? true : false;
-}
 
 /***/ }),
 /* 24 */
