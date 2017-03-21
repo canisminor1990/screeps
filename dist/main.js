@@ -1286,7 +1286,7 @@ exports.default = function (creep) {
 	var Pos = creep.pos;
 	var Path = (_PathFinder = PathFinder).search.apply(_PathFinder, [Pos].concat(target, [{ maxRooms: 2 }]));
 	var NextPos = Path.path[0];
-	var Direciton = (0, _util.findDireciton)(NextPos);
+	var Direciton = (0, _util.findDireciton)(creep.pos, NextPos);
 	var NextStep = void 0;
 
 	if (hasRoad(NextPos)) {
