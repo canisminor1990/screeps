@@ -1029,15 +1029,14 @@ exports.default = function (spawn) {
 		    body = buildBody(factory[_name].body),
 		    number = factory[_name].number,
 		    numberSum = _.sum(number);
-		console.log('pre', role);
 
 		var _loop2 = function _loop2(i) {
 			var nowNumber = _.filter(Game.creeps, function (creep) {
 				return creep.memory.role == role && creep.memory.source == i;
 			}).length;
-			console.log(number[i], nowNumber);
+
 			if (number[i] > nowNumber) {
-				console.log('build');
+
 				if (Game.spawns['Spawn1'].canCreateCreep(body) === OK) {
 					var _name2 = role + '#' + getNowFormatDate();
 					Game.spawns['Spawn1'].createCreep(body, _name2, { role: role, source: i });
