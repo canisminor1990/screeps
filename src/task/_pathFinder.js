@@ -5,10 +5,8 @@ export default (creep, target) => {
 	const Path       = PathFinder.search(Pos, target.pos, {maxRooms: 2});
 	const NextPos    = Path.path[0];
 	const Direciton  = findDireciton(Pos, NextPos);
-	Memory.Direciton = Direciton;
+
 	let NextStep;
-
-
 
 	if (hasRoad(NextPos)) {
 		NextStep = Direciton.direction
@@ -22,13 +20,11 @@ export default (creep, target) => {
 		}
 	}
 
-	console.log(NextStep, Path.path[0])
-
 	creep.move(NextStep)
 }
 
 function hasRoad(pos) {
-	console.log(pos)
+
 	const hasRoad = pos.lookFor(LOOK_STRUCTURES)
 	                   .filter(lookObject => lookObject.structureType == 'road');
 	return (hasRoad.length > 0) ? true : false;

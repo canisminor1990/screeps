@@ -505,8 +505,6 @@ function DirecitonFixPos(creep, pos, roomName) {
 
 function Direciton(pos) {
 	var directon = void 0;
-
-	console.log(pos);
 	switch (pos.toString()) {
 		case '0,-1':
 			directon = TOP;
@@ -1286,7 +1284,7 @@ exports.default = function (creep, target) {
 	var Path = PathFinder.search(Pos, target.pos, { maxRooms: 2 });
 	var NextPos = Path.path[0];
 	var Direciton = (0, _util.findDireciton)(Pos, NextPos);
-	Memory.Direciton = Direciton;
+
 	var NextStep = void 0;
 
 	if (hasRoad(NextPos)) {
@@ -1301,13 +1299,11 @@ exports.default = function (creep, target) {
 		}
 	}
 
-	console.log(NextStep, Path.path[0]);
-
 	creep.move(NextStep);
 };
 
 function hasRoad(pos) {
-	console.log(pos);
+
 	var hasRoad = pos.lookFor(LOOK_STRUCTURES).filter(function (lookObject) {
 		return lookObject.structureType == 'road';
 	});

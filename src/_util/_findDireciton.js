@@ -45,8 +45,6 @@ function DirecitonFixPos(creep, pos, roomName) {
 
 function Direciton(pos) {
 	let directon;
-
-	console.log(pos)
 	switch (pos.toString()) {
 		case '0,-1':
 			directon = TOP
