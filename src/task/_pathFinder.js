@@ -3,16 +3,20 @@ export default (creep, target) => {
 
     if (creep.memory.lastPos && creep.pos.x == creep.memory.lastPos.x && creep.pos.y == creep.memory.lastPos.y && creep.fatigue == 0) {
         creep.moveTo(target)
+        delete(creep.memory.path);
+        delete(creep.memory.lastPos);
         console.log('pathFinder Debug')
         return;
     }
 
-    const Pos = creep.pos;
-    const targetPos = target.pos
-    let Path = PathFinder.search(Pos, targetPos, {maxRooms: 2}).path;
-    creep.memory.path = Path;
-    const NextPos = Path[0];
-    if (Pos.x && NextPos.x) {
+    let Path = creep.memory.path
+
+    if (!creep.memory.path) {
+        const Pos = creep.pos;
+        const targetPos = target.pos
+        Path = PathFinder.search(Pos, targetPos, {maxRooms: 2}).path;
+        const NextPos = Path[0];
+
         if (!hasRoad(NextPos)) {
             const Direciton = findDireciton(Pos, NextPos);
             if (hasRoad(Direciton[0])) {
@@ -21,11 +25,16 @@ export default (creep, target) => {
                 Path[0] = Direciton[1]
             }
         }
-        if (creep.moveByPath(Path) == 0) {
-            Path.shift()
-        }
+    }
+
+    if (creep.moveByPath(Path) == 0) {
+        Path.shift()
+    } else {
+        delete(creep.memory.path);
+        delete(creep.memory.lastPos);
     }
     creep.memory.lastPos = Pos;
+    creep.memory.path = Path;
 }
 
 function hasRoad(pos) {
