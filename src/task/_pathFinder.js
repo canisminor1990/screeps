@@ -11,13 +11,14 @@ export default (creep, target) => {
             maxOps: 1000,
             roomCallback: (roomName) => {
                 let costs, room = Game.rooms[roomName];
+                if (!room) return;
                 if (!Memory.PathFinder) {
                     Memory.PathFinder = {}
                 }
                 if (!Memory.PathFinder[roomName] || !Memory.PathFinder.time || Game.time != Memory.PathFinder.time) {
                     // In this example `room` will always exist, but since PathFinder
                     // supports searches which span multiple rooms you should be careful!
-                    if (!room) return;
+
                     costs = new PathFinder.CostMatrix;
                     room.find(FIND_STRUCTURES).forEach((structure) => {
                         if (structure.structureType === STRUCTURE_ROAD) {

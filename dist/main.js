@@ -1273,13 +1273,14 @@ exports.default = function (creep, target) {
             roomCallback: function roomCallback(roomName) {
                 var costs = void 0,
                     room = Game.rooms[roomName];
+                if (!room) return;
                 if (!Memory.PathFinder) {
                     Memory.PathFinder = {};
                 }
                 if (!Memory.PathFinder[roomName] || !Memory.PathFinder.time || Game.time != Memory.PathFinder.time) {
                     // In this example `room` will always exist, but since PathFinder
                     // supports searches which span multiple rooms you should be careful!
-                    if (!room) return;
+
                     costs = new PathFinder.CostMatrix();
                     room.find(FIND_STRUCTURES).forEach(function (structure) {
                         if (structure.structureType === STRUCTURE_ROAD) {
