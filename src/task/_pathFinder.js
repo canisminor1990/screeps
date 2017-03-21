@@ -8,7 +8,7 @@ export default (creep, target) => {
 	const Path      = PathFinder.search(Pos, targetPos, {maxRooms: 2});
 	const NextPos   = Path.path[0];
 
-	if (Pos.x && NextPos.pos) {
+	if (Pos.x && NextPos.x) {
 		const Direciton = findDireciton(Pos, NextPos);
 		let NextStep;
 		if (hasRoad(NextPos)) {
