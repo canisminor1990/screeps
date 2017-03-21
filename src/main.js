@@ -40,13 +40,7 @@ module.exports.loop = () => {
 	for (let name in Game.creeps) {
 		const creep = Game.creeps[name];
 
-		if (!creep.memory.role) {
-			creep.memory = {
-				role: creep.name.split('#') [0],
-				source: 1
-			}
-		}
-		creep.memory.source = Number(creep.memory.source)
+
 		switch (creep.memory.role) {
 			case 'claim':
 				role.claim(creep)
