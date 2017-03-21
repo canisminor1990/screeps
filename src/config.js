@@ -70,5 +70,5 @@ export default {
 
 function sortNumber(a,b)
 {
-	return a - b
+	return a.priority - b.priority
 }
