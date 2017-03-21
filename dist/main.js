@@ -518,11 +518,22 @@ exports.default = function (pos, nextPos) {
     //     ],
     // }
 
-    return [DirecitonFixPos(pos, directionFix[0], nextPos.roomName), DirecitonFixPos(pos, directionFix[1], nextPos.roomName)];
+    return {
+        road: [DirecitonFixPos(pos, directionFix[0], nextPos.roomName), DirecitonFixPos(pos, directionFix[1], nextPos.roomName)],
+        path: [DirecitonPos(pos, directionFix[0], nextPos.roomName), DirecitonPos(pos, directionFix[1], nextPos.roomName)]
+    };
 };
 
 function DirecitonFixPos(creep, pos, roomName) {
     return new RoomPosition(creep.x + pos[0], creep.y + pos[1], roomName);
+}
+
+function DirecitonPos(creep, pos, roomName) {
+    return {
+        x: creep.x + pos[0],
+        y: creep.y + pos[1],
+        roomName: roomName
+    };
 }
 
 //
@@ -1263,10 +1274,10 @@ exports.default = function (creep, target) {
             var NextPos = Path[0];
             if (!hasRoad(NextPos)) {
                 var Direciton = (0, _util.findDireciton)(Pos, NextPos);
-                if (hasRoad(Direciton[0])) {
-                    Path[0] = Direciton[0];
-                } else if (hasRoad(Direciton[1])) {
-                    Path[0] = Direciton[1];
+                if (hasRoad(Direciton.road[0])) {
+                    Path[0] = Direciton.path[0];
+                } else if (hasRoad(Direciton.road[1])) {
+                    Path[0] = Direciton.path[1];
                 }
             }
         } else {
