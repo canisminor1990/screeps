@@ -1,5 +1,5 @@
 export default (pos, nextPos) => {
-	let directionFix, directonPos = [nextPos.x - pos.x, nextPos.y - pos.y];
+	let directionFix = [], directonPos = [nextPos.x - pos.x, nextPos.y - pos.y];
 	let directonArray             = [
 		[0, 1],
 		[1, 1],
@@ -13,12 +13,11 @@ export default (pos, nextPos) => {
 
 	for (let i = 0; i < directonArray.length; i++) {
 		if (directonArray[i].toString() == directonPos.toString()) {
-			const nextI   = (i + 1 > 7) ? i + 1 : 0,
-			      beforeI = (i - 1 < 0) ? i - 1 : 7;
-			directionFix  = [
-				directonArray[nextI],
-				directonArray[beforeI],
-			]
+			const nextI   = (i + 1 < 7) ? i + 1 : 0,
+			      beforeI = (i - 1 > 0) ? i - 1 : 7;
+			directionFix.push(directonArray[nextI])
+			directionFix.push(directonArray[beforeI])
+
 		}
 	}
 

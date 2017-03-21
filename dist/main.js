@@ -475,15 +475,16 @@ Object.defineProperty(exports, "__esModule", {
 });
 
 exports.default = function (pos, nextPos) {
-	var directionFix = void 0,
+	var directionFix = [],
 	    directonPos = [nextPos.x - pos.x, nextPos.y - pos.y];
 	var directonArray = [[0, 1], [1, 1], [0, 1], [-1, 1], [-1, 0], [-1, -1], [0, -1], [1, -1]];
 
 	for (var i = 0; i < directonArray.length; i++) {
 		if (directonArray[i].toString() == directonPos.toString()) {
-			var nextI = i + 1 > 7 ? i + 1 : 0,
-			    beforeI = i - 1 < 0 ? i - 1 : 7;
-			directionFix = [directonArray[nextI], directonArray[beforeI]];
+			var nextI = i + 1 < 7 ? i + 1 : 0,
+			    beforeI = i - 1 > 0 ? i - 1 : 7;
+			directionFix.push(directonArray[nextI]);
+			directionFix.push(directonArray[beforeI]);
 		}
 	}
 
