@@ -1197,9 +1197,9 @@ Object.defineProperty(exports, "__esModule", {
 var _task = __webpack_require__(0);
 
 var taskFindMiner = function taskFindMiner(creep) {
-    var source = creep.room.memory.source[creep.memory.source];
-    if (creep.role != "builder") {
 
+    if (creep.memory.role != "builder") {
+        var source = creep.room.memory.source[creep.memory.source];
         if (source.energy > 0) {
             var miner = creep.room.memory.miner.filter(function (miner) {
                 return creep.memory.source === miner.memory.source && miner.carry.energy > 0;
@@ -1238,7 +1238,6 @@ var taskFindMiner = function taskFindMiner(creep) {
         });
 
         if (creep.withdraw(_targetsContainer, 'energy') == ERR_NOT_IN_RANGE) {
-
             (0, _task.pathFinder)(creep, _targetsContainer);
         }
     }

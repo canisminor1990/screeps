@@ -1,8 +1,8 @@
 import {pathFinder} from '../task'
 const taskFindMiner = (creep) => {
-    const source = creep.room.memory.source[creep.memory.source];
-    if (creep.role != "builder") {
 
+    if (creep.memory.role != "builder") {
+        const source = creep.room.memory.source[creep.memory.source];
         if (source.energy > 0) {
             const miner = creep.room.memory.miner.filter(miner =>
             creep.memory.source === miner.memory.source &&
@@ -42,7 +42,6 @@ const taskFindMiner = (creep) => {
         })
 
         if (creep.withdraw(targetsContainer, 'energy') == ERR_NOT_IN_RANGE) {
-
             pathFinder(creep, targetsContainer)
         }
     }
