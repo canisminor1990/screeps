@@ -17,8 +17,6 @@ export default (spawn) => {
 		      number    = factory[name].number,
 		      numberSum = _.sum(number);
 
-		console.log(role)
-
 		for (let i in number) {
 			const nowNumber = _.filter(Game.creeps, (creep) =>
 			                           creep.memory.role == role &&

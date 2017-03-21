@@ -644,7 +644,7 @@ exports.default = function (creep) {
 	var controller = Game.getObjectById('5873bc3511e3e4361b4d738f');
 
 	if (!controller) {
-		(0, _task.pathFinder)(creep, new RoomPosition(27, 21, 'W81S66'));
+		creep.moveTo(new RoomPosition(27, 21, 'W81S66'));
 	} else {
 		creep.reserveController(controller) == ERR_NOT_IN_RANGE ? (0, _task.pathFinder)(creep, controller) : null;
 	}
@@ -1025,8 +1025,6 @@ exports.default = function (spawn) {
 		    body = buildBody(factory[_name].body),
 		    number = factory[_name].number,
 		    numberSum = _.sum(number);
-
-		console.log(role);
 
 		var _loop2 = function _loop2(i) {
 			var nowNumber = _.filter(Game.creeps, function (creep) {
