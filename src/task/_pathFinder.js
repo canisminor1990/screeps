@@ -29,9 +29,8 @@ export default (creep, target) => {
         Path = creep.memory.path
         console.log('yse')
     }
-    if (creep.moveByPath(Path) == 0) {
+    if (creep.moveByPath([Path.shift()]) == 0) {
         console.log('ok')
-        Path.shift()
         creep.memory.path = Path;
         delete(creep.memory.lastPos);
     } else {
