@@ -1231,7 +1231,8 @@ var taskFindMiner = function taskFindMiner(creep) {
             });
         }
         if (creep.withdraw(targetsContainer, 'energy') == ERR_NOT_IN_RANGE) {
-            (0, _task.pathFinder)(creep, targetsContainer);
+            creep.moveTo(targetsContainer);
+            // pathFinder(creep, targetsContainer)
         }
     }
 };

@@ -35,7 +35,8 @@ const taskFindMiner = (creep) => {
             })
         }
         if (creep.withdraw(targetsContainer, 'energy') == ERR_NOT_IN_RANGE) {
-            pathFinder(creep, targetsContainer)
+            creep.moveTo(targetsContainer)
+            // pathFinder(creep, targetsContainer)
         }
     }
 }
