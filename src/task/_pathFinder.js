@@ -2,8 +2,7 @@ import {findDireciton} from '../_util'
 export default (creep, target) => {
     if (creep.memory.lastPos && creep.pos.x == creep.memory.lastPos.x && creep.pos.y == creep.memory.lastPos.y && creep.fatigue == 0) {
         creep.moveTo(target)
-        delete(creep.memory.path);
-        delete(creep.memory.lastPos);
+
         console.log('pathFinder Debug')
         return;
     }
