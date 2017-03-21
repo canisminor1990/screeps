@@ -1,6 +1,6 @@
 export default (pos, nextPos) => {
 
-	console.log(JSON.stringify(pos), JSON.stringify(nextPos))
+
 	let directionFix  = [], directonPos = [nextPos.x - pos.x, nextPos.y - pos.y];
 	let directonArray = [
 		[0, 1],
@@ -71,7 +71,8 @@ function Direciton(pos) {
 			directon = TOP_LEFT
 			break
 	}
-	return directon;
+	console.log(pos,directon)
+	return ;
 }
 
 // TOP         : 1,

@@ -476,7 +476,6 @@ Object.defineProperty(exports, "__esModule", {
 
 exports.default = function (pos, nextPos) {
 
-	console.log(JSON.stringify(pos), JSON.stringify(nextPos));
 	var directionFix = [],
 	    directonPos = [nextPos.x - pos.x, nextPos.y - pos.y];
 	var directonArray = [[0, 1], [1, 1], [0, 1], [-1, 1], [-1, 0], [-1, -1], [0, -1], [1, -1]];
@@ -534,7 +533,8 @@ function Direciton(pos) {
 			directon = TOP_LEFT;
 			break;
 	}
-	return directon;
+	console.log(pos, directon);
+	return;
 }
 
 // TOP         : 1,
