@@ -18,11 +18,9 @@ export default (creep) => {
     if (creep.carry.energy == creep.carryCapacity) {
         creep.memory.full = true;
     }
-    if (!creep.memory.full && creep.memory.building) {
-        taskFindMiner(creep)
-    }
 
-    if (creep.memory.building && creep.carry.energy > 0) {
+
+    if (creep.memory.building && creep.memory.full) {
         const targets = creep.pos.findClosestByPath(FIND_CONSTRUCTION_SITES);
         //     halfBroken = creep.pos.findInRange(FIND_STRUCTURES, 5, {
         //         filter: structure => config.repair(structure) &&
@@ -36,5 +34,7 @@ export default (creep) => {
         (targets && creep.build(targets) == ERR_NOT_IN_RANGE) ?
             pathFinder(creep, targets) : null;
 
+    } else {
+        taskFindMiner(creep)
     }
 }
