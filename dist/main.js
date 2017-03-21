@@ -1275,7 +1275,7 @@ exports.default = function (creep, target) {
 		creep.moveTo(target);
 		console.log('notPathfound');
 	}
-	creep, memory.lastPos = Pos;
+	creep.memory.lastPos = Pos;
 };
 
 function hasRoad(pos) {
