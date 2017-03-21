@@ -1,4 +1,4 @@
-import { taskFindMiner } from '../task'
+import { taskFindMiner, pathFinder } from '../task'
 import config from '../config'
 export default (creep) => {
 
@@ -19,16 +19,10 @@ export default (creep) => {
 		      })[0];
 
 		(halfBroken && creep.repair(halfBroken) == ERR_NOT_IN_RANGE) ?
-		creep.moveTo(halfBroken, {
-			visualizePathStyle: {reusePath: 8, stroke: '#ffffff'}
-		}) : null;
+		pathFinder(creep, halfBroken) : null;
 
 		(targets && creep.build(targets) == ERR_NOT_IN_RANGE) ?
-		creep.moveTo(targets, {
-			visualizePathStyle: {reusePath: 8, stroke: '#ffffff'}
-		}) : null;
-
-
+		pathFinder(creep, targets) : null;
 
 	} else {
 		taskFindMiner(creep)

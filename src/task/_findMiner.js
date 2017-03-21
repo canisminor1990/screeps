@@ -29,7 +29,6 @@ const taskFindMiner = (creep) => {
 			                     structure.store["energy"] > 0
 		})
 		pathFinder(creep, targetsContainer)
-
 	}
 }
 

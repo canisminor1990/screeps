@@ -598,13 +598,9 @@ exports.default = function (creep) {
 			}
 		})[0];
 
-		halfBroken && creep.repair(halfBroken) == ERR_NOT_IN_RANGE ? creep.moveTo(halfBroken, {
-			visualizePathStyle: { reusePath: 8, stroke: '#ffffff' }
-		}) : null;
+		halfBroken && creep.repair(halfBroken) == ERR_NOT_IN_RANGE ? (0, _task.pathFinder)(creep, halfBroken) : null;
 
-		targets && creep.build(targets) == ERR_NOT_IN_RANGE ? creep.moveTo(targets, {
-			visualizePathStyle: { reusePath: 8, stroke: '#ffffff' }
-		}) : null;
+		targets && creep.build(targets) == ERR_NOT_IN_RANGE ? (0, _task.pathFinder)(creep, targets) : null;
 	} else {
 		(0, _task.taskFindMiner)(creep);
 	}
@@ -621,21 +617,17 @@ Object.defineProperty(exports, "__esModule", {
 	value: true
 });
 
+var _task = __webpack_require__(0);
+
 exports.default = function (creep) {
 	"use strict";
 
 	var controller = Game.getObjectById('5873bc3511e3e4361b4d738f');
 
 	if (!controller) {
-		creep.moveTo(new RoomPosition(27, 21, 'W81S66'), {
-			reusePath: 8,
-			visualizePathStyle: { stroke: '#ffffff' }
-		});
+		(0, _task.pathFinder)(creep, new RoomPosition(27, 21, 'W81S66'));
 	} else {
-		creep.reserveController(controller) == ERR_NOT_IN_RANGE ? creep.moveTo(controller, {
-			reusePath: 8,
-			visualizePathStyle: { stroke: '#ffffff' }
-		}) : null;
+		creep.reserveController(controller) == ERR_NOT_IN_RANGE ? (0, _task.pathFinder)(creep, controller) : null;
 	}
 };
 
@@ -647,31 +639,26 @@ exports.default = function (creep) {
 
 
 Object.defineProperty(exports, "__esModule", {
-    value: true
+	value: true
 });
 
 var _task = __webpack_require__(0);
 
 exports.default = function (creep) {
 
-    if (creep.carry.energy == 0) {
-        creep.memory.full = false;
-    }
-    if (creep.carry.energy == creep.carryCapacity) {
-        creep.memory.full = true;
-    }
+	if (creep.carry.energy == 0) {
+		creep.memory.full = false;
+	}
+	if (creep.carry.energy == creep.carryCapacity) {
+		creep.memory.full = true;
+	}
 
-    if (!creep.memory.full) {
-        var pickup = creep.pos.findClosestByPath(FIND_DROPPED_ENERGY);
-        pickup && creep.pickup(pickup) == ERR_NOT_IN_RANGE ? creep.moveTo(pickup, {
-            visualizePathStyle: {
-                reusePath: 8,
-                stroke: '#44b336'
-            }
-        }) : null;
-    } else {
-        (0, _task.taskHarvester)(creep);
-    }
+	if (!creep.memory.full) {
+		var pickup = creep.pos.findClosestByPath(FIND_DROPPED_ENERGY);
+		pickup && creep.pickup(pickup) == ERR_NOT_IN_RANGE ? (0, _task.pathFinder)(creep, pickup) : null;
+	} else {
+		(0, _task.taskHarvester)(creep);
+	}
 };
 
 /***/ }),
@@ -700,25 +687,15 @@ exports.default = function (creep) {
 	if (!creep.memory.full) {
 		var source = Game.getObjectById('5873bc3511e3e4361b4d7390');
 		if (!source) {
-			creep.moveTo(new RoomPosition(27, 21, 'W81S66'), {
-				reusePath: 8,
-				visualizePathStyle: { stroke: '#ffffff' }
-			});
+			(0, _task.pathFinder)(creep, new RoomPosition(27, 21, room));
 		} else {
 			var miner = creep.pos.findInRange(FIND_MY_CREEPS, 5, { filter: function filter(creepRole) {
 					return creepRole.memory.role == 'farMiner';
 				} })[0];
-
 			if (!miner) {
-				creep.harvest(source) == ERR_NOT_IN_RANGE ? creep.moveTo(source, {
-					reusePath: 8,
-					visualizePathStyle: { stroke: '#ffffff' }
-				}) : null;
+				creep.harvest(source) == ERR_NOT_IN_RANGE ? (0, _task.pathFinder)(creep, source) : null;
 			} else {
-				creep.moveTo(miner, {
-					reusePath: 8,
-					visualizePathStyle: { stroke: '#ffffff' }
-				});
+				(0, _task.pathFinder)(creep, miner);
 			}
 		}
 	} else {
