@@ -498,8 +498,8 @@ exports.default = function (pos, nextPos) {
 function DirecitonFixPos(pos, roomName) {
 
 	return {
-		x: pos[0] ? pos[0] : 0,
-		y: pos[1] ? pos[1] : 0,
+		x: pos ? pos[0] : 0,
+		y: pos ? pos[1] : 0,
 		roomName: roomName
 	};
 }
