@@ -1039,8 +1039,6 @@ Object.defineProperty(exports, "__esModule", {
 	value: true
 });
 
-var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
-
 var _config = __webpack_require__(2);
 
 var _config2 = _interopRequireDefault(_config);
@@ -1050,7 +1048,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 var factory = _config2.default.role;
 
 exports.default = function (spawn) {
-
+	var nextRun = false;
 	// const targetsBuild = spawn.room.memory.constructionSites;
 	//
 	// if (targetsBuild.length == 0) {
@@ -1086,33 +1084,24 @@ exports.default = function (spawn) {
 					Game.spawns['Spawn1'].createCreep(body, _name2, { role: role, source: i });
 					console.log(['[Spawn]', _name2, 'Source:', i].join(' '));
 				} else {
-					return 'break';
-					return {
-						v: {
-							v: void 0
-						}
-					};
+					nextRun = true;
 				}
 			}
+			if (nextRun) return 'break';
 		};
 
-		_loop3: for (var i in number) {
+		for (var i in number) {
 			var _ret2 = _loop2(i);
 
-			switch (_ret2) {
-				case 'break':
-					break _loop3;
-
-				default:
-					if ((typeof _ret2 === 'undefined' ? 'undefined' : _typeof(_ret2)) === "object") return _ret2.v;
-			}
+			if (_ret2 === 'break') break;
 		}
+		if (nextRun) return 'break';
 	};
 
 	for (var _name in factory) {
 		var _ret = _loop(_name);
 
-		if ((typeof _ret === 'undefined' ? 'undefined' : _typeof(_ret)) === "object") return _ret.v;
+		if (_ret === 'break') break;
 	}
 
 	if (spawn.spawning) {

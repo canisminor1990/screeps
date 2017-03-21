@@ -2,7 +2,7 @@ import config from '../config';
 const factory = config.role;
 
 export default (spawn) => {
-
+	let nextRun = false
 	// const targetsBuild = spawn.room.memory.constructionSites;
 	//
 	// if (targetsBuild.length == 0) {
@@ -44,11 +44,12 @@ export default (spawn) => {
 					             'Source:',
 					             i].join(' '));
 				} else {
-					break
-					return
+					nextRun = true
 				}
 			}
+			if(nextRun) break
 		}
+		if(nextRun) break
 	}
 
 	if (spawn.spawning) {
