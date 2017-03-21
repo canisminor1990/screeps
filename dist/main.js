@@ -64,7 +64,7 @@ module.exports =
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 25);
+/******/ 	return __webpack_require__(__webpack_require__.s = 24);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -78,7 +78,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _findMiner = __webpack_require__(22);
+var _findMiner = __webpack_require__(21);
 
 Object.defineProperty(exports, 'taskFindMiner', {
   enumerable: true,
@@ -96,7 +96,7 @@ Object.defineProperty(exports, 'taskContainer', {
   }
 });
 
-var _harvester = __webpack_require__(23);
+var _harvester = __webpack_require__(22);
 
 Object.defineProperty(exports, 'taskHarvester', {
   enumerable: true,
@@ -105,7 +105,7 @@ Object.defineProperty(exports, 'taskHarvester', {
   }
 });
 
-var _pathFinder = __webpack_require__(24);
+var _pathFinder = __webpack_require__(23);
 
 Object.defineProperty(exports, 'pathFinder', {
   enumerable: true,
@@ -129,7 +129,7 @@ var _role = __webpack_require__(17);
 
 var role = _interopRequireWildcard(_role);
 
-var _structure = __webpack_require__(21);
+var _structure = __webpack_require__(20);
 
 var structure = _interopRequireWildcard(_structure);
 
@@ -165,9 +165,6 @@ module.exports.loop = function () {
 				break;
 			case 'tower':
 				structure.tower(structureName);
-				break;
-			case 'container':
-				structure.container(structureName, targetsHarvest.length, targetsBuild.length);
 				break;
 		}
 	}
@@ -983,45 +980,6 @@ Object.defineProperty(exports, "__esModule", {
 	value: true
 });
 
-exports.default = function (container, targetsHarvest, targetsBuild) {
-
-	var targets = container.pos.findInRange(FIND_MY_CREEPS, 2, {
-		filter: function filter(creep) {
-			return creep.carry.energy < creep.carryCapacity && creep.memory.role !== 'miner' && creep.memory.role !== 'cleaner';
-		}
-	});
-
-	if (targetsHarvest == 0) {
-		targets = targets.filter(function (creep) {
-			return creep.memory.role !== 'harvester' && creep.memory.role !== 'farHarvester';
-		});
-	}
-
-	if (targetsBuild == 0) {
-		targets = targets.filter(function (creep) {
-			return creep.memory.role !== 'builder';
-		});
-	}
-
-	if (targets[0]) {
-		if (container.transfer(targets[0], RESOURCE_ENERGY) == OK) {
-			// console.log(['[Log]','Transfer:',targets[0]].join(' '))
-			container.room.visual.text('[Transfer]', container.pos.x + 1, container.pos.y, { align: 'left', opacity: 0.8 });
-		}
-	}
-};
-
-/***/ }),
-/* 19 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-	value: true
-});
-
 var _config = __webpack_require__(2);
 
 var _config2 = _interopRequireDefault(_config);
@@ -1088,7 +1046,7 @@ function buildBody(obj) {
 }
 
 /***/ }),
-/* 20 */
+/* 19 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1116,7 +1074,7 @@ exports.default = function (tower) {
 };
 
 /***/ }),
-/* 21 */
+/* 20 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1126,7 +1084,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _tower = __webpack_require__(20);
+var _tower = __webpack_require__(19);
 
 Object.defineProperty(exports, "tower", {
   enumerable: true,
@@ -1135,16 +1093,7 @@ Object.defineProperty(exports, "tower", {
   }
 });
 
-var _container = __webpack_require__(18);
-
-Object.defineProperty(exports, "container", {
-  enumerable: true,
-  get: function get() {
-    return _interopRequireDefault(_container).default;
-  }
-});
-
-var _spawn = __webpack_require__(19);
+var _spawn = __webpack_require__(18);
 
 Object.defineProperty(exports, "spawn", {
   enumerable: true,
@@ -1156,7 +1105,7 @@ Object.defineProperty(exports, "spawn", {
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 /***/ }),
-/* 22 */
+/* 21 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1207,7 +1156,7 @@ var taskFindMiner = function taskFindMiner(creep) {
 exports.default = taskFindMiner;
 
 /***/ }),
-/* 23 */
+/* 22 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1242,7 +1191,7 @@ exports.default = function (creep) {
 };
 
 /***/ }),
-/* 24 */
+/* 23 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1292,7 +1241,7 @@ function hasRoad(pos) {
 }
 
 /***/ }),
-/* 25 */
+/* 24 */
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(1);
