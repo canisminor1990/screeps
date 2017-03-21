@@ -32,10 +32,12 @@ export default (creep, target) => {
     if (creep.moveByPath(Path) == 0) {
         console.log('ok')
         Path.shift()
+        creep.memory.path = Path;
+        delete(creep.memory.lastPos);
     } else {
         delete(creep.memory.path);
     }
-    creep.memory.path = Path;
+
 }
 
 function hasRoad(pos) {
