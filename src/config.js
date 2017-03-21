@@ -65,5 +65,10 @@ b
 
 export default {
 	role  : role,
-	repair: repair.sort((a, b) => a.priority - b.priority),
+	repair: repair.sort(sortNumber),
 };
+
+function sortNumber(a,b)
+{
+	return a - b
+}

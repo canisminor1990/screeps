@@ -274,10 +274,13 @@ b;
 
 exports.default = {
 	role: role,
-	repair: repair.sort(function (a, b) {
-		return a.priority - b.priority;
-	})
+	repair: repair.sort(sortNumber)
 };
+
+
+function sortNumber(a, b) {
+	return a - b;
+}
 
 /***/ }),
 /* 3 */
