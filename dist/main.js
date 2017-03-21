@@ -270,10 +270,13 @@ var repair = function repair(structure) {
  "tough": 10,
  "claim": 600
  */
+b;
 
 exports.default = {
 	role: role,
-	repair: repair
+	repair: repair.sort(function (a, b) {
+		return a - b;
+	})
 };
 
 /***/ }),
