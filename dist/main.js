@@ -1293,12 +1293,12 @@ exports.default = function (creep, target) {
                     });
 
                     // Avoid creeps in the room
-                    room.find(FIND_CREEPS).forEach(function (creep) {
-                        costs.set(creep.pos.x, creep.pos.y, 0xff);
-                    });
                 } else {
                     costs = Memory.PathFinder[roomName];
                 }
+                room.find(FIND_CREEPS).forEach(function (creep) {
+                    costs.set(creep.pos.x, creep.pos.y, 0xff);
+                });
                 Memory.PathFinder[roomName] = costs;
                 Memory.PathFinder.time = Game.time;
                 return costs;
