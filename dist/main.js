@@ -87,7 +87,7 @@ Object.defineProperty(exports, 'taskFindMiner', {
   }
 });
 
-var _container = __webpack_require__(3);
+var _container = __webpack_require__(4);
 
 Object.defineProperty(exports, 'taskContainer', {
   enumerable: true,
@@ -123,7 +123,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 "use strict";
 
 
-__webpack_require__(4);
+__webpack_require__(5);
 
 var _role = __webpack_require__(17);
 
@@ -133,7 +133,7 @@ var _structure = __webpack_require__(20);
 
 var structure = _interopRequireWildcard(_structure);
 
-var _util = __webpack_require__(8);
+var _util = __webpack_require__(3);
 
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
@@ -293,6 +293,46 @@ exports.default = {
 
 
 Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _timer = __webpack_require__(8);
+
+Object.defineProperty(exports, 'Timer', {
+  enumerable: true,
+  get: function get() {
+    return _interopRequireDefault(_timer).default;
+  }
+});
+
+var _build = __webpack_require__(6);
+
+Object.defineProperty(exports, 'Build', {
+  enumerable: true,
+  get: function get() {
+    return _interopRequireDefault(_build).default;
+  }
+});
+
+var _findDireciton = __webpack_require__(7);
+
+Object.defineProperty(exports, 'findDireciton', {
+  enumerable: true,
+  get: function get() {
+    return _interopRequireDefault(_findDireciton).default;
+  }
+});
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+/***/ }),
+/* 4 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
 	value: true
 });
 
@@ -309,7 +349,7 @@ exports.default = function (creep) {
 };
 
 /***/ }),
-/* 4 */
+/* 5 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -431,7 +471,7 @@ module.exports = function (options) {
 };
 
 /***/ }),
-/* 5 */
+/* 6 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -450,7 +490,7 @@ exports.default = function (x, y, type) {
 };
 
 /***/ }),
-/* 6 */
+/* 7 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -543,7 +583,7 @@ function DirecitonFixPos(creep, pos, roomName) {
 // TOP_LEFT    : 8,
 
 /***/ }),
-/* 7 */
+/* 8 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -558,46 +598,6 @@ exports.default = function (tick) {
     Memory.timer[tick] = Game.time;
     return true;
 };
-
-/***/ }),
-/* 8 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _timer = __webpack_require__(7);
-
-Object.defineProperty(exports, 'Timer', {
-  enumerable: true,
-  get: function get() {
-    return _interopRequireDefault(_timer).default;
-  }
-});
-
-var _build = __webpack_require__(5);
-
-Object.defineProperty(exports, 'Build', {
-  enumerable: true,
-  get: function get() {
-    return _interopRequireDefault(_build).default;
-  }
-});
-
-var _findDireciton = __webpack_require__(6);
-
-Object.defineProperty(exports, 'findDireciton', {
-  enumerable: true,
-  get: function get() {
-    return _interopRequireDefault(_findDireciton).default;
-  }
-});
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 /***/ }),
 /* 9 */
@@ -1223,7 +1223,7 @@ Object.defineProperty(exports, "__esModule", {
     value: true
 });
 
-var _container = __webpack_require__(3);
+var _container = __webpack_require__(4);
 
 var _container2 = _interopRequireDefault(_container);
 
@@ -1257,43 +1257,50 @@ exports.default = function (creep) {
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
-var opt = {
-    maxRooms: 1,
-    plainCost: 20,
-    swampCost: 100,
-    maxOps: 1000,
-    roomCallback: function roomCallback(roomName) {
 
-        var room = Game.rooms[roomName];
-        // In this example `room` will always exist, but since PathFinder
-        // supports searches which span multiple rooms you should be careful!
-        if (!room) return;
-        var costs = new PathFinder.CostMatrix();
-
-        room.find(FIND_STRUCTURES).forEach(function (structure) {
-            if (structure.structureType === STRUCTURE_ROAD) {
-                // Favor roads over plain tiles
-                costs.set(structure.pos.x, structure.pos.y, 1);
-            } else if (structure.structureType !== STRUCTURE_CONTAINER && (structure.structureType !== STRUCTURE_RAMPART || !structure.my)) {
-                // Can't walk through non-walkable buildings
-                costs.set(structure.pos.x, structure.pos.y, 0xff);
-            }
-        });
-
-        // Avoid creeps in the room
-        room.find(FIND_CREEPS).forEach(function (creep) {
-            costs.set(creep.pos.x, creep.pos.y, 0xff);
-        });
-        return costs;
-    }
-};
+var _util = __webpack_require__(3);
 
 exports.default = function (creep, target) {
     if (creep.fatigue > 1) return;
     var goals = target.pos;
     var path = void 0;
     if (!creep.memory.path || !creep.memory.target || creep.memory.target != target.id) {
-        path = PathFinder.search(creep.pos, goals, opt).path;
+        path = PathFinder.search(creep.pos, goals, {
+            maxRooms: 1,
+            plainCost: 20,
+            swampCost: 100,
+            maxOps: 1000,
+            roomCallback: function roomCallback(roomName) {
+                var costs = void 0,
+                    room = Game.rooms[roomName];
+                if (!Memory.PathFinder) {
+                    Memory.PathFinder = {};
+                    Memory.PathFinder[roomName] = [];
+                }
+                costs = Memory.PathFinder[roomName];
+                if ((0, _util.Timer)(5)) {
+                    // In this example `room` will always exist, but since PathFinder
+                    // supports searches which span multiple rooms you should be careful!
+                    if (!room) return;
+                    costs = new PathFinder.CostMatrix();
+                    room.find(FIND_STRUCTURES).forEach(function (structure) {
+                        if (structure.structureType === STRUCTURE_ROAD) {
+                            // Favor roads over plain tiles
+                            costs.set(structure.pos.x, structure.pos.y, 1);
+                        } else if (structure.structureType !== STRUCTURE_CONTAINER && (structure.structureType !== STRUCTURE_RAMPART || !structure.my)) {
+                            // Can't walk through non-walkable buildings
+                            costs.set(structure.pos.x, structure.pos.y, 0xff);
+                        }
+                    });
+                }
+                // Avoid creeps in the room
+                room.find(FIND_CREEPS).forEach(function (creep) {
+                    costs.set(creep.pos.x, creep.pos.y, 0xff);
+                });
+                Memory.PathFinder[roomName] = costs;
+                return costs;
+            }
+        }).path;
     } else {
         path = creep.memory.path;
     }
