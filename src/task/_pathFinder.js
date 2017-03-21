@@ -1,6 +1,5 @@
 import {findDireciton} from '../_util'
 export default (creep, target) => {
-
     if (creep.memory.lastPos && creep.pos.x == creep.memory.lastPos.x && creep.pos.y == creep.memory.lastPos.y && creep.fatigue == 0) {
         creep.moveTo(target)
         delete(creep.memory.path);
@@ -10,9 +9,9 @@ export default (creep, target) => {
     }
     const Pos = creep.pos;
     creep.memory.lastPos = Pos;
+    creep.memory.target = target;
     let Path;
-
-    if (!creep.memory.path) {
+    if (!creep.memory.path && target == creep.memory.target) {
         const targetPos = target.pos
         Path = PathFinder.search(Pos, targetPos, {maxRooms: 2}).path;
         const NextPos = Path[0];
@@ -30,7 +29,6 @@ export default (creep, target) => {
         Path = creep.memory.path
         console.log('yse')
     }
-
     if (creep.moveByPath(Path) == 0) {
         console.log('ok')
         Path.shift()
@@ -38,7 +36,6 @@ export default (creep, target) => {
         delete(creep.memory.path);
         delete(creep.memory.lastPos);
     }
-
     creep.memory.path = Path;
 }
 

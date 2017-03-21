@@ -1246,7 +1246,6 @@ Object.defineProperty(exports, "__esModule", {
 var _util = __webpack_require__(3);
 
 exports.default = function (creep, target) {
-
     if (creep.memory.lastPos && creep.pos.x == creep.memory.lastPos.x && creep.pos.y == creep.memory.lastPos.y && creep.fatigue == 0) {
         creep.moveTo(target);
         delete creep.memory.path;
@@ -1256,9 +1255,9 @@ exports.default = function (creep, target) {
     }
     var Pos = creep.pos;
     creep.memory.lastPos = Pos;
+    creep.memory.target = target;
     var Path = void 0;
-
-    if (!creep.memory.path) {
+    if (!creep.memory.path && target == creep.memory.target) {
         var targetPos = target.pos;
         Path = PathFinder.search(Pos, targetPos, { maxRooms: 2 }).path;
         var NextPos = Path[0];
@@ -1276,7 +1275,6 @@ exports.default = function (creep, target) {
         Path = creep.memory.path;
         console.log('yse');
     }
-
     if (creep.moveByPath(Path) == 0) {
         console.log('ok');
         Path.shift();
@@ -1284,7 +1282,6 @@ exports.default = function (creep, target) {
         delete creep.memory.path;
         delete creep.memory.lastPos;
     }
-
     creep.memory.path = Path;
 };
 
