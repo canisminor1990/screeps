@@ -12,7 +12,7 @@ export default (pos, nextPos) => {
 	]
 
 	for (let i = 0; i < directonArray.length; i++) {
-		if (directonArray[i] == directonPos) {
+		if (directonArray[i].toString() == directonPos.toString()) {
 			const nextI   = (i + 1 > 7) ? i + 1 : 0,
 			      beforeI = (i - 1 < 0) ? i - 1 : 7;
 			directionFix  = [
