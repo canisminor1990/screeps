@@ -5,10 +5,10 @@ export default (creep, target) => {
     let path;
     if (!creep.memory.path || !creep.memory.target || creep.memory.target != target.id) {
         path = PathFinder.search(creep.pos, goals, {
-            maxRooms: 1,
+
             plainCost: 20,
             swampCost: 100,
-            maxOps: 1000,
+
             roomCallback: (roomName) => {
                 let costs, room = Game.rooms[roomName];
                 if (!room) return;
