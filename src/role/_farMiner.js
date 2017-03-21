@@ -5,7 +5,7 @@ export default (creep) => {
 		const source = Game.getObjectById('5873bc3511e3e4361b4d7390');
 
 		if (!source) {
-			pathFinder(creep, new RoomPosition(27, 21, 'W81S66'))
+			creep.moveTo( new RoomPosition(27, 21, 'W81S66'))
 		} else {
 
 			(creep.harvest(source) == ERR_NOT_IN_RANGE) ?

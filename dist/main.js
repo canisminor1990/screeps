@@ -687,7 +687,7 @@ exports.default = function (creep) {
 	if (!creep.memory.full) {
 		var source = Game.getObjectById('5873bc3511e3e4361b4d7390');
 		if (!source) {
-			(0, _task.pathFinder)(creep, new RoomPosition(27, 21, room));
+			creep.moveTo(new RoomPosition(27, 21, room));
 		} else {
 			var miner = creep.pos.findInRange(FIND_MY_CREEPS, 5, { filter: function filter(creepRole) {
 					return creepRole.memory.role == 'farMiner';
@@ -701,6 +701,7 @@ exports.default = function (creep) {
 	} else {
 		if (creep.room.name !== myRoom.room.name) {
 			(0, _task.pathFinder)(creep, myRoom);
+			creep.moveTo(myRoom, { reusePath: 8, visualizePathStyle: { stroke: '#ffffff' } });
 		} else {
 			(0, _task.taskHarvester)(creep);
 		}
@@ -726,7 +727,7 @@ exports.default = function (creep) {
 		var source = Game.getObjectById('5873bc3511e3e4361b4d7390');
 
 		if (!source) {
-			(0, _task.pathFinder)(creep, new RoomPosition(27, 21, 'W81S66'));
+			creep.moveTo(new RoomPosition(27, 21, 'W81S66'));
 		} else {
 
 			creep.harvest(source) == ERR_NOT_IN_RANGE ? (0, _task.pathFinder)(creep, source) : null;
