@@ -31,7 +31,7 @@ export default (creep, target) => {
                         }
                     });
 
-                    // Avoid creeps in the room
+                    Memory.PathFinder[roomName] = costs;
 
                 } else {
                     costs = Memory.PathFinder[roomName]
@@ -39,7 +39,7 @@ export default (creep, target) => {
                 room.find(FIND_CREEPS).forEach((creep) => {
                     costs.set(creep.pos.x, creep.pos.y, 0xff);
                 });
-                Memory.PathFinder[roomName] = costs;
+
                 Memory.PathFinder.time = Game.time
                 return costs;
             }
