@@ -255,7 +255,7 @@ var role = [{
     priority: 6
 }, {
     role: "miner",
-    body: { move: 2, work: 5, carry: 1 },
+    body: { move: 2, work: 6, carry: 1 },
     number: [1, 2],
     priority: 2
 }, {
