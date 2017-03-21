@@ -1,9 +1,11 @@
-import {pathFinder} from '../task'
+import { pathFinder } from '../task'
 const taskFindMiner = (creep) => {
 	const source = creep.room.memory.source[creep.memory.source];
 	if (source.energy > 0) {
 
-		const miner = creep.room.memory.miner.filter(miner => creep.memory.source === miner.memory.source)
+		const miner = creep.room.memory.miner.filter(miner =>
+		                                             creep.memory.source === miner.memory.source &&
+		                                             miner.carry.energy > 0)
 
 		let minerTarget, minerEnergy = 0;
 
@@ -15,10 +17,10 @@ const taskFindMiner = (creep) => {
 		}
 
 		if (minerTarget && minerEnergy >= 50) {
-			pathFinder(creep,minerTarget)
+			pathFinder(creep, minerTarget)
 		} else {
 			(creep.harvest(source) == ERR_NOT_IN_RANGE) ?
-			pathFinder(creep,source): null;
+			pathFinder(creep, source) : null;
 		}
 
 	} else {
@@ -26,7 +28,7 @@ const taskFindMiner = (creep) => {
 			filter: structure => structure.structureType == STRUCTURE_CONTAINER &&
 			                     structure.store["energy"] > 0
 		})
-		pathFinder(creep,targetsContainer)
+		pathFinder(creep, targetsContainer)
 
 	}
 }

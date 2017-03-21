@@ -240,7 +240,7 @@ var role = {
 };
 
 var repair = function repair(structure) {
-    return structure.hits / structure.hitsMax < 0.5 && structure.hits < 10000 && structure.structureType !== STRUCTURE_CONTAINER;
+    return structure.hits / structure.hitsMax < 0.5 && structure.hits < 10000;
 };
 
 /*
@@ -1200,7 +1200,7 @@ var taskFindMiner = function taskFindMiner(creep) {
 	if (source.energy > 0) {
 
 		var miner = creep.room.memory.miner.filter(function (miner) {
-			return creep.memory.source === miner.memory.source;
+			return creep.memory.source === miner.memory.source && miner.carry.energy > 0;
 		});
 
 		var minerTarget = void 0,
