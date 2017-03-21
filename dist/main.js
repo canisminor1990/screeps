@@ -1289,7 +1289,7 @@ var opt = {
 };
 
 exports.default = function (creep, target) {
-    if (creep.fatigue != 0) return;
+    if (creep.fatigue > 1) return;
     var goals = target.pos;
     var path = void 0;
     if (!creep.memory.path || !creep.memory.target || creep.memory.target != target.id) {

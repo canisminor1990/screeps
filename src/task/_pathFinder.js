@@ -31,7 +31,7 @@ const opt = {
 }
 
 export default (creep, target) => {
-    if (creep.fatigue != 0)return;
+    if (creep.fatigue > 1)return;
     let goals = target.pos
     let path;
     if (!creep.memory.path || !creep.memory.target || creep.memory.target != target.id) {
