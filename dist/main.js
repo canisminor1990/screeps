@@ -1036,7 +1036,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 
 Object.defineProperty(exports, "__esModule", {
-    value: true
+	value: true
 });
 
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
@@ -1051,83 +1051,79 @@ var factory = _config2.default.role;
 
 exports.default = function (spawn) {
 
-    // const targetsBuild = spawn.room.memory.constructionSites;
-    //
-    // if (targetsBuild.length == 0) {
-    //     const builderTargets = spawn.pos.findInRange(FIND_MY_CREEPS, 1, {filter: creep => creep.role == "builder"[0]});
-    //     if (builderTargets) {
-    //         spawn.recycleCreep(builderTargets);
-    //     }
-    // }
+	// const targetsBuild = spawn.room.memory.constructionSites;
+	//
+	// if (targetsBuild.length == 0) {
+	//     const builderTargets = spawn.pos.findInRange(FIND_MY_CREEPS, 1, {filter: creep => creep.role == "builder"[0]});
+	//     if (builderTargets) {
+	//         spawn.recycleCreep(builderTargets);
+	//     }
+	// }
 
+	for (var name in Memory.creeps) {
+		if (!Game.creeps[name]) {
+			delete Memory.creeps[name];
+			console.log(['[Clean]', name].join(' '));
+		}
+	}
 
-    for (var name in Memory.creeps) {
-        if (!Game.creeps[name]) {
-            delete Memory.creeps[name];
-            console.log(['[Clean]', name].join(' '));
-        }
-    }
+	var _loop = function _loop(_name) {
 
-    var _loop = function _loop(_name) {
+		var role = factory[_name].role,
+		    body = buildBody(factory[_name].body),
+		    number = factory[_name].number,
+		    numberSum = _.sum(number);
 
-        var role = factory[_name].role,
-            body = buildBody(factory[_name].body),
-            number = factory[_name].number,
-            numberSum = _.sum(number);
+		var _loop2 = function _loop2(i) {
+			var nowNumber = _.filter(Game.creeps, function (creep) {
+				return creep.memory.role == role && creep.memory.source == i;
+			}).length;
 
-        var _loop2 = function _loop2(i) {
-            var nowNumber = _.filter(Game.creeps, function (creep) {
-                return creep.memory.role == role && creep.memory.source == i;
-            }).length;
+			if (number[i] > nowNumber && Game.spawns['Spawn1'].canCreateCreep(body) === OK) {
+				var _name2 = role + '#' + getNowFormatDate();
+				Game.spawns['Spawn1'].createCreep(body, _name2, { role: role, source: i });
+				console.log(['[Spawn]', _name2, 'Source:', i].join(' '));
+			} else {
+				return {
+					v: {
+						v: void 0
+					}
+				};
+			}
+		};
 
-            if (number[i] > nowNumber) {
+		for (var i in number) {
+			var _ret2 = _loop2(i);
 
-                if (Game.spawns['Spawn1'].canCreateCreep(body) === OK) {
-                    var _name2 = role + '#' + getNowFormatDate();
-                    Game.spawns['Spawn1'].createCreep(body, _name2, { role: role, source: i });
-                    console.log(['[Spawn]', _name2, 'Source:', i].join(' '));
-                } else {
-                    return {
-                        v: {
-                            v: void 0
-                        }
-                    };
-                }
-            }
-        };
+			if ((typeof _ret2 === 'undefined' ? 'undefined' : _typeof(_ret2)) === "object") return _ret2.v;
+		}
+	};
 
-        for (var i in number) {
-            var _ret2 = _loop2(i);
+	for (var _name in factory) {
+		var _ret = _loop(_name);
 
-            if ((typeof _ret2 === 'undefined' ? 'undefined' : _typeof(_ret2)) === "object") return _ret2.v;
-        }
-    };
+		if ((typeof _ret === 'undefined' ? 'undefined' : _typeof(_ret)) === "object") return _ret.v;
+	}
 
-    for (var _name in factory) {
-        var _ret = _loop(_name);
-
-        if ((typeof _ret === 'undefined' ? 'undefined' : _typeof(_ret)) === "object") return _ret.v;
-    }
-
-    if (spawn.spawning) {
-        var spawningCreep = Game.creeps[spawn.spawning.name];
-        spawn.room.visual.text('[Spawn] ' + spawningCreep.memory.role, spawn.pos.x + 1, spawn.pos.y, { align: 'left', opacity: 0.8 });
-    }
+	if (spawn.spawning) {
+		var spawningCreep = Game.creeps[spawn.spawning.name];
+		spawn.room.visual.text('[Spawn] ' + spawningCreep.memory.role, spawn.pos.x + 1, spawn.pos.y, { align: 'left', opacity: 0.8 });
+	}
 };
 
 function getNowFormatDate() {
-    var date = new Date();
-    return [date.getHours(), date.getMinutes(), date.getSeconds()].join('');
+	var date = new Date();
+	return [date.getHours(), date.getMinutes(), date.getSeconds()].join('');
 }
 
 function buildBody(obj) {
-    var array = [];
-    for (var key in obj) {
-        for (var num = 0; num < obj[key]; num++) {
-            array.push(key);
-        }
-    }
-    return array;
+	var array = [];
+	for (var key in obj) {
+		for (var num = 0; num < obj[key]; num++) {
+			array.push(key);
+		}
+	}
+	return array;
 }
 
 /***/ }),
