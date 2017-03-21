@@ -1050,17 +1050,15 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 var factory = _config2.default.role;
 
 exports.default = function (spawn) {
-	var nextRun = false;
-	var targetsBuild = spawn.room.memory.constructionSites;
 
-	if (!targetsBuild.length) {
-		var builderTargets = spawn.pos.findInRange(FIND_MY_CREEPS, 1, { filter: function filter(creep) {
-				return creep.role == "builder"[0];
-			} });
-		if (builderTargets) {
-			spawn.recycleCreep(builderTargets);
-		}
-	}
+	// const targetsBuild = spawn.room.memory.constructionSites;
+	//
+	// if (!targetsBuild.length) {
+	// 	const builderTargets = spawn.pos.findInRange(FIND_MY_CREEPS, 1, {filter: creep => creep.role == "builder"[0]});
+	// 	if (builderTargets) {
+	// 		spawn.recycleCreep(builderTargets);
+	// 	}
+	// }
 
 	for (var name in Memory.creeps) {
 
