@@ -138,9 +138,9 @@ var _util = __webpack_require__(8);
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
 var mySpawn = Game.spawns['Spawn1'];
-PathFinder.use(true);
-module.exports.loop = function () {
 
+module.exports.loop = function () {
+    PathFinder.use(true);
     mySpawn.room.memory = {
         structures: mySpawn.room.find(FIND_STRUCTURES),
         constructionSites: mySpawn.room.find(FIND_CONSTRUCTION_SITES),
