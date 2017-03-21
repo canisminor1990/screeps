@@ -18,7 +18,7 @@ export default (creep, target) => {
                 if (!Memory.PathFinder[roomName] || Game.time - Memory.PathFinder.time > 10) {
                     // In this example `room` will always exist, but since PathFinder
                     // supports searches which span multiple rooms you should be careful!
-
+                    console.log(1)
                     costs = new PathFinder.CostMatrix;
                     room.find(FIND_STRUCTURES).forEach((structure) => {
                         if (structure.structureType === STRUCTURE_ROAD) {
