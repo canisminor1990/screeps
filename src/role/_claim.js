@@ -6,7 +6,7 @@ export default (creep) => {
 	if (!controller) {
 		creep.moveTo(new RoomPosition(27, 21, 'W81S66'))
 	} else {
-		(creep.reserveController(controller) == ERR_NOT_IN_RANGE) ? pathFinder(creep, controller) : null;
+		(creep.reserveController(controller) == ERR_NOT_IN_RANGE) ? creep.moveTo(controller) : null;
 	}
 
 }
