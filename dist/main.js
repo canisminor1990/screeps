@@ -1249,8 +1249,9 @@ exports.default = function (creep) {
                     return creep.role == "builder" && creep.carry['energy'] < creep.carryCapacity;
                 } });
             builderTargets && creep.transfer(builderTargets, RESOURCE_ENERGY) == ERR_NOT_IN_RANGE ? (0, _task.pathFinder)(creep, builderTargets) : null;
+        } else {
+            (0, _container2.default)(creep);
         }
-        (0, _container2.default)(creep);
     }
 };
 

@@ -20,7 +20,9 @@ export default (creep) => {
            const builderTargets =  creep.pos.findClosestByPath(FIND_MY_CREEPS,{filter:creep => creep.role =="builder" && creep.carry['energy'] < creep.carryCapacity});
             (builderTargets && creep.transfer(builderTargets, RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) ?
                 pathFinder(creep,builderTargets) : null
+        } else {
+            taskContainer(creep)
         }
-        taskContainer(creep)
+
     }
 }
