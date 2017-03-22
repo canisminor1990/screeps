@@ -1261,7 +1261,7 @@ Object.defineProperty(exports, "__esModule", {
 exports.default = function (creep, target) {
 	if (creep.fatigue > 1) {
 		return;
-	} else if (creep.memory.lastPos == creep.pos) {
+	} else if (creep.memory.lastPos && creep.memory.lastPos == creep.pos) {
 		creep.moveTo(target);
 		return;
 	} else {
