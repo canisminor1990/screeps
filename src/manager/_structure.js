@@ -2,7 +2,7 @@ import * as structure from '../structure';
 
 export default (room) => {
     const Memory = room.memory;
-    const roomNext = (Game.rooms['W81S66']) ? Game.rooms['W81S66'].memory.structures.my : null
+    const roomNext =  Game.rooms['W81S66'].memory.structures.my;
     const targetStructures = Memory.structures;
     const targetCreeps = Memory.creeps;
     const config = Memory.config;
