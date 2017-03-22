@@ -928,7 +928,9 @@ Object.defineProperty(exports, "__esModule", {
 
 var _task = __webpack_require__(0);
 
-exports.default = function (creep, dropped) {
+exports.default = function (creep) {
+
+    var dropped = creep.memory.dropped.energy;
 
     if (creep.carry.energy == 0) {
         creep.memory.full = false;
