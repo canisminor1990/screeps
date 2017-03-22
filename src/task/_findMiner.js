@@ -14,8 +14,8 @@ const taskFindMiner = (creep) => {
 		target = creep.pos.findClosestByPath(FIND_STRUCTURES, {
 			filter: structure => (
 			structure.structureType == STRUCTURE_CONTAINER &&
-			structure.store["energy"] > 0
-			// structure.id != && '58d151fe1b3da0c326b1385b'
+			structure.store["energy"] > 0 &&
+			structure.id !=  '58d151fe1b3da0c326b1385b'
 			)
 		})
 	}
