@@ -1193,13 +1193,20 @@ var taskFindMiner = function taskFindMiner(creep) {
 				(0, _task.pathFinder)(creep, targetsContainer);
 			}
 		} else {
-
-			var targetsSoorage = creep.pos.findClosestByPath(FIND_MY_STRUCTURES, {
-				filter: function filter(structure) {
-					return structure.structureType == STRUCTURE_STORAGE && structure.store["energy"] > 0;
-				}
-			});
-
+			var targetsSoorage = void 0;
+			if (creep.role != 'harvester') {
+				targetsSoorage = creep.pos.findClosestByPath(FIND_MY_STRUCTURES, {
+					filter: function filter(structure) {
+						return structure.structureType == STRUCTURE_STORAGE && structure.store["energy"] > 0;
+					}
+				});
+			} else {
+				targetsSoorage = creep.pos.findClosestByPath(FIND_MY_STRUCTURES, {
+					filter: function filter(structure) {
+						return structure.structureType == STRUCTURE_STORAGE && structure.store["energy"] > 0 && structure.id != '58d151fe1b3da0c326b1385b';
+					}
+				});
+			}
 			if (creep.withdraw(targetsSoorage, 'energy') == ERR_NOT_IN_RANGE) {
 				(0, _task.pathFinder)(creep, targetsSoorage);
 			}
