@@ -673,12 +673,6 @@ exports.default = function (room) {
     });
 };
 
-// function creepRoleRun(myCreeps, configRole) {
-// 	configRole.forEach(roleName => {
-// 		myCreeps[roleName].forEach(creep=> role[roleName](creep))
-// 	})
-// }
-
 /***/ }),
 /* 12 */
 /***/ (function(module, exports, __webpack_require__) {

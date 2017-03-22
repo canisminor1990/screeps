@@ -21,9 +21,3 @@ export default (room) => {
 
 }
 
-// function creepRoleRun(myCreeps, configRole) {
-// 	configRole.forEach(roleName => {
-// 		myCreeps[roleName].forEach(creep=> role[roleName](creep))
-// 	})
-// }
-
