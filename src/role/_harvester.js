@@ -22,6 +22,7 @@ export default (creep, dropped = []) => {
         // }
 
         const transferTarget = creep.pos.findClosestByRange(creep.room.memory.structures.container,{filter:container => container.store.energy > 0 });
+        console.log(transferTarget)
         (transferTarget && creep.withdraw(transferTarget, RESOURCE_ENERGY) === ERR_NOT_IN_RANGE)
             ? pathFinder(creep, transferTarget) : null
     }
