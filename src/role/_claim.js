@@ -4,7 +4,7 @@ export default (creep,newRoom) => {
 	if (!controller) {
 		creep.moveTo(newRoom)
 	} else {
-		(creep.reserveController(controller) == ERR_NOT_IN_RANGE) ? creep.moveTo(controller) : null;
+		(creep.reserveController(controller) !== OK) ? creep.moveTo(controller) : null;
 	}
 
 }

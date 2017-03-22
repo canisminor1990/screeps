@@ -17,7 +17,7 @@ export default (creep) => {
 
 	}
 	else {
-        ( creep.transfer(room.storage, RESOURCE_ENERGY) === ERR_NOT_IN_RANGE)
+        ( creep.transfer(room.storage, RESOURCE_ENERGY) !== OK)
             ? pathFinder(creep, room.storage) : null
 	}
 }
