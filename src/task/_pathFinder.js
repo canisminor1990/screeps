@@ -3,6 +3,7 @@ export default (creep, target) => {
 		return;
 	} else if (creep.memory.lastPos == creep.pos) {
 		creep.moveTo(target)
+		return;
 	} else {
 		let goals = target.pos
 		let path;
@@ -63,6 +64,7 @@ export default (creep, target) => {
 			delete (creep.memory.target)
 		}
 		creep.memory.lastPos = creep.pos;
+		return;
 	}
 }
 

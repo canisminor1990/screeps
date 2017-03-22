@@ -1263,6 +1263,7 @@ exports.default = function (creep, target) {
 		return;
 	} else if (creep.memory.lastPos == creep.pos) {
 		creep.moveTo(target);
+		return;
 	} else {
 		var goals = target.pos;
 		var path = void 0;
@@ -1323,6 +1324,7 @@ exports.default = function (creep, target) {
 			delete creep.memory.target;
 		}
 		creep.memory.lastPos = creep.pos;
+		return;
 	}
 };
 
