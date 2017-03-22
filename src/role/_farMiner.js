@@ -17,7 +17,7 @@ export default (creep, newRoom) => {
 		if (!source) {
 			creep.moveTo(newRoom)
 		} else {
-			(creep.harvest(source) == ERR_NOT_IN_RANGE) ? creep.moveTo(source) : null;
+			(creep.harvest(source) !== OK) ? creep.moveTo(source) : null;
 		}
 	}
 }
