@@ -1,6 +1,6 @@
 import { pathFinder } from '../task'
 
-export default (creep, dropped) => {
+export default (creep, dropped = []) => {
 
 
 	if (creep.carry.energy < creep.carryCapacity) {

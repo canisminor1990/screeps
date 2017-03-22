@@ -1,5 +1,5 @@
 import { pathFinder }from '../task'
-export default (creep, sources, dropped) => {
+export default (creep, sources, dropped = []) => {
 
 
 

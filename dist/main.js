@@ -820,7 +820,9 @@ Object.defineProperty(exports, "__esModule", {
 
 var _task = __webpack_require__(0);
 
-exports.default = function (creep, dropped) {
+exports.default = function (creep) {
+  var dropped = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : [];
+
 
   if (creep.carry.energy < creep.carryCapacity) {
     if (dropped.length > 0) {
@@ -928,7 +930,9 @@ Object.defineProperty(exports, "__esModule", {
 
 var _task = __webpack_require__(0);
 
-exports.default = function (creep, dropped) {
+exports.default = function (creep) {
+    var dropped = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : [];
+
 
     if (creep.carry.energy == 0) {
         creep.memory.full = false;
@@ -976,7 +980,9 @@ Object.defineProperty(exports, "__esModule", {
 
 var _task = __webpack_require__(0);
 
-exports.default = function (creep, sources, dropped) {
+exports.default = function (creep, sources) {
+	var dropped = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : [];
+
 
 	if (creep.carry.energy == creep.carryCapacity) {
 		var canFill = creep.pos.findInRange(creep.room.memory.structures.canFill, 4);
