@@ -1209,8 +1209,6 @@ var taskFindMiner = function taskFindMiner(creep) {
             }
             if (minerTarget && minerEnergy >= 50) {
                 (0, _task.pathFinder)(creep, minerTarget);
-            } else {
-                creep.harvest(source) == ERR_NOT_IN_RANGE ? (0, _task.pathFinder)(creep, source) : null;
             }
         } else {
 

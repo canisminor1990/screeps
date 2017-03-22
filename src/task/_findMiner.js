@@ -15,10 +15,7 @@ const taskFindMiner = (creep) => {
                 }
             }
             if (minerTarget && minerEnergy >= 50) {
-                pathFinder(creep, minerTarget)
-            } else {
-                (creep.harvest(source) == ERR_NOT_IN_RANGE) ?
-                    pathFinder(creep, source) : null;
+	            pathFinder(creep, minerTarget)
             }
         } else {
 
