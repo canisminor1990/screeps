@@ -7,7 +7,7 @@ export default (creep, room) => {
 	}
 
 	if (!creep.memory.full) {
-		if (Memory.farMiner) {
+		if (Memory.farMiner.length > 0) {
 			const farMiner = Game.getObjectById(creep.room.memory.creeps.my.farMiner[0].id)
 			creep.moveTo(farMiner)
 		}
