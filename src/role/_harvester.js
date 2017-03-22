@@ -1,21 +1,26 @@
-import { taskFindMiner, taskHarvester, pathFinder } from '../task'
-export default (creep) => {
+import { pathFinder } from '../task'
+export default (creep, dropped) => {
 
 	if (creep.carry.energy == 0) {
-		creep.memory.full = false
+		creep.memory.canTransfer = false
 	}
 	if (creep.carry.energy == creep.carryCapacity) {
-		creep.memory.full = true
+		creep.memory.canTransfer = true
 	}
 
-	if (!creep.memory.full) {
-
-		const pickup = creep.pos.findInRange(FIND_DROPPED_ENERGY, 2);
-		(pickup.length > 0 && creep.pickup(pickup[0]) == ERR_NOT_IN_RANGE)
-			? pathFinder(creep, pickup[0])
-			: taskFindMiner(creep)
+	if (!creep.memory.canTransfer) {
+		if (dropped.length > 0) {
+			const pickupTarget = creep.pos.findInRange(dropped, 5);
+			if (pickupTarget.length > 0 && creep.pickup(pickupTarget[0]) == OK) creep.say('pickup')
+		} else {
+			const transferTarget = creep.room.memory.structures.container.sort((a, b) => b.store.enengy - a.store.enengy);
+			(transferTarget && creep.withdraw(transferTarget[0]) === ERR_NOT_IN_RANGE)
+				? pathFinder(creep, transferTarget[0]) : null
+		}
 	}
 	else {
-		taskHarvester(creep)
+		const needFill = creep.pos.findClosestByRange(creep.room.memory.structures.needFill);
+		(needFill && creep.transfer(needFill, RESOURCE_ENERGY) === ERR_NOT_IN_RANGE)
+			? pathFinder(creep, needFill) : null
 	}
 }

@@ -1,6 +1,5 @@
 import config from '../config';
 import { log } from '../_util';
-const factory = config.role;
 
 export default (spawn, my) => {
 	let priority    = false;
@@ -20,7 +19,7 @@ export default (spawn, my) => {
 				{align: 'left', opacity: 0.8});
 		}
 	}
-	return factory.forEach(buildRole)
+	_.forEach(config.role,buildRole)
 }
 
 function buildName(role) {

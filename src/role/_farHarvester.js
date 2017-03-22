@@ -1,7 +1,4 @@
-import {taskHarvester, taskContainer} from '../task'
-export default (creep) => {
-	const room = 'W81S66';
-	const myRoom = Game.spawns['Spawn1']
+export default (creep, room) => {
 	if (creep.carry.energy == 0) {
 		creep.memory.full = false
 	}
@@ -11,15 +8,16 @@ export default (creep) => {
 
 	if (!creep.memory.full) {
 		if (Memory.farMiner) {
-			const farMiner = Game.getObjectById(Memory.farMiner)
+			const farMiner = Game.getObjectById(creep.room.memory.creeps.my.farMiner[0].id)
 			creep.moveTo(farMiner)
 		}
 	}
 	else {
-		if (creep.room.name !== myRoom.room.name) {
-			creep.moveTo(myRoom)
+		if (creep.room.name !== room.name) {
+			creep.moveTo(room)
 		} else {
-			taskContainer(creep)
+			( creep.transfer(room.storage, RESOURCE_ENERGY) === ERR_NOT_IN_RANGE)
+				? pathFinder(creep, room.storage) : null
 		}
 	}
 }

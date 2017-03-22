@@ -1,4 +1,4 @@
-import * as structure from './structure';
+import * as structure from '../structure';
 
 export default (room) => {
 	const Memory           = room.memory;
