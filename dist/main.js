@@ -938,7 +938,7 @@ exports.default = function (creep, dropped) {
         creep.memory.full = true;
     }
 
-    if (creep.carry.energy) {
+    if (!creep.memory.full) {
         if (dropped.length > 0) {
             var pickupTarget = creep.pos.findInRange(dropped, 5);
             pickupTarget.length > 0 && creep.pickup(pickupTarget[0]) === ERR_NOT_IN_RANGE ? (0, _task.pathFinder)(creep, pickupTarget[0]) : null;

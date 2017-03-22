@@ -10,7 +10,7 @@ export default (creep, dropped) => {
     }
 
 
-    if (creep.carry.energy) {
+    if (!creep.memory.full) {
         if (dropped.length > 0) {
             const pickupTarget = creep.pos.findInRange(dropped, 5);
             (pickupTarget.length > 0 && creep.pickup(pickupTarget[0]) === ERR_NOT_IN_RANGE) ? pathFinder(creep, pickupTarget[0]) : null
