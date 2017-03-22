@@ -4,7 +4,7 @@ export default (room) => {
     const Memory = room.memory;
     const targetStructures = Memory.structures;
     const myCreeps = Memory.creeps.my;
-    const dropped = (Memory.dropped) ? Memory.dropped.energy : null;
+    const dropped = (Memory.dropped) ? Memory.dropped.energy : [];
     const newRoom = new RoomPosition(25, 47, 'W81S66');
 
     // creepRoleRun(myCreep, config(room).role)
