@@ -1,7 +1,5 @@
 import {pathFinder} from '../task'
-export default (creep) => {
-
-    const dropped = creep.memory.dropped.energy;
+export default (creep, dropped) => {
 
     if (creep.carry.energy == 0) {
         creep.memory.full = false

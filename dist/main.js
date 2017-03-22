@@ -633,7 +633,7 @@ function creepRole(myCreeps, configRole) {
 
 
 Object.defineProperty(exports, "__esModule", {
-	value: true
+    value: true
 });
 
 var _role = __webpack_require__(22);
@@ -644,39 +644,39 @@ function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj;
 
 // import config from '../config'
 exports.default = function (room) {
-	var Memory = room.memory;
-	var targetStructures = Memory.structures;
-	var myCreeps = Memory.creeps.my;
-	var dropped = Memory.dropped.energy;
-	var newRoom = new RoomPosition(25, 47, 'W81S66');
+    var Memory = room.memory;
+    var targetStructures = Memory.structures;
+    var myCreeps = Memory.creeps.my;
+    var dropped = Memory.dropped ? Memory.dropped.energy : null;
+    var newRoom = new RoomPosition(25, 47, 'W81S66');
 
-	// creepRoleRun(myCreep, config(room).role)
+    // creepRoleRun(myCreep, config(room).role)
 
-	myCreeps.harvester.forEach(function (creep) {
-		return role.harvester(creep, dropped);
-	});
-	myCreeps.miner.forEach(function (creep) {
-		return role.miner(creep, Memory.sources, dropped);
-	});
-	myCreeps.upgrader.forEach(function (creep) {
-		return role.upgrader(creep, targetStructures.controller);
-	});
-	myCreeps.builder.forEach(function (creep) {
-		return role.builder(creep, targetStructures.needBuild);
-	});
-	myCreeps.cleaner.forEach(function (creep) {
-		return role.cleaner(creep, dropped);
-	});
-	// far
-	myCreeps.farHarvester.forEach(function (creep) {
-		return role.farHarvester(creep);
-	});
-	myCreeps.farMiner.forEach(function (creep) {
-		return role.farMiner(creep, newRoom);
-	});
-	myCreeps.claim.forEach(function (creep) {
-		return role.claim(creep, newRoom);
-	});
+    myCreeps.harvester.forEach(function (creep) {
+        return role.harvester(creep, dropped);
+    });
+    myCreeps.miner.forEach(function (creep) {
+        return role.miner(creep, Memory.sources, dropped);
+    });
+    myCreeps.upgrader.forEach(function (creep) {
+        return role.upgrader(creep, targetStructures.controller);
+    });
+    myCreeps.builder.forEach(function (creep) {
+        return role.builder(creep, targetStructures.needBuild);
+    });
+    myCreeps.cleaner.forEach(function (creep) {
+        return role.cleaner(creep, dropped);
+    });
+    // far
+    myCreeps.farHarvester.forEach(function (creep) {
+        return role.farHarvester(creep);
+    });
+    myCreeps.farMiner.forEach(function (creep) {
+        return role.farMiner(creep, newRoom);
+    });
+    myCreeps.claim.forEach(function (creep) {
+        return role.claim(creep, newRoom);
+    });
 };
 
 // function creepRoleRun(myCreeps, configRole) {
@@ -928,9 +928,7 @@ Object.defineProperty(exports, "__esModule", {
 
 var _task = __webpack_require__(0);
 
-exports.default = function (creep) {
-
-    var dropped = creep.memory.dropped.energy;
+exports.default = function (creep, dropped) {
 
     if (creep.carry.energy == 0) {
         creep.memory.full = false;
