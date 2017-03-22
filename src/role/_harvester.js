@@ -21,10 +21,9 @@ export default (creep, dropped = []) => {
         //         ? pathFinder(creep, transferTarget[0]) : null
         // }
 
-        const transferTarget = creep.pos.findClosestByRange(creep.room.memory.structures.container,{filter:container => container.store.energy > 0 });
-
-        (transferTarget && creep.withdraw(transferTarget, RESOURCE_ENERGY) != OK)
-            ? pathFinder(creep, transferTarget) : null
+	        const transferTarget = creep.room.memory.structures.container.sort((a, b) => b.store.enengy - a.store.enengy);
+	        (transferTarget && creep.withdraw(transferTarget[0], RESOURCE_ENERGY) === ERR_NOT_IN_RANGE)
+	            ? pathFinder(creep, transferTarget[0]) : null
     }
 
     if (creep.memory.full) {
