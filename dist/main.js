@@ -858,9 +858,10 @@ exports.default = function (creep, room) {
 	}
 
 	if (!creep.memory.full) {
-		if (Memory.farMiner.length > 0) {
-			var farMiner = Game.getObjectById(creep.room.memory.creeps.my.farMiner[0].id);
-			creep.moveTo(farMiner);
+		var farMiner = creep.room.memory.creeps.my.farMiner;
+		if (farMiner.length > 0) {
+			var _farMiner = Game.getObjectById(_farMiner[0].id);
+			creep.moveTo(_farMiner);
 		}
 	} else {
 		if (creep.room.name !== room.name) {
