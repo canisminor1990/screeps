@@ -653,14 +653,6 @@ exports.default = function (creep) {
 
     if (creep.memory.building && creep.memory.full) {
         var targets = creep.pos.findClosestByPath(FIND_CONSTRUCTION_SITES);
-        //     halfBroken = creep.pos.findInRange(FIND_STRUCTURES, 5, {
-        //         filter: structure => config.repair(structure) &&
-        //         structure.structureType != STRUCTURE_WALL &&
-        //         structure.structureType != STRUCTURE_RAMPART
-        //     })[0];
-        //
-        // (halfBroken && creep.repair(halfBroken) == ERR_NOT_IN_RANGE) ?
-        //     pathFinder(creep, halfBroken) : null;
 
         targets && creep.build(targets) == ERR_NOT_IN_RANGE ? (0, _task.pathFinder)(creep, targets) : null;
     } else {
@@ -1182,7 +1174,7 @@ var taskFindMiner = function taskFindMiner(creep) {
 	var target = void 0;
 
 	if (creep.memory.role == "builder") {
-		target = creep.pos.findClosestByPath(STRUCTURE_CONTAINER, {
+		target = creep.pos.findClosestByPath(FIND_STRUCTURES, {
 			filter: function filter(structure) {
 				return structure.structureType == (STRUCTURE_STORAGE || STRUCTURE_CONTAINER) && structure.store["energy"] > 0;
 			}
