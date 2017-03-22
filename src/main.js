@@ -54,7 +54,7 @@ module.exports.loop = () => {
 				break;
 			case 'farMiner':
 				role.farMiner(creep)
-				Memory.farMiner = creep.id
+				Memory.farMiner = creep.id;
 				break;
 			case 'farHarvester':
 				role.farHarvester(creep)
