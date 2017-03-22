@@ -474,7 +474,7 @@ exports.default = function () {
     }, {
         role: "miner",
         body: { move: 3, work: 8, carry: 1 },
-        number: 3,
+        number: 2,
         priority: 1
     }, {
         role: 'cleaner',
