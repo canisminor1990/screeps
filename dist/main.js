@@ -526,7 +526,9 @@ exports.default = function (room) {
     }),
         storage = room.storage;
     var creeps = room.find(FIND_CREEPS),
-        myCreeps = Object.valueOf(Game.creeps),
+        myCreeps = _.filter(creeps, function (creep) {
+        return creep.my;
+    }),
         otherCreeps = _.filter(creeps, function (creep) {
         return !creep.my;
     }),
