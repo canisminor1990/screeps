@@ -1,3 +1,4 @@
+import {pathFinder} from '../task'
 export default (creep) => {
     const room = Game.spawns['Spawn1'].room;
     const farMiner = creep.room.memory.creeps.my.farMiner;

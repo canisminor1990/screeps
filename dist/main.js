@@ -856,6 +856,8 @@ Object.defineProperty(exports, "__esModule", {
 	value: true
 });
 
+var _task = __webpack_require__(0);
+
 exports.default = function (creep) {
 	var room = Game.spawns['Spawn1'].room;
 	var farMiner = creep.room.memory.creeps.my.farMiner;
@@ -872,7 +874,7 @@ exports.default = function (creep) {
 		var _farMiner = Game.getObjectById(_farMiner[0].id);
 		creep.moveTo(_farMiner);
 	} else {
-		creep.transfer(room.storage, RESOURCE_ENERGY) === ERR_NOT_IN_RANGE ? pathFinder(creep, room.storage) : null;
+		creep.transfer(room.storage, RESOURCE_ENERGY) === ERR_NOT_IN_RANGE ? (0, _task.pathFinder)(creep, room.storage) : null;
 	}
 };
 
