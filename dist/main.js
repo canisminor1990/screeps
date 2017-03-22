@@ -867,29 +867,33 @@ exports.default = function (creep) {
 
 
 Object.defineProperty(exports, "__esModule", {
-    value: true
+	value: true
 });
 
 var _task = __webpack_require__(0);
 
 exports.default = function (creep, newRoom) {
-    var room = Game.spawns['Spawn1'].room;
-    var farMiner = newRoom.memory.creeps.my.farMiner;
+	var room = Game.spawns['Spawn1'].room;
+	var farMiner = newRoom.memory.creeps.my.farMiner;
+	var enemy = newRoom.memory.creeps.enemy;
+	if (enemy.length > 0) {
+		var enemyTarget = creep.pos.findClosestByRange(enemy);
+		enemyTarget && creep.attack(enemyTarget) != OK ? (0, _task.pathFinder)(creep, enemyTarget) : null;
+	} else {
+		if (creep.carry.energy == 0) {
+			creep.memory.full = false;
+		}
+		if (creep.carry.energy == creep.carryCapacity || !farMiner.length > 0) {
+			creep.memory.full = true;
+		}
 
-    if (creep.carry.energy == 0) {
-        creep.memory.full = false;
-    }
-    if (creep.carry.energy == creep.carryCapacity || !farMiner.length > 0) {
-        creep.memory.full = true;
-    }
-
-    if (!creep.memory.full) {
-
-        var farMinerTarget = Game.getObjectById(farMiner[0].id);
-        (0, _task.pathFinder)(creep, farMinerTarget);
-    } else {
-        creep.transfer(room.storage, RESOURCE_ENERGY) !== OK ? (0, _task.pathFinder)(creep, room.storage) : null;
-    }
+		if (!creep.memory.full) {
+			var farMinerTarget = Game.getObjectById(farMiner[0].id);
+			(0, _task.pathFinder)(creep, farMinerTarget);
+		} else {
+			creep.transfer(room.storage, RESOURCE_ENERGY) !== OK ? (0, _task.pathFinder)(creep, room.storage) : null;
+		}
+	}
 };
 
 /***/ }),
