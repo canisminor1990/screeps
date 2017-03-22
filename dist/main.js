@@ -1339,13 +1339,11 @@ exports.default = function (creep, target) {
 					costs = PathFinder.CostMatrix.deserialize(Memory.PathFinder[roomName]);
 				}
 
-				if (Game.time != Memory.PathFinder.time) {
-					room.find(FIND_CREEPS).forEach(function (creep) {
-						costs.set(creep.pos.x, creep.pos.y, 0xff);
-					});
-					Memory.PathFinder[roomName] = costs.serialize();
-					Memory.PathFinder.time = Game.time;
-				} else {}
+				room.find(FIND_CREEPS).forEach(function (creep) {
+					costs.set(creep.pos.x, creep.pos.y, 0xff);
+				});
+				Memory.PathFinder[roomName] = costs.serialize();
+				Memory.PathFinder.time = Game.time;
 
 				return costs;
 			}

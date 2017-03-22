@@ -37,15 +37,13 @@ export default (creep, target) => {
 					costs = PathFinder.CostMatrix.deserialize(Memory.PathFinder[roomName])
 				}
 
-				if (Game.time != Memory.PathFinder.time) {
+
 					room.find(FIND_CREEPS).forEach((creep) => {
 						costs.set(creep.pos.x, creep.pos.y, 0xff);
 					});
 					Memory.PathFinder[roomName] = costs.serialize();
 					Memory.PathFinder.time = Game.time
-				} else {
 
-				}
 
 
 				return costs;
