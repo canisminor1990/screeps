@@ -19,7 +19,7 @@ export default (room) => {
     if (dock.length > 0 && storage) {
         dock[dock.length] = storage
     } else {
-        dock = (dock)?dock:[]
+        dock = (dock) ? dock : []
     }
     const sourceMiner = (rawSources) => {
         let sources = []
@@ -55,22 +55,25 @@ export default (room) => {
             controller: room.controller,
             storage: storage,
             tower: _.filter(myStructures, structure => structure.structureType == STRUCTURE_TOWER)[0],
-            spawn: _.filter(myStructures, structure => structure.structureType == STRUCTURE_CONTAINER)[0],
+            spawn: _.filter(myStructures, structure => structure.structureType == STRUCTURE_SPAWN)[0],
             container: container,
             canWithdraw: _.filter(dock, structure => structure.store.energy > 0),
             canFill: _.filter(dock, structure => structure.store.energy < structure.storeCapacity),
-            needFill: _.filter(myStructures, structure =>
-            structure.structureType == (STRUCTURE_EXTENSION || STRUCTURE_SPAWN || STRUCTURE_TOWER) &&
+            needFill: _.filter(myStructures, structure => (
+            structure.structureType == STRUCTURE_EXTENSION ||
+            structure.structureType == STRUCTURE_SPAWN ||
+            structure.structureType == STRUCTURE_TOWER ) &&
             structure.energy < structure.energyCapacity),
             needFix: _.filter(structures, structure =>
-            ( structure.my || structure.structureType == (STRUCTURE_ROAD || STRUCTURE_WALL) ) &&
+            ( structure.my || structure.structureType == STRUCTURE_ROAD || structure.structureType == STRUCTURE_WALL ) &&
             (structure.hits / structure.hitsMax) < config.repair.percent && structure.hits < config.repair.maxHits),
             needBuild: room.find(FIND_MY_CONSTRUCTION_SITES),
         },
         sources: sourceMiner(sources),
         dropped: {
             energy: room.find(FIND_DROPPED_ENERGY)
-        }
+        },
+        config: config
     }
     room.memory = memory;
 }

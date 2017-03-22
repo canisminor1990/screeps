@@ -28,7 +28,7 @@ export default (room = Game.rooms['sim']) => {
 			role    : 'harvester',
 			body    : {move: 4, work: 0, carry: 8},
 			number  : 6,
-			priority: 1
+			priority: 2
 		},
 		{
 			role    : 'upgrader',
@@ -46,13 +46,13 @@ export default (room = Game.rooms['sim']) => {
 			role    : "miner",
 			body    : {move: 2, work: 8, carry: 1},
 			number  : 2,
-			priority: 2
+			priority: 1
 		},
 		{
 			role    : 'cleaner',
 			body    : {move: 2, work: 1, carry: 2},
 			number  : 1,
-			priority: 8
+			priority: 0
 		}
 	]
 

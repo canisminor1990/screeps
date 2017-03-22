@@ -1,14 +1,7 @@
 import {pathFinder} from '../task'
 export default (creep, dropped) => {
 
-    if (creep.carry.energy == 0) {
-        creep.memory.canTransfer = false
-    }
-    if (creep.carry.energy == creep.carryCapacity) {
-        creep.memory.canTransfer = true
-    }
-
-    if (!creep.memory.canTransfer) {
+    if (creep.carry.energy < creep.carryCapacity) {
         if (dropped.length > 0) {
             const pickupTarget = creep.pos.findInRange(dropped, 5);
             (pickupTarget.length > 0 && creep.pickup(pickupTarget[0]) === ERR_NOT_IN_RANGE) ? pathFinder(creep, pickupTarget[0]) : null
@@ -19,8 +12,15 @@ export default (creep, dropped) => {
         }
     }
     else {
-        const needFill = creep.pos.findClosestByRange(creep.room.memory.structures.needFill);
-        (needFill && creep.transfer(needFill, RESOURCE_ENERGY) === ERR_NOT_IN_RANGE)
-            ? pathFinder(creep, needFill) : null
+        const needFill = creep.room.memory.structures.needFill;
+        let needFillTarget;
+        if (needFill.length > 0) {
+            needFillTarget = creep.pos.findClosestByRange(needFill);
+        } else {
+            needFillTarget = creep.room.storage
+        }
+        (needFillTarget && creep.transfer(needFillTarget, RESOURCE_ENERGY) === ERR_NOT_IN_RANGE)
+            ? pathFinder(creep, needFillTarget) : null
+
     }
 }

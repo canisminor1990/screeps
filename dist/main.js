@@ -87,7 +87,7 @@ Object.defineProperty(exports, 'taskFindMiner', {
   }
 });
 
-var _container = __webpack_require__(4);
+var _container = __webpack_require__(3);
 
 Object.defineProperty(exports, 'taskContainer', {
   enumerable: true,
@@ -123,7 +123,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 "use strict";
 
 
-__webpack_require__(5);
+__webpack_require__(4);
 
 var _manager = __webpack_require__(13);
 
@@ -189,7 +189,7 @@ exports.default = function () {
 		role: 'harvester',
 		body: { move: 4, work: 0, carry: 8 },
 		number: 6,
-		priority: 1
+		priority: 2
 	}, {
 		role: 'upgrader',
 		body: { move: 1, work: 4, carry: 2 },
@@ -204,12 +204,12 @@ exports.default = function () {
 		role: "miner",
 		body: { move: 2, work: 8, carry: 1 },
 		number: 2,
-		priority: 2
+		priority: 1
 	}, {
 		role: 'cleaner',
 		body: { move: 2, work: 1, carry: 2 },
 		number: 1,
-		priority: 8
+		priority: 0
 	}];
 
 	return {
@@ -223,55 +223,6 @@ exports.default = function () {
 
 /***/ }),
 /* 3 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _timer = __webpack_require__(9);
-
-Object.defineProperty(exports, 'Timer', {
-  enumerable: true,
-  get: function get() {
-    return _interopRequireDefault(_timer).default;
-  }
-});
-
-var _build = __webpack_require__(6);
-
-Object.defineProperty(exports, 'Build', {
-  enumerable: true,
-  get: function get() {
-    return _interopRequireDefault(_build).default;
-  }
-});
-
-var _log = __webpack_require__(8);
-
-Object.defineProperty(exports, 'log', {
-  enumerable: true,
-  get: function get() {
-    return _interopRequireDefault(_log).default;
-  }
-});
-
-var _isFriend = __webpack_require__(7);
-
-Object.defineProperty(exports, 'isFriend', {
-  enumerable: true,
-  get: function get() {
-    return _interopRequireDefault(_isFriend).default;
-  }
-});
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-/***/ }),
-/* 4 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -294,7 +245,7 @@ exports.default = function (creep) {
 };
 
 /***/ }),
-/* 5 */
+/* 4 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -416,7 +367,7 @@ module.exports = function (options) {
 };
 
 /***/ }),
-/* 6 */
+/* 5 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -435,7 +386,7 @@ exports.default = function (x, y, type) {
 };
 
 /***/ }),
-/* 7 */
+/* 6 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -456,7 +407,7 @@ exports.default = function (owner) {
 };
 
 /***/ }),
-/* 8 */
+/* 7 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -477,7 +428,7 @@ exports.default = function (title) {
 };
 
 /***/ }),
-/* 9 */
+/* 8 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -494,6 +445,55 @@ exports.default = function (tick) {
 };
 
 /***/ }),
+/* 9 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _timer = __webpack_require__(8);
+
+Object.defineProperty(exports, 'Timer', {
+  enumerable: true,
+  get: function get() {
+    return _interopRequireDefault(_timer).default;
+  }
+});
+
+var _build = __webpack_require__(5);
+
+Object.defineProperty(exports, 'Build', {
+  enumerable: true,
+  get: function get() {
+    return _interopRequireDefault(_build).default;
+  }
+});
+
+var _log = __webpack_require__(7);
+
+Object.defineProperty(exports, 'log', {
+  enumerable: true,
+  get: function get() {
+    return _interopRequireDefault(_log).default;
+  }
+});
+
+var _isFriend = __webpack_require__(6);
+
+Object.defineProperty(exports, 'isFriend', {
+  enumerable: true,
+  get: function get() {
+    return _interopRequireDefault(_isFriend).default;
+  }
+});
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+/***/ }),
 /* 10 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -508,7 +508,7 @@ var _config = __webpack_require__(2);
 
 var _config2 = _interopRequireDefault(_config);
 
-var _util = __webpack_require__(3);
+var _util = __webpack_require__(9);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -582,7 +582,7 @@ exports.default = function (room) {
                 return structure.structureType == STRUCTURE_TOWER;
             })[0],
             spawn: _.filter(myStructures, function (structure) {
-                return structure.structureType == STRUCTURE_CONTAINER;
+                return structure.structureType == STRUCTURE_SPAWN;
             })[0],
             container: container,
             canWithdraw: _.filter(dock, function (structure) {
@@ -592,17 +592,18 @@ exports.default = function (room) {
                 return structure.store.energy < structure.storeCapacity;
             }),
             needFill: _.filter(myStructures, function (structure) {
-                return structure.structureType == (STRUCTURE_EXTENSION || STRUCTURE_SPAWN || STRUCTURE_TOWER) && structure.energy < structure.energyCapacity;
+                return (structure.structureType == STRUCTURE_EXTENSION || structure.structureType == STRUCTURE_SPAWN || structure.structureType == STRUCTURE_TOWER) && structure.energy < structure.energyCapacity;
             }),
             needFix: _.filter(structures, function (structure) {
-                return (structure.my || structure.structureType == (STRUCTURE_ROAD || STRUCTURE_WALL)) && structure.hits / structure.hitsMax < config.repair.percent && structure.hits < config.repair.maxHits;
+                return (structure.my || structure.structureType == STRUCTURE_ROAD || structure.structureType == STRUCTURE_WALL) && structure.hits / structure.hitsMax < config.repair.percent && structure.hits < config.repair.maxHits;
             }),
             needBuild: room.find(FIND_MY_CONSTRUCTION_SITES)
         },
         sources: sourceMiner(sources),
         dropped: {
             energy: room.find(FIND_DROPPED_ENERGY)
-        }
+        },
+        config: config
     };
     room.memory = memory;
 };
@@ -657,7 +658,7 @@ exports.default = function (room) {
 		return role.builder(creep, targetStructures.needBuild);
 	});
 	myCreeps.cleaner.forEach(function (creep) {
-		return dropped ? role.cleaner(creep, dropped) : role.harvester(creep, dropped);
+		return role.cleaner(creep, dropped);
 	});
 	// far
 	myCreeps.farHarvester.forEach(function (creep) {
@@ -685,7 +686,7 @@ exports.default = function (room) {
 
 
 Object.defineProperty(exports, "__esModule", {
-	value: true
+    value: true
 });
 
 var _structure = __webpack_require__(25);
@@ -695,11 +696,12 @@ var structure = _interopRequireWildcard(_structure);
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
 exports.default = function (room) {
-	var Memory = room.memory;
-	var targetStructures = Memory.structures;
-	var targetCreeps = Memory.creeps;
-	structure.spawn(targetStructures.spawn, targetCreeps.my);
-	structure.tower(targetStructures.tower, targetStructures.needFix, targetCreeps.enemy);
+    var Memory = room.memory;
+    var targetStructures = Memory.structures;
+    var targetCreeps = Memory.creeps;
+    var config = Memory.config;
+    structure.spawn(targetStructures.spawn, targetCreeps.my, config);
+    structure.tower(targetStructures.tower, targetStructures.needFix, targetCreeps.enemy);
 };
 
 /***/ }),
@@ -806,26 +808,34 @@ exports.default = function (creep, newRoom) {
 
 
 Object.defineProperty(exports, "__esModule", {
-	value: true
+  value: true
 });
 
 var _task = __webpack_require__(0);
 
 exports.default = function (creep, dropped) {
 
-	if (creep.carry.energy == 0) {
-		creep.memory.canPick = true;
-	}
-	if (creep.carry.energy == creep.carryCapacity) {
-		creep.memory.canPick = false;
-	}
+  if (creep.carry.energy < creep.carryCapacity) {
+    if (dropped.length > 0) {
+      var pickupTarget = creep.pos.findClosestByPath(dropped);
+      pickupTarget && creep.pickup(pickupTarget) == ERR_NOT_IN_RANGE ? (0, _task.pathFinder)(creep, pickupTarget) : null;
+    } else {
+      var transferTarget = creep.room.memory.structures.container.sort(function (a, b) {
+        return b.store.enengy - a.store.enengy;
+      });
+      transferTarget && creep.withdraw(transferTarget[0], RESOURCE_ENERGY) === ERR_NOT_IN_RANGE ? (0, _task.pathFinder)(creep, transferTarget[0]) : null;
+    }
+  } else {
 
-	if (creep.memory.canPick) {
-		if (dropped.length > 0) {
-			var pickupTarget = creep.pos.findClosestByPath(dropped);
-			pickupTarget && creep.pickup(pickupTarget) == ERR_NOT_IN_RANGE ? (0, _task.pathFinder)(creep, pickupTarget) : null;
-		}
-	}
+    var needFill = creep.room.memory.structures.needFill;
+    var needFillTarget = void 0;
+    if (needFill.length > 0) {
+      needFillTarget = creep.pos.findClosestByRange(needFill);
+    } else {
+      needFillTarget = creep.room.storage;
+    }
+    needFillTarget && creep.transfer(needFillTarget, RESOURCE_ENERGY) === ERR_NOT_IN_RANGE ? (0, _task.pathFinder)(creep, needFillTarget) : null;
+  }
 };
 
 /***/ }),
@@ -913,14 +923,7 @@ var _task = __webpack_require__(0);
 
 exports.default = function (creep, dropped) {
 
-    if (creep.carry.energy == 0) {
-        creep.memory.canTransfer = false;
-    }
-    if (creep.carry.energy == creep.carryCapacity) {
-        creep.memory.canTransfer = true;
-    }
-
-    if (!creep.memory.canTransfer) {
+    if (creep.carry.energy < creep.carryCapacity) {
         if (dropped.length > 0) {
             var pickupTarget = creep.pos.findInRange(dropped, 5);
             pickupTarget.length > 0 && creep.pickup(pickupTarget[0]) === ERR_NOT_IN_RANGE ? (0, _task.pathFinder)(creep, pickupTarget[0]) : null;
@@ -931,8 +934,14 @@ exports.default = function (creep, dropped) {
             transferTarget && creep.withdraw(transferTarget[0], RESOURCE_ENERGY) === ERR_NOT_IN_RANGE ? (0, _task.pathFinder)(creep, transferTarget[0]) : null;
         }
     } else {
-        var needFill = creep.pos.findClosestByRange(creep.room.memory.structures.needFill);
-        needFill && creep.transfer(needFill, RESOURCE_ENERGY) === ERR_NOT_IN_RANGE ? (0, _task.pathFinder)(creep, needFill) : null;
+        var needFill = creep.room.memory.structures.needFill;
+        var needFillTarget = void 0;
+        if (needFill.length > 0) {
+            needFillTarget = creep.pos.findClosestByRange(needFill);
+        } else {
+            needFillTarget = creep.room.storage;
+        }
+        needFillTarget && creep.transfer(needFillTarget, RESOURCE_ENERGY) === ERR_NOT_IN_RANGE ? (0, _task.pathFinder)(creep, needFillTarget) : null;
     }
 };
 
@@ -951,12 +960,7 @@ var _task = __webpack_require__(0);
 
 exports.default = function (creep, sources, dropped) {
 
-	if (creep.carry.energy == 0) {
-		creep.memory.canHarvest = true;
-	}
-
 	if (creep.carry.energy == creep.carryCapacity) {
-		creep.memory.canHarvest = false;
 		var canFill = creep.pos.findInRange(creep.room.memory.structures.canFill, 4);
 		canFill.length > 0 && creep.transfer(canFill[0], RESOURCE_ENERGY) === ERR_NOT_IN_RANGE ? (0, _task.pathFinder)(creep, canFill[0]) : null;
 	}
@@ -965,7 +969,7 @@ exports.default = function (creep, sources, dropped) {
 		creep.memory.harvestTarget = sources[0].source.id;
 	}
 
-	if (creep.memory.canHarvest && creep.memory.harvestTarget) {
+	if (creep.carry.energy < creep.carryCapacity && creep.memory.harvestTarget) {
 		if (dropped.length > 0) {
 			var pickupTarget = creep.pos.findInRange(dropped, 0);
 			if (pickupTarget.length > 0 && creep.pickup(pickupTarget[0]) == OK) creep.say('pickup');
@@ -1099,47 +1103,41 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 
 Object.defineProperty(exports, "__esModule", {
-  value: true
+    value: true
 });
 
-var _config = __webpack_require__(2);
-
-var _config2 = _interopRequireDefault(_config);
-
-var _util = __webpack_require__(3);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-exports.default = function (spawn, my) {
-  var priority = false;
-
-  _config2.default.role.forEach(function (roleType) {
-    var roleNmae = roleType.role;
-    var roleNumber = roleType.number - my[roleNmae].length;
-    if (roleNumber <= 0 || priority) return;
-    var spawnName = buildName(roleNmae);
-    spawn.createCreep(buildBody(roleType.body), spawnName, { role: role });
-    if (spawn.spawning) {
-      priority = true;
-      (0, _util.log)('Spawn', spawnName);
-      spawn.room.visual.text('[Spawn] ' + spawnName, spawn.pos.x + 1, spawn.pos.y, { align: 'left', opacity: 0.8 });
-    }
-  });
+exports.default = function (spawn, my, config) {
+    if (spawn.spawning) return;
+    var priority = false;
+    var roleFactory = config.role;
+    roleFactory.forEach(function (roleType) {
+        var roleNmae = roleType.role;
+        var roleNumber = roleType.number - my[roleNmae].length;
+        if (roleNumber <= 0 || priority) return;
+        var spawnName = buildName(roleNmae);
+        spawn.createCreep(buildBody(roleType.body), spawnName, { role: roleNmae });
+        if (spawn.spawning) {
+            console.log('Spawn', spawnName);
+            spawn.room.visual.text('[Spawn] ' + spawnName, spawn.pos.x + 1, spawn.pos.y, { align: 'left', opacity: 0.8 });
+        } else {
+            priority = true;
+        }
+    });
 };
 
 function buildName(role) {
-  var date = new Date();
-  return [role, "#", date.getHours(), date.getMinutes(), date.getSeconds()].join('');
+    var date = new Date();
+    return [role, "#", date.getHours(), date.getMinutes(), date.getSeconds()].join('');
 }
 
 function buildBody(obj) {
-  var array = [];
-  for (var key in obj) {
-    for (var num = 0; num < obj[key]; num++) {
-      array.push(key);
+    var array = [];
+    for (var key in obj) {
+        for (var num = 0; num < obj[key]; num++) {
+            array.push(key);
+        }
     }
-  }
-  return array;
+    return array;
 }
 
 /***/ }),
@@ -1245,7 +1243,7 @@ Object.defineProperty(exports, "__esModule", {
     value: true
 });
 
-var _container = __webpack_require__(4);
+var _container = __webpack_require__(3);
 
 var _container2 = _interopRequireDefault(_container);
 
