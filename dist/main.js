@@ -1315,8 +1315,10 @@ Object.defineProperty(exports, "__esModule", {
 });
 
 exports.default = function (creep, target) {
+    var color = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : '#ffffff';
+
     if (creep.fatigue > 0) return;
-    creep.moveTo(target, { reusePath: 6, visualizePathStyle: { stroke: '#ffffff' } });
+    creep.moveTo(target, { reusePath: 6, visualizePathStyle: { stroke: color } });
 };
 
 /***/ }),
