@@ -1,5 +1,3 @@
-
-
 export default (spawn, my, config) => {
     if (spawn.spawning) return;
     let priority = false;
