@@ -10,11 +10,11 @@ export default  (creep, controller) => {
 	}
 
 	if (creep.memory.upgrading) {
-		if (creep.upgradeController(controller) === ERR_NOT_IN_RANGE) pathFinder(creep, controller)
+		if (creep.upgradeController(controller) != OK) pathFinder(creep, controller)
 	}
 	else {
 		const canWithdraw = creep.pos.findClosestByRange(creep.room.memory.structures.canWithdraw);
-		(canWithdraw && creep.withdraw(canWithdraw,RESOURCE_ENERGY) === ERR_NOT_IN_RANGE)
+		(canWithdraw && creep.withdraw(canWithdraw,RESOURCE_ENERGY) != OK)
 			? pathFinder(creep, canWithdraw) : null
 	}
 }

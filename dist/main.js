@@ -768,10 +768,10 @@ exports.default = function (creep, needBuild) {
 	if (needBuild.length > 0) {
 		if (creep.memory.canBuild) {
 			var buildTarget = creep.pos.findClosestByRange(needBuild);
-			buildTarget && creep.build(buildTarget) == ERR_NOT_IN_RANGE ? (0, _task.pathFinder)(creep, buildTarget) : null;
+			buildTarget && creep.build(buildTarget) != OK ? (0, _task.pathFinder)(creep, buildTarget) : null;
 		} else {
 			var canWithdraw = creep.pos.findClosestByRange(creep.room.memory.structures.canWithdraw);
-			canWithdraw && creep.withdraw(canWithdraw, RESOURCE_ENERGY) === ERR_NOT_IN_RANGE ? (0, _task.pathFinder)(creep, canWithdraw) : null;
+			canWithdraw && creep.withdraw(canWithdraw, RESOURCE_ENERGY) != OK ? (0, _task.pathFinder)(creep, canWithdraw) : null;
 		}
 	}
 };
@@ -820,12 +820,12 @@ exports.default = function (creep) {
   if (creep.carry.energy < creep.carryCapacity) {
     if (dropped.length > 0) {
       var pickupTarget = creep.pos.findClosestByPath(dropped);
-      pickupTarget && creep.pickup(pickupTarget) == ERR_NOT_IN_RANGE ? (0, _task.pathFinder)(creep, pickupTarget) : null;
+      pickupTarget && creep.pickup(pickupTarget) != OK ? (0, _task.pathFinder)(creep, pickupTarget) : null;
     } else {
       var transferTarget = creep.room.memory.structures.container.sort(function (a, b) {
         return b.store.enengy - a.store.enengy;
       });
-      transferTarget && creep.withdraw(transferTarget[0], RESOURCE_ENERGY) === ERR_NOT_IN_RANGE ? (0, _task.pathFinder)(creep, transferTarget[0]) : null;
+      transferTarget && creep.withdraw(transferTarget[0], RESOURCE_ENERGY) != OK ? (0, _task.pathFinder)(creep, transferTarget[0]) : null;
     }
   } else {
 
@@ -836,7 +836,7 @@ exports.default = function (creep) {
     } else {
       needFillTarget = creep.room.storage;
     }
-    needFillTarget && creep.transfer(needFillTarget, RESOURCE_ENERGY) === ERR_NOT_IN_RANGE ? (0, _task.pathFinder)(creep, needFillTarget) : null;
+    needFillTarget && creep.transfer(needFillTarget, RESOURCE_ENERGY) != OK ? (0, _task.pathFinder)(creep, needFillTarget) : null;
   }
 };
 
@@ -913,7 +913,7 @@ exports.default = function (creep, newRoom) {
             creep.transfer(targets[0], RESOURCE_ENERGY);
         } else {
             var needBuild = newRoom.memory.structures.needBuild;
-            needBuild.length > 0 && creep.build(needBuild[0]) == ERR_NOT_IN_RANGE ? (0, _task.pathFinder)(creep, needBuild[0]) : null;
+            needBuild.length > 0 && creep.build(needBuild[0]) != OK ? (0, _task.pathFinder)(creep, needBuild[0]) : null;
         }
     }
 };
@@ -969,7 +969,7 @@ exports.default = function (creep) {
         } else {
             needFillTarget = creep.room.storage;
         }
-        needFillTarget && creep.transfer(needFillTarget, RESOURCE_ENERGY) === ERR_NOT_IN_RANGE ? (0, _task.pathFinder)(creep, needFillTarget) : null;
+        needFillTarget && creep.transfer(needFillTarget, RESOURCE_ENERGY) != OK ? (0, _task.pathFinder)(creep, needFillTarget) : null;
     }
 };
 
@@ -992,7 +992,7 @@ exports.default = function (creep, sources) {
 
 	if (creep.carry.energy == creep.carryCapacity) {
 		var canFill = creep.pos.findInRange(creep.room.memory.structures.canFill, 4);
-		canFill.length > 0 && creep.transfer(canFill[0], RESOURCE_ENERGY) === ERR_NOT_IN_RANGE ? (0, _task.pathFinder)(creep, canFill[0]) : null;
+		canFill.length > 0 && creep.transfer(canFill[0], RESOURCE_ENERGY) != OK ? (0, _task.pathFinder)(creep, canFill[0]) : null;
 	}
 
 	if (!creep.memory.harvestTarget) {
@@ -1009,7 +1009,7 @@ exports.default = function (creep, sources) {
 		// }
 
 		var harvestTarget = Game.getObjectById(creep.memory.harvestTarget);
-		creep.harvest(harvestTarget) == ERR_NOT_IN_RANGE ? (0, _task.pathFinder)(creep, harvestTarget) : null;
+		creep.harvest(harvestTarget) != OK ? (0, _task.pathFinder)(creep, harvestTarget) : null;
 	}
 };
 
@@ -1036,10 +1036,10 @@ exports.default = function (creep, controller) {
 	}
 
 	if (creep.memory.upgrading) {
-		if (creep.upgradeController(controller) === ERR_NOT_IN_RANGE) (0, _task.pathFinder)(creep, controller);
+		if (creep.upgradeController(controller) != OK) (0, _task.pathFinder)(creep, controller);
 	} else {
 		var canWithdraw = creep.pos.findClosestByRange(creep.room.memory.structures.canWithdraw);
-		canWithdraw && creep.withdraw(canWithdraw, RESOURCE_ENERGY) === ERR_NOT_IN_RANGE ? (0, _task.pathFinder)(creep, canWithdraw) : null;
+		canWithdraw && creep.withdraw(canWithdraw, RESOURCE_ENERGY) != OK ? (0, _task.pathFinder)(creep, canWithdraw) : null;
 	}
 };
 

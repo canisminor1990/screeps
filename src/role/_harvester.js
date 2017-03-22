@@ -35,7 +35,7 @@ export default (creep, dropped = []) => {
         } else {
             needFillTarget = creep.room.storage
         }
-        (needFillTarget && creep.transfer(needFillTarget, RESOURCE_ENERGY) === ERR_NOT_IN_RANGE)
+        (needFillTarget && creep.transfer(needFillTarget, RESOURCE_ENERGY) != OK)
             ? pathFinder(creep, needFillTarget) : null
 
     }

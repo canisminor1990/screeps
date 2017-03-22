@@ -13,11 +13,11 @@ export default (creep, needBuild) => {
 	if (needBuild.length > 0) {
 		if (creep.memory.canBuild) {
 			const buildTarget = creep.pos.findClosestByRange(needBuild);
-			(buildTarget && creep.build(buildTarget) == ERR_NOT_IN_RANGE)
+			(buildTarget && creep.build(buildTarget) != OK)
 				? pathFinder(creep, buildTarget) : null;
 		} else {
 			const canWithdraw = creep.pos.findClosestByRange(creep.room.memory.structures.canWithdraw);
-			(canWithdraw && creep.withdraw(canWithdraw,RESOURCE_ENERGY) === ERR_NOT_IN_RANGE)
+			(canWithdraw && creep.withdraw(canWithdraw,RESOURCE_ENERGY) != OK)
 				? pathFinder(creep, canWithdraw) : null
 		}
 	}

@@ -26,7 +26,7 @@ export default (creep, newRoom) => {
             creep.transfer(targets[0], RESOURCE_ENERGY)
         } else {
             const needBuild = newRoom.memory.structures.needBuild;
-            (needBuild.length > 0  && creep.build(needBuild[0]) == ERR_NOT_IN_RANGE)
+            (needBuild.length > 0  && creep.build(needBuild[0]) != OK)
                 ? pathFinder(creep, needBuild[0]) : null;
         }
     }
