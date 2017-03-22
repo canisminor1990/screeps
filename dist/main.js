@@ -695,14 +695,15 @@ function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj;
 
 exports.default = function (room, roomNext) {
     var Memory = room.memory;
-    var nextMy = roomNext.memory;
+    var nextMemory = roomNext.memory;
     var targetStructures = Memory.structures;
+    var nexttargetStructures = nextMemory.structures;
     var targetCreeps = Memory.creeps;
     var config = Memory.config;
 
-    console.log(nextMy);
+    console.log(nexttargetStructures.my);
 
-    structure.spawn(targetStructures.spawn, _.merge(targetCreeps.my, {}), config);
+    structure.spawn(targetStructures.spawn, _.merge(targetCreeps.my, nexttargetStructures.my), config);
     structure.tower(targetStructures.tower, targetStructures.needFix, targetCreeps.enemy);
 };
 
