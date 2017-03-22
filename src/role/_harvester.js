@@ -1,7 +1,16 @@
 import {pathFinder} from '../task'
 export default (creep, dropped) => {
 
-    if (creep.carry.energy < creep.carryCapacity) {
+    if (creep.carry.energy == 0) {
+        creep.memory.full = false
+    }
+
+    if (creep.carry.energy == creep.carryCapacity) {
+        creep.memory.full = true
+    }
+
+
+    if (creep.carry.energy) {
         if (dropped.length > 0) {
             const pickupTarget = creep.pos.findInRange(dropped, 5);
             (pickupTarget.length > 0 && creep.pickup(pickupTarget[0]) === ERR_NOT_IN_RANGE) ? pathFinder(creep, pickupTarget[0]) : null
@@ -11,7 +20,8 @@ export default (creep, dropped) => {
                 ? pathFinder(creep, transferTarget[0]) : null
         }
     }
-    else {
+
+    if (creep.memory.full) {
         const needFill = creep.room.memory.structures.needFill;
         let needFillTarget;
         if (needFill.length > 0) {

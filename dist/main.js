@@ -930,7 +930,15 @@ var _task = __webpack_require__(0);
 
 exports.default = function (creep, dropped) {
 
-    if (creep.carry.energy < creep.carryCapacity) {
+    if (creep.carry.energy == 0) {
+        creep.memory.full = false;
+    }
+
+    if (creep.carry.energy == creep.carryCapacity) {
+        creep.memory.full = true;
+    }
+
+    if (creep.carry.energy) {
         if (dropped.length > 0) {
             var pickupTarget = creep.pos.findInRange(dropped, 5);
             pickupTarget.length > 0 && creep.pickup(pickupTarget[0]) === ERR_NOT_IN_RANGE ? (0, _task.pathFinder)(creep, pickupTarget[0]) : null;
@@ -940,7 +948,9 @@ exports.default = function (creep, dropped) {
             });
             transferTarget && creep.withdraw(transferTarget[0], RESOURCE_ENERGY) === ERR_NOT_IN_RANGE ? (0, _task.pathFinder)(creep, transferTarget[0]) : null;
         }
-    } else {
+    }
+
+    if (creep.memory.full) {
         var needFill = creep.room.memory.structures.needFill;
         var needFillTarget = void 0;
         if (needFill.length > 0) {
