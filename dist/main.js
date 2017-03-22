@@ -520,7 +520,7 @@ exports.default = function (room) {
         otherStructures = _.filter(structures, function (structure) {
         return !structure.my;
     }),
-        container = _.filter(otherStructures, function (structure) {
+        myContainer = _.filter(otherStructures, function (structure) {
         return structure.structureType == STRUCTURE_CONTAINER;
     }),
         storage = room.storage;
@@ -534,7 +534,7 @@ exports.default = function (room) {
         my = creepRole(myCreeps, config.role);
     var sources = room.find(FIND_SOURCES);
 
-    var dock = container;
+    var dock = myContainer;
 
     if (dock.length > 0 && storage) {
         dock[dock.length] = storage;
@@ -583,7 +583,7 @@ exports.default = function (room) {
             spawn: _.filter(myStructures, function (structure) {
                 return structure.structureType == STRUCTURE_SPAWN;
             })[0],
-            container: container,
+            container: myContainer,
             canWithdraw: _.filter(dock, function (structure) {
                 return structure.store.energy > 0;
             }),
@@ -961,7 +961,7 @@ exports.default = function (creep) {
         var transferTarget = creep.pos.findClosestByRange(creep.room.memory.structures.container, { filter: function filter(container) {
                 return container.store.energy > 0;
             } });
-        console.log(transferTarget);
+
         transferTarget && creep.withdraw(transferTarget, RESOURCE_ENERGY) != OK ? (0, _task.pathFinder)(creep, transferTarget) : null;
     }
 

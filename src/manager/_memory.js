@@ -6,7 +6,7 @@ export default (room) => {
     const structures = room.find(FIND_STRUCTURES),
         myStructures = _.filter(structures, structure => structure.my),
         otherStructures = _.filter(structures, structure => !structure.my),
-        container = _.filter(otherStructures, structure => structure.structureType == STRUCTURE_CONTAINER),
+        myContainer = _.filter(otherStructures, structure => structure.structureType == STRUCTURE_CONTAINER),
         storage = room.storage;
     const creeps = room.find(FIND_CREEPS),
         myCreeps = _.filter(creeps, creep => creep.my),
@@ -14,7 +14,7 @@ export default (room) => {
         my = creepRole(myCreeps, config.role);
     const sources = room.find(FIND_SOURCES);
 
-    let dock = container;
+    let dock = myContainer;
 
     if (dock.length > 0 && storage) {
         dock[dock.length] = storage
@@ -56,7 +56,7 @@ export default (room) => {
             storage: storage,
             tower: _.filter(myStructures, structure => structure.structureType == STRUCTURE_TOWER)[0],
             spawn: _.filter(myStructures, structure => structure.structureType == STRUCTURE_SPAWN)[0],
-            container: container,
+            container: myContainer,
             canWithdraw: _.filter(dock, structure => structure.store.energy > 0),
             canFill: _.filter(dock, structure => structure.store.energy < structure.storeCapacity),
             needFill: _.filter(myStructures, structure => (
