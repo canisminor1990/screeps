@@ -1,7 +1,7 @@
 import 'screeps-perf';
 import * as Manager from './manager'
 
-const roomName      = 'sim'
+const roomName      = 'W81S67'
 const room          = Game.rooms[roomName]
 module.exports.loop = () => {
 	// PathFinder.use(true);

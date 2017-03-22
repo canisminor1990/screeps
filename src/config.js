@@ -1,4 +1,4 @@
-export default (room = Game.rooms['sim']) => {
+export default (room = Game.rooms['W81S67']) => {
     const needBuild = (room.memory.structures)?room.memory.structures.needBuild:[];
     const friends   = ["Ruo", "FanHua"]
     const repair    = {
