@@ -33,6 +33,8 @@ export default (creep, target) => {
 					});
 					// Avoid creeps in the room
 
+				}else {
+					costs = PathFinder.CostMatrix.deserialize(Memory.PathFinder[roomName])
 				}
 				if (Game.time != Memory.PathFinder.time) {
 					room.find(FIND_CREEPS).forEach((creep) => {
@@ -41,7 +43,7 @@ export default (creep, target) => {
 					Memory.PathFinder[roomName] = costs.serialize();
 					Memory.PathFinder.time = Game.time
 				} else {
-					costs = PathFinder.CostMatrix.deserialize(Memory.PathFinder[roomName])
+
 				}
 
 

@@ -1337,6 +1337,8 @@ exports.default = function (creep, target) {
 						}
 					});
 					// Avoid creeps in the room
+				} else {
+					costs = PathFinder.CostMatrix.deserialize(Memory.PathFinder[roomName]);
 				}
 				if (Game.time != Memory.PathFinder.time) {
 					room.find(FIND_CREEPS).forEach(function (creep) {
@@ -1344,9 +1346,7 @@ exports.default = function (creep, target) {
 					});
 					Memory.PathFinder[roomName] = costs.serialize();
 					Memory.PathFinder.time = Game.time;
-				} else {
-					costs = PathFinder.CostMatrix.deserialize(Memory.PathFinder[roomName]);
-				}
+				} else {}
 
 				return costs;
 			}
