@@ -778,8 +778,9 @@ exports.default = function (creep, needBuild, newRoom) {
 	} else {
 		var newNeedBuild = newRoom.memory.structures.needBuild;
 		if (creep.memory.canBuild && newNeedBuild.length > 0) {
-			var _buildTarget = Game.getObjectById(newNeedBuild[0].id);
-			_buildTarget && creep.build(_buildTarget) != OK ? (0, _task.pathFinder)(creep, _buildTarget) : (0, _task.pathFinder)(creep, _buildTarget);
+			var newBuildTarget = Game.getObjectById(newNeedBuild[0].id);
+			(0, _task.pathFinder)(creep, newBuildTarget);
+			creep.build(newBuildTarget);
 		} else {
 			var storage = Game.getObjectById('58d07b35bfeec6256575be5d');
 			creep.withdraw(storage, RESOURCE_ENERGY) != OK ? (0, _task.pathFinder)(creep, storage) : null;
