@@ -1181,45 +1181,32 @@ var _task = __webpack_require__(0);
 var taskFindMiner = function taskFindMiner(creep) {
 
 	if (creep.memory.role != "builder") {
-		var source = creep.room.memory.source[creep.memory.source];
-		if (source.energy > 0) {
-			var targetsContainer = creep.pos.findClosestByPath(FIND_STRUCTURES, {
+		var targetsSoorage = void 0;
+		if (creep.role == 'upgrader') {
+			targetsSoorage = creep.pos.findClosestByPath(FIND_MY_STRUCTURES, {
 				filter: function filter(structure) {
-					return structure.structureType == STRUCTURE_CONTAINER && structure.store["energy"] > 0;
+					return structure.structureType == STRUCTURE_STORAGE && structure.store["energy"] > 0;
 				}
 			});
-			if (creep.withdraw(targetsContainer, 'energy') == ERR_NOT_IN_RANGE) {
-
-				(0, _task.pathFinder)(creep, targetsContainer);
-			}
 		} else {
-			var targetsSoorage = void 0;
-			if (creep.role == 'upgrader') {
-				targetsSoorage = creep.pos.findClosestByPath(FIND_MY_STRUCTURES, {
-					filter: function filter(structure) {
-						return structure.structureType == STRUCTURE_STORAGE && structure.store["energy"] > 0;
-					}
-				});
-			} else {
-				targetsSoorage = creep.pos.findClosestByPath(FIND_MY_STRUCTURES, {
-					filter: function filter(structure) {
-						return structure.structureType == STRUCTURE_STORAGE && structure.store["energy"] > 0 && structure.id != '58d151fe1b3da0c326b1385b';
-					}
-				});
-			}
-			if (creep.withdraw(targetsSoorage, 'energy') == ERR_NOT_IN_RANGE) {
-				(0, _task.pathFinder)(creep, targetsSoorage);
-			}
+			targetsSoorage = creep.pos.findClosestByPath(FIND_MY_STRUCTURES, {
+				filter: function filter(structure) {
+					return structure.structureType == STRUCTURE_STORAGE && structure.store["energy"] > 0 && structure.id != '58d151fe1b3da0c326b1385b';
+				}
+			});
+		}
+		if (creep.withdraw(targetsSoorage, 'energy') == ERR_NOT_IN_RANGE) {
+			(0, _task.pathFinder)(creep, targetsSoorage);
 		}
 	} else {
-		var _targetsContainer = creep.pos.findClosestByPath(FIND_MY_STRUCTURES, {
+		var targetsContainer = creep.pos.findClosestByPath(FIND_MY_STRUCTURES, {
 			filter: function filter(structure) {
 				return structure.structureType == STRUCTURE_STORAGE && structure.store["energy"] > 0;
 			}
 		});
 
-		if (creep.withdraw(_targetsContainer, 'energy') == ERR_NOT_IN_RANGE) {
-			(0, _task.pathFinder)(creep, _targetsContainer);
+		if (creep.withdraw(targetsContainer, 'energy') == ERR_NOT_IN_RANGE) {
+			(0, _task.pathFinder)(creep, targetsContainer);
 		}
 	}
 };
