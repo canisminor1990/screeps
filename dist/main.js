@@ -659,7 +659,7 @@ exports.default = function (room) {
         return role.upgrader(creep, targetStructures.controller);
     });
     myCreeps.builder.forEach(function (creep) {
-        return role.builder(creep, targetStructures.needBuild);
+        return role.builder(creep, targetStructures.needBuild, newRoom);
     });
     myCreeps.cleaner.forEach(function (creep) {
         return role.cleaner(creep, dropped);
@@ -757,7 +757,7 @@ Object.defineProperty(exports, "__esModule", {
 
 var _task = __webpack_require__(0);
 
-exports.default = function (creep, needBuild) {
+exports.default = function (creep, needBuild, newRoom) {
 
 	if (creep.carry.energy == 0) {
 		creep.memory.canBuild = false;
@@ -774,6 +774,15 @@ exports.default = function (creep, needBuild) {
 		} else {
 			var canWithdraw = creep.pos.findClosestByRange(creep.room.memory.structures.canWithdraw);
 			canWithdraw && creep.withdraw(canWithdraw, RESOURCE_ENERGY) != OK ? (0, _task.pathFinder)(creep, canWithdraw) : null;
+		}
+	} else {
+		var newNeedBuild = newRoom.memory.structures.needBuild;
+		if (creep.memory.canBuild && newNeedBuild.length > 0) {
+			var _buildTarget = Game.getObjectById(newNeedBuild[0].id);
+			_buildTarget && creep.build(_buildTarget) != OK ? (0, _task.pathFinder)(creep, _buildTarget) : null;
+		} else {
+			var storage = Game.getObjectById('58d07b35bfeec6256575be5d');
+			creep.withdraw(storage, RESOURCE_ENERGY) != OK ? (0, _task.pathFinder)(creep, storage) : null;
 		}
 	}
 };

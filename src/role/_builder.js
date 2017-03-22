@@ -1,6 +1,6 @@
 import { pathFinder } from '../task'
 
-export default (creep, needBuild) => {
+export default (creep, needBuild,newRoom) => {
 
 	if (creep.carry.energy == 0) {
 		creep.memory.canBuild = false;
@@ -20,5 +20,17 @@ export default (creep, needBuild) => {
 			(canWithdraw && creep.withdraw(canWithdraw,RESOURCE_ENERGY) != OK)
 				? pathFinder(creep, canWithdraw) : null
 		}
+	} else {
+		let newNeedBuild = newRoom.memory.structures.needBuild;
+		if (creep.memory.canBuild && newNeedBuild.length>0) {
+			const buildTarget = Game.getObjectById(newNeedBuild[0].id);
+			(buildTarget && creep.build(buildTarget) != OK)
+					? pathFinder(creep, buildTarget) : null;
+		} else {
+			let storage = Game.getObjectById('58d07b35bfeec6256575be5d');
+			(creep.withdraw(storage,RESOURCE_ENERGY) != OK)
+					? pathFinder(creep, storage) : null
+		}
+
 	}
 }
