@@ -963,7 +963,7 @@ exports.default = function (creep) {
         var transferTarget = creep.room.memory.structures.container.sort(function (a, b) {
             return b.store.enengy - a.store.enengy;
         });
-        transferTarget && creep.withdraw(transferTarget[0], RESOURCE_ENERGY) === ERR_NOT_IN_RANGE ? (0, _task.pathFinder)(creep, transferTarget[0]) : null;
+        transferTarget && creep.withdraw(transferTarget[0], RESOURCE_ENERGY) != OK ? (0, _task.pathFinder)(creep, transferTarget[0]) : null;
     }
 
     if (creep.memory.full) {

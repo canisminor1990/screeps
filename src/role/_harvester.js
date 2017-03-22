@@ -22,7 +22,7 @@ export default (creep, dropped = []) => {
         // }
 
 	        const transferTarget = creep.room.memory.structures.container.sort((a, b) => b.store.enengy - a.store.enengy);
-	        (transferTarget && creep.withdraw(transferTarget[0], RESOURCE_ENERGY) === ERR_NOT_IN_RANGE)
+	        (transferTarget && creep.withdraw(transferTarget[0], RESOURCE_ENERGY) != OK)
 	            ? pathFinder(creep, transferTarget[0]) : null
     }
 
