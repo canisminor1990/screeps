@@ -1304,7 +1304,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 
 exports.default = function (creep, target) {
-	var targetsBuild = spawn.room.memory.constructionSites;
+	var targetsBuild = creep.room.memory.constructionSites;
 	if (creep.fatigue > 1) return;
 	var goals = target.pos;
 	var path = void 0;

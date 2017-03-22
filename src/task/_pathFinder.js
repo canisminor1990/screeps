@@ -1,5 +1,5 @@
 export default (creep, target) => {
-	const targetsBuild = spawn.room.memory.constructionSites;
+	const targetsBuild = creep.room.memory.constructionSites;
 	if (creep.fatigue > 1)return;
 	let goals = target.pos
 	let path;
