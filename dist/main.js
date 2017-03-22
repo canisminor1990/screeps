@@ -853,6 +853,7 @@ var _task = __webpack_require__(0);
 exports.default = function (creep, newRoom) {
     var room = Game.spawns['Spawn1'].room;
     var farMiner = newRoom.memory.creeps.my.farMiner;
+    console.log(farMiner);
 
     if (creep.carry.energy == 0) {
         creep.memory.full = false;

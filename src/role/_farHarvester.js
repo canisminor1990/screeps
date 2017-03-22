@@ -2,7 +2,7 @@ import {pathFinder} from '../task'
 export default (creep,newRoom) => {
     const room = Game.spawns['Spawn1'].room;
     const farMiner = newRoom.memory.creeps.my.farMiner;
-
+ console.log(farMiner)
 
     if (creep.carry.energy == 0) {
         creep.memory.full = false
