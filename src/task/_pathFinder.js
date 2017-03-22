@@ -1,4 +1,4 @@
-let costs = new PathFinder.CostMatrix;
+
 export default (creep, target) => {
 	// const targetsBuild = creep.room.memory.constructionSites;
 	if (creep.fatigue > 1)return;
@@ -11,14 +11,15 @@ export default (creep, target) => {
 			swampCost: 25,
 
 			roomCallback: (roomName) => {
-				let room = Game.rooms[roomName];
+				let cost,room = Game.rooms[roomName];
 				if (!room) return;
 				if (!Memory.PathFinder) {
 					Memory.PathFinder = {}
 				}
-				costs = PathFinder.CostMatrix.deserialize(Memory.PathFinder[roomName])
+
 				const timeout = 10 //(targetsBuild.length > 0) ? 10 : 100000
 				if (!Memory.PathFinder[roomName] || Game.time - Memory.PathFinder.time > timeout) {
+					 costs = new PathFinder.CostMatrix;
 					// In this example `room` will always exist, but since PathFinder
 					// supports searches which span multiple rooms you should be careful!
 					room.find(FIND_STRUCTURES).forEach((structure) => {
@@ -32,6 +33,8 @@ export default (creep, target) => {
 						}
 					});
 					// Avoid creeps in the room
+				}else {
+					costs = PathFinder.CostMatrix.deserialize(Memory.PathFinder[roomName])
 				}
 
 				if (Game.time != Memory.PathFinder.time) {
