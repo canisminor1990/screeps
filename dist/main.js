@@ -1185,13 +1185,13 @@ var taskFindMiner = function taskFindMiner(creep) {
 		if (creep.role == 'upgrader') {
 			targetsSoorage = creep.pos.findClosestByPath(FIND_MY_STRUCTURES, {
 				filter: function filter(structure) {
-					return structure.structureType == STRUCTURE_STORAGE && structure.store["energy"] > 0;
+					return structure.structureType == STRUCTURE_CONTAINER && structure.store["energy"] > 0;
 				}
 			});
 		} else {
 			targetsSoorage = creep.pos.findClosestByPath(FIND_MY_STRUCTURES, {
 				filter: function filter(structure) {
-					return structure.structureType == STRUCTURE_STORAGE && structure.store["energy"] > 0 && structure.id != '58d151fe1b3da0c326b1385b';
+					return structure.structureType == STRUCTURE_CONTAINER && structure.store["energy"] > 0 && structure.id != '58d151fe1b3da0c326b1385b';
 				}
 			});
 		}
