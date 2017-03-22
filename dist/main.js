@@ -608,7 +608,7 @@ function creepRole(myCreeps, configRole) {
 	var my = {};
 	configRole.forEach(function (role) {
 		my[role.role] = _.filter(myCreeps, function (creep) {
-			return creep.split('#')[0] == role.role;
+			return creep.name.split('#')[0] == role.role;
 		});
 	});
 	return my;
