@@ -1,4 +1,4 @@
-import {taskHarvester, pathFinder} from '../task'
+import {taskHarvester, taskContainer} from '../task'
 export default (creep) => {
 	const room = 'W81S66';
 	const myRoom = Game.spawns['Spawn1']
@@ -18,9 +18,8 @@ export default (creep) => {
 	else {
 		if (creep.room.name !== myRoom.room.name) {
 			creep.moveTo(myRoom)
-			creep.moveTo(myRoom, {reusePath: 8, visualizePathStyle: {stroke: '#ffffff'}})
 		} else {
-			taskHarvester(creep)
+			taskContainer(creep)
 		}
 	}
 }

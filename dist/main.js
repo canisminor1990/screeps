@@ -744,9 +744,8 @@ exports.default = function (creep) {
 	} else {
 		if (creep.room.name !== myRoom.room.name) {
 			creep.moveTo(myRoom);
-			creep.moveTo(myRoom, { reusePath: 8, visualizePathStyle: { stroke: '#ffffff' } });
 		} else {
-			(0, _task.taskHarvester)(creep);
+			(0, _task.taskContainer)(creep);
 		}
 	}
 };
