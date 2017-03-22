@@ -8,7 +8,7 @@ const taskFindMiner = (creep) => {
 			(structure.structureType == (STRUCTURE_STORAGE || STRUCTURE_CONTAINER) ) &&
 			structure.store["energy"] > 0)
 		})
-	} else if (creep.role == ('upgrader' || 'cleaner')) {
+	} else if (creep.role == 'upgrader') {
 		target = Game.getObjectById('58d151fe1b3da0c326b1385b')
 	} else {
 		target = creep.pos.findClosestByPath(FIND_MY_STRUCTURES, {
