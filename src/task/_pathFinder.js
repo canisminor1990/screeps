@@ -2,7 +2,7 @@ export default (creep, target) => {
 	if (creep.fatigue > 0) {
 		return
 	} else {
-		creep.moveTo(target, {reusePath: 8, visualizePathStyle: {stroke: '#ffffff'}})
+		creep.moveTo(target, {reusePath: 4, visualizePathStyle: {stroke: '#ffffff'}})
 	}
 
 	// if (creep.fatigue > 1) {
