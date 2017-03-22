@@ -996,6 +996,14 @@ exports.default = function (creep, sources) {
 
 
 	if (creep.carry.energy == creep.carryCapacity) {
+		creep.memory.full = true;
+	}
+
+	if (creep.carry.energy == 0) {
+		creep.memory.full = false;
+	}
+
+	if (creep.memory.full) {
 		var canFill = creep.pos.findInRange(creep.room.memory.structures.canFill, 4);
 		canFill.length > 0 && creep.transfer(canFill[0], RESOURCE_ENERGY) != OK ? (0, _task.pathFinder)(creep, canFill[0]) : null;
 	}
@@ -1004,7 +1012,7 @@ exports.default = function (creep, sources) {
 		creep.memory.harvestTarget = sources[0].source.id;
 	}
 
-	if (creep.carry.energy < creep.carryCapacity && creep.memory.harvestTarget) {
+	if (!creep.memory.full && creep.memory.harvestTarget) {
 
 		var pickupTarget = [];
 		if (dropped.length > 0) {
