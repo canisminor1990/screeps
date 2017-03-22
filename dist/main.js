@@ -1013,10 +1013,10 @@ exports.default = function (creep, sources) {
 		if (pickupTarget.length > 0) {
 			creep.pickup(pickupTarget[0]);
 			creep.say('pickup');
-		} else {}
-
-		var harvestTarget = Game.getObjectById(creep.memory.harvestTarget);
-		creep.harvest(harvestTarget) != OK ? (0, _task.pathFinder)(creep, harvestTarget) : null;
+		} else {
+			var harvestTarget = Game.getObjectById(creep.memory.harvestTarget);
+			creep.harvest(harvestTarget) != OK ? (0, _task.pathFinder)(creep, harvestTarget) : null;
+		}
 	}
 };
 

@@ -21,12 +21,12 @@ export default (creep, sources, dropped = []) => {
 			creep.pickup(pickupTarget[0])
 			creep.say('pickup')
 		} else {
-
+			const harvestTarget = Game.getObjectById(creep.memory.harvestTarget);
+			(creep.harvest(harvestTarget) != OK) ?
+					pathFinder(creep, harvestTarget) : null;
 		}
 
-		const harvestTarget = Game.getObjectById(creep.memory.harvestTarget);
-		(creep.harvest(harvestTarget) != OK) ?
-				pathFinder(creep, harvestTarget) : null;
+
 	}
 
 }
