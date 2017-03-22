@@ -1313,7 +1313,7 @@ exports.default = function (creep, target) {
 			swampCost: 25,
 
 			roomCallback: function roomCallback(roomName) {
-				var cost = void 0,
+				var costs = void 0,
 				    room = Game.rooms[roomName];
 				if (!room) return;
 				if (!Memory.PathFinder) {
