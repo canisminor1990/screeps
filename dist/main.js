@@ -1021,12 +1021,14 @@ exports.default = function (spawn) {
 			delete Memory.creeps[name];
 			console.log(['[Clean]', name].join(' '));
 		}
-		// if (Memory.creeps[name].role = "builder" && targetsBuild.length == 0) {
-		// 	const builderTargets = spawn.pos.findInRange(FIND_MY_CREEPS, 1, {filter: creep => creep.role == "builder"});
-		// 	if (builderTargets.length > 0) {
-		// 		spawn.recycleCreep(builderTargets[0]);
-		// 	}
-		// }
+		if (Memory.creeps[name].role = "builder" && targetsBuild.length == 0) {
+			var builderTargets = spawn.pos.findInRange(FIND_MY_CREEPS, 1, { filter: function filter(creep) {
+					return creep.memory.role == "builder";
+				} });
+			if (builderTargets.length > 0) {
+				spawn.recycleCreep(builderTargets[0]);
+			}
+		}
 	}
 
 	var _loop = function _loop(_name) {

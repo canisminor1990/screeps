@@ -11,12 +11,12 @@ export default (spawn) => {
 			console.log(['[Clean]',
 			             name].join(' '));
 		}
-		// if (Memory.creeps[name].role = "builder" && targetsBuild.length == 0) {
-		// 	const builderTargets = spawn.pos.findInRange(FIND_MY_CREEPS, 1, {filter: creep => creep.role == "builder"});
-		// 	if (builderTargets.length > 0) {
-		// 		spawn.recycleCreep(builderTargets[0]);
-		// 	}
-		// }
+		if (Memory.creeps[name].role = "builder" && targetsBuild.length == 0) {
+			const builderTargets = spawn.pos.findInRange(FIND_MY_CREEPS, 1, {filter: creep => creep.memory.role == "builder"});
+			if (builderTargets.length > 0) {
+				spawn.recycleCreep(builderTargets[0]);
+			}
+		}
 	}
 
 	for (let name in factory) {
