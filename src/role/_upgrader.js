@@ -10,7 +10,7 @@ export default  (creep, controller) => {
 	}
 
 	if (creep.memory.upgrading) {
-		if (creep.upgradeController(controller) != OK) pathFinder(creep, controller)
+		(creep.upgradeController(controller) != OK)? pathFinder(creep, controller):null;
 	}
 	else {
 		const canWithdraw = creep.pos.findClosestByRange(creep.room.memory.structures.canWithdraw);

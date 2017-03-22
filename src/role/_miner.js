@@ -9,10 +9,15 @@ export default (creep, sources, dropped = []) => {
 		creep.memory.full = false;
 	}
 
-	if (creep.memory.full){
+	if (creep.memory.full) {
 		const canFill = creep.pos.findInRange(creep.room.memory.structures.canFill, 4);
-		(canFill.length > 0 && creep.transfer(canFill[0], RESOURCE_ENERGY) != OK)
-				? pathFinder(creep, canFill[0]) : null
+		if (canFill.length > 0) {
+			( creep.transfer(canFill[0], RESOURCE_ENERGY) != OK)
+					? pathFinder(creep, canFill[0]) : null
+		} else if (creep.memory.harvestTarget == "5873bc3511e3e4361b4d7393") {
+			const controller = creep.room.controller;
+			(creep.upgradeController(controller) != OK) ? pathFinder(creep, controller) : null;
+		}
 	}
 
 	if (!creep.memory.harvestTarget) {

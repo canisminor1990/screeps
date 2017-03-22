@@ -1027,7 +1027,12 @@ exports.default = function (creep, sources) {
 
 	if (creep.memory.full) {
 		var canFill = creep.pos.findInRange(creep.room.memory.structures.canFill, 4);
-		canFill.length > 0 && creep.transfer(canFill[0], RESOURCE_ENERGY) != OK ? (0, _task.pathFinder)(creep, canFill[0]) : null;
+		if (canFill.length > 0) {
+			creep.transfer(canFill[0], RESOURCE_ENERGY) != OK ? (0, _task.pathFinder)(creep, canFill[0]) : null;
+		} else if (creep.memory.harvestTarget == "5873bc3511e3e4361b4d7393") {
+			var controller = creep.room.controller;
+			creep.upgradeController(controller) != OK ? (0, _task.pathFinder)(creep, controller) : null;
+		}
 	}
 
 	if (!creep.memory.harvestTarget) {
@@ -1073,7 +1078,7 @@ exports.default = function (creep, controller) {
 	}
 
 	if (creep.memory.upgrading) {
-		if (creep.upgradeController(controller) != OK) (0, _task.pathFinder)(creep, controller);
+		creep.upgradeController(controller) != OK ? (0, _task.pathFinder)(creep, controller) : null;
 	} else {
 		var canWithdraw = creep.pos.findClosestByRange(creep.room.memory.structures.canWithdraw);
 		canWithdraw && creep.withdraw(canWithdraw, RESOURCE_ENERGY) != OK ? (0, _task.pathFinder)(creep, canWithdraw) : null;
