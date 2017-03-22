@@ -958,7 +958,7 @@ exports.default = function (creep) {
                 return container.store.energy > 0;
             } });
         console.log(transferTarget);
-        transferTarget && creep.withdraw(transferTarget, RESOURCE_ENERGY) === ERR_NOT_IN_RANGE ? (0, _task.pathFinder)(creep, transferTarget) : null;
+        transferTarget && creep.withdraw(transferTarget, RESOURCE_ENERGY) != OK ? (0, _task.pathFinder)(creep, transferTarget) : null;
     }
 
     if (creep.memory.full) {
