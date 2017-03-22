@@ -3,6 +3,11 @@ import { pathFinder } from '../task'
 export default (creep, dropped = []) => {
 
 
+    if (creep.carry.length >1) {
+        (creep.transfer(creep.room.storage, RESOURCE_GHODIUM_OXIDE) != OK)
+            ? pathFinder(creep, creep.room.storage) : null
+    }
+
 	if (creep.carry.energy < creep.carryCapacity) {
 		if (dropped.length > 0) {
 			const pickupTarget = creep.pos.findClosestByPath(dropped);
