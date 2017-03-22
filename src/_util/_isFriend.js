@@ -1,3 +1,3 @@
 export default (owner) => {
-	return false
+	return (Memory.config.friends.toString().match(owner)) ? true : false
 }

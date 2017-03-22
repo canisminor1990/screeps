@@ -331,7 +331,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 
 exports.default = function (owner) {
-	return false;
+	return Memory.config.friends.toString().match(owner) ? true : false;
 };
 
 /***/ }),
@@ -996,13 +996,9 @@ exports.default = function (creep, sources) {
 	}
 
 	if (creep.carry.energy < creep.carryCapacity && creep.memory.harvestTarget) {
-		if (dropped.length > 0) {
-			var pickupTarget = creep.pos.findInRange(dropped, 0);
-			if (pickupTarget.length > 0 && creep.pickup(pickupTarget[0]) == OK) creep.say('pickup');
-		} else {
-			var harvestTarget = Game.getObjectById(creep.memory.harvestTarget);
-			creep.harvest(harvestTarget) == ERR_NOT_IN_RANGE ? (0, _task.pathFinder)(creep, harvestTarget) : null;
-		}
+
+		var harvestTarget = Game.getObjectById(creep.memory.harvestTarget);
+		creep.harvest(harvestTarget) == ERR_NOT_IN_RANGE ? (0, _task.pathFinder)(creep, harvestTarget) : null;
 	}
 };
 
