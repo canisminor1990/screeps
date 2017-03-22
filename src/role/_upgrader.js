@@ -1,20 +1,20 @@
-import {taskFindMiner} from '../task'
-export default  (creep) => {
+import { pathFinder } from '../task'
 
-    if (creep.memory.upgrading && creep.carry.energy == 0) {
-        creep.memory.upgrading = false;
-    }
-    if (!creep.memory.upgrading && creep.carry.energy > 50) {
-        creep.memory.upgrading = true;
-        creep.say('[U]upgrade');
-    }
+export default  (creep, controller) => {
+	if (creep.memory.upgrading && creep.carry.energy == 0) {
+		creep.memory.upgrading = false;
+	}
+	if (!creep.memory.upgrading && creep.carry.energy == creep.carryCapacity) {
+		creep.memory.upgrading = true;
+		creep.say('UP');
+	}
 
-    if (creep.memory.upgrading) {
-        const controller = creep.room.controller
-        creep.moveTo(controller, {reusePath: 8, visualizePathStyle: {stroke: '#ffffff'}})
-        creep.upgradeController(controller)
-    }
-    else {
-        taskFindMiner(creep)
-    }
+	if (creep.memory.upgrading) {
+		if (creep.upgradeController(controller) === ERR_NOT_IN_RANGE) pathFinder(creep, controller)
+	}
+	else {
+		const canWithdraw = creep.pos.findClosestByRange(creep.room.memory.structures.canWithdraw);
+		(canWithdraw && creep.withdraw(canWithdraw,RESOURCE_ENERGY) === ERR_NOT_IN_RANGE)
+			? pathFinder(creep, canWithdraw) : null
+	}
 }

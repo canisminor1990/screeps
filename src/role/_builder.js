@@ -1,32 +1,24 @@
-import {pathFinder, taskFindMiner} from '../task'
-import config from '../config'
-const mySpawn = Game.spawns['Spawn1'];
+import { pathFinder } from '../task'
 
-export default (creep) => {
-    const targetsBuild = mySpawn.room.memory.constructionSites;
-    if (targetsBuild.length > 0) {
-        creep.memory.building = true;
-    } else {
-        creep.memory.building = false;
-        pathFinder(creep, mySpawn)
-    }
+export default (creep, needBuild) => {
 
-    if (creep.carry.energy == 0) {
-        creep.memory.full = false;
+	if (creep.carry.energy == 0) {
+		creep.memory.canBuild = false;
+	}
 
-    }
-    if (creep.carry.energy == creep.carryCapacity) {
-        creep.memory.full = true;
-    }
+	if (creep.carry.energy == creep.carryCapacity) {
+		creep.memory.canBuild = true;
+	}
 
-
-    if (creep.memory.building && creep.memory.full) {
-        const targets = creep.pos.findClosestByPath(FIND_CONSTRUCTION_SITES);
-
-        (targets && creep.build(targets) == ERR_NOT_IN_RANGE) ?
-            pathFinder(creep, targets) : null;
-
-    } else {
-        taskFindMiner(creep)
-    }
+	if (needBuild.length > 0) {
+		if (creep.memory.canBuild) {
+			const buildTarget = creep.pos.findClosestByRange(needBuild);
+			(buildTarget && creep.build(buildTarget) == ERR_NOT_IN_RANGE)
+				? pathFinder(creep, buildTarget) : null;
+		} else {
+			const canWithdraw = creep.pos.findClosestByRange(creep.room.memory.structures.canWithdraw);
+			(canWithdraw && creep.withdraw(canWithdraw,RESOURCE_ENERGY) === ERR_NOT_IN_RANGE)
+				? pathFinder(creep, canWithdraw) : null
+		}
+	}
 }
