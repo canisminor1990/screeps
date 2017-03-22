@@ -1173,63 +1173,48 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 
 Object.defineProperty(exports, "__esModule", {
-    value: true
+	value: true
 });
 
 var _task = __webpack_require__(0);
 
 var taskFindMiner = function taskFindMiner(creep) {
 
-    if (creep.memory.role != "builder") {
-        var source = creep.room.memory.source[creep.memory.source];
-        if (source.energy > 0) {
-            var miner = creep.room.memory.miner.filter(function (miner) {
-                return creep.memory.source === miner.memory.source && miner.carry.energy > 0;
-            });
-            var minerTarget = void 0,
-                minerEnergy = 0;
-            for (var i = 0; i < miner.length; i++) {
-                if (minerEnergy < miner[i].carry.energy) {
-                    minerTarget = miner[i];
-                    minerEnergy = miner[i].carry.energy;
-                }
-            }
-            if (minerTarget && minerEnergy >= 50) {
-                (0, _task.pathFinder)(creep, minerTarget);
-            } else {
-                var targetsContainer = creep.pos.findClosestByPath(FIND_STRUCTURES, {
-                    filter: function filter(structure) {
-                        return structure.structureType == STRUCTURE_CONTAINER && structure.store["energy"] > 0;
-                    }
-                });
-                if (creep.withdraw(targetsContainer, 'energy') == ERR_NOT_IN_RANGE) {
+	if (creep.memory.role != "builder") {
+		var source = creep.room.memory.source[creep.memory.source];
+		if (source.energy > 0) {
+			var targetsContainer = creep.pos.findClosestByPath(FIND_STRUCTURES, {
+				filter: function filter(structure) {
+					return structure.structureType == STRUCTURE_CONTAINER && structure.store["energy"] > 0;
+				}
+			});
+			if (creep.withdraw(targetsContainer, 'energy') == ERR_NOT_IN_RANGE) {
 
-                    (0, _task.pathFinder)(creep, targetsContainer);
-                }
-            }
-        } else {
+				(0, _task.pathFinder)(creep, targetsContainer);
+			}
+		} else {
 
-            var targetsSoorage = creep.pos.findClosestByPath(FIND_MY_STRUCTURES, {
-                filter: function filter(structure) {
-                    return structure.structureType == STRUCTURE_STORAGE && structure.store["energy"] > 0;
-                }
-            });
+			var targetsSoorage = creep.pos.findClosestByPath(FIND_MY_STRUCTURES, {
+				filter: function filter(structure) {
+					return structure.structureType == STRUCTURE_STORAGE && structure.store["energy"] > 0;
+				}
+			});
 
-            if (creep.withdraw(targetsSoorage, 'energy') == ERR_NOT_IN_RANGE) {
-                (0, _task.pathFinder)(creep, targetsSoorage);
-            }
-        }
-    } else {
-        var _targetsContainer = creep.pos.findClosestByPath(FIND_MY_STRUCTURES, {
-            filter: function filter(structure) {
-                return structure.structureType == STRUCTURE_STORAGE && structure.store["energy"] > 0;
-            }
-        });
+			if (creep.withdraw(targetsSoorage, 'energy') == ERR_NOT_IN_RANGE) {
+				(0, _task.pathFinder)(creep, targetsSoorage);
+			}
+		}
+	} else {
+		var _targetsContainer = creep.pos.findClosestByPath(FIND_MY_STRUCTURES, {
+			filter: function filter(structure) {
+				return structure.structureType == STRUCTURE_STORAGE && structure.store["energy"] > 0;
+			}
+		});
 
-        if (creep.withdraw(_targetsContainer, 'energy') == ERR_NOT_IN_RANGE) {
-            (0, _task.pathFinder)(creep, _targetsContainer);
-        }
-    }
+		if (creep.withdraw(_targetsContainer, 'energy') == ERR_NOT_IN_RANGE) {
+			(0, _task.pathFinder)(creep, _targetsContainer);
+		}
+	}
 };
 
 exports.default = taskFindMiner;
