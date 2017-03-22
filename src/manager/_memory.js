@@ -56,7 +56,7 @@ export default (room) => {
             storage: storage,
             tower: _.filter(myStructures, structure => structure.structureType == STRUCTURE_TOWER)[0],
             spawn: _.filter(myStructures, structure => structure.structureType == STRUCTURE_SPAWN)[0],
-            container: myContainer,
+            container: _.filter(otherStructures, structure => structure.structureType == STRUCTURE_CONTAINER),
             canWithdraw: _.filter(dock, structure => structure.store.energy > 0),
             canFill: _.filter(dock, structure => structure.store.energy < structure.storeCapacity),
             needFill: _.filter(myStructures, structure => (

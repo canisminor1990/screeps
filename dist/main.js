@@ -583,7 +583,9 @@ exports.default = function (room) {
             spawn: _.filter(myStructures, function (structure) {
                 return structure.structureType == STRUCTURE_SPAWN;
             })[0],
-            container: myContainer,
+            container: _.filter(otherStructures, function (structure) {
+                return structure.structureType == STRUCTURE_CONTAINER;
+            }),
             canWithdraw: _.filter(dock, function (structure) {
                 return structure.store.energy > 0;
             }),
