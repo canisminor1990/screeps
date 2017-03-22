@@ -8,8 +8,8 @@ export default (creep, sources, dropped) => {
 	if (creep.carry.energy == creep.carryCapacity) {
 		creep.memory.canHarvest = false;
 		const canFill           = creep.pos.findInRange(creep.room.memory.structures.canFill, 4);
-		(canFill.length > 0 && creep.transfer(canFill, RESOURCE_ENERGY) === ERR_NOT_IN_RANGE)
-			? pathFinder(creep, canFill) : null
+		(canFill.length > 0 && creep.transfer(canFill[0], RESOURCE_ENERGY) === ERR_NOT_IN_RANGE)
+			? pathFinder(creep, canFill[0]) : null
 	}
 
 	if (!creep.memory.harvestTarget) {

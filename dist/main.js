@@ -501,7 +501,7 @@ exports.default = function (tick) {
 
 
 Object.defineProperty(exports, "__esModule", {
-	value: true
+    value: true
 });
 
 var _config = __webpack_require__(2);
@@ -513,103 +513,108 @@ var _util = __webpack_require__(3);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 exports.default = function (room) {
-	var config = (0, _config2.default)(room);
-	var structures = room.find(FIND_STRUCTURES),
-	    myStructures = _.filter(structures, function (structure) {
-		return structure.my;
-	}),
-	    otherStructures = _.filter(structures, function (structure) {
-		return !structure.my;
-	}),
-	    container = _.filter(otherStructures, function (structure) {
-		return structure.structureType == STRUCTURE_CONTAINER;
-	}),
-	    storage = room.storage,
-	    dock = container.push(storage);
-	var creeps = room.find(FIND_CREEPS),
-	    myCreeps = _.filter(creeps, function (creep) {
-		return creep.my;
-	}),
-	    otherCreeps = _.filter(creeps, function (creep) {
-		return !creep.my;
-	}),
-	    my = creepRole(myCreeps, config.role);
-	var sources = room.find(FIND_SOURCES);
+    var config = (0, _config2.default)(room);
+    var structures = room.find(FIND_STRUCTURES),
+        myStructures = _.filter(structures, function (structure) {
+        return structure.my;
+    }),
+        otherStructures = _.filter(structures, function (structure) {
+        return !structure.my;
+    }),
+        container = _.filter(otherStructures, function (structure) {
+        return structure.structureType == STRUCTURE_CONTAINER;
+    }),
+        storage = room.storage;
+    var creeps = room.find(FIND_CREEPS),
+        myCreeps = _.filter(creeps, function (creep) {
+        return creep.my;
+    }),
+        otherCreeps = _.filter(creeps, function (creep) {
+        return !creep.my;
+    }),
+        my = creepRole(myCreeps, config.role);
+    var sources = room.find(FIND_SOURCES);
 
-	var sourceMiner = function sourceMiner(rawSources) {
-		var sources = [];
-		rawSources.forEach(function (source) {
-			var minerNumber = 0;
-			my.miner.forEach(function (creep) {
-				creep.memory.sourceTarget = source.id;
-				minerNumber++;
-			});
+    var dock = container;
 
-			sources.push({
-				source: source,
-				minerNumber: minerNumber
-			});
-		});
-		if (sources.length > 0) {
-			sources.sort(function (a, b) {
-				return a.minerNumber - b.minerNumber;
-			});
-		}
-		return sources;
-	};
+    if (dock.length > 0 && storage) {
+        dock[dock.length] = storage;
+    } else {
+        dock = dock ? dock : [];
+    }
+    var sourceMiner = function sourceMiner(rawSources) {
+        var sources = [];
+        rawSources.forEach(function (source) {
+            var minerNumber = 0;
+            my.miner.forEach(function (creep) {
+                creep.memory.harvestTarget == source.id ? minerNumber++ : null;
+            });
 
-	var memory = {
-		energyAvailable: room.energyAvailable,
-		creeps: {
-			my: my,
-			friend: _.filter(otherCreeps, function (creep) {
-				return (0, _util.isFriend)(creep.owner.username);
-			}),
-			enemy: _.filter(otherCreeps, function (creep) {
-				return !(0, _util.isFriend)(creep.owner.username);
-			})
-		},
-		structures: {
-			terminal: room.terminal,
-			controller: room.controller,
-			storage: storage,
-			tower: _.filter(myStructures, function (structure) {
-				return structure.structureType == STRUCTURE_TOWER;
-			})[0],
-			spawn: _.filter(myStructures, function (structure) {
-				return structure.structureType == STRUCTURE_CONTAINER;
-			})[0],
-			container: container,
-			canWithdraw: _.filter(dock, function (structure) {
-				return structure.storage.energy > 0;
-			}),
-			canFill: _.filter(dock, function (structure) {
-				return structure.store.energy < structure.storeCapacity;
-			}),
-			needFill: _.filter(myStructures, function (structure) {
-				return structure.structureType == (STRUCTURE_EXTENSION || STRUCTURE_SPAWN || STRUCTURE_TOWER) && structure.energy < structure.energyCapacity;
-			}),
-			needFix: _.filter(structures, function (structure) {
-				return (structure.my || structure.structureType == (STRUCTURE_ROAD || STRUCTURE_WALL)) && structure.hits / structure.hitsMax < config.repair.percent && structure.hits < config.repair.maxHits;
-			}),
-			needBuild: room.find(FIND_MY_CONSTRUCTION_SITES)
-		},
-		sources: sourceMiner(sources),
-		dropped: {
-			energy: room.find(FIND_DROPPED_ENERGY)
-		}
-	};
-	room.memory = memory;
+            sources.push({
+                source: source,
+                minerNumber: minerNumber
+            });
+        });
+        if (sources.length > 0) {
+            sources.sort(function (a, b) {
+                return a.minerNumber - b.minerNumber;
+            });
+        }
+        return sources;
+    };
+
+    var memory = {
+        energyAvailable: room.energyAvailable,
+        creeps: {
+            my: my,
+            friend: _.filter(otherCreeps, function (creep) {
+                return (0, _util.isFriend)(creep.owner.username);
+            }),
+            enemy: _.filter(otherCreeps, function (creep) {
+                return !(0, _util.isFriend)(creep.owner.username);
+            })
+        },
+        structures: {
+            terminal: room.terminal,
+            controller: room.controller,
+            storage: storage,
+            tower: _.filter(myStructures, function (structure) {
+                return structure.structureType == STRUCTURE_TOWER;
+            })[0],
+            spawn: _.filter(myStructures, function (structure) {
+                return structure.structureType == STRUCTURE_CONTAINER;
+            })[0],
+            container: container,
+            canWithdraw: _.filter(dock, function (structure) {
+                return structure.store.energy > 0;
+            }),
+            canFill: _.filter(dock, function (structure) {
+                return structure.store.energy < structure.storeCapacity;
+            }),
+            needFill: _.filter(myStructures, function (structure) {
+                return structure.structureType == (STRUCTURE_EXTENSION || STRUCTURE_SPAWN || STRUCTURE_TOWER) && structure.energy < structure.energyCapacity;
+            }),
+            needFix: _.filter(structures, function (structure) {
+                return (structure.my || structure.structureType == (STRUCTURE_ROAD || STRUCTURE_WALL)) && structure.hits / structure.hitsMax < config.repair.percent && structure.hits < config.repair.maxHits;
+            }),
+            needBuild: room.find(FIND_MY_CONSTRUCTION_SITES)
+        },
+        sources: sourceMiner(sources),
+        dropped: {
+            energy: room.find(FIND_DROPPED_ENERGY)
+        }
+    };
+    room.memory = memory;
 };
 
 function creepRole(myCreeps, configRole) {
-	var my = {};
-	configRole.forEach(function (role) {
-		my[role.role] = _.filter(myCreeps, function (creep) {
-			return creep.name.split('#')[0] == role.role;
-		});
-	});
-	return my;
+    var my = {};
+    configRole.forEach(function (role) {
+        my[role.role] = _.filter(myCreeps, function (creep) {
+            return creep.name.split('#')[0] == role.role;
+        });
+    });
+    return my;
 }
 
 /***/ }),
@@ -766,7 +771,7 @@ exports.default = function (creep, needBuild) {
 			buildTarget && creep.build(buildTarget) == ERR_NOT_IN_RANGE ? (0, _task.pathFinder)(creep, buildTarget) : null;
 		} else {
 			var canWithdraw = creep.pos.findClosestByRange(creep.room.memory.structures.canWithdraw);
-			canWithdraw && creep.withdraw(canWithdraw) === ERR_NOT_IN_RANGE ? (0, _task.pathFinder)(creep, canWithdraw) : null;
+			canWithdraw && creep.withdraw(canWithdraw, RESOURCE_ENERGY) === ERR_NOT_IN_RANGE ? (0, _task.pathFinder)(creep, canWithdraw) : null;
 		}
 	}
 };
@@ -880,7 +885,7 @@ exports.default = function (creep, newRoom) {
 				return targetCreep.carry.energy < targetCreep.carryCapacity;
 			}
 		});
-		targets ? creep.transfer(targets[0], RESOURCE_ENERGY) : null;
+		targets.length > 0 ? creep.transfer(targets[0], RESOURCE_ENERGY) : null;
 	}
 
 	if (creep.memory.canHarvest) {
@@ -901,34 +906,34 @@ exports.default = function (creep, newRoom) {
 
 
 Object.defineProperty(exports, "__esModule", {
-	value: true
+    value: true
 });
 
 var _task = __webpack_require__(0);
 
 exports.default = function (creep, dropped) {
 
-	if (creep.carry.energy == 0) {
-		creep.memory.canTransfer = false;
-	}
-	if (creep.carry.energy == creep.carryCapacity) {
-		creep.memory.canTransfer = true;
-	}
+    if (creep.carry.energy == 0) {
+        creep.memory.canTransfer = false;
+    }
+    if (creep.carry.energy == creep.carryCapacity) {
+        creep.memory.canTransfer = true;
+    }
 
-	if (!creep.memory.canTransfer) {
-		if (dropped.length > 0) {
-			var pickupTarget = creep.pos.findInRange(dropped, 5);
-			if (pickupTarget.length > 0 && creep.pickup(pickupTarget[0]) == OK) creep.say('pickup');
-		} else {
-			var transferTarget = creep.room.memory.structures.container.sort(function (a, b) {
-				return b.store.enengy - a.store.enengy;
-			});
-			transferTarget && creep.withdraw(transferTarget[0]) === ERR_NOT_IN_RANGE ? (0, _task.pathFinder)(creep, transferTarget[0]) : null;
-		}
-	} else {
-		var needFill = creep.pos.findClosestByRange(creep.room.memory.structures.needFill);
-		needFill && creep.transfer(needFill, RESOURCE_ENERGY) === ERR_NOT_IN_RANGE ? (0, _task.pathFinder)(creep, needFill) : null;
-	}
+    if (!creep.memory.canTransfer) {
+        if (dropped.length > 0) {
+            var pickupTarget = creep.pos.findInRange(dropped, 5);
+            pickupTarget.length > 0 && creep.pickup(pickupTarget[0]) === ERR_NOT_IN_RANGE ? (0, _task.pathFinder)(creep, pickupTarget[0]) : null;
+        } else {
+            var transferTarget = creep.room.memory.structures.container.sort(function (a, b) {
+                return b.store.enengy - a.store.enengy;
+            });
+            transferTarget && creep.withdraw(transferTarget[0], RESOURCE_ENERGY) === ERR_NOT_IN_RANGE ? (0, _task.pathFinder)(creep, transferTarget[0]) : null;
+        }
+    } else {
+        var needFill = creep.pos.findClosestByRange(creep.room.memory.structures.needFill);
+        needFill && creep.transfer(needFill, RESOURCE_ENERGY) === ERR_NOT_IN_RANGE ? (0, _task.pathFinder)(creep, needFill) : null;
+    }
 };
 
 /***/ }),
@@ -953,7 +958,7 @@ exports.default = function (creep, sources, dropped) {
 	if (creep.carry.energy == creep.carryCapacity) {
 		creep.memory.canHarvest = false;
 		var canFill = creep.pos.findInRange(creep.room.memory.structures.canFill, 4);
-		canFill.length > 0 && creep.transfer(canFill, RESOURCE_ENERGY) === ERR_NOT_IN_RANGE ? (0, _task.pathFinder)(creep, canFill) : null;
+		canFill.length > 0 && creep.transfer(canFill[0], RESOURCE_ENERGY) === ERR_NOT_IN_RANGE ? (0, _task.pathFinder)(creep, canFill[0]) : null;
 	}
 
 	if (!creep.memory.harvestTarget) {
@@ -997,7 +1002,7 @@ exports.default = function (creep, controller) {
 		if (creep.upgradeController(controller) === ERR_NOT_IN_RANGE) (0, _task.pathFinder)(creep, controller);
 	} else {
 		var canWithdraw = creep.pos.findClosestByRange(creep.room.memory.structures.canWithdraw);
-		canWithdraw && creep.withdraw(canWithdraw) === ERR_NOT_IN_RANGE ? (0, _task.pathFinder)(creep, canWithdraw) : null;
+		canWithdraw && creep.withdraw(canWithdraw, RESOURCE_ENERGY) === ERR_NOT_IN_RANGE ? (0, _task.pathFinder)(creep, canWithdraw) : null;
 	}
 };
 
@@ -1222,7 +1227,7 @@ var taskFindMiner = function taskFindMiner(creep) {
 		});
 	}
 
-	if (creep.withdraw(target, 'energy') == ERR_NOT_IN_RANGE) {
+	if (creep.withdraw(target, RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
 		(0, _task.pathFinder)(creep, target);
 	}
 };

@@ -9,7 +9,7 @@ export default (creep, newRoom) => {
 		const targets           = creep.pos.findInRange(FIND_MY_CREEPS, 1, {
 			filter: targetCreep => targetCreep.carry.energy < targetCreep.carryCapacity
 		});
-		(targets) ? creep.transfer(targets[0], RESOURCE_ENERGY) : null;
+		(targets.length > 0) ? creep.transfer(targets[0], RESOURCE_ENERGY) : null;
 	}
 
 	if (creep.memory.canHarvest) {
