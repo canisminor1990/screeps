@@ -25,9 +25,9 @@ export default (roomName) => {
 			container : _.filter(otherStructures, structure => structure.structureType == STRUCTURE_CONTAINER),
 			needFix   : _.filter(structures, config.repair)
 		},
-		constructionSites: mySpawn.room.find(FIND_CONSTRUCTION_SITES),
-		sources: mySpawn.room.find(FIND_SOURCES),
-		droppedEnergy: mySpawn.room.find(FIND_DROPPED_ENERGY)
+		constructionSites: room.find(FIND_CONSTRUCTION_SITES),
+		sources: room.find(FIND_SOURCES),
+		droppedEnergy: room.find(FIND_DROPPED_ENERGY)
 	}
 	Memory.test = memory;
 }

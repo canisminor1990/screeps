@@ -600,9 +600,9 @@ exports.default = function (roomName) {
 			}),
 			needFix: _.filter(structures, _config2.default.repair)
 		},
-		constructionSites: mySpawn.room.find(FIND_CONSTRUCTION_SITES),
-		sources: mySpawn.room.find(FIND_SOURCES),
-		droppedEnergy: mySpawn.room.find(FIND_DROPPED_ENERGY)
+		constructionSites: room.find(FIND_CONSTRUCTION_SITES),
+		sources: room.find(FIND_SOURCES),
+		droppedEnergy: room.find(FIND_DROPPED_ENERGY)
 	};
 	Memory.test = memory;
 };
