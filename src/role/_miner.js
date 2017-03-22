@@ -14,7 +14,13 @@ export default (creep, sources, dropped = []) => {
 	}
 
 	if (creep.carry.energy < creep.carryCapacity && creep.memory.harvestTarget) {
-
+		// if (dropped.length > 0) {
+		// 	const pickupTarget = creep.pos.findInRange(dropped, 0);
+		// 	if (pickupTarget.length > 0 && creep.pickup(pickupTarget[0]) == OK) creep.say('pickup')
+        //
+		// } else {
+		//
+		// }
 
         const harvestTarget = Game.getObjectById(creep.memory.harvestTarget);
         (creep.harvest(harvestTarget) == ERR_NOT_IN_RANGE) ?

@@ -661,7 +661,7 @@ exports.default = function (room) {
     });
     // far
     myCreeps.farHarvester.forEach(function (creep) {
-        return role.farHarvester(creep);
+        return role.farHarvester(creep, newRoom);
     });
     myCreeps.farMiner.forEach(function (creep) {
         return role.farMiner(creep, newRoom);
@@ -850,9 +850,9 @@ Object.defineProperty(exports, "__esModule", {
 
 var _task = __webpack_require__(0);
 
-exports.default = function (creep) {
+exports.default = function (creep, newRoom) {
     var room = Game.spawns['Spawn1'].room;
-    var farMiner = creep.room.memory.creeps.my.farMiner;
+    var farMiner = newRoom.memory.creeps.my.farMiner;
 
     if (creep.carry.energy == 0) {
         creep.memory.full = false;
@@ -996,6 +996,13 @@ exports.default = function (creep, sources) {
 	}
 
 	if (creep.carry.energy < creep.carryCapacity && creep.memory.harvestTarget) {
+		// if (dropped.length > 0) {
+		// 	const pickupTarget = creep.pos.findInRange(dropped, 0);
+		// 	if (pickupTarget.length > 0 && creep.pickup(pickupTarget[0]) == OK) creep.say('pickup')
+		//
+		// } else {
+		//
+		// }
 
 		var harvestTarget = Game.getObjectById(creep.memory.harvestTarget);
 		creep.harvest(harvestTarget) == ERR_NOT_IN_RANGE ? (0, _task.pathFinder)(creep, harvestTarget) : null;

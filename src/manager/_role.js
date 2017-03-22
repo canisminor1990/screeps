@@ -15,7 +15,7 @@ export default (room) => {
     myCreeps.builder.forEach(creep => role.builder(creep, targetStructures.needBuild))
     myCreeps.cleaner.forEach(creep => role.cleaner(creep, dropped))
     // far
-    myCreeps.farHarvester.forEach(creep => role.farHarvester(creep))
+    myCreeps.farHarvester.forEach(creep => role.farHarvester(creep,newRoom))
     myCreeps.farMiner.forEach(creep => role.farMiner(creep, newRoom))
     myCreeps.claim.forEach(creep => role.claim(creep, newRoom))
 
