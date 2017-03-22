@@ -331,7 +331,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 
 exports.default = function (owner) {
-	return Memory.config.friends.toString().match(owner) ? true : false;
+	return false;
 };
 
 /***/ }),
