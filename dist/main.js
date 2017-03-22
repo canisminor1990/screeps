@@ -906,9 +906,8 @@ exports.default = function (creep, newRoom) {
             creep.transfer(targets[0], RESOURCE_ENERGY);
         } else {
             var needBuild = newRoom.memory.structures.needBuild;
-            var buildTarget = creep.pos.findClosestByRange(needBuild);
-            console.log(needBuild, buildTarget);
-            buildTarget && creep.build(buildTarget) == ERR_NOT_IN_RANGE ? (0, _task.pathFinder)(creep, buildTarget) : null;
+
+            needBuild.length > 0 && creep.build(needBuild[0]) == ERR_NOT_IN_RANGE ? (0, _task.pathFinder)(creep, needBuild[0]) : null;
         }
     }
 

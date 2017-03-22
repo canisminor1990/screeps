@@ -14,11 +14,11 @@ export default (creep, newRoom) => {
         if (targets.length > 0) {
             creep.transfer(targets[0], RESOURCE_ENERGY)
         } else {
-            const needBuild =newRoom.memory.structures.needBuild;
-            const buildTarget = creep.pos.findClosestByRange(needBuild);
-            console.log(needBuild,buildTarget);
-            (buildTarget && creep.build(buildTarget) == ERR_NOT_IN_RANGE)
-                ? pathFinder(creep, buildTarget) : null;
+            const needBuild = newRoom.memory.structures.needBuild;
+
+
+            (needBuild.length > 0  && creep.build(needBuild[0]) == ERR_NOT_IN_RANGE)
+                ? pathFinder(creep, needBuild[0]) : null;
         }
     }
 
