@@ -796,14 +796,16 @@ Object.defineProperty(exports, "__esModule", {
 	value: true
 });
 
+var _task = __webpack_require__(0);
+
 exports.default = function (creep, newRoom) {
 	"use strict";
 
 	var controller = Game.getObjectById('5873bc3511e3e4361b4d738f');
 	if (!controller) {
-		creep.moveTo(newRoom);
+		(0, _task.pathFinder)(creep, newRoom);
 	} else {
-		creep.reserveController(controller) !== OK ? creep.moveTo(controller) : null;
+		creep.reserveController(controller) !== OK ? (0, _task.pathFinder)(creep, controller) : null;
 	}
 };
 
@@ -855,29 +857,29 @@ exports.default = function (creep) {
 
 
 Object.defineProperty(exports, "__esModule", {
-	value: true
+    value: true
 });
 
 var _task = __webpack_require__(0);
 
 exports.default = function (creep) {
-	var room = Game.spawns['Spawn1'].room;
-	var farMiner = creep.room.memory.creeps.my.farMiner;
+    var room = Game.spawns['Spawn1'].room;
+    var farMiner = creep.room.memory.creeps.my.farMiner;
 
-	if (creep.carry.energy == 0) {
-		creep.memory.full = false;
-	}
-	if (creep.carry.energy == creep.carryCapacity || !farMiner.length > 0) {
-		creep.memory.full = true;
-	}
+    if (creep.carry.energy == 0) {
+        creep.memory.full = false;
+    }
+    if (creep.carry.energy == creep.carryCapacity || !farMiner.length > 0) {
+        creep.memory.full = true;
+    }
 
-	if (!creep.memory.full) {
+    if (!creep.memory.full) {
 
-		var _farMiner = Game.getObjectById(_farMiner[0].id);
-		creep.moveTo(_farMiner);
-	} else {
-		creep.transfer(room.storage, RESOURCE_ENERGY) !== OK ? (0, _task.pathFinder)(creep, room.storage) : null;
-	}
+        var farMinerTarget = Game.getObjectById(farMiner[0].id);
+        (0, _task.pathFinder)(creep, farMinerTarget);
+    } else {
+        creep.transfer(room.storage, RESOURCE_ENERGY) !== OK ? (0, _task.pathFinder)(creep, room.storage) : null;
+    }
 };
 
 /***/ }),
@@ -890,6 +892,8 @@ exports.default = function (creep) {
 Object.defineProperty(exports, "__esModule", {
 	value: true
 });
+
+var _task = __webpack_require__(0);
 
 exports.default = function (creep, newRoom) {
 
@@ -910,9 +914,9 @@ exports.default = function (creep, newRoom) {
 	if (creep.memory.canHarvest) {
 		var source = Game.getObjectById('5873bc3511e3e4361b4d7390');
 		if (!source) {
-			creep.moveTo(newRoom);
+			(0, _task.pathFinder)(creep, newRoom);
 		} else {
-			creep.harvest(source) !== OK ? creep.moveTo(source) : null;
+			creep.harvest(source) !== OK ? (0, _task.pathFinder)(creep, source) : null;
 		}
 	}
 };

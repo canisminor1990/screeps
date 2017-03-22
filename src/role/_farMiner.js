@@ -1,3 +1,4 @@
+import {pathFinder} from "../task"
 export default (creep, newRoom) => {
 
 	if (creep.carry.energy == 0) {
@@ -15,9 +16,10 @@ export default (creep, newRoom) => {
 	if (creep.memory.canHarvest) {
 		const source = Game.getObjectById('5873bc3511e3e4361b4d7390');
 		if (!source) {
-			creep.moveTo(newRoom)
+            pathFinder(creep,newRoom)
+
 		} else {
-			(creep.harvest(source) !== OK) ? creep.moveTo(source) : null;
+			(creep.harvest(source) !== OK) ? pathFinder(creep,source) : null;
 		}
 	}
 }
