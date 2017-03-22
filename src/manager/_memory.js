@@ -1,8 +1,8 @@
 import config from "../config"
 import { isFriend } from '../_util'
 
-export default (roomName) => {
-	const room            = Game.rooms[roomName]
+export default (room) => {
+	const config          = config(room)
 	const structures      = room.find(FIND_STRUCTURES),
 	      myStructures    = _.filter(structures, structure => structure.my),
 	      otherStructures = _.filter(structures, structure => !structure.my);
@@ -10,7 +10,7 @@ export default (roomName) => {
 	      myCreeps        = _.filter(creeps, creep => creep.my),
 	      otherCreeps     = _.filter(creeps, creep => !creep.my);
 
-	const memory           = {
+	const memory = {
 		energyAvailable: room.energyAvailable,
 		creeps         : {
 			my    : creepRole(myCreeps, config.role),
@@ -21,15 +21,23 @@ export default (roomName) => {
 			terminal  : room.terminal,
 			controller: room.controller,
 			storage   : room.storage,
-			spawn     : _.filter(myStructures, structure => structure.structureType == STRUCTURE_CONTAINER),
+			tower     : _.filter(myStructures, structure => structure.structureType == STRUCTURE_TOWER)[0],
+			spawn     : _.filter(myStructures, structure => structure.structureType == STRUCTURE_CONTAINER)[0],
 			container : _.filter(otherStructures, structure => structure.structureType == STRUCTURE_CONTAINER),
-			needFix   : _.filter(structures, config.repair)
+			needFill  : _.filter(myStructures, structure =>
+			structure.structureType == (STRUCTURE_EXTENSION || STRUCTURE_SPAWN || STRUCTURE_TOWER) &&
+			structure.energy < structure.energyCapacity),
+			needFix   : _.filter(structures, structure =>
+			( structure.my || structure.structureType == (STRUCTURE_ROAD || STRUCTURE_WALL) ) &&
+			(structure.hits / structure.hitsMax) < config.repair.percent && structure.hits < config.repair.maxHits),
+			needBuild : room.find(FIND_MY_CONSTRUCTION_SITES),
 		},
-		constructionSites: room.find(FIND_CONSTRUCTION_SITES),
-		sources: room.find(FIND_SOURCES),
-		droppedEnergy: room.find(FIND_DROPPED_ENERGY)
+		sources        : room.find(FIND_SOURCES),
+		dropped        : {
+			energy: room.find(FIND_DROPPED_ENERGY)
+		}
 	}
-	Memory.test = memory;
+	room.memory  = memory;
 }
 
 function creepRole(myCreeps, configRole) {

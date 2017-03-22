@@ -1,95 +1,18 @@
 import 'screeps-perf';
-import * as role from './role';
-import * as structure from './structure';
-import {Timer, Build} from './_util'
-import memoryManager from './memory'
+import * as Manager from './manager'
 
-const mySpawn = Game.spawns['Spawn1'];
-
+const roomName      = 'W81S67'
+const room          = Game.rooms[roomName]
 module.exports.loop = () => {
 	// PathFinder.use(true);
-	memoryManager('W81S67')
-	mySpawn.room.memory = {
-		structures: mySpawn.room.find(FIND_STRUCTURES),
-		constructionSites: mySpawn.room.find(FIND_CONSTRUCTION_SITES),
-		source: mySpawn.room.find(FIND_SOURCES),
-		miner: mySpawn.room.find(FIND_MY_CREEPS, {filter: (miner) => miner.memory.role === "miner"}),
-		drop: mySpawn.room.find(FIND_DROPPED_ENERGY)
+	// cleanr
+	for (let name in Memory.creeps) {
+		(!Game.creeps[name]) ? delete Memory.creeps[name] : null
 	}
-
-	const targetsHarvest = mySpawn.room.memory.structures.filter(structure =>
-			(
-					structure.structureType == STRUCTURE_EXTENSION ||
-					structure.structureType == STRUCTURE_SPAWN ||
-					structure.structureType == STRUCTURE_TOWER
-			) && structure.energy < structure.energyCapacity
-	)
-	const targetsBuild = mySpawn.room.memory.constructionSites;
-	const targetsPickup = mySpawn.room.memory.drop;
-
-	for (let name in mySpawn.room.memory.structures) {
-		const structureName = mySpawn.room.memory.structures[name];
-		switch (structureName.structureType) {
-			case 'spawn':
-				structure.spawn(structureName);
-				break;
-			case 'tower':
-				structure.tower(structureName);
-				break;
-		}
-	}
-
-	for (let name in Game.creeps) {
-		const creep = Game.creeps[name];
-
-		if (!creep.memory.role) {
-			creep.memory = {
-				role: creep.name.split('#') [0],
-				source: 1
-			}
-		}
-		creep.memory.role = creep.name.split('#') [0]
-		creep.memory.source = Number(creep.memory.source)
-		switch (creep.memory.role) {
-			case 'claim':
-				role.claim(creep)
-				break;
-			case 'farMiner':
-				role.farMiner(creep)
-				Memory.farMiner = creep.id;
-				break;
-			case 'farHarvester':
-				role.farHarvester(creep)
-				break;
-			case 'harvester':
-				role.harvester(creep)
-				break;
-			case 'upgrader':
-				role.upgrader(creep);
-				break;
-			case 'builder':
-				role.builder(creep)
-				break;
-			case 'miner':
-				role.miner(creep);
-				break;
-			case 'cleaner':
-				(targetsPickup.length > 0 ) ? role.cleaner(creep) : role.harvester(creep)
-				break;
-		}
-	}
-
-	if (Timer(10)) {
-		console.log([
-			'[Log]',
-			'Harvest:',
-			targetsHarvest.length,
-			'Build:',
-			targetsBuild.length,
-			'Pickup:',
-			targetsPickup.length,
-		].join(' '))
-	}
+	// start
+	Manager.memory(room)
+	Manager.role(room)
+	Manager.structure(room)
 }
 
 
