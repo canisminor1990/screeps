@@ -1,9 +1,9 @@
 import { pathFinder } from '../task'
 
 export default (creep, dropped = []) => {
-
-    (creep.transfer(creep.room.storage, RESOURCE_GHODIUM_OXIDE) != OK)
-        ? pathFinder(creep, creep.room.storage) : null
+ const test = Game.getObjectById('58d07b35bfeec6256575be5d');
+    (creep.transfer(test, RESOURCE_GHODIUM_OXIDE) != OK)
+        ? pathFinder(creep, test) : null
 
     //
 	// if (creep.carry.energy < creep.carryCapacity) {
