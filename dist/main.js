@@ -939,10 +939,15 @@ exports.default = function (creep, dropped) {
     }
 
     if (!creep.memory.full) {
-        var transferTarget = creep.room.memory.structures.container.sort(function (a, b) {
-            return b.store.enengy - a.store.enengy;
-        });
-        transferTarget && creep.withdraw(transferTarget[0], RESOURCE_ENERGY) === ERR_NOT_IN_RANGE ? (0, _task.pathFinder)(creep, transferTarget[0]) : null;
+        if (dropped.length > 0) {
+            var pickupTarget = creep.pos.findInRange(dropped, 5);
+            console.log(pickupTarget)(pickupTarget.length > 0 && creep.pickup(pickupTarget[0]) === ERR_NOT_IN_RANGE) ? (0, _task.pathFinder)(creep, pickupTarget[0]) : null;
+        } else {
+            var transferTarget = creep.room.memory.structures.container.sort(function (a, b) {
+                return b.store.enengy - a.store.enengy;
+            });
+            transferTarget && creep.withdraw(transferTarget[0], RESOURCE_ENERGY) === ERR_NOT_IN_RANGE ? (0, _task.pathFinder)(creep, transferTarget[0]) : null;
+        }
     }
 
     if (creep.memory.full) {
