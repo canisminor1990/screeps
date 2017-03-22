@@ -15,7 +15,7 @@ const taskFindMiner = (creep) => {
 			}
 		} else {
 			let targetsSoorage;
-			if (creep.role != 'harvester') {
+			if (creep.role == 'upgrader') {
 				targetsSoorage = creep.pos.findClosestByPath(FIND_MY_STRUCTURES, {
 					filter: structure => (
 					structure.structureType == STRUCTURE_STORAGE &&

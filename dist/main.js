@@ -1194,7 +1194,7 @@ var taskFindMiner = function taskFindMiner(creep) {
 			}
 		} else {
 			var targetsSoorage = void 0;
-			if (creep.role != 'harvester') {
+			if (creep.role == 'upgrader') {
 				targetsSoorage = creep.pos.findClosestByPath(FIND_MY_STRUCTURES, {
 					filter: function filter(structure) {
 						return structure.structureType == STRUCTURE_STORAGE && structure.store["energy"] > 0;
