@@ -850,19 +850,20 @@ Object.defineProperty(exports, "__esModule", {
 });
 
 exports.default = function (creep, room) {
+
+	var farMiner = creep.room.memory.creeps.my.farMiner;
+
 	if (creep.carry.energy == 0) {
 		creep.memory.full = false;
 	}
-	if (creep.carry.energy == creep.carryCapacity) {
+	if (creep.carry.energy == creep.carryCapacity || !farMiner.length > 0) {
 		creep.memory.full = true;
 	}
 
 	if (!creep.memory.full) {
-		var farMiner = creep.room.memory.creeps.my.farMiner;
-		if (farMiner.length > 0) {
-			var _farMiner = Game.getObjectById(_farMiner[0].id);
-			creep.moveTo(_farMiner);
-		}
+
+		var _farMiner = Game.getObjectById(_farMiner[0].id);
+		creep.moveTo(_farMiner);
 	} else {
 		if (creep.room.name !== room.name) {
 			creep.moveTo(room);
