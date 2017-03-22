@@ -1209,18 +1209,27 @@ var taskFindMiner = function taskFindMiner(creep) {
             }
             if (minerTarget && minerEnergy >= 50) {
                 (0, _task.pathFinder)(creep, minerTarget);
+            } else {
+                var targetsContainer = creep.pos.findClosestByPath(FIND_STRUCTURES, {
+                    filter: function filter(structure) {
+                        return structure.structureType == STRUCTURE_CONTAINER && structure.store["energy"] > 0;
+                    }
+                });
+                if (creep.withdraw(targetsContainer, 'energy') == ERR_NOT_IN_RANGE) {
+
+                    (0, _task.pathFinder)(creep, targetsContainer);
+                }
             }
         } else {
 
-            var targetsContainer = creep.pos.findClosestByPath(FIND_STRUCTURES, {
+            var targetsSoorage = creep.pos.findClosestByPath(FIND_MY_STRUCTURES, {
                 filter: function filter(structure) {
-                    return (structure.structureType == STRUCTURE_CONTAINER || structure.structureType == STRUCTURE_STORAGE) && structure.store["energy"] > 0;
+                    return structure.structureType == STRUCTURE_STORAGE && structure.store["energy"] > 0;
                 }
             });
 
-            if (creep.withdraw(targetsContainer, 'energy') == ERR_NOT_IN_RANGE) {
-
-                (0, _task.pathFinder)(creep, targetsContainer);
+            if (creep.withdraw(targetsSoorage, 'energy') == ERR_NOT_IN_RANGE) {
+                (0, _task.pathFinder)(creep, targetsSoorage);
             }
         }
     } else {
