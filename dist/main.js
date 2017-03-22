@@ -149,6 +149,11 @@ module.exports.loop = function () {
 	Manager.memory(room);
 	Manager.role(room);
 
+	if (roomNext) {
+		Manager.memory(roomNext);
+		Manager.role(roomNext);
+	}
+
 	Manager.structure(room);
 };
 
