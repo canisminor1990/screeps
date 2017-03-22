@@ -2,11 +2,13 @@ import 'screeps-perf';
 import * as role from './role';
 import * as structure from './structure';
 import {Timer, Build} from './_util'
+import memoryManager from './memory'
 
 const mySpawn = Game.spawns['Spawn1'];
 
 module.exports.loop = () => {
 	// PathFinder.use(true);
+	memoryManager('W81S67')
 	mySpawn.room.memory = {
 		structures: mySpawn.room.find(FIND_STRUCTURES),
 		constructionSites: mySpawn.room.find(FIND_CONSTRUCTION_SITES),
