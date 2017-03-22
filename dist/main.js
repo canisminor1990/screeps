@@ -157,7 +157,7 @@ var role = [{
 }, {
 	role: 'builder',
 	body: { move: 3, work: 3, carry: 3 },
-	number: [targetsBuild.length < 4 ? targetsBuild.length : 4],
+	number: [targetsBuild.length / 2 < 4 ? targetsBuild.length / 2 : 4],
 	priority: 6
 }, {
 	role: "miner",
