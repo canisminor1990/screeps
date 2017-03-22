@@ -13,13 +13,9 @@ export default (creep, needBuild, newRoom) => {
 	let newNeedBuild = newRoom.memory.structures.needBuild;
 	if (creep.memory.canBuild && newNeedBuild.length > 0) {
 
-		if (creep.room.name != newRoom.name) {
-			pathFinder(creep, newRoom.pos)
-		} else {
-			const newBuildTarget = creep.pos.findClosestByRange(newNeedBuild);
-			(newBuildTarget && creep.build(newBuildTarget) != OK)
-					? pathFinder(creep, newBuildTarget) : null;
-		}
+		const newBuildTarget = newNeedBuild[0];
+		(newBuildTarget && creep.build(newBuildTarget) != OK)
+				? pathFinder(creep, newBuildTarget) : null;
 
 	} else {
 		let storage = Game.getObjectById('58d07b35bfeec6256575be5d');

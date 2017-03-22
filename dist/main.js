@@ -770,12 +770,8 @@ exports.default = function (creep, needBuild, newRoom) {
 	var newNeedBuild = newRoom.memory.structures.needBuild;
 	if (creep.memory.canBuild && newNeedBuild.length > 0) {
 
-		if (creep.room.name != newRoom.name) {
-			(0, _task.pathFinder)(creep, newRoom.pos);
-		} else {
-			var newBuildTarget = creep.pos.findClosestByRange(newNeedBuild);
-			newBuildTarget && creep.build(newBuildTarget) != OK ? (0, _task.pathFinder)(creep, newBuildTarget) : null;
-		}
+		var newBuildTarget = newNeedBuild[0];
+		newBuildTarget && creep.build(newBuildTarget) != OK ? (0, _task.pathFinder)(creep, newBuildTarget) : null;
 	} else {
 		var storage = Game.getObjectById('58d07b35bfeec6256575be5d');
 		creep.withdraw(storage, RESOURCE_ENERGY) != OK ? (0, _task.pathFinder)(creep, storage) : null;
