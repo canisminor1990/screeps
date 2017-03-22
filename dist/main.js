@@ -459,7 +459,7 @@ exports.default = function () {
 	}, {
 		role: 'harvester',
 		body: { move: 4, work: 0, carry: 8 },
-		number: 6,
+		number: 4,
 		priority: 2
 	}, {
 		role: 'upgrader',
