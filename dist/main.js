@@ -897,6 +897,16 @@ exports.default = function (creep, newRoom) {
 
     if (creep.carry.energy == creep.carryCapacity) {
         creep.memory.canHarvest = false;
+    }
+
+    if (creep.memory.canHarvest) {
+        var source = Game.getObjectById('5873bc3511e3e4361b4d7390');
+        if (!source) {
+            (0, _task.pathFinder)(creep, newRoom);
+        } else {
+            creep.harvest(source) !== OK ? (0, _task.pathFinder)(creep, source) : null;
+        }
+    } else {
         var targets = creep.pos.findInRange(creep.room.memory.creeps.my.farHarvester, 1, {
             filter: function filter(targetCreep) {
                 return targetCreep.carry.energy < targetCreep.carryCapacity;
@@ -906,17 +916,7 @@ exports.default = function (creep, newRoom) {
             creep.transfer(targets[0], RESOURCE_ENERGY);
         } else {
             var needBuild = creep.room.memory.structures.needBuild;
-
             needBuild.length > 0 && creep.build(needBuild[0]) == ERR_NOT_IN_RANGE ? (0, _task.pathFinder)(creep, needBuild[0]) : null;
-        }
-    }
-
-    if (creep.memory.canHarvest) {
-        var source = Game.getObjectById('5873bc3511e3e4361b4d7390');
-        if (!source) {
-            (0, _task.pathFinder)(creep, newRoom);
-        } else {
-            creep.harvest(source) !== OK ? (0, _task.pathFinder)(creep, source) : null;
         }
     }
 };
