@@ -186,6 +186,7 @@ module.exports.loop = function () {
 				break;
 			case 'farMiner':
 				role.farMiner(creep);
+				Memory.farMiner = creep.id;
 				break;
 			case 'farHarvester':
 				role.farHarvester(creep);
@@ -736,18 +737,9 @@ exports.default = function (creep) {
 	}
 
 	if (!creep.memory.full) {
-		var source = Game.getObjectById('5873bc3511e3e4361b4d7390');
-		if (!source) {
-			creep.moveTo(new RoomPosition(27, 21, room));
-		} else {
-			var miner = creep.pos.findInRange(FIND_MY_CREEPS, 5, { filter: function filter(creepRole) {
-					return creepRole.memory.role == 'farMiner';
-				} })[0];
-			if (!miner) {
-				creep.harvest(source) == ERR_NOT_IN_RANGE ? creep.moveTo(source) : null;
-			} else {
-				creep.moveTo(miner);
-			}
+		if (Memory.farMiner) {
+			var farMiner = Game.getObjectById(Memory.farMiner);
+			creep.moveTo(farMiner);
 		}
 	} else {
 		if (creep.room.name !== myRoom.room.name) {
