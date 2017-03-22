@@ -903,7 +903,7 @@ exports.default = function (creep, newRoom) {
 
     if (creep.carry.energy == creep.carryCapacity) {
         creep.memory.canHarvest = false;
-        var targets = creep.pos.findInRange(FIND_MY_CREEPS, 1, {
+        var targets = creep.pos.findInRange(creep.room.memory.creeps.my.farHarvester, 1, {
             filter: function filter(targetCreep) {
                 return targetCreep.carry.energy < targetCreep.carryCapacity;
             }
@@ -913,7 +913,7 @@ exports.default = function (creep, newRoom) {
         } else {
             var needBuild = creep.room.memory.structures.needBuild;
             var buildTarget = creep.pos.findClosestByRange(needBuild);
-            buildTarget && creep.build(buildTarget) == ERR_NOT_IN_RANGE ? (0, _task.pathFinder)(creep, buildTarget) : null;
+            console.log(needBuild, buildTarget)(buildTarget && creep.build(buildTarget) == ERR_NOT_IN_RANGE) ? (0, _task.pathFinder)(creep, buildTarget) : null;
         }
     }
 

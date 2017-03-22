@@ -8,7 +8,7 @@ export default (creep, newRoom) => {
 
     if (creep.carry.energy == creep.carryCapacity) {
         creep.memory.canHarvest = false;
-        const targets = creep.pos.findInRange(FIND_MY_CREEPS, 1, {
+        const targets = creep.pos.findInRange(creep.room.memory.creeps.my.farHarvester, 1, {
             filter: targetCreep => targetCreep.carry.energy < targetCreep.carryCapacity
         });
         if (targets.length > 0) {
@@ -16,6 +16,7 @@ export default (creep, newRoom) => {
         } else {
             const needBuild = creep.room.memory.structures.needBuild;
             const buildTarget = creep.pos.findClosestByRange(needBuild);
+            console.log(needBuild,buildTarget)
             (buildTarget && creep.build(buildTarget) == ERR_NOT_IN_RANGE)
                 ? pathFinder(creep, buildTarget) : null;
         }
