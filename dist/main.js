@@ -640,7 +640,10 @@ exports.default = function (room) {
     var targetStructures = Memory.structures;
     var myCreeps = Memory.creeps.my;
     var dropped = Memory.dropped ? Memory.dropped.energy : [];
-    var newRoom = new RoomPosition(25, 47, 'W81S66');
+    var newRoom = {
+        pos: new RoomPosition(25, 47, 'W81S66'),
+        memory: Game.rooms['W81S66'].memory
+    };
 
     // creepRoleRun(myCreep, config(room).role)
 
@@ -791,7 +794,7 @@ exports.default = function (creep, newRoom) {
 
 	var controller = Game.getObjectById('5873bc3511e3e4361b4d738f');
 	if (!controller) {
-		(0, _task.pathFinder)(creep, newRoom);
+		(0, _task.pathFinder)(creep, newRoom.pos);
 	} else {
 		creep.reserveController(controller) !== OK ? (0, _task.pathFinder)(creep, controller) : null;
 	}
@@ -852,7 +855,7 @@ var _task = __webpack_require__(0);
 
 exports.default = function (creep, newRoom) {
     var room = Game.spawns['Spawn1'].room;
-    var farMiner = newRoom.creeps.my.farMiner;
+    var farMiner = newRoom.memory.creeps.my.farMiner;
 
     if (creep.carry.energy == 0) {
         creep.memory.full = false;
@@ -896,12 +899,12 @@ exports.default = function (creep, newRoom) {
     if (creep.memory.canHarvest) {
         var source = Game.getObjectById('5873bc3511e3e4361b4d7390');
         if (!source) {
-            (0, _task.pathFinder)(creep, newRoom);
+            (0, _task.pathFinder)(creep, newRoom.pos);
         } else {
             creep.harvest(source) !== OK ? (0, _task.pathFinder)(creep, source) : null;
         }
     } else {
-        var targets = creep.pos.findInRange(creep.room.memory.creeps.my.farHarvester, 1, {
+        var targets = creep.pos.findInRange(newRoom.memory.creeps.my.farHarvester, 1, {
             filter: function filter(targetCreep) {
                 return targetCreep.carry.energy < targetCreep.carryCapacity;
             }
@@ -909,7 +912,7 @@ exports.default = function (creep, newRoom) {
         if (targets.length > 0) {
             creep.transfer(targets[0], RESOURCE_ENERGY);
         } else {
-            var needBuild = creep.room.memory.structures.needBuild;
+            var needBuild = newRoom.memory.structures.needBuild;
             needBuild.length > 0 && creep.build(needBuild[0]) == ERR_NOT_IN_RANGE ? (0, _task.pathFinder)(creep, needBuild[0]) : null;
         }
     }

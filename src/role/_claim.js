@@ -3,7 +3,7 @@ export default (creep,newRoom) => {
 	"use strict";
 	const controller = Game.getObjectById('5873bc3511e3e4361b4d738f');
 	if (!controller) {
-        pathFinder(creep,newRoom)
+        pathFinder(creep,newRoom.pos)
 	} else {
 		(creep.reserveController(controller) !== OK) ? pathFinder(creep,controller) : null;
 	}
