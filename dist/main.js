@@ -147,7 +147,7 @@ var role = [{
 }, {
 	role: 'harvester',
 	body: { move: 4, work: 0, carry: 8 },
-	number: [0, 6],
+	number: [0, 4],
 	priority: 2
 }, {
 	role: 'upgrader',
