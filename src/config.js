@@ -41,7 +41,7 @@ const role         = [
 	{
 		role    : "miner",
 		body    : {move: 2, work: 8, carry: 1},
-		number  : [1, 1],
+		number  : [1, 2],
 		priority: 2
 	},
 	{
