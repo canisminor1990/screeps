@@ -152,7 +152,7 @@ module.exports.loop = function () {
 		Manager.role(roomNext);
 	}
 
-	Manager.structure(room);
+	Manager.structure(room, roomNext);
 };
 
 /***/ }),
@@ -693,16 +693,16 @@ var structure = _interopRequireWildcard(_structure);
 
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
-exports.default = function (room) {
+exports.default = function (room, roomNext) {
     var Memory = room.memory;
-    var roomNext = Game.rooms['W81S66'].memory.structures.my;
+    var nextMy = roomNext.memory.structures.my;
     var targetStructures = Memory.structures;
     var targetCreeps = Memory.creeps;
     var config = Memory.config;
 
-    console.log(roomNext);
+    console.log(nextMy);
 
-    structure.spawn(targetStructures.spawn, _.merge(targetCreeps.my, roomNext), config);
+    structure.spawn(targetStructures.spawn, _.merge(targetCreeps.my, nextMy), config);
     structure.tower(targetStructures.tower, targetStructures.needFix, targetCreeps.enemy);
 };
 

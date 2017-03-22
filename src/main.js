@@ -23,7 +23,7 @@ module.exports.loop = () => {
         Manager.role(roomNext)
 	}
 
-	Manager.structure(room)
+	Manager.structure(room,roomNext)
 }
 
 

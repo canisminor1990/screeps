@@ -1,14 +1,14 @@
 import * as structure from '../structure';
 
-export default (room) => {
+export default (room,roomNext) => {
     const Memory = room.memory;
-    const roomNext =  Game.rooms['W81S66'].memory.structures.my;
+    const nextMy =  roomNext.memory.structures.my;
     const targetStructures = Memory.structures;
     const targetCreeps = Memory.creeps;
     const config = Memory.config;
 
-console.log(roomNext)
+console.log(nextMy)
 
-    structure.spawn(targetStructures.spawn, _.merge(targetCreeps.my,roomNext), config);
+    structure.spawn(targetStructures.spawn, _.merge(targetCreeps.my,nextMy), config);
     structure.tower(targetStructures.tower, targetStructures.needFix, targetCreeps.enemy);
 }
