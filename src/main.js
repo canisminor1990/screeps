@@ -3,6 +3,7 @@ import * as Manager from './manager'
 
 const roomName      = 'W81S67'
 const room          = Game.rooms[roomName]
+const roomNext          = Game.rooms['W81S66']
 module.exports.loop = () => {
 	// PathFinder.use(true);
 	// cleanr
@@ -17,6 +18,12 @@ module.exports.loop = () => {
 	// start
 	Manager.memory(room)
 	Manager.role(room)
+
+	if (roomNext){
+        Manager.memory(roomNext)
+        Manager.role(roomNext)
+	}
+
 	Manager.structure(room)
 }
 

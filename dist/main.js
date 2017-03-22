@@ -133,6 +133,7 @@ function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj;
 
 var roomName = 'W81S67';
 var room = Game.rooms[roomName];
+var roomNext = Game.rooms['W81S66'];
 module.exports.loop = function () {
 	// PathFinder.use(true);
 	// cleanr
@@ -147,6 +148,12 @@ module.exports.loop = function () {
 	// start
 	Manager.memory(room);
 	Manager.role(room);
+
+	if (roomNext) {
+		Manager.memory(roomNext);
+		Manager.role(roomNext);
+	}
+
 	Manager.structure(room);
 };
 
