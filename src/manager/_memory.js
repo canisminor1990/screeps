@@ -9,7 +9,7 @@ export default (room) => {
         container = _.filter(otherStructures, structure => structure.structureType == STRUCTURE_CONTAINER),
         storage = room.storage;
     const creeps = room.find(FIND_CREEPS),
-        myCreeps = _.filter(creeps, creep => creep.my),
+        myCreeps = Game.creeps,
         otherCreeps = _.filter(creeps, creep => !creep.my),
         my = creepRole(myCreeps, config.role);
     const sources = room.find(FIND_SOURCES);
