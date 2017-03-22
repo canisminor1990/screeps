@@ -1345,7 +1345,9 @@ exports.default = function (creep, target) {
 
 				return costs;
 			}
-		}).path;
+		});
+		console.log(path.ops);
+		path = path.path;
 	} else {
 		path = creep.memory.path;
 	}
