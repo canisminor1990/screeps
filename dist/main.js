@@ -444,17 +444,17 @@ exports.default = function () {
 	var role = [{
 		role: "claim",
 		body: { move: 1, claim: 1 },
-		number: 0,
+		number: 1,
 		priority: 7
 	}, {
 		role: "farMiner",
 		body: { move: 3, work: 4, carry: 3 },
-		number: 0,
+		number: 1,
 		priority: 4
 	}, {
 		role: 'farHarvester',
 		body: { move: 4, attack: 2, carry: 4, tough: 2 },
-		number: 0,
+		number: 3,
 		priority: 5
 	}, {
 		role: 'harvester',
@@ -684,7 +684,7 @@ exports.default = function (room) {
 
 
 Object.defineProperty(exports, "__esModule", {
-    value: true
+	value: true
 });
 
 var _structure = __webpack_require__(25);
@@ -694,17 +694,14 @@ var structure = _interopRequireWildcard(_structure);
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
 exports.default = function (room, roomNext) {
-    var Memory = room.memory;
-    var nextMemory = roomNext.memory;
-    var targetStructures = Memory.structures;
-    var nexttargetStructures = nextMemory.structures;
-    var targetCreeps = Memory.creeps;
-    var config = Memory.config;
+	var Memory = room.memory;
+	var nextMemory = roomNext.memory;
+	var targetStructures = Memory.structures;
+	var targetCreeps = Memory.creeps;
+	var config = Memory.config;
 
-    console.log(nexttargetStructures.my);
-
-    structure.spawn(targetStructures.spawn, _.merge(targetCreeps.my, nexttargetStructures.my), config);
-    structure.tower(targetStructures.tower, targetStructures.needFix, targetCreeps.enemy);
+	structure.spawn(targetStructures.spawn, _.merge(targetCreeps.my, nextMemory.creeps.my), config);
+	structure.tower(targetStructures.tower, targetStructures.needFix, targetCreeps.enemy);
 };
 
 /***/ }),
