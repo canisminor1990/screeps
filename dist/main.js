@@ -872,11 +872,7 @@ exports.default = function (creep) {
 		var _farMiner = Game.getObjectById(_farMiner[0].id);
 		creep.moveTo(_farMiner);
 	} else {
-		if (creep.room.name !== room.name) {
-			creep.moveTo(room);
-		} else {
-			creep.transfer(room.storage, RESOURCE_ENERGY) === ERR_NOT_IN_RANGE ? pathFinder(creep, room.storage) : null;
-		}
+		creep.transfer(room.storage, RESOURCE_ENERGY) === ERR_NOT_IN_RANGE ? pathFinder(creep, room.storage) : null;
 	}
 };
 
