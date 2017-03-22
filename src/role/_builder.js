@@ -25,7 +25,7 @@ export default (creep, needBuild,newRoom) => {
 		if (creep.memory.canBuild && newNeedBuild.length>0) {
 			const buildTarget = Game.getObjectById(newNeedBuild[0].id);
 			(buildTarget && creep.build(buildTarget) != OK)
-					? pathFinder(creep, buildTarget) : null;
+					? pathFinder(creep, buildTarget) : pathFinder(creep, buildTarget);
 		} else {
 			let storage = Game.getObjectById('58d07b35bfeec6256575be5d');
 			(creep.withdraw(storage,RESOURCE_ENERGY) != OK)
