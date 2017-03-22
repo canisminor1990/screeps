@@ -16,13 +16,13 @@ export default (room = Game.rooms['W81S67']) => {
 		{
 			role: "farMiner",
 			body: {move: 3, work: 4, carry: 3},
-			number: 1,
+			number: 0,
 			priority: 4
 		},
 		{
 			role: 'farHarvester',
 			body: {move: 4, attack: 2, carry: 4, tough: 2},
-			number: 1,
+			number: 0,
 			priority: 5
 		},
 		{
@@ -40,7 +40,7 @@ export default (room = Game.rooms['W81S67']) => {
 		{
 			role: 'builder',
 			body: {move: 3, work: 3, carry: 3},
-			number: (needBuild.length > 0) ? 1 : 0,
+			number: 1,
 			priority: 6
 		},
 		{
