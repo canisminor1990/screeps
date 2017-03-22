@@ -913,7 +913,8 @@ exports.default = function (creep, newRoom) {
         } else {
             var needBuild = creep.room.memory.structures.needBuild;
             var buildTarget = creep.pos.findClosestByRange(needBuild);
-            console.log(needBuild, buildTarget)(buildTarget && creep.build(buildTarget) == ERR_NOT_IN_RANGE) ? (0, _task.pathFinder)(creep, buildTarget) : null;
+            console.log(needBuild, buildTarget);
+            buildTarget && creep.build(buildTarget) == ERR_NOT_IN_RANGE ? (0, _task.pathFinder)(creep, buildTarget) : null;
         }
     }
 

@@ -16,7 +16,7 @@ export default (creep, newRoom) => {
         } else {
             const needBuild = creep.room.memory.structures.needBuild;
             const buildTarget = creep.pos.findClosestByRange(needBuild);
-            console.log(needBuild,buildTarget)
+            console.log(needBuild,buildTarget);
             (buildTarget && creep.build(buildTarget) == ERR_NOT_IN_RANGE)
                 ? pathFinder(creep, buildTarget) : null;
         }
