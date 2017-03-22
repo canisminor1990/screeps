@@ -164,7 +164,7 @@ Object.defineProperty(exports, "__esModule", {
 exports.default = function () {
     var room = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : Game.rooms['W81S67'];
 
-    var needBuild = room.memory.structures ? room.memory.structures.needBuild : [0];
+    var needBuild = [];
     var friends = ["Ruo", "FanHua"];
     var repair = {
         percent: 0.5,
