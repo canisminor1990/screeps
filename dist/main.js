@@ -890,35 +890,41 @@ exports.default = function (creep) {
 
 
 Object.defineProperty(exports, "__esModule", {
-	value: true
+    value: true
 });
 
 var _task = __webpack_require__(0);
 
 exports.default = function (creep, newRoom) {
 
-	if (creep.carry.energy == 0) {
-		creep.memory.canHarvest = true;
-	}
+    if (creep.carry.energy == 0) {
+        creep.memory.canHarvest = true;
+    }
 
-	if (creep.carry.energy == creep.carryCapacity) {
-		creep.memory.canHarvest = false;
-		var targets = creep.pos.findInRange(FIND_MY_CREEPS, 1, {
-			filter: function filter(targetCreep) {
-				return targetCreep.carry.energy < targetCreep.carryCapacity;
-			}
-		});
-		targets.length > 0 ? creep.transfer(targets[0], RESOURCE_ENERGY) : null;
-	}
+    if (creep.carry.energy == creep.carryCapacity) {
+        creep.memory.canHarvest = false;
+        var targets = creep.pos.findInRange(FIND_MY_CREEPS, 1, {
+            filter: function filter(targetCreep) {
+                return targetCreep.carry.energy < targetCreep.carryCapacity;
+            }
+        });
+        if (targets.length > 0) {
+            creep.transfer(targets[0], RESOURCE_ENERGY);
+        } else {
+            var needBuild = creep.room.memory.structures.needBuild;
+            var buildTarget = creep.pos.findClosestByRange(needBuild);
+            buildTarget && creep.build(buildTarget) == ERR_NOT_IN_RANGE ? (0, _task.pathFinder)(creep, buildTarget) : null;
+        }
+    }
 
-	if (creep.memory.canHarvest) {
-		var source = Game.getObjectById('5873bc3511e3e4361b4d7390');
-		if (!source) {
-			(0, _task.pathFinder)(creep, newRoom);
-		} else {
-			creep.harvest(source) !== OK ? (0, _task.pathFinder)(creep, source) : null;
-		}
-	}
+    if (creep.memory.canHarvest) {
+        var source = Game.getObjectById('5873bc3511e3e4361b4d7390');
+        if (!source) {
+            (0, _task.pathFinder)(creep, newRoom);
+        } else {
+            creep.harvest(source) !== OK ? (0, _task.pathFinder)(creep, source) : null;
+        }
+    }
 };
 
 /***/ }),
