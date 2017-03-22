@@ -11,15 +11,19 @@ export default (creep, dropped = []) => {
 
 
     if (!creep.memory.full) {
-        if (dropped.length > 0) {
-            const pickupTarget = creep.pos.findInRange(dropped, 5);
-            console.log(pickupTarget);
-            (pickupTarget.length > 0 && creep.pickup(pickupTarget[0]) === ERR_NOT_IN_RANGE) ? pathFinder(creep, pickupTarget[0]) : null
-        } else {
-            const transferTarget = creep.room.memory.structures.container.sort((a, b) => b.store.enengy - a.store.enengy);
-            (transferTarget && creep.withdraw(transferTarget[0], RESOURCE_ENERGY) === ERR_NOT_IN_RANGE)
-                ? pathFinder(creep, transferTarget[0]) : null
-        }
+        // if (dropped.length > 0) {
+        //     const pickupTarget = creep.pos.findInRange(dropped, 5);
+        //
+        //     (pickupTarget.length > 0 && creep.pickup(pickupTarget[0]) === ERR_NOT_IN_RANGE) ? pathFinder(creep, pickupTarget[0]) : null
+        // } else {
+        //     const transferTarget = creep.room.memory.structures.container.sort((a, b) => b.store.enengy - a.store.enengy);
+        //     (transferTarget && creep.withdraw(transferTarget[0], RESOURCE_ENERGY) === ERR_NOT_IN_RANGE)
+        //         ? pathFinder(creep, transferTarget[0]) : null
+        // }
+
+        const transferTarget = creep.room.memory.structures.container.sort((a, b) => b.store.enengy - a.store.enengy);
+        (transferTarget && creep.withdraw(transferTarget[0], RESOURCE_ENERGY) === ERR_NOT_IN_RANGE)
+            ? pathFinder(creep, transferTarget[0]) : null
     }
 
     if (creep.memory.full) {
