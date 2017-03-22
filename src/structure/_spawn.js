@@ -3,23 +3,24 @@ import { log } from '../_util';
 
 export default (spawn, my) => {
 	let priority    = false;
-	const buildRole = roleType => {
-		let roleNmae   = roleType.role;
-		let roleNumber = roleType.number - my[roleNmae].length;
-		if (roleNumber <= 0 || priority) return;
-		let spawnName = buildName(roleNmae)
-		spawn.createCreep(buildBody(roleType.body), spawnName, {role: role});
-		if (spawn.spawning) {
-			priority = true;
-			log('Spawn', spawnName);
-			spawn.room.visual.text(
-				'[Spawn] ' + spawnName,
-				spawn.pos.x + 1,
-				spawn.pos.y,
-				{align: 'left', opacity: 0.8});
-		}
-	}
-	_.forEach(config.role,buildRole)
+
+    config.role.forEach(roleType => {
+        let roleNmae   = roleType.role;
+        let roleNumber = roleType.number - my[roleNmae].length;
+        if (roleNumber <= 0 || priority) return;
+        let spawnName = buildName(roleNmae)
+        spawn.createCreep(buildBody(roleType.body), spawnName, {role: role});
+        if (spawn.spawning) {
+            priority = true;
+            log('Spawn', spawnName);
+            spawn.room.visual.text(
+                '[Spawn] ' + spawnName,
+                spawn.pos.x + 1,
+                spawn.pos.y,
+                {align: 'left', opacity: 0.8});
+        }
+    })
+
 }
 
 function buildName(role) {

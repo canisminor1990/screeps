@@ -1099,7 +1099,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 
 Object.defineProperty(exports, "__esModule", {
-	value: true
+  value: true
 });
 
 var _config = __webpack_require__(2);
@@ -1111,35 +1111,35 @@ var _util = __webpack_require__(3);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 exports.default = function (spawn, my) {
-	var priority = false;
-	var buildRole = function buildRole(roleType) {
-		var roleNmae = roleType.role;
-		var roleNumber = roleType.number - my[roleNmae].length;
-		if (roleNumber <= 0 || priority) return;
-		var spawnName = buildName(roleNmae);
-		spawn.createCreep(buildBody(roleType.body), spawnName, { role: role });
-		if (spawn.spawning) {
-			priority = true;
-			(0, _util.log)('Spawn', spawnName);
-			spawn.room.visual.text('[Spawn] ' + spawnName, spawn.pos.x + 1, spawn.pos.y, { align: 'left', opacity: 0.8 });
-		}
-	};
-	_.forEach(_config2.default.role, buildRole);
+  var priority = false;
+
+  _config2.default.role.forEach(function (roleType) {
+    var roleNmae = roleType.role;
+    var roleNumber = roleType.number - my[roleNmae].length;
+    if (roleNumber <= 0 || priority) return;
+    var spawnName = buildName(roleNmae);
+    spawn.createCreep(buildBody(roleType.body), spawnName, { role: role });
+    if (spawn.spawning) {
+      priority = true;
+      (0, _util.log)('Spawn', spawnName);
+      spawn.room.visual.text('[Spawn] ' + spawnName, spawn.pos.x + 1, spawn.pos.y, { align: 'left', opacity: 0.8 });
+    }
+  });
 };
 
 function buildName(role) {
-	var date = new Date();
-	return [role, "#", date.getHours(), date.getMinutes(), date.getSeconds()].join('');
+  var date = new Date();
+  return [role, "#", date.getHours(), date.getMinutes(), date.getSeconds()].join('');
 }
 
 function buildBody(obj) {
-	var array = [];
-	for (var key in obj) {
-		for (var num = 0; num < obj[key]; num++) {
-			array.push(key);
-		}
-	}
-	return array;
+  var array = [];
+  for (var key in obj) {
+    for (var num = 0; num < obj[key]; num++) {
+      array.push(key);
+    }
+  }
+  return array;
 }
 
 /***/ }),
