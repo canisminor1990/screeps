@@ -87,7 +87,7 @@ Object.defineProperty(exports, 'taskFindMiner', {
   }
 });
 
-var _container = __webpack_require__(3);
+var _container = __webpack_require__(2);
 
 Object.defineProperty(exports, 'taskContainer', {
   enumerable: true,
@@ -123,7 +123,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 "use strict";
 
 
-__webpack_require__(4);
+__webpack_require__(3);
 
 var _manager = __webpack_require__(13);
 
@@ -165,77 +165,6 @@ module.exports.loop = function () {
 
 
 Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-
-exports.default = function () {
-    var room = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : Game.rooms['W81S67'];
-
-    var needBuild = [];
-    var friends = ["Ruo", "FanHua"];
-    var repair = {
-        percent: 0.5,
-        maxHits: 10000
-    };
-    var role = [{
-        role: "claim",
-        body: { move: 1, claim: 1 },
-        number: 1,
-        priority: 7
-    }, {
-        role: "farMiner",
-        body: { move: 3, work: 4, carry: 3 },
-        number: 1,
-        priority: 4
-    }, {
-        role: 'farHarvester',
-        body: { move: 4, work: 0, carry: 4 },
-        number: 4,
-        priority: 5
-    }, {
-        role: 'harvester',
-        body: { move: 4, work: 0, carry: 8 },
-        number: 6,
-        priority: 2
-    }, {
-        role: 'upgrader',
-        body: { move: 1, work: 4, carry: 2 },
-        number: 2,
-        priority: 3
-    }, {
-        role: 'builder',
-        body: { move: 3, work: 3, carry: 3 },
-        number: needBuild.length / 2 < 4 ? needBuild.length / 2 : 4,
-        priority: 6
-    }, {
-        role: "miner",
-        body: { move: 3, work: 8, carry: 1 },
-        number: 3,
-        priority: 1
-    }, {
-        role: 'cleaner',
-        body: { move: 2, work: 1, carry: 2 },
-        number: 1,
-        priority: 0
-    }];
-
-    return {
-        role: role.sort(function (a, b) {
-            return a.priority - b.priority;
-        }),
-        friends: friends,
-        repair: repair
-    };
-};
-
-/***/ }),
-/* 3 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
 	value: true
 });
 
@@ -252,7 +181,7 @@ exports.default = function (creep) {
 };
 
 /***/ }),
-/* 4 */
+/* 3 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -374,7 +303,7 @@ module.exports = function (options) {
 };
 
 /***/ }),
-/* 5 */
+/* 4 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -393,7 +322,7 @@ exports.default = function (x, y, type) {
 };
 
 /***/ }),
-/* 6 */
+/* 5 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -403,18 +332,12 @@ Object.defineProperty(exports, "__esModule", {
 	value: true
 });
 
-var _config = __webpack_require__(2);
-
-var _config2 = _interopRequireDefault(_config);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
 exports.default = function (owner) {
-	return false;
+	return Memory.config.friends.toString().match(owner) ? true : false;
 };
 
 /***/ }),
-/* 7 */
+/* 6 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -435,7 +358,7 @@ exports.default = function (title) {
 };
 
 /***/ }),
-/* 8 */
+/* 7 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -452,7 +375,7 @@ exports.default = function (tick) {
 };
 
 /***/ }),
-/* 9 */
+/* 8 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -462,7 +385,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _timer = __webpack_require__(8);
+var _timer = __webpack_require__(7);
 
 Object.defineProperty(exports, 'Timer', {
   enumerable: true,
@@ -471,7 +394,7 @@ Object.defineProperty(exports, 'Timer', {
   }
 });
 
-var _build = __webpack_require__(5);
+var _build = __webpack_require__(4);
 
 Object.defineProperty(exports, 'Build', {
   enumerable: true,
@@ -480,7 +403,7 @@ Object.defineProperty(exports, 'Build', {
   }
 });
 
-var _log = __webpack_require__(7);
+var _log = __webpack_require__(6);
 
 Object.defineProperty(exports, 'log', {
   enumerable: true,
@@ -489,7 +412,7 @@ Object.defineProperty(exports, 'log', {
   }
 });
 
-var _isFriend = __webpack_require__(6);
+var _isFriend = __webpack_require__(5);
 
 Object.defineProperty(exports, 'isFriend', {
   enumerable: true,
@@ -499,6 +422,77 @@ Object.defineProperty(exports, 'isFriend', {
 });
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+/***/ }),
+/* 9 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+exports.default = function () {
+    var room = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : Game.rooms['W81S67'];
+
+    var needBuild = [];
+    var friends = ["Ruo", "FanHua"];
+    var repair = {
+        percent: 0.5,
+        maxHits: 10000
+    };
+    var role = [{
+        role: "claim",
+        body: { move: 1, claim: 1 },
+        number: 1,
+        priority: 7
+    }, {
+        role: "farMiner",
+        body: { move: 3, work: 4, carry: 3 },
+        number: 1,
+        priority: 4
+    }, {
+        role: 'farHarvester',
+        body: { move: 4, work: 0, carry: 4 },
+        number: 4,
+        priority: 5
+    }, {
+        role: 'harvester',
+        body: { move: 4, work: 0, carry: 8 },
+        number: 6,
+        priority: 2
+    }, {
+        role: 'upgrader',
+        body: { move: 1, work: 4, carry: 2 },
+        number: 2,
+        priority: 3
+    }, {
+        role: 'builder',
+        body: { move: 3, work: 3, carry: 3 },
+        number: needBuild.length / 2 < 4 ? needBuild.length / 2 : 4,
+        priority: 6
+    }, {
+        role: "miner",
+        body: { move: 3, work: 8, carry: 1 },
+        number: 3,
+        priority: 1
+    }, {
+        role: 'cleaner',
+        body: { move: 2, work: 1, carry: 2 },
+        number: 1,
+        priority: 0
+    }];
+
+    return {
+        role: role.sort(function (a, b) {
+            return a.priority - b.priority;
+        }),
+        friends: friends,
+        repair: repair
+    };
+};
 
 /***/ }),
 /* 10 */
@@ -511,11 +505,11 @@ Object.defineProperty(exports, "__esModule", {
     value: true
 });
 
-var _config = __webpack_require__(2);
+var _config = __webpack_require__(9);
 
 var _config2 = _interopRequireDefault(_config);
 
-var _util = __webpack_require__(9);
+var _util = __webpack_require__(8);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -1278,7 +1272,7 @@ Object.defineProperty(exports, "__esModule", {
     value: true
 });
 
-var _container = __webpack_require__(3);
+var _container = __webpack_require__(2);
 
 var _container2 = _interopRequireDefault(_container);
 
