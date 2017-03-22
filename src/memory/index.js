@@ -8,7 +8,7 @@ export default (roomName) => {
 	      otherStructures = _.filter(structures, structure => !structure.my);
 	const creeps          = room.find(FIND_CREEPS),
 	      myCreeps        = _.filter(creeps, creep => creep.my),
-	      otherCreeps     = _.filter(creeps, creep => creep.my);
+	      otherCreeps     = _.filter(creeps, creep => !creep.my);
 
 	const memory           = {
 		energyAvailable: room.energyAvailable,
@@ -24,7 +24,10 @@ export default (roomName) => {
 			spawn     : _.filter(myStructures, structure => structure.structureType == STRUCTURE_CONTAINER),
 			container : _.filter(otherStructures, structure => structure.structureType == STRUCTURE_CONTAINER),
 			needFix   : _.filter(structures, config.repair)
-		}
+		},
+		constructionSites: mySpawn.room.find(FIND_CONSTRUCTION_SITES),
+		sources: mySpawn.room.find(FIND_SOURCES),
+		droppedEnergy: mySpawn.room.find(FIND_DROPPED_ENERGY)
 	}
 	Memory.test = memory;
 }

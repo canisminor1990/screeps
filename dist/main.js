@@ -521,7 +521,7 @@ var _config2 = _interopRequireDefault(_config);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 exports.default = function (owner) {
-	return _.indexOf(_config2.default.friends, owner) ? true : false;
+	return _config2.default.friends.toString().match(owner) ? true : false;
 };
 
 /***/ }),
@@ -574,7 +574,7 @@ exports.default = function (roomName) {
 		return creep.my;
 	}),
 	    otherCreeps = _.filter(creeps, function (creep) {
-		return creep.my;
+		return !creep.my;
 	});
 
 	var memory = {
@@ -599,7 +599,10 @@ exports.default = function (roomName) {
 				return structure.structureType == STRUCTURE_CONTAINER;
 			}),
 			needFix: _.filter(structures, _config2.default.repair)
-		}
+		},
+		constructionSites: mySpawn.room.find(FIND_CONSTRUCTION_SITES),
+		sources: mySpawn.room.find(FIND_SOURCES),
+		droppedEnergy: mySpawn.room.find(FIND_DROPPED_ENERGY)
 	};
 	Memory.test = memory;
 };

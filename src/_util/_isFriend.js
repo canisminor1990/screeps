@@ -1,5 +1,5 @@
 import config from '../config'
 
 export default (owner) => {
-	return (_.indexOf(config.friends, owner)) ? true : false
+	return (config.friends.toString().match(owner)) ? true : false
 }
