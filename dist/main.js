@@ -669,7 +669,7 @@ exports.default = function (room) {
 	});
 	// far
 	myCreeps.farHarvester.forEach(function (creep) {
-		return role.farHarvester(creep, room);
+		return role.farHarvester(creep);
 	});
 	myCreeps.farMiner.forEach(function (creep) {
 		return role.farMiner(creep, newRoom);
@@ -856,8 +856,8 @@ Object.defineProperty(exports, "__esModule", {
 	value: true
 });
 
-exports.default = function (creep, room) {
-
+exports.default = function (creep) {
+	var room = Game.spawns['Spawn1'].room;
 	var farMiner = creep.room.memory.creeps.my.farMiner;
 
 	if (creep.carry.energy == 0) {

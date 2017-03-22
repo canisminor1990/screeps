@@ -1,5 +1,5 @@
-export default (creep, room) => {
-
+export default (creep) => {
+    const room = Game.spawns['Spawn1'].room;
     const farMiner = creep.room.memory.creeps.my.farMiner;
 
 	if (creep.carry.energy == 0) {
