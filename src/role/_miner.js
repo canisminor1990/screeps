@@ -12,27 +12,8 @@ export default (creep) => {
 		}
 	}
 	if (creep.carry.energy >= 50) {
-		const targets    = creep.pos.findInRange(FIND_MY_CREEPS, 1, {
-			filter: tCreep => tCreep.memory.role !== 'miner'
-		});
-		const farTargets = creep.pos.findInRange(FIND_MY_CREEPS, 4, {
-			filter: tCreep => tCreep.memory.role !== 'miner'
-		});
 
-		let maxNum = 0, maxName;
-		for (let name in targets) {
-			let num = targets[name].carryCapacity - targets[name].carry.energy;
-			if (num > maxNum) {
-				maxNum  = num;
-				maxName = name
-			}
-		}
 
-		if (maxName, maxNum != 0) {
-			creep.transfer(targets[maxName], RESOURCE_ENERGY);
-			creep.say('transfer:' + maxNum)
-		}
-		else if (!farTargets[0]) {
 			const targetsContainer = creep.pos.findInRange(FIND_STRUCTURES, 6, {filter: structure => structure.structureType == STRUCTURE_CONTAINER && structure.store["energy"] < structure.storeCapacity})[0]
 			if (targetsContainer) {
 				if (creep.transfer(targetsContainer, RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
@@ -45,5 +26,5 @@ export default (creep) => {
 				}
 			}
 		}
-	}
+
 }
