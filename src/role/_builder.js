@@ -13,7 +13,8 @@ export default (creep, needBuild, newRoom) => {
 
 	let newNeedBuild = newRoom.memory.structures.needBuild;
 	if (creep.memory.canBuild && newNeedBuild.length > 0) {
-		const newBuildTarget = Game.getObjectById(creep.pos.findClosestByRange(newNeedBuild).id);
+		console.log(newNeedBuild)
+		const newBuildTarget = creep.pos.findClosestByRange(newNeedBuild).id;
 		(newBuildTarget && creep.build(newBuildTarget) != OK)
 						? pathFinder(creep, newBuildTarget) : null;
 
