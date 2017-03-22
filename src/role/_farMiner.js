@@ -14,7 +14,7 @@ export default (creep, newRoom) => {
         if (targets.length > 0) {
             creep.transfer(targets[0], RESOURCE_ENERGY)
         } else {
-            const needBuild = newRoom.memory.structures.needBuild;
+            const needBuild = creep.room.memory.structures.needBuild;
 
 
             (needBuild.length > 0  && creep.build(needBuild[0]) == ERR_NOT_IN_RANGE)
