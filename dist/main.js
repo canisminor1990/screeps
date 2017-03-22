@@ -131,12 +131,10 @@ var Manager = _interopRequireWildcard(_manager);
 
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
-var roomName = 'W81S67';
-var room = Game.rooms[roomName];
-var roomNext = Game.rooms['W81S66'];
 module.exports.loop = function () {
-	// PathFinder.use(true);
-	// cleanr
+	var roomName = 'W81S67';
+	var room = Game.rooms[roomName];
+	var roomNext = Game.rooms['W81S66'];
 	for (var name in Memory.creeps) {
 		!Game.creeps[name] ? delete Memory.creeps[name] : null;
 		if (!Game.creeps[name].memory || !Game.creeps[name].memory.role) {
