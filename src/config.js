@@ -15,7 +15,7 @@ export default (room = Game.rooms['W81S67']) => {
         {
             role    : "farMiner",
             body    : {move: 3, work: 4, carry: 3},
-            number  : 1,
+            number  : 0,
             priority: 4
         },
         {

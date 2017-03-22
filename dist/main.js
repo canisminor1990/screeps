@@ -449,7 +449,7 @@ exports.default = function () {
     }, {
         role: "farMiner",
         body: { move: 3, work: 4, carry: 3 },
-        number: 1,
+        number: 0,
         priority: 4
     }, {
         role: 'farHarvester',
