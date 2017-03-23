@@ -1369,10 +1369,14 @@ exports.default = function (creep) {
 		if (needBuild.length > 0) {
 			target = creep.pos.findClosestByRange(needBuild);
 			if ((0, _action.build)(creep, target)) return;
-		} else {
-			target = creep.room.controller;
-			if ((0, _action.upgradeController)(creep, target)) return;
 		}
+		var needFix = newRoom.memory.structures.needFix;
+		if (needFix.length > 0) {
+			target = creep.pos.findClosestByRange(needFix);
+			if (repair(creep, target)) return;
+		}
+		target = creep.room.controller;
+		if ((0, _action.upgradeController)(creep, target)) return;
 	} else {
 		var dropped = creep.room.memory.dropped.energy;
 		if (dropped.length > 0) {

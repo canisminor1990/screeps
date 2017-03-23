@@ -11,10 +11,15 @@ export default (creep) => {
 		if (needBuild.length > 0) {
 			target = creep.pos.findClosestByRange(needBuild);
 			if (build(creep, target))return;
-		} else {
-			target = creep.room.controller;
-			if (upgradeController(creep, target)) return;
 		}
+		const needFix = newRoom.memory.structures.needFix;
+		if (needFix.length > 0) {
+			target = creep.pos.findClosestByRange(needFix);
+			if (repair(creep, target)) return;
+		}
+		target = creep.room.controller;
+		if (upgradeController(creep, target)) return;
+
 	} else {
 		const dropped = creep.room.memory.dropped.energy;
 		if (dropped.length > 0) {
