@@ -445,18 +445,18 @@ exports.default = function () {
 	};
 	var role = [{
 		role: "claim",
-		body: { move: 1, claim: 1 },
-		number: 0,
+		body: { move: 1, claim: 1, tough: 1 },
+		number: 1,
 		priority: 7
 	}, {
 		role: "farMiner",
-		body: { move: 3, work: 4, carry: 3 },
-		number: 0,
+		body: { move: 2, work: 4, carry: 2 },
+		number: 1,
 		priority: 4
 	}, {
 		role: 'farHarvester',
-		body: { move: 4, attack: 2, carry: 4, tough: 2 },
-		number: 0,
+		body: { move: 3, attack: 1, carry: 4, tough: 1 },
+		number: 3,
 		priority: 5
 	}, {
 		role: 'harvester',
