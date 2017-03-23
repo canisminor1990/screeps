@@ -696,7 +696,7 @@ function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj;
 
 exports.default = function (room, roomNext) {
 	var Memory = room.memory;
-	var nextMemory = roomNext.memory;
+	var nextMemory = roomNext ? roomNext.memory : {};
 	var targetStructures = Memory.structures;
 	var targetCreeps = Memory.creeps;
 	var config = Memory.config;
