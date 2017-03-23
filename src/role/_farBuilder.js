@@ -1,41 +1,38 @@
-import { pathFinder } from '../task'
+import {isFull} from '../_util'
+import {withdraw, build, pickup, transfer} from '../action'
 export default (creep, newRoom) => {
-	const room          = Game.spawns['Spawn1'].room;
+	const room = Game.spawns['Spawn1'].room;
 	const newRoomMemory = newRoom.memory;
-	const farMiner      = newRoomMemory.creeps.my.farMiner;
-	const enemy         = newRoomMemory.creeps.enemy;
-	const needBuild     = newRoomMemory.structures.needBuild;
+	const needBuild = newRoomMemory.structures.needBuild;
+	const farMiner = newRoomMemory.creeps.my.farMiner;
 
-	if (enemy.length > 0) {
-		const enemyTarget = creep.pos.findClosestByRange(enemy);
-		(enemyTarget && creep.attack(enemyTarget) != OK)
-			? pathFinder(creep, enemyTarget) : null;
-		return;
-	}
-
-	if (creep.carry.energy == 0) {
-		creep.memory.full = false
-	}
-	if (creep.carry.energy == creep.carryCapacity || !farMiner.length > 0) {
-		creep.memory.full = true
-	}
-
-	if (!creep.memory.full) {
-		const farMinerTarget = Game.getObjectById(farMiner[0].id);
-		pathFinder(creep, farMinerTarget)
-	}
-	else {
-
-
-		if (needBuild.length > 0) {
-			const buildTarget = creep.pos.findClosestByRange(needBuild);
-			(buildTarget && creep.build(buildTarget) != OK)
-				? pathFinder(creep, buildTarget) : null;
+	isFull(creep)
+	if (needBuild.length > 0) {
+		if (!creep.memory.full) {
+			const dropped = creep.room.memory.dropped.energy;
+			if (dropped.length > 0) {
+				target = creep.pos.findInRange(dropped, 3);
+				if (pickup(creep, target[0])) return;
+			}
+			target = creep.room.storage;
+			if (withdraw(creep, target))return;
 		} else {
-
-			( creep.transfer(room.storage, RESOURCE_ENERGY) !== OK)
-				? pathFinder(creep, room.storage) : null
+			target = creep.pos.findClosestByRange(needBuild);
+			if (build(creep, target))return;
+		}
+	} else {
+		if (!creep.memory.full) {
+			const dropped = creep.room.memory.dropped.energy;
+			if (dropped.length > 0) {
+				target = creep.pos.findInRange(dropped, 4);
+				if (pickup(creep, target[0])) return;
+			}
+			if (farMiner.length > 0) {
+				target = Game.getObjectById(farMiner[0].id);
+				pathFinder(creep, target)
+			}
+		} else {
+			if (transfer(creep, room.storage)) return;
 		}
 	}
-
 }

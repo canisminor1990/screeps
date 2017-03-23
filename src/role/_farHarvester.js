@@ -25,8 +25,7 @@ export default (creep, newRoom) => {
 			target = Game.getObjectById(farMiner[0].id);
 			pathFinder(creep, target)
 		}
-	}
-	else {
+	} else {
 		if (transfer(creep, room.storage)) return;
 	}
 }
