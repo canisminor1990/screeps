@@ -459,22 +459,22 @@ exports.default = function () {
 	}, {
 		role: 'harvester',
 		body: { move: 4, work: 0, carry: 8 },
-		number: 0,
+		number: 4,
 		priority: 2
 	}, {
 		role: 'upgrader',
 		body: { move: 1, work: 4, carry: 2 },
-		number: 1,
+		number: 2,
 		priority: 3
 	}, {
 		role: 'builder',
 		body: { move: 3, work: 3, carry: 6 },
-		number: 8,
+		number: 0,
 		priority: 6
 	}, {
 		role: "miner",
 		body: { move: 3, work: 8, carry: 1 },
-		number: 1,
+		number: 2,
 		priority: 1
 	}, {
 		role: 'cleaner',
