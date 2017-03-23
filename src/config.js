@@ -37,20 +37,20 @@ export default (room = Game.rooms['W81S67']) => {
 		},
 		{
 			role    : 'builder',
-			body    : {move: 3, work: 3, carry: 6},
+			body    : {move: 3, work: 3, carry: 3},
 			number  : (needBuild.length > 0) ? 1 : 0,
 			priority: 6
 		},
 		{
 			role    : "miner",
-			body    : {move: 3, work: 8, carry: 1},
+			body    : {move: 2, work: 8, carry: 1},
 			number  : 2,
 			priority: 1
 		},
 		{
 			role    : 'cleaner',
-			body    : {move: 2, work: 1, carry: 2},
-			number  : 1,
+			body    : {move: 1, carry: 2},
+			number  : 2,
 			priority: 0
 		}
 	]
