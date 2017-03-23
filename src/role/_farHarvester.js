@@ -1,5 +1,5 @@
 import {isFull} from '../_util'
-import {attack, transfer, pickup} from '../action'
+import {attack, transfer, pickup, repair} from '../action'
 import {pathFinder} from '../task'
 export default (creep, newRoom) => {
 	const room = Game.spawns['Spawn1'].room;
@@ -26,6 +26,11 @@ export default (creep, newRoom) => {
 			pathFinder(creep, target)
 		}
 	} else {
+		const needFix = newRoom.memory.structures.needFix;
+		if (needFix.length > 0) {
+			target = creep.pos.findClosestByRange(needFix);
+			if (repair(creep, target)) return;
+		}
 		if (transfer(creep, room.storage)) return;
 	}
 }
