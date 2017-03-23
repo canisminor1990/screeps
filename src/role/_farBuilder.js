@@ -1,7 +1,7 @@
 import {isFull} from '../_util'
 import {withdraw, build, pickup, transfer} from '../action'
 export default (creep, newRoom) => {
-	const needBuild = creep.room.memory.structures.needBuild;
+	const needBuild = newRoom.memory.structures.needBuild;
 	let target;
 	// memory
 	isFull(creep)

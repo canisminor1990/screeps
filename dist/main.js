@@ -1468,7 +1468,7 @@ var _util = __webpack_require__(0);
 var _action = __webpack_require__(1);
 
 exports.default = function (creep, newRoom) {
-	var needBuild = creep.room.memory.structures.needBuild;
+	var needBuild = newRoom.memory.structures.needBuild;
 	var target = void 0;
 	// memory
 	(0, _util.isFull)(creep);
