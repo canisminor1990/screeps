@@ -1343,12 +1343,11 @@ exports.default = function (roomArray) {
 	var room = Game.rooms[roomArray[0]];
 	var roomNext = Game.rooms[roomArray[1]];
 	var Memory = room.memory;
-	var nextMemory = roomNext ? roomNext.memory : null;
 	var targetStructures = Memory.structures;
 	var targetCreeps = Memory.creeps;
 	var config = Memory.config;
 
-	var spawn = nextMemory ? _.merge(targetCreeps.my, nextMemory.creeps.my) : targetCreeps.my;
+	var spawn = roomNext ? _.merge(targetCreeps.my, roomNext.memory.creeps.my) : targetCreeps.my;
 
 	structure.spawn(targetStructures.spawn, spawn, config);
 	structure.tower(targetStructures.tower, targetStructures.needFix, targetCreeps.enemy);
