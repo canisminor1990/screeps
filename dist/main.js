@@ -953,7 +953,7 @@ exports.default = function () {
 		priority: 7
 	}, {
 		role: "farMiner",
-		body: { carry: 1, work: 8, move: 3 },
+		body: { work: 8, move: 3 },
 		timeout: 120,
 		number: 1,
 		priority: 4
@@ -984,7 +984,7 @@ exports.default = function () {
 		priority: 6
 	}, {
 		role: "miner",
-		body: { carry: 1, work: 8, move: 3 },
+		body: { work: 8, move: 3 },
 		number: 2,
 		timeout: 40,
 		priority: 1
@@ -1582,27 +1582,35 @@ var _action = __webpack_require__(1);
 
 exports.default = function (creep, newRoom) {
 	var target = void 0;
-	// memory
-	(0, _util.isFull)(creep);
-	// run
-	if (!creep.memory.full) {
-		var dropped = creep.room.memory.dropped.energy;
-		if (dropped.length > 0) {
-			target = creep.pos.findInRange(dropped, 0);
-			if ((0, _action.pickup)(creep, target[0])) return;
-		}
-		target = Game.getObjectById('5873bc3511e3e4361b4d7390');
-		if (!target) {
-			(0, _task.pathFinder)(creep, newRoom.pos);
-		} else {
-			if ((0, _action.harvest)(creep, target)) return;
-		}
+
+	target = Game.getObjectById('5873bc3511e3e4361b4d7390');
+	if (!target) {
+		(0, _task.pathFinder)(creep, newRoom.pos);
 	} else {
-		target = creep.pos.findInRange(creep.room.memory.structures.canFill, 4);
-		if ((0, _action.transfer)(creep, target[0])) return;
-		target = newRoom.memory.structures.needBuild;
-		if ((0, _action.build)(creep, target[0])) return;
+		if ((0, _action.harvest)(creep, target)) return;
 	}
+
+	// // memory
+	// isFull(creep)
+	// // run
+	// if (!creep.memory.full) {
+	// 	const dropped = creep.room.memory.dropped.energy;
+	// 	if (dropped.length > 0) {
+	// 		target = creep.pos.findInRange(dropped, 0);
+	// 		if (pickup(creep, target[0])) return;
+	// 	}
+	// 	target = Game.getObjectById('5873bc3511e3e4361b4d7390');
+	// 	if (!target) {
+	// 		pathFinder(creep, newRoom.pos)
+	// 	} else {
+	// 		if (harvest(creep, target)) return;
+	// 	}
+	// } else {
+	// 	target = creep.pos.findInRange(creep.room.memory.structures.canFill, 4);
+	// 	if (transfer(creep, target[0])) return;
+	// 	target = newRoom.memory.structures.needBuild;
+	// 	if (build(creep, target[0])) return;
+	// }
 };
 
 /***/ }),
@@ -1669,25 +1677,27 @@ exports.default = function (creep) {
 	var target = void 0;
 	// root
 	if (!creep.memory.harvestTarget) creep.memory.harvestTarget = sources[0].source.id;
-	// memory
-	(0, _util.isFull)(creep);
-	// run
-	if (creep.memory.full) {
-		target = creep.pos.findInRange(creep.room.memory.structures.canFill, 4);
-		if ((0, _action.transfer)(creep, target[0])) return;
-		if (creep.memory.harvestTarget == "5873bc3511e3e4361b4d7393") {
-			target = creep.room.controller;
-			if ((0, _action.upgradeController)(creep, target)) return;
-		}
-	} else {
-		var dropped = creep.room.memory.dropped.energy;
-		if (dropped.length > 0) {
-			target = creep.pos.findInRange(dropped, 0);
-			if ((0, _action.pickup)(creep, target[0])) return;
-		}
-		target = Game.getObjectById(creep.memory.harvestTarget);
-		if ((0, _action.harvest)(creep, target)) return;
-	}
+	target = Game.getObjectById(creep.memory.harvestTarget);
+	if ((0, _action.harvest)(creep, target)) return;
+	// // memory
+	// isFull(creep)
+	// // run
+	// if (creep.memory.full) {
+	// 	target = creep.pos.findInRange(creep.room.memory.structures.canFill, 4);
+	// 	if (transfer(creep, target[0])) return;
+	// 	if (creep.memory.harvestTarget == "5873bc3511e3e4361b4d7393") {
+	// 		target = creep.room.controller;
+	// 		if (upgradeController(creep, target)) return;
+	// 	}
+	// } else {
+	// 	const dropped = creep.room.memory.dropped.energy;
+	// 	if (dropped.length > 0) {
+	// 		target = creep.pos.findInRange(dropped, 0);
+	// 		if (pickup(creep, target[0])) return;
+	// 	}
+	// 	target = Game.getObjectById(creep.memory.harvestTarget)
+	// 	if (harvest(creep, target)) return;
+	// }
 };
 
 /***/ }),
