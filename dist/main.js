@@ -72,245 +72,1499 @@ module.exports =
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-eval("\n\nObject.defineProperty(exports, \"__esModule\", {\n  value: true\n});\n\nvar _findMiner = __webpack_require__(31);\n\nObject.defineProperty(exports, 'taskFindMiner', {\n  enumerable: true,\n  get: function get() {\n    return _interopRequireDefault(_findMiner).default;\n  }\n});\n\nvar _container = __webpack_require__(1);\n\nObject.defineProperty(exports, 'taskContainer', {\n  enumerable: true,\n  get: function get() {\n    return _interopRequireDefault(_container).default;\n  }\n});\n\nvar _harvester = __webpack_require__(32);\n\nObject.defineProperty(exports, 'taskHarvester', {\n  enumerable: true,\n  get: function get() {\n    return _interopRequireDefault(_harvester).default;\n  }\n});\n\nvar _pathFinder = __webpack_require__(33);\n\nObject.defineProperty(exports, 'pathFinder', {\n  enumerable: true,\n  get: function get() {\n    return _interopRequireDefault(_pathFinder).default;\n  }\n});\n\nfunction _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIndlYnBhY2s6Ly8vLi9zcmMvdGFzay9pbmRleC5qcz80OWFiIl0sIm5hbWVzIjpbImRlZmF1bHQiXSwibWFwcGluZ3MiOiI7Ozs7Ozs7Ozs7OzhDQUFRQSxPOzs7Ozs7Ozs7OENBQ0FBLE87Ozs7Ozs7Ozs4Q0FDQUEsTzs7Ozs7Ozs7OytDQUNBQSxPIiwiZmlsZSI6IjAuanMiLCJzb3VyY2VzQ29udGVudCI6WyJleHBvcnQge2RlZmF1bHQgYXMgdGFza0ZpbmRNaW5lcn0gZnJvbSAnLi9fZmluZE1pbmVyJ1xuZXhwb3J0IHtkZWZhdWx0IGFzIHRhc2tDb250YWluZXJ9IGZyb20gJy4vX2NvbnRhaW5lcidcbmV4cG9ydCB7ZGVmYXVsdCBhcyB0YXNrSGFydmVzdGVyfSBmcm9tICcuL19oYXJ2ZXN0ZXInXG5leHBvcnQge2RlZmF1bHQgYXMgcGF0aEZpbmRlcn0gZnJvbSAnLi9fcGF0aEZpbmRlcidcblxuXG4vLyBXRUJQQUNLIEZPT1RFUiAvL1xuLy8gLi9zcmMvdGFzay9pbmRleC5qcyJdLCJzb3VyY2VSb290IjoiIn0=");
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _findMiner = __webpack_require__(31);
+
+Object.defineProperty(exports, 'taskFindMiner', {
+  enumerable: true,
+  get: function get() {
+    return _interopRequireDefault(_findMiner).default;
+  }
+});
+
+var _container = __webpack_require__(1);
+
+Object.defineProperty(exports, 'taskContainer', {
+  enumerable: true,
+  get: function get() {
+    return _interopRequireDefault(_container).default;
+  }
+});
+
+var _harvester = __webpack_require__(32);
+
+Object.defineProperty(exports, 'taskHarvester', {
+  enumerable: true,
+  get: function get() {
+    return _interopRequireDefault(_harvester).default;
+  }
+});
+
+var _pathFinder = __webpack_require__(33);
+
+Object.defineProperty(exports, 'pathFinder', {
+  enumerable: true,
+  get: function get() {
+    return _interopRequireDefault(_pathFinder).default;
+  }
+});
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 /***/ }),
 /* 1 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-eval("\n\nObject.defineProperty(exports, \"__esModule\", {\n\tvalue: true\n});\n\nexports.default = function (creep) {\n\t\"use strict\";\n\n\tvar targetsStorage = Game.getObjectById('58d07b35bfeec6256575be5d');\n\tif (targetsStorage.store['energy'] < targetsStorage.storeCapacity) {\n\t\tcreep.transfer(targetsStorage, RESOURCE_ENERGY) == ERR_NOT_IN_RANGE ? creep.moveTo(targetsStorage, { reusePath: 8, visualizePathStyle: { stroke: '#3f51b5' } }) : null;\n\t} else {\n\t\tvar controller = creep.room.controller;\n\t\tcreep.upgradeController(controller) == ERR_NOT_IN_RANGE ? creep.moveTo(controller, { reusePath: 8, visualizePathStyle: { stroke: '#ffffff' } }) : null;\n\t}\n};//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIndlYnBhY2s6Ly8vLi9zcmMvdGFzay9fY29udGFpbmVyLmpzPzQ1MjciXSwibmFtZXMiOlsiY3JlZXAiLCJ0YXJnZXRzU3RvcmFnZSIsIkdhbWUiLCJnZXRPYmplY3RCeUlkIiwic3RvcmUiLCJzdG9yZUNhcGFjaXR5IiwidHJhbnNmZXIiLCJSRVNPVVJDRV9FTkVSR1kiLCJFUlJfTk9UX0lOX1JBTkdFIiwibW92ZVRvIiwicmV1c2VQYXRoIiwidmlzdWFsaXplUGF0aFN0eWxlIiwic3Ryb2tlIiwiY29udHJvbGxlciIsInJvb20iLCJ1cGdyYWRlQ29udHJvbGxlciJdLCJtYXBwaW5ncyI6Ijs7Ozs7O2tCQUFlLFVBQUNBLEtBQUQsRUFBVztBQUN6Qjs7QUFDQSxLQUFNQyxpQkFBaUJDLEtBQUtDLGFBQUwsQ0FBbUIsMEJBQW5CLENBQXZCO0FBQ0EsS0FBSUYsZUFBZUcsS0FBZixDQUFxQixRQUFyQixJQUFpQ0gsZUFBZUksYUFBcEQsRUFBbUU7QUFDakVMLFFBQU1NLFFBQU4sQ0FBZUwsY0FBZixFQUErQk0sZUFBL0IsS0FBbURDLGdCQUFwRCxHQUNBUixNQUFNUyxNQUFOLENBQWFSLGNBQWIsRUFBNkIsRUFBQ1MsV0FBVyxDQUFaLEVBQWVDLG9CQUFvQixFQUFDQyxRQUFRLFNBQVQsRUFBbkMsRUFBN0IsQ0FEQSxHQUN3RixJQUR4RjtBQUVBLEVBSEQsTUFHTztBQUNOLE1BQU1DLGFBQWFiLE1BQU1jLElBQU4sQ0FBV0QsVUFBOUI7QUFDQ2IsUUFBTWUsaUJBQU4sQ0FBd0JGLFVBQXhCLEtBQXVDTCxnQkFBeEMsR0FDQVIsTUFBTVMsTUFBTixDQUFhSSxVQUFiLEVBQXlCLEVBQUNILFdBQVcsQ0FBWixFQUFlQyxvQkFBb0IsRUFBQ0MsUUFBUSxTQUFULEVBQW5DLEVBQXpCLENBREEsR0FDb0YsSUFEcEY7QUFFQTtBQUNELEMiLCJmaWxlIjoiMS5qcyIsInNvdXJjZXNDb250ZW50IjpbImV4cG9ydCBkZWZhdWx0IChjcmVlcCkgPT4ge1xuXHRcInVzZSBzdHJpY3RcIjtcblx0Y29uc3QgdGFyZ2V0c1N0b3JhZ2UgPSBHYW1lLmdldE9iamVjdEJ5SWQoJzU4ZDA3YjM1YmZlZWM2MjU2NTc1YmU1ZCcpXG5cdGlmICh0YXJnZXRzU3RvcmFnZS5zdG9yZVsnZW5lcmd5J10gPCB0YXJnZXRzU3RvcmFnZS5zdG9yZUNhcGFjaXR5KSB7XG5cdFx0KGNyZWVwLnRyYW5zZmVyKHRhcmdldHNTdG9yYWdlLCBSRVNPVVJDRV9FTkVSR1kpID09IEVSUl9OT1RfSU5fUkFOR0UpID9cblx0XHRjcmVlcC5tb3ZlVG8odGFyZ2V0c1N0b3JhZ2UsIHtyZXVzZVBhdGg6IDgsIHZpc3VhbGl6ZVBhdGhTdHlsZToge3N0cm9rZTogJyMzZjUxYjUnfX0pIDogbnVsbFxuXHR9IGVsc2Uge1xuXHRcdGNvbnN0IGNvbnRyb2xsZXIgPSBjcmVlcC5yb29tLmNvbnRyb2xsZXI7XG5cdFx0KGNyZWVwLnVwZ3JhZGVDb250cm9sbGVyKGNvbnRyb2xsZXIpID09IEVSUl9OT1RfSU5fUkFOR0UpID9cblx0XHRjcmVlcC5tb3ZlVG8oY29udHJvbGxlciwge3JldXNlUGF0aDogOCwgdmlzdWFsaXplUGF0aFN0eWxlOiB7c3Ryb2tlOiAnI2ZmZmZmZid9fSkgOiBudWxsXG5cdH1cbn1cblxuXG4vLyBXRUJQQUNLIEZPT1RFUiAvL1xuLy8gLi9zcmMvdGFzay9fY29udGFpbmVyLmpzIl0sInNvdXJjZVJvb3QiOiIifQ==");
+
+
+Object.defineProperty(exports, "__esModule", {
+	value: true
+});
+
+exports.default = function (creep) {
+	"use strict";
+
+	var targetsStorage = Game.getObjectById('58d07b35bfeec6256575be5d');
+	if (targetsStorage.store['energy'] < targetsStorage.storeCapacity) {
+		creep.transfer(targetsStorage, RESOURCE_ENERGY) == ERR_NOT_IN_RANGE ? creep.moveTo(targetsStorage, { reusePath: 8, visualizePathStyle: { stroke: '#3f51b5' } }) : null;
+	} else {
+		var controller = creep.room.controller;
+		creep.upgradeController(controller) == ERR_NOT_IN_RANGE ? creep.moveTo(controller, { reusePath: 8, visualizePathStyle: { stroke: '#ffffff' } }) : null;
+	}
+};
 
 /***/ }),
 /* 2 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-eval("\n\nvar originalFindPath = Room.prototype.findPath;\nvar setup = false;\n\nfunction creepMemoryCleanUp() {\n  if (Game.time - Memory.screepsPerf.lastMemoryCleanUp > 100) {\n    Object.keys(Memory.creeps).forEach(function (creepName) {\n      if (!Game.creeps[creepName]) {\n        Memory.creeps[creepName] = undefined;\n      }\n    });\n    Memory.screepsPerf.lastMemoryCleanUp = Game.time;\n  }\n};\n\nmodule.exports = function (options) {\n  if (!setup) {\n    options = options || {};\n    Memory.screepsPerf = Memory.screepsPerf || {\n      lastMemoryCleanUp: Game.time\n    };\n\n    if (options.speedUpArrayFunctions || options.speedUpArrayFunctions === undefined) {\n      Array.prototype.filter = function (callback, thisArg) {\n        var results = [];\n        var arr = this;\n        for (var iterator = 0; iterator < arr.length; iterator++) {\n          if (callback.call(thisArg, arr[iterator], iterator, arr)) {\n            results.push(arr[iterator]);\n          }\n        }\n        return results;\n      };\n\n      Array.prototype.forEach = function (callback, thisArg) {\n        var arr = this;\n        for (var iterator = 0; iterator < arr.length; iterator++) {\n          callback.call(thisArg, arr[iterator], iterator, arr);\n        }\n      };\n\n      Array.prototype.map = function (callback, thisArg) {\n        var arr = this;\n        var returnVal = [];\n        for (var iterator = 0; iterator < arr.length; iterator++) {\n          returnVal.push(callback.call(thisArg, arr[iterator], iterator, arr));\n        }\n        return returnVal;\n      };\n    }\n\n    /**\r\n     * Creep memory clean up... this speeds up the initial memory parse each tick.\r\n     */\n    if (options.cleanUpCreepMemory || options.cleanUpCreepMemory === undefined) {\n      // Monkey patch creating creeps so that we can clean up their memory without forcing the user to make a call.\n      var originalCreateCreep = Spawn.prototype.createCreep;\n      Spawn.prototype.createCreep = function () {\n        creepMemoryCleanUp();\n        return originalCreateCreep.apply(this, arguments);\n      };\n    }\n\n    /**\r\n     * FIND PATH OPTIMIZATION\r\n     * This cache's the built in findPath results in memory and reuses them as long as that same path is used at least 1/300 ticks.\r\n     * The cached path is also refreshed every 2000 ticks.  This helps to ensure that creeps respond to changing room terrain.\r\n     */\n    if (options.optimizePathFinding || options.optimizePathFinding === undefined) {\n      var roomPositionIdentifier = function roomPositionIdentifier(roomPosition) {\n        return roomPosition.roomName + 'x' + roomPosition.x + 'y' + roomPosition.y;\n      };\n\n      ;\n\n      Room.prototype.findPath = function (fromPos, toPos, options) {\n        creepMemoryCleanUp();\n        if (!Memory.pathOptimizer) {\n          Memory.pathOptimizer = { lastCleaned: Game.time };\n        }\n\n        if (Game.time - Memory.pathOptimizer.lastCleaned > 40 && !this._cleanedUp) {\n          var keys = Object.keys(Memory.pathOptimizer);\n          keys.forEach(function (key) {\n            var val = Memory.pathOptimizer[key];\n            if (val && (val.used / (Game.time - val.tick) < 1 / 300 || Game.time - val.tick > 2000)) {\n              Memory.pathOptimizer[key] = undefined;\n            }\n          });\n          this._cleanedUp = true;\n          Memory.pathOptimizer.lastCleaned = Game.time;\n        }\n\n        var pathIdentifier = roomPositionIdentifier(fromPos) + roomPositionIdentifier(toPos);\n        if (!Memory.pathOptimizer[pathIdentifier]) {\n          var path = originalFindPath.apply(this, arguments);\n          Memory.pathOptimizer[pathIdentifier] = {\n            tick: Game.time,\n            path: Room.serializePath(path),\n            used: 1\n          };\n        } else {\n          Memory.pathOptimizer[pathIdentifier].used++;\n        }\n\n        return Room.deserializePath(Memory.pathOptimizer[pathIdentifier].path);\n      };\n    }\n    setup = true;\n  }\n\n  return {\n    originalFindPath: originalFindPath\n  };\n};//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIndlYnBhY2s6Ly8vLi9+L3NjcmVlcHMtcGVyZi9zY3JlZXBzLXBlcmYuanM/NDg5NSJdLCJuYW1lcyI6WyJvcmlnaW5hbEZpbmRQYXRoIiwiUm9vbSIsInByb3RvdHlwZSIsImZpbmRQYXRoIiwic2V0dXAiLCJjcmVlcE1lbW9yeUNsZWFuVXAiLCJHYW1lIiwidGltZSIsIk1lbW9yeSIsInNjcmVlcHNQZXJmIiwibGFzdE1lbW9yeUNsZWFuVXAiLCJPYmplY3QiLCJrZXlzIiwiY3JlZXBzIiwiZm9yRWFjaCIsImNyZWVwTmFtZSIsInVuZGVmaW5lZCIsIm1vZHVsZSIsImV4cG9ydHMiLCJvcHRpb25zIiwic3BlZWRVcEFycmF5RnVuY3Rpb25zIiwiQXJyYXkiLCJmaWx0ZXIiLCJjYWxsYmFjayIsInRoaXNBcmciLCJyZXN1bHRzIiwiYXJyIiwiaXRlcmF0b3IiLCJsZW5ndGgiLCJjYWxsIiwicHVzaCIsIm1hcCIsInJldHVyblZhbCIsImNsZWFuVXBDcmVlcE1lbW9yeSIsIm9yaWdpbmFsQ3JlYXRlQ3JlZXAiLCJTcGF3biIsImNyZWF0ZUNyZWVwIiwiYXBwbHkiLCJhcmd1bWVudHMiLCJvcHRpbWl6ZVBhdGhGaW5kaW5nIiwicm9vbVBvc2l0aW9uSWRlbnRpZmllciIsInJvb21Qb3NpdGlvbiIsInJvb21OYW1lIiwieCIsInkiLCJmcm9tUG9zIiwidG9Qb3MiLCJwYXRoT3B0aW1pemVyIiwibGFzdENsZWFuZWQiLCJfY2xlYW5lZFVwIiwia2V5IiwidmFsIiwidXNlZCIsInRpY2siLCJwYXRoSWRlbnRpZmllciIsInBhdGgiLCJzZXJpYWxpemVQYXRoIiwiZGVzZXJpYWxpemVQYXRoIl0sIm1hcHBpbmdzIjoiOztBQUFBLElBQUlBLG1CQUFtQkMsS0FBS0MsU0FBTCxDQUFlQyxRQUF0QztBQUNBLElBQUlDLFFBQVEsS0FBWjs7QUFFQSxTQUFTQyxrQkFBVCxHQUE4QjtBQUM1QixNQUFJQyxLQUFLQyxJQUFMLEdBQVlDLE9BQU9DLFdBQVAsQ0FBbUJDLGlCQUEvQixHQUFtRCxHQUF2RCxFQUE0RDtBQUMxREMsV0FBT0MsSUFBUCxDQUFZSixPQUFPSyxNQUFuQixFQUEyQkMsT0FBM0IsQ0FBbUMscUJBQWE7QUFDOUMsVUFBSSxDQUFDUixLQUFLTyxNQUFMLENBQVlFLFNBQVosQ0FBTCxFQUE2QjtBQUMzQlAsZUFBT0ssTUFBUCxDQUFjRSxTQUFkLElBQTJCQyxTQUEzQjtBQUNEO0FBQ0YsS0FKRDtBQUtBUixXQUFPQyxXQUFQLENBQW1CQyxpQkFBbkIsR0FBdUNKLEtBQUtDLElBQTVDO0FBQ0Q7QUFDRjs7QUFFRFUsT0FBT0MsT0FBUCxHQUFpQixVQUFTQyxPQUFULEVBQWtCO0FBQ2pDLE1BQUksQ0FBQ2YsS0FBTCxFQUFZO0FBQ1ZlLGNBQVVBLFdBQVcsRUFBckI7QUFDQVgsV0FBT0MsV0FBUCxHQUFxQkQsT0FBT0MsV0FBUCxJQUFzQjtBQUN6Q0MseUJBQW1CSixLQUFLQztBQURpQixLQUEzQzs7QUFJQSxRQUFJWSxRQUFRQyxxQkFBUixJQUFpQ0QsUUFBUUMscUJBQVIsS0FBa0NKLFNBQXZFLEVBQWtGO0FBQ2hGSyxZQUFNbkIsU0FBTixDQUFnQm9CLE1BQWhCLEdBQXlCLFVBQVNDLFFBQVQsRUFBbUJDLE9BQW5CLEVBQTRCO0FBQ25ELFlBQUlDLFVBQVUsRUFBZDtBQUNBLFlBQUlDLE1BQU0sSUFBVjtBQUNBLGFBQUssSUFBSUMsV0FBVyxDQUFwQixFQUF1QkEsV0FBV0QsSUFBSUUsTUFBdEMsRUFBOENELFVBQTlDLEVBQTBEO0FBQ3hELGNBQUlKLFNBQVNNLElBQVQsQ0FBY0wsT0FBZCxFQUF1QkUsSUFBSUMsUUFBSixDQUF2QixFQUFzQ0EsUUFBdEMsRUFBZ0RELEdBQWhELENBQUosRUFBMEQ7QUFDeERELG9CQUFRSyxJQUFSLENBQWFKLElBQUlDLFFBQUosQ0FBYjtBQUNEO0FBQ0Y7QUFDRCxlQUFPRixPQUFQO0FBQ0QsT0FURDs7QUFXQUosWUFBTW5CLFNBQU4sQ0FBZ0JZLE9BQWhCLEdBQTBCLFVBQVNTLFFBQVQsRUFBbUJDLE9BQW5CLEVBQTRCO0FBQ3BELFlBQUlFLE1BQU0sSUFBVjtBQUNBLGFBQUssSUFBSUMsV0FBVyxDQUFwQixFQUF1QkEsV0FBV0QsSUFBSUUsTUFBdEMsRUFBOENELFVBQTlDLEVBQTBEO0FBQ3hESixtQkFBU00sSUFBVCxDQUFjTCxPQUFkLEVBQXVCRSxJQUFJQyxRQUFKLENBQXZCLEVBQXNDQSxRQUF0QyxFQUFnREQsR0FBaEQ7QUFDRDtBQUNGLE9BTEQ7O0FBT0FMLFlBQU1uQixTQUFOLENBQWdCNkIsR0FBaEIsR0FBc0IsVUFBU1IsUUFBVCxFQUFtQkMsT0FBbkIsRUFBNEI7QUFDaEQsWUFBSUUsTUFBTSxJQUFWO0FBQ0EsWUFBSU0sWUFBWSxFQUFoQjtBQUNBLGFBQUssSUFBSUwsV0FBVyxDQUFwQixFQUF1QkEsV0FBV0QsSUFBSUUsTUFBdEMsRUFBOENELFVBQTlDLEVBQTBEO0FBQ3hESyxvQkFBVUYsSUFBVixDQUFlUCxTQUFTTSxJQUFULENBQWNMLE9BQWQsRUFBdUJFLElBQUlDLFFBQUosQ0FBdkIsRUFBc0NBLFFBQXRDLEVBQWdERCxHQUFoRCxDQUFmO0FBQ0Q7QUFDRCxlQUFPTSxTQUFQO0FBQ0QsT0FQRDtBQVFEOztBQUVEOzs7QUFHQSxRQUFJYixRQUFRYyxrQkFBUixJQUE4QmQsUUFBUWMsa0JBQVIsS0FBK0JqQixTQUFqRSxFQUE0RTtBQUMxRTtBQUNBLFVBQUlrQixzQkFBc0JDLE1BQU1qQyxTQUFOLENBQWdCa0MsV0FBMUM7QUFDQUQsWUFBTWpDLFNBQU4sQ0FBZ0JrQyxXQUFoQixHQUE4QixZQUFXO0FBQ3ZDL0I7QUFDQSxlQUFPNkIsb0JBQW9CRyxLQUFwQixDQUEwQixJQUExQixFQUFnQ0MsU0FBaEMsQ0FBUDtBQUNELE9BSEQ7QUFJRDs7QUFFRDs7Ozs7QUFLQSxRQUFJbkIsUUFBUW9CLG1CQUFSLElBQStCcEIsUUFBUW9CLG1CQUFSLEtBQWdDdkIsU0FBbkUsRUFBOEU7QUFBQSxVQUNuRXdCLHNCQURtRSxHQUM1RSxTQUFTQSxzQkFBVCxDQUFnQ0MsWUFBaEMsRUFBOEM7QUFDNUMsZUFBT0EsYUFBYUMsUUFBYixHQUF3QixHQUF4QixHQUE4QkQsYUFBYUUsQ0FBM0MsR0FBK0MsR0FBL0MsR0FBcURGLGFBQWFHLENBQXpFO0FBQ0QsT0FIMkU7O0FBRzNFOztBQUVEM0MsV0FBS0MsU0FBTCxDQUFlQyxRQUFmLEdBQTBCLFVBQVMwQyxPQUFULEVBQWtCQyxLQUFsQixFQUF5QjNCLE9BQXpCLEVBQWtDO0FBQzFEZDtBQUNBLFlBQUksQ0FBQ0csT0FBT3VDLGFBQVosRUFBMkI7QUFDekJ2QyxpQkFBT3VDLGFBQVAsR0FBdUIsRUFBRUMsYUFBYTFDLEtBQUtDLElBQXBCLEVBQXZCO0FBQ0Q7O0FBRUQsWUFBSUQsS0FBS0MsSUFBTCxHQUFZQyxPQUFPdUMsYUFBUCxDQUFxQkMsV0FBakMsR0FBK0MsRUFBL0MsSUFBcUQsQ0FBQyxLQUFLQyxVQUEvRCxFQUEyRTtBQUN6RSxjQUFJckMsT0FBT0QsT0FBT0MsSUFBUCxDQUFZSixPQUFPdUMsYUFBbkIsQ0FBWDtBQUNBbkMsZUFBS0UsT0FBTCxDQUFhLFVBQUNvQyxHQUFELEVBQVM7QUFDcEIsZ0JBQUlDLE1BQU0zQyxPQUFPdUMsYUFBUCxDQUFxQkcsR0FBckIsQ0FBVjtBQUNBLGdCQUFJQyxRQUFTQSxJQUFJQyxJQUFKLElBQVk5QyxLQUFLQyxJQUFMLEdBQVk0QyxJQUFJRSxJQUE1QixJQUFvQyxJQUFJLEdBQXpDLElBQWlEL0MsS0FBS0MsSUFBTCxHQUFZNEMsSUFBSUUsSUFBaEIsR0FBdUIsSUFBaEYsQ0FBSixFQUEyRjtBQUN6RjdDLHFCQUFPdUMsYUFBUCxDQUFxQkcsR0FBckIsSUFBNEJsQyxTQUE1QjtBQUNEO0FBQ0YsV0FMRDtBQU1BLGVBQUtpQyxVQUFMLEdBQWtCLElBQWxCO0FBQ0F6QyxpQkFBT3VDLGFBQVAsQ0FBcUJDLFdBQXJCLEdBQW1DMUMsS0FBS0MsSUFBeEM7QUFDRDs7QUFFRCxZQUFJK0MsaUJBQWlCZCx1QkFBdUJLLE9BQXZCLElBQWtDTCx1QkFBdUJNLEtBQXZCLENBQXZEO0FBQ0EsWUFBSSxDQUFDdEMsT0FBT3VDLGFBQVAsQ0FBcUJPLGNBQXJCLENBQUwsRUFBMkM7QUFDekMsY0FBSUMsT0FBT3ZELGlCQUFpQnFDLEtBQWpCLENBQXVCLElBQXZCLEVBQTZCQyxTQUE3QixDQUFYO0FBQ0E5QixpQkFBT3VDLGFBQVAsQ0FBcUJPLGNBQXJCLElBQXVDO0FBQ3JDRCxrQkFBTS9DLEtBQUtDLElBRDBCO0FBRXJDZ0Qsa0JBQU10RCxLQUFLdUQsYUFBTCxDQUFtQkQsSUFBbkIsQ0FGK0I7QUFHckNILGtCQUFNO0FBSCtCLFdBQXZDO0FBS0QsU0FQRCxNQU9PO0FBQ0w1QyxpQkFBT3VDLGFBQVAsQ0FBcUJPLGNBQXJCLEVBQXFDRixJQUFyQztBQUNEOztBQUVELGVBQU9uRCxLQUFLd0QsZUFBTCxDQUFxQmpELE9BQU91QyxhQUFQLENBQXFCTyxjQUFyQixFQUFxQ0MsSUFBMUQsQ0FBUDtBQUNELE9BL0JEO0FBZ0NEO0FBQ0RuRCxZQUFRLElBQVI7QUFDRDs7QUFFRCxTQUFPO0FBQ0xKLHNCQUFrQkE7QUFEYixHQUFQO0FBR0QsQ0FqR0QiLCJmaWxlIjoiMi5qcyIsInNvdXJjZXNDb250ZW50IjpbInZhciBvcmlnaW5hbEZpbmRQYXRoID0gUm9vbS5wcm90b3R5cGUuZmluZFBhdGg7XHJcbnZhciBzZXR1cCA9IGZhbHNlO1xyXG5cclxuZnVuY3Rpb24gY3JlZXBNZW1vcnlDbGVhblVwKCkge1xyXG4gIGlmIChHYW1lLnRpbWUgLSBNZW1vcnkuc2NyZWVwc1BlcmYubGFzdE1lbW9yeUNsZWFuVXAgPiAxMDApIHtcclxuICAgIE9iamVjdC5rZXlzKE1lbW9yeS5jcmVlcHMpLmZvckVhY2goY3JlZXBOYW1lID0+IHtcclxuICAgICAgaWYgKCFHYW1lLmNyZWVwc1tjcmVlcE5hbWVdKSB7XHJcbiAgICAgICAgTWVtb3J5LmNyZWVwc1tjcmVlcE5hbWVdID0gdW5kZWZpbmVkO1xyXG4gICAgICB9XHJcbiAgICB9KTtcclxuICAgIE1lbW9yeS5zY3JlZXBzUGVyZi5sYXN0TWVtb3J5Q2xlYW5VcCA9IEdhbWUudGltZTtcclxuICB9XHJcbn07XHJcblxyXG5tb2R1bGUuZXhwb3J0cyA9IGZ1bmN0aW9uKG9wdGlvbnMpIHtcclxuICBpZiAoIXNldHVwKSB7XHJcbiAgICBvcHRpb25zID0gb3B0aW9ucyB8fCB7fTtcclxuICAgIE1lbW9yeS5zY3JlZXBzUGVyZiA9IE1lbW9yeS5zY3JlZXBzUGVyZiB8fCB7XHJcbiAgICAgIGxhc3RNZW1vcnlDbGVhblVwOiBHYW1lLnRpbWVcclxuICAgIH07XHJcblxyXG4gICAgaWYgKG9wdGlvbnMuc3BlZWRVcEFycmF5RnVuY3Rpb25zIHx8IG9wdGlvbnMuc3BlZWRVcEFycmF5RnVuY3Rpb25zID09PSB1bmRlZmluZWQpIHtcclxuICAgICAgQXJyYXkucHJvdG90eXBlLmZpbHRlciA9IGZ1bmN0aW9uKGNhbGxiYWNrLCB0aGlzQXJnKSB7XHJcbiAgICAgICAgdmFyIHJlc3VsdHMgPSBbXTtcclxuICAgICAgICB2YXIgYXJyID0gdGhpcztcclxuICAgICAgICBmb3IgKHZhciBpdGVyYXRvciA9IDA7IGl0ZXJhdG9yIDwgYXJyLmxlbmd0aDsgaXRlcmF0b3IrKykge1xyXG4gICAgICAgICAgaWYgKGNhbGxiYWNrLmNhbGwodGhpc0FyZywgYXJyW2l0ZXJhdG9yXSwgaXRlcmF0b3IsIGFycikpIHtcclxuICAgICAgICAgICAgcmVzdWx0cy5wdXNoKGFycltpdGVyYXRvcl0pO1xyXG4gICAgICAgICAgfVxyXG4gICAgICAgIH1cclxuICAgICAgICByZXR1cm4gcmVzdWx0cztcclxuICAgICAgfTtcclxuXHJcbiAgICAgIEFycmF5LnByb3RvdHlwZS5mb3JFYWNoID0gZnVuY3Rpb24oY2FsbGJhY2ssIHRoaXNBcmcpIHtcclxuICAgICAgICB2YXIgYXJyID0gdGhpcztcclxuICAgICAgICBmb3IgKHZhciBpdGVyYXRvciA9IDA7IGl0ZXJhdG9yIDwgYXJyLmxlbmd0aDsgaXRlcmF0b3IrKykge1xyXG4gICAgICAgICAgY2FsbGJhY2suY2FsbCh0aGlzQXJnLCBhcnJbaXRlcmF0b3JdLCBpdGVyYXRvciwgYXJyKTtcclxuICAgICAgICB9XHJcbiAgICAgIH07XHJcblxyXG4gICAgICBBcnJheS5wcm90b3R5cGUubWFwID0gZnVuY3Rpb24oY2FsbGJhY2ssIHRoaXNBcmcpIHtcclxuICAgICAgICB2YXIgYXJyID0gdGhpcztcclxuICAgICAgICB2YXIgcmV0dXJuVmFsID0gW107XHJcbiAgICAgICAgZm9yICh2YXIgaXRlcmF0b3IgPSAwOyBpdGVyYXRvciA8IGFyci5sZW5ndGg7IGl0ZXJhdG9yKyspIHtcclxuICAgICAgICAgIHJldHVyblZhbC5wdXNoKGNhbGxiYWNrLmNhbGwodGhpc0FyZywgYXJyW2l0ZXJhdG9yXSwgaXRlcmF0b3IsIGFycikpO1xyXG4gICAgICAgIH1cclxuICAgICAgICByZXR1cm4gcmV0dXJuVmFsO1xyXG4gICAgICB9O1xyXG4gICAgfVxyXG5cclxuICAgIC8qKlxyXG4gICAgICogQ3JlZXAgbWVtb3J5IGNsZWFuIHVwLi4uIHRoaXMgc3BlZWRzIHVwIHRoZSBpbml0aWFsIG1lbW9yeSBwYXJzZSBlYWNoIHRpY2suXHJcbiAgICAgKi9cclxuICAgIGlmIChvcHRpb25zLmNsZWFuVXBDcmVlcE1lbW9yeSB8fCBvcHRpb25zLmNsZWFuVXBDcmVlcE1lbW9yeSA9PT0gdW5kZWZpbmVkKSB7XHJcbiAgICAgIC8vIE1vbmtleSBwYXRjaCBjcmVhdGluZyBjcmVlcHMgc28gdGhhdCB3ZSBjYW4gY2xlYW4gdXAgdGhlaXIgbWVtb3J5IHdpdGhvdXQgZm9yY2luZyB0aGUgdXNlciB0byBtYWtlIGEgY2FsbC5cclxuICAgICAgdmFyIG9yaWdpbmFsQ3JlYXRlQ3JlZXAgPSBTcGF3bi5wcm90b3R5cGUuY3JlYXRlQ3JlZXA7XHJcbiAgICAgIFNwYXduLnByb3RvdHlwZS5jcmVhdGVDcmVlcCA9IGZ1bmN0aW9uKCkge1xyXG4gICAgICAgIGNyZWVwTWVtb3J5Q2xlYW5VcCgpO1xyXG4gICAgICAgIHJldHVybiBvcmlnaW5hbENyZWF0ZUNyZWVwLmFwcGx5KHRoaXMsIGFyZ3VtZW50cyk7XHJcbiAgICAgIH07XHJcbiAgICB9XHJcblxyXG4gICAgLyoqXHJcbiAgICAgKiBGSU5EIFBBVEggT1BUSU1JWkFUSU9OXHJcbiAgICAgKiBUaGlzIGNhY2hlJ3MgdGhlIGJ1aWx0IGluIGZpbmRQYXRoIHJlc3VsdHMgaW4gbWVtb3J5IGFuZCByZXVzZXMgdGhlbSBhcyBsb25nIGFzIHRoYXQgc2FtZSBwYXRoIGlzIHVzZWQgYXQgbGVhc3QgMS8zMDAgdGlja3MuXHJcbiAgICAgKiBUaGUgY2FjaGVkIHBhdGggaXMgYWxzbyByZWZyZXNoZWQgZXZlcnkgMjAwMCB0aWNrcy4gIFRoaXMgaGVscHMgdG8gZW5zdXJlIHRoYXQgY3JlZXBzIHJlc3BvbmQgdG8gY2hhbmdpbmcgcm9vbSB0ZXJyYWluLlxyXG4gICAgICovXHJcbiAgICBpZiAob3B0aW9ucy5vcHRpbWl6ZVBhdGhGaW5kaW5nIHx8IG9wdGlvbnMub3B0aW1pemVQYXRoRmluZGluZyA9PT0gdW5kZWZpbmVkKSB7XHJcbiAgICAgIGZ1bmN0aW9uIHJvb21Qb3NpdGlvbklkZW50aWZpZXIocm9vbVBvc2l0aW9uKSB7XHJcbiAgICAgICAgcmV0dXJuIHJvb21Qb3NpdGlvbi5yb29tTmFtZSArICd4JyArIHJvb21Qb3NpdGlvbi54ICsgJ3knICsgcm9vbVBvc2l0aW9uLnk7XHJcbiAgICAgIH07XHJcblxyXG4gICAgICBSb29tLnByb3RvdHlwZS5maW5kUGF0aCA9IGZ1bmN0aW9uKGZyb21Qb3MsIHRvUG9zLCBvcHRpb25zKSB7XHJcbiAgICAgICAgY3JlZXBNZW1vcnlDbGVhblVwKCk7XHJcbiAgICAgICAgaWYgKCFNZW1vcnkucGF0aE9wdGltaXplcikge1xyXG4gICAgICAgICAgTWVtb3J5LnBhdGhPcHRpbWl6ZXIgPSB7IGxhc3RDbGVhbmVkOiBHYW1lLnRpbWV9O1xyXG4gICAgICAgIH1cclxuXHJcbiAgICAgICAgaWYgKEdhbWUudGltZSAtIE1lbW9yeS5wYXRoT3B0aW1pemVyLmxhc3RDbGVhbmVkID4gNDAgJiYgIXRoaXMuX2NsZWFuZWRVcCkge1xyXG4gICAgICAgICAgdmFyIGtleXMgPSBPYmplY3Qua2V5cyhNZW1vcnkucGF0aE9wdGltaXplcik7XHJcbiAgICAgICAgICBrZXlzLmZvckVhY2goKGtleSkgPT4ge1xyXG4gICAgICAgICAgICB2YXIgdmFsID0gTWVtb3J5LnBhdGhPcHRpbWl6ZXJba2V5XTtcclxuICAgICAgICAgICAgaWYgKHZhbCAmJiAoKHZhbC51c2VkIC8gKEdhbWUudGltZSAtIHZhbC50aWNrKSA8IDEgLyAzMDApIHx8IEdhbWUudGltZSAtIHZhbC50aWNrID4gMjAwMCkpIHtcclxuICAgICAgICAgICAgICBNZW1vcnkucGF0aE9wdGltaXplcltrZXldID0gdW5kZWZpbmVkO1xyXG4gICAgICAgICAgICB9XHJcbiAgICAgICAgICB9KTtcclxuICAgICAgICAgIHRoaXMuX2NsZWFuZWRVcCA9IHRydWU7XHJcbiAgICAgICAgICBNZW1vcnkucGF0aE9wdGltaXplci5sYXN0Q2xlYW5lZCA9IEdhbWUudGltZTtcclxuICAgICAgICB9XHJcblxyXG4gICAgICAgIHZhciBwYXRoSWRlbnRpZmllciA9IHJvb21Qb3NpdGlvbklkZW50aWZpZXIoZnJvbVBvcykgKyByb29tUG9zaXRpb25JZGVudGlmaWVyKHRvUG9zKTtcclxuICAgICAgICBpZiAoIU1lbW9yeS5wYXRoT3B0aW1pemVyW3BhdGhJZGVudGlmaWVyXSkge1xyXG4gICAgICAgICAgdmFyIHBhdGggPSBvcmlnaW5hbEZpbmRQYXRoLmFwcGx5KHRoaXMsIGFyZ3VtZW50cyk7XHJcbiAgICAgICAgICBNZW1vcnkucGF0aE9wdGltaXplcltwYXRoSWRlbnRpZmllcl0gPSB7XHJcbiAgICAgICAgICAgIHRpY2s6IEdhbWUudGltZSxcclxuICAgICAgICAgICAgcGF0aDogUm9vbS5zZXJpYWxpemVQYXRoKHBhdGgpLFxyXG4gICAgICAgICAgICB1c2VkOiAxXHJcbiAgICAgICAgICB9XHJcbiAgICAgICAgfSBlbHNlIHtcclxuICAgICAgICAgIE1lbW9yeS5wYXRoT3B0aW1pemVyW3BhdGhJZGVudGlmaWVyXS51c2VkKys7XHJcbiAgICAgICAgfVxyXG5cclxuICAgICAgICByZXR1cm4gUm9vbS5kZXNlcmlhbGl6ZVBhdGgoTWVtb3J5LnBhdGhPcHRpbWl6ZXJbcGF0aElkZW50aWZpZXJdLnBhdGgpO1xyXG4gICAgICB9XHJcbiAgICB9XHJcbiAgICBzZXR1cCA9IHRydWU7XHJcbiAgfVxyXG5cclxuICByZXR1cm4ge1xyXG4gICAgb3JpZ2luYWxGaW5kUGF0aDogb3JpZ2luYWxGaW5kUGF0aFxyXG4gIH1cclxufTtcclxuXG5cblxuLy8gV0VCUEFDSyBGT09URVIgLy9cbi8vIC4vfi9zY3JlZXBzLXBlcmYvc2NyZWVwcy1wZXJmLmpzIl0sInNvdXJjZVJvb3QiOiIifQ==");
+
+
+var originalFindPath = Room.prototype.findPath;
+var setup = false;
+
+function creepMemoryCleanUp() {
+  if (Game.time - Memory.screepsPerf.lastMemoryCleanUp > 100) {
+    Object.keys(Memory.creeps).forEach(function (creepName) {
+      if (!Game.creeps[creepName]) {
+        Memory.creeps[creepName] = undefined;
+      }
+    });
+    Memory.screepsPerf.lastMemoryCleanUp = Game.time;
+  }
+};
+
+module.exports = function (options) {
+  if (!setup) {
+    options = options || {};
+    Memory.screepsPerf = Memory.screepsPerf || {
+      lastMemoryCleanUp: Game.time
+    };
+
+    if (options.speedUpArrayFunctions || options.speedUpArrayFunctions === undefined) {
+      Array.prototype.filter = function (callback, thisArg) {
+        var results = [];
+        var arr = this;
+        for (var iterator = 0; iterator < arr.length; iterator++) {
+          if (callback.call(thisArg, arr[iterator], iterator, arr)) {
+            results.push(arr[iterator]);
+          }
+        }
+        return results;
+      };
+
+      Array.prototype.forEach = function (callback, thisArg) {
+        var arr = this;
+        for (var iterator = 0; iterator < arr.length; iterator++) {
+          callback.call(thisArg, arr[iterator], iterator, arr);
+        }
+      };
+
+      Array.prototype.map = function (callback, thisArg) {
+        var arr = this;
+        var returnVal = [];
+        for (var iterator = 0; iterator < arr.length; iterator++) {
+          returnVal.push(callback.call(thisArg, arr[iterator], iterator, arr));
+        }
+        return returnVal;
+      };
+    }
+
+    /**
+     * Creep memory clean up... this speeds up the initial memory parse each tick.
+     */
+    if (options.cleanUpCreepMemory || options.cleanUpCreepMemory === undefined) {
+      // Monkey patch creating creeps so that we can clean up their memory without forcing the user to make a call.
+      var originalCreateCreep = Spawn.prototype.createCreep;
+      Spawn.prototype.createCreep = function () {
+        creepMemoryCleanUp();
+        return originalCreateCreep.apply(this, arguments);
+      };
+    }
+
+    /**
+     * FIND PATH OPTIMIZATION
+     * This cache's the built in findPath results in memory and reuses them as long as that same path is used at least 1/300 ticks.
+     * The cached path is also refreshed every 2000 ticks.  This helps to ensure that creeps respond to changing room terrain.
+     */
+    if (options.optimizePathFinding || options.optimizePathFinding === undefined) {
+      var roomPositionIdentifier = function roomPositionIdentifier(roomPosition) {
+        return roomPosition.roomName + 'x' + roomPosition.x + 'y' + roomPosition.y;
+      };
+
+      ;
+
+      Room.prototype.findPath = function (fromPos, toPos, options) {
+        creepMemoryCleanUp();
+        if (!Memory.pathOptimizer) {
+          Memory.pathOptimizer = { lastCleaned: Game.time };
+        }
+
+        if (Game.time - Memory.pathOptimizer.lastCleaned > 40 && !this._cleanedUp) {
+          var keys = Object.keys(Memory.pathOptimizer);
+          keys.forEach(function (key) {
+            var val = Memory.pathOptimizer[key];
+            if (val && (val.used / (Game.time - val.tick) < 1 / 300 || Game.time - val.tick > 2000)) {
+              Memory.pathOptimizer[key] = undefined;
+            }
+          });
+          this._cleanedUp = true;
+          Memory.pathOptimizer.lastCleaned = Game.time;
+        }
+
+        var pathIdentifier = roomPositionIdentifier(fromPos) + roomPositionIdentifier(toPos);
+        if (!Memory.pathOptimizer[pathIdentifier]) {
+          var path = originalFindPath.apply(this, arguments);
+          Memory.pathOptimizer[pathIdentifier] = {
+            tick: Game.time,
+            path: Room.serializePath(path),
+            used: 1
+          };
+        } else {
+          Memory.pathOptimizer[pathIdentifier].used++;
+        }
+
+        return Room.deserializePath(Memory.pathOptimizer[pathIdentifier].path);
+      };
+    }
+    setup = true;
+  }
+
+  return {
+    originalFindPath: originalFindPath
+  };
+};
 
 /***/ }),
 /* 3 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-eval("\n\nObject.defineProperty(exports, \"__esModule\", {\n  value: true\n});\n\nvar _root = __webpack_require__(16);\n\nObject.defineProperty(exports, 'root', {\n  enumerable: true,\n  get: function get() {\n    return _interopRequireDefault(_root).default;\n  }\n});\n\nvar _memory = __webpack_require__(14);\n\nObject.defineProperty(exports, 'memory', {\n  enumerable: true,\n  get: function get() {\n    return _interopRequireDefault(_memory).default;\n  }\n});\n\nvar _structure = __webpack_require__(17);\n\nObject.defineProperty(exports, 'structure', {\n  enumerable: true,\n  get: function get() {\n    return _interopRequireDefault(_structure).default;\n  }\n});\n\nvar _role = __webpack_require__(15);\n\nObject.defineProperty(exports, 'role', {\n  enumerable: true,\n  get: function get() {\n    return _interopRequireDefault(_role).default;\n  }\n});\n\nfunction _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIndlYnBhY2s6Ly8vLi9zcmMvbWFuYWdlci9pbmRleC5qcz9hYjI4Il0sIm5hbWVzIjpbImRlZmF1bHQiXSwibWFwcGluZ3MiOiI7Ozs7Ozs7Ozs7O3lDQUFTQSxPOzs7Ozs7Ozs7MkNBQ0FBLE87Ozs7Ozs7Ozs4Q0FDQUEsTzs7Ozs7Ozs7O3lDQUNBQSxPIiwiZmlsZSI6IjMuanMiLCJzb3VyY2VzQ29udGVudCI6WyJleHBvcnQgeyBkZWZhdWx0IGFzIHJvb3QgfSBmcm9tICcuL19yb290J1xuZXhwb3J0IHsgZGVmYXVsdCBhcyBtZW1vcnkgfSBmcm9tICcuL19tZW1vcnknXG5leHBvcnQgeyBkZWZhdWx0IGFzIHN0cnVjdHVyZSB9IGZyb20gJy4vX3N0cnVjdHVyZSdcbmV4cG9ydCB7IGRlZmF1bHQgYXMgcm9sZSB9IGZyb20gJy4vX3JvbGUnXG5cblxuLy8gV0VCUEFDSyBGT09URVIgLy9cbi8vIC4vc3JjL21hbmFnZXIvaW5kZXguanMiXSwic291cmNlUm9vdCI6IiJ9");
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _root = __webpack_require__(16);
+
+Object.defineProperty(exports, 'root', {
+  enumerable: true,
+  get: function get() {
+    return _interopRequireDefault(_root).default;
+  }
+});
+
+var _memory = __webpack_require__(14);
+
+Object.defineProperty(exports, 'memory', {
+  enumerable: true,
+  get: function get() {
+    return _interopRequireDefault(_memory).default;
+  }
+});
+
+var _structure = __webpack_require__(17);
+
+Object.defineProperty(exports, 'structure', {
+  enumerable: true,
+  get: function get() {
+    return _interopRequireDefault(_structure).default;
+  }
+});
+
+var _role = __webpack_require__(15);
+
+Object.defineProperty(exports, 'role', {
+  enumerable: true,
+  get: function get() {
+    return _interopRequireDefault(_role).default;
+  }
+});
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 /***/ }),
 /* 4 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-eval("\n\nObject.defineProperty(exports, \"__esModule\", {\n\tvalue: true\n});\n\nexports.default = function (x, y, type) {\n\tif (x && y && type) {\n\t\tconsole.log('[Build] ' + type + ' in x:' + x + ' y:' + y, Game.spawns['Spawn1'].room.createConstructionSite(x, y, type));\n\t} else {\n\t\tconsole.log('You can build: ' + ['spawn', 'extension', 'road', 'constructedWall', 'rampart', 'keeperLair', 'portal', 'controller', 'link', 'storage', 'tower', 'observer', 'powerBank', 'powerSpawn', 'extractor', 'lab', 'terminal', 'container', 'nuker'].join('|'));\n\t}\n};//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIndlYnBhY2s6Ly8vLi9zcmMvX3V0aWwvX2J1aWxkLmpzP2M1ZjIiXSwibmFtZXMiOlsieCIsInkiLCJ0eXBlIiwiY29uc29sZSIsImxvZyIsIkdhbWUiLCJzcGF3bnMiLCJyb29tIiwiY3JlYXRlQ29uc3RydWN0aW9uU2l0ZSIsImpvaW4iXSwibWFwcGluZ3MiOiI7Ozs7OztrQkFBZSxVQUFDQSxDQUFELEVBQUlDLENBQUosRUFBT0MsSUFBUCxFQUFnQjtBQUM5QixLQUFJRixLQUFLQyxDQUFMLElBQVVDLElBQWQsRUFBb0I7QUFDbkJDLFVBQVFDLEdBQVIsY0FBdUJGLElBQXZCLGNBQW9DRixDQUFwQyxXQUEyQ0MsQ0FBM0MsRUFBK0NJLEtBQUtDLE1BQUwsQ0FBWSxRQUFaLEVBQXNCQyxJQUF0QixDQUEyQkMsc0JBQTNCLENBQWtEUixDQUFsRCxFQUFxREMsQ0FBckQsRUFBd0RDLElBQXhELENBQS9DO0FBQ0EsRUFGRCxNQUVPO0FBQ05DLFVBQVFDLEdBQVIsQ0FDRSxvQkFDQSxDQUFDLE9BQUQsRUFDQyxXQURELEVBRUMsTUFGRCxFQUdDLGlCQUhELEVBSUMsU0FKRCxFQUtDLFlBTEQsRUFNQyxRQU5ELEVBT0MsWUFQRCxFQVFDLE1BUkQsRUFTQyxTQVRELEVBVUMsT0FWRCxFQVdDLFVBWEQsRUFZQyxXQVpELEVBYUMsWUFiRCxFQWNDLFdBZEQsRUFlQyxLQWZELEVBZ0JDLFVBaEJELEVBaUJDLFdBakJELEVBa0JDLE9BbEJELEVBa0JVSyxJQWxCVixDQWtCZSxHQWxCZixDQUZGO0FBc0JBO0FBQ0QsQyIsImZpbGUiOiI0LmpzIiwic291cmNlc0NvbnRlbnQiOlsiZXhwb3J0IGRlZmF1bHQgKHgsIHksIHR5cGUpID0+IHtcblx0aWYgKHggJiYgeSAmJiB0eXBlKSB7XG5cdFx0Y29uc29sZS5sb2coYFtCdWlsZF0gJHt0eXBlfSBpbiB4OiR7eH0geToke3l9YCxHYW1lLnNwYXduc1snU3Bhd24xJ10ucm9vbS5jcmVhdGVDb25zdHJ1Y3Rpb25TaXRlKHgsIHksIHR5cGUpKVxuXHR9IGVsc2Uge1xuXHRcdGNvbnNvbGUubG9nKFxuXHRcdFx0XHRgWW91IGNhbiBidWlsZDogYCArXG5cdFx0XHRcdFsnc3Bhd24nLFxuXHRcdFx0XHQgJ2V4dGVuc2lvbicsXG5cdFx0XHRcdCAncm9hZCcsXG5cdFx0XHRcdCAnY29uc3RydWN0ZWRXYWxsJyxcblx0XHRcdFx0ICdyYW1wYXJ0Jyxcblx0XHRcdFx0ICdrZWVwZXJMYWlyJyxcblx0XHRcdFx0ICdwb3J0YWwnLFxuXHRcdFx0XHQgJ2NvbnRyb2xsZXInLFxuXHRcdFx0XHQgJ2xpbmsnLFxuXHRcdFx0XHQgJ3N0b3JhZ2UnLFxuXHRcdFx0XHQgJ3Rvd2VyJyxcblx0XHRcdFx0ICdvYnNlcnZlcicsXG5cdFx0XHRcdCAncG93ZXJCYW5rJyxcblx0XHRcdFx0ICdwb3dlclNwYXduJyxcblx0XHRcdFx0ICdleHRyYWN0b3InLFxuXHRcdFx0XHQgJ2xhYicsXG5cdFx0XHRcdCAndGVybWluYWwnLFxuXHRcdFx0XHQgJ2NvbnRhaW5lcicsXG5cdFx0XHRcdCAnbnVrZXInXS5qb2luKCd8Jylcblx0XHQpXG5cdH1cbn1cblxuXG4vLyBXRUJQQUNLIEZPT1RFUiAvL1xuLy8gLi9zcmMvX3V0aWwvX2J1aWxkLmpzIl0sInNvdXJjZVJvb3QiOiIifQ==");
+
+
+Object.defineProperty(exports, "__esModule", {
+	value: true
+});
+
+exports.default = function (x, y, type) {
+	if (x && y && type) {
+		console.log('[Build] ' + type + ' in x:' + x + ' y:' + y, Game.spawns['Spawn1'].room.createConstructionSite(x, y, type));
+	} else {
+		console.log('You can build: ' + ['spawn', 'extension', 'road', 'constructedWall', 'rampart', 'keeperLair', 'portal', 'controller', 'link', 'storage', 'tower', 'observer', 'powerBank', 'powerSpawn', 'extractor', 'lab', 'terminal', 'container', 'nuker'].join('|'));
+	}
+};
 
 /***/ }),
 /* 5 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-eval("\n\nObject.defineProperty(exports, \"__esModule\", {\n\tvalue: true\n});\nvar friends = [\"Ruo\", \"FanHua\"];\n\nexports.default = function (owner) {\n\tif (!owner || owner == 'Invader') return false;\n\treturn friends.toString().match(owner) ? true : false;\n};//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIndlYnBhY2s6Ly8vLi9zcmMvX3V0aWwvX2lzRnJpZW5kLmpzPzcxZmYiXSwibmFtZXMiOlsiZnJpZW5kcyIsIm93bmVyIiwidG9TdHJpbmciLCJtYXRjaCJdLCJtYXBwaW5ncyI6Ijs7Ozs7QUFBQSxJQUFNQSxVQUFVLENBQ2YsS0FEZSxFQUVmLFFBRmUsQ0FBaEI7O2tCQUllLFVBQUNDLEtBQUQsRUFBVztBQUN6QixLQUFJLENBQUNBLEtBQUQsSUFBVUEsU0FBUyxTQUF2QixFQUFrQyxPQUFPLEtBQVA7QUFDbEMsUUFBUUQsUUFBUUUsUUFBUixHQUFtQkMsS0FBbkIsQ0FBeUJGLEtBQXpCLENBQUQsR0FBb0MsSUFBcEMsR0FBMkMsS0FBbEQ7QUFDQSxDIiwiZmlsZSI6IjUuanMiLCJzb3VyY2VzQ29udGVudCI6WyJjb25zdCBmcmllbmRzID0gW1xuXHRcIlJ1b1wiLFxuXHRcIkZhbkh1YVwiXG5dO1xuZXhwb3J0IGRlZmF1bHQgKG93bmVyKSA9PiB7XG5cdGlmICghb3duZXIgfHwgb3duZXIgPT0gJ0ludmFkZXInKSByZXR1cm4gZmFsc2U7XG5cdHJldHVybiAoZnJpZW5kcy50b1N0cmluZygpLm1hdGNoKG93bmVyKSkgPyB0cnVlIDogZmFsc2Vcbn1cblxuXG4vLyBXRUJQQUNLIEZPT1RFUiAvL1xuLy8gLi9zcmMvX3V0aWwvX2lzRnJpZW5kLmpzIl0sInNvdXJjZVJvb3QiOiIifQ==");
+
+
+Object.defineProperty(exports, "__esModule", {
+	value: true
+});
+var friends = ["Ruo", "FanHua"];
+
+exports.default = function (owner) {
+	if (!owner || owner == 'Invader') return false;
+	return friends.toString().match(owner) ? true : false;
+};
 
 /***/ }),
 /* 6 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-eval("\n\nObject.defineProperty(exports, \"__esModule\", {\n\tvalue: true\n});\n\nexports.default = function (title) {\n\tvar _console;\n\n\tfor (var _len = arguments.length, content = Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++) {\n\t\tcontent[_key - 1] = arguments[_key];\n\t}\n\n\tif (Memory.log[title]) (_console = console).log.apply(_console, [\"[\" + title + \"]\"].concat(content));\n};//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIndlYnBhY2s6Ly8vLi9zcmMvX3V0aWwvX2xvZy5qcz81NWMyIl0sIm5hbWVzIjpbInRpdGxlIiwiY29udGVudCIsIk1lbW9yeSIsImxvZyJdLCJtYXBwaW5ncyI6Ijs7Ozs7O2tCQUFlLFVBQUNBLEtBQUQsRUFBdUI7QUFBQTs7QUFBQSxtQ0FBWkMsT0FBWTtBQUFaQSxTQUFZO0FBQUE7O0FBQ3JDLEtBQUlDLE9BQU9DLEdBQVAsQ0FBV0gsS0FBWCxDQUFKLEVBQXVCLHFCQUFRRyxHQUFSLHdCQUFnQkgsS0FBaEIsZUFBNkJDLE9BQTdCO0FBQ3ZCLEMiLCJmaWxlIjoiNi5qcyIsInNvdXJjZXNDb250ZW50IjpbImV4cG9ydCBkZWZhdWx0ICh0aXRsZSwgLi4uY29udGVudCkgPT4ge1xuXHRpZiAoTWVtb3J5LmxvZ1t0aXRsZV0pIGNvbnNvbGUubG9nKGBbJHt0aXRsZX1dYCwgLi4uY29udGVudClcbn1cblxuXG4vLyBXRUJQQUNLIEZPT1RFUiAvL1xuLy8gLi9zcmMvX3V0aWwvX2xvZy5qcyJdLCJzb3VyY2VSb290IjoiIn0=");
+
+
+Object.defineProperty(exports, "__esModule", {
+	value: true
+});
+
+exports.default = function (title) {
+	var _console;
+
+	for (var _len = arguments.length, content = Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++) {
+		content[_key - 1] = arguments[_key];
+	}
+
+	if (Memory.log[title]) (_console = console).log.apply(_console, ["[" + title + "]"].concat(content));
+};
 
 /***/ }),
 /* 7 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-eval("\n\nObject.defineProperty(exports, \"__esModule\", {\n    value: true\n});\n\nexports.default = function (tick) {\n    if (Memory.timer[tick] && Game.time - Memory.timer[tick] < tick) return false;\n    Memory.timer[tick] = Game.time;\n    return true;\n};//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIndlYnBhY2s6Ly8vLi9zcmMvX3V0aWwvX3RpbWVyLmpzPzQ4NGYiXSwibmFtZXMiOlsidGljayIsIk1lbW9yeSIsInRpbWVyIiwiR2FtZSIsInRpbWUiXSwibWFwcGluZ3MiOiI7Ozs7OztrQkFBZSxVQUFDQSxJQUFELEVBQVU7QUFDckIsUUFBSUMsT0FBT0MsS0FBUCxDQUFhRixJQUFiLEtBQXNCRyxLQUFLQyxJQUFMLEdBQVlILE9BQU9DLEtBQVAsQ0FBYUYsSUFBYixDQUFaLEdBQWlDQSxJQUEzRCxFQUFpRSxPQUFPLEtBQVA7QUFDakVDLFdBQU9DLEtBQVAsQ0FBYUYsSUFBYixJQUFxQkcsS0FBS0MsSUFBMUI7QUFDQSxXQUFPLElBQVA7QUFDSCxDIiwiZmlsZSI6IjcuanMiLCJzb3VyY2VzQ29udGVudCI6WyJleHBvcnQgZGVmYXVsdCAodGljaykgPT4ge1xuICAgIGlmIChNZW1vcnkudGltZXJbdGlja10gJiYgR2FtZS50aW1lIC0gTWVtb3J5LnRpbWVyW3RpY2tdIDwgdGljaykgcmV0dXJuIGZhbHNlO1xuICAgIE1lbW9yeS50aW1lclt0aWNrXSA9IEdhbWUudGltZTtcbiAgICByZXR1cm4gdHJ1ZVxufVxuXG5cbi8vIFdFQlBBQ0sgRk9PVEVSIC8vXG4vLyAuL3NyYy9fdXRpbC9fdGltZXIuanMiXSwic291cmNlUm9vdCI6IiJ9");
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+exports.default = function (tick) {
+    if (Memory.timer[tick] && Game.time - Memory.timer[tick] < tick) return false;
+    Memory.timer[tick] = Game.time;
+    return true;
+};
 
 /***/ }),
 /* 8 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-eval("\n\nObject.defineProperty(exports, \"__esModule\", {\n  value: true\n});\n\nvar _timer = __webpack_require__(7);\n\nObject.defineProperty(exports, 'Timer', {\n  enumerable: true,\n  get: function get() {\n    return _interopRequireDefault(_timer).default;\n  }\n});\n\nvar _build = __webpack_require__(4);\n\nObject.defineProperty(exports, 'Build', {\n  enumerable: true,\n  get: function get() {\n    return _interopRequireDefault(_build).default;\n  }\n});\n\nvar _log = __webpack_require__(6);\n\nObject.defineProperty(exports, 'log', {\n  enumerable: true,\n  get: function get() {\n    return _interopRequireDefault(_log).default;\n  }\n});\n\nvar _isFriend = __webpack_require__(5);\n\nObject.defineProperty(exports, 'isFriend', {\n  enumerable: true,\n  get: function get() {\n    return _interopRequireDefault(_isFriend).default;\n  }\n});\n\nfunction _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIndlYnBhY2s6Ly8vLi9zcmMvX3V0aWwvaW5kZXguanM/OGE2NyJdLCJuYW1lcyI6WyJkZWZhdWx0Il0sIm1hcHBpbmdzIjoiOzs7Ozs7Ozs7OzswQ0FBU0EsTzs7Ozs7Ozs7OzBDQUNBQSxPOzs7Ozs7Ozs7d0NBQ0FBLE87Ozs7Ozs7Ozs2Q0FDQUEsTyIsImZpbGUiOiI4LmpzIiwic291cmNlc0NvbnRlbnQiOlsiZXhwb3J0IHsgZGVmYXVsdCBhcyBUaW1lciB9IGZyb20gJy4vX3RpbWVyJ1xuZXhwb3J0IHsgZGVmYXVsdCBhcyBCdWlsZCB9IGZyb20gJy4vX2J1aWxkJ1xuZXhwb3J0IHsgZGVmYXVsdCBhcyBsb2cgfSBmcm9tICcuL19sb2cnXG5leHBvcnQgeyBkZWZhdWx0IGFzIGlzRnJpZW5kIH0gZnJvbSAnLi9faXNGcmllbmQnXG5cblxuXG4vLyBXRUJQQUNLIEZPT1RFUiAvL1xuLy8gLi9zcmMvX3V0aWwvaW5kZXguanMiXSwic291cmNlUm9vdCI6IiJ9");
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _timer = __webpack_require__(7);
+
+Object.defineProperty(exports, 'Timer', {
+  enumerable: true,
+  get: function get() {
+    return _interopRequireDefault(_timer).default;
+  }
+});
+
+var _build = __webpack_require__(4);
+
+Object.defineProperty(exports, 'Build', {
+  enumerable: true,
+  get: function get() {
+    return _interopRequireDefault(_build).default;
+  }
+});
+
+var _log = __webpack_require__(6);
+
+Object.defineProperty(exports, 'log', {
+  enumerable: true,
+  get: function get() {
+    return _interopRequireDefault(_log).default;
+  }
+});
+
+var _isFriend = __webpack_require__(5);
+
+Object.defineProperty(exports, 'isFriend', {
+  enumerable: true,
+  get: function get() {
+    return _interopRequireDefault(_isFriend).default;
+  }
+});
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 /***/ }),
 /* 9 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-eval("\n\nObject.defineProperty(exports, \"__esModule\", {\n\tvalue: true\n});\n\nexports.default = function () {\n\tvar room = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : Game.rooms['W81S67'];\n\n\tvar needBuild = room.memory.structures.needBuild;\n\tvar repair = {\n\t\tpercent: 0.5,\n\t\tmaxHits: 10000\n\t};\n\tvar role = [{\n\t\trole: \"claim\",\n\t\tbody: { tough: 1, move: 1, claim: 1 },\n\t\troleTimeout: 100,\n\t\tnumber: 1,\n\t\tpriority: 7\n\t}, {\n\t\trole: \"farMiner\",\n\t\tbody: { move: 2, work: 4, carry: 2 },\n\t\troleTimeout: 50,\n\t\tnumber: 1,\n\t\tpriority: 4\n\t}, {\n\t\trole: 'farHarvester',\n\t\tbody: { tough: 1, move: 3, carry: 4, attack: 1 },\n\t\tnumber: 3,\n\t\tpriority: 5\n\t}, {\n\t\trole: 'farBuilder',\n\t\tbody: { carry: 9, work: 3, move: 3 },\n\t\tnumber: 1,\n\t\tpriority: 5\n\t}, {\n\t\trole: 'harvester',\n\t\tbody: { carry: 12, move: 4 },\n\t\tnumber: 4,\n\t\tpriority: 2\n\t}, {\n\t\trole: 'upgrader',\n\t\tbody: { carry: 2, work: 4, move: 1 },\n\t\tnumber: 2,\n\t\tpriority: 3\n\t}, {\n\t\trole: 'builder',\n\t\tbody: { work: 3, carry: 3, move: 3 },\n\t\tnumber: needBuild.length > 0 ? 1 : 0,\n\t\tpriority: 6\n\t}, {\n\t\trole: \"miner\",\n\t\tbody: { carry: 1, work: 8, move: 2 },\n\t\tnumber: 2,\n\t\troleTimeout: 20,\n\t\tpriority: 1\n\t}, {\n\t\trole: 'cleaner',\n\t\tbody: { carry: 2, move: 1 },\n\t\tnumber: 2,\n\t\tpriority: 0\n\t}];\n\n\treturn {\n\t\trole: role.sort(function (a, b) {\n\t\t\treturn a.priority - b.priority;\n\t\t}),\n\t\trepair: repair\n\t};\n};//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIndlYnBhY2s6Ly8vLi9zcmMvY29uZmlnLmpzPzQyNjQiXSwibmFtZXMiOlsicm9vbSIsIkdhbWUiLCJyb29tcyIsIm5lZWRCdWlsZCIsIm1lbW9yeSIsInN0cnVjdHVyZXMiLCJyZXBhaXIiLCJwZXJjZW50IiwibWF4SGl0cyIsInJvbGUiLCJib2R5IiwidG91Z2giLCJtb3ZlIiwiY2xhaW0iLCJyb2xlVGltZW91dCIsIm51bWJlciIsInByaW9yaXR5Iiwid29yayIsImNhcnJ5IiwiYXR0YWNrIiwibGVuZ3RoIiwic29ydCIsImEiLCJiIl0sIm1hcHBpbmdzIjoiOzs7Ozs7a0JBQWUsWUFBaUM7QUFBQSxLQUFoQ0EsSUFBZ0MsdUVBQXpCQyxLQUFLQyxLQUFMLENBQVcsUUFBWCxDQUF5Qjs7QUFDL0MsS0FBTUMsWUFBWUgsS0FBS0ksTUFBTCxDQUFZQyxVQUFaLENBQXVCRixTQUF6QztBQUNBLEtBQU1HLFNBQVk7QUFDakJDLFdBQVMsR0FEUTtBQUVqQkMsV0FBUztBQUZRLEVBQWxCO0FBSUEsS0FBTUMsT0FBWSxDQUNqQjtBQUNDQSxRQUFVLE9BRFg7QUFFQ0MsUUFBVSxFQUFDQyxPQUFPLENBQVIsRUFBV0MsTUFBTSxDQUFqQixFQUFvQkMsT0FBTyxDQUEzQixFQUZYO0FBR0NDLGVBQWEsR0FIZDtBQUlDQyxVQUFVLENBSlg7QUFLQ0MsWUFBVTtBQUxYLEVBRGlCLEVBUWpCO0FBQ0NQLFFBQVUsVUFEWDtBQUVDQyxRQUFVLEVBQUNFLE1BQU0sQ0FBUCxFQUFVSyxNQUFNLENBQWhCLEVBQW1CQyxPQUFPLENBQTFCLEVBRlg7QUFHQ0osZUFBYSxFQUhkO0FBSUNDLFVBQVUsQ0FKWDtBQUtDQyxZQUFVO0FBTFgsRUFSaUIsRUFlakI7QUFDQ1AsUUFBVSxjQURYO0FBRUNDLFFBQVUsRUFBQ0MsT0FBTyxDQUFSLEVBQVdDLE1BQU0sQ0FBakIsRUFBb0JNLE9BQU8sQ0FBM0IsRUFBOEJDLFFBQVEsQ0FBdEMsRUFGWDtBQUdDSixVQUFVLENBSFg7QUFJQ0MsWUFBVTtBQUpYLEVBZmlCLEVBb0JkO0FBQ0ZQLFFBQVUsWUFEUjtBQUVGQyxRQUFVLEVBQUNRLE9BQU8sQ0FBUixFQUFXRCxNQUFNLENBQWpCLEVBQW9CTCxNQUFNLENBQTFCLEVBRlI7QUFHRkcsVUFBVSxDQUhSO0FBSUZDLFlBQVU7QUFKUixFQXBCYyxFQTBCakI7QUFDQ1AsUUFBVSxXQURYO0FBRUNDLFFBQVUsRUFBQ1EsT0FBTyxFQUFSLEVBQVlOLE1BQU0sQ0FBbEIsRUFGWDtBQUdDRyxVQUFVLENBSFg7QUFJQ0MsWUFBVTtBQUpYLEVBMUJpQixFQWdDakI7QUFDQ1AsUUFBVSxVQURYO0FBRUNDLFFBQVUsRUFBQ1EsT0FBTyxDQUFSLEVBQVdELE1BQU0sQ0FBakIsRUFBb0JMLE1BQU0sQ0FBMUIsRUFGWDtBQUdDRyxVQUFVLENBSFg7QUFJQ0MsWUFBVTtBQUpYLEVBaENpQixFQXNDakI7QUFDQ1AsUUFBVSxTQURYO0FBRUNDLFFBQVUsRUFBQ08sTUFBTSxDQUFQLEVBQVVDLE9BQU8sQ0FBakIsRUFBb0JOLE1BQU0sQ0FBMUIsRUFGWDtBQUdDRyxVQUFXWixVQUFVaUIsTUFBVixHQUFtQixDQUFwQixHQUF5QixDQUF6QixHQUE2QixDQUh4QztBQUlDSixZQUFVO0FBSlgsRUF0Q2lCLEVBNENqQjtBQUNDUCxRQUFVLE9BRFg7QUFFQ0MsUUFBVSxFQUFDUSxPQUFPLENBQVIsRUFBV0QsTUFBTSxDQUFqQixFQUFvQkwsTUFBTSxDQUExQixFQUZYO0FBR0NHLFVBQVUsQ0FIWDtBQUlDRCxlQUFZLEVBSmI7QUFLQ0UsWUFBVTtBQUxYLEVBNUNpQixFQW1EakI7QUFDQ1AsUUFBVSxTQURYO0FBRUNDLFFBQVUsRUFBQ1EsT0FBTyxDQUFSLEVBQVdOLE1BQU0sQ0FBakIsRUFGWDtBQUdDRyxVQUFVLENBSFg7QUFJQ0MsWUFBVTtBQUpYLEVBbkRpQixDQUFsQjs7QUEyREEsUUFBTztBQUNOUCxRQUFRQSxLQUFLWSxJQUFMLENBQVUsVUFBQ0MsQ0FBRCxFQUFJQyxDQUFKO0FBQUEsVUFBVUQsRUFBRU4sUUFBRixHQUFhTyxFQUFFUCxRQUF6QjtBQUFBLEdBQVYsQ0FERjtBQUVOVixVQUFRQTtBQUZGLEVBQVA7QUFJQSxDIiwiZmlsZSI6IjkuanMiLCJzb3VyY2VzQ29udGVudCI6WyJleHBvcnQgZGVmYXVsdCAocm9vbSA9IEdhbWUucm9vbXNbJ1c4MVM2NyddKSA9PiB7XG5cdGNvbnN0IG5lZWRCdWlsZCA9IHJvb20ubWVtb3J5LnN0cnVjdHVyZXMubmVlZEJ1aWxkO1xuXHRjb25zdCByZXBhaXIgICAgPSB7XG5cdFx0cGVyY2VudDogMC41LFxuXHRcdG1heEhpdHM6IDEwMDAwLFxuXHR9XG5cdGNvbnN0IHJvbGUgICAgICA9IFtcblx0XHR7XG5cdFx0XHRyb2xlICAgIDogXCJjbGFpbVwiLFxuXHRcdFx0Ym9keSAgICA6IHt0b3VnaDogMSwgbW92ZTogMSwgY2xhaW06IDF9LFxuXHRcdFx0cm9sZVRpbWVvdXQ6IDEwMCxcblx0XHRcdG51bWJlciAgOiAxLFxuXHRcdFx0cHJpb3JpdHk6IDdcblx0XHR9LFxuXHRcdHtcblx0XHRcdHJvbGUgICAgOiBcImZhck1pbmVyXCIsXG5cdFx0XHRib2R5ICAgIDoge21vdmU6IDIsIHdvcms6IDQsIGNhcnJ5OiAyfSxcblx0XHRcdHJvbGVUaW1lb3V0OiA1MCxcblx0XHRcdG51bWJlciAgOiAxLFxuXHRcdFx0cHJpb3JpdHk6IDRcblx0XHR9LFxuXHRcdHtcblx0XHRcdHJvbGUgICAgOiAnZmFySGFydmVzdGVyJyxcblx0XHRcdGJvZHkgICAgOiB7dG91Z2g6IDEsIG1vdmU6IDMsIGNhcnJ5OiA0LCBhdHRhY2s6IDF9LFxuXHRcdFx0bnVtYmVyICA6IDMsXG5cdFx0XHRwcmlvcml0eTogNVxuXHRcdH0sIHtcblx0XHRcdHJvbGUgICAgOiAnZmFyQnVpbGRlcicsXG5cdFx0XHRib2R5ICAgIDoge2NhcnJ5OiA5LCB3b3JrOiAzLCBtb3ZlOiAzfSxcblx0XHRcdG51bWJlciAgOiAxLFxuXHRcdFx0cHJpb3JpdHk6IDVcblx0XHR9LFxuXHRcdHtcblx0XHRcdHJvbGUgICAgOiAnaGFydmVzdGVyJyxcblx0XHRcdGJvZHkgICAgOiB7Y2Fycnk6IDEyLCBtb3ZlOiA0fSxcblx0XHRcdG51bWJlciAgOiA0LFxuXHRcdFx0cHJpb3JpdHk6IDJcblx0XHR9LFxuXHRcdHtcblx0XHRcdHJvbGUgICAgOiAndXBncmFkZXInLFxuXHRcdFx0Ym9keSAgICA6IHtjYXJyeTogMiwgd29yazogNCwgbW92ZTogMX0sXG5cdFx0XHRudW1iZXIgIDogMixcblx0XHRcdHByaW9yaXR5OiAzXG5cdFx0fSxcblx0XHR7XG5cdFx0XHRyb2xlICAgIDogJ2J1aWxkZXInLFxuXHRcdFx0Ym9keSAgICA6IHt3b3JrOiAzLCBjYXJyeTogMywgbW92ZTogM30sXG5cdFx0XHRudW1iZXIgIDogKG5lZWRCdWlsZC5sZW5ndGggPiAwKSA/IDEgOiAwLFxuXHRcdFx0cHJpb3JpdHk6IDZcblx0XHR9LFxuXHRcdHtcblx0XHRcdHJvbGUgICAgOiBcIm1pbmVyXCIsXG5cdFx0XHRib2R5ICAgIDoge2NhcnJ5OiAxLCB3b3JrOiA4LCBtb3ZlOiAyfSxcblx0XHRcdG51bWJlciAgOiAyLFxuXHRcdFx0cm9sZVRpbWVvdXQ6MjAsXG5cdFx0XHRwcmlvcml0eTogMVxuXHRcdH0sXG5cdFx0e1xuXHRcdFx0cm9sZSAgICA6ICdjbGVhbmVyJyxcblx0XHRcdGJvZHkgICAgOiB7Y2Fycnk6IDIsIG1vdmU6IDF9LFxuXHRcdFx0bnVtYmVyICA6IDIsXG5cdFx0XHRwcmlvcml0eTogMFxuXHRcdH1cblx0XVxuXG5cdHJldHVybiB7XG5cdFx0cm9sZSAgOiByb2xlLnNvcnQoKGEsIGIpID0+IGEucHJpb3JpdHkgLSBiLnByaW9yaXR5KSxcblx0XHRyZXBhaXI6IHJlcGFpcixcblx0fTtcbn1cblxuXG4vLyBXRUJQQUNLIEZPT1RFUiAvL1xuLy8gLi9zcmMvY29uZmlnLmpzIl0sInNvdXJjZVJvb3QiOiIifQ==");
+
+
+Object.defineProperty(exports, "__esModule", {
+	value: true
+});
+
+exports.default = function () {
+	var room = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : Game.rooms['W81S67'];
+
+	var needBuild = room.memory.structures.needBuild;
+	var repair = {
+		percent: 0.5,
+		maxHits: 10000
+	};
+	var role = [{
+		role: "claim",
+		body: { tough: 1, move: 1, claim: 1 },
+		roleTimeout: 100,
+		number: 1,
+		priority: 7
+	}, {
+		role: "farMiner",
+		body: { move: 2, work: 4, carry: 2 },
+		roleTimeout: 50,
+		number: 1,
+		priority: 4
+	}, {
+		role: 'farHarvester',
+		body: { tough: 1, move: 3, carry: 4, attack: 1 },
+		number: 3,
+		priority: 5
+	}, {
+		role: 'farBuilder',
+		body: { carry: 9, work: 3, move: 3 },
+		number: 1,
+		priority: 5
+	}, {
+		role: 'harvester',
+		body: { carry: 12, move: 4 },
+		number: 4,
+		priority: 2
+	}, {
+		role: 'upgrader',
+		body: { carry: 2, work: 4, move: 1 },
+		number: 2,
+		priority: 3
+	}, {
+		role: 'builder',
+		body: { work: 3, carry: 3, move: 3 },
+		number: needBuild.length > 0 ? 1 : 0,
+		priority: 6
+	}, {
+		role: "miner",
+		body: { carry: 1, work: 8, move: 2 },
+		number: 2,
+		roleTimeout: 20,
+		priority: 1
+	}, {
+		role: 'cleaner',
+		body: { carry: 2, move: 1 },
+		number: 2,
+		priority: 0
+	}];
+
+	return {
+		role: role.sort(function (a, b) {
+			return a.priority - b.priority;
+		}),
+		repair: repair
+	};
+};
 
 /***/ }),
 /* 10 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-eval("\n\nObject.defineProperty(exports, \"__esModule\", {\n\tvalue: true\n});\n\nvar _util = __webpack_require__(8);\n\nexports.default = function (room, config) {\n\tvar creeps = room.find(FIND_CREEPS),\n\t    creepsMyRaw = _.filter(creeps, function (creep) {\n\t\treturn creep.my;\n\t}),\n\t    creepsOther = _.filter(creeps, function (creep) {\n\t\treturn !creep.my;\n\t}),\n\t    creepsMy = creepRole(creepsMyRaw, config.role);\n\n\treturn {\n\t\tmy: creepsMy,\n\t\tfriend: _.filter(creepsOther, function (creep) {\n\t\t\treturn (0, _util.isFriend)(creep.owner.username);\n\t\t}),\n\t\tenemy: _.filter(creepsOther, function (creep) {\n\t\t\treturn !(0, _util.isFriend)(creep.owner.username);\n\t\t})\n\t};\n};\n\nfunction creepRole(creepsMyRaw, configRole) {\n\tvar creepsMy = {};\n\tconfigRole.forEach(function (role) {\n\t\tcreepsMy[role.role] = _.filter(creepsMyRaw, function (creep) {\n\t\t\treturn creep.name.split('#')[0] == role.role;\n\t\t});\n\t});\n\treturn creepsMy;\n}//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIndlYnBhY2s6Ly8vLi9zcmMvbWFuYWdlci9fbWVtb3J5L19jcmVlcHMuanM/NzhhYiJdLCJuYW1lcyI6WyJyb29tIiwiY29uZmlnIiwiY3JlZXBzIiwiZmluZCIsIkZJTkRfQ1JFRVBTIiwiY3JlZXBzTXlSYXciLCJfIiwiZmlsdGVyIiwiY3JlZXAiLCJteSIsImNyZWVwc090aGVyIiwiY3JlZXBzTXkiLCJjcmVlcFJvbGUiLCJyb2xlIiwiZnJpZW5kIiwib3duZXIiLCJ1c2VybmFtZSIsImVuZW15IiwiY29uZmlnUm9sZSIsImZvckVhY2giLCJuYW1lIiwic3BsaXQiXSwibWFwcGluZ3MiOiI7Ozs7OztBQUFBOztrQkFFZSxVQUFDQSxJQUFELEVBQU9DLE1BQVAsRUFBa0I7QUFDaEMsS0FBTUMsU0FBY0YsS0FBS0csSUFBTCxDQUFVQyxXQUFWLENBQXBCO0FBQUEsS0FDTUMsY0FBY0MsRUFBRUMsTUFBRixDQUFTTCxNQUFULEVBQWlCO0FBQUEsU0FBU00sTUFBTUMsRUFBZjtBQUFBLEVBQWpCLENBRHBCO0FBQUEsS0FFTUMsY0FBY0osRUFBRUMsTUFBRixDQUFTTCxNQUFULEVBQWlCO0FBQUEsU0FBUyxDQUFDTSxNQUFNQyxFQUFoQjtBQUFBLEVBQWpCLENBRnBCO0FBQUEsS0FHTUUsV0FBY0MsVUFBVVAsV0FBVixFQUF1QkosT0FBT1ksSUFBOUIsQ0FIcEI7O0FBS0EsUUFBTztBQUNOSixNQUFRRSxRQURGO0FBRU5HLFVBQVFSLEVBQUVDLE1BQUYsQ0FBU0csV0FBVCxFQUFzQjtBQUFBLFVBQVMsb0JBQVNGLE1BQU1PLEtBQU4sQ0FBWUMsUUFBckIsQ0FBVDtBQUFBLEdBQXRCLENBRkY7QUFHTkMsU0FBUVgsRUFBRUMsTUFBRixDQUFTRyxXQUFULEVBQXNCO0FBQUEsVUFBUyxDQUFDLG9CQUFTRixNQUFNTyxLQUFOLENBQVlDLFFBQXJCLENBQVY7QUFBQSxHQUF0QjtBQUhGLEVBQVA7QUFLQSxDOztBQUVELFNBQVNKLFNBQVQsQ0FBbUJQLFdBQW5CLEVBQWdDYSxVQUFoQyxFQUE0QztBQUMzQyxLQUFJUCxXQUFXLEVBQWY7QUFDQU8sWUFBV0MsT0FBWCxDQUFtQixnQkFBUTtBQUMxQlIsV0FBU0UsS0FBS0EsSUFBZCxJQUFzQlAsRUFBRUMsTUFBRixDQUFTRixXQUFULEVBQXNCO0FBQUEsVUFBU0csTUFBTVksSUFBTixDQUFXQyxLQUFYLENBQWlCLEdBQWpCLEVBQXNCLENBQXRCLEtBQTRCUixLQUFLQSxJQUExQztBQUFBLEdBQXRCLENBQXRCO0FBQ0EsRUFGRDtBQUdBLFFBQU9GLFFBQVA7QUFDQSIsImZpbGUiOiIxMC5qcyIsInNvdXJjZXNDb250ZW50IjpbImltcG9ydCB7IGlzRnJpZW5kIH0gZnJvbSAnLi4vLi4vX3V0aWwnO1xuXG5leHBvcnQgZGVmYXVsdCAocm9vbSwgY29uZmlnKSA9PiB7XG5cdGNvbnN0IGNyZWVwcyAgICAgID0gcm9vbS5maW5kKEZJTkRfQ1JFRVBTKSxcblx0ICAgICAgY3JlZXBzTXlSYXcgPSBfLmZpbHRlcihjcmVlcHMsIGNyZWVwID0+IGNyZWVwLm15KSxcblx0ICAgICAgY3JlZXBzT3RoZXIgPSBfLmZpbHRlcihjcmVlcHMsIGNyZWVwID0+ICFjcmVlcC5teSksXG5cdCAgICAgIGNyZWVwc015ICAgID0gY3JlZXBSb2xlKGNyZWVwc015UmF3LCBjb25maWcucm9sZSk7XG5cblx0cmV0dXJuIHtcblx0XHRteSAgICA6IGNyZWVwc015LFxuXHRcdGZyaWVuZDogXy5maWx0ZXIoY3JlZXBzT3RoZXIsIGNyZWVwID0+IGlzRnJpZW5kKGNyZWVwLm93bmVyLnVzZXJuYW1lKSksXG5cdFx0ZW5lbXkgOiBfLmZpbHRlcihjcmVlcHNPdGhlciwgY3JlZXAgPT4gIWlzRnJpZW5kKGNyZWVwLm93bmVyLnVzZXJuYW1lKSlcblx0fVxufVxuXG5mdW5jdGlvbiBjcmVlcFJvbGUoY3JlZXBzTXlSYXcsIGNvbmZpZ1JvbGUpIHtcblx0bGV0IGNyZWVwc015ID0ge31cblx0Y29uZmlnUm9sZS5mb3JFYWNoKHJvbGUgPT4ge1xuXHRcdGNyZWVwc015W3JvbGUucm9sZV0gPSBfLmZpbHRlcihjcmVlcHNNeVJhdywgY3JlZXAgPT4gY3JlZXAubmFtZS5zcGxpdCgnIycpWzBdID09IHJvbGUucm9sZSlcblx0fSlcblx0cmV0dXJuIGNyZWVwc015XG59XG5cblxuLy8gV0VCUEFDSyBGT09URVIgLy9cbi8vIC4vc3JjL21hbmFnZXIvX21lbW9yeS9fY3JlZXBzLmpzIl0sInNvdXJjZVJvb3QiOiIifQ==");
+
+
+Object.defineProperty(exports, "__esModule", {
+	value: true
+});
+
+var _util = __webpack_require__(8);
+
+exports.default = function (room, config) {
+	var creeps = room.find(FIND_CREEPS),
+	    creepsMyRaw = _.filter(creeps, function (creep) {
+		return creep.my;
+	}),
+	    creepsOther = _.filter(creeps, function (creep) {
+		return !creep.my;
+	}),
+	    creepsMy = creepRole(creepsMyRaw, config.role);
+
+	return {
+		my: creepsMy,
+		friend: _.filter(creepsOther, function (creep) {
+			return (0, _util.isFriend)(creep.owner.username);
+		}),
+		enemy: _.filter(creepsOther, function (creep) {
+			return !(0, _util.isFriend)(creep.owner.username);
+		})
+	};
+};
+
+function creepRole(creepsMyRaw, configRole) {
+	var creepsMy = {};
+	configRole.forEach(function (role) {
+		creepsMy[role.role] = _.filter(creepsMyRaw, function (creep) {
+			return creep.name.split('#')[0] == role.role;
+		});
+	});
+	return creepsMy;
+}
 
 /***/ }),
 /* 11 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-eval("\n\nObject.defineProperty(exports, \"__esModule\", {\n\tvalue: true\n});\n\nexports.default = function (room) {\n\tvar resources = room.find(FIND_DROPPED_RESOURCES);\n\treturn {\n\t\tresources: resources,\n\t\tenergy: _.filter(resources, function (resource) {\n\t\t\treturn resource.resourceType == RESOURCE_ENERGY;\n\t\t})\n\t};\n};//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIndlYnBhY2s6Ly8vLi9zcmMvbWFuYWdlci9fbWVtb3J5L19kcm9wcGVkLmpzPzAzOGYiXSwibmFtZXMiOlsicm9vbSIsInJlc291cmNlcyIsImZpbmQiLCJGSU5EX0RST1BQRURfUkVTT1VSQ0VTIiwiZW5lcmd5IiwiXyIsImZpbHRlciIsInJlc291cmNlIiwicmVzb3VyY2VUeXBlIiwiUkVTT1VSQ0VfRU5FUkdZIl0sIm1hcHBpbmdzIjoiOzs7Ozs7a0JBQWUsVUFBQ0EsSUFBRCxFQUFVO0FBQ3hCLEtBQU1DLFlBQVlELEtBQUtFLElBQUwsQ0FBVUMsc0JBQVYsQ0FBbEI7QUFDQSxRQUFPO0FBQ05GLGFBQVdBLFNBREw7QUFFTkcsVUFBV0MsRUFBRUMsTUFBRixDQUFTTCxTQUFULEVBQW9CO0FBQUEsVUFBWU0sU0FBU0MsWUFBVCxJQUF5QkMsZUFBckM7QUFBQSxHQUFwQjtBQUZMLEVBQVA7QUFJQSxDIiwiZmlsZSI6IjExLmpzIiwic291cmNlc0NvbnRlbnQiOlsiZXhwb3J0IGRlZmF1bHQgKHJvb20pID0+IHtcblx0Y29uc3QgcmVzb3VyY2VzID0gcm9vbS5maW5kKEZJTkRfRFJPUFBFRF9SRVNPVVJDRVMpXG5cdHJldHVybiB7XG5cdFx0cmVzb3VyY2VzOiByZXNvdXJjZXMsXG5cdFx0ZW5lcmd5ICAgOiBfLmZpbHRlcihyZXNvdXJjZXMsIHJlc291cmNlID0+IHJlc291cmNlLnJlc291cmNlVHlwZSA9PSBSRVNPVVJDRV9FTkVSR1kpXG5cdH1cbn1cblxuXG4vLyBXRUJQQUNLIEZPT1RFUiAvL1xuLy8gLi9zcmMvbWFuYWdlci9fbWVtb3J5L19kcm9wcGVkLmpzIl0sInNvdXJjZVJvb3QiOiIifQ==");
+
+
+Object.defineProperty(exports, "__esModule", {
+	value: true
+});
+
+exports.default = function (room) {
+	var resources = room.find(FIND_DROPPED_RESOURCES);
+	return {
+		resources: resources,
+		energy: _.filter(resources, function (resource) {
+			return resource.resourceType == RESOURCE_ENERGY;
+		})
+	};
+};
 
 /***/ }),
 /* 12 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-eval("\n\nObject.defineProperty(exports, \"__esModule\", {\n\tvalue: true\n});\n\nexports.default = function (room, miner) {\n\tvar rawSources = room.find(FIND_SOURCES);\n\tvar sources = [];\n\trawSources.forEach(function (source) {\n\t\tvar minerNumber = 0;\n\t\tminer.forEach(function (creep) {\n\t\t\tcreep.memory.harvestTarget == source.id ? minerNumber++ : null;\n\t\t});\n\t\tsources.push({\n\t\t\tsource: source,\n\t\t\tminerNumber: minerNumber\n\t\t});\n\t});\n\tif (sources.length > 0) {\n\t\tsources.sort(function (a, b) {\n\t\t\treturn a.minerNumber - b.minerNumber;\n\t\t});\n\t}\n\treturn sources;\n};//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIndlYnBhY2s6Ly8vLi9zcmMvbWFuYWdlci9fbWVtb3J5L19zb3VyY2VzLmpzPzIyZGMiXSwibmFtZXMiOlsicm9vbSIsIm1pbmVyIiwicmF3U291cmNlcyIsImZpbmQiLCJGSU5EX1NPVVJDRVMiLCJzb3VyY2VzIiwiZm9yRWFjaCIsIm1pbmVyTnVtYmVyIiwiY3JlZXAiLCJtZW1vcnkiLCJoYXJ2ZXN0VGFyZ2V0Iiwic291cmNlIiwiaWQiLCJwdXNoIiwibGVuZ3RoIiwic29ydCIsImEiLCJiIl0sIm1hcHBpbmdzIjoiOzs7Ozs7a0JBQWUsVUFBQ0EsSUFBRCxFQUFPQyxLQUFQLEVBQWlCO0FBQy9CLEtBQU1DLGFBQWFGLEtBQUtHLElBQUwsQ0FBVUMsWUFBVixDQUFuQjtBQUNBLEtBQUlDLFVBQWUsRUFBbkI7QUFDQUgsWUFBV0ksT0FBWCxDQUFtQixrQkFBVTtBQUNULE1BQUlDLGNBQWMsQ0FBbEI7QUFDQU4sUUFBTUssT0FBTixDQUFjLGlCQUFTO0FBQ1BFLFNBQU1DLE1BQU4sQ0FBYUMsYUFBYixJQUE4QkMsT0FBT0MsRUFBdEMsR0FDQUwsYUFEQSxHQUNnQixJQURoQjtBQUVBLEdBSGY7QUFLQUYsVUFBUVEsSUFBUixDQUFhO0FBQ0NGLFdBQWFBLE1BRGQ7QUFFQ0osZ0JBQWFBO0FBRmQsR0FBYjtBQUlBLEVBWHBCO0FBYUEsS0FBSUYsUUFBUVMsTUFBUixHQUFpQixDQUFyQixFQUF3QjtBQUN2QlQsVUFBUVUsSUFBUixDQUFhLFVBQUNDLENBQUQsRUFBSUMsQ0FBSjtBQUFBLFVBQVVELEVBQUVULFdBQUYsR0FBZ0JVLEVBQUVWLFdBQTVCO0FBQUEsR0FBYjtBQUNBO0FBQ0QsUUFBT0YsT0FBUDtBQUNBLEMiLCJmaWxlIjoiMTIuanMiLCJzb3VyY2VzQ29udGVudCI6WyJleHBvcnQgZGVmYXVsdCAocm9vbSwgbWluZXIpID0+IHtcblx0Y29uc3QgcmF3U291cmNlcyA9IHJvb20uZmluZChGSU5EX1NPVVJDRVMpO1xuXHRsZXQgc291cmNlcyAgICAgID0gW11cblx0cmF3U291cmNlcy5mb3JFYWNoKHNvdXJjZSA9PiB7XG5cdFx0ICAgICAgICAgICAgICAgICAgIGxldCBtaW5lck51bWJlciA9IDA7XG5cdFx0ICAgICAgICAgICAgICAgICAgIG1pbmVyLmZvckVhY2goY3JlZXAgPT4ge1xuXHRcdFx0ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgKGNyZWVwLm1lbW9yeS5oYXJ2ZXN0VGFyZ2V0ID09IHNvdXJjZS5pZCkgP1xuXHRcdFx0ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgbWluZXJOdW1iZXIrKyA6IG51bGxcblx0XHQgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICB9XG5cdFx0ICAgICAgICAgICAgICAgICAgIClcblx0XHQgICAgICAgICAgICAgICAgICAgc291cmNlcy5wdXNoKHtcblx0XHRcdCAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgc291cmNlICAgICA6IHNvdXJjZSxcblx0XHRcdCAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgbWluZXJOdW1iZXI6IG1pbmVyTnVtYmVyXG5cdFx0ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICB9KVxuXHQgICAgICAgICAgICAgICAgICAgfVxuXHQpXG5cdGlmIChzb3VyY2VzLmxlbmd0aCA+IDApIHtcblx0XHRzb3VyY2VzLnNvcnQoKGEsIGIpID0+IGEubWluZXJOdW1iZXIgLSBiLm1pbmVyTnVtYmVyKVxuXHR9XG5cdHJldHVybiBzb3VyY2VzXG59XG5cblxuLy8gV0VCUEFDSyBGT09URVIgLy9cbi8vIC4vc3JjL21hbmFnZXIvX21lbW9yeS9fc291cmNlcy5qcyJdLCJzb3VyY2VSb290IjoiIn0=");
+
+
+Object.defineProperty(exports, "__esModule", {
+	value: true
+});
+
+exports.default = function (room, miner) {
+	var rawSources = room.find(FIND_SOURCES);
+	var sources = [];
+	rawSources.forEach(function (source) {
+		var minerNumber = 0;
+		miner.forEach(function (creep) {
+			creep.memory.harvestTarget == source.id ? minerNumber++ : null;
+		});
+		sources.push({
+			source: source,
+			minerNumber: minerNumber
+		});
+	});
+	if (sources.length > 0) {
+		sources.sort(function (a, b) {
+			return a.minerNumber - b.minerNumber;
+		});
+	}
+	return sources;
+};
 
 /***/ }),
 /* 13 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-eval("\n\nObject.defineProperty(exports, \"__esModule\", {\n\tvalue: true\n});\n\nexports.default = function (room, config) {\n\n\tvar structures = room.find(FIND_STRUCTURES),\n\t    structuresStorage = room.storage,\n\t    structuresMy = _.filter(structures, function (structure) {\n\t\treturn structure.my;\n\t}),\n\t    structuresOther = _.filter(structures, function (structure) {\n\t\treturn !structure.my;\n\t}),\n\t    structuresContainer = _.filter(structuresOther, function (structure) {\n\t\treturn structure.structureType == STRUCTURE_CONTAINER;\n\t});\n\n\tvar structuresDocker = structuresContainer.concat([structuresStorage]);\n\n\treturn {\n\t\tterminal: room.terminal,\n\t\tcontroller: room.controller,\n\t\tstorage: structuresStorage,\n\t\ttower: _.filter(structuresMy, function (structure) {\n\t\t\treturn structure.structureType == STRUCTURE_TOWER;\n\t\t})[0],\n\t\tspawn: _.filter(structuresMy, function (structure) {\n\t\t\treturn structure.structureType == STRUCTURE_SPAWN;\n\t\t})[0],\n\t\tcontainer: _.filter(structuresOther, function (structure) {\n\t\t\treturn structure.structureType == STRUCTURE_CONTAINER;\n\t\t}),\n\t\tcanWithdraw: structuresDocker[0] != null ? _.filter(structuresDocker, function (structure) {\n\t\t\treturn structure.store.energy > 0;\n\t\t}) : [],\n\t\tcanFill: structuresDocker[0] != null ? _.filter(structuresDocker, function (structure) {\n\t\t\treturn structure.store.energy < structure.storeCapacity;\n\t\t}) : [],\n\t\tneedFill: _.filter(structuresMy, function (structure) {\n\t\t\treturn (structure.structureType == STRUCTURE_EXTENSION || structure.structureType == STRUCTURE_SPAWN || structure.structureType == STRUCTURE_TOWER) && structure.energy < structure.energyCapacity;\n\t\t}),\n\t\tneedFix: _.filter(structures, function (structure) {\n\t\t\treturn (structure.my || structure.structureType == STRUCTURE_ROAD || structure.structureType == STRUCTURE_WALL) && structure.hits / structure.hitsMax < config.repair.percent && structure.hits < config.repair.maxHits;\n\t\t}).sort(function (a, b) {\n\t\t\treturn a.hits - b.hits;\n\t\t}),\n\t\tneedBuild: room.find(FIND_MY_CONSTRUCTION_SITES)\n\t};\n};//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIndlYnBhY2s6Ly8vLi9zcmMvbWFuYWdlci9fbWVtb3J5L19zdHJ1Y3R1cmVzLmpzP2E0MGQiXSwibmFtZXMiOlsicm9vbSIsImNvbmZpZyIsInN0cnVjdHVyZXMiLCJmaW5kIiwiRklORF9TVFJVQ1RVUkVTIiwic3RydWN0dXJlc1N0b3JhZ2UiLCJzdG9yYWdlIiwic3RydWN0dXJlc015IiwiXyIsImZpbHRlciIsInN0cnVjdHVyZSIsIm15Iiwic3RydWN0dXJlc090aGVyIiwic3RydWN0dXJlc0NvbnRhaW5lciIsInN0cnVjdHVyZVR5cGUiLCJTVFJVQ1RVUkVfQ09OVEFJTkVSIiwic3RydWN0dXJlc0RvY2tlciIsImNvbmNhdCIsInRlcm1pbmFsIiwiY29udHJvbGxlciIsInRvd2VyIiwiU1RSVUNUVVJFX1RPV0VSIiwic3Bhd24iLCJTVFJVQ1RVUkVfU1BBV04iLCJjb250YWluZXIiLCJjYW5XaXRoZHJhdyIsInN0b3JlIiwiZW5lcmd5IiwiY2FuRmlsbCIsInN0b3JlQ2FwYWNpdHkiLCJuZWVkRmlsbCIsIlNUUlVDVFVSRV9FWFRFTlNJT04iLCJlbmVyZ3lDYXBhY2l0eSIsIm5lZWRGaXgiLCJTVFJVQ1RVUkVfUk9BRCIsIlNUUlVDVFVSRV9XQUxMIiwiaGl0cyIsImhpdHNNYXgiLCJyZXBhaXIiLCJwZXJjZW50IiwibWF4SGl0cyIsInNvcnQiLCJhIiwiYiIsIm5lZWRCdWlsZCIsIkZJTkRfTVlfQ09OU1RSVUNUSU9OX1NJVEVTIl0sIm1hcHBpbmdzIjoiOzs7Ozs7a0JBQWUsVUFBQ0EsSUFBRCxFQUFPQyxNQUFQLEVBQWtCOztBQUVoQyxLQUFNQyxhQUFzQkYsS0FBS0csSUFBTCxDQUFVQyxlQUFWLENBQTVCO0FBQUEsS0FDTUMsb0JBQXNCTCxLQUFLTSxPQURqQztBQUFBLEtBRU1DLGVBQXNCQyxFQUFFQyxNQUFGLENBQVNQLFVBQVQsRUFBcUI7QUFBQSxTQUFhUSxVQUFVQyxFQUF2QjtBQUFBLEVBQXJCLENBRjVCO0FBQUEsS0FHTUMsa0JBQXNCSixFQUFFQyxNQUFGLENBQVNQLFVBQVQsRUFBcUI7QUFBQSxTQUFhLENBQUNRLFVBQVVDLEVBQXhCO0FBQUEsRUFBckIsQ0FINUI7QUFBQSxLQUlNRSxzQkFBc0JMLEVBQUVDLE1BQUYsQ0FBU0csZUFBVCxFQUEwQjtBQUFBLFNBQWFGLFVBQVVJLGFBQVYsSUFBMkJDLG1CQUF4QztBQUFBLEVBQTFCLENBSjVCOztBQU1BLEtBQUlDLG1CQUFtQkgsb0JBQW9CSSxNQUFwQixDQUEyQixDQUFDWixpQkFBRCxDQUEzQixDQUF2Qjs7QUFFQSxRQUFPO0FBQ05hLFlBQWFsQixLQUFLa0IsUUFEWjtBQUVOQyxjQUFhbkIsS0FBS21CLFVBRlo7QUFHTmIsV0FBYUQsaUJBSFA7QUFJTmUsU0FBYVosRUFBRUMsTUFBRixDQUFTRixZQUFULEVBQXVCO0FBQUEsVUFBYUcsVUFBVUksYUFBVixJQUEyQk8sZUFBeEM7QUFBQSxHQUF2QixFQUFnRixDQUFoRixDQUpQO0FBS05DLFNBQWFkLEVBQUVDLE1BQUYsQ0FBU0YsWUFBVCxFQUF1QjtBQUFBLFVBQWFHLFVBQVVJLGFBQVYsSUFBMkJTLGVBQXhDO0FBQUEsR0FBdkIsRUFBZ0YsQ0FBaEYsQ0FMUDtBQU1OQyxhQUFhaEIsRUFBRUMsTUFBRixDQUFTRyxlQUFULEVBQTBCO0FBQUEsVUFBYUYsVUFBVUksYUFBVixJQUEyQkMsbUJBQXhDO0FBQUEsR0FBMUIsQ0FOUDtBQU9OVSxlQUFjVCxpQkFBaUIsQ0FBakIsS0FBdUIsSUFBeEIsR0FBZ0NSLEVBQUVDLE1BQUYsQ0FBU08sZ0JBQVQsRUFBMkI7QUFBQSxVQUFhTixVQUFVZ0IsS0FBVixDQUFnQkMsTUFBaEIsR0FBeUIsQ0FBdEM7QUFBQSxHQUEzQixDQUFoQyxHQUFzRyxFQVA3RztBQVFOQyxXQUFjWixpQkFBaUIsQ0FBakIsS0FBdUIsSUFBeEIsR0FBZ0NSLEVBQUVDLE1BQUYsQ0FBU08sZ0JBQVQsRUFBMkI7QUFBQSxVQUFhTixVQUFVZ0IsS0FBVixDQUFnQkMsTUFBaEIsR0FBeUJqQixVQUFVbUIsYUFBaEQ7QUFBQSxHQUEzQixDQUFoQyxHQUE0SCxFQVJuSTtBQVNOQyxZQUFhdEIsRUFBRUMsTUFBRixDQUFTRixZQUFULEVBQXVCO0FBQUEsVUFBYSxDQUNBRyxVQUFVSSxhQUFWLElBQTJCaUIsbUJBQTNCLElBQ0FyQixVQUFVSSxhQUFWLElBQTJCUyxlQUQzQixJQUVBYixVQUFVSSxhQUFWLElBQTJCTyxlQUgzQixLQUlBWCxVQUFVaUIsTUFBVixHQUFtQmpCLFVBQVVzQixjQUoxQztBQUFBLEdBQXZCLENBVFA7QUFjTkMsV0FBYXpCLEVBQUVDLE1BQUYsQ0FBU1AsVUFBVCxFQUFxQjtBQUFBLFVBQ2xDLENBQUVRLFVBQVVDLEVBQVYsSUFBZ0JELFVBQVVJLGFBQVYsSUFBMkJvQixjQUEzQyxJQUE2RHhCLFVBQVVJLGFBQVYsSUFBMkJxQixjQUExRixLQUNDekIsVUFBVTBCLElBQVYsR0FBaUIxQixVQUFVMkIsT0FBNUIsR0FBdUNwQyxPQUFPcUMsTUFBUCxDQUFjQyxPQURyRCxJQUNnRTdCLFVBQVUwQixJQUFWLEdBQWlCbkMsT0FBT3FDLE1BQVAsQ0FBY0UsT0FGN0Q7QUFBQSxHQUFyQixFQUdFQyxJQUhGLENBR08sVUFBQ0MsQ0FBRCxFQUFJQyxDQUFKO0FBQUEsVUFBVUQsRUFBRU4sSUFBRixHQUFTTyxFQUFFUCxJQUFyQjtBQUFBLEdBSFAsQ0FkUDtBQWtCTlEsYUFBYTVDLEtBQUtHLElBQUwsQ0FBVTBDLDBCQUFWO0FBbEJQLEVBQVA7QUFvQkEsQyIsImZpbGUiOiIxMy5qcyIsInNvdXJjZXNDb250ZW50IjpbImV4cG9ydCBkZWZhdWx0IChyb29tLCBjb25maWcpID0+IHtcblxuXHRjb25zdCBzdHJ1Y3R1cmVzICAgICAgICAgID0gcm9vbS5maW5kKEZJTkRfU1RSVUNUVVJFUyksXG5cdCAgICAgIHN0cnVjdHVyZXNTdG9yYWdlICAgPSByb29tLnN0b3JhZ2UsXG5cdCAgICAgIHN0cnVjdHVyZXNNeSAgICAgICAgPSBfLmZpbHRlcihzdHJ1Y3R1cmVzLCBzdHJ1Y3R1cmUgPT4gc3RydWN0dXJlLm15KSxcblx0ICAgICAgc3RydWN0dXJlc090aGVyICAgICA9IF8uZmlsdGVyKHN0cnVjdHVyZXMsIHN0cnVjdHVyZSA9PiAhc3RydWN0dXJlLm15KSxcblx0ICAgICAgc3RydWN0dXJlc0NvbnRhaW5lciA9IF8uZmlsdGVyKHN0cnVjdHVyZXNPdGhlciwgc3RydWN0dXJlID0+IHN0cnVjdHVyZS5zdHJ1Y3R1cmVUeXBlID09IFNUUlVDVFVSRV9DT05UQUlORVIpO1xuXG5cdGxldCBzdHJ1Y3R1cmVzRG9ja2VyID0gc3RydWN0dXJlc0NvbnRhaW5lci5jb25jYXQoW3N0cnVjdHVyZXNTdG9yYWdlXSk7XG5cblx0cmV0dXJuIHtcblx0XHR0ZXJtaW5hbCAgIDogcm9vbS50ZXJtaW5hbCxcblx0XHRjb250cm9sbGVyIDogcm9vbS5jb250cm9sbGVyLFxuXHRcdHN0b3JhZ2UgICAgOiBzdHJ1Y3R1cmVzU3RvcmFnZSxcblx0XHR0b3dlciAgICAgIDogXy5maWx0ZXIoc3RydWN0dXJlc015LCBzdHJ1Y3R1cmUgPT4gc3RydWN0dXJlLnN0cnVjdHVyZVR5cGUgPT0gU1RSVUNUVVJFX1RPV0VSKVswXSxcblx0XHRzcGF3biAgICAgIDogXy5maWx0ZXIoc3RydWN0dXJlc015LCBzdHJ1Y3R1cmUgPT4gc3RydWN0dXJlLnN0cnVjdHVyZVR5cGUgPT0gU1RSVUNUVVJFX1NQQVdOKVswXSxcblx0XHRjb250YWluZXIgIDogXy5maWx0ZXIoc3RydWN0dXJlc090aGVyLCBzdHJ1Y3R1cmUgPT4gc3RydWN0dXJlLnN0cnVjdHVyZVR5cGUgPT0gU1RSVUNUVVJFX0NPTlRBSU5FUiksXG5cdFx0Y2FuV2l0aGRyYXc6IChzdHJ1Y3R1cmVzRG9ja2VyWzBdICE9IG51bGwpID8gXy5maWx0ZXIoc3RydWN0dXJlc0RvY2tlciwgc3RydWN0dXJlID0+IHN0cnVjdHVyZS5zdG9yZS5lbmVyZ3kgPiAwKSA6IFtdLFxuXHRcdGNhbkZpbGwgICAgOiAoc3RydWN0dXJlc0RvY2tlclswXSAhPSBudWxsKSA/IF8uZmlsdGVyKHN0cnVjdHVyZXNEb2NrZXIsIHN0cnVjdHVyZSA9PiBzdHJ1Y3R1cmUuc3RvcmUuZW5lcmd5IDwgc3RydWN0dXJlLnN0b3JlQ2FwYWNpdHkpIDogW10sXG5cdFx0bmVlZEZpbGwgICA6IF8uZmlsdGVyKHN0cnVjdHVyZXNNeSwgc3RydWN0dXJlID0+IChcblx0XHQgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgc3RydWN0dXJlLnN0cnVjdHVyZVR5cGUgPT0gU1RSVUNUVVJFX0VYVEVOU0lPTiB8fFxuXHRcdCAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBzdHJ1Y3R1cmUuc3RydWN0dXJlVHlwZSA9PSBTVFJVQ1RVUkVfU1BBV04gfHxcblx0XHQgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgc3RydWN0dXJlLnN0cnVjdHVyZVR5cGUgPT0gU1RSVUNUVVJFX1RPV0VSICkgJiZcblx0XHQgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgc3RydWN0dXJlLmVuZXJneSA8IHN0cnVjdHVyZS5lbmVyZ3lDYXBhY2l0eSksXG5cdFx0bmVlZEZpeCAgICA6IF8uZmlsdGVyKHN0cnVjdHVyZXMsIHN0cnVjdHVyZSA9PlxuXHRcdCggc3RydWN0dXJlLm15IHx8IHN0cnVjdHVyZS5zdHJ1Y3R1cmVUeXBlID09IFNUUlVDVFVSRV9ST0FEIHx8IHN0cnVjdHVyZS5zdHJ1Y3R1cmVUeXBlID09IFNUUlVDVFVSRV9XQUxMICkgJiZcblx0XHQoc3RydWN0dXJlLmhpdHMgLyBzdHJ1Y3R1cmUuaGl0c01heCkgPCBjb25maWcucmVwYWlyLnBlcmNlbnQgJiYgc3RydWN0dXJlLmhpdHMgPCBjb25maWcucmVwYWlyLm1heEhpdHMpXG5cdFx0ICAgICAgICAgICAgICAuc29ydCgoYSwgYikgPT4gYS5oaXRzIC0gYi5oaXRzKSxcblx0XHRuZWVkQnVpbGQgIDogcm9vbS5maW5kKEZJTkRfTVlfQ09OU1RSVUNUSU9OX1NJVEVTKSxcblx0fVxufVxuXG5cbi8vIFdFQlBBQ0sgRk9PVEVSIC8vXG4vLyAuL3NyYy9tYW5hZ2VyL19tZW1vcnkvX3N0cnVjdHVyZXMuanMiXSwic291cmNlUm9vdCI6IiJ9");
+
+
+Object.defineProperty(exports, "__esModule", {
+	value: true
+});
+
+exports.default = function (room, config) {
+
+	var structures = room.find(FIND_STRUCTURES),
+	    structuresStorage = room.storage,
+	    structuresMy = _.filter(structures, function (structure) {
+		return structure.my;
+	}),
+	    structuresOther = _.filter(structures, function (structure) {
+		return !structure.my;
+	}),
+	    structuresContainer = _.filter(structuresOther, function (structure) {
+		return structure.structureType == STRUCTURE_CONTAINER;
+	});
+
+	var structuresDocker = structuresContainer.concat([structuresStorage]);
+
+	return {
+		terminal: room.terminal,
+		controller: room.controller,
+		storage: structuresStorage,
+		tower: _.filter(structuresMy, function (structure) {
+			return structure.structureType == STRUCTURE_TOWER;
+		})[0],
+		spawn: _.filter(structuresMy, function (structure) {
+			return structure.structureType == STRUCTURE_SPAWN;
+		})[0],
+		container: _.filter(structuresOther, function (structure) {
+			return structure.structureType == STRUCTURE_CONTAINER;
+		}),
+		canWithdraw: structuresDocker[0] != null ? _.filter(structuresDocker, function (structure) {
+			return structure.store.energy > 0;
+		}) : [],
+		canFill: structuresDocker[0] != null ? _.filter(structuresDocker, function (structure) {
+			return structure.store.energy < structure.storeCapacity;
+		}) : [],
+		needFill: _.filter(structuresMy, function (structure) {
+			return (structure.structureType == STRUCTURE_EXTENSION || structure.structureType == STRUCTURE_SPAWN || structure.structureType == STRUCTURE_TOWER) && structure.energy < structure.energyCapacity;
+		}),
+		needFix: _.filter(structures, function (structure) {
+			return (structure.my || structure.structureType == STRUCTURE_ROAD || structure.structureType == STRUCTURE_WALL) && structure.hits / structure.hitsMax < config.repair.percent && structure.hits < config.repair.maxHits;
+		}).sort(function (a, b) {
+			return a.hits - b.hits;
+		}),
+		needBuild: room.find(FIND_MY_CONSTRUCTION_SITES)
+	};
+};
 
 /***/ }),
 /* 14 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-eval("\n\nObject.defineProperty(exports, \"__esModule\", {\n\tvalue: true\n});\n\nvar _config = __webpack_require__(9);\n\nvar _config2 = _interopRequireDefault(_config);\n\nvar _creeps = __webpack_require__(10);\n\nvar _creeps2 = _interopRequireDefault(_creeps);\n\nvar _structures = __webpack_require__(13);\n\nvar _structures2 = _interopRequireDefault(_structures);\n\nvar _sources = __webpack_require__(12);\n\nvar _sources2 = _interopRequireDefault(_sources);\n\nvar _dropped = __webpack_require__(11);\n\nvar _dropped2 = _interopRequireDefault(_dropped);\n\nfunction _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }\n\nexports.default = function (roomArrary) {\n\t_.each(roomArrary, function (room) {\n\t\troom = Game.rooms[room];\n\t\tvar config = (0, _config2.default)(room);\n\t\tvar creeps = (0, _creeps2.default)(room, config);\n\t\tvar memory = {\n\t\t\tenergyAvailable: room.energyAvailable,\n\t\t\tconfig: config,\n\t\t\tcreeps: creeps,\n\t\t\tstructures: (0, _structures2.default)(room, config),\n\t\t\tsources: (0, _sources2.default)(room, creeps.my.miner),\n\t\t\tdropped: (0, _dropped2.default)(room)\n\t\t};\n\t\troom.memory = memory;\n\t});\n};//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIndlYnBhY2s6Ly8vLi9zcmMvbWFuYWdlci9fbWVtb3J5L2luZGV4LmpzP2Q3OGUiXSwibmFtZXMiOlsicm9vbUFycmFyeSIsIl8iLCJlYWNoIiwicm9vbSIsIkdhbWUiLCJyb29tcyIsImNvbmZpZyIsImNyZWVwcyIsIm1lbW9yeSIsImVuZXJneUF2YWlsYWJsZSIsInN0cnVjdHVyZXMiLCJzb3VyY2VzIiwibXkiLCJtaW5lciIsImRyb3BwZWQiXSwibWFwcGluZ3MiOiI7Ozs7OztBQUFBOzs7O0FBQ0E7Ozs7QUFDQTs7OztBQUNBOzs7O0FBQ0E7Ozs7OztrQkFDZSxVQUFDQSxVQUFELEVBQWdCO0FBQzlCQyxHQUFFQyxJQUFGLENBQU9GLFVBQVAsRUFBbUIsZ0JBQVE7QUFDMUJHLFNBQU9DLEtBQUtDLEtBQUwsQ0FBV0YsSUFBWCxDQUFQO0FBQ0EsTUFBTUcsU0FBUyxzQkFBVUgsSUFBVixDQUFmO0FBQ0EsTUFBTUksU0FBUyxzQkFBVUosSUFBVixFQUFnQkcsTUFBaEIsQ0FBZjtBQUNBLE1BQU1FLFNBQVM7QUFDZEMsb0JBQWlCTixLQUFLTSxlQURSO0FBRWRILFdBQWlCQSxNQUZIO0FBR2RDLFdBQWlCQSxNQUhIO0FBSWRHLGVBQWlCLDBCQUFXUCxJQUFYLEVBQWlCRyxNQUFqQixDQUpIO0FBS2RLLFlBQWlCLHVCQUFRUixJQUFSLEVBQWNJLE9BQU9LLEVBQVAsQ0FBVUMsS0FBeEIsQ0FMSDtBQU1kQyxZQUFpQix1QkFBUVgsSUFBUjtBQU5ILEdBQWY7QUFRQUEsT0FBS0ssTUFBTCxHQUFlQSxNQUFmO0FBQ0EsRUFiRDtBQWNBLEMiLCJmaWxlIjoiMTQuanMiLCJzb3VyY2VzQ29udGVudCI6WyJpbXBvcnQgY29uZmlnUmF3IGZyb20gXCIuLi8uLi9jb25maWdcIlxuaW1wb3J0IGNyZWVwc1JhdyBmcm9tIFwiLi9fY3JlZXBzXCJcbmltcG9ydCBzdHJ1Y3R1cmVzIGZyb20gXCIuL19zdHJ1Y3R1cmVzXCJcbmltcG9ydCBzb3VyY2VzIGZyb20gXCIuL19zb3VyY2VzXCJcbmltcG9ydCBkcm9wcGVkIGZyb20gXCIuL19kcm9wcGVkXCJcbmV4cG9ydCBkZWZhdWx0IChyb29tQXJyYXJ5KSA9PiB7XG5cdF8uZWFjaChyb29tQXJyYXJ5LCByb29tID0+IHtcblx0XHRyb29tID0gR2FtZS5yb29tc1tyb29tXTtcblx0XHRjb25zdCBjb25maWcgPSBjb25maWdSYXcocm9vbSk7XG5cdFx0Y29uc3QgY3JlZXBzID0gY3JlZXBzUmF3KHJvb20sIGNvbmZpZylcblx0XHRjb25zdCBtZW1vcnkgPSB7XG5cdFx0XHRlbmVyZ3lBdmFpbGFibGU6IHJvb20uZW5lcmd5QXZhaWxhYmxlLFxuXHRcdFx0Y29uZmlnICAgICAgICAgOiBjb25maWcsXG5cdFx0XHRjcmVlcHMgICAgICAgICA6IGNyZWVwcyxcblx0XHRcdHN0cnVjdHVyZXMgICAgIDogc3RydWN0dXJlcyhyb29tLCBjb25maWcpLFxuXHRcdFx0c291cmNlcyAgICAgICAgOiBzb3VyY2VzKHJvb20sIGNyZWVwcy5teS5taW5lciksXG5cdFx0XHRkcm9wcGVkICAgICAgICA6IGRyb3BwZWQocm9vbSksXG5cdFx0fVxuXHRcdHJvb20ubWVtb3J5ICA9IG1lbW9yeTtcblx0fSlcbn1cblxuXG5cblxuLy8gV0VCUEFDSyBGT09URVIgLy9cbi8vIC4vc3JjL21hbmFnZXIvX21lbW9yeS9pbmRleC5qcyJdLCJzb3VyY2VSb290IjoiIn0=");
+
+
+Object.defineProperty(exports, "__esModule", {
+	value: true
+});
+
+var _config = __webpack_require__(9);
+
+var _config2 = _interopRequireDefault(_config);
+
+var _creeps = __webpack_require__(10);
+
+var _creeps2 = _interopRequireDefault(_creeps);
+
+var _structures = __webpack_require__(13);
+
+var _structures2 = _interopRequireDefault(_structures);
+
+var _sources = __webpack_require__(12);
+
+var _sources2 = _interopRequireDefault(_sources);
+
+var _dropped = __webpack_require__(11);
+
+var _dropped2 = _interopRequireDefault(_dropped);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+exports.default = function (roomArrary) {
+	_.each(roomArrary, function (room) {
+		room = Game.rooms[room];
+		var config = (0, _config2.default)(room);
+		var creeps = (0, _creeps2.default)(room, config);
+		var memory = {
+			energyAvailable: room.energyAvailable,
+			config: config,
+			creeps: creeps,
+			structures: (0, _structures2.default)(room, config),
+			sources: (0, _sources2.default)(room, creeps.my.miner),
+			dropped: (0, _dropped2.default)(room)
+		};
+		room.memory = memory;
+	});
+};
 
 /***/ }),
 /* 15 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-eval("\n\nObject.defineProperty(exports, \"__esModule\", {\n\tvalue: true\n});\n\nvar _role = __webpack_require__(27);\n\nvar role = _interopRequireWildcard(_role);\n\nfunction _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }\n\nexports.default = function (roomArrary) {\n\n\t_.each(roomArrary, function (room) {\n\t\troom = Game.rooms[room];\n\t\tvar Memory = room.memory;\n\t\tvar targetStructures = Memory.structures;\n\t\tvar myCreeps = Memory.creeps.my;\n\t\tvar dropped = Memory.dropped ? Memory.dropped.energy : [];\n\n\t\tvar newRoom = {\n\t\t\tpos: new RoomPosition(25, 47, roomArrary[1]),\n\t\t\tmemory: Game.rooms[roomArrary[1]] ? Game.rooms[roomArrary[1]].memory : {}\n\t\t};\n\n\t\tmyCreeps.harvester.forEach(function (creep) {\n\t\t\treturn role.harvester(creep, dropped);\n\t\t});\n\t\tmyCreeps.miner.forEach(function (creep) {\n\t\t\treturn role.miner(creep, Memory.sources, dropped);\n\t\t});\n\t\tmyCreeps.upgrader.forEach(function (creep) {\n\t\t\treturn role.upgrader(creep, targetStructures.controller);\n\t\t});\n\t\tmyCreeps.builder.forEach(function (creep) {\n\t\t\treturn role.builder(creep, targetStructures.needBuild, newRoom);\n\t\t});\n\t\tmyCreeps.cleaner.forEach(function (creep) {\n\t\t\treturn role.cleaner(creep, dropped);\n\t\t});\n\t\t// far\n\t\tmyCreeps.farBuilder.forEach(function (creep) {\n\t\t\treturn role.farBuilder(creep, newRoom);\n\t\t});\n\t\tmyCreeps.farHarvester.forEach(function (creep) {\n\t\t\treturn role.farHarvester(creep, newRoom);\n\t\t});\n\t\tmyCreeps.farMiner.forEach(function (creep) {\n\t\t\treturn role.farMiner(creep, newRoom);\n\t\t});\n\t\tmyCreeps.claim.forEach(function (creep) {\n\t\t\treturn role.claim(creep, newRoom);\n\t\t});\n\t});\n};//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIndlYnBhY2s6Ly8vLi9zcmMvbWFuYWdlci9fcm9sZS5qcz8xNTk0Il0sIm5hbWVzIjpbInJvbGUiLCJyb29tQXJyYXJ5IiwiXyIsImVhY2giLCJyb29tIiwiR2FtZSIsInJvb21zIiwiTWVtb3J5IiwibWVtb3J5IiwidGFyZ2V0U3RydWN0dXJlcyIsInN0cnVjdHVyZXMiLCJteUNyZWVwcyIsImNyZWVwcyIsIm15IiwiZHJvcHBlZCIsImVuZXJneSIsIm5ld1Jvb20iLCJwb3MiLCJSb29tUG9zaXRpb24iLCJoYXJ2ZXN0ZXIiLCJmb3JFYWNoIiwiY3JlZXAiLCJtaW5lciIsInNvdXJjZXMiLCJ1cGdyYWRlciIsImNvbnRyb2xsZXIiLCJidWlsZGVyIiwibmVlZEJ1aWxkIiwiY2xlYW5lciIsImZhckJ1aWxkZXIiLCJmYXJIYXJ2ZXN0ZXIiLCJmYXJNaW5lciIsImNsYWltIl0sIm1hcHBpbmdzIjoiOzs7Ozs7QUFBQTs7SUFBWUEsSTs7OztrQkFDRyxVQUFDQyxVQUFELEVBQWdCOztBQUU5QkMsR0FBRUMsSUFBRixDQUFPRixVQUFQLEVBQW1CLGdCQUFRO0FBQzFCRyxTQUFPQyxLQUFLQyxLQUFMLENBQVdGLElBQVgsQ0FBUDtBQUNBLE1BQU1HLFNBQW1CSCxLQUFLSSxNQUE5QjtBQUNBLE1BQU1DLG1CQUFtQkYsT0FBT0csVUFBaEM7QUFDQSxNQUFNQyxXQUFtQkosT0FBT0ssTUFBUCxDQUFjQyxFQUF2QztBQUNBLE1BQU1DLFVBQW9CUCxPQUFPTyxPQUFSLEdBQW1CUCxPQUFPTyxPQUFQLENBQWVDLE1BQWxDLEdBQTJDLEVBQXBFOztBQUVBLE1BQU1DLFVBQVU7QUFDZkMsUUFBUSxJQUFJQyxZQUFKLENBQWlCLEVBQWpCLEVBQXFCLEVBQXJCLEVBQXlCakIsV0FBVyxDQUFYLENBQXpCLENBRE87QUFFZk8sV0FBU0gsS0FBS0MsS0FBTCxDQUFXTCxXQUFXLENBQVgsQ0FBWCxDQUFELEdBQThCSSxLQUFLQyxLQUFMLENBQVdMLFdBQVcsQ0FBWCxDQUFYLEVBQTBCTyxNQUF4RCxHQUFpRTtBQUYxRCxHQUFoQjs7QUFLQUcsV0FBU1EsU0FBVCxDQUFtQkMsT0FBbkIsQ0FBMkI7QUFBQSxVQUFTcEIsS0FBS21CLFNBQUwsQ0FBZUUsS0FBZixFQUFzQlAsT0FBdEIsQ0FBVDtBQUFBLEdBQTNCO0FBQ0FILFdBQVNXLEtBQVQsQ0FBZUYsT0FBZixDQUF1QjtBQUFBLFVBQVNwQixLQUFLc0IsS0FBTCxDQUFXRCxLQUFYLEVBQWtCZCxPQUFPZ0IsT0FBekIsRUFBa0NULE9BQWxDLENBQVQ7QUFBQSxHQUF2QjtBQUNBSCxXQUFTYSxRQUFULENBQWtCSixPQUFsQixDQUEwQjtBQUFBLFVBQVNwQixLQUFLd0IsUUFBTCxDQUFjSCxLQUFkLEVBQXFCWixpQkFBaUJnQixVQUF0QyxDQUFUO0FBQUEsR0FBMUI7QUFDQWQsV0FBU2UsT0FBVCxDQUFpQk4sT0FBakIsQ0FBeUI7QUFBQSxVQUFTcEIsS0FBSzBCLE9BQUwsQ0FBYUwsS0FBYixFQUFvQlosaUJBQWlCa0IsU0FBckMsRUFBZ0RYLE9BQWhELENBQVQ7QUFBQSxHQUF6QjtBQUNBTCxXQUFTaUIsT0FBVCxDQUFpQlIsT0FBakIsQ0FBeUI7QUFBQSxVQUFTcEIsS0FBSzRCLE9BQUwsQ0FBYVAsS0FBYixFQUFvQlAsT0FBcEIsQ0FBVDtBQUFBLEdBQXpCO0FBQ0E7QUFDQUgsV0FBU2tCLFVBQVQsQ0FBb0JULE9BQXBCLENBQTRCO0FBQUEsVUFBU3BCLEtBQUs2QixVQUFMLENBQWdCUixLQUFoQixFQUF1QkwsT0FBdkIsQ0FBVDtBQUFBLEdBQTVCO0FBQ0FMLFdBQVNtQixZQUFULENBQXNCVixPQUF0QixDQUE4QjtBQUFBLFVBQVNwQixLQUFLOEIsWUFBTCxDQUFrQlQsS0FBbEIsRUFBeUJMLE9BQXpCLENBQVQ7QUFBQSxHQUE5QjtBQUNBTCxXQUFTb0IsUUFBVCxDQUFrQlgsT0FBbEIsQ0FBMEI7QUFBQSxVQUFTcEIsS0FBSytCLFFBQUwsQ0FBY1YsS0FBZCxFQUFxQkwsT0FBckIsQ0FBVDtBQUFBLEdBQTFCO0FBQ0FMLFdBQVNxQixLQUFULENBQWVaLE9BQWYsQ0FBdUI7QUFBQSxVQUFTcEIsS0FBS2dDLEtBQUwsQ0FBV1gsS0FBWCxFQUFrQkwsT0FBbEIsQ0FBVDtBQUFBLEdBQXZCO0FBQ0EsRUF0QkQ7QUF1QkEsQyIsImZpbGUiOiIxNS5qcyIsInNvdXJjZXNDb250ZW50IjpbImltcG9ydCAqIGFzIHJvbGUgZnJvbSAnLi4vcm9sZSc7XG5leHBvcnQgZGVmYXVsdCAocm9vbUFycmFyeSkgPT4ge1xuXG5cdF8uZWFjaChyb29tQXJyYXJ5LCByb29tID0+IHtcblx0XHRyb29tID0gR2FtZS5yb29tc1tyb29tXTtcblx0XHRjb25zdCBNZW1vcnkgICAgICAgICAgID0gcm9vbS5tZW1vcnk7XG5cdFx0Y29uc3QgdGFyZ2V0U3RydWN0dXJlcyA9IE1lbW9yeS5zdHJ1Y3R1cmVzO1xuXHRcdGNvbnN0IG15Q3JlZXBzICAgICAgICAgPSBNZW1vcnkuY3JlZXBzLm15O1xuXHRcdGNvbnN0IGRyb3BwZWQgICAgICAgICAgPSAoTWVtb3J5LmRyb3BwZWQpID8gTWVtb3J5LmRyb3BwZWQuZW5lcmd5IDogW107XG5cblx0XHRjb25zdCBuZXdSb29tID0ge1xuXHRcdFx0cG9zICAgOiBuZXcgUm9vbVBvc2l0aW9uKDI1LCA0Nywgcm9vbUFycmFyeVsxXSksXG5cdFx0XHRtZW1vcnk6IChHYW1lLnJvb21zW3Jvb21BcnJhcnlbMV1dKSA/IEdhbWUucm9vbXNbcm9vbUFycmFyeVsxXV0ubWVtb3J5IDoge31cblx0XHR9O1xuXG5cdFx0bXlDcmVlcHMuaGFydmVzdGVyLmZvckVhY2goY3JlZXAgPT4gcm9sZS5oYXJ2ZXN0ZXIoY3JlZXAsIGRyb3BwZWQpKVxuXHRcdG15Q3JlZXBzLm1pbmVyLmZvckVhY2goY3JlZXAgPT4gcm9sZS5taW5lcihjcmVlcCwgTWVtb3J5LnNvdXJjZXMsIGRyb3BwZWQpKVxuXHRcdG15Q3JlZXBzLnVwZ3JhZGVyLmZvckVhY2goY3JlZXAgPT4gcm9sZS51cGdyYWRlcihjcmVlcCwgdGFyZ2V0U3RydWN0dXJlcy5jb250cm9sbGVyKSlcblx0XHRteUNyZWVwcy5idWlsZGVyLmZvckVhY2goY3JlZXAgPT4gcm9sZS5idWlsZGVyKGNyZWVwLCB0YXJnZXRTdHJ1Y3R1cmVzLm5lZWRCdWlsZCwgbmV3Um9vbSkpXG5cdFx0bXlDcmVlcHMuY2xlYW5lci5mb3JFYWNoKGNyZWVwID0+IHJvbGUuY2xlYW5lcihjcmVlcCwgZHJvcHBlZCkpXG5cdFx0Ly8gZmFyXG5cdFx0bXlDcmVlcHMuZmFyQnVpbGRlci5mb3JFYWNoKGNyZWVwID0+IHJvbGUuZmFyQnVpbGRlcihjcmVlcCwgbmV3Um9vbSkpXG5cdFx0bXlDcmVlcHMuZmFySGFydmVzdGVyLmZvckVhY2goY3JlZXAgPT4gcm9sZS5mYXJIYXJ2ZXN0ZXIoY3JlZXAsIG5ld1Jvb20pKVxuXHRcdG15Q3JlZXBzLmZhck1pbmVyLmZvckVhY2goY3JlZXAgPT4gcm9sZS5mYXJNaW5lcihjcmVlcCwgbmV3Um9vbSkpXG5cdFx0bXlDcmVlcHMuY2xhaW0uZm9yRWFjaChjcmVlcCA9PiByb2xlLmNsYWltKGNyZWVwLCBuZXdSb29tKSlcblx0fSlcbn1cblxuXG5cblxuLy8gV0VCUEFDSyBGT09URVIgLy9cbi8vIC4vc3JjL21hbmFnZXIvX3JvbGUuanMiXSwic291cmNlUm9vdCI6IiJ9");
+
+
+Object.defineProperty(exports, "__esModule", {
+	value: true
+});
+
+var _role = __webpack_require__(27);
+
+var role = _interopRequireWildcard(_role);
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+
+exports.default = function (roomArrary) {
+
+	_.each(roomArrary, function (room) {
+		room = Game.rooms[room];
+		var Memory = room.memory;
+		var targetStructures = Memory.structures;
+		var myCreeps = Memory.creeps.my;
+		var dropped = Memory.dropped ? Memory.dropped.energy : [];
+
+		var newRoom = {
+			pos: new RoomPosition(25, 47, roomArrary[1]),
+			memory: Game.rooms[roomArrary[1]] ? Game.rooms[roomArrary[1]].memory : {}
+		};
+
+		myCreeps.harvester.forEach(function (creep) {
+			return role.harvester(creep, dropped);
+		});
+		myCreeps.miner.forEach(function (creep) {
+			return role.miner(creep, Memory.sources, dropped);
+		});
+		myCreeps.upgrader.forEach(function (creep) {
+			return role.upgrader(creep, targetStructures.controller);
+		});
+		myCreeps.builder.forEach(function (creep) {
+			return role.builder(creep, targetStructures.needBuild, newRoom);
+		});
+		myCreeps.cleaner.forEach(function (creep) {
+			return role.cleaner(creep, dropped);
+		});
+		// far
+		myCreeps.farBuilder.forEach(function (creep) {
+			return role.farBuilder(creep, newRoom);
+		});
+		myCreeps.farHarvester.forEach(function (creep) {
+			return role.farHarvester(creep, newRoom);
+		});
+		myCreeps.farMiner.forEach(function (creep) {
+			return role.farMiner(creep, newRoom);
+		});
+		myCreeps.claim.forEach(function (creep) {
+			return role.claim(creep, newRoom);
+		});
+	});
+};
 
 /***/ }),
 /* 16 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-eval("\n\nObject.defineProperty(exports, \"__esModule\", {\n\tvalue: true\n});\n\nexports.default = function () {\n\tfor (var name in Memory.creeps) {\n\t\tif (!Game.creeps[name]) {\n\t\t\tdelete Memory.creeps[name];\n\t\t} else {\n\t\t\tif (!Game.creeps[name].memory) Game.creeps[name].memory = { role: name.split('#')[0] };\n\t\t}\n\t}\n};//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIndlYnBhY2s6Ly8vLi9zcmMvbWFuYWdlci9fcm9vdC5qcz9iZTcxIl0sIm5hbWVzIjpbIm5hbWUiLCJNZW1vcnkiLCJjcmVlcHMiLCJHYW1lIiwibWVtb3J5Iiwicm9sZSIsInNwbGl0Il0sIm1hcHBpbmdzIjoiOzs7Ozs7a0JBQWUsWUFBTTtBQUNwQixNQUFLLElBQUlBLElBQVQsSUFBaUJDLE9BQU9DLE1BQXhCLEVBQWdDO0FBQy9CLE1BQUksQ0FBQ0MsS0FBS0QsTUFBTCxDQUFZRixJQUFaLENBQUwsRUFBd0I7QUFDdkIsVUFBT0MsT0FBT0MsTUFBUCxDQUFjRixJQUFkLENBQVA7QUFDQSxHQUZELE1BRU87QUFDTixPQUFJLENBQUNHLEtBQUtELE1BQUwsQ0FBWUYsSUFBWixFQUFrQkksTUFBdkIsRUFBK0JELEtBQUtELE1BQUwsQ0FBWUYsSUFBWixFQUFrQkksTUFBbEIsR0FBMkIsRUFBQ0MsTUFBTUwsS0FBS00sS0FBTCxDQUFXLEdBQVgsRUFBaUIsQ0FBakIsQ0FBUCxFQUEzQjtBQUMvQjtBQUNEO0FBQ0QsQyIsImZpbGUiOiIxNi5qcyIsInNvdXJjZXNDb250ZW50IjpbImV4cG9ydCBkZWZhdWx0ICgpID0+IHtcblx0Zm9yIChsZXQgbmFtZSBpbiBNZW1vcnkuY3JlZXBzKSB7XG5cdFx0aWYgKCFHYW1lLmNyZWVwc1tuYW1lXSkge1xuXHRcdFx0ZGVsZXRlIE1lbW9yeS5jcmVlcHNbbmFtZV1cblx0XHR9IGVsc2Uge1xuXHRcdFx0aWYgKCFHYW1lLmNyZWVwc1tuYW1lXS5tZW1vcnkpIEdhbWUuY3JlZXBzW25hbWVdLm1lbW9yeSA9IHtyb2xlOiBuYW1lLnNwbGl0KCcjJykgWzBdfVxuXHRcdH1cblx0fVxufVxuXG5cbi8vIFdFQlBBQ0sgRk9PVEVSIC8vXG4vLyAuL3NyYy9tYW5hZ2VyL19yb290LmpzIl0sInNvdXJjZVJvb3QiOiIifQ==");
+
+
+Object.defineProperty(exports, "__esModule", {
+	value: true
+});
+
+exports.default = function () {
+	for (var name in Memory.creeps) {
+		if (!Game.creeps[name]) {
+			delete Memory.creeps[name];
+		} else {
+			if (!Game.creeps[name].memory) Game.creeps[name].memory = { role: name.split('#')[0] };
+		}
+	}
+};
 
 /***/ }),
 /* 17 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-eval("\n\nObject.defineProperty(exports, \"__esModule\", {\n\tvalue: true\n});\n\nvar _structure = __webpack_require__(30);\n\nvar structure = _interopRequireWildcard(_structure);\n\nfunction _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }\n\nexports.default = function (roomArray) {\n\tvar room = Game.rooms[roomArray[0]];\n\tvar roomNext = Game.rooms[roomArray[1]];\n\tvar Memory = room.memory;\n\tvar nextMemory = roomNext ? roomNext.memory : null;\n\tvar targetStructures = Memory.structures;\n\tvar targetCreeps = Memory.creeps;\n\tvar config = Memory.config;\n\n\tvar spawn = nextMemory ? _.merge(targetCreeps.my, nextMemory.creeps.my) : targetCreeps.my;\n\n\tstructure.spawn(targetStructures.spawn, spawn, config);\n\tstructure.tower(targetStructures.tower, targetStructures.needFix, targetCreeps.enemy);\n};//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIndlYnBhY2s6Ly8vLi9zcmMvbWFuYWdlci9fc3RydWN0dXJlLmpzP2I5YjgiXSwibmFtZXMiOlsic3RydWN0dXJlIiwicm9vbUFycmF5Iiwicm9vbSIsIkdhbWUiLCJyb29tcyIsInJvb21OZXh0IiwiTWVtb3J5IiwibWVtb3J5IiwibmV4dE1lbW9yeSIsInRhcmdldFN0cnVjdHVyZXMiLCJzdHJ1Y3R1cmVzIiwidGFyZ2V0Q3JlZXBzIiwiY3JlZXBzIiwiY29uZmlnIiwic3Bhd24iLCJfIiwibWVyZ2UiLCJteSIsInRvd2VyIiwibmVlZEZpeCIsImVuZW15Il0sIm1hcHBpbmdzIjoiOzs7Ozs7QUFBQTs7SUFBWUEsUzs7OztrQkFFRyxVQUFDQyxTQUFELEVBQWU7QUFDN0IsS0FBTUMsT0FBbUJDLEtBQUtDLEtBQUwsQ0FBV0gsVUFBVSxDQUFWLENBQVgsQ0FBekI7QUFDQSxLQUFNSSxXQUFtQkYsS0FBS0MsS0FBTCxDQUFXSCxVQUFVLENBQVYsQ0FBWCxDQUF6QjtBQUNBLEtBQU1LLFNBQW1CSixLQUFLSyxNQUE5QjtBQUNBLEtBQU1DLGFBQW9CSCxRQUFELEdBQWFBLFNBQVNFLE1BQXRCLEdBQStCLElBQXhEO0FBQ0EsS0FBTUUsbUJBQW1CSCxPQUFPSSxVQUFoQztBQUNBLEtBQU1DLGVBQW1CTCxPQUFPTSxNQUFoQztBQUNBLEtBQU1DLFNBQW1CUCxPQUFPTyxNQUFoQzs7QUFFQSxLQUFNQyxRQUFTTixVQUFELEdBQWVPLEVBQUVDLEtBQUYsQ0FBUUwsYUFBYU0sRUFBckIsRUFBeUJULFdBQVdJLE1BQVgsQ0FBa0JLLEVBQTNDLENBQWYsR0FBZ0VOLGFBQWFNLEVBQTNGOztBQUVBakIsV0FBVWMsS0FBVixDQUFnQkwsaUJBQWlCSyxLQUFqQyxFQUF3Q0EsS0FBeEMsRUFBK0NELE1BQS9DO0FBQ0FiLFdBQVVrQixLQUFWLENBQWdCVCxpQkFBaUJTLEtBQWpDLEVBQXdDVCxpQkFBaUJVLE9BQXpELEVBQWtFUixhQUFhUyxLQUEvRTtBQUNBLEMiLCJmaWxlIjoiMTcuanMiLCJzb3VyY2VzQ29udGVudCI6WyJpbXBvcnQgKiBhcyBzdHJ1Y3R1cmUgZnJvbSAnLi4vc3RydWN0dXJlJztcblxuZXhwb3J0IGRlZmF1bHQgKHJvb21BcnJheSkgPT4ge1xuXHRjb25zdCByb29tICAgICAgICAgICAgID0gR2FtZS5yb29tc1tyb29tQXJyYXlbMF1dO1xuXHRjb25zdCByb29tTmV4dCAgICAgICAgID0gR2FtZS5yb29tc1tyb29tQXJyYXlbMV1dO1xuXHRjb25zdCBNZW1vcnkgICAgICAgICAgID0gcm9vbS5tZW1vcnk7XG5cdGNvbnN0IG5leHRNZW1vcnkgICAgICAgPSAocm9vbU5leHQpID8gcm9vbU5leHQubWVtb3J5IDogbnVsbDtcblx0Y29uc3QgdGFyZ2V0U3RydWN0dXJlcyA9IE1lbW9yeS5zdHJ1Y3R1cmVzO1xuXHRjb25zdCB0YXJnZXRDcmVlcHMgICAgID0gTWVtb3J5LmNyZWVwcztcblx0Y29uc3QgY29uZmlnICAgICAgICAgICA9IE1lbW9yeS5jb25maWc7XG5cblx0Y29uc3Qgc3Bhd24gPSAobmV4dE1lbW9yeSkgPyBfLm1lcmdlKHRhcmdldENyZWVwcy5teSwgbmV4dE1lbW9yeS5jcmVlcHMubXkpIDogdGFyZ2V0Q3JlZXBzLm15O1xuXG5cdHN0cnVjdHVyZS5zcGF3bih0YXJnZXRTdHJ1Y3R1cmVzLnNwYXduLCBzcGF3biwgY29uZmlnKTtcblx0c3RydWN0dXJlLnRvd2VyKHRhcmdldFN0cnVjdHVyZXMudG93ZXIsIHRhcmdldFN0cnVjdHVyZXMubmVlZEZpeCwgdGFyZ2V0Q3JlZXBzLmVuZW15KTtcbn1cblxuXG4vLyBXRUJQQUNLIEZPT1RFUiAvL1xuLy8gLi9zcmMvbWFuYWdlci9fc3RydWN0dXJlLmpzIl0sInNvdXJjZVJvb3QiOiIifQ==");
+
+
+Object.defineProperty(exports, "__esModule", {
+	value: true
+});
+
+var _structure = __webpack_require__(30);
+
+var structure = _interopRequireWildcard(_structure);
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+
+exports.default = function (roomArray) {
+	var room = Game.rooms[roomArray[0]];
+	var roomNext = Game.rooms[roomArray[1]];
+	var Memory = room.memory;
+	var nextMemory = roomNext ? roomNext.memory : null;
+	var targetStructures = Memory.structures;
+	var targetCreeps = Memory.creeps;
+	var config = Memory.config;
+
+	var spawn = nextMemory ? _.merge(targetCreeps.my, nextMemory.creeps.my) : targetCreeps.my;
+
+	structure.spawn(targetStructures.spawn, spawn, config);
+	structure.tower(targetStructures.tower, targetStructures.needFix, targetCreeps.enemy);
+};
 
 /***/ }),
 /* 18 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-eval("\n\nObject.defineProperty(exports, \"__esModule\", {\n\tvalue: true\n});\n\nvar _task = __webpack_require__(0);\n\nexports.default = function (creep, needBuild, newRoom) {\n\n\tif (creep.carry.energy == 0) {\n\t\tcreep.memory.canBuild = false;\n\t}\n\n\tif (creep.carry.energy == creep.carryCapacity) {\n\t\tcreep.memory.canBuild = true;\n\t}\n\n\t// let newNeedBuild = newRoom.memory.structures.needBuild;\n\t// if (creep.memory.canBuild && newNeedBuild.length > 0) {\n\t//\n\t// \tconst newBuildTarget = newNeedBuild[0];\n\t// \t(newBuildTarget && creep.build(newBuildTarget) != OK)\n\t// \t\t\t? pathFinder(creep, newBuildTarget) : null;\n\t//\n\t// } else {\n\t// \tlet storage = Game.getObjectById('58d07b35bfeec6256575be5d');\n\t// \t(creep.withdraw(storage, RESOURCE_ENERGY) != OK)\n\t// \t\t\t? pathFinder(creep, storage) : null\n\t// }\n\tif (needBuild.length > 0) {\n\t\tif (creep.memory.canBuild) {\n\t\t\tvar buildTarget = creep.pos.findClosestByRange(needBuild);\n\t\t\tbuildTarget && creep.build(buildTarget) != OK ? (0, _task.pathFinder)(creep, buildTarget) : null;\n\t\t} else {\n\t\t\tvar canWithdraw = creep.room.storage;\n\t\t\tcanWithdraw && creep.withdraw(canWithdraw, RESOURCE_ENERGY) != OK ? (0, _task.pathFinder)(creep, canWithdraw) : null;\n\t\t}\n\t} else {\n\t\tif (creep.carry.energy < 50) {\n\t\t\tvar transferTarget = creep.room.storage;\n\t\t\tcreep.withdraw(transferTarget, RESOURCE_ENERGY) != OK ? (0, _task.pathFinder)(creep, transferTarget) : null;\n\t\t} else {\n\t\t\tvar needFill = creep.room.memory.structures.needFill;\n\t\t\tvar needFillTarget = creep.pos.findClosestByRange(needFill);\n\t\t\tneedFillTarget && creep.transfer(needFillTarget, RESOURCE_ENERGY) != OK ? (0, _task.pathFinder)(creep, needFillTarget) : null;\n\t\t}\n\t}\n};//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIndlYnBhY2s6Ly8vLi9zcmMvcm9sZS9fYnVpbGRlci5qcz83MDc3Il0sIm5hbWVzIjpbImNyZWVwIiwibmVlZEJ1aWxkIiwibmV3Um9vbSIsImNhcnJ5IiwiZW5lcmd5IiwibWVtb3J5IiwiY2FuQnVpbGQiLCJjYXJyeUNhcGFjaXR5IiwibGVuZ3RoIiwiYnVpbGRUYXJnZXQiLCJwb3MiLCJmaW5kQ2xvc2VzdEJ5UmFuZ2UiLCJidWlsZCIsIk9LIiwiY2FuV2l0aGRyYXciLCJyb29tIiwic3RvcmFnZSIsIndpdGhkcmF3IiwiUkVTT1VSQ0VfRU5FUkdZIiwidHJhbnNmZXJUYXJnZXQiLCJuZWVkRmlsbCIsInN0cnVjdHVyZXMiLCJuZWVkRmlsbFRhcmdldCIsInRyYW5zZmVyIl0sIm1hcHBpbmdzIjoiOzs7Ozs7QUFBQTs7a0JBRWUsVUFBQ0EsS0FBRCxFQUFRQyxTQUFSLEVBQW1CQyxPQUFuQixFQUErQjs7QUFFN0MsS0FBSUYsTUFBTUcsS0FBTixDQUFZQyxNQUFaLElBQXNCLENBQTFCLEVBQTZCO0FBQzVCSixRQUFNSyxNQUFOLENBQWFDLFFBQWIsR0FBd0IsS0FBeEI7QUFDQTs7QUFFRCxLQUFJTixNQUFNRyxLQUFOLENBQVlDLE1BQVosSUFBc0JKLE1BQU1PLGFBQWhDLEVBQStDO0FBQzlDUCxRQUFNSyxNQUFOLENBQWFDLFFBQWIsR0FBd0IsSUFBeEI7QUFDQTs7QUFFRDtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQSxLQUFJTCxVQUFVTyxNQUFWLEdBQW1CLENBQXZCLEVBQTBCO0FBQ3pCLE1BQUlSLE1BQU1LLE1BQU4sQ0FBYUMsUUFBakIsRUFBMkI7QUFDMUIsT0FBTUcsY0FBY1QsTUFBTVUsR0FBTixDQUFVQyxrQkFBVixDQUE2QlYsU0FBN0IsQ0FBcEI7QUFDQ1Esa0JBQWVULE1BQU1ZLEtBQU4sQ0FBWUgsV0FBWixLQUE0QkksRUFBNUMsR0FDSSxzQkFBV2IsS0FBWCxFQUFrQlMsV0FBbEIsQ0FESixHQUNxQyxJQURyQztBQUVBLEdBSkQsTUFJTztBQUNOLE9BQU1LLGNBQWNkLE1BQU1lLElBQU4sQ0FBV0MsT0FBL0I7QUFDQ0Ysa0JBQWVkLE1BQU1pQixRQUFOLENBQWVILFdBQWYsRUFBNEJJLGVBQTVCLEtBQWdETCxFQUFoRSxHQUNJLHNCQUFXYixLQUFYLEVBQWtCYyxXQUFsQixDQURKLEdBQ3FDLElBRHJDO0FBRUE7QUFDRCxFQVZELE1BVU87QUFDTixNQUFJZCxNQUFNRyxLQUFOLENBQVlDLE1BQVosR0FBcUIsRUFBekIsRUFBNkI7QUFDNUIsT0FBTWUsaUJBQWlCbkIsTUFBTWUsSUFBTixDQUFXQyxPQUFsQztBQUNDaEIsU0FBTWlCLFFBQU4sQ0FBZUUsY0FBZixFQUErQkQsZUFBL0IsS0FBbURMLEVBQXBELEdBQ0ksc0JBQVdiLEtBQVgsRUFBa0JtQixjQUFsQixDQURKLEdBQ3dDLElBRHhDO0FBRUEsR0FKRCxNQUlPO0FBQ04sT0FBTUMsV0FBV3BCLE1BQU1lLElBQU4sQ0FBV1YsTUFBWCxDQUFrQmdCLFVBQWxCLENBQTZCRCxRQUE5QztBQUNBLE9BQUlFLGlCQUFpQnRCLE1BQU1VLEdBQU4sQ0FBVUMsa0JBQVYsQ0FBNkJTLFFBQTdCLENBQXJCO0FBQ0NFLHFCQUFrQnRCLE1BQU11QixRQUFOLENBQWVELGNBQWYsRUFBK0JKLGVBQS9CLEtBQW1ETCxFQUF0RSxHQUNJLHNCQUFXYixLQUFYLEVBQWtCc0IsY0FBbEIsQ0FESixHQUN3QyxJQUR4QztBQUdBO0FBQ0Q7QUFDRCxDIiwiZmlsZSI6IjE4LmpzIiwic291cmNlc0NvbnRlbnQiOlsiaW1wb3J0IHtwYXRoRmluZGVyfSBmcm9tICcuLi90YXNrJ1xuXG5leHBvcnQgZGVmYXVsdCAoY3JlZXAsIG5lZWRCdWlsZCwgbmV3Um9vbSkgPT4ge1xuXG5cdGlmIChjcmVlcC5jYXJyeS5lbmVyZ3kgPT0gMCkge1xuXHRcdGNyZWVwLm1lbW9yeS5jYW5CdWlsZCA9IGZhbHNlO1xuXHR9XG5cblx0aWYgKGNyZWVwLmNhcnJ5LmVuZXJneSA9PSBjcmVlcC5jYXJyeUNhcGFjaXR5KSB7XG5cdFx0Y3JlZXAubWVtb3J5LmNhbkJ1aWxkID0gdHJ1ZTtcblx0fVxuXG5cdC8vIGxldCBuZXdOZWVkQnVpbGQgPSBuZXdSb29tLm1lbW9yeS5zdHJ1Y3R1cmVzLm5lZWRCdWlsZDtcblx0Ly8gaWYgKGNyZWVwLm1lbW9yeS5jYW5CdWlsZCAmJiBuZXdOZWVkQnVpbGQubGVuZ3RoID4gMCkge1xuXHQvL1xuXHQvLyBcdGNvbnN0IG5ld0J1aWxkVGFyZ2V0ID0gbmV3TmVlZEJ1aWxkWzBdO1xuXHQvLyBcdChuZXdCdWlsZFRhcmdldCAmJiBjcmVlcC5idWlsZChuZXdCdWlsZFRhcmdldCkgIT0gT0spXG5cdC8vIFx0XHRcdD8gcGF0aEZpbmRlcihjcmVlcCwgbmV3QnVpbGRUYXJnZXQpIDogbnVsbDtcblx0Ly9cblx0Ly8gfSBlbHNlIHtcblx0Ly8gXHRsZXQgc3RvcmFnZSA9IEdhbWUuZ2V0T2JqZWN0QnlJZCgnNThkMDdiMzViZmVlYzYyNTY1NzViZTVkJyk7XG5cdC8vIFx0KGNyZWVwLndpdGhkcmF3KHN0b3JhZ2UsIFJFU09VUkNFX0VORVJHWSkgIT0gT0spXG5cdC8vIFx0XHRcdD8gcGF0aEZpbmRlcihjcmVlcCwgc3RvcmFnZSkgOiBudWxsXG5cdC8vIH1cblx0aWYgKG5lZWRCdWlsZC5sZW5ndGggPiAwKSB7XG5cdFx0aWYgKGNyZWVwLm1lbW9yeS5jYW5CdWlsZCkge1xuXHRcdFx0Y29uc3QgYnVpbGRUYXJnZXQgPSBjcmVlcC5wb3MuZmluZENsb3Nlc3RCeVJhbmdlKG5lZWRCdWlsZCk7XG5cdFx0XHQoYnVpbGRUYXJnZXQgJiYgY3JlZXAuYnVpbGQoYnVpbGRUYXJnZXQpICE9IE9LKVxuXHRcdFx0XHRcdD8gcGF0aEZpbmRlcihjcmVlcCwgYnVpbGRUYXJnZXQpIDogbnVsbDtcblx0XHR9IGVsc2Uge1xuXHRcdFx0Y29uc3QgY2FuV2l0aGRyYXcgPSBjcmVlcC5yb29tLnN0b3JhZ2U7XG5cdFx0XHQoY2FuV2l0aGRyYXcgJiYgY3JlZXAud2l0aGRyYXcoY2FuV2l0aGRyYXcsIFJFU09VUkNFX0VORVJHWSkgIT0gT0spXG5cdFx0XHRcdFx0PyBwYXRoRmluZGVyKGNyZWVwLCBjYW5XaXRoZHJhdykgOiBudWxsXG5cdFx0fVxuXHR9IGVsc2Uge1xuXHRcdGlmIChjcmVlcC5jYXJyeS5lbmVyZ3kgPCA1MCkge1xuXHRcdFx0Y29uc3QgdHJhbnNmZXJUYXJnZXQgPSBjcmVlcC5yb29tLnN0b3JhZ2U7XG5cdFx0XHQoY3JlZXAud2l0aGRyYXcodHJhbnNmZXJUYXJnZXQsIFJFU09VUkNFX0VORVJHWSkgIT0gT0spXG5cdFx0XHRcdFx0PyBwYXRoRmluZGVyKGNyZWVwLCB0cmFuc2ZlclRhcmdldCkgOiBudWxsXG5cdFx0fSBlbHNlIHtcblx0XHRcdGNvbnN0IG5lZWRGaWxsID0gY3JlZXAucm9vbS5tZW1vcnkuc3RydWN0dXJlcy5uZWVkRmlsbDtcblx0XHRcdGxldCBuZWVkRmlsbFRhcmdldCA9IGNyZWVwLnBvcy5maW5kQ2xvc2VzdEJ5UmFuZ2UobmVlZEZpbGwpO1xuXHRcdFx0KG5lZWRGaWxsVGFyZ2V0ICYmIGNyZWVwLnRyYW5zZmVyKG5lZWRGaWxsVGFyZ2V0LCBSRVNPVVJDRV9FTkVSR1kpICE9IE9LKVxuXHRcdFx0XHRcdD8gcGF0aEZpbmRlcihjcmVlcCwgbmVlZEZpbGxUYXJnZXQpIDogbnVsbFxuXG5cdFx0fVxuXHR9XG59XG5cblxuLy8gV0VCUEFDSyBGT09URVIgLy9cbi8vIC4vc3JjL3JvbGUvX2J1aWxkZXIuanMiXSwic291cmNlUm9vdCI6IiJ9");
+
+
+Object.defineProperty(exports, "__esModule", {
+	value: true
+});
+
+var _task = __webpack_require__(0);
+
+exports.default = function (creep, needBuild, newRoom) {
+
+	if (creep.carry.energy == 0) {
+		creep.memory.canBuild = false;
+	}
+
+	if (creep.carry.energy == creep.carryCapacity) {
+		creep.memory.canBuild = true;
+	}
+
+	// let newNeedBuild = newRoom.memory.structures.needBuild;
+	// if (creep.memory.canBuild && newNeedBuild.length > 0) {
+	//
+	// 	const newBuildTarget = newNeedBuild[0];
+	// 	(newBuildTarget && creep.build(newBuildTarget) != OK)
+	// 			? pathFinder(creep, newBuildTarget) : null;
+	//
+	// } else {
+	// 	let storage = Game.getObjectById('58d07b35bfeec6256575be5d');
+	// 	(creep.withdraw(storage, RESOURCE_ENERGY) != OK)
+	// 			? pathFinder(creep, storage) : null
+	// }
+	if (needBuild.length > 0) {
+		if (creep.memory.canBuild) {
+			var buildTarget = creep.pos.findClosestByRange(needBuild);
+			buildTarget && creep.build(buildTarget) != OK ? (0, _task.pathFinder)(creep, buildTarget) : null;
+		} else {
+			var canWithdraw = creep.room.storage;
+			canWithdraw && creep.withdraw(canWithdraw, RESOURCE_ENERGY) != OK ? (0, _task.pathFinder)(creep, canWithdraw) : null;
+		}
+	} else {
+		if (creep.carry.energy < 50) {
+			var transferTarget = creep.room.storage;
+			creep.withdraw(transferTarget, RESOURCE_ENERGY) != OK ? (0, _task.pathFinder)(creep, transferTarget) : null;
+		} else {
+			var needFill = creep.room.memory.structures.needFill;
+			var needFillTarget = creep.pos.findClosestByRange(needFill);
+			needFillTarget && creep.transfer(needFillTarget, RESOURCE_ENERGY) != OK ? (0, _task.pathFinder)(creep, needFillTarget) : null;
+		}
+	}
+};
 
 /***/ }),
 /* 19 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-eval("\n\nObject.defineProperty(exports, \"__esModule\", {\n\tvalue: true\n});\n\nvar _task = __webpack_require__(0);\n\nexports.default = function (creep, newRoom) {\n\t\"use strict\";\n\n\tvar controller = Game.getObjectById('5873bc3511e3e4361b4d738f');\n\tif (!controller) {\n\t\t(0, _task.pathFinder)(creep, newRoom.pos);\n\t} else {\n\t\tcreep.reserveController(controller) !== OK ? (0, _task.pathFinder)(creep, controller) : null;\n\t}\n};//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIndlYnBhY2s6Ly8vLi9zcmMvcm9sZS9fY2xhaW0uanM/NzFkNSJdLCJuYW1lcyI6WyJjcmVlcCIsIm5ld1Jvb20iLCJjb250cm9sbGVyIiwiR2FtZSIsImdldE9iamVjdEJ5SWQiLCJwb3MiLCJyZXNlcnZlQ29udHJvbGxlciIsIk9LIl0sIm1hcHBpbmdzIjoiOzs7Ozs7QUFBQTs7a0JBQ2UsVUFBQ0EsS0FBRCxFQUFPQyxPQUFQLEVBQW1CO0FBQ2pDOztBQUNBLEtBQU1DLGFBQWFDLEtBQUtDLGFBQUwsQ0FBbUIsMEJBQW5CLENBQW5CO0FBQ0EsS0FBSSxDQUFDRixVQUFMLEVBQWlCO0FBQ1Ysd0JBQVdGLEtBQVgsRUFBaUJDLFFBQVFJLEdBQXpCO0FBQ04sRUFGRCxNQUVPO0FBQ0xMLFFBQU1NLGlCQUFOLENBQXdCSixVQUF4QixNQUF3Q0ssRUFBekMsR0FBK0Msc0JBQVdQLEtBQVgsRUFBaUJFLFVBQWpCLENBQS9DLEdBQThFLElBQTlFO0FBQ0E7QUFFRCxDIiwiZmlsZSI6IjE5LmpzIiwic291cmNlc0NvbnRlbnQiOlsiaW1wb3J0IHtwYXRoRmluZGVyfSBmcm9tIFwiLi4vdGFza1wiXG5leHBvcnQgZGVmYXVsdCAoY3JlZXAsbmV3Um9vbSkgPT4ge1xuXHRcInVzZSBzdHJpY3RcIjtcblx0Y29uc3QgY29udHJvbGxlciA9IEdhbWUuZ2V0T2JqZWN0QnlJZCgnNTg3M2JjMzUxMWUzZTQzNjFiNGQ3MzhmJyk7XG5cdGlmICghY29udHJvbGxlcikge1xuICAgICAgICBwYXRoRmluZGVyKGNyZWVwLG5ld1Jvb20ucG9zKVxuXHR9IGVsc2Uge1xuXHRcdChjcmVlcC5yZXNlcnZlQ29udHJvbGxlcihjb250cm9sbGVyKSAhPT0gT0spID8gcGF0aEZpbmRlcihjcmVlcCxjb250cm9sbGVyKSA6IG51bGw7XG5cdH1cblxufVxuXG5cbi8vIFdFQlBBQ0sgRk9PVEVSIC8vXG4vLyAuL3NyYy9yb2xlL19jbGFpbS5qcyJdLCJzb3VyY2VSb290IjoiIn0=");
+
+
+Object.defineProperty(exports, "__esModule", {
+	value: true
+});
+
+var _task = __webpack_require__(0);
+
+exports.default = function (creep, newRoom) {
+	"use strict";
+
+	var controller = Game.getObjectById('5873bc3511e3e4361b4d738f');
+	if (!controller) {
+		(0, _task.pathFinder)(creep, newRoom.pos);
+	} else {
+		creep.reserveController(controller) !== OK ? (0, _task.pathFinder)(creep, controller) : null;
+	}
+};
 
 /***/ }),
 /* 20 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-eval("\n\nObject.defineProperty(exports, \"__esModule\", {\n\tvalue: true\n});\n\nvar _task = __webpack_require__(0);\n\nexports.default = function (creep) {\n\tvar dropped = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : [];\n\n\tif (creep.room.memory.creeps.my.harvester.length > 0 && creep.room.memory.creeps.my.miner.length > 0) {\n\n\t\tif (creep.carry.energy < creep.carryCapacity) {\n\t\t\tif (dropped.length > 0) {\n\t\t\t\tvar pickupTarget = creep.pos.findClosestByPath(dropped);\n\t\t\t\tpickupTarget && creep.pickup(pickupTarget) != OK ? (0, _task.pathFinder)(creep, pickupTarget) : null;\n\t\t\t} else {\n\t\t\t\tvar transferTarget = creep.room.memory.structures.container.sort(function (a, b) {\n\t\t\t\t\treturn b.store.enengy - a.store.enengy;\n\t\t\t\t});\n\t\t\t\ttransferTarget && creep.withdraw(transferTarget[0], RESOURCE_ENERGY) != OK ? (0, _task.pathFinder)(creep, transferTarget[0]) : null;\n\t\t\t}\n\t\t} else {\n\n\t\t\tvar needFill = creep.room.memory.structures.needFill;\n\t\t\tvar needFillTarget = void 0;\n\t\t\tif (needFill.length > 0) {\n\t\t\t\tneedFillTarget = creep.pos.findClosestByRange(needFill);\n\t\t\t} else {\n\t\t\t\tneedFillTarget = creep.room.storage;\n\t\t\t}\n\t\t\tneedFillTarget && creep.transfer(needFillTarget, RESOURCE_ENERGY) != OK ? (0, _task.pathFinder)(creep, needFillTarget) : null;\n\t\t}\n\t} else {\n\n\t\tif (creep.carry.energy < 50) {\n\t\t\tvar _transferTarget = creep.room.storage;\n\t\t\tcreep.withdraw(_transferTarget, RESOURCE_ENERGY) != OK ? (0, _task.pathFinder)(creep, _transferTarget) : null;\n\t\t} else {\n\t\t\tvar _needFill = creep.room.memory.structures.needFill;\n\t\t\tvar _needFillTarget = creep.pos.findClosestByRange(_needFill);\n\t\t\t_needFillTarget && creep.transfer(_needFillTarget, RESOURCE_ENERGY) != OK ? (0, _task.pathFinder)(creep, _needFillTarget) : null;\n\t\t}\n\t}\n};//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIndlYnBhY2s6Ly8vLi9zcmMvcm9sZS9fY2xlYW5lci5qcz84YTUyIl0sIm5hbWVzIjpbImNyZWVwIiwiZHJvcHBlZCIsInJvb20iLCJtZW1vcnkiLCJjcmVlcHMiLCJteSIsImhhcnZlc3RlciIsImxlbmd0aCIsIm1pbmVyIiwiY2FycnkiLCJlbmVyZ3kiLCJjYXJyeUNhcGFjaXR5IiwicGlja3VwVGFyZ2V0IiwicG9zIiwiZmluZENsb3Nlc3RCeVBhdGgiLCJwaWNrdXAiLCJPSyIsInRyYW5zZmVyVGFyZ2V0Iiwic3RydWN0dXJlcyIsImNvbnRhaW5lciIsInNvcnQiLCJhIiwiYiIsInN0b3JlIiwiZW5lbmd5Iiwid2l0aGRyYXciLCJSRVNPVVJDRV9FTkVSR1kiLCJuZWVkRmlsbCIsIm5lZWRGaWxsVGFyZ2V0IiwiZmluZENsb3Nlc3RCeVJhbmdlIiwic3RvcmFnZSIsInRyYW5zZmVyIl0sIm1hcHBpbmdzIjoiOzs7Ozs7QUFBQTs7a0JBRWUsVUFBQ0EsS0FBRCxFQUF5QjtBQUFBLEtBQWpCQyxPQUFpQix1RUFBUCxFQUFPOztBQUN2QyxLQUFJRCxNQUFNRSxJQUFOLENBQVdDLE1BQVgsQ0FBa0JDLE1BQWxCLENBQXlCQyxFQUF6QixDQUE0QkMsU0FBNUIsQ0FBc0NDLE1BQXRDLEdBQStDLENBQS9DLElBQ0ZQLE1BQU1FLElBQU4sQ0FBV0MsTUFBWCxDQUFrQkMsTUFBbEIsQ0FBeUJDLEVBQXpCLENBQTRCRyxLQUE1QixDQUFrQ0QsTUFBbEMsR0FBMEMsQ0FENUMsRUFDK0M7O0FBRTlDLE1BQUlQLE1BQU1TLEtBQU4sQ0FBWUMsTUFBWixHQUFxQlYsTUFBTVcsYUFBL0IsRUFBOEM7QUFDN0MsT0FBSVYsUUFBUU0sTUFBUixHQUFpQixDQUFyQixFQUF3QjtBQUN2QixRQUFNSyxlQUFlWixNQUFNYSxHQUFOLENBQVVDLGlCQUFWLENBQTRCYixPQUE1QixDQUFyQjtBQUNDVyxvQkFBZ0JaLE1BQU1lLE1BQU4sQ0FBYUgsWUFBYixLQUE4QkksRUFBL0MsR0FDSSxzQkFBV2hCLEtBQVgsRUFBa0JZLFlBQWxCLENBREosR0FDc0MsSUFEdEM7QUFFQSxJQUpELE1BSU87QUFDTixRQUFNSyxpQkFBaUJqQixNQUFNRSxJQUFOLENBQVdDLE1BQVgsQ0FBa0JlLFVBQWxCLENBQTZCQyxTQUE3QixDQUF1Q0MsSUFBdkMsQ0FBNEMsVUFBQ0MsQ0FBRCxFQUFJQyxDQUFKO0FBQUEsWUFBVUEsRUFBRUMsS0FBRixDQUFRQyxNQUFSLEdBQWlCSCxFQUFFRSxLQUFGLENBQVFDLE1BQW5DO0FBQUEsS0FBNUMsQ0FBdkI7QUFDQ1Asc0JBQWtCakIsTUFBTXlCLFFBQU4sQ0FBZVIsZUFBZSxDQUFmLENBQWYsRUFBa0NTLGVBQWxDLEtBQXNEVixFQUF6RSxHQUNJLHNCQUFXaEIsS0FBWCxFQUFrQmlCLGVBQWUsQ0FBZixDQUFsQixDQURKLEdBQzJDLElBRDNDO0FBRUE7QUFDRCxHQVZELE1BVU87O0FBRU4sT0FBTVUsV0FBVzNCLE1BQU1FLElBQU4sQ0FBV0MsTUFBWCxDQUFrQmUsVUFBbEIsQ0FBNkJTLFFBQTlDO0FBQ0EsT0FBSUMsdUJBQUo7QUFDQSxPQUFJRCxTQUFTcEIsTUFBVCxHQUFrQixDQUF0QixFQUF5QjtBQUN4QnFCLHFCQUFpQjVCLE1BQU1hLEdBQU4sQ0FBVWdCLGtCQUFWLENBQTZCRixRQUE3QixDQUFqQjtBQUNBLElBRkQsTUFFTztBQUNOQyxxQkFBaUI1QixNQUFNRSxJQUFOLENBQVc0QixPQUE1QjtBQUNBO0FBQ0FGLHFCQUFrQjVCLE1BQU0rQixRQUFOLENBQWVILGNBQWYsRUFBK0JGLGVBQS9CLEtBQW1EVixFQUF0RSxHQUNJLHNCQUFXaEIsS0FBWCxFQUFrQjRCLGNBQWxCLENBREosR0FDd0MsSUFEeEM7QUFHQTtBQUNELEVBMUJELE1BMEJPOztBQUVOLE1BQUk1QixNQUFNUyxLQUFOLENBQVlDLE1BQVosR0FBcUIsRUFBekIsRUFBNkI7QUFDNUIsT0FBTU8sa0JBQWlCakIsTUFBTUUsSUFBTixDQUFXNEIsT0FBbEM7QUFDQzlCLFNBQU15QixRQUFOLENBQWVSLGVBQWYsRUFBK0JTLGVBQS9CLEtBQW1EVixFQUFwRCxHQUNJLHNCQUFXaEIsS0FBWCxFQUFrQmlCLGVBQWxCLENBREosR0FDd0MsSUFEeEM7QUFFQSxHQUpELE1BSU87QUFDTixPQUFNVSxZQUFXM0IsTUFBTUUsSUFBTixDQUFXQyxNQUFYLENBQWtCZSxVQUFsQixDQUE2QlMsUUFBOUM7QUFDQSxPQUFJQyxrQkFBaUI1QixNQUFNYSxHQUFOLENBQVVnQixrQkFBVixDQUE2QkYsU0FBN0IsQ0FBckI7QUFDQ0Msc0JBQWtCNUIsTUFBTStCLFFBQU4sQ0FBZUgsZUFBZixFQUErQkYsZUFBL0IsS0FBbURWLEVBQXRFLEdBQ0ksc0JBQVdoQixLQUFYLEVBQWtCNEIsZUFBbEIsQ0FESixHQUN3QyxJQUR4QztBQUdBO0FBRUQ7QUFDRCxDIiwiZmlsZSI6IjIwLmpzIiwic291cmNlc0NvbnRlbnQiOlsiaW1wb3J0IHtwYXRoRmluZGVyfSBmcm9tICcuLi90YXNrJ1xuXG5leHBvcnQgZGVmYXVsdCAoY3JlZXAsIGRyb3BwZWQgPSBbXSkgPT4ge1xuXHRpZiAoY3JlZXAucm9vbS5tZW1vcnkuY3JlZXBzLm15LmhhcnZlc3Rlci5sZW5ndGggPiAwICYmXG5cdFx0XHRjcmVlcC5yb29tLm1lbW9yeS5jcmVlcHMubXkubWluZXIubGVuZ3RoID4wKSB7XG5cblx0XHRpZiAoY3JlZXAuY2FycnkuZW5lcmd5IDwgY3JlZXAuY2FycnlDYXBhY2l0eSkge1xuXHRcdFx0aWYgKGRyb3BwZWQubGVuZ3RoID4gMCkge1xuXHRcdFx0XHRjb25zdCBwaWNrdXBUYXJnZXQgPSBjcmVlcC5wb3MuZmluZENsb3Nlc3RCeVBhdGgoZHJvcHBlZCk7XG5cdFx0XHRcdChwaWNrdXBUYXJnZXQgJiYgY3JlZXAucGlja3VwKHBpY2t1cFRhcmdldCkgIT0gT0spXG5cdFx0XHRcdFx0XHQ/IHBhdGhGaW5kZXIoY3JlZXAsIHBpY2t1cFRhcmdldCkgOiBudWxsO1xuXHRcdFx0fSBlbHNlIHtcblx0XHRcdFx0Y29uc3QgdHJhbnNmZXJUYXJnZXQgPSBjcmVlcC5yb29tLm1lbW9yeS5zdHJ1Y3R1cmVzLmNvbnRhaW5lci5zb3J0KChhLCBiKSA9PiBiLnN0b3JlLmVuZW5neSAtIGEuc3RvcmUuZW5lbmd5KTtcblx0XHRcdFx0KHRyYW5zZmVyVGFyZ2V0ICYmIGNyZWVwLndpdGhkcmF3KHRyYW5zZmVyVGFyZ2V0WzBdLCBSRVNPVVJDRV9FTkVSR1kpICE9IE9LKVxuXHRcdFx0XHRcdFx0PyBwYXRoRmluZGVyKGNyZWVwLCB0cmFuc2ZlclRhcmdldFswXSkgOiBudWxsXG5cdFx0XHR9XG5cdFx0fSBlbHNlIHtcblxuXHRcdFx0Y29uc3QgbmVlZEZpbGwgPSBjcmVlcC5yb29tLm1lbW9yeS5zdHJ1Y3R1cmVzLm5lZWRGaWxsO1xuXHRcdFx0bGV0IG5lZWRGaWxsVGFyZ2V0O1xuXHRcdFx0aWYgKG5lZWRGaWxsLmxlbmd0aCA+IDApIHtcblx0XHRcdFx0bmVlZEZpbGxUYXJnZXQgPSBjcmVlcC5wb3MuZmluZENsb3Nlc3RCeVJhbmdlKG5lZWRGaWxsKTtcblx0XHRcdH0gZWxzZSB7XG5cdFx0XHRcdG5lZWRGaWxsVGFyZ2V0ID0gY3JlZXAucm9vbS5zdG9yYWdlXG5cdFx0XHR9XG5cdFx0XHQobmVlZEZpbGxUYXJnZXQgJiYgY3JlZXAudHJhbnNmZXIobmVlZEZpbGxUYXJnZXQsIFJFU09VUkNFX0VORVJHWSkgIT0gT0spXG5cdFx0XHRcdFx0PyBwYXRoRmluZGVyKGNyZWVwLCBuZWVkRmlsbFRhcmdldCkgOiBudWxsXG5cblx0XHR9XG5cdH0gZWxzZSB7XG5cblx0XHRpZiAoY3JlZXAuY2FycnkuZW5lcmd5IDwgNTApIHtcblx0XHRcdGNvbnN0IHRyYW5zZmVyVGFyZ2V0ID0gY3JlZXAucm9vbS5zdG9yYWdlO1xuXHRcdFx0KGNyZWVwLndpdGhkcmF3KHRyYW5zZmVyVGFyZ2V0LCBSRVNPVVJDRV9FTkVSR1kpICE9IE9LKVxuXHRcdFx0XHRcdD8gcGF0aEZpbmRlcihjcmVlcCwgdHJhbnNmZXJUYXJnZXQpIDogbnVsbFxuXHRcdH0gZWxzZSB7XG5cdFx0XHRjb25zdCBuZWVkRmlsbCA9IGNyZWVwLnJvb20ubWVtb3J5LnN0cnVjdHVyZXMubmVlZEZpbGw7XG5cdFx0XHRsZXQgbmVlZEZpbGxUYXJnZXQgPSBjcmVlcC5wb3MuZmluZENsb3Nlc3RCeVJhbmdlKG5lZWRGaWxsKTtcblx0XHRcdChuZWVkRmlsbFRhcmdldCAmJiBjcmVlcC50cmFuc2ZlcihuZWVkRmlsbFRhcmdldCwgUkVTT1VSQ0VfRU5FUkdZKSAhPSBPSylcblx0XHRcdFx0XHQ/IHBhdGhGaW5kZXIoY3JlZXAsIG5lZWRGaWxsVGFyZ2V0KSA6IG51bGxcblxuXHRcdH1cblxuXHR9XG59O1xuXG5cblxuLy8gV0VCUEFDSyBGT09URVIgLy9cbi8vIC4vc3JjL3JvbGUvX2NsZWFuZXIuanMiXSwic291cmNlUm9vdCI6IiJ9");
+
+
+Object.defineProperty(exports, "__esModule", {
+	value: true
+});
+
+var _task = __webpack_require__(0);
+
+exports.default = function (creep) {
+	var dropped = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : [];
+
+	if (creep.room.memory.creeps.my.harvester.length > 0 && creep.room.memory.creeps.my.miner.length > 0) {
+
+		if (creep.carry.energy < creep.carryCapacity) {
+			if (dropped.length > 0) {
+				var pickupTarget = creep.pos.findClosestByPath(dropped);
+				pickupTarget && creep.pickup(pickupTarget) != OK ? (0, _task.pathFinder)(creep, pickupTarget) : null;
+			} else {
+				var transferTarget = creep.room.memory.structures.container.sort(function (a, b) {
+					return b.store.enengy - a.store.enengy;
+				});
+				transferTarget && creep.withdraw(transferTarget[0], RESOURCE_ENERGY) != OK ? (0, _task.pathFinder)(creep, transferTarget[0]) : null;
+			}
+		} else {
+
+			var needFill = creep.room.memory.structures.needFill;
+			var needFillTarget = void 0;
+			if (needFill.length > 0) {
+				needFillTarget = creep.pos.findClosestByRange(needFill);
+			} else {
+				needFillTarget = creep.room.storage;
+			}
+			needFillTarget && creep.transfer(needFillTarget, RESOURCE_ENERGY) != OK ? (0, _task.pathFinder)(creep, needFillTarget) : null;
+		}
+	} else {
+
+		if (creep.carry.energy < 50) {
+			var _transferTarget = creep.room.storage;
+			creep.withdraw(_transferTarget, RESOURCE_ENERGY) != OK ? (0, _task.pathFinder)(creep, _transferTarget) : null;
+		} else {
+			var _needFill = creep.room.memory.structures.needFill;
+			var _needFillTarget = creep.pos.findClosestByRange(_needFill);
+			_needFillTarget && creep.transfer(_needFillTarget, RESOURCE_ENERGY) != OK ? (0, _task.pathFinder)(creep, _needFillTarget) : null;
+		}
+	}
+};
 
 /***/ }),
 /* 21 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-eval("\n\nObject.defineProperty(exports, \"__esModule\", {\n\tvalue: true\n});\n\nvar _task = __webpack_require__(0);\n\nexports.default = function (creep, newRoom) {\n\tvar room = Game.spawns['Spawn1'].room;\n\tvar newRoomMemory = newRoom.memory;\n\tvar farMiner = newRoomMemory.creeps.my.farMiner;\n\tvar enemy = newRoomMemory.creeps.enemy;\n\tvar needBuild = newRoomMemory.structures.needBuild;\n\n\tif (enemy.length > 0) {\n\t\tvar enemyTarget = creep.pos.findClosestByRange(enemy);\n\t\tenemyTarget && creep.attack(enemyTarget) != OK ? (0, _task.pathFinder)(creep, enemyTarget) : null;\n\t\treturn;\n\t}\n\n\tif (creep.carry.energy == 0) {\n\t\tcreep.memory.full = false;\n\t}\n\tif (creep.carry.energy == creep.carryCapacity || !farMiner.length > 0) {\n\t\tcreep.memory.full = true;\n\t}\n\n\tif (!creep.memory.full) {\n\t\tvar farMinerTarget = Game.getObjectById(farMiner[0].id);\n\t\t(0, _task.pathFinder)(creep, farMinerTarget);\n\t} else {\n\n\t\tif (needBuild.length > 0) {\n\t\t\tvar buildTarget = creep.pos.findClosestByRange(needBuild);\n\t\t\tbuildTarget && creep.build(buildTarget) != OK ? (0, _task.pathFinder)(creep, buildTarget) : null;\n\t\t} else {\n\n\t\t\tcreep.transfer(room.storage, RESOURCE_ENERGY) !== OK ? (0, _task.pathFinder)(creep, room.storage) : null;\n\t\t}\n\t}\n};//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIndlYnBhY2s6Ly8vLi9zcmMvcm9sZS9fZmFyQnVpbGRlci5qcz8yOWNmIl0sIm5hbWVzIjpbImNyZWVwIiwibmV3Um9vbSIsInJvb20iLCJHYW1lIiwic3Bhd25zIiwibmV3Um9vbU1lbW9yeSIsIm1lbW9yeSIsImZhck1pbmVyIiwiY3JlZXBzIiwibXkiLCJlbmVteSIsIm5lZWRCdWlsZCIsInN0cnVjdHVyZXMiLCJsZW5ndGgiLCJlbmVteVRhcmdldCIsInBvcyIsImZpbmRDbG9zZXN0QnlSYW5nZSIsImF0dGFjayIsIk9LIiwiY2FycnkiLCJlbmVyZ3kiLCJmdWxsIiwiY2FycnlDYXBhY2l0eSIsImZhck1pbmVyVGFyZ2V0IiwiZ2V0T2JqZWN0QnlJZCIsImlkIiwiYnVpbGRUYXJnZXQiLCJidWlsZCIsInRyYW5zZmVyIiwic3RvcmFnZSIsIlJFU09VUkNFX0VORVJHWSJdLCJtYXBwaW5ncyI6Ijs7Ozs7O0FBQUE7O2tCQUNlLFVBQUNBLEtBQUQsRUFBUUMsT0FBUixFQUFvQjtBQUNsQyxLQUFNQyxPQUFnQkMsS0FBS0MsTUFBTCxDQUFZLFFBQVosRUFBc0JGLElBQTVDO0FBQ0EsS0FBTUcsZ0JBQWdCSixRQUFRSyxNQUE5QjtBQUNBLEtBQU1DLFdBQWdCRixjQUFjRyxNQUFkLENBQXFCQyxFQUFyQixDQUF3QkYsUUFBOUM7QUFDQSxLQUFNRyxRQUFnQkwsY0FBY0csTUFBZCxDQUFxQkUsS0FBM0M7QUFDQSxLQUFNQyxZQUFnQk4sY0FBY08sVUFBZCxDQUF5QkQsU0FBL0M7O0FBRUEsS0FBSUQsTUFBTUcsTUFBTixHQUFlLENBQW5CLEVBQXNCO0FBQ3JCLE1BQU1DLGNBQWNkLE1BQU1lLEdBQU4sQ0FBVUMsa0JBQVYsQ0FBNkJOLEtBQTdCLENBQXBCO0FBQ0NJLGlCQUFlZCxNQUFNaUIsTUFBTixDQUFhSCxXQUFiLEtBQTZCSSxFQUE3QyxHQUNHLHNCQUFXbEIsS0FBWCxFQUFrQmMsV0FBbEIsQ0FESCxHQUNvQyxJQURwQztBQUVBO0FBQ0E7O0FBRUQsS0FBSWQsTUFBTW1CLEtBQU4sQ0FBWUMsTUFBWixJQUFzQixDQUExQixFQUE2QjtBQUM1QnBCLFFBQU1NLE1BQU4sQ0FBYWUsSUFBYixHQUFvQixLQUFwQjtBQUNBO0FBQ0QsS0FBSXJCLE1BQU1tQixLQUFOLENBQVlDLE1BQVosSUFBc0JwQixNQUFNc0IsYUFBNUIsSUFBNkMsQ0FBQ2YsU0FBU00sTUFBVixHQUFtQixDQUFwRSxFQUF1RTtBQUN0RWIsUUFBTU0sTUFBTixDQUFhZSxJQUFiLEdBQW9CLElBQXBCO0FBQ0E7O0FBRUQsS0FBSSxDQUFDckIsTUFBTU0sTUFBTixDQUFhZSxJQUFsQixFQUF3QjtBQUN2QixNQUFNRSxpQkFBaUJwQixLQUFLcUIsYUFBTCxDQUFtQmpCLFNBQVMsQ0FBVCxFQUFZa0IsRUFBL0IsQ0FBdkI7QUFDQSx3QkFBV3pCLEtBQVgsRUFBa0J1QixjQUFsQjtBQUNBLEVBSEQsTUFJSzs7QUFHSixNQUFJWixVQUFVRSxNQUFWLEdBQW1CLENBQXZCLEVBQTBCO0FBQ3pCLE9BQU1hLGNBQWMxQixNQUFNZSxHQUFOLENBQVVDLGtCQUFWLENBQTZCTCxTQUE3QixDQUFwQjtBQUNDZSxrQkFBZTFCLE1BQU0yQixLQUFOLENBQVlELFdBQVosS0FBNEJSLEVBQTVDLEdBQ0csc0JBQVdsQixLQUFYLEVBQWtCMEIsV0FBbEIsQ0FESCxHQUNvQyxJQURwQztBQUVBLEdBSkQsTUFJTzs7QUFFSjFCLFNBQU00QixRQUFOLENBQWUxQixLQUFLMkIsT0FBcEIsRUFBNkJDLGVBQTdCLE1BQWtEWixFQUFwRCxHQUNHLHNCQUFXbEIsS0FBWCxFQUFrQkUsS0FBSzJCLE9BQXZCLENBREgsR0FDcUMsSUFEckM7QUFFQTtBQUNEO0FBRUQsQyIsImZpbGUiOiIyMS5qcyIsInNvdXJjZXNDb250ZW50IjpbImltcG9ydCB7IHBhdGhGaW5kZXIgfSBmcm9tICcuLi90YXNrJ1xuZXhwb3J0IGRlZmF1bHQgKGNyZWVwLCBuZXdSb29tKSA9PiB7XG5cdGNvbnN0IHJvb20gICAgICAgICAgPSBHYW1lLnNwYXduc1snU3Bhd24xJ10ucm9vbTtcblx0Y29uc3QgbmV3Um9vbU1lbW9yeSA9IG5ld1Jvb20ubWVtb3J5O1xuXHRjb25zdCBmYXJNaW5lciAgICAgID0gbmV3Um9vbU1lbW9yeS5jcmVlcHMubXkuZmFyTWluZXI7XG5cdGNvbnN0IGVuZW15ICAgICAgICAgPSBuZXdSb29tTWVtb3J5LmNyZWVwcy5lbmVteTtcblx0Y29uc3QgbmVlZEJ1aWxkICAgICA9IG5ld1Jvb21NZW1vcnkuc3RydWN0dXJlcy5uZWVkQnVpbGQ7XG5cblx0aWYgKGVuZW15Lmxlbmd0aCA+IDApIHtcblx0XHRjb25zdCBlbmVteVRhcmdldCA9IGNyZWVwLnBvcy5maW5kQ2xvc2VzdEJ5UmFuZ2UoZW5lbXkpO1xuXHRcdChlbmVteVRhcmdldCAmJiBjcmVlcC5hdHRhY2soZW5lbXlUYXJnZXQpICE9IE9LKVxuXHRcdFx0PyBwYXRoRmluZGVyKGNyZWVwLCBlbmVteVRhcmdldCkgOiBudWxsO1xuXHRcdHJldHVybjtcblx0fVxuXG5cdGlmIChjcmVlcC5jYXJyeS5lbmVyZ3kgPT0gMCkge1xuXHRcdGNyZWVwLm1lbW9yeS5mdWxsID0gZmFsc2Vcblx0fVxuXHRpZiAoY3JlZXAuY2FycnkuZW5lcmd5ID09IGNyZWVwLmNhcnJ5Q2FwYWNpdHkgfHwgIWZhck1pbmVyLmxlbmd0aCA+IDApIHtcblx0XHRjcmVlcC5tZW1vcnkuZnVsbCA9IHRydWVcblx0fVxuXG5cdGlmICghY3JlZXAubWVtb3J5LmZ1bGwpIHtcblx0XHRjb25zdCBmYXJNaW5lclRhcmdldCA9IEdhbWUuZ2V0T2JqZWN0QnlJZChmYXJNaW5lclswXS5pZCk7XG5cdFx0cGF0aEZpbmRlcihjcmVlcCwgZmFyTWluZXJUYXJnZXQpXG5cdH1cblx0ZWxzZSB7XG5cblxuXHRcdGlmIChuZWVkQnVpbGQubGVuZ3RoID4gMCkge1xuXHRcdFx0Y29uc3QgYnVpbGRUYXJnZXQgPSBjcmVlcC5wb3MuZmluZENsb3Nlc3RCeVJhbmdlKG5lZWRCdWlsZCk7XG5cdFx0XHQoYnVpbGRUYXJnZXQgJiYgY3JlZXAuYnVpbGQoYnVpbGRUYXJnZXQpICE9IE9LKVxuXHRcdFx0XHQ/IHBhdGhGaW5kZXIoY3JlZXAsIGJ1aWxkVGFyZ2V0KSA6IG51bGw7XG5cdFx0fSBlbHNlIHtcblxuXHRcdFx0KCBjcmVlcC50cmFuc2Zlcihyb29tLnN0b3JhZ2UsIFJFU09VUkNFX0VORVJHWSkgIT09IE9LKVxuXHRcdFx0XHQ/IHBhdGhGaW5kZXIoY3JlZXAsIHJvb20uc3RvcmFnZSkgOiBudWxsXG5cdFx0fVxuXHR9XG5cbn1cblxuXG4vLyBXRUJQQUNLIEZPT1RFUiAvL1xuLy8gLi9zcmMvcm9sZS9fZmFyQnVpbGRlci5qcyJdLCJzb3VyY2VSb290IjoiIn0=");
+
+
+Object.defineProperty(exports, "__esModule", {
+	value: true
+});
+
+var _task = __webpack_require__(0);
+
+exports.default = function (creep, newRoom) {
+	var room = Game.spawns['Spawn1'].room;
+	var newRoomMemory = newRoom.memory;
+	var farMiner = newRoomMemory.creeps.my.farMiner;
+	var enemy = newRoomMemory.creeps.enemy;
+	var needBuild = newRoomMemory.structures.needBuild;
+
+	if (enemy.length > 0) {
+		var enemyTarget = creep.pos.findClosestByRange(enemy);
+		enemyTarget && creep.attack(enemyTarget) != OK ? (0, _task.pathFinder)(creep, enemyTarget) : null;
+		return;
+	}
+
+	if (creep.carry.energy == 0) {
+		creep.memory.full = false;
+	}
+	if (creep.carry.energy == creep.carryCapacity || !farMiner.length > 0) {
+		creep.memory.full = true;
+	}
+
+	if (!creep.memory.full) {
+		var farMinerTarget = Game.getObjectById(farMiner[0].id);
+		(0, _task.pathFinder)(creep, farMinerTarget);
+	} else {
+
+		if (needBuild.length > 0) {
+			var buildTarget = creep.pos.findClosestByRange(needBuild);
+			buildTarget && creep.build(buildTarget) != OK ? (0, _task.pathFinder)(creep, buildTarget) : null;
+		} else {
+
+			creep.transfer(room.storage, RESOURCE_ENERGY) !== OK ? (0, _task.pathFinder)(creep, room.storage) : null;
+		}
+	}
+};
 
 /***/ }),
 /* 22 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-eval("\n\nObject.defineProperty(exports, \"__esModule\", {\n\tvalue: true\n});\n\nvar _task = __webpack_require__(0);\n\nexports.default = function (creep, newRoom) {\n\tvar room = Game.spawns['Spawn1'].room;\n\tvar newRoomMemory = newRoom.memory;\n\tvar farMiner = newRoomMemory.creeps.my.farMiner;\n\tvar enemy = newRoomMemory.creeps.enemy;\n\n\tif (enemy.length > 0) {\n\t\tvar enemyTarget = creep.pos.findClosestByRange(enemy);\n\t\tenemyTarget && creep.attack(enemyTarget) != OK ? (0, _task.pathFinder)(creep, enemyTarget) : null;\n\t\treturn;\n\t}\n\n\tif (creep.carry.energy == 0) {\n\t\tcreep.memory.full = false;\n\t}\n\tif (creep.carry.energy == creep.carryCapacity || !farMiner.length > 0) {\n\t\tcreep.memory.full = true;\n\t}\n\n\tif (!creep.memory.full) {\n\t\tvar farMinerTarget = Game.getObjectById(farMiner[0].id);\n\t\t(0, _task.pathFinder)(creep, farMinerTarget);\n\t} else {\n\n\t\tcreep.transfer(room.storage, RESOURCE_ENERGY) !== OK ? (0, _task.pathFinder)(creep, room.storage) : null;\n\t}\n};//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIndlYnBhY2s6Ly8vLi9zcmMvcm9sZS9fZmFySGFydmVzdGVyLmpzPzc3Y2QiXSwibmFtZXMiOlsiY3JlZXAiLCJuZXdSb29tIiwicm9vbSIsIkdhbWUiLCJzcGF3bnMiLCJuZXdSb29tTWVtb3J5IiwibWVtb3J5IiwiZmFyTWluZXIiLCJjcmVlcHMiLCJteSIsImVuZW15IiwibGVuZ3RoIiwiZW5lbXlUYXJnZXQiLCJwb3MiLCJmaW5kQ2xvc2VzdEJ5UmFuZ2UiLCJhdHRhY2siLCJPSyIsImNhcnJ5IiwiZW5lcmd5IiwiZnVsbCIsImNhcnJ5Q2FwYWNpdHkiLCJmYXJNaW5lclRhcmdldCIsImdldE9iamVjdEJ5SWQiLCJpZCIsInRyYW5zZmVyIiwic3RvcmFnZSIsIlJFU09VUkNFX0VORVJHWSJdLCJtYXBwaW5ncyI6Ijs7Ozs7O0FBQUE7O2tCQUNlLFVBQUNBLEtBQUQsRUFBUUMsT0FBUixFQUFvQjtBQUNsQyxLQUFNQyxPQUFnQkMsS0FBS0MsTUFBTCxDQUFZLFFBQVosRUFBc0JGLElBQTVDO0FBQ0EsS0FBTUcsZ0JBQWdCSixRQUFRSyxNQUE5QjtBQUNBLEtBQU1DLFdBQWdCRixjQUFjRyxNQUFkLENBQXFCQyxFQUFyQixDQUF3QkYsUUFBOUM7QUFDQSxLQUFNRyxRQUFnQkwsY0FBY0csTUFBZCxDQUFxQkUsS0FBM0M7O0FBR0EsS0FBSUEsTUFBTUMsTUFBTixHQUFlLENBQW5CLEVBQXNCO0FBQ3JCLE1BQU1DLGNBQWNaLE1BQU1hLEdBQU4sQ0FBVUMsa0JBQVYsQ0FBNkJKLEtBQTdCLENBQXBCO0FBQ0NFLGlCQUFlWixNQUFNZSxNQUFOLENBQWFILFdBQWIsS0FBNkJJLEVBQTdDLEdBQ0csc0JBQVdoQixLQUFYLEVBQWtCWSxXQUFsQixDQURILEdBQ29DLElBRHBDO0FBRUE7QUFDQTs7QUFFRCxLQUFJWixNQUFNaUIsS0FBTixDQUFZQyxNQUFaLElBQXNCLENBQTFCLEVBQTZCO0FBQzVCbEIsUUFBTU0sTUFBTixDQUFhYSxJQUFiLEdBQW9CLEtBQXBCO0FBQ0E7QUFDRCxLQUFJbkIsTUFBTWlCLEtBQU4sQ0FBWUMsTUFBWixJQUFzQmxCLE1BQU1vQixhQUE1QixJQUE2QyxDQUFDYixTQUFTSSxNQUFWLEdBQW1CLENBQXBFLEVBQXVFO0FBQ3RFWCxRQUFNTSxNQUFOLENBQWFhLElBQWIsR0FBb0IsSUFBcEI7QUFDQTs7QUFFRCxLQUFJLENBQUNuQixNQUFNTSxNQUFOLENBQWFhLElBQWxCLEVBQXdCO0FBQ3ZCLE1BQU1FLGlCQUFpQmxCLEtBQUttQixhQUFMLENBQW1CZixTQUFTLENBQVQsRUFBWWdCLEVBQS9CLENBQXZCO0FBQ0Esd0JBQVd2QixLQUFYLEVBQWtCcUIsY0FBbEI7QUFDQSxFQUhELE1BSUs7O0FBRUZyQixRQUFNd0IsUUFBTixDQUFldEIsS0FBS3VCLE9BQXBCLEVBQTZCQyxlQUE3QixNQUFrRFYsRUFBcEQsR0FDRyxzQkFBV2hCLEtBQVgsRUFBa0JFLEtBQUt1QixPQUF2QixDQURILEdBQ3FDLElBRHJDO0FBR0E7QUFFRCxDIiwiZmlsZSI6IjIyLmpzIiwic291cmNlc0NvbnRlbnQiOlsiaW1wb3J0IHsgcGF0aEZpbmRlciB9IGZyb20gJy4uL3Rhc2snXG5leHBvcnQgZGVmYXVsdCAoY3JlZXAsIG5ld1Jvb20pID0+IHtcblx0Y29uc3Qgcm9vbSAgICAgICAgICA9IEdhbWUuc3Bhd25zWydTcGF3bjEnXS5yb29tO1xuXHRjb25zdCBuZXdSb29tTWVtb3J5ID0gbmV3Um9vbS5tZW1vcnk7XG5cdGNvbnN0IGZhck1pbmVyICAgICAgPSBuZXdSb29tTWVtb3J5LmNyZWVwcy5teS5mYXJNaW5lcjtcblx0Y29uc3QgZW5lbXkgICAgICAgICA9IG5ld1Jvb21NZW1vcnkuY3JlZXBzLmVuZW15O1xuXG5cblx0aWYgKGVuZW15Lmxlbmd0aCA+IDApIHtcblx0XHRjb25zdCBlbmVteVRhcmdldCA9IGNyZWVwLnBvcy5maW5kQ2xvc2VzdEJ5UmFuZ2UoZW5lbXkpO1xuXHRcdChlbmVteVRhcmdldCAmJiBjcmVlcC5hdHRhY2soZW5lbXlUYXJnZXQpICE9IE9LKVxuXHRcdFx0PyBwYXRoRmluZGVyKGNyZWVwLCBlbmVteVRhcmdldCkgOiBudWxsO1xuXHRcdHJldHVybjtcblx0fVxuXG5cdGlmIChjcmVlcC5jYXJyeS5lbmVyZ3kgPT0gMCkge1xuXHRcdGNyZWVwLm1lbW9yeS5mdWxsID0gZmFsc2Vcblx0fVxuXHRpZiAoY3JlZXAuY2FycnkuZW5lcmd5ID09IGNyZWVwLmNhcnJ5Q2FwYWNpdHkgfHwgIWZhck1pbmVyLmxlbmd0aCA+IDApIHtcblx0XHRjcmVlcC5tZW1vcnkuZnVsbCA9IHRydWVcblx0fVxuXG5cdGlmICghY3JlZXAubWVtb3J5LmZ1bGwpIHtcblx0XHRjb25zdCBmYXJNaW5lclRhcmdldCA9IEdhbWUuZ2V0T2JqZWN0QnlJZChmYXJNaW5lclswXS5pZCk7XG5cdFx0cGF0aEZpbmRlcihjcmVlcCwgZmFyTWluZXJUYXJnZXQpXG5cdH1cblx0ZWxzZSB7XG5cblx0XHQoIGNyZWVwLnRyYW5zZmVyKHJvb20uc3RvcmFnZSwgUkVTT1VSQ0VfRU5FUkdZKSAhPT0gT0spXG5cdFx0XHQ/IHBhdGhGaW5kZXIoY3JlZXAsIHJvb20uc3RvcmFnZSkgOiBudWxsXG5cblx0fVxuXG59XG5cblxuLy8gV0VCUEFDSyBGT09URVIgLy9cbi8vIC4vc3JjL3JvbGUvX2ZhckhhcnZlc3Rlci5qcyJdLCJzb3VyY2VSb290IjoiIn0=");
+
+
+Object.defineProperty(exports, "__esModule", {
+	value: true
+});
+
+var _task = __webpack_require__(0);
+
+exports.default = function (creep, newRoom) {
+	var room = Game.spawns['Spawn1'].room;
+	var newRoomMemory = newRoom.memory;
+	var farMiner = newRoomMemory.creeps.my.farMiner;
+	var enemy = newRoomMemory.creeps.enemy;
+
+	if (enemy.length > 0) {
+		var enemyTarget = creep.pos.findClosestByRange(enemy);
+		enemyTarget && creep.attack(enemyTarget) != OK ? (0, _task.pathFinder)(creep, enemyTarget) : null;
+		return;
+	}
+
+	if (creep.carry.energy == 0) {
+		creep.memory.full = false;
+	}
+	if (creep.carry.energy == creep.carryCapacity || !farMiner.length > 0) {
+		creep.memory.full = true;
+	}
+
+	if (!creep.memory.full) {
+		var farMinerTarget = Game.getObjectById(farMiner[0].id);
+		(0, _task.pathFinder)(creep, farMinerTarget);
+	} else {
+
+		creep.transfer(room.storage, RESOURCE_ENERGY) !== OK ? (0, _task.pathFinder)(creep, room.storage) : null;
+	}
+};
 
 /***/ }),
 /* 23 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-eval("\n\nObject.defineProperty(exports, \"__esModule\", {\n    value: true\n});\n\nvar _task = __webpack_require__(0);\n\nexports.default = function (creep, newRoom) {\n\n    if (creep.carry.energy == 0) {\n        creep.memory.canHarvest = true;\n    }\n\n    if (creep.carry.energy == creep.carryCapacity) {\n        creep.memory.canHarvest = false;\n    }\n\n    if (creep.memory.canHarvest) {\n        var source = Game.getObjectById('5873bc3511e3e4361b4d7390');\n        if (!source) {\n            (0, _task.pathFinder)(creep, newRoom.pos);\n        } else {\n            creep.harvest(source) !== OK ? (0, _task.pathFinder)(creep, source) : null;\n        }\n    } else {\n        var targets = creep.pos.findInRange(newRoom.memory.creeps.my.farHarvester, 1, {\n            filter: function filter(targetCreep) {\n                return targetCreep.carry.energy < targetCreep.carryCapacity;\n            }\n        });\n        if (targets.length > 0) {\n            creep.transfer(targets[0], RESOURCE_ENERGY);\n        } else {\n            var needBuild = newRoom.memory.structures.needBuild;\n            needBuild.length > 0 && creep.build(needBuild[0]) != OK ? (0, _task.pathFinder)(creep, needBuild[0]) : null;\n        }\n    }\n};//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIndlYnBhY2s6Ly8vLi9zcmMvcm9sZS9fZmFyTWluZXIuanM/Y2U1MCJdLCJuYW1lcyI6WyJjcmVlcCIsIm5ld1Jvb20iLCJjYXJyeSIsImVuZXJneSIsIm1lbW9yeSIsImNhbkhhcnZlc3QiLCJjYXJyeUNhcGFjaXR5Iiwic291cmNlIiwiR2FtZSIsImdldE9iamVjdEJ5SWQiLCJwb3MiLCJoYXJ2ZXN0IiwiT0siLCJ0YXJnZXRzIiwiZmluZEluUmFuZ2UiLCJjcmVlcHMiLCJteSIsImZhckhhcnZlc3RlciIsImZpbHRlciIsInRhcmdldENyZWVwIiwibGVuZ3RoIiwidHJhbnNmZXIiLCJSRVNPVVJDRV9FTkVSR1kiLCJuZWVkQnVpbGQiLCJzdHJ1Y3R1cmVzIiwiYnVpbGQiXSwibWFwcGluZ3MiOiI7Ozs7OztBQUFBOztrQkFDZSxVQUFDQSxLQUFELEVBQVFDLE9BQVIsRUFBb0I7O0FBRS9CLFFBQUlELE1BQU1FLEtBQU4sQ0FBWUMsTUFBWixJQUFzQixDQUExQixFQUE2QjtBQUN6QkgsY0FBTUksTUFBTixDQUFhQyxVQUFiLEdBQTBCLElBQTFCO0FBQ0g7O0FBR0QsUUFBSUwsTUFBTUUsS0FBTixDQUFZQyxNQUFaLElBQXNCSCxNQUFNTSxhQUFoQyxFQUErQztBQUMzQ04sY0FBTUksTUFBTixDQUFhQyxVQUFiLEdBQTBCLEtBQTFCO0FBQ0g7O0FBRUQsUUFBSUwsTUFBTUksTUFBTixDQUFhQyxVQUFqQixFQUE2QjtBQUN6QixZQUFNRSxTQUFTQyxLQUFLQyxhQUFMLENBQW1CLDBCQUFuQixDQUFmO0FBQ0EsWUFBSSxDQUFDRixNQUFMLEVBQWE7QUFDVCxrQ0FBV1AsS0FBWCxFQUFrQkMsUUFBUVMsR0FBMUI7QUFFSCxTQUhELE1BR087QUFDRlYsa0JBQU1XLE9BQU4sQ0FBY0osTUFBZCxNQUEwQkssRUFBM0IsR0FBaUMsc0JBQVdaLEtBQVgsRUFBa0JPLE1BQWxCLENBQWpDLEdBQTZELElBQTdEO0FBQ0g7QUFDSixLQVJELE1BUU87QUFDSCxZQUFNTSxVQUFVYixNQUFNVSxHQUFOLENBQVVJLFdBQVYsQ0FBc0JiLFFBQVFHLE1BQVIsQ0FBZVcsTUFBZixDQUFzQkMsRUFBdEIsQ0FBeUJDLFlBQS9DLEVBQTZELENBQTdELEVBQWdFO0FBQzVFQyxvQkFBUTtBQUFBLHVCQUFlQyxZQUFZakIsS0FBWixDQUFrQkMsTUFBbEIsR0FBMkJnQixZQUFZYixhQUF0RDtBQUFBO0FBRG9FLFNBQWhFLENBQWhCO0FBR0EsWUFBSU8sUUFBUU8sTUFBUixHQUFpQixDQUFyQixFQUF3QjtBQUNwQnBCLGtCQUFNcUIsUUFBTixDQUFlUixRQUFRLENBQVIsQ0FBZixFQUEyQlMsZUFBM0I7QUFDSCxTQUZELE1BRU87QUFDSCxnQkFBTUMsWUFBWXRCLFFBQVFHLE1BQVIsQ0FBZW9CLFVBQWYsQ0FBMEJELFNBQTVDO0FBQ0NBLHNCQUFVSCxNQUFWLEdBQW1CLENBQW5CLElBQXlCcEIsTUFBTXlCLEtBQU4sQ0FBWUYsVUFBVSxDQUFWLENBQVosS0FBNkJYLEVBQXZELEdBQ00sc0JBQVdaLEtBQVgsRUFBa0J1QixVQUFVLENBQVYsQ0FBbEIsQ0FETixHQUN3QyxJQUR4QztBQUVIO0FBQ0o7QUFDSixDIiwiZmlsZSI6IjIzLmpzIiwic291cmNlc0NvbnRlbnQiOlsiaW1wb3J0IHtwYXRoRmluZGVyfSBmcm9tIFwiLi4vdGFza1wiXG5leHBvcnQgZGVmYXVsdCAoY3JlZXAsIG5ld1Jvb20pID0+IHtcblxuICAgIGlmIChjcmVlcC5jYXJyeS5lbmVyZ3kgPT0gMCkge1xuICAgICAgICBjcmVlcC5tZW1vcnkuY2FuSGFydmVzdCA9IHRydWU7XG4gICAgfVxuXG5cbiAgICBpZiAoY3JlZXAuY2FycnkuZW5lcmd5ID09IGNyZWVwLmNhcnJ5Q2FwYWNpdHkpIHtcbiAgICAgICAgY3JlZXAubWVtb3J5LmNhbkhhcnZlc3QgPSBmYWxzZTtcbiAgICB9XG5cbiAgICBpZiAoY3JlZXAubWVtb3J5LmNhbkhhcnZlc3QpIHtcbiAgICAgICAgY29uc3Qgc291cmNlID0gR2FtZS5nZXRPYmplY3RCeUlkKCc1ODczYmMzNTExZTNlNDM2MWI0ZDczOTAnKTtcbiAgICAgICAgaWYgKCFzb3VyY2UpIHtcbiAgICAgICAgICAgIHBhdGhGaW5kZXIoY3JlZXAsIG5ld1Jvb20ucG9zKVxuXG4gICAgICAgIH0gZWxzZSB7XG4gICAgICAgICAgICAoY3JlZXAuaGFydmVzdChzb3VyY2UpICE9PSBPSykgPyBwYXRoRmluZGVyKGNyZWVwLCBzb3VyY2UpIDogbnVsbDtcbiAgICAgICAgfVxuICAgIH0gZWxzZSB7XG4gICAgICAgIGNvbnN0IHRhcmdldHMgPSBjcmVlcC5wb3MuZmluZEluUmFuZ2UobmV3Um9vbS5tZW1vcnkuY3JlZXBzLm15LmZhckhhcnZlc3RlciwgMSwge1xuICAgICAgICAgICAgZmlsdGVyOiB0YXJnZXRDcmVlcCA9PiB0YXJnZXRDcmVlcC5jYXJyeS5lbmVyZ3kgPCB0YXJnZXRDcmVlcC5jYXJyeUNhcGFjaXR5XG4gICAgICAgIH0pO1xuICAgICAgICBpZiAodGFyZ2V0cy5sZW5ndGggPiAwKSB7XG4gICAgICAgICAgICBjcmVlcC50cmFuc2Zlcih0YXJnZXRzWzBdLCBSRVNPVVJDRV9FTkVSR1kpXG4gICAgICAgIH0gZWxzZSB7XG4gICAgICAgICAgICBjb25zdCBuZWVkQnVpbGQgPSBuZXdSb29tLm1lbW9yeS5zdHJ1Y3R1cmVzLm5lZWRCdWlsZDtcbiAgICAgICAgICAgIChuZWVkQnVpbGQubGVuZ3RoID4gMCAgJiYgY3JlZXAuYnVpbGQobmVlZEJ1aWxkWzBdKSAhPSBPSylcbiAgICAgICAgICAgICAgICA/IHBhdGhGaW5kZXIoY3JlZXAsIG5lZWRCdWlsZFswXSkgOiBudWxsO1xuICAgICAgICB9XG4gICAgfVxufVxuXG5cblxuLy8gV0VCUEFDSyBGT09URVIgLy9cbi8vIC4vc3JjL3JvbGUvX2Zhck1pbmVyLmpzIl0sInNvdXJjZVJvb3QiOiIifQ==");
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _task = __webpack_require__(0);
+
+exports.default = function (creep, newRoom) {
+
+    if (creep.carry.energy == 0) {
+        creep.memory.canHarvest = true;
+    }
+
+    if (creep.carry.energy == creep.carryCapacity) {
+        creep.memory.canHarvest = false;
+    }
+
+    if (creep.memory.canHarvest) {
+        var source = Game.getObjectById('5873bc3511e3e4361b4d7390');
+        if (!source) {
+            (0, _task.pathFinder)(creep, newRoom.pos);
+        } else {
+            creep.harvest(source) !== OK ? (0, _task.pathFinder)(creep, source) : null;
+        }
+    } else {
+        var targets = creep.pos.findInRange(newRoom.memory.creeps.my.farHarvester, 1, {
+            filter: function filter(targetCreep) {
+                return targetCreep.carry.energy < targetCreep.carryCapacity;
+            }
+        });
+        if (targets.length > 0) {
+            creep.transfer(targets[0], RESOURCE_ENERGY);
+        } else {
+            var needBuild = newRoom.memory.structures.needBuild;
+            needBuild.length > 0 && creep.build(needBuild[0]) != OK ? (0, _task.pathFinder)(creep, needBuild[0]) : null;
+        }
+    }
+};
 
 /***/ }),
 /* 24 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-eval("\n\nObject.defineProperty(exports, \"__esModule\", {\n\tvalue: true\n});\n\nvar _task = __webpack_require__(0);\n\nexports.default = function (creep) {\n\tvar dropped = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : [];\n\n\n\tif (creep.carry.energy == 0) {\n\t\tcreep.memory.full = false;\n\t}\n\n\tif (creep.carry.energy == creep.carryCapacity) {\n\t\tcreep.memory.full = true;\n\t}\n\n\tif (!creep.memory.full) {\n\n\t\tvar pickupTarget = [];\n\t\tif (dropped.length > 0) {\n\t\t\tpickupTarget = creep.pos.findInRange(dropped, 5);\n\t\t}\n\n\t\tif (pickupTarget.length > 0) {\n\t\t\tcreep.pickup(pickupTarget[0]) != OK ? (0, _task.pathFinder)(creep, pickupTarget[0]) : null;\n\t\t} else {\n\t\t\tvar transferTarget = _.filter(creep.room.memory.structures.container, function (container) {\n\t\t\t\treturn container.id != '58d31e9dbbb5793fe9d0ad71' && container.store.energy > 0;\n\t\t\t});\n\t\t\ttransferTarget = transferTarget.sort(function (a, b) {\n\t\t\t\treturn b.store.energy - a.store.energy;\n\t\t\t})[0];\n\t\t\ttransferTarget && creep.withdraw(transferTarget, RESOURCE_ENERGY) != OK ? (0, _task.pathFinder)(creep, transferTarget) : null;\n\t\t}\n\t}\n\n\tif (creep.memory.full) {\n\t\tvar needFill = creep.room.memory.structures.needFill;\n\t\tvar needFillTarget = void 0;\n\t\tif (needFill.length > 0) {\n\t\t\tneedFillTarget = creep.pos.findClosestByRange(needFill);\n\t\t} else {\n\t\t\tneedFillTarget = creep.room.storage;\n\t\t}\n\t\tneedFillTarget && creep.transfer(needFillTarget, RESOURCE_ENERGY) != OK ? (0, _task.pathFinder)(creep, needFillTarget) : null;\n\t}\n};//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIndlYnBhY2s6Ly8vLi9zcmMvcm9sZS9faGFydmVzdGVyLmpzPzkxOTkiXSwibmFtZXMiOlsiY3JlZXAiLCJkcm9wcGVkIiwiY2FycnkiLCJlbmVyZ3kiLCJtZW1vcnkiLCJmdWxsIiwiY2FycnlDYXBhY2l0eSIsInBpY2t1cFRhcmdldCIsImxlbmd0aCIsInBvcyIsImZpbmRJblJhbmdlIiwicGlja3VwIiwiT0siLCJ0cmFuc2ZlclRhcmdldCIsIl8iLCJmaWx0ZXIiLCJyb29tIiwic3RydWN0dXJlcyIsImNvbnRhaW5lciIsImlkIiwic3RvcmUiLCJzb3J0IiwiYSIsImIiLCJ3aXRoZHJhdyIsIlJFU09VUkNFX0VORVJHWSIsIm5lZWRGaWxsIiwibmVlZEZpbGxUYXJnZXQiLCJmaW5kQ2xvc2VzdEJ5UmFuZ2UiLCJzdG9yYWdlIiwidHJhbnNmZXIiXSwibWFwcGluZ3MiOiI7Ozs7OztBQUFBOztrQkFDZSxVQUFDQSxLQUFELEVBQXlCO0FBQUEsS0FBakJDLE9BQWlCLHVFQUFQLEVBQU87OztBQUV2QyxLQUFJRCxNQUFNRSxLQUFOLENBQVlDLE1BQVosSUFBc0IsQ0FBMUIsRUFBNkI7QUFDNUJILFFBQU1JLE1BQU4sQ0FBYUMsSUFBYixHQUFvQixLQUFwQjtBQUNBOztBQUVELEtBQUlMLE1BQU1FLEtBQU4sQ0FBWUMsTUFBWixJQUFzQkgsTUFBTU0sYUFBaEMsRUFBK0M7QUFDOUNOLFFBQU1JLE1BQU4sQ0FBYUMsSUFBYixHQUFvQixJQUFwQjtBQUNBOztBQUVELEtBQUksQ0FBQ0wsTUFBTUksTUFBTixDQUFhQyxJQUFsQixFQUF3Qjs7QUFFdkIsTUFBSUUsZUFBZSxFQUFuQjtBQUNBLE1BQUlOLFFBQVFPLE1BQVIsR0FBaUIsQ0FBckIsRUFBd0I7QUFDdkJELGtCQUFlUCxNQUFNUyxHQUFOLENBQVVDLFdBQVYsQ0FBc0JULE9BQXRCLEVBQStCLENBQS9CLENBQWY7QUFDQTs7QUFFRCxNQUFJTSxhQUFhQyxNQUFiLEdBQXNCLENBQTFCLEVBQTZCO0FBQzNCUixTQUFNVyxNQUFOLENBQWFKLGFBQWEsQ0FBYixDQUFiLEtBQWlDSyxFQUFsQyxHQUF3QyxzQkFBV1osS0FBWCxFQUFrQk8sYUFBYSxDQUFiLENBQWxCLENBQXhDLEdBQTZFLElBQTdFO0FBQ0EsR0FGRCxNQUVPO0FBQ04sT0FBSU0saUJBQWlCQyxFQUFFQyxNQUFGLENBQVNmLE1BQU1nQixJQUFOLENBQVdaLE1BQVgsQ0FBa0JhLFVBQWxCLENBQTZCQyxTQUF0QyxFQUNTO0FBQUEsV0FBYUEsVUFBVUMsRUFBVixJQUFnQiwwQkFBaEIsSUFDQUQsVUFBVUUsS0FBVixDQUFnQmpCLE1BQWhCLEdBQXlCLENBRHRDO0FBQUEsSUFEVCxDQUFyQjtBQUlBVSxvQkFBcUJBLGVBQWVRLElBQWYsQ0FBb0IsVUFBQ0MsQ0FBRCxFQUFJQyxDQUFKO0FBQUEsV0FBVUEsRUFBRUgsS0FBRixDQUFRakIsTUFBUixHQUFpQm1CLEVBQUVGLEtBQUYsQ0FBUWpCLE1BQW5DO0FBQUEsSUFBcEIsRUFBK0QsQ0FBL0QsQ0FBckI7QUFDQ1UscUJBQWtCYixNQUFNd0IsUUFBTixDQUFlWCxjQUFmLEVBQStCWSxlQUEvQixLQUFtRGIsRUFBdEUsR0FDRyxzQkFBV1osS0FBWCxFQUFrQmEsY0FBbEIsQ0FESCxHQUN1QyxJQUR2QztBQUVBO0FBQ0Q7O0FBRUQsS0FBSWIsTUFBTUksTUFBTixDQUFhQyxJQUFqQixFQUF1QjtBQUN0QixNQUFNcUIsV0FBVzFCLE1BQU1nQixJQUFOLENBQVdaLE1BQVgsQ0FBa0JhLFVBQWxCLENBQTZCUyxRQUE5QztBQUNBLE1BQUlDLHVCQUFKO0FBQ0EsTUFBSUQsU0FBU2xCLE1BQVQsR0FBa0IsQ0FBdEIsRUFBeUI7QUFDeEJtQixvQkFBaUIzQixNQUFNUyxHQUFOLENBQVVtQixrQkFBVixDQUE2QkYsUUFBN0IsQ0FBakI7QUFDQSxHQUZELE1BRU87QUFDTkMsb0JBQWlCM0IsTUFBTWdCLElBQU4sQ0FBV2EsT0FBNUI7QUFDQTtBQUNBRixvQkFBa0IzQixNQUFNOEIsUUFBTixDQUFlSCxjQUFmLEVBQStCRixlQUEvQixLQUFtRGIsRUFBdEUsR0FDRyxzQkFBV1osS0FBWCxFQUFrQjJCLGNBQWxCLENBREgsR0FDdUMsSUFEdkM7QUFHQTtBQUNELEMiLCJmaWxlIjoiMjQuanMiLCJzb3VyY2VzQ29udGVudCI6WyJpbXBvcnQgeyBwYXRoRmluZGVyIH0gZnJvbSAnLi4vdGFzaydcbmV4cG9ydCBkZWZhdWx0IChjcmVlcCwgZHJvcHBlZCA9IFtdKSA9PiB7XG5cblx0aWYgKGNyZWVwLmNhcnJ5LmVuZXJneSA9PSAwKSB7XG5cdFx0Y3JlZXAubWVtb3J5LmZ1bGwgPSBmYWxzZVxuXHR9XG5cblx0aWYgKGNyZWVwLmNhcnJ5LmVuZXJneSA9PSBjcmVlcC5jYXJyeUNhcGFjaXR5KSB7XG5cdFx0Y3JlZXAubWVtb3J5LmZ1bGwgPSB0cnVlXG5cdH1cblxuXHRpZiAoIWNyZWVwLm1lbW9yeS5mdWxsKSB7XG5cblx0XHRsZXQgcGlja3VwVGFyZ2V0ID0gW107XG5cdFx0aWYgKGRyb3BwZWQubGVuZ3RoID4gMCkge1xuXHRcdFx0cGlja3VwVGFyZ2V0ID0gY3JlZXAucG9zLmZpbmRJblJhbmdlKGRyb3BwZWQsIDUpO1xuXHRcdH1cblxuXHRcdGlmIChwaWNrdXBUYXJnZXQubGVuZ3RoID4gMCkge1xuXHRcdFx0KGNyZWVwLnBpY2t1cChwaWNrdXBUYXJnZXRbMF0pICE9IE9LKSA/IHBhdGhGaW5kZXIoY3JlZXAsIHBpY2t1cFRhcmdldFswXSkgOiBudWxsXG5cdFx0fSBlbHNlIHtcblx0XHRcdGxldCB0cmFuc2ZlclRhcmdldCA9IF8uZmlsdGVyKGNyZWVwLnJvb20ubWVtb3J5LnN0cnVjdHVyZXMuY29udGFpbmVyLFxuXHRcdFx0ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgY29udGFpbmVyID0+IGNvbnRhaW5lci5pZCAhPSAnNThkMzFlOWRiYmI1NzkzZmU5ZDBhZDcxJyAmJlxuXHRcdFx0ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIGNvbnRhaW5lci5zdG9yZS5lbmVyZ3kgPiAwXG5cdFx0XHQpXG5cdFx0XHR0cmFuc2ZlclRhcmdldCAgICAgPSB0cmFuc2ZlclRhcmdldC5zb3J0KChhLCBiKSA9PiBiLnN0b3JlLmVuZXJneSAtIGEuc3RvcmUuZW5lcmd5KVswXTtcblx0XHRcdCh0cmFuc2ZlclRhcmdldCAmJiBjcmVlcC53aXRoZHJhdyh0cmFuc2ZlclRhcmdldCwgUkVTT1VSQ0VfRU5FUkdZKSAhPSBPSylcblx0XHRcdFx0PyBwYXRoRmluZGVyKGNyZWVwLCB0cmFuc2ZlclRhcmdldCkgOiBudWxsXG5cdFx0fVxuXHR9XG5cblx0aWYgKGNyZWVwLm1lbW9yeS5mdWxsKSB7XG5cdFx0Y29uc3QgbmVlZEZpbGwgPSBjcmVlcC5yb29tLm1lbW9yeS5zdHJ1Y3R1cmVzLm5lZWRGaWxsO1xuXHRcdGxldCBuZWVkRmlsbFRhcmdldDtcblx0XHRpZiAobmVlZEZpbGwubGVuZ3RoID4gMCkge1xuXHRcdFx0bmVlZEZpbGxUYXJnZXQgPSBjcmVlcC5wb3MuZmluZENsb3Nlc3RCeVJhbmdlKG5lZWRGaWxsKTtcblx0XHR9IGVsc2Uge1xuXHRcdFx0bmVlZEZpbGxUYXJnZXQgPSBjcmVlcC5yb29tLnN0b3JhZ2Vcblx0XHR9XG5cdFx0KG5lZWRGaWxsVGFyZ2V0ICYmIGNyZWVwLnRyYW5zZmVyKG5lZWRGaWxsVGFyZ2V0LCBSRVNPVVJDRV9FTkVSR1kpICE9IE9LKVxuXHRcdFx0PyBwYXRoRmluZGVyKGNyZWVwLCBuZWVkRmlsbFRhcmdldCkgOiBudWxsXG5cblx0fVxufVxuXG5cbi8vIFdFQlBBQ0sgRk9PVEVSIC8vXG4vLyAuL3NyYy9yb2xlL19oYXJ2ZXN0ZXIuanMiXSwic291cmNlUm9vdCI6IiJ9");
+
+
+Object.defineProperty(exports, "__esModule", {
+	value: true
+});
+
+var _task = __webpack_require__(0);
+
+exports.default = function (creep) {
+	var dropped = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : [];
+
+
+	if (creep.carry.energy == 0) {
+		creep.memory.full = false;
+	}
+
+	if (creep.carry.energy == creep.carryCapacity) {
+		creep.memory.full = true;
+	}
+
+	if (!creep.memory.full) {
+
+		var pickupTarget = [];
+		if (dropped.length > 0) {
+			pickupTarget = creep.pos.findInRange(dropped, 5);
+		}
+
+		if (pickupTarget.length > 0) {
+			creep.pickup(pickupTarget[0]) != OK ? (0, _task.pathFinder)(creep, pickupTarget[0]) : null;
+		} else {
+			var transferTarget = _.filter(creep.room.memory.structures.container, function (container) {
+				return container.id != '58d31e9dbbb5793fe9d0ad71' && container.store.energy > 0;
+			});
+			transferTarget = transferTarget.sort(function (a, b) {
+				return b.store.energy - a.store.energy;
+			})[0];
+			transferTarget && creep.withdraw(transferTarget, RESOURCE_ENERGY) != OK ? (0, _task.pathFinder)(creep, transferTarget) : null;
+		}
+	}
+
+	if (creep.memory.full) {
+		var needFill = creep.room.memory.structures.needFill;
+		var needFillTarget = void 0;
+		if (needFill.length > 0) {
+			needFillTarget = creep.pos.findClosestByRange(needFill);
+		} else {
+			needFillTarget = creep.room.storage;
+		}
+		needFillTarget && creep.transfer(needFillTarget, RESOURCE_ENERGY) != OK ? (0, _task.pathFinder)(creep, needFillTarget) : null;
+	}
+};
 
 /***/ }),
 /* 25 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-eval("\n\nObject.defineProperty(exports, \"__esModule\", {\n\tvalue: true\n});\n\nvar _task = __webpack_require__(0);\n\nexports.default = function (creep, sources) {\n\tvar dropped = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : [];\n\n\n\tif (creep.carry.energy == creep.carryCapacity) {\n\t\tcreep.memory.full = true;\n\t}\n\n\tif (creep.carry.energy == 0) {\n\t\tcreep.memory.full = false;\n\t}\n\n\tif (creep.memory.full) {\n\t\tvar canFill = creep.pos.findInRange(creep.room.memory.structures.canFill, 4);\n\t\tif (canFill.length > 0) {\n\t\t\tcreep.transfer(canFill[0], RESOURCE_ENERGY) != OK ? (0, _task.pathFinder)(creep, canFill[0]) : null;\n\t\t} else if (creep.memory.harvestTarget == \"5873bc3511e3e4361b4d7393\") {\n\t\t\tvar controller = creep.room.controller;\n\t\t\tcreep.upgradeController(controller) != OK ? (0, _task.pathFinder)(creep, controller) : null;\n\t\t}\n\t}\n\n\tif (!creep.memory.harvestTarget) {\n\t\tcreep.memory.harvestTarget = sources[0].source.id;\n\t}\n\n\tif (!creep.memory.full && creep.memory.harvestTarget) {\n\n\t\tvar pickupTarget = [];\n\t\tif (dropped.length > 0) {\n\t\t\tpickupTarget = creep.pos.findInRange(dropped, 0);\n\t\t}\n\t\tif (pickupTarget.length > 0) {\n\t\t\tcreep.pickup(pickupTarget[0]);\n\t\t\tcreep.say('pickup');\n\t\t} else {\n\t\t\tvar harvestTarget = Game.getObjectById(creep.memory.harvestTarget);\n\t\t\tcreep.harvest(harvestTarget) != OK ? (0, _task.pathFinder)(creep, harvestTarget) : null;\n\t\t}\n\t}\n};//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIndlYnBhY2s6Ly8vLi9zcmMvcm9sZS9fbWluZXIuanM/NzIwZiJdLCJuYW1lcyI6WyJjcmVlcCIsInNvdXJjZXMiLCJkcm9wcGVkIiwiY2FycnkiLCJlbmVyZ3kiLCJjYXJyeUNhcGFjaXR5IiwibWVtb3J5IiwiZnVsbCIsImNhbkZpbGwiLCJwb3MiLCJmaW5kSW5SYW5nZSIsInJvb20iLCJzdHJ1Y3R1cmVzIiwibGVuZ3RoIiwidHJhbnNmZXIiLCJSRVNPVVJDRV9FTkVSR1kiLCJPSyIsImhhcnZlc3RUYXJnZXQiLCJjb250cm9sbGVyIiwidXBncmFkZUNvbnRyb2xsZXIiLCJzb3VyY2UiLCJpZCIsInBpY2t1cFRhcmdldCIsInBpY2t1cCIsInNheSIsIkdhbWUiLCJnZXRPYmplY3RCeUlkIiwiaGFydmVzdCJdLCJtYXBwaW5ncyI6Ijs7Ozs7O0FBQUE7O2tCQUNlLFVBQUNBLEtBQUQsRUFBUUMsT0FBUixFQUFrQztBQUFBLEtBQWpCQyxPQUFpQix1RUFBUCxFQUFPOzs7QUFFaEQsS0FBSUYsTUFBTUcsS0FBTixDQUFZQyxNQUFaLElBQXNCSixNQUFNSyxhQUFoQyxFQUErQztBQUM5Q0wsUUFBTU0sTUFBTixDQUFhQyxJQUFiLEdBQW9CLElBQXBCO0FBQ0E7O0FBRUQsS0FBSVAsTUFBTUcsS0FBTixDQUFZQyxNQUFaLElBQXNCLENBQTFCLEVBQTZCO0FBQzVCSixRQUFNTSxNQUFOLENBQWFDLElBQWIsR0FBb0IsS0FBcEI7QUFDQTs7QUFFRCxLQUFJUCxNQUFNTSxNQUFOLENBQWFDLElBQWpCLEVBQXVCO0FBQ3RCLE1BQU1DLFVBQVVSLE1BQU1TLEdBQU4sQ0FBVUMsV0FBVixDQUFzQlYsTUFBTVcsSUFBTixDQUFXTCxNQUFYLENBQWtCTSxVQUFsQixDQUE2QkosT0FBbkQsRUFBNEQsQ0FBNUQsQ0FBaEI7QUFDQSxNQUFJQSxRQUFRSyxNQUFSLEdBQWlCLENBQXJCLEVBQXdCO0FBQ3JCYixTQUFNYyxRQUFOLENBQWVOLFFBQVEsQ0FBUixDQUFmLEVBQTJCTyxlQUEzQixLQUErQ0MsRUFBakQsR0FDSSxzQkFBV2hCLEtBQVgsRUFBa0JRLFFBQVEsQ0FBUixDQUFsQixDQURKLEdBQ29DLElBRHBDO0FBRUEsR0FIRCxNQUdPLElBQUlSLE1BQU1NLE1BQU4sQ0FBYVcsYUFBYixJQUE4QiwwQkFBbEMsRUFBOEQ7QUFDcEUsT0FBTUMsYUFBYWxCLE1BQU1XLElBQU4sQ0FBV08sVUFBOUI7QUFDQ2xCLFNBQU1tQixpQkFBTixDQUF3QkQsVUFBeEIsS0FBdUNGLEVBQXhDLEdBQThDLHNCQUFXaEIsS0FBWCxFQUFrQmtCLFVBQWxCLENBQTlDLEdBQThFLElBQTlFO0FBQ0E7QUFDRDs7QUFFRCxLQUFJLENBQUNsQixNQUFNTSxNQUFOLENBQWFXLGFBQWxCLEVBQWlDO0FBQ2hDakIsUUFBTU0sTUFBTixDQUFhVyxhQUFiLEdBQTZCaEIsUUFBUSxDQUFSLEVBQVdtQixNQUFYLENBQWtCQyxFQUEvQztBQUNBOztBQUVELEtBQUksQ0FBQ3JCLE1BQU1NLE1BQU4sQ0FBYUMsSUFBZCxJQUFzQlAsTUFBTU0sTUFBTixDQUFhVyxhQUF2QyxFQUFzRDs7QUFFckQsTUFBSUssZUFBZSxFQUFuQjtBQUNBLE1BQUlwQixRQUFRVyxNQUFSLEdBQWlCLENBQXJCLEVBQXdCO0FBQ3ZCUyxrQkFBZXRCLE1BQU1TLEdBQU4sQ0FBVUMsV0FBVixDQUFzQlIsT0FBdEIsRUFBK0IsQ0FBL0IsQ0FBZjtBQUNBO0FBQ0QsTUFBSW9CLGFBQWFULE1BQWIsR0FBc0IsQ0FBMUIsRUFBNkI7QUFDNUJiLFNBQU11QixNQUFOLENBQWFELGFBQWEsQ0FBYixDQUFiO0FBQ0F0QixTQUFNd0IsR0FBTixDQUFVLFFBQVY7QUFDQSxHQUhELE1BR087QUFDTixPQUFNUCxnQkFBZ0JRLEtBQUtDLGFBQUwsQ0FBbUIxQixNQUFNTSxNQUFOLENBQWFXLGFBQWhDLENBQXRCO0FBQ0NqQixTQUFNMkIsT0FBTixDQUFjVixhQUFkLEtBQWdDRCxFQUFqQyxHQUNFLHNCQUFXaEIsS0FBWCxFQUFrQmlCLGFBQWxCLENBREYsR0FDcUMsSUFEckM7QUFFQTtBQUVEO0FBRUQsQyIsImZpbGUiOiIyNS5qcyIsInNvdXJjZXNDb250ZW50IjpbImltcG9ydCB7cGF0aEZpbmRlcn1mcm9tICcuLi90YXNrJ1xuZXhwb3J0IGRlZmF1bHQgKGNyZWVwLCBzb3VyY2VzLCBkcm9wcGVkID0gW10pID0+IHtcblxuXHRpZiAoY3JlZXAuY2FycnkuZW5lcmd5ID09IGNyZWVwLmNhcnJ5Q2FwYWNpdHkpIHtcblx0XHRjcmVlcC5tZW1vcnkuZnVsbCA9IHRydWU7XG5cdH1cblxuXHRpZiAoY3JlZXAuY2FycnkuZW5lcmd5ID09IDApIHtcblx0XHRjcmVlcC5tZW1vcnkuZnVsbCA9IGZhbHNlO1xuXHR9XG5cblx0aWYgKGNyZWVwLm1lbW9yeS5mdWxsKSB7XG5cdFx0Y29uc3QgY2FuRmlsbCA9IGNyZWVwLnBvcy5maW5kSW5SYW5nZShjcmVlcC5yb29tLm1lbW9yeS5zdHJ1Y3R1cmVzLmNhbkZpbGwsIDQpO1xuXHRcdGlmIChjYW5GaWxsLmxlbmd0aCA+IDApIHtcblx0XHRcdCggY3JlZXAudHJhbnNmZXIoY2FuRmlsbFswXSwgUkVTT1VSQ0VfRU5FUkdZKSAhPSBPSylcblx0XHRcdFx0XHQ/IHBhdGhGaW5kZXIoY3JlZXAsIGNhbkZpbGxbMF0pIDogbnVsbFxuXHRcdH0gZWxzZSBpZiAoY3JlZXAubWVtb3J5LmhhcnZlc3RUYXJnZXQgPT0gXCI1ODczYmMzNTExZTNlNDM2MWI0ZDczOTNcIikge1xuXHRcdFx0Y29uc3QgY29udHJvbGxlciA9IGNyZWVwLnJvb20uY29udHJvbGxlcjtcblx0XHRcdChjcmVlcC51cGdyYWRlQ29udHJvbGxlcihjb250cm9sbGVyKSAhPSBPSykgPyBwYXRoRmluZGVyKGNyZWVwLCBjb250cm9sbGVyKSA6IG51bGw7XG5cdFx0fVxuXHR9XG5cblx0aWYgKCFjcmVlcC5tZW1vcnkuaGFydmVzdFRhcmdldCkge1xuXHRcdGNyZWVwLm1lbW9yeS5oYXJ2ZXN0VGFyZ2V0ID0gc291cmNlc1swXS5zb3VyY2UuaWRcblx0fVxuXG5cdGlmICghY3JlZXAubWVtb3J5LmZ1bGwgJiYgY3JlZXAubWVtb3J5LmhhcnZlc3RUYXJnZXQpIHtcblxuXHRcdGxldCBwaWNrdXBUYXJnZXQgPSBbXVxuXHRcdGlmIChkcm9wcGVkLmxlbmd0aCA+IDApIHtcblx0XHRcdHBpY2t1cFRhcmdldCA9IGNyZWVwLnBvcy5maW5kSW5SYW5nZShkcm9wcGVkLCAwKTtcblx0XHR9XG5cdFx0aWYgKHBpY2t1cFRhcmdldC5sZW5ndGggPiAwKSB7XG5cdFx0XHRjcmVlcC5waWNrdXAocGlja3VwVGFyZ2V0WzBdKVxuXHRcdFx0Y3JlZXAuc2F5KCdwaWNrdXAnKVxuXHRcdH0gZWxzZSB7XG5cdFx0XHRjb25zdCBoYXJ2ZXN0VGFyZ2V0ID0gR2FtZS5nZXRPYmplY3RCeUlkKGNyZWVwLm1lbW9yeS5oYXJ2ZXN0VGFyZ2V0KTtcblx0XHRcdChjcmVlcC5oYXJ2ZXN0KGhhcnZlc3RUYXJnZXQpICE9IE9LKSA/XG5cdFx0XHRcdFx0cGF0aEZpbmRlcihjcmVlcCwgaGFydmVzdFRhcmdldCkgOiBudWxsO1xuXHRcdH1cblxuXHR9XG5cbn1cblxuXG5cbi8vIFdFQlBBQ0sgRk9PVEVSIC8vXG4vLyAuL3NyYy9yb2xlL19taW5lci5qcyJdLCJzb3VyY2VSb290IjoiIn0=");
+
+
+Object.defineProperty(exports, "__esModule", {
+	value: true
+});
+
+var _task = __webpack_require__(0);
+
+exports.default = function (creep, sources) {
+	var dropped = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : [];
+
+
+	if (creep.carry.energy == creep.carryCapacity) {
+		creep.memory.full = true;
+	}
+
+	if (creep.carry.energy == 0) {
+		creep.memory.full = false;
+	}
+
+	if (creep.memory.full) {
+		var canFill = creep.pos.findInRange(creep.room.memory.structures.canFill, 4);
+		if (canFill.length > 0) {
+			creep.transfer(canFill[0], RESOURCE_ENERGY) != OK ? (0, _task.pathFinder)(creep, canFill[0]) : null;
+		} else if (creep.memory.harvestTarget == "5873bc3511e3e4361b4d7393") {
+			var controller = creep.room.controller;
+			creep.upgradeController(controller) != OK ? (0, _task.pathFinder)(creep, controller) : null;
+		}
+	}
+
+	if (!creep.memory.harvestTarget) {
+		creep.memory.harvestTarget = sources[0].source.id;
+	}
+
+	if (!creep.memory.full && creep.memory.harvestTarget) {
+
+		var pickupTarget = [];
+		if (dropped.length > 0) {
+			pickupTarget = creep.pos.findInRange(dropped, 0);
+		}
+		if (pickupTarget.length > 0) {
+			creep.pickup(pickupTarget[0]);
+			creep.say('pickup');
+		} else {
+			var harvestTarget = Game.getObjectById(creep.memory.harvestTarget);
+			creep.harvest(harvestTarget) != OK ? (0, _task.pathFinder)(creep, harvestTarget) : null;
+		}
+	}
+};
 
 /***/ }),
 /* 26 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-eval("\n\nObject.defineProperty(exports, \"__esModule\", {\n\tvalue: true\n});\n\nvar _task = __webpack_require__(0);\n\nexports.default = function (creep, controller) {\n\tif (creep.memory.upgrading && creep.carry.energy == 0) {\n\t\tcreep.memory.upgrading = false;\n\t}\n\tif (!creep.memory.upgrading && creep.carry.energy == creep.carryCapacity) {\n\t\tcreep.memory.upgrading = true;\n\t\tcreep.say('UP');\n\t}\n\n\tif (creep.memory.upgrading) {\n\t\tcreep.upgradeController(controller) != OK ? (0, _task.pathFinder)(creep, controller) : null;\n\t} else {\n\t\tvar canWithdraw = creep.pos.findClosestByRange(creep.room.memory.structures.canWithdraw);\n\t\tcanWithdraw && creep.withdraw(canWithdraw, RESOURCE_ENERGY) != OK ? (0, _task.pathFinder)(creep, canWithdraw) : null;\n\t}\n};//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIndlYnBhY2s6Ly8vLi9zcmMvcm9sZS9fdXBncmFkZXIuanM/NTZmMiJdLCJuYW1lcyI6WyJjcmVlcCIsImNvbnRyb2xsZXIiLCJtZW1vcnkiLCJ1cGdyYWRpbmciLCJjYXJyeSIsImVuZXJneSIsImNhcnJ5Q2FwYWNpdHkiLCJzYXkiLCJ1cGdyYWRlQ29udHJvbGxlciIsIk9LIiwiY2FuV2l0aGRyYXciLCJwb3MiLCJmaW5kQ2xvc2VzdEJ5UmFuZ2UiLCJyb29tIiwic3RydWN0dXJlcyIsIndpdGhkcmF3IiwiUkVTT1VSQ0VfRU5FUkdZIl0sIm1hcHBpbmdzIjoiOzs7Ozs7QUFBQTs7a0JBRWdCLFVBQUNBLEtBQUQsRUFBUUMsVUFBUixFQUF1QjtBQUN0QyxLQUFJRCxNQUFNRSxNQUFOLENBQWFDLFNBQWIsSUFBMEJILE1BQU1JLEtBQU4sQ0FBWUMsTUFBWixJQUFzQixDQUFwRCxFQUF1RDtBQUN0REwsUUFBTUUsTUFBTixDQUFhQyxTQUFiLEdBQXlCLEtBQXpCO0FBQ0E7QUFDRCxLQUFJLENBQUNILE1BQU1FLE1BQU4sQ0FBYUMsU0FBZCxJQUEyQkgsTUFBTUksS0FBTixDQUFZQyxNQUFaLElBQXNCTCxNQUFNTSxhQUEzRCxFQUEwRTtBQUN6RU4sUUFBTUUsTUFBTixDQUFhQyxTQUFiLEdBQXlCLElBQXpCO0FBQ0FILFFBQU1PLEdBQU4sQ0FBVSxJQUFWO0FBQ0E7O0FBRUQsS0FBSVAsTUFBTUUsTUFBTixDQUFhQyxTQUFqQixFQUE0QjtBQUMxQkgsUUFBTVEsaUJBQU4sQ0FBd0JQLFVBQXhCLEtBQXVDUSxFQUF4QyxHQUE2QyxzQkFBV1QsS0FBWCxFQUFrQkMsVUFBbEIsQ0FBN0MsR0FBMkUsSUFBM0U7QUFDQSxFQUZELE1BR0s7QUFDSixNQUFNUyxjQUFjVixNQUFNVyxHQUFOLENBQVVDLGtCQUFWLENBQTZCWixNQUFNYSxJQUFOLENBQVdYLE1BQVgsQ0FBa0JZLFVBQWxCLENBQTZCSixXQUExRCxDQUFwQjtBQUNDQSxpQkFBZVYsTUFBTWUsUUFBTixDQUFlTCxXQUFmLEVBQTJCTSxlQUEzQixLQUErQ1AsRUFBL0QsR0FDRyxzQkFBV1QsS0FBWCxFQUFrQlUsV0FBbEIsQ0FESCxHQUNvQyxJQURwQztBQUVBO0FBQ0QsQyIsImZpbGUiOiIyNi5qcyIsInNvdXJjZXNDb250ZW50IjpbImltcG9ydCB7IHBhdGhGaW5kZXIgfSBmcm9tICcuLi90YXNrJ1xuXG5leHBvcnQgZGVmYXVsdCAgKGNyZWVwLCBjb250cm9sbGVyKSA9PiB7XG5cdGlmIChjcmVlcC5tZW1vcnkudXBncmFkaW5nICYmIGNyZWVwLmNhcnJ5LmVuZXJneSA9PSAwKSB7XG5cdFx0Y3JlZXAubWVtb3J5LnVwZ3JhZGluZyA9IGZhbHNlO1xuXHR9XG5cdGlmICghY3JlZXAubWVtb3J5LnVwZ3JhZGluZyAmJiBjcmVlcC5jYXJyeS5lbmVyZ3kgPT0gY3JlZXAuY2FycnlDYXBhY2l0eSkge1xuXHRcdGNyZWVwLm1lbW9yeS51cGdyYWRpbmcgPSB0cnVlO1xuXHRcdGNyZWVwLnNheSgnVVAnKTtcblx0fVxuXG5cdGlmIChjcmVlcC5tZW1vcnkudXBncmFkaW5nKSB7XG5cdFx0KGNyZWVwLnVwZ3JhZGVDb250cm9sbGVyKGNvbnRyb2xsZXIpICE9IE9LKT8gcGF0aEZpbmRlcihjcmVlcCwgY29udHJvbGxlcik6bnVsbDtcblx0fVxuXHRlbHNlIHtcblx0XHRjb25zdCBjYW5XaXRoZHJhdyA9IGNyZWVwLnBvcy5maW5kQ2xvc2VzdEJ5UmFuZ2UoY3JlZXAucm9vbS5tZW1vcnkuc3RydWN0dXJlcy5jYW5XaXRoZHJhdyk7XG5cdFx0KGNhbldpdGhkcmF3ICYmIGNyZWVwLndpdGhkcmF3KGNhbldpdGhkcmF3LFJFU09VUkNFX0VORVJHWSkgIT0gT0spXG5cdFx0XHQ/IHBhdGhGaW5kZXIoY3JlZXAsIGNhbldpdGhkcmF3KSA6IG51bGxcblx0fVxufVxuXG5cblxuXG4vLyBXRUJQQUNLIEZPT1RFUiAvL1xuLy8gLi9zcmMvcm9sZS9fdXBncmFkZXIuanMiXSwic291cmNlUm9vdCI6IiJ9");
+
+
+Object.defineProperty(exports, "__esModule", {
+	value: true
+});
+
+var _task = __webpack_require__(0);
+
+exports.default = function (creep, controller) {
+	if (creep.memory.upgrading && creep.carry.energy == 0) {
+		creep.memory.upgrading = false;
+	}
+	if (!creep.memory.upgrading && creep.carry.energy == creep.carryCapacity) {
+		creep.memory.upgrading = true;
+		creep.say('UP');
+	}
+
+	if (creep.memory.upgrading) {
+		creep.upgradeController(controller) != OK ? (0, _task.pathFinder)(creep, controller) : null;
+	} else {
+		var canWithdraw = creep.pos.findClosestByRange(creep.room.memory.structures.canWithdraw);
+		canWithdraw && creep.withdraw(canWithdraw, RESOURCE_ENERGY) != OK ? (0, _task.pathFinder)(creep, canWithdraw) : null;
+	}
+};
 
 /***/ }),
 /* 27 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-eval("\n\nObject.defineProperty(exports, \"__esModule\", {\n  value: true\n});\n\nvar _harvester = __webpack_require__(24);\n\nObject.defineProperty(exports, 'harvester', {\n  enumerable: true,\n  get: function get() {\n    return _interopRequireDefault(_harvester).default;\n  }\n});\n\nvar _upgrader = __webpack_require__(26);\n\nObject.defineProperty(exports, 'upgrader', {\n  enumerable: true,\n  get: function get() {\n    return _interopRequireDefault(_upgrader).default;\n  }\n});\n\nvar _builder = __webpack_require__(18);\n\nObject.defineProperty(exports, 'builder', {\n  enumerable: true,\n  get: function get() {\n    return _interopRequireDefault(_builder).default;\n  }\n});\n\nvar _miner = __webpack_require__(25);\n\nObject.defineProperty(exports, 'miner', {\n  enumerable: true,\n  get: function get() {\n    return _interopRequireDefault(_miner).default;\n  }\n});\n\nvar _cleaner = __webpack_require__(20);\n\nObject.defineProperty(exports, 'cleaner', {\n  enumerable: true,\n  get: function get() {\n    return _interopRequireDefault(_cleaner).default;\n  }\n});\n\nvar _farBuilder = __webpack_require__(21);\n\nObject.defineProperty(exports, 'farBuilder', {\n  enumerable: true,\n  get: function get() {\n    return _interopRequireDefault(_farBuilder).default;\n  }\n});\n\nvar _farHarvester = __webpack_require__(22);\n\nObject.defineProperty(exports, 'farHarvester', {\n  enumerable: true,\n  get: function get() {\n    return _interopRequireDefault(_farHarvester).default;\n  }\n});\n\nvar _farMiner = __webpack_require__(23);\n\nObject.defineProperty(exports, 'farMiner', {\n  enumerable: true,\n  get: function get() {\n    return _interopRequireDefault(_farMiner).default;\n  }\n});\n\nvar _claim = __webpack_require__(19);\n\nObject.defineProperty(exports, 'claim', {\n  enumerable: true,\n  get: function get() {\n    return _interopRequireDefault(_claim).default;\n  }\n});\n\nfunction _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIndlYnBhY2s6Ly8vLi9zcmMvcm9sZS9pbmRleC5qcz83NmIxIl0sIm5hbWVzIjpbImRlZmF1bHQiXSwibWFwcGluZ3MiOiI7Ozs7Ozs7Ozs7OzhDQUFRQSxPOzs7Ozs7Ozs7NkNBQ0FBLE87Ozs7Ozs7Ozs0Q0FDQUEsTzs7Ozs7Ozs7OzBDQUNBQSxPOzs7Ozs7Ozs7NENBQ0FBLE87Ozs7Ozs7OzsrQ0FFQUEsTzs7Ozs7Ozs7O2lEQUNBQSxPOzs7Ozs7Ozs7NkNBQ0FBLE87Ozs7Ozs7OzswQ0FDQUEsTyIsImZpbGUiOiIyNy5qcyIsInNvdXJjZXNDb250ZW50IjpbImV4cG9ydCB7ZGVmYXVsdCBhcyBoYXJ2ZXN0ZXJ9IGZyb20gJy4vX2hhcnZlc3Rlcic7XG5leHBvcnQge2RlZmF1bHQgYXMgdXBncmFkZXJ9IGZyb20nLi9fdXBncmFkZXInO1xuZXhwb3J0IHtkZWZhdWx0IGFzIGJ1aWxkZXJ9IGZyb20nLi9fYnVpbGRlcic7XG5leHBvcnQge2RlZmF1bHQgYXMgbWluZXJ9IGZyb20nLi9fbWluZXInO1xuZXhwb3J0IHtkZWZhdWx0IGFzIGNsZWFuZXJ9IGZyb20nLi9fY2xlYW5lcic7XG4vLyBmYXJcbmV4cG9ydCB7ZGVmYXVsdCBhcyBmYXJCdWlsZGVyfSBmcm9tICcuL19mYXJCdWlsZGVyJztcbmV4cG9ydCB7ZGVmYXVsdCBhcyBmYXJIYXJ2ZXN0ZXJ9IGZyb20gJy4vX2ZhckhhcnZlc3Rlcic7XG5leHBvcnQge2RlZmF1bHQgYXMgZmFyTWluZXJ9IGZyb20gJy4vX2Zhck1pbmVyJztcbmV4cG9ydCB7ZGVmYXVsdCBhcyBjbGFpbX0gZnJvbSAnLi9fY2xhaW0nO1xuXG5cblxuLy8gV0VCUEFDSyBGT09URVIgLy9cbi8vIC4vc3JjL3JvbGUvaW5kZXguanMiXSwic291cmNlUm9vdCI6IiJ9");
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _harvester = __webpack_require__(24);
+
+Object.defineProperty(exports, 'harvester', {
+  enumerable: true,
+  get: function get() {
+    return _interopRequireDefault(_harvester).default;
+  }
+});
+
+var _upgrader = __webpack_require__(26);
+
+Object.defineProperty(exports, 'upgrader', {
+  enumerable: true,
+  get: function get() {
+    return _interopRequireDefault(_upgrader).default;
+  }
+});
+
+var _builder = __webpack_require__(18);
+
+Object.defineProperty(exports, 'builder', {
+  enumerable: true,
+  get: function get() {
+    return _interopRequireDefault(_builder).default;
+  }
+});
+
+var _miner = __webpack_require__(25);
+
+Object.defineProperty(exports, 'miner', {
+  enumerable: true,
+  get: function get() {
+    return _interopRequireDefault(_miner).default;
+  }
+});
+
+var _cleaner = __webpack_require__(20);
+
+Object.defineProperty(exports, 'cleaner', {
+  enumerable: true,
+  get: function get() {
+    return _interopRequireDefault(_cleaner).default;
+  }
+});
+
+var _farBuilder = __webpack_require__(21);
+
+Object.defineProperty(exports, 'farBuilder', {
+  enumerable: true,
+  get: function get() {
+    return _interopRequireDefault(_farBuilder).default;
+  }
+});
+
+var _farHarvester = __webpack_require__(22);
+
+Object.defineProperty(exports, 'farHarvester', {
+  enumerable: true,
+  get: function get() {
+    return _interopRequireDefault(_farHarvester).default;
+  }
+});
+
+var _farMiner = __webpack_require__(23);
+
+Object.defineProperty(exports, 'farMiner', {
+  enumerable: true,
+  get: function get() {
+    return _interopRequireDefault(_farMiner).default;
+  }
+});
+
+var _claim = __webpack_require__(19);
+
+Object.defineProperty(exports, 'claim', {
+  enumerable: true,
+  get: function get() {
+    return _interopRequireDefault(_claim).default;
+  }
+});
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 /***/ }),
 /* 28 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-eval("\n\nObject.defineProperty(exports, \"__esModule\", {\n\tvalue: true\n});\n\nexports.default = function (spawn, my, config) {\n\tif (spawn.spawning) return;\n\tvar roleFactory = config.role;\n\tvar priority = false;\n\troleFactory.forEach(function (roleType) {\n\t\tvar roleName = roleType.role;\n\t\tvar roleTimeout = roleType.roleTimeout ? roleType.roleTimeout : 10;\n\t\tvar roleMy = my[roleName].sort(function (a, b) {\n\t\t\treturn a.ticksToLive - b.ticksToLive;\n\t\t});\n\t\tvar roleNeardeath = 0;\n\t\troleMy.forEach(function (roleCreep) {\n\t\t\tif (roleCreep && roleCreep.ticksToLive < roleTimeout) roleNeardeath++;\n\t\t});\n\t\tvar roleNumber = roleType.number - (roleMy.length - roleNeardeath);\n\t\tif (roleNumber <= 0 || priority) return;\n\t\tvar spawnName = buildName(roleName);\n\t\tspawn.createCreep(buildBody(roleType.body), spawnName, { role: roleName });\n\t\tif (spawn.spawning) {\n\t\t\tconsole.log('Spawn', spawnName);\n\t\t\tspawn.room.visual.text('[Spawn] ' + spawnName, spawn.pos.x + 1, spawn.pos.y, { align: 'left', opacity: 0.8 });\n\t\t} else {\n\t\t\tpriority = true;\n\t\t}\n\t});\n};\n\nfunction buildName(role) {\n\tvar date = new Date();\n\treturn [role, \"#\", date.getHours(), date.getMinutes(), date.getSeconds()].join('');\n}\n\nfunction buildBody(obj) {\n\tvar array = [];\n\tfor (var key in obj) {\n\t\tfor (var num = 0; num < obj[key]; num++) {\n\t\t\tarray.push(key);\n\t\t}\n\t}\n\treturn array;\n}//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIndlYnBhY2s6Ly8vLi9zcmMvc3RydWN0dXJlL19zcGF3bi5qcz9mZmJlIl0sIm5hbWVzIjpbInNwYXduIiwibXkiLCJjb25maWciLCJzcGF3bmluZyIsInJvbGVGYWN0b3J5Iiwicm9sZSIsInByaW9yaXR5IiwiZm9yRWFjaCIsInJvbGVOYW1lIiwicm9sZVR5cGUiLCJyb2xlVGltZW91dCIsInJvbGVNeSIsInNvcnQiLCJhIiwiYiIsInRpY2tzVG9MaXZlIiwicm9sZU5lYXJkZWF0aCIsInJvbGVDcmVlcCIsInJvbGVOdW1iZXIiLCJudW1iZXIiLCJsZW5ndGgiLCJzcGF3bk5hbWUiLCJidWlsZE5hbWUiLCJjcmVhdGVDcmVlcCIsImJ1aWxkQm9keSIsImJvZHkiLCJjb25zb2xlIiwibG9nIiwicm9vbSIsInZpc3VhbCIsInRleHQiLCJwb3MiLCJ4IiwieSIsImFsaWduIiwib3BhY2l0eSIsImRhdGUiLCJEYXRlIiwiZ2V0SG91cnMiLCJnZXRNaW51dGVzIiwiZ2V0U2Vjb25kcyIsImpvaW4iLCJvYmoiLCJhcnJheSIsImtleSIsIm51bSIsInB1c2giXSwibWFwcGluZ3MiOiI7Ozs7OztrQkFBZSxVQUFDQSxLQUFELEVBQVFDLEVBQVIsRUFBWUMsTUFBWixFQUF1QjtBQUNyQyxLQUFJRixNQUFNRyxRQUFWLEVBQW9CO0FBQ3BCLEtBQU1DLGNBQWNGLE9BQU9HLElBQTNCO0FBQ0EsS0FBSUMsV0FBZ0IsS0FBcEI7QUFDQUYsYUFBWUcsT0FBWixDQUFvQixvQkFBWTtBQUMvQixNQUFNQyxXQUFjQyxTQUFTSixJQUE3QjtBQUNBLE1BQU1LLGNBQWVELFNBQVNDLFdBQVYsR0FBeUJELFNBQVNDLFdBQWxDLEdBQWdELEVBQXBFO0FBQ0EsTUFBTUMsU0FBY1YsR0FBR08sUUFBSCxFQUFhSSxJQUFiLENBQWtCLFVBQUNDLENBQUQsRUFBSUMsQ0FBSjtBQUFBLFVBQVVELEVBQUVFLFdBQUYsR0FBZ0JELEVBQUVDLFdBQTVCO0FBQUEsR0FBbEIsQ0FBcEI7QUFDQSxNQUFJQyxnQkFBZ0IsQ0FBcEI7QUFDQUwsU0FBT0osT0FBUCxDQUFlLHFCQUFhO0FBQzNCLE9BQUlVLGFBQWFBLFVBQVVGLFdBQVYsR0FBd0JMLFdBQXpDLEVBQXNETTtBQUN0RCxHQUZEO0FBR0EsTUFBTUUsYUFBYVQsU0FBU1UsTUFBVCxJQUFtQlIsT0FBT1MsTUFBUCxHQUFnQkosYUFBbkMsQ0FBbkI7QUFDQSxNQUFJRSxjQUFjLENBQWQsSUFBbUJaLFFBQXZCLEVBQWlDO0FBQ2pDLE1BQU1lLFlBQVlDLFVBQVVkLFFBQVYsQ0FBbEI7QUFDQVIsUUFBTXVCLFdBQU4sQ0FBa0JDLFVBQVVmLFNBQVNnQixJQUFuQixDQUFsQixFQUE0Q0osU0FBNUMsRUFBdUQsRUFBQ2hCLE1BQU1HLFFBQVAsRUFBdkQ7QUFDQSxNQUFJUixNQUFNRyxRQUFWLEVBQW9CO0FBQ25CdUIsV0FBUUMsR0FBUixDQUFZLE9BQVosRUFBcUJOLFNBQXJCO0FBQ0FyQixTQUFNNEIsSUFBTixDQUFXQyxNQUFYLENBQWtCQyxJQUFsQixDQUNDLGFBQWFULFNBRGQsRUFFQ3JCLE1BQU0rQixHQUFOLENBQVVDLENBQVYsR0FBYyxDQUZmLEVBR0NoQyxNQUFNK0IsR0FBTixDQUFVRSxDQUhYLEVBSUMsRUFBQ0MsT0FBTyxNQUFSLEVBQWdCQyxTQUFTLEdBQXpCLEVBSkQ7QUFLQSxHQVBELE1BT087QUFDTjdCLGNBQVcsSUFBWDtBQUNBO0FBQ0QsRUF0QkQ7QUF3QkEsQzs7QUFFRCxTQUFTZ0IsU0FBVCxDQUFtQmpCLElBQW5CLEVBQXlCO0FBQ3hCLEtBQU0rQixPQUFPLElBQUlDLElBQUosRUFBYjtBQUNBLFFBQU8sQ0FDTmhDLElBRE0sRUFFTixHQUZNLEVBR04rQixLQUFLRSxRQUFMLEVBSE0sRUFJTkYsS0FBS0csVUFBTCxFQUpNLEVBS05ILEtBQUtJLFVBQUwsRUFMTSxFQU1MQyxJQU5LLENBTUEsRUFOQSxDQUFQO0FBT0E7O0FBRUQsU0FBU2pCLFNBQVQsQ0FBbUJrQixHQUFuQixFQUF3QjtBQUN2QixLQUFJQyxRQUFRLEVBQVo7QUFDQSxNQUFLLElBQUlDLEdBQVQsSUFBZ0JGLEdBQWhCLEVBQXFCO0FBQ3BCLE9BQUssSUFBSUcsTUFBTSxDQUFmLEVBQWtCQSxNQUFNSCxJQUFJRSxHQUFKLENBQXhCLEVBQWtDQyxLQUFsQyxFQUF5QztBQUN4Q0YsU0FBTUcsSUFBTixDQUFXRixHQUFYO0FBQ0E7QUFDRDtBQUNELFFBQU9ELEtBQVA7QUFDQSIsImZpbGUiOiIyOC5qcyIsInNvdXJjZXNDb250ZW50IjpbImV4cG9ydCBkZWZhdWx0IChzcGF3biwgbXksIGNvbmZpZykgPT4ge1xuXHRpZiAoc3Bhd24uc3Bhd25pbmcpIHJldHVybjtcblx0Y29uc3Qgcm9sZUZhY3RvcnkgPSBjb25maWcucm9sZVxuXHRsZXQgcHJpb3JpdHkgICAgICA9IGZhbHNlO1xuXHRyb2xlRmFjdG9yeS5mb3JFYWNoKHJvbGVUeXBlID0+IHtcblx0XHRjb25zdCByb2xlTmFtZSAgICA9IHJvbGVUeXBlLnJvbGU7XG5cdFx0Y29uc3Qgcm9sZVRpbWVvdXQgPSAocm9sZVR5cGUucm9sZVRpbWVvdXQpID8gcm9sZVR5cGUucm9sZVRpbWVvdXQgOiAxMDtcblx0XHRjb25zdCByb2xlTXkgICAgICA9IG15W3JvbGVOYW1lXS5zb3J0KChhLCBiKSA9PiBhLnRpY2tzVG9MaXZlIC0gYi50aWNrc1RvTGl2ZSlcblx0XHRsZXQgcm9sZU5lYXJkZWF0aCA9IDBcblx0XHRyb2xlTXkuZm9yRWFjaChyb2xlQ3JlZXAgPT4ge1xuXHRcdFx0aWYgKHJvbGVDcmVlcCAmJiByb2xlQ3JlZXAudGlja3NUb0xpdmUgPCByb2xlVGltZW91dCkgcm9sZU5lYXJkZWF0aCsrXG5cdFx0fSlcblx0XHRjb25zdCByb2xlTnVtYmVyID0gcm9sZVR5cGUubnVtYmVyIC0gKHJvbGVNeS5sZW5ndGggLSByb2xlTmVhcmRlYXRoKTtcblx0XHRpZiAocm9sZU51bWJlciA8PSAwIHx8IHByaW9yaXR5KSByZXR1cm47XG5cdFx0Y29uc3Qgc3Bhd25OYW1lID0gYnVpbGROYW1lKHJvbGVOYW1lKVxuXHRcdHNwYXduLmNyZWF0ZUNyZWVwKGJ1aWxkQm9keShyb2xlVHlwZS5ib2R5KSwgc3Bhd25OYW1lLCB7cm9sZTogcm9sZU5hbWV9KTtcblx0XHRpZiAoc3Bhd24uc3Bhd25pbmcpIHtcblx0XHRcdGNvbnNvbGUubG9nKCdTcGF3bicsIHNwYXduTmFtZSk7XG5cdFx0XHRzcGF3bi5yb29tLnZpc3VhbC50ZXh0KFxuXHRcdFx0XHQnW1NwYXduXSAnICsgc3Bhd25OYW1lLFxuXHRcdFx0XHRzcGF3bi5wb3MueCArIDEsXG5cdFx0XHRcdHNwYXduLnBvcy55LFxuXHRcdFx0XHR7YWxpZ246ICdsZWZ0Jywgb3BhY2l0eTogMC44fSk7XG5cdFx0fSBlbHNlIHtcblx0XHRcdHByaW9yaXR5ID0gdHJ1ZTtcblx0XHR9XG5cdH0pXG5cbn1cblxuZnVuY3Rpb24gYnVpbGROYW1lKHJvbGUpIHtcblx0Y29uc3QgZGF0ZSA9IG5ldyBEYXRlKCk7XG5cdHJldHVybiBbXG5cdFx0cm9sZSxcblx0XHRcIiNcIixcblx0XHRkYXRlLmdldEhvdXJzKCksXG5cdFx0ZGF0ZS5nZXRNaW51dGVzKCksXG5cdFx0ZGF0ZS5nZXRTZWNvbmRzKClcblx0XS5qb2luKCcnKVxufVxuXG5mdW5jdGlvbiBidWlsZEJvZHkob2JqKSB7XG5cdGxldCBhcnJheSA9IFtdO1xuXHRmb3IgKGxldCBrZXkgaW4gb2JqKSB7XG5cdFx0Zm9yIChsZXQgbnVtID0gMDsgbnVtIDwgb2JqW2tleV07IG51bSsrKSB7XG5cdFx0XHRhcnJheS5wdXNoKGtleSlcblx0XHR9XG5cdH1cblx0cmV0dXJuIGFycmF5O1xufVxuXG5cblxuLy8gV0VCUEFDSyBGT09URVIgLy9cbi8vIC4vc3JjL3N0cnVjdHVyZS9fc3Bhd24uanMiXSwic291cmNlUm9vdCI6IiJ9");
+
+
+Object.defineProperty(exports, "__esModule", {
+	value: true
+});
+
+exports.default = function (spawn, my, config) {
+	if (spawn.spawning) return;
+	var roleFactory = config.role;
+	var priority = false;
+	roleFactory.forEach(function (roleType) {
+		var roleName = roleType.role;
+		var roleTimeout = roleType.roleTimeout ? roleType.roleTimeout : 10;
+		var roleMy = my[roleName].sort(function (a, b) {
+			return a.ticksToLive - b.ticksToLive;
+		});
+		var roleNeardeath = 0;
+		roleMy.forEach(function (roleCreep) {
+			if (roleCreep && roleCreep.ticksToLive < roleTimeout) roleNeardeath++;
+		});
+		var roleNumber = roleType.number - (roleMy.length - roleNeardeath);
+		if (roleNumber <= 0 || priority) return;
+		var spawnName = buildName(roleName);
+		spawn.createCreep(buildBody(roleType.body), spawnName, { role: roleName });
+		if (spawn.spawning) {
+			console.log('Spawn', spawnName);
+			spawn.room.visual.text('[Spawn] ' + spawnName, spawn.pos.x + 1, spawn.pos.y, { align: 'left', opacity: 0.8 });
+		} else {
+			priority = true;
+		}
+	});
+};
+
+function buildName(role) {
+	var date = new Date();
+	return [role, "#", date.getHours(), date.getMinutes(), date.getSeconds()].join('');
+}
+
+function buildBody(obj) {
+	var array = [];
+	for (var key in obj) {
+		for (var num = 0; num < obj[key]; num++) {
+			array.push(key);
+		}
+	}
+	return array;
+}
 
 /***/ }),
 /* 29 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-eval("\n\nObject.defineProperty(exports, \"__esModule\", {\n\tvalue: true\n});\n\nexports.default = function (tower) {\n\tvar needFix = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : [];\n\tvar enemy = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : [];\n\n\tif (enemy.length > 0) {\n\t\ttower.attack(enemy[0]);\n\t} else if (needFix.length > 0) {\n\t\ttower.repair(needFix[0]);\n\t}\n};//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIndlYnBhY2s6Ly8vLi9zcmMvc3RydWN0dXJlL190b3dlci5qcz81ZDhjIl0sIm5hbWVzIjpbInRvd2VyIiwibmVlZEZpeCIsImVuZW15IiwibGVuZ3RoIiwiYXR0YWNrIiwicmVwYWlyIl0sIm1hcHBpbmdzIjoiOzs7Ozs7a0JBQWUsVUFBQ0EsS0FBRCxFQUFxQztBQUFBLEtBQTdCQyxPQUE2Qix1RUFBbkIsRUFBbUI7QUFBQSxLQUFmQyxLQUFlLHVFQUFQLEVBQU87O0FBQ25ELEtBQUlBLE1BQU1DLE1BQU4sR0FBZSxDQUFuQixFQUFzQjtBQUNyQkgsUUFBTUksTUFBTixDQUFhRixNQUFNLENBQU4sQ0FBYjtBQUNBLEVBRkQsTUFFTyxJQUFJRCxRQUFRRSxNQUFSLEdBQWlCLENBQXJCLEVBQXdCO0FBQzlCSCxRQUFNSyxNQUFOLENBQWFKLFFBQVEsQ0FBUixDQUFiO0FBQ0E7QUFDRCxDIiwiZmlsZSI6IjI5LmpzIiwic291cmNlc0NvbnRlbnQiOlsiZXhwb3J0IGRlZmF1bHQgKHRvd2VyLCBuZWVkRml4ID0gW10sIGVuZW15ID0gW10pID0+IHtcblx0aWYgKGVuZW15Lmxlbmd0aCA+IDApIHtcblx0XHR0b3dlci5hdHRhY2soZW5lbXlbMF0pXG5cdH0gZWxzZSBpZiAobmVlZEZpeC5sZW5ndGggPiAwKSB7XG5cdFx0dG93ZXIucmVwYWlyKG5lZWRGaXhbMF0pXG5cdH1cbn1cblxuXG4vLyBXRUJQQUNLIEZPT1RFUiAvL1xuLy8gLi9zcmMvc3RydWN0dXJlL190b3dlci5qcyJdLCJzb3VyY2VSb290IjoiIn0=");
+
+
+Object.defineProperty(exports, "__esModule", {
+	value: true
+});
+
+exports.default = function (tower) {
+	var needFix = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : [];
+	var enemy = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : [];
+
+	if (enemy.length > 0) {
+		tower.attack(enemy[0]);
+	} else if (needFix.length > 0) {
+		tower.repair(needFix[0]);
+	}
+};
 
 /***/ }),
 /* 30 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-eval("\n\nObject.defineProperty(exports, \"__esModule\", {\n  value: true\n});\n\nvar _tower = __webpack_require__(29);\n\nObject.defineProperty(exports, \"tower\", {\n  enumerable: true,\n  get: function get() {\n    return _interopRequireDefault(_tower).default;\n  }\n});\n\nvar _spawn = __webpack_require__(28);\n\nObject.defineProperty(exports, \"spawn\", {\n  enumerable: true,\n  get: function get() {\n    return _interopRequireDefault(_spawn).default;\n  }\n});\n\nfunction _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIndlYnBhY2s6Ly8vLi9zcmMvc3RydWN0dXJlL2luZGV4LmpzP2NhMGQiXSwibmFtZXMiOlsiZGVmYXVsdCJdLCJtYXBwaW5ncyI6Ijs7Ozs7Ozs7Ozs7MENBQVFBLE87Ozs7Ozs7OzswQ0FDQUEsTyIsImZpbGUiOiIzMC5qcyIsInNvdXJjZXNDb250ZW50IjpbImV4cG9ydCB7ZGVmYXVsdCBhcyB0b3dlcn0gZnJvbSBcIi4vX3Rvd2VyXCJcbmV4cG9ydCB7ZGVmYXVsdCBhcyBzcGF3bn0gZnJvbSBcIi4vX3NwYXduXCJcblxuXG4vLyBXRUJQQUNLIEZPT1RFUiAvL1xuLy8gLi9zcmMvc3RydWN0dXJlL2luZGV4LmpzIl0sInNvdXJjZVJvb3QiOiIifQ==");
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _tower = __webpack_require__(29);
+
+Object.defineProperty(exports, "tower", {
+  enumerable: true,
+  get: function get() {
+    return _interopRequireDefault(_tower).default;
+  }
+});
+
+var _spawn = __webpack_require__(28);
+
+Object.defineProperty(exports, "spawn", {
+  enumerable: true,
+  get: function get() {
+    return _interopRequireDefault(_spawn).default;
+  }
+});
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 /***/ }),
 /* 31 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-eval("\n\nObject.defineProperty(exports, \"__esModule\", {\n    value: true\n});\n\nvar _task = __webpack_require__(0);\n\nvar taskFindMiner = function taskFindMiner(creep) {\n    var target = void 0;\n\n    if (creep.memory.role == \"builder\") {\n        target = creep.pos.findClosestByPath(FIND_STRUCTURES, {\n            filter: function filter(structure) {\n                return structure.structureType == (STRUCTURE_STORAGE || STRUCTURE_CONTAINER) && structure.store[\"energy\"] > 0;\n            }\n        });\n    } else if (creep.memory.role == 'upgrader') {\n        target = Game.getObjectById('58d151fe1b3da0c326b1385b');\n    } else {\n        target = creep.pos.findClosestByPath(FIND_STRUCTURES, {\n            filter: function filter(structure) {\n                return structure.structureType == STRUCTURE_CONTAINER && structure.store[\"energy\"] > 0 && structure.id != '58d151fe1b3da0c326b1385b';\n            }\n        });\n    }\n\n    if (creep.withdraw(target, RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {\n        (0, _task.pathFinder)(creep, target);\n    }\n};\n\nexports.default = taskFindMiner;//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIndlYnBhY2s6Ly8vLi9zcmMvdGFzay9fZmluZE1pbmVyLmpzPzdkZTkiXSwibmFtZXMiOlsidGFza0ZpbmRNaW5lciIsImNyZWVwIiwidGFyZ2V0IiwibWVtb3J5Iiwicm9sZSIsInBvcyIsImZpbmRDbG9zZXN0QnlQYXRoIiwiRklORF9TVFJVQ1RVUkVTIiwiZmlsdGVyIiwic3RydWN0dXJlIiwic3RydWN0dXJlVHlwZSIsIlNUUlVDVFVSRV9TVE9SQUdFIiwiU1RSVUNUVVJFX0NPTlRBSU5FUiIsInN0b3JlIiwiR2FtZSIsImdldE9iamVjdEJ5SWQiLCJpZCIsIndpdGhkcmF3IiwiUkVTT1VSQ0VfRU5FUkdZIiwiRVJSX05PVF9JTl9SQU5HRSJdLCJtYXBwaW5ncyI6Ijs7Ozs7O0FBQUE7O0FBQ0EsSUFBTUEsZ0JBQWdCLFNBQWhCQSxhQUFnQixDQUFDQyxLQUFELEVBQVc7QUFDN0IsUUFBSUMsZUFBSjs7QUFFQSxRQUFJRCxNQUFNRSxNQUFOLENBQWFDLElBQWIsSUFBcUIsU0FBekIsRUFBb0M7QUFDaENGLGlCQUFTRCxNQUFNSSxHQUFOLENBQVVDLGlCQUFWLENBQTRCQyxlQUE1QixFQUE2QztBQUNsREMsb0JBQVE7QUFBQSx1QkFDUEMsVUFBVUMsYUFBVixLQUE0QkMscUJBQXFCQyxtQkFBakQsQ0FBRCxJQUNBSCxVQUFVSSxLQUFWLENBQWdCLFFBQWhCLElBQTRCLENBRnBCO0FBQUE7QUFEMEMsU0FBN0MsQ0FBVDtBQUtILEtBTkQsTUFNTyxJQUFJWixNQUFNRSxNQUFOLENBQWFDLElBQWIsSUFBcUIsVUFBekIsRUFBc0M7QUFDekNGLGlCQUFTWSxLQUFLQyxhQUFMLENBQW1CLDBCQUFuQixDQUFUO0FBQ0gsS0FGTSxNQUVBO0FBQ0hiLGlCQUFTRCxNQUFNSSxHQUFOLENBQVVDLGlCQUFWLENBQTRCQyxlQUE1QixFQUE2QztBQUNsREMsb0JBQVE7QUFBQSx1QkFDUkMsVUFBVUMsYUFBVixJQUEyQkUsbUJBQTNCLElBQ0FILFVBQVVJLEtBQVYsQ0FBZ0IsUUFBaEIsSUFBNEIsQ0FENUIsSUFFQUosVUFBVU8sRUFBVixJQUFnQiwwQkFIUjtBQUFBO0FBRDBDLFNBQTdDLENBQVQ7QUFNSDs7QUFFRCxRQUFJZixNQUFNZ0IsUUFBTixDQUFlZixNQUFmLEVBQXVCZ0IsZUFBdkIsS0FBMkNDLGdCQUEvQyxFQUFpRTtBQUM3RCw4QkFBV2xCLEtBQVgsRUFBa0JDLE1BQWxCO0FBQ0g7QUFDSixDQXZCRDs7a0JBeUJlRixhIiwiZmlsZSI6IjMxLmpzIiwic291cmNlc0NvbnRlbnQiOlsiaW1wb3J0IHsgcGF0aEZpbmRlciB9IGZyb20gJy4uL3Rhc2snXG5jb25zdCB0YXNrRmluZE1pbmVyID0gKGNyZWVwKSA9PiB7XG4gICAgbGV0IHRhcmdldDtcblxuICAgIGlmIChjcmVlcC5tZW1vcnkucm9sZSA9PSBcImJ1aWxkZXJcIikge1xuICAgICAgICB0YXJnZXQgPSBjcmVlcC5wb3MuZmluZENsb3Nlc3RCeVBhdGgoRklORF9TVFJVQ1RVUkVTLCB7XG4gICAgICAgICAgICBmaWx0ZXI6IHN0cnVjdHVyZSA9PiAoXG4gICAgICAgICAgICAoc3RydWN0dXJlLnN0cnVjdHVyZVR5cGUgPT0gKFNUUlVDVFVSRV9TVE9SQUdFIHx8IFNUUlVDVFVSRV9DT05UQUlORVIpICkgJiZcbiAgICAgICAgICAgIHN0cnVjdHVyZS5zdG9yZVtcImVuZXJneVwiXSA+IDApXG4gICAgICAgIH0pXG4gICAgfSBlbHNlIGlmIChjcmVlcC5tZW1vcnkucm9sZSA9PSAndXBncmFkZXInICkge1xuICAgICAgICB0YXJnZXQgPSBHYW1lLmdldE9iamVjdEJ5SWQoJzU4ZDE1MWZlMWIzZGEwYzMyNmIxMzg1YicpXG4gICAgfSBlbHNlIHtcbiAgICAgICAgdGFyZ2V0ID0gY3JlZXAucG9zLmZpbmRDbG9zZXN0QnlQYXRoKEZJTkRfU1RSVUNUVVJFUywge1xuICAgICAgICAgICAgZmlsdGVyOiBzdHJ1Y3R1cmUgPT4gKFxuICAgICAgICAgICAgc3RydWN0dXJlLnN0cnVjdHVyZVR5cGUgPT0gU1RSVUNUVVJFX0NPTlRBSU5FUiAmJlxuICAgICAgICAgICAgc3RydWN0dXJlLnN0b3JlW1wiZW5lcmd5XCJdID4gMCAmJlxuICAgICAgICAgICAgc3RydWN0dXJlLmlkICE9ICc1OGQxNTFmZTFiM2RhMGMzMjZiMTM4NWInKVxuICAgICAgICB9KVxuICAgIH1cblxuICAgIGlmIChjcmVlcC53aXRoZHJhdyh0YXJnZXQsIFJFU09VUkNFX0VORVJHWSkgPT0gRVJSX05PVF9JTl9SQU5HRSkge1xuICAgICAgICBwYXRoRmluZGVyKGNyZWVwLCB0YXJnZXQpXG4gICAgfVxufVxuXG5leHBvcnQgZGVmYXVsdCB0YXNrRmluZE1pbmVyO1xuXG5cbi8vIFdFQlBBQ0sgRk9PVEVSIC8vXG4vLyAuL3NyYy90YXNrL19maW5kTWluZXIuanMiXSwic291cmNlUm9vdCI6IiJ9");
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _task = __webpack_require__(0);
+
+var taskFindMiner = function taskFindMiner(creep) {
+    var target = void 0;
+
+    if (creep.memory.role == "builder") {
+        target = creep.pos.findClosestByPath(FIND_STRUCTURES, {
+            filter: function filter(structure) {
+                return structure.structureType == (STRUCTURE_STORAGE || STRUCTURE_CONTAINER) && structure.store["energy"] > 0;
+            }
+        });
+    } else if (creep.memory.role == 'upgrader') {
+        target = Game.getObjectById('58d151fe1b3da0c326b1385b');
+    } else {
+        target = creep.pos.findClosestByPath(FIND_STRUCTURES, {
+            filter: function filter(structure) {
+                return structure.structureType == STRUCTURE_CONTAINER && structure.store["energy"] > 0 && structure.id != '58d151fe1b3da0c326b1385b';
+            }
+        });
+    }
+
+    if (creep.withdraw(target, RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
+        (0, _task.pathFinder)(creep, target);
+    }
+};
+
+exports.default = taskFindMiner;
 
 /***/ }),
 /* 32 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-eval("\n\nObject.defineProperty(exports, \"__esModule\", {\n    value: true\n});\n\nvar _container = __webpack_require__(1);\n\nvar _container2 = _interopRequireDefault(_container);\n\nvar _task = __webpack_require__(0);\n\nfunction _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }\n\nexports.default = function (creep) {\n    \"use strict\";\n\n    var targets = creep.pos.findClosestByPath(FIND_STRUCTURES, {\n        filter: function filter(structure) {\n            return (structure.structureType == STRUCTURE_EXTENSION || structure.structureType == STRUCTURE_SPAWN || structure.structureType == STRUCTURE_TOWER) && structure.energy < structure.energyCapacity;\n        }\n    });\n\n    if (targets) {\n        creep.transfer(targets, RESOURCE_ENERGY) == ERR_NOT_IN_RANGE ? (0, _task.pathFinder)(creep, targets) : null;\n    } else {\n        var targetsBuild = creep.room.memory.constructionSites;\n        if (creep.role != \"builder\" && targetsBuild.length > 0) {\n            var builderTargets = creep.pos.findInRange(FIND_MY_CREEPS, 5, { filter: function filter(creep) {\n                    return creep.role == \"builder\" && creep.carry['energy'] < creep.carryCapacity;\n                } })[0];\n            builderTargets && creep.transfer(builderTargets, RESOURCE_ENERGY) == ERR_NOT_IN_RANGE ? (0, _task.pathFinder)(creep, builderTargets) : null;\n        } else {\n            (0, _container2.default)(creep);\n        }\n    }\n};//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIndlYnBhY2s6Ly8vLi9zcmMvdGFzay9faGFydmVzdGVyLmpzPzIyZmUiXSwibmFtZXMiOlsiY3JlZXAiLCJ0YXJnZXRzIiwicG9zIiwiZmluZENsb3Nlc3RCeVBhdGgiLCJGSU5EX1NUUlVDVFVSRVMiLCJmaWx0ZXIiLCJzdHJ1Y3R1cmUiLCJzdHJ1Y3R1cmVUeXBlIiwiU1RSVUNUVVJFX0VYVEVOU0lPTiIsIlNUUlVDVFVSRV9TUEFXTiIsIlNUUlVDVFVSRV9UT1dFUiIsImVuZXJneSIsImVuZXJneUNhcGFjaXR5IiwidHJhbnNmZXIiLCJSRVNPVVJDRV9FTkVSR1kiLCJFUlJfTk9UX0lOX1JBTkdFIiwidGFyZ2V0c0J1aWxkIiwicm9vbSIsIm1lbW9yeSIsImNvbnN0cnVjdGlvblNpdGVzIiwicm9sZSIsImxlbmd0aCIsImJ1aWxkZXJUYXJnZXRzIiwiZmluZEluUmFuZ2UiLCJGSU5EX01ZX0NSRUVQUyIsImNhcnJ5IiwiY2FycnlDYXBhY2l0eSJdLCJtYXBwaW5ncyI6Ijs7Ozs7O0FBQUE7Ozs7QUFDQTs7OztrQkFDZSxVQUFDQSxLQUFELEVBQVc7QUFDdEI7O0FBQ0EsUUFBTUMsVUFBVUQsTUFBTUUsR0FBTixDQUFVQyxpQkFBVixDQUE0QkMsZUFBNUIsRUFBNkM7QUFDekRDLGdCQUFRO0FBQUEsbUJBQWEsQ0FDakJDLFVBQVVDLGFBQVYsSUFBMkJDLG1CQUEzQixJQUNBRixVQUFVQyxhQUFWLElBQTJCRSxlQUQzQixJQUVBSCxVQUFVQyxhQUFWLElBQTJCRyxlQUhWLEtBSWhCSixVQUFVSyxNQUFWLEdBQW1CTCxVQUFVTSxjQUoxQjtBQUFBO0FBRGlELEtBQTdDLENBQWhCOztBQVFBLFFBQUlYLE9BQUosRUFBYTtBQUNSRCxjQUFNYSxRQUFOLENBQWVaLE9BQWYsRUFBd0JhLGVBQXhCLEtBQTRDQyxnQkFBN0MsR0FDTSxzQkFBV2YsS0FBWCxFQUFpQkMsT0FBakIsQ0FETixHQUVNLElBRk47QUFHSCxLQUpELE1BSU87QUFDSCxZQUFNZSxlQUFlaEIsTUFBTWlCLElBQU4sQ0FBV0MsTUFBWCxDQUFrQkMsaUJBQXZDO0FBQ0EsWUFBSW5CLE1BQU1vQixJQUFOLElBQWMsU0FBZCxJQUEyQkosYUFBYUssTUFBYixHQUFzQixDQUFyRCxFQUF1RDtBQUNwRCxnQkFBTUMsaUJBQWtCdEIsTUFBTUUsR0FBTixDQUFVcUIsV0FBVixDQUFzQkMsY0FBdEIsRUFBcUMsQ0FBckMsRUFBdUMsRUFBQ25CLFFBQU87QUFBQSwyQkFBU0wsTUFBTW9CLElBQU4sSUFBYSxTQUFiLElBQTBCcEIsTUFBTXlCLEtBQU4sQ0FBWSxRQUFaLElBQXdCekIsTUFBTTBCLGFBQWpFO0FBQUEsaUJBQVIsRUFBdkMsRUFBZ0ksQ0FBaEksQ0FBeEI7QUFDRUosOEJBQWtCdEIsTUFBTWEsUUFBTixDQUFlUyxjQUFmLEVBQStCUixlQUEvQixLQUFtREMsZ0JBQXRFLEdBQ0ksc0JBQVdmLEtBQVgsRUFBaUJzQixjQUFqQixDQURKLEdBQ3VDLElBRHZDO0FBRUgsU0FKRCxNQUlPO0FBQ0gscUNBQWN0QixLQUFkO0FBQ0g7QUFFSjtBQUNKLEMiLCJmaWxlIjoiMzIuanMiLCJzb3VyY2VzQ29udGVudCI6WyJpbXBvcnQgdGFza0NvbnRhaW5lciBmcm9tICcuL19jb250YWluZXInXG5pbXBvcnQge3BhdGhGaW5kZXJ9IGZyb20gJy4uL3Rhc2snXG5leHBvcnQgZGVmYXVsdCAoY3JlZXApID0+IHtcbiAgICBcInVzZSBzdHJpY3RcIjtcbiAgICBjb25zdCB0YXJnZXRzID0gY3JlZXAucG9zLmZpbmRDbG9zZXN0QnlQYXRoKEZJTkRfU1RSVUNUVVJFUywge1xuICAgICAgICBmaWx0ZXI6IHN0cnVjdHVyZSA9PiAoXG4gICAgICAgICAgICBzdHJ1Y3R1cmUuc3RydWN0dXJlVHlwZSA9PSBTVFJVQ1RVUkVfRVhURU5TSU9OIHx8XG4gICAgICAgICAgICBzdHJ1Y3R1cmUuc3RydWN0dXJlVHlwZSA9PSBTVFJVQ1RVUkVfU1BBV04gfHxcbiAgICAgICAgICAgIHN0cnVjdHVyZS5zdHJ1Y3R1cmVUeXBlID09IFNUUlVDVFVSRV9UT1dFUlxuICAgICAgICApICYmIHN0cnVjdHVyZS5lbmVyZ3kgPCBzdHJ1Y3R1cmUuZW5lcmd5Q2FwYWNpdHlcbiAgICB9KVxuXG4gICAgaWYgKHRhcmdldHMpIHtcbiAgICAgICAgKGNyZWVwLnRyYW5zZmVyKHRhcmdldHMsIFJFU09VUkNFX0VORVJHWSkgPT0gRVJSX05PVF9JTl9SQU5HRSlcbiAgICAgICAgICAgID8gcGF0aEZpbmRlcihjcmVlcCx0YXJnZXRzKVxuICAgICAgICAgICAgOiBudWxsO1xuICAgIH0gZWxzZSB7XG4gICAgICAgIGNvbnN0IHRhcmdldHNCdWlsZCA9IGNyZWVwLnJvb20ubWVtb3J5LmNvbnN0cnVjdGlvblNpdGVzO1xuICAgICAgICBpZiAoY3JlZXAucm9sZSAhPSBcImJ1aWxkZXJcIiAmJiB0YXJnZXRzQnVpbGQubGVuZ3RoID4gMCl7XG4gICAgICAgICAgIGNvbnN0IGJ1aWxkZXJUYXJnZXRzID0gIGNyZWVwLnBvcy5maW5kSW5SYW5nZShGSU5EX01ZX0NSRUVQUyw1LHtmaWx0ZXI6Y3JlZXAgPT4gY3JlZXAucm9sZSA9PVwiYnVpbGRlclwiICYmIGNyZWVwLmNhcnJ5WydlbmVyZ3knXSA8IGNyZWVwLmNhcnJ5Q2FwYWNpdHl9KVswXTtcbiAgICAgICAgICAgIChidWlsZGVyVGFyZ2V0cyAmJiBjcmVlcC50cmFuc2ZlcihidWlsZGVyVGFyZ2V0cywgUkVTT1VSQ0VfRU5FUkdZKSA9PSBFUlJfTk9UX0lOX1JBTkdFKSA/XG4gICAgICAgICAgICAgICAgcGF0aEZpbmRlcihjcmVlcCxidWlsZGVyVGFyZ2V0cykgOiBudWxsXG4gICAgICAgIH0gZWxzZSB7XG4gICAgICAgICAgICB0YXNrQ29udGFpbmVyKGNyZWVwKVxuICAgICAgICB9XG5cbiAgICB9XG59XG5cblxuLy8gV0VCUEFDSyBGT09URVIgLy9cbi8vIC4vc3JjL3Rhc2svX2hhcnZlc3Rlci5qcyJdLCJzb3VyY2VSb290IjoiIn0=");
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _container = __webpack_require__(1);
+
+var _container2 = _interopRequireDefault(_container);
+
+var _task = __webpack_require__(0);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+exports.default = function (creep) {
+    "use strict";
+
+    var targets = creep.pos.findClosestByPath(FIND_STRUCTURES, {
+        filter: function filter(structure) {
+            return (structure.structureType == STRUCTURE_EXTENSION || structure.structureType == STRUCTURE_SPAWN || structure.structureType == STRUCTURE_TOWER) && structure.energy < structure.energyCapacity;
+        }
+    });
+
+    if (targets) {
+        creep.transfer(targets, RESOURCE_ENERGY) == ERR_NOT_IN_RANGE ? (0, _task.pathFinder)(creep, targets) : null;
+    } else {
+        var targetsBuild = creep.room.memory.constructionSites;
+        if (creep.role != "builder" && targetsBuild.length > 0) {
+            var builderTargets = creep.pos.findInRange(FIND_MY_CREEPS, 5, { filter: function filter(creep) {
+                    return creep.role == "builder" && creep.carry['energy'] < creep.carryCapacity;
+                } })[0];
+            builderTargets && creep.transfer(builderTargets, RESOURCE_ENERGY) == ERR_NOT_IN_RANGE ? (0, _task.pathFinder)(creep, builderTargets) : null;
+        } else {
+            (0, _container2.default)(creep);
+        }
+    }
+};
 
 /***/ }),
 /* 33 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-eval("\n\nObject.defineProperty(exports, \"__esModule\", {\n\tvalue: true\n});\n\nexports.default = function (creep, target) {\n\tvar color = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : '#ffffff';\n\n\tif (creep.fatigue > 0) return;\n\tcreep.moveTo(target, {\n\t\treusePath: 12,\n\t\tserializeMemory: true,\n\t\tvisualizePathStyle: { stroke: color }\n\t});\n};//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIndlYnBhY2s6Ly8vLi9zcmMvdGFzay9fcGF0aEZpbmRlci5qcz84NTMzIl0sIm5hbWVzIjpbImNyZWVwIiwidGFyZ2V0IiwiY29sb3IiLCJmYXRpZ3VlIiwibW92ZVRvIiwicmV1c2VQYXRoIiwic2VyaWFsaXplTWVtb3J5IiwidmlzdWFsaXplUGF0aFN0eWxlIiwic3Ryb2tlIl0sIm1hcHBpbmdzIjoiOzs7Ozs7a0JBQWUsVUFBQ0EsS0FBRCxFQUFRQyxNQUFSLEVBQXNDO0FBQUEsS0FBdEJDLEtBQXNCLHVFQUFkLFNBQWM7O0FBQ3BELEtBQUlGLE1BQU1HLE9BQU4sR0FBZ0IsQ0FBcEIsRUFBdUI7QUFDdkJILE9BQU1JLE1BQU4sQ0FBYUgsTUFBYixFQUFxQjtBQUNwQkksYUFBb0IsRUFEQTtBQUVwQkMsbUJBQW9CLElBRkE7QUFHcEJDLHNCQUFvQixFQUFDQyxRQUFRTixLQUFUO0FBSEEsRUFBckI7QUFLQSxDIiwiZmlsZSI6IjMzLmpzIiwic291cmNlc0NvbnRlbnQiOlsiZXhwb3J0IGRlZmF1bHQgKGNyZWVwLCB0YXJnZXQsIGNvbG9yID0gJyNmZmZmZmYnKSA9PiB7XG5cdGlmIChjcmVlcC5mYXRpZ3VlID4gMCkgcmV0dXJuO1xuXHRjcmVlcC5tb3ZlVG8odGFyZ2V0LCB7XG5cdFx0cmV1c2VQYXRoICAgICAgICAgOiAxMixcblx0XHRzZXJpYWxpemVNZW1vcnkgICA6IHRydWUsXG5cdFx0dmlzdWFsaXplUGF0aFN0eWxlOiB7c3Ryb2tlOiBjb2xvcn1cblx0fSlcbn1cblxuXG5cblxuXG4vLyBXRUJQQUNLIEZPT1RFUiAvL1xuLy8gLi9zcmMvdGFzay9fcGF0aEZpbmRlci5qcyJdLCJzb3VyY2VSb290IjoiIn0=");
+
+
+Object.defineProperty(exports, "__esModule", {
+	value: true
+});
+
+exports.default = function (creep, target) {
+	var color = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : '#ffffff';
+
+	if (creep.fatigue > 0) return;
+	creep.moveTo(target, {
+		reusePath: 12,
+		serializeMemory: true,
+		visualizePathStyle: { stroke: color }
+	});
+};
 
 /***/ }),
 /* 34 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-eval("\n\n__webpack_require__(2);\n\nvar _manager = __webpack_require__(3);\n\nvar Manager = _interopRequireWildcard(_manager);\n\nfunction _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }\n\nmodule.exports.loop = function () {\n\tvar rooms = ['W81S67', 'W81S66'];\n\t// start\n\tManager.root();\n\tManager.memory(rooms);\n\tManager.role(rooms);\n\tManager.structure(rooms);\n};//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIndlYnBhY2s6Ly8vLi9zcmMvbWFpbi5qcz8zNDc5Il0sIm5hbWVzIjpbIk1hbmFnZXIiLCJtb2R1bGUiLCJleHBvcnRzIiwibG9vcCIsInJvb21zIiwicm9vdCIsIm1lbW9yeSIsInJvbGUiLCJzdHJ1Y3R1cmUiXSwibWFwcGluZ3MiOiI7O0FBQUE7O0FBQ0E7O0lBQVlBLE87Ozs7QUFFWkMsT0FBT0MsT0FBUCxDQUFlQyxJQUFmLEdBQXNCLFlBQU07QUFDM0IsS0FBTUMsUUFBYSxDQUFDLFFBQUQsRUFBVyxRQUFYLENBQW5CO0FBQ0E7QUFDQUosU0FBUUssSUFBUjtBQUNBTCxTQUFRTSxNQUFSLENBQWVGLEtBQWY7QUFDQUosU0FBUU8sSUFBUixDQUFhSCxLQUFiO0FBQ0FKLFNBQVFRLFNBQVIsQ0FBa0JKLEtBQWxCO0FBQ0EsQ0FQRCIsImZpbGUiOiIzNC5qcyIsInNvdXJjZXNDb250ZW50IjpbImltcG9ydCAnc2NyZWVwcy1wZXJmJztcbmltcG9ydCAqIGFzIE1hbmFnZXIgZnJvbSAnLi9tYW5hZ2VyJ1xuXG5tb2R1bGUuZXhwb3J0cy5sb29wID0gKCkgPT4ge1xuXHRjb25zdCByb29tcyAgICAgID0gWydXODFTNjcnLCAnVzgxUzY2J107XG5cdC8vIHN0YXJ0XG5cdE1hbmFnZXIucm9vdCgpXG5cdE1hbmFnZXIubWVtb3J5KHJvb21zKVxuXHRNYW5hZ2VyLnJvbGUocm9vbXMpXG5cdE1hbmFnZXIuc3RydWN0dXJlKHJvb21zKVxufVxuXG5cblxuXG4vLyBXRUJQQUNLIEZPT1RFUiAvL1xuLy8gLi9zcmMvbWFpbi5qcyJdLCJzb3VyY2VSb290IjoiIn0=");
+
+
+__webpack_require__(2);
+
+var _manager = __webpack_require__(3);
+
+var Manager = _interopRequireWildcard(_manager);
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+
+module.exports.loop = function () {
+	var rooms = ['W81S67', 'W81S66'];
+	// start
+	Manager.root();
+	Manager.memory(rooms);
+	Manager.role(rooms);
+	Manager.structure(rooms);
+};
 
 /***/ })
 /******/ ]);
+//# sourceMappingURL=main.js.map

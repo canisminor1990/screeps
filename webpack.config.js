@@ -6,7 +6,7 @@ module.exports = {
 		filename     : '[name].js',
 		libraryTarget: 'commonjs2',
 	},
-	devtool: 'eval-source-map',
+	devtool: 'source-map',
 	module : {
 		loaders: [
 			{
