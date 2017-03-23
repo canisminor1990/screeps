@@ -3,15 +3,16 @@ export default (creep, target, fc, text) => {
 	switch (fc) {
 		case OK:
 			if (text) creep.say(text, {public: true});
+			return true;
 			break;
 		case ERR_NOT_OWNER             :
 			creep.say(text + "OWNER");
 			break;
 		case ERR_NO_PATH               :
-			creep.say(text + "NO_PATH");
+			creep.say(text + "PATH");
 			break;
 		case ERR_NAME_EXISTS           :
-			creep.say(text + "NAME_EXISTS");
+			creep.say(text + "NAME");
 			break;
 		case ERR_BUSY                  :
 			creep.say(text + "BUSY");
@@ -32,7 +33,8 @@ export default (creep, target, fc, text) => {
 			creep.say(text + "FULL");
 			break;
 		case ERR_NOT_IN_RANGE          :
-			pathFinder(creep, target)
+			pathFinder(creep, target);
+			return true;
 			break;
 		case ERR_INVALID_ARGS          :
 			creep.say(text + "ARGS");
@@ -44,7 +46,7 @@ export default (creep, target, fc, text) => {
 			creep.say(text + "BODYPART");
 			break;
 		case ERR_NOT_ENOUGH_EXTENSIONS :
-			creep.say(text + "ENOUGH_EXTENSIONS");
+			creep.say(text + "EXTENSIONS");
 			break;
 		case ERR_RCL_NOT_ENOUGH        :
 			creep.say(text + "RCL");

@@ -7,6 +7,5 @@ export default (creep, rawTarget) => {
 		if (target.length == 0) return false;
 		target = target[0];
 	}
-	action(creep, target, creep.repair(target), emoji.repair);
-	return true;
+	if(action(creep, target, creep.repair(target), emoji.repair)) return true;
 }

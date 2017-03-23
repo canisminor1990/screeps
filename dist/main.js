@@ -506,15 +506,16 @@ exports.default = function (creep, target, fc, text) {
 	switch (fc) {
 		case OK:
 			if (text) creep.say(text, { public: true });
+			return true;
 			break;
 		case ERR_NOT_OWNER:
 			creep.say(text + "OWNER");
 			break;
 		case ERR_NO_PATH:
-			creep.say(text + "NO_PATH");
+			creep.say(text + "PATH");
 			break;
 		case ERR_NAME_EXISTS:
-			creep.say(text + "NAME_EXISTS");
+			creep.say(text + "NAME");
 			break;
 		case ERR_BUSY:
 			creep.say(text + "BUSY");
@@ -536,6 +537,7 @@ exports.default = function (creep, target, fc, text) {
 			break;
 		case ERR_NOT_IN_RANGE:
 			(0, _task.pathFinder)(creep, target);
+			return true;
 			break;
 		case ERR_INVALID_ARGS:
 			creep.say(text + "ARGS");
@@ -547,7 +549,7 @@ exports.default = function (creep, target, fc, text) {
 			creep.say(text + "BODYPART");
 			break;
 		case ERR_NOT_ENOUGH_EXTENSIONS:
-			creep.say(text + "ENOUGH_EXTENSIONS");
+			creep.say(text + "EXTENSIONS");
 			break;
 		case ERR_RCL_NOT_ENOUGH:
 			creep.say(text + "RCL");
@@ -675,8 +677,7 @@ exports.default = function (creep, rawTarget) {
 		if (target.length == 0) return false;
 		target = target[0];
 	}
-	(0, _util.action)(creep, target, creep.attack(target), _util.emoji.attack);
-	return true;
+	if ((0, _util.action)(creep, target, creep.attack(target), _util.emoji.attack)) return true;
 };
 
 /***/ }),
@@ -700,8 +701,7 @@ exports.default = function (creep, rawTarget) {
 		if (target.length == 0) return false;
 		target = target[0];
 	}
-	(0, _util.action)(creep, target, creep.build(target), _util.emoji.build);
-	return true;
+	if ((0, _util.action)(creep, target, creep.build(target), _util.emoji.build)) return true;
 };
 
 /***/ }),
@@ -725,8 +725,7 @@ exports.default = function (creep, rawTarget) {
 		if (target.length == 0) return false;
 		target = target[0];
 	}
-	(0, _util.action)(creep, target, creep.reserveController(target), _util.emoji.claim);
-	return true;
+	if ((0, _util.action)(creep, target, creep.reserveController(target), _util.emoji.claim)) return true;
 };
 
 /***/ }),
@@ -750,8 +749,7 @@ exports.default = function (creep, rawTarget) {
 		if (target.length == 0) return false;
 		target = target[0];
 	}
-	(0, _util.action)(creep, target, creep.dismantle(target), _util.emoji.dismantle);
-	return true;
+	if ((0, _util.action)(creep, target, creep.dismantle(target), _util.emoji.dismantle)) return true;
 };
 
 /***/ }),
@@ -775,8 +773,7 @@ exports.default = function (creep, rawTarget) {
 		if (target.length == 0) return false;
 		target = target[0];
 	}
-	(0, _util.action)(creep, target, creep.harvest(target), _util.emoji.harvest);
-	return true;
+	if ((0, _util.action)(creep, target, creep.harvest(target), _util.emoji.harvest)) return true;
 };
 
 /***/ }),
@@ -800,8 +797,7 @@ exports.default = function (creep, rawTarget) {
 		if (target.length == 0) return false;
 		target = target[0];
 	}
-	(0, _util.action)(creep, target, creep.heal(target), _util.emoji.heal);
-	return true;
+	if ((0, _util.action)(creep, target, creep.heal(target), _util.emoji.heal)) return true;
 };
 
 /***/ }),
@@ -825,8 +821,7 @@ exports.default = function (creep, rawTarget) {
 		if (target.length == 0) return false;
 		target = target[0];
 	}
-	(0, _util.action)(creep, target, creep.pickup(target), _util.emoji.pickup);
-	return true;
+	if ((0, _util.action)(creep, target, creep.pickup(target), _util.emoji.pickup)) return true;
 };
 
 /***/ }),
@@ -850,8 +845,7 @@ exports.default = function (creep, rawTarget) {
 		if (target.length == 0) return false;
 		target = target[0];
 	}
-	(0, _util.action)(creep, target, creep.repair(target), _util.emoji.repair);
-	return true;
+	if ((0, _util.action)(creep, target, creep.repair(target), _util.emoji.repair)) return true;
 };
 
 /***/ }),
@@ -878,8 +872,7 @@ exports.default = function (creep, rawTarget) {
 		target = target[0];
 	};
 
-	(0, _util.action)(creep, target, creep.transfer(target, RESOURCE_ENERGY), _util.emoji.transfer);
-	return true;
+	if ((0, _util.action)(creep, target, creep.transfer(target, type), _util.emoji.transfer)) return true;
 };
 
 /***/ }),
@@ -903,8 +896,7 @@ exports.default = function (creep, rawTarget) {
 		if (target.length == 0) return false;
 		target = target[0];
 	}
-	(0, _util.action)(creep, target, creep.upgradeController(target), _util.emoji.upgrade);
-	return true;
+	if ((0, _util.action)(creep, target, creep.upgradeController(target), _util.emoji.upgrade)) return true;
 };
 
 /***/ }),
@@ -930,8 +922,7 @@ exports.default = function (creep, rawTarget) {
 		if (target.length == 0) return false;
 		target = target[0];
 	}
-	(0, _util.action)(creep, target, creep.withdraw(target, RESOURCE_ENERGY), _util.emoji.withdraw);
-	return true;
+	if ((0, _util.action)(creep, target, creep.withdraw(target, type), _util.emoji.withdraw)) return true;
 };
 
 /***/ }),
