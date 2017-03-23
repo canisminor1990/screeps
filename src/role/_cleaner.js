@@ -30,7 +30,7 @@ export default (creep, dropped = []) => {
 	} else {
 
 		if (creep.carry.energy < creep.carryCapacity) {
-			const transferTarget = creep.room.memory.storage;
+			const transferTarget = creep.room.storage;
 			(creep.withdraw(transferTarget, RESOURCE_ENERGY) != OK)
 					? pathFinder(creep, transferTarget) : null
 		} else {

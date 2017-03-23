@@ -861,7 +861,7 @@ exports.default = function (creep) {
 	} else {
 
 		if (creep.carry.energy < creep.carryCapacity) {
-			var _transferTarget = creep.room.memory.storage;
+			var _transferTarget = creep.room.storage;
 			creep.withdraw(_transferTarget, RESOURCE_ENERGY) != OK ? (0, _task.pathFinder)(creep, _transferTarget) : null;
 		} else {
 			var _needFill = creep.room.memory.structures.needFill;
