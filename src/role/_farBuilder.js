@@ -4,7 +4,7 @@ export default (creep, newRoom) => {
 	const newRoomMemory = newRoom.memory;
 	const farMiner      = newRoomMemory.creeps.my.farMiner;
 	const enemy         = newRoomMemory.creeps.enemy;
-
+	const needBuild     = newRoomMemory.structures.needBuild;
 
 	if (enemy.length > 0) {
 		const enemyTarget = creep.pos.findClosestByRange(enemy);
@@ -26,9 +26,16 @@ export default (creep, newRoom) => {
 	}
 	else {
 
-		( creep.transfer(room.storage, RESOURCE_ENERGY) !== OK)
-			? pathFinder(creep, room.storage) : null
 
+		if (needBuild.length > 0) {
+			const buildTarget = creep.pos.findClosestByRange(needBuild);
+			(buildTarget && creep.build(buildTarget) != OK)
+				? pathFinder(creep, buildTarget) : null;
+		} else {
+
+			( creep.transfer(room.storage, RESOURCE_ENERGY) !== OK)
+				? pathFinder(creep, room.storage) : null
+		}
 	}
 
 }
