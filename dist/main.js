@@ -953,7 +953,7 @@ exports.default = function () {
 	}, {
 		role: "farMiner",
 		body: { move: 2, work: 4, carry: 2 },
-		timeout: 80,
+		timeout: 120,
 		number: 1,
 		priority: 4
 	}, {
