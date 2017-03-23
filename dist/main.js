@@ -1343,7 +1343,12 @@ Object.defineProperty(exports, "__esModule", {
 });
 
 exports.default = function (spawn, my, config) {
-	if (spawn.spawning) return;
+	if (spawn.spawning) {
+		console.log('Spawn', spawn.spawning.name);
+		spawn.room.visual.text('[Spawn] ' + spawn.spawning.name, spawn.pos.x + 1, spawn.pos.y, { align: 'left', opacity: 0.8 });
+		return;
+	}
+
 	var roleFactory = config.role;
 	var priority = false;
 	roleFactory.forEach(function (roleType) {
@@ -1355,13 +1360,7 @@ exports.default = function (spawn, my, config) {
 		var roleNumber = roleType.number - roleMy.length;
 		if (roleNumber <= 0 || priority) return;
 		var spawnName = buildName(roleName);
-		spawn.createCreep(buildBody(roleType.body), spawnName, { role: roleName });
-		if (spawn.spawning) {
-			console.log('Spawn', spawnName);
-			spawn.room.visual.text('[Spawn] ' + spawnName, spawn.pos.x + 1, spawn.pos.y, { align: 'left', opacity: 0.8 });
-		} else {
-			priority = true;
-		}
+		if (spawn.createCreep(buildBody(roleType.body), spawnName, { role: roleName }) != OK) priority = true;
 	});
 };
 

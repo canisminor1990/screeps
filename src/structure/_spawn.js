@@ -1,25 +1,24 @@
 export default (spawn, my, config) => {
-	if (spawn.spawning) return;
+	if (spawn.spawning) {
+		console.log('Spawn', spawn.spawning.name);
+		spawn.room.visual.text(
+			'[Spawn] ' + spawn.spawning.name,
+			spawn.pos.x + 1,
+			spawn.pos.y,
+			{align: 'left', opacity: 0.8});
+		return;
+	}
+
 	const roleFactory = config.role
 	let priority      = false;
 	roleFactory.forEach(roleType => {
 		const roleName    = roleType.role;
 		const roleTimeout = (roleType.roleTimeout) ? roleType.roleTimeout : 10;
-		const roleMy      = _.filter(my[roleName],roleCreep => roleCreep.ticksToLive > roleTimeout)
-		const roleNumber = roleType.number - roleMy.length;
+		const roleMy      = _.filter(my[roleName], roleCreep => roleCreep.ticksToLive > roleTimeout)
+		const roleNumber  = roleType.number - roleMy.length;
 		if (roleNumber <= 0 || priority) return;
-		const spawnName = buildName(roleName)
-		spawn.createCreep(buildBody(roleType.body), spawnName, {role: roleName});
-		if (spawn.spawning) {
-			console.log('Spawn', spawnName);
-			spawn.room.visual.text(
-				'[Spawn] ' + spawnName,
-				spawn.pos.x + 1,
-				spawn.pos.y,
-				{align: 'left', opacity: 0.8});
-		} else {
-			priority = true;
-		}
+		const spawnName = buildName(roleName);
+		if (spawn.createCreep(buildBody(roleType.body), spawnName, {role: roleName}) != OK ) priority = true;
 	})
 
 }
