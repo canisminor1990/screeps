@@ -6,7 +6,7 @@ export default (spawn, my, config) => {
 		const roleName    = roleType.role;
 		const roleTimeout = (roleType.roleTimeout) ? roleType.roleTimeout : 10;
 		const roleMy      = _.filter(my[roleName],roleCreep => roleCreep.ticksToLive > roleTimeout)
-		const roleNumber = roleType.number - roleMy;
+		const roleNumber = roleType.number - roleMy.length;
 		if (roleNumber <= 0 || priority) return;
 		const spawnName = buildName(roleName)
 		spawn.createCreep(buildBody(roleType.body), spawnName, {role: roleName});

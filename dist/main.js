@@ -1352,7 +1352,7 @@ exports.default = function (spawn, my, config) {
 		var roleMy = _.filter(my[roleName], function (roleCreep) {
 			return roleCreep.ticksToLive > roleTimeout;
 		});
-		var roleNumber = roleType.number - roleMy;
+		var roleNumber = roleType.number - roleMy.length;
 		if (roleNumber <= 0 || priority) return;
 		var spawnName = buildName(roleName);
 		spawn.createCreep(buildBody(roleType.body), spawnName, { role: roleName });
