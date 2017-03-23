@@ -1104,7 +1104,7 @@ exports.default = function (creep) {
 				return container.id != '58d31e9dbbb5793fe9d0ad71' && container.store.energy > 0;
 			});
 			transferTarget = transferTarget.sort(function (a, b) {
-				return b.store.enengy - a.store.enengy;
+				return b.store.energy - a.store.energy;
 			})[0];
 			transferTarget && creep.withdraw(transferTarget, RESOURCE_ENERGY) != OK ? (0, _task.pathFinder)(creep, transferTarget) : null;
 		}
