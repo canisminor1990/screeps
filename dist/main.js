@@ -1547,41 +1547,44 @@ exports.default = function (creep, newRoom) {
 
 
 Object.defineProperty(exports, "__esModule", {
-    value: true
+	value: true
 });
+
+var _util = __webpack_require__(0);
 
 var _task = __webpack_require__(1);
 
+var _action = __webpack_require__(2);
+
 exports.default = function (creep, newRoom) {
-
-    if (creep.carry.energy == 0) {
-        creep.memory.canHarvest = true;
-    }
-
-    if (creep.carry.energy == creep.carryCapacity) {
-        creep.memory.canHarvest = false;
-    }
-
-    if (creep.memory.canHarvest) {
-        var source = Game.getObjectById('5873bc3511e3e4361b4d7390');
-        if (!source) {
-            (0, _task.pathFinder)(creep, newRoom.pos);
-        } else {
-            creep.harvest(source) !== OK ? (0, _task.pathFinder)(creep, source) : null;
-        }
-    } else {
-        var targets = creep.pos.findInRange(newRoom.memory.creeps.my.farHarvester, 1, {
-            filter: function filter(targetCreep) {
-                return targetCreep.carry.energy < targetCreep.carryCapacity;
-            }
-        });
-        if (targets.length > 0) {
-            creep.transfer(targets[0], RESOURCE_ENERGY);
-        } else {
-            var needBuild = newRoom.memory.structures.needBuild;
-            needBuild.length > 0 && creep.build(needBuild[0]) != OK ? (0, _task.pathFinder)(creep, needBuild[0]) : null;
-        }
-    }
+	var target = void 0;
+	// memory
+	(0, _util.isFull)(creep);
+	// run
+	if (!creep.memory.full) {
+		var dropped = creep.memory.dropped.energy;
+		if (dropped.length > 0) {
+			target = creep.pos.findInRange(dropped, 0);
+			if (pickup(creep, target[0])) return;
+		}
+		target = Game.getObjectById('5873bc3511e3e4361b4d7390');
+		if (!target) {
+			(0, _task.pathFinder)(creep, newRoom.pos);
+		} else {
+			if ((0, _action.harvest)(creep, target)) return;
+		}
+	} else {
+		target = creep.pos.findInRange(newRoom.memory.creeps.my.farHarvester, 1, {
+			filter: function filter(targetCreep) {
+				return targetCreep.carry.energy < targetCreep.carryCapacity;
+			}
+		});
+		if (target.length > 0) {
+			if ((0, _action.transfer)(creep, target[0])) return;
+		}
+		target = newRoom.memory.structures.needBuild;
+		if ((0, _action.build)(creep, target[0])) return;
+	}
 };
 
 /***/ }),
@@ -1998,6 +2001,7 @@ exports.default = function (creep, target) {
 		serializeMemory: true,
 		visualizePathStyle: { stroke: color }
 	});
+	return;
 };
 
 /***/ }),

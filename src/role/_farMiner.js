@@ -1,33 +1,31 @@
-import {pathFinder} from "../task"
+import { isFull } from '../_util'
+import { pathFinder } from '../task'
+import { harvest, transfer, build } from '../action'
 export default (creep, newRoom) => {
-
-    if (creep.carry.energy == 0) {
-        creep.memory.canHarvest = true;
-    }
-
-
-    if (creep.carry.energy == creep.carryCapacity) {
-        creep.memory.canHarvest = false;
-    }
-
-    if (creep.memory.canHarvest) {
-        const source = Game.getObjectById('5873bc3511e3e4361b4d7390');
-        if (!source) {
-            pathFinder(creep, newRoom.pos)
-
-        } else {
-            (creep.harvest(source) !== OK) ? pathFinder(creep, source) : null;
-        }
-    } else {
-        const targets = creep.pos.findInRange(newRoom.memory.creeps.my.farHarvester, 1, {
-            filter: targetCreep => targetCreep.carry.energy < targetCreep.carryCapacity
-        });
-        if (targets.length > 0) {
-            creep.transfer(targets[0], RESOURCE_ENERGY)
-        } else {
-            const needBuild = newRoom.memory.structures.needBuild;
-            (needBuild.length > 0  && creep.build(needBuild[0]) != OK)
-                ? pathFinder(creep, needBuild[0]) : null;
-        }
-    }
+	let target;
+	// memory
+	isFull(creep)
+	// run
+	if (!creep.memory.full) {
+		let dropped = creep.memory.dropped.energy;
+		if (dropped.length > 0) {
+			target = creep.pos.findInRange(dropped, 0);
+			if (pickup(creep, target[0])) return;
+		}
+		target = Game.getObjectById('5873bc3511e3e4361b4d7390');
+		if (!target) {
+			pathFinder(creep, newRoom.pos)
+		} else {
+			if (harvest(creep, target)) return;
+		}
+	} else {
+		target = creep.pos.findInRange(newRoom.memory.creeps.my.farHarvester, 1, {
+			filter: targetCreep => targetCreep.carry.energy < targetCreep.carryCapacity
+		});
+		if (target.length > 0) {
+			if (transfer(creep, target[0])) return;
+		}
+		target = newRoom.memory.structures.needBuild;
+		if (build(creep, target[0])) return;
+	}
 }
