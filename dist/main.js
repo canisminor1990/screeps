@@ -979,7 +979,7 @@ exports.default = function () {
 	}, {
 		role: 'builder',
 		body: { work: 3, carry: 3, move: 3 },
-		number: needBuild.length > 0 ? 1 : 0,
+		number: needBuild.length > 0 ? Math.ceil(needBuild.length / 2) : 1,
 		priority: 6
 	}, {
 		role: "miner",
