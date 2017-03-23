@@ -1,12 +1,11 @@
 import { isFull } from '../_util'
-import { withdraw, upgradeController } from '../action'
+import { transfer, pickup } from '../action'
 export default (creep, dropped = []) => {
 	let target;
 	// memory
 	isFull(creep)
 	// run
 	if (!creep.memory.full) {
-
 		if (dropped.length > 0) {
 			target = creep.pos.findInRange(dropped, 5);
 			if (pickup(creep, target[0])) return;

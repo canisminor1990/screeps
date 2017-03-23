@@ -1607,10 +1607,9 @@ exports.default = function (creep) {
 	(0, _util.isFull)(creep);
 	// run
 	if (!creep.memory.full) {
-
 		if (dropped.length > 0) {
 			target = creep.pos.findInRange(dropped, 5);
-			if (pickup(creep, target[0])) return;
+			if ((0, _action.pickup)(creep, target[0])) return;
 		}
 		target = _.filter(creep.room.memory.structures.container, function (container) {
 			return container.id != '58d31e9dbbb5793fe9d0ad71' && container.store.energy > 0;
@@ -1618,7 +1617,7 @@ exports.default = function (creep) {
 			return b.store.energy - a.store.energy;
 		});
 
-		if (transfer(creep, target[0])) return;
+		if ((0, _action.transfer)(creep, target[0])) return;
 	} else {
 		target = creep.room.memory.structures.needFill;
 		if (target.length > 0) {
@@ -1626,7 +1625,7 @@ exports.default = function (creep) {
 		} else {
 			target = creep.room.storage;
 		}
-		if (transfer(creep, target)) return;
+		if ((0, _action.transfer)(creep, target)) return;
 	}
 };
 
