@@ -1838,7 +1838,7 @@ exports.default = function (spawn, my, config) {
 		spawn.room.visual.text(_util.emoji.build + ' ' + spawn.spawning.name.split('#')[0] + ' (' + percent + '%)', spawn.pos.x + 1, spawn.pos.y, {
 			align: 'left',
 			stroke: '#111111',
-			background: '#ffffff'
+			color: '#ffffff'
 		});
 		return;
 	}

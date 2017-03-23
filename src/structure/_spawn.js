@@ -9,7 +9,7 @@ export default (spawn, my, config) => {
 				{
 					align: 'left',
 					stroke: '#111111',
-					background: '#ffffff'
+					color: '#ffffff'
 				});
 		return;
 	}
