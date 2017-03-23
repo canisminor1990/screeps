@@ -1024,8 +1024,9 @@ exports.default = function (creep, newRoom) {
 		(0, _task.pathFinder)(creep, farMinerTarget);
 	} else {
 		if (needBuild.length > 0) {
-			var buildTarget = creep.pos.findClosestByRange(needBuild);
-			buildTarget && creep.build(buildTarget) != OK ? (0, _task.pathFinder)(creep, buildTarget) : null;
+			// const buildTarget = creep.pos.findClosestByRange(needBuild);
+			// (buildTarget && creep.build(buildTarget) != OK)
+			// 	? pathFinder(creep, buildTarget) : null;
 		} else {
 
 			creep.transfer(room.storage, RESOURCE_ENERGY) !== OK ? (0, _task.pathFinder)(creep, room.storage) : null;

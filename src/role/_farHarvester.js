@@ -26,9 +26,9 @@ export default (creep, newRoom) => {
 	}
 	else {
 		if (needBuild.length > 0) {
-			const buildTarget = creep.pos.findClosestByRange(needBuild);
-			(buildTarget && creep.build(buildTarget) != OK)
-				? pathFinder(creep, buildTarget) : null;
+			// const buildTarget = creep.pos.findClosestByRange(needBuild);
+			// (buildTarget && creep.build(buildTarget) != OK)
+			// 	? pathFinder(creep, buildTarget) : null;
 		} else {
 
 			( creep.transfer(room.storage, RESOURCE_ENERGY) !== OK)
