@@ -1539,6 +1539,8 @@ var _util = __webpack_require__(0);
 
 var _action = __webpack_require__(1);
 
+var _task = __webpack_require__(2);
+
 exports.default = function (creep, newRoom) {
 	var room = Game.spawns['Spawn1'].room;
 	var newRoomMemory = newRoom.memory;
@@ -1563,7 +1565,7 @@ exports.default = function (creep, newRoom) {
 		var farMiner = newRoom.memory.creeps.my.farMiner;
 		if (farMiner.length > 0) {
 			target = Game.getObjectById(farMiner[0].id);
-			pathFinder(creep, target);
+			(0, _task.pathFinder)(creep, target);
 			return;
 		}
 	} else {
