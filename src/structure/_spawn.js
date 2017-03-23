@@ -4,7 +4,7 @@ export default (spawn, my, config) => {
 	let priority      = false;
 	roleFactory.forEach(roleType => {
 		const roleName    = roleType.role;
-		const roleTimeout = (roleType.roleTimeout) ? roleType.roleTimeout : 50;
+		const roleTimeout = (roleType.roleTimeout) ? roleType.roleTimeout : 25;
 		const roleMy      = my[roleName].sort((a, b) => a.ticksToLive - b.ticksToLive)
 		let roleNeardeath = 0
 		roleMy.forEach(roleCreep => {
