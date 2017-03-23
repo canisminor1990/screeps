@@ -10,7 +10,7 @@ export default (creep, sources, dropped = []) => {
 	}
 
 	if (creep.memory.full) {
-		const canFill = creep.pos.findInRange(creep.room.memory.structures.container, 4);
+		const canFill = creep.pos.findInRange(creep.room.memory.structures.canFill, 4);
 		if (canFill.length > 0) {
 			( creep.transfer(canFill[0], RESOURCE_ENERGY) != OK)
 					? pathFinder(creep, canFill[0]) : null

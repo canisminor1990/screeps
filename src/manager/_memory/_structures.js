@@ -1,11 +1,11 @@
-export default (room,config) => {
+export default (room, config) => {
 
 	const structures          = room.find(FIND_STRUCTURES),
 	      structuresStorage   = room.storage,
 	      structuresMy        = _.filter(structures, structure => structure.my),
 	      structuresOther     = _.filter(structures, structure => !structure.my),
 	      structuresContainer = _.filter(structuresOther, structure => structure.structureType == STRUCTURE_CONTAINER),
-	      structuresDocker    = _.merge(structuresContainer, [structuresStorage]);
+	      structuresDocker    = structuresContainer.push(structuresStorage);
 
 	return {
 		terminal   : room.terminal,
