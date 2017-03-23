@@ -5,9 +5,10 @@ export default (room) => {
     const targetStructures = Memory.structures;
     const myCreeps = Memory.creeps.my;
     const dropped = (Memory.dropped) ? Memory.dropped.energy : [];
+
     const newRoom = {
         pos: new RoomPosition(25, 47, 'W81S66'),
-        memory: Game.rooms['W81S66'].memory
+        memory: (Game.rooms['W81S66'].memory)?Game.rooms['W81S66'].memory:{}
     };
 
 
