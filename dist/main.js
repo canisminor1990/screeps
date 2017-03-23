@@ -1147,9 +1147,6 @@ exports.default = function (room, config) {
 
 	var structures = room.find(FIND_STRUCTURES),
 	    structuresStorage = room.storage,
-	    structureTower = _.filter(structuresMy, function (structure) {
-		return structure.structureType == STRUCTURE_TOWER;
-	})[0],
 	    structuresMy = _.filter(structures, function (structure) {
 		return structure.my;
 	}),
@@ -1166,7 +1163,9 @@ exports.default = function (room, config) {
 		terminal: room.terminal,
 		controller: room.controller,
 		storage: structuresStorage,
-		tower: structureTower,
+		tower: _.filter(structuresMy, function (structure) {
+			return structure.structureType == STRUCTURE_TOWER;
+		})[0],
 		spawn: _.filter(structuresMy, function (structure) {
 			return structure.structureType == STRUCTURE_SPAWN;
 		})[0],
@@ -1180,7 +1179,7 @@ exports.default = function (room, config) {
 			return structure.store.energy < structure.storeCapacity;
 		}) : [],
 		needFill: _.filter(structuresMy, function (structure) {
-			return (structure.structureType == STRUCTURE_EXTENSION || structure.structureType == STRUCTURE_SPAWN || structure.structureType == STRUCTURE_TOWER) && structure.energy < 300;
+			return (structure.structureType == STRUCTURE_EXTENSION || structure.structureType == STRUCTURE_SPAWN || structure.structureType == STRUCTURE_TOWER) && structure.energy < structure.energyCapacity && structure.energy < 300;
 		}),
 		needFix: _.filter(structures, function (structure) {
 			return (structure.my || structure.structureType == STRUCTURE_ROAD || structure.structureType == STRUCTURE_WALL) && structure.hits / structure.hitsMax < config.repair.percent && structure.hits < config.repair.maxHits;
