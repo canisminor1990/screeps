@@ -479,7 +479,7 @@ exports.default = function () {
 	}, {
 		role: 'cleaner',
 		body: { move: 2, work: 1, carry: 2 },
-		number: 1,
+		number: 2,
 		priority: 0
 	}];
 
@@ -860,7 +860,7 @@ exports.default = function (creep) {
 		}
 	} else {
 
-		if (creep.carry.energy < creep.carryCapacity) {
+		if (creep.carry.energy < 50) {
 			var _transferTarget = creep.room.storage;
 			creep.withdraw(_transferTarget, RESOURCE_ENERGY) != OK ? (0, _task.pathFinder)(creep, _transferTarget) : null;
 		} else {
