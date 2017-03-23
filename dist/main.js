@@ -1554,13 +1554,18 @@ exports.default = function (creep, newRoom) {
 	(0, _util.isFull)(creep);
 	// run
 	if (enemy.length > 0) {
-		var _target = creep.pos.findClosestByRange(enemy);
-		if ((0, _action.attack)(creep, enemy)) return;
+		target = creep.pos.findClosestByRange(enemy);
+		if ((0, _action.attack)(creep, target)) return;
 	}
 
 	if (!creep.memory.full) {
-		var _target2 = Game.getObjectById(farMiner[0].id);
-		(0, _task.pathFinder)(creep, _target2);
+		var dropped = creep.room.memory.dropped.energy;
+		if (dropped.length > 0) {
+			target = creep.pos.findInRange(dropped, 4);
+			if (pickup(creep, target[0])) return;
+		}
+		target = Game.getObjectById(farMiner[0].id);
+		(0, _task.pathFinder)(creep, target);
 	} else {
 		if ((0, _action.transfer)(creep, room.storage)) return;
 	}
@@ -1630,13 +1635,12 @@ var _util = __webpack_require__(0);
 var _action = __webpack_require__(2);
 
 exports.default = function (creep) {
-	var dropped = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : [];
-
 	var target = void 0;
 	// memory
 	(0, _util.isFull)(creep);
 	// run
 	if (!creep.memory.full) {
+		var dropped = creep.room.memory.dropped.energy;
 		if (dropped.length > 0) {
 			target = creep.pos.findInRange(dropped, 4);
 			if ((0, _action.pickup)(creep, target[0])) return;
@@ -1675,8 +1679,6 @@ var _util = __webpack_require__(0);
 var _action = __webpack_require__(2);
 
 exports.default = function (creep, sources) {
-	var dropped = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : [];
-
 	var target = void 0;
 	// root
 	if (!creep.memory.harvestTarget) creep.memory.harvestTarget = sources[0].source.id;
@@ -1691,6 +1693,7 @@ exports.default = function (creep, sources) {
 			if ((0, _action.upgradeController)(creep, target)) return;
 		}
 	} else {
+		var dropped = creep.room.memory.dropped.energy;
 		if (dropped.length > 0) {
 			target = creep.pos.findInRange(dropped, 0);
 			if ((0, _action.pickup)(creep, target[0])) return;

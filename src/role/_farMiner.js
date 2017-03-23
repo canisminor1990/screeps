@@ -7,7 +7,7 @@ export default (creep, newRoom) => {
 	isFull(creep)
 	// run
 	if (!creep.memory.full) {
-		let dropped = creep.room.memory.dropped.energy;
+		const dropped = creep.room.memory.dropped.energy;
 		if (dropped.length > 0) {
 			target = creep.pos.findInRange(dropped, 0);
 			if (pickup(creep, target[0])) return;

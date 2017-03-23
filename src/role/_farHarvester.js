@@ -1,22 +1,27 @@
-import { isFull } from '../_util'
-import { attack, transfer } from '../action'
-import { pathFinder } from '../task'
+import {isFull} from '../_util'
+import {attack, transfer} from '../action'
+import {pathFinder} from '../task'
 export default (creep, newRoom) => {
-	const room          = Game.spawns['Spawn1'].room;
+	const room = Game.spawns['Spawn1'].room;
 	const newRoomMemory = newRoom.memory;
-	const farMiner      = newRoomMemory.creeps.my.farMiner;
-	const enemy         = newRoomMemory.creeps.enemy;
+	const farMiner = newRoomMemory.creeps.my.farMiner;
+	const enemy = newRoomMemory.creeps.enemy;
 	let target;
 	// memory
 	isFull(creep);
 	// run
 	if (enemy.length > 0) {
-		const target = creep.pos.findClosestByRange(enemy);
-		if (attack(creep, enemy)) return;
+		target = creep.pos.findClosestByRange(enemy);
+		if (attack(creep, target)) return;
 	}
 
 	if (!creep.memory.full) {
-		const target = Game.getObjectById(farMiner[0].id);
+		const dropped = creep.room.memory.dropped.energy;
+		if (dropped.length > 0) {
+			target = creep.pos.findInRange(dropped, 4);
+			if (pickup(creep, target[0])) return;
+		}
+		target = Game.getObjectById(farMiner[0].id);
 		pathFinder(creep, target)
 	}
 	else {
