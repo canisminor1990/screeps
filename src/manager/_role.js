@@ -15,7 +15,7 @@ export default (roomArrary) => {
 		myCreeps.harvester.forEach(creep => role.harvester(creep))
 		myCreeps.miner.forEach(creep => role.miner(creep))
 		myCreeps.upgrader.forEach(creep => role.upgrader(creep))
-		myCreeps.builder.forEach(creep => role.builder(creep, newRoom))
+		myCreeps.builder.forEach(creep => role.builder(creep))
 
 		// far
 		myCreeps.farBuilder.forEach(creep => role.farBuilder(creep, newRoom))

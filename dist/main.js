@@ -1282,7 +1282,7 @@ exports.default = function (roomArrary) {
 			return role.upgrader(creep);
 		});
 		myCreeps.builder.forEach(function (creep) {
-			return role.builder(creep, newRoom);
+			return role.builder(creep);
 		});
 
 		// far
@@ -1831,7 +1831,7 @@ exports.default = function (spawn, my, config) {
 	var priority = false;
 	roleFactory.forEach(function (roleType) {
 		var roleName = roleType.role;
-		var roleTimeout = roleType.roleTimeout ? roleType.roleTimeout : 10;
+		var roleTimeout = roleType.timeout ? roleType.timeout : 10;
 		var roleMy = _.filter(my[roleName], function (roleCreep) {
 			return roleCreep.ticksToLive > roleTimeout;
 		});
