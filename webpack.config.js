@@ -1,11 +1,13 @@
+const path     = require('path');
 module.exports = {
-	entry : './src/main.js',
-	output: {
-		path         : 'dist/',
-		filename     : 'main.js',
+	entry  : './src/main.js',
+	output : {
+		path         : path.join(__dirname, "dist"),
+		filename     : '[name].js',
 		libraryTarget: 'commonjs2',
 	},
-	module: {
+	devtool: 'cheap-source-map',
+	module : {
 		loaders: [
 			{
 				test  : /\.js$/,

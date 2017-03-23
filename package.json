@@ -28,8 +28,8 @@
 		"webpack": "^2.2.1"
 	},
 	"scripts": {
-		"test": "webpack src/main.js",
-		"build": "webpack src/main.js && git add -A && git commit -m 'updata' && git push",
+		"test": "webpack --config webpack.config.js",
+		"build": "webpack --config webpack.config.js && git add -A && git commit -m 'updata' && git push",
 		"console": "multimeter"
 	}
 }
