@@ -21,7 +21,7 @@ export default (room, config) => {
 		                                                 structure.structureType == STRUCTURE_EXTENSION ||
 		                                                 structure.structureType == STRUCTURE_SPAWN ||
 		                                                 structure.structureType == STRUCTURE_TOWER ) &&
-		                                                 structure.energy < structure.energyCapacity),
+		                                                 structure.energy < 300),
 		needFix    : _.filter(structures, structure =>
 		( structure.my || structure.structureType == STRUCTURE_ROAD || structure.structureType == STRUCTURE_WALL ) &&
 		(structure.hits / structure.hitsMax) < config.repair.percent && structure.hits < config.repair.maxHits)

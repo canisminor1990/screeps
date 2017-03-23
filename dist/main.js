@@ -1179,7 +1179,7 @@ exports.default = function (room, config) {
 			return structure.store.energy < structure.storeCapacity;
 		}) : [],
 		needFill: _.filter(structuresMy, function (structure) {
-			return (structure.structureType == STRUCTURE_EXTENSION || structure.structureType == STRUCTURE_SPAWN || structure.structureType == STRUCTURE_TOWER) && structure.energy < structure.energyCapacity;
+			return (structure.structureType == STRUCTURE_EXTENSION || structure.structureType == STRUCTURE_SPAWN || structure.structureType == STRUCTURE_TOWER) && structure.energy < 300;
 		}),
 		needFix: _.filter(structures, function (structure) {
 			return (structure.my || structure.structureType == STRUCTURE_ROAD || structure.structureType == STRUCTURE_WALL) && structure.hits / structure.hitsMax < config.repair.percent && structure.hits < config.repair.maxHits;
