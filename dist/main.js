@@ -1835,10 +1835,10 @@ var _util = __webpack_require__(0);
 exports.default = function (spawn, my, config) {
 	if (spawn.spawning) {
 		var percent = Math.round((1 - spawn.spawning.remainingTime / spawn.spawning.needTime) * 100);
-		spawn.room.visual.text('' + _util.emoji.build + spawn.spawning.name.split('#')[0] + '(' + percent + '%)', spawn.pos.x + 1, spawn.pos.y, {
+		spawn.room.visual.text(_util.emoji.build + ' ' + spawn.spawning.name.split('#')[0] + ' (' + percent + '%)', spawn.pos.x + 1, spawn.pos.y, {
 			align: 'left',
-			color: '#333',
-			background: '#fff'
+			stroke: '#111111',
+			background: '#ffffff'
 		});
 		return;
 	}
