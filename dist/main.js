@@ -820,11 +820,11 @@ var _util = __webpack_require__(0);
 exports.default = function (creep, rawTarget) {
 	if (!rawTarget) return false;
 	var target = rawTarget;
-	// if (target instanceof Array) {
-	// 	target = _.compact(target);
-	// 	if (target.length == 0) return false;
-	// 	target = target[0];
-	// }
+	if (target instanceof Array) {
+		target = _.compact(target);
+		if (target.length == 0) return false;
+		target = target[0];
+	}
 	(0, _util.action)(creep, target, creep.pickup(target), _util.emoji.pickup);
 	return true;
 };
@@ -1421,11 +1421,7 @@ exports.default = function (creep) {
 		// memory
 		(0, _util.isFull)(creep);
 		if (!creep.memory.full) {
-			// let dropped = creep.room.memory.dropped.energy;
-			// if (dropped.length > 0) {
-			// 	target = creep.pos.findInRange(dropped, 5);
-			// 	if (pickup(creep, target[0])) return;
-			// }
+
 			target = creep.room.memory.structures.container.sort(function (a, b) {
 				return b.store.enengy - a.store.enengy;
 			});
