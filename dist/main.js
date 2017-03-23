@@ -133,15 +133,6 @@ function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj;
 
 module.exports.loop = function () {
 	var rooms = ['W81S67', 'W81S66'];
-
-	for (var name in Memory.creeps) {
-		!Game.creeps[name] ? delete Memory.creeps[name] : null;
-		if (!Game.creeps[name].memory) {
-			Game.creeps[name].memory = {
-				role: name.split('#')[0]
-			};
-		}
-	}
 	// start
 	Manager.root();
 	Manager.memory(rooms);
@@ -773,10 +764,8 @@ exports.default = function () {
 	for (var name in Memory.creeps) {
 		if (!Game.creeps[name]) {
 			delete Memory.creeps[name];
-		} else if (!Game.creeps[name].memory) {
-			Game.creeps[name].memory = {
-				role: name.split('#')[0]
-			};
+		} else {
+			if (!Game.creeps[name].memory) Game.creeps[name].memory = { role: name.split('#')[0] };
 		}
 	}
 };
@@ -1371,41 +1360,49 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 
 Object.defineProperty(exports, "__esModule", {
-    value: true
+	value: true
 });
 
 exports.default = function (spawn, my, config) {
-    if (spawn.spawning) return;
-    var priority = false;
-    var roleFactory = config.role;
-    roleFactory.forEach(function (roleType) {
-        var roleNmae = roleType.role;
-        var roleNumber = roleType.number - my[roleNmae].length;
-        if (roleNumber <= 0 || priority) return;
-        var spawnName = buildName(roleNmae);
-        spawn.createCreep(buildBody(roleType.body), spawnName, { role: roleNmae });
-        if (spawn.spawning) {
-            console.log('Spawn', spawnName);
-            spawn.room.visual.text('[Spawn] ' + spawnName, spawn.pos.x + 1, spawn.pos.y, { align: 'left', opacity: 0.8 });
-        } else {
-            priority = true;
-        }
-    });
+	if (spawn.spawning) return;
+	var roleFactory = config.role;
+	var priority = false;
+	roleFactory.forEach(function (roleType) {
+		var roleName = roleType.role;
+		var roleTimeout = roleType.roleTimeout ? roleType.roleTimeout : 100;
+		var roleMy = my[roleName].sort(function (a, b) {
+			return a.ticksToLive - b.ticksToLive;
+		});
+		var roleNeardeath = 0;
+		roleMy.forEach(function (roleCreep) {
+			if (roleCreep && roleCreep.ticksToLive < roleTimeout) roleNeardeath++;
+		});
+		var roleNumber = roleType.number - (roleMy.length - roleNeardeath);
+		if (roleNumber <= 0 || priority) return;
+		var spawnName = buildName(roleName);
+		spawn.createCreep(buildBody(roleType.body), spawnName, { role: roleName });
+		if (spawn.spawning) {
+			console.log('Spawn', spawnName);
+			spawn.room.visual.text('[Spawn] ' + spawnName, spawn.pos.x + 1, spawn.pos.y, { align: 'left', opacity: 0.8 });
+		} else {
+			priority = true;
+		}
+	});
 };
 
 function buildName(role) {
-    var date = new Date();
-    return [role, "#", date.getHours(), date.getMinutes(), date.getSeconds()].join('');
+	var date = new Date();
+	return [role, "#", date.getHours(), date.getMinutes(), date.getSeconds()].join('');
 }
 
 function buildBody(obj) {
-    var array = [];
-    for (var key in obj) {
-        for (var num = 0; num < obj[key]; num++) {
-            array.push(key);
-        }
-    }
-    return array;
+	var array = [];
+	for (var key in obj) {
+		for (var num = 0; num < obj[key]; num++) {
+			array.push(key);
+		}
+	}
+	return array;
 }
 
 /***/ }),
