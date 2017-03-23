@@ -1556,11 +1556,7 @@ exports.default = function (creep, newRoom) {
 			target = creep.pos.findInRange(dropped, 4);
 			if ((0, _action.pickup)(creep, target[0])) return;
 		}
-		target = _.filter(newRoom.memory.structures.container, function (container) {
-			return container.id != '58d31e9dbbb5793fe9d0ad71' && container.store.energy > 0;
-		}).sort(function (a, b) {
-			return b.store.energy - a.store.energy;
-		});
+		target = newRoom.memory.structures.container[0];
 		if ((0, _action.withdraw)(creep, target[0])) return;
 	} else {
 		var needFix = newRoom.memory.structures.needFix;
