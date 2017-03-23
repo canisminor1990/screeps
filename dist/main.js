@@ -1389,14 +1389,14 @@ Object.defineProperty(exports, "__esModule", {
 
 var _task = __webpack_require__(1);
 
-exports.default = function (creep, newRoom) {
-	"use strict";
+var _action = __webpack_require__(2);
 
-	var controller = Game.getObjectById('5873bc3511e3e4361b4d738f');
-	if (!controller) {
+exports.default = function (creep, newRoom) {
+	var target = Game.getObjectById('5873bc3511e3e4361b4d738f');
+	if (!target) {
 		(0, _task.pathFinder)(creep, newRoom.pos);
 	} else {
-		creep.reserveController(controller) !== OK ? (0, _task.pathFinder)(creep, controller) : null;
+		if ((0, _action.claimController)(creep, target)) return;
 	}
 };
 

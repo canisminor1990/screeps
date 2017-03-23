@@ -1,11 +1,10 @@
-import {pathFinder} from "../task"
-export default (creep,newRoom) => {
-	"use strict";
-	const controller = Game.getObjectById('5873bc3511e3e4361b4d738f');
-	if (!controller) {
-        pathFinder(creep,newRoom.pos)
+import { pathFinder } from "../task"
+import { claimController } from '../action'
+export default (creep, newRoom) => {
+	const target = Game.getObjectById('5873bc3511e3e4361b4d738f');
+	if (!target) {
+		pathFinder(creep, newRoom.pos)
 	} else {
-		(creep.reserveController(controller) !== OK) ? pathFinder(creep,controller) : null;
+		if (claimController(creep, target))return;
 	}
-
 }
