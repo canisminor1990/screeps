@@ -2,7 +2,7 @@ import { pathFinder } from '../task'
 export default (creep, target, fc, text) => {
 	switch (fc) {
 		case OK:
-			if (text) creep.say(text + text);
+			if (text) creep.say(text);
 			break;
 		case ERR_NOT_OWNER             :
 			creep.say(text + "OWNER");
