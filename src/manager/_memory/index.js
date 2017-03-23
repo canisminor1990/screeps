@@ -10,7 +10,7 @@ export default (room) => {
 		energyAvailable: room.energyAvailable,
 		config         : config,
 		creeps         : creeps,
-		structures     : structures(room),
+		structures     : structures(room,config),
 		sources        : sources(room, creeps.my.miner),
 		dropped        : dropped(room),
 	}

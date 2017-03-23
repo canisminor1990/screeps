@@ -478,7 +478,7 @@ Object.defineProperty(exports, "__esModule", {
 	value: true
 });
 
-exports.default = function (room) {
+exports.default = function (room, config) {
 
 	var structures = room.find(FIND_STRUCTURES),
 	    structuresStorage = room.storage,
@@ -562,7 +562,7 @@ exports.default = function (room) {
 		energyAvailable: room.energyAvailable,
 		config: config,
 		creeps: creeps,
-		structures: (0, _structures2.default)(room),
+		structures: (0, _structures2.default)(room, config),
 		sources: (0, _sources2.default)(room, creeps.my.miner),
 		dropped: (0, _dropped2.default)(room)
 	};

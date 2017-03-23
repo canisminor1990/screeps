@@ -1,4 +1,4 @@
-export default (room) => {
+export default (room,config) => {
 
 	const structures          = room.find(FIND_STRUCTURES),
 	      structuresStorage   = room.storage,
