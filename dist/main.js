@@ -1408,44 +1408,14 @@ exports.default = function (creep, newRoom) {
 
 
 Object.defineProperty(exports, "__esModule", {
-	value: true
+  value: true
 });
 
 var _util = __webpack_require__(0);
 
 var _action = __webpack_require__(2);
 
-exports.default = function (creep) {
-	var target = void 0;
-	if (creep.room.memory.creeps.my.harvester.length > 0 && creep.room.memory.creeps.my.miner.length > 0) {
-		// memory
-		(0, _util.isFull)(creep);
-		if (!creep.memory.full) {
-
-			target = creep.room.memory.structures.container.sort(function (a, b) {
-				return b.store.enengy - a.store.enengy;
-			});
-			if ((0, _action.withdraw)(creep, target)) return;
-		} else {
-			target = creep.room.memory.structures.needFill;
-			if (target.length > 0) {
-				target = creep.pos.findClosestByRange(target);
-			} else {
-				target = creep.room.storage;
-			}
-			if ((0, _action.transfer)(creep, target)) return;
-		}
-	} else {
-		if (creep.carry.energy < 50) {
-			target = creep.room.storage;
-			if ((0, _action.withdraw)(creep, target)) return;
-		} else {
-			target = creep.room.memory.structures.needFill;
-			target = creep.pos.findClosestByRange(target);
-			if ((0, _action.transfer)(creep, target)) return;
-		}
-	}
-};
+exports.default = function (creep) {};
 
 /***/ }),
 /* 35 */
