@@ -2,17 +2,17 @@ import {isFull} from '../_util'
 import {pickup, upgradeController, build, withdraw} from '../action'
 
 export default (creep) => {
-	const needBuild = creep.room.memory.structures.needBuild;
 	let target;
 	// memory
 	isFull(creep)
 	// run
 	if (creep.memory.full) {
+		const needBuild = creep.room.memory.structures.needBuild;
 		if (needBuild.length > 0) {
 			target = creep.pos.findClosestByRange(needBuild);
 			if (build(creep, target))return;
 		}
-		const needFix = newRoom.memory.structures.needFix;
+		const needFix = creep.room.memory.structures.needFix;
 		if (needFix.length > 0) {
 			target = creep.pos.findClosestByRange(needFix);
 			if (repair(creep, target)) return;

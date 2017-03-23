@@ -1360,17 +1360,17 @@ var _util = __webpack_require__(0);
 var _action = __webpack_require__(1);
 
 exports.default = function (creep) {
-	var needBuild = creep.room.memory.structures.needBuild;
 	var target = void 0;
 	// memory
 	(0, _util.isFull)(creep);
 	// run
 	if (creep.memory.full) {
+		var needBuild = creep.room.memory.structures.needBuild;
 		if (needBuild.length > 0) {
 			target = creep.pos.findClosestByRange(needBuild);
 			if ((0, _action.build)(creep, target)) return;
 		}
-		var needFix = newRoom.memory.structures.needFix;
+		var needFix = creep.room.memory.structures.needFix;
 		if (needFix.length > 0) {
 			target = creep.pos.findClosestByRange(needFix);
 			if (repair(creep, target)) return;
@@ -1442,6 +1442,8 @@ exports.default = function (creep) {
 		if ((0, _action.withdraw)(creep, target)) return;
 	} else {
 		target = creep.room.memory.structures.needFill;
+		target = creep.pos.findClosestByRange(target);
+		if ((0, _action.transfer)(creep, target)) return;
 		target = creep.pos.findClosestByRange(target);
 		if ((0, _action.transfer)(creep, target)) return;
 	}

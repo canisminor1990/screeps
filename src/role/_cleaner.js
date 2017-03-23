@@ -18,5 +18,7 @@ export default (creep) => {
 		target = creep.room.memory.structures.needFill;
 		target = creep.pos.findClosestByRange(target);
 		if (transfer(creep,target)) return;
+		target = creep.pos.findClosestByRange(target);
+		if (transfer(creep,target)) return;
 	}
 };
