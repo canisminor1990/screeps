@@ -1551,7 +1551,7 @@ exports.default = function (creep, newRoom) {
 		}).sort(function (a, b) {
 			return b.store.energy - a.store.energy;
 		});
-		if (withdraw(creep, target[0])) return;
+		if ((0, _action.withdraw)(creep, target[0])) return;
 	} else {
 		var needFix = newRoom.memory.structures.needFix;
 		if (needFix.length > 0) {

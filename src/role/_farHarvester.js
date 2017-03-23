@@ -1,5 +1,5 @@
 import {isFull} from '../_util'
-import {attack, transfer, pickup, repair} from '../action'
+import {attack, transfer, pickup, repair,withdraw} from '../action'
 export default (creep, newRoom) => {
 	const room = Game.spawns['Spawn1'].room;
 	const newRoomMemory = newRoom.memory;
