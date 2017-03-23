@@ -1467,6 +1467,8 @@ var _util = __webpack_require__(0);
 
 var _action = __webpack_require__(1);
 
+var _task = __webpack_require__(2);
+
 exports.default = function (creep, newRoom) {
 	var room = Game.spawns['Spawn1'].room;
 	var needBuild = newRoom.memory.structures.needBuild;
@@ -1486,6 +1488,7 @@ exports.default = function (creep, newRoom) {
 		} else {
 			target = creep.pos.findClosestByRange(needBuild);
 			if ((0, _action.build)(creep, target)) return;
+			(0, _task.pathFinder)(creep, newRoom.pos);
 		}
 	} else {
 		var farMiner = newRoom.memory.creeps.my.farMiner;
@@ -1498,7 +1501,7 @@ exports.default = function (creep, newRoom) {
 			}
 			if (farMiner.length > 0) {
 				target = Game.getObjectById(farMiner[0].id);
-				pathFinder(creep, target);
+				(0, _task.pathFinder)(creep, target);
 			}
 		} else {
 			target = room.storage;

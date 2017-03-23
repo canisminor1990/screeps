@@ -1,5 +1,6 @@
 import {isFull} from '../_util'
 import {withdraw, build, pickup, transfer} from '../action'
+import {pathFinder} from '../task'
 export default (creep, newRoom) => {
 	const room = Game.spawns['Spawn1'].room;
 	const needBuild = newRoom.memory.structures.needBuild;
@@ -19,6 +20,7 @@ export default (creep, newRoom) => {
 		} else {
 			target = creep.pos.findClosestByRange(needBuild);
 			if (build(creep, target))return;
+			pathFinder(creep, newRoom.pos)
 		}
 	} else {
 		const farMiner = newRoom.memory.creeps.my.farMiner;
