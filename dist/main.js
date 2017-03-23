@@ -460,7 +460,7 @@ exports.default = function () {
 		priority: 5
 	}, {
 		role: 'harvester',
-		body: { move: 4, work: 0, carry: 8 },
+		body: { move: 4, carry: 12 },
 		number: 4,
 		priority: 2
 	}, {
