@@ -15,7 +15,7 @@ export default (creep, dropped = []) => {
 		                               container.store.energy > 0
 		).sort((a, b) => b.store.energy - a.store.energy)
 
-		if (transfer(creep, target[0])) return;
+		if (withdraw(creep, target[0])) return;
 	} else {
 		target = creep.room.memory.structures.needFill;
 		if (target.length > 0) {
@@ -23,7 +23,7 @@ export default (creep, dropped = []) => {
 		} else {
 			target = creep.room.storage
 		}
-		if (withdraw(creep, target)) return;
+		if (transfer(creep, target)) return;
 	}
 
 }
