@@ -973,7 +973,7 @@ exports.default = function () {
 	}, {
 		role: 'farBuilder',
 		body: { carry: 9, work: 3, move: 3 },
-		number: 1,
+		number: 2,
 		priority: 5
 	}, {
 		role: 'harvester',
