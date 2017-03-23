@@ -973,8 +973,8 @@ exports.default = function () {
 		priority: 2
 	}, {
 		role: 'upgrader',
-		body: { carry: 2, work: 4, move: 1 },
-		number: 2,
+		body: { carry: 2, work: 4, move: 2 },
+		number: 3,
 		priority: 3
 	}, {
 		role: 'builder',
