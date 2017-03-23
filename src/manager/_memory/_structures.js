@@ -7,7 +7,7 @@ export default (room, config) => {
 			structuresOther = _.filter(structures, structure => !structure.my),
 			structuresContainer = _.filter(structuresOther, structure => structure.structureType == STRUCTURE_CONTAINER);
 
-	let structuresDocker = structuresContainer.concat([structuresStorage], structureTower);
+	let structuresDocker = structuresContainer.concat([structuresStorage]);
 
 	return {
 		terminal: room.terminal,

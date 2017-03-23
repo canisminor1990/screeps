@@ -1160,7 +1160,7 @@ exports.default = function (room, config) {
 		return structure.structureType == STRUCTURE_CONTAINER;
 	});
 
-	var structuresDocker = structuresContainer.concat([structuresStorage], structureTower);
+	var structuresDocker = structuresContainer.concat([structuresStorage]);
 
 	return {
 		terminal: room.terminal,
