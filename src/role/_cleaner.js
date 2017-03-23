@@ -8,11 +8,11 @@ export default (creep) => {
 		// memory
 		isFull(creep)
 		if (!creep.memory.full) {
-			let dropped = creep.room.memory.dropped.energy;
-			if (dropped.length > 0) {
-				target = creep.pos.findInRange(dropped, 5);
-				if (pickup(creep, target[0])) return;
-			}
+			// let dropped = creep.room.memory.dropped.energy;
+			// if (dropped.length > 0) {
+			// 	target = creep.pos.findInRange(dropped, 5);
+			// 	if (pickup(creep, target[0])) return;
+			// }
 			target = creep.room.memory.structures.container.sort((a, b) => b.store.enengy - a.store.enengy);
 			if (withdraw(creep, target)) return;
 		} else {

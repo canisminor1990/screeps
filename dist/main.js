@@ -1421,11 +1421,11 @@ exports.default = function (creep) {
 		// memory
 		(0, _util.isFull)(creep);
 		if (!creep.memory.full) {
-			var dropped = creep.room.memory.dropped.energy;
-			if (dropped.length > 0) {
-				target = creep.pos.findInRange(dropped, 5);
-				if ((0, _action.pickup)(creep, target[0])) return;
-			}
+			// let dropped = creep.room.memory.dropped.energy;
+			// if (dropped.length > 0) {
+			// 	target = creep.pos.findInRange(dropped, 5);
+			// 	if (pickup(creep, target[0])) return;
+			// }
 			target = creep.room.memory.structures.container.sort(function (a, b) {
 				return b.store.enengy - a.store.enengy;
 			});
