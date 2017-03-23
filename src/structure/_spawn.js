@@ -18,7 +18,7 @@ export default (spawn, my, config) => {
 		if (roleNumber <= 0 || priority) return;
 		const spawnName = buildName(roleName);
 		spawn.createCreep(buildBody(roleType.body), spawnName, {role: roleName})
-		console.log('Spawn', spawnName);
+		console.log('[Spawn]', spawnName);
 		priority = true;
 	})
 
