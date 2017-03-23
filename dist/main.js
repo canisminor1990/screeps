@@ -468,8 +468,8 @@ exports.default = function () {
 		priority: 3
 	}, {
 		role: 'builder',
-		body: { move: 3, work: 3, carry: 3 },
-		number: 3,
+		body: { move: 3, work: 3, carry: 6 },
+		number: 4,
 		priority: 6
 	}, {
 		role: "miner",
