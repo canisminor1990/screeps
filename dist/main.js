@@ -430,13 +430,13 @@ exports.default = function () {
 	var role = [{
 		role: "claim",
 		body: { tough: 1, move: 1, claim: 1 },
-		roleTimeout: 200,
+		roleTimeout: 100,
 		number: 1,
 		priority: 7
 	}, {
 		role: "farMiner",
 		body: { move: 2, work: 4, carry: 2 },
-		roleTimeout: 200,
+		roleTimeout: 50,
 		number: 1,
 		priority: 4
 	}, {
@@ -468,7 +468,7 @@ exports.default = function () {
 		role: "miner",
 		body: { carry: 1, work: 8, move: 2 },
 		number: 2,
-		roleTimeout: 50,
+		roleTimeout: 20,
 		priority: 1
 	}, {
 		role: 'cleaner',
@@ -1372,7 +1372,7 @@ exports.default = function (spawn, my, config) {
 	var priority = false;
 	roleFactory.forEach(function (roleType) {
 		var roleName = roleType.role;
-		var roleTimeout = roleType.roleTimeout ? roleType.roleTimeout : 25;
+		var roleTimeout = roleType.roleTimeout ? roleType.roleTimeout : 10;
 		var roleMy = my[roleName].sort(function (a, b) {
 			return a.ticksToLive - b.ticksToLive;
 		});
