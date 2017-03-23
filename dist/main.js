@@ -862,7 +862,7 @@ exports.default = function (creep) {
 
 		if (creep.carry.energy < creep.carryCapacity) {
 			var _transferTarget = creep.room.memory.storage;
-			creep.withdraw(_transferTarget, RESOURCE_ENERGY) != OK ? (0, _task.pathFinder)(creep, _transferTarget[0]) : null;
+			creep.withdraw(_transferTarget, RESOURCE_ENERGY) != OK ? (0, _task.pathFinder)(creep, _transferTarget) : null;
 		} else {
 			var _needFill = creep.room.memory.structures.needFill;
 			var _needFillTarget = creep.pos.findClosestByRange(_needFill);

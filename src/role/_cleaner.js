@@ -32,7 +32,7 @@ export default (creep, dropped = []) => {
 		if (creep.carry.energy < creep.carryCapacity) {
 			const transferTarget = creep.room.memory.storage;
 			(creep.withdraw(transferTarget, RESOURCE_ENERGY) != OK)
-					? pathFinder(creep, transferTarget[0]) : null
+					? pathFinder(creep, transferTarget) : null
 		} else {
 			const needFill = creep.room.memory.structures.needFill;
 			let needFillTarget = creep.pos.findClosestByRange(needFill);
