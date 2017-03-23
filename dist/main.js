@@ -1349,14 +1349,10 @@ exports.default = function (spawn, my, config) {
 	roleFactory.forEach(function (roleType) {
 		var roleName = roleType.role;
 		var roleTimeout = roleType.roleTimeout ? roleType.roleTimeout : 10;
-		var roleMy = my[roleName].sort(function (a, b) {
-			return a.ticksToLive - b.ticksToLive;
+		var roleMy = _.filter(my[roleName], function (roleCreep) {
+			return roleCreep.ticksToLive > roleTimeout;
 		});
-		var roleNeardeath = 0;
-		roleMy.forEach(function (roleCreep) {
-			if (roleCreep && roleCreep.ticksToLive < roleTimeout) roleNeardeath++;
-		});
-		var roleNumber = roleType.number - (roleMy.length - roleNeardeath);
+		var roleNumber = roleType.number - roleMy;
 		if (roleNumber <= 0 || priority) return;
 		var spawnName = buildName(roleName);
 		spawn.createCreep(buildBody(roleType.body), spawnName, { role: roleName });
