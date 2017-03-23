@@ -19,7 +19,7 @@ export default (creep, newRoom) => {
 			target = creep.pos.findInRange(dropped, 4);
 			if (pickup(creep, target[0])) return;
 		}
-		target = newRoom.memory.structures.structures.container;
+		target = newRoom.memory.structures.container;
 		if (withdraw(creep, target)) return;
 	} else {
 		const needFix = newRoom.memory.structures.needFix;
