@@ -19,7 +19,10 @@ export default (creep, dropped = []) => {
 		if (pickupTarget.length > 0) {
 			(creep.pickup(pickupTarget[0]) != OK) ? pathFinder(creep, pickupTarget[0]) : null
 		} else {
-			const transferTarget = creep.room.memory.structures.container.sort((a, b) => b.store.enengy - a.store.enengy);
+			let transferTarget = _.filter(creep.room.memory.structures.container,
+			                              container => container.id != '58d31e9dbbb5793fe9d0ad71'
+			)
+			transferTarget = transferTarget.sort((a, b) => b.store.enengy - a.store.enengy);
 			(transferTarget && creep.withdraw(transferTarget[0], RESOURCE_ENERGY) != OK)
 					? pathFinder(creep, transferTarget[0]) : null
 		}
