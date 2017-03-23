@@ -1417,11 +1417,42 @@ var _action = __webpack_require__(2);
 
 exports.default = function (creep) {
 	var target = void 0;
-	var dropped = creep.room.memory.dropped.energy;
-	if (dropped.length > 0) {
-		target = creep.pos.findInRange(dropped, 5);
-		if ((0, _action.pickup)(creep, target[0])) return;
+
+	if (creep.carry.energy < 50) {
+		target = creep.room.storage;
+		if ((0, _action.withdraw)(creep, target)) return;
+	} else {
+		target = creep.room.memory.structures.needFill;
+		target = creep.pos.findClosestByRange(target);
+		if ((0, _action.transfer)(creep, target)) return;
 	}
+	// if (creep.room.memory.creeps.my.harvester.length > 0 &&
+	//     creep.room.memory.creeps.my.miner.length > 0) {
+	// 	// memory
+	// 	isFull(creep)
+	// 	if (!creep.memory.full) {
+	//
+	// 		target = creep.room.memory.structures.container.sort((a, b) => b.store.enengy - a.store.enengy);
+	// 		if (withdraw(creep, target)) return;
+	// 	} else {
+	// 		target = creep.room.memory.structures.needFill;
+	// 		if (target.length > 0) {
+	// 			target = creep.pos.findClosestByRange(target);
+	// 		} else {
+	// 			target = creep.room.storage
+	// 		}
+	// 		if (transfer(creep, target)) return;
+	// 	}
+	// } else {
+	// 	if (creep.carry.energy < 50) {
+	// 		target = creep.room.storage;
+	// 		if (withdraw(creep, target)) return;
+	// 	} else {
+	// 		target = creep.room.memory.structures.needFill;
+	// 		target = creep.pos.findClosestByRange(target);
+	// 		if (transfer(creep, target)) return;
+	// 	}
+	// }
 };
 
 /***/ }),
