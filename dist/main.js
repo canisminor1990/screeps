@@ -866,6 +866,8 @@ Object.defineProperty(exports, "__esModule", {
 	value: true
 });
 
+var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+
 var _util = __webpack_require__(0);
 
 exports.default = function (creep, rawTarget) {
@@ -873,13 +875,13 @@ exports.default = function (creep, rawTarget) {
 
 	if (!rawTarget) return false;
 	var target = rawTarget;
-	console.log(target instanceof Array);
+	console.log(typeof target === "undefined" ? "undefined" : _typeof(target));
 	if (target instanceof Array) {
 		target = _.compact(target);
 		if (target.length == 0) return false;
 		target = target[0];
 	};
-	console.log(target instanceof Array);
+
 	(0, _util.action)(creep, target, creep.transfer(target[0], RESOURCE_ENERGY), _util.emoji.transfer);
 	return true;
 };
