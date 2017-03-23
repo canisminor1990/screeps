@@ -1481,7 +1481,7 @@ exports.default = function (creep, newRoom) {
 				target = creep.pos.findInRange(dropped, 3);
 				if ((0, _action.pickup)(creep, target[0])) return;
 			}
-			target = creep.room.storage;
+			target = Game.spawns['Spawn1'].room.storage;
 			if ((0, _action.withdraw)(creep, target)) return;
 		} else {
 			target = creep.pos.findClosestByRange(needBuild);
