@@ -878,7 +878,7 @@ exports.default = function (creep, rawTarget) {
 		target = target[0];
 	};
 
-	(0, _util.action)(creep, target, creep.transfer(target, type), _util.emoji.transfer);
+	(0, _util.action)(creep, target, creep.transfer(target, RESOURCE_ENERGY), _util.emoji.transfer);
 	return true;
 };
 
@@ -930,7 +930,7 @@ exports.default = function (creep, rawTarget) {
 		if (target.length == 0) return false;
 		target = target[0];
 	}
-	(0, _util.action)(creep, target, creep.withdraw(target, type), _util.emoji.withdraw);
+	(0, _util.action)(creep, target, creep.withdraw(target, RESOURCE_ENERGY), _util.emoji.withdraw);
 	return true;
 };
 
@@ -1691,10 +1691,10 @@ exports.default = function (creep, controller) {
 	(0, _util.isFull)(creep);
 	// run
 	if (creep.memory.full) {
-		(0, _action.upgradeController)(creep, controller);
+		if ((0, _action.upgradeController)(creep, controller)) return;
 	} else {
 		target = creep.pos.findClosestByRange(creep.room.memory.structures.canWithdraw);
-		(0, _action.withdraw)(creep, target);
+		if ((0, _action.withdraw)(creep, target)) return;
 	}
 };
 

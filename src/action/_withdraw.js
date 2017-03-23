@@ -7,6 +7,6 @@ export default (creep, rawTarget, type = RESOURCE_ENERGY) => {
 		if (target.length == 0) return false;
 		target = target[0];
 	}
-	action(creep, target, creep.withdraw(target, type), emoji.withdraw);
+	action(creep, target, creep.withdraw(target, RESOURCE_ENERGY), emoji.withdraw);
 	return true;
 }
