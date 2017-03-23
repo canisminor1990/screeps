@@ -1,45 +1,36 @@
-import {pathFinder} from '../task'
+import { isFull } from '../_util'
+import { harvest, pickup, transfer, withdraw } from '../action'
 
 export default (creep, dropped = []) => {
+	let target;
 	if (creep.room.memory.creeps.my.harvester.length > 0 &&
-			creep.room.memory.creeps.my.miner.length >0) {
-
-		if (creep.carry.energy < creep.carryCapacity) {
+	    creep.room.memory.creeps.my.miner.length > 0) {
+		// memory
+		isFull(creep)
+		if (!creep.memory.full) {
 			if (dropped.length > 0) {
-				const pickupTarget = creep.pos.findClosestByPath(dropped);
-				(pickupTarget && creep.pickup(pickupTarget) != OK)
-						? pathFinder(creep, pickupTarget) : null;
-			} else {
-				const transferTarget = creep.room.memory.structures.container.sort((a, b) => b.store.enengy - a.store.enengy);
-				(transferTarget && creep.withdraw(transferTarget[0], RESOURCE_ENERGY) != OK)
-						? pathFinder(creep, transferTarget[0]) : null
+				target = creep.pos.findClosestByPath(dropped);
+				if (pickup(creep, target)) return;
 			}
+			target = creep.room.memory.structures.container.sort((a, b) => b.store.enengy - a.store.enengy);
+			if (withdraw(creep, target)) return;
 		} else {
-
-			const needFill = creep.room.memory.structures.needFill;
-			let needFillTarget;
-			if (needFill.length > 0) {
-				needFillTarget = creep.pos.findClosestByRange(needFill);
+			target = creep.room.memory.structures.needFill;
+			if (target.length > 0) {
+				target = creep.pos.findClosestByRange(target);
 			} else {
-				needFillTarget = creep.room.storage
+				target = creep.room.storage
 			}
-			(needFillTarget && creep.transfer(needFillTarget, RESOURCE_ENERGY) != OK)
-					? pathFinder(creep, needFillTarget) : null
-
+			if (transfer(creep, target)) return;
 		}
 	} else {
-
 		if (creep.carry.energy < 50) {
-			const transferTarget = creep.room.storage;
-			(creep.withdraw(transferTarget, RESOURCE_ENERGY) != OK)
-					? pathFinder(creep, transferTarget) : null
+			target = creep.room.storage;
+			if (withdraw(creep, target)) return;
 		} else {
-			const needFill = creep.room.memory.structures.needFill;
-			let needFillTarget = creep.pos.findClosestByRange(needFill);
-			(needFillTarget && creep.transfer(needFillTarget, RESOURCE_ENERGY) != OK)
-					? pathFinder(creep, needFillTarget) : null
-
+			target = creep.room.memory.structures.needFill;
+			target = creep.pos.findClosestByRange(target);
+			if (transfer(creep, target)) return;
 		}
-
 	}
 };

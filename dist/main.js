@@ -1409,43 +1409,43 @@ Object.defineProperty(exports, "__esModule", {
 	value: true
 });
 
-var _task = __webpack_require__(1);
+var _util = __webpack_require__(0);
+
+var _action = __webpack_require__(2);
 
 exports.default = function (creep) {
 	var dropped = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : [];
 
+	var target = void 0;
 	if (creep.room.memory.creeps.my.harvester.length > 0 && creep.room.memory.creeps.my.miner.length > 0) {
-
-		if (creep.carry.energy < creep.carryCapacity) {
+		// memory
+		(0, _util.isFull)(creep);
+		if (!creep.memory.full) {
 			if (dropped.length > 0) {
-				var pickupTarget = creep.pos.findClosestByPath(dropped);
-				pickupTarget && creep.pickup(pickupTarget) != OK ? (0, _task.pathFinder)(creep, pickupTarget) : null;
-			} else {
-				var transferTarget = creep.room.memory.structures.container.sort(function (a, b) {
-					return b.store.enengy - a.store.enengy;
-				});
-				transferTarget && creep.withdraw(transferTarget[0], RESOURCE_ENERGY) != OK ? (0, _task.pathFinder)(creep, transferTarget[0]) : null;
+				target = creep.pos.findClosestByPath(dropped);
+				if ((0, _action.pickup)(creep, target)) return;
 			}
+			target = creep.room.memory.structures.container.sort(function (a, b) {
+				return b.store.enengy - a.store.enengy;
+			});
+			if ((0, _action.withdraw)(creep, target)) return;
 		} else {
-
-			var needFill = creep.room.memory.structures.needFill;
-			var needFillTarget = void 0;
-			if (needFill.length > 0) {
-				needFillTarget = creep.pos.findClosestByRange(needFill);
+			target = creep.room.memory.structures.needFill;
+			if (target.length > 0) {
+				target = creep.pos.findClosestByRange(target);
 			} else {
-				needFillTarget = creep.room.storage;
+				target = creep.room.storage;
 			}
-			needFillTarget && creep.transfer(needFillTarget, RESOURCE_ENERGY) != OK ? (0, _task.pathFinder)(creep, needFillTarget) : null;
+			if ((0, _action.transfer)(creep, target)) return;
 		}
 	} else {
-
 		if (creep.carry.energy < 50) {
-			var _transferTarget = creep.room.storage;
-			creep.withdraw(_transferTarget, RESOURCE_ENERGY) != OK ? (0, _task.pathFinder)(creep, _transferTarget) : null;
+			target = creep.room.storage;
+			if ((0, _action.withdraw)(creep, target)) return;
 		} else {
-			var _needFill = creep.room.memory.structures.needFill;
-			var _needFillTarget = creep.pos.findClosestByRange(_needFill);
-			_needFillTarget && creep.transfer(_needFillTarget, RESOURCE_ENERGY) != OK ? (0, _task.pathFinder)(creep, _needFillTarget) : null;
+			target = creep.room.memory.structures.needFill;
+			target = creep.pos.findClosestByRange(target);
+			if ((0, _action.transfer)(creep, target)) return;
 		}
 	}
 };
