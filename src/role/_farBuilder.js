@@ -21,8 +21,7 @@ export default (creep, newRoom) => {
 		}
 	} else {
 		const room = Game.spawns['Spawn1'].room;
-		const newRoomMemory = newRoom.memory;
-		const farMiner = newRoomMemory.creeps.my.farMiner;
+		const farMiner = newRoom.memory.creeps.my.farMiner;
 
 		if (!creep.memory.full) {
 			const dropped = creep.room.memory.dropped.energy;

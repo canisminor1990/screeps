@@ -1488,8 +1488,7 @@ exports.default = function (creep, newRoom) {
 		}
 	} else {
 		var room = Game.spawns['Spawn1'].room;
-		var newRoomMemory = newRoom.memory;
-		var farMiner = newRoomMemory.creeps.my.farMiner;
+		var farMiner = newRoom.memory.creeps.my.farMiner;
 
 		if (!creep.memory.full) {
 			var _dropped = creep.room.memory.dropped.energy;
