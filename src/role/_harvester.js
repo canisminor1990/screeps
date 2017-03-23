@@ -8,7 +8,7 @@ export default (creep) => {
 	if (!creep.memory.full) {
 		const dropped = creep.room.memory.dropped.energy;
 		if (dropped.length > 0) {
-			target = creep.pos.findInRange(dropped, 4);
+			target = creep.pos.findInRange(dropped, 6);
 			if (pickup(creep, target[0])) return;
 		}
 		target = _.filter(creep.room.memory.structures.container,
