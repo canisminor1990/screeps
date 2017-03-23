@@ -5,7 +5,7 @@ export default (creep, target, fc, text) => {
 			if (text) creep.say(text + text);
 			break;
 		case ERR_NOT_OWNER             :
-			creep.say(text + "NOT_OWNER");
+			creep.say(text + "OWNER");
 			break;
 		case ERR_NO_PATH               :
 			creep.say(text + "NO_PATH");
@@ -17,16 +17,16 @@ export default (creep, target, fc, text) => {
 			creep.say(text + "BUSY");
 			break;
 		case ERR_NOT_FOUND             :
-			creep.say(text + "NOT_FOUND");
+			creep.say(text + "FOUND");
 			break;
 		case ERR_NOT_ENOUGH_ENERGY     :
-			creep.say(text + "NOT_ENOUGH_ENERGY");
+			creep.say(text + "ENERGY");
 			break;
 		case ERR_NOT_ENOUGH_RESOURCES  :
-			creep.say(text + "NOT_ENOUGH_RESOURCES");
+			creep.say(text + "RESOURCES");
 			break;
 		case ERR_INVALID_TARGET        :
-			creep.say(text + "INVALID_TARGET");
+			creep.say(text + "TARGET");
 			break;
 		case ERR_FULL                  :
 			creep.say(text + "FULL");
@@ -35,22 +35,22 @@ export default (creep, target, fc, text) => {
 			pathFinder(creep, target)
 			break;
 		case ERR_INVALID_ARGS          :
-			creep.say(text + "INVALID_ARGS");
+			creep.say(text + "ARGS");
 			break;
 		case ERR_TIRED                 :
 			creep.say(text + "TIRED");
 			break;
 		case ERR_NO_BODYPART           :
-			creep.say(text + "NO_BODYPART");
+			creep.say(text + "BODYPART");
 			break;
 		case ERR_NOT_ENOUGH_EXTENSIONS :
-			creep.say(text + "NOT_ENOUGH_EXTENSIONS");
+			creep.say(text + "ENOUGH_EXTENSIONS");
 			break;
 		case ERR_RCL_NOT_ENOUGH        :
-			creep.say(text + "RCL_NOT_ENOUGH");
+			creep.say(text + "RCL");
 			break;
 		case ERR_GCL_NOT_ENOUGH        :
-			creep.say(text + "GCL_NOT_ENOUGH");
+			creep.say(text + "GCL");
 			break;
 	}
 }
