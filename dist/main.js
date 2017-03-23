@@ -1829,9 +1829,12 @@ Object.defineProperty(exports, "__esModule", {
 	value: true
 });
 
+var _util = __webpack_require__(0);
+
 exports.default = function (spawn, my, config) {
 	if (spawn.spawning) {
-		spawn.room.visual.text('[Spawn] ' + spawn.spawning.name, spawn.pos.x + 1, spawn.pos.y, { align: 'left', opacity: 0.8 });
+		var percent = Math.round(1 - spawn.spawning.remainingTimee / spawn.spawning.needTim);
+		spawn.room.visual.text('' + _util.emoji.build + spawn.spawning.name + '(' + percent + '%)', spawn.pos.x + 1, spawn.pos.y, { align: 'left', opacity: 0.8 });
 		return;
 	}
 
