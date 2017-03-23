@@ -1,21 +1,16 @@
-import { pathFinder } from '../task'
-
+import { isFull } from '../_util'
+import { withdraw, upgradeController } from '../action'
 export default  (creep, controller) => {
-	if (creep.memory.upgrading && creep.carry.energy == 0) {
-		creep.memory.upgrading = false;
-	}
-	if (!creep.memory.upgrading && creep.carry.energy == creep.carryCapacity) {
-		creep.memory.upgrading = true;
-		creep.say('UP');
-	}
-
-	if (creep.memory.upgrading) {
-		(creep.upgradeController(controller) != OK)? pathFinder(creep, controller):null;
+	let target;
+	// memory
+	isFull(creep)
+	// run
+	if (creep.memory.full) {
+		upgradeController(creep, controller)
 	}
 	else {
-		const canWithdraw = creep.pos.findClosestByRange(creep.room.memory.structures.canWithdraw);
-		(canWithdraw && creep.withdraw(canWithdraw,RESOURCE_ENERGY) != OK)
-			? pathFinder(creep, canWithdraw) : null
+		target = creep.pos.findClosestByRange(creep.room.memory.structures.canWithdraw);
+		withdraw(creep, target)
 	}
 }
 
