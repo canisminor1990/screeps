@@ -835,7 +835,7 @@ var _task = __webpack_require__(0);
 exports.default = function (creep) {
 	var dropped = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : [];
 
-	if (creep.room.memory.creeps.my.harvester.length > 0) {
+	if (creep.room.memory.creeps.my.harvester.length > 0 && creep.room.memory.creeps.my.miner.length > 0) {
 
 		if (creep.carry.energy < creep.carryCapacity) {
 			if (dropped.length > 0) {

@@ -1,7 +1,8 @@
 import {pathFinder} from '../task'
 
 export default (creep, dropped = []) => {
-	if (creep.room.memory.creeps.my.harvester.length > 0) {
+	if (creep.room.memory.creeps.my.harvester.length > 0 &&
+			creep.room.memory.creeps.my.miner.length >0) {
 
 		if (creep.carry.energy < creep.carryCapacity) {
 			if (dropped.length > 0) {
