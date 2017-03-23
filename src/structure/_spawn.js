@@ -3,7 +3,7 @@ export default (spawn, my, config) => {
 	if (spawn.spawning) {
 		const percent = Math.round((1 - spawn.spawning.remainingTime / spawn.spawning.needTime) * 100)
 		spawn.room.visual.text(
-				`${emoji.build}${spawn.spawning.name}(${percent}%)`,
+				`${emoji.build}${spawn.spawning.name.split('#')[1]}(${percent}%)`,
 				spawn.pos.x + 1,
 				spawn.pos.y,
 				{align: 'left', opacity: 0.8});
