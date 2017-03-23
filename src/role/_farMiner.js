@@ -19,12 +19,8 @@ export default (creep, newRoom) => {
 			if (harvest(creep, target)) return;
 		}
 	} else {
-		target = creep.pos.findInRange(newRoom.memory.creeps.my.farHarvester, 1, {
-			filter: targetCreep => targetCreep.carry.energy < targetCreep.carryCapacity
-		});
-		if (target.length > 0) {
-			if (transfer(creep, target[0])) return;
-		}
+		target = creep.pos.findInRange(creep.room.memory.structures.canFill, 4);
+		if (transfer(creep, target[0])) return;
 		target = newRoom.memory.structures.needBuild;
 		if (build(creep, target[0])) return;
 	}

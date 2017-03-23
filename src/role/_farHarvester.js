@@ -1,10 +1,8 @@
 import {isFull} from '../_util'
 import {attack, transfer, pickup, repair} from '../action'
-import {pathFinder} from '../task'
 export default (creep, newRoom) => {
 	const room = Game.spawns['Spawn1'].room;
 	const newRoomMemory = newRoom.memory;
-	const farMiner = newRoomMemory.creeps.my.farMiner;
 	const enemy = newRoomMemory.creeps.enemy;
 	let target;
 	// memory
@@ -21,10 +19,11 @@ export default (creep, newRoom) => {
 			target = creep.pos.findInRange(dropped, 4);
 			if (pickup(creep, target[0])) return;
 		}
-		if (farMiner.length > 0) {
-			target = Game.getObjectById(farMiner[0].id);
-			pathFinder(creep, target)
-		}
+		target = _.filter(newRoom.memory.structures.container,
+				container => container.id != '58d31e9dbbb5793fe9d0ad71' &&
+				container.store.energy > 0
+		).sort((a, b) => b.store.energy - a.store.energy)
+		if (withdraw(creep, target[0])) return;
 	} else {
 		const needFix = newRoom.memory.structures.needFix;
 		if (needFix.length > 0) {
