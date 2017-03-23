@@ -1,7 +1,7 @@
 import { isFull } from '../_util'
 import { harvest, pickup, transfer, upgradeController } from '../action'
 export default (creep) => {
-	const sources = creep.room.memory.source;
+	const sources = creep.room.memory.sources;
 	let target;
 	// root
 	if (!creep.memory.harvestTarget) creep.memory.harvestTarget = sources[0].source.id
