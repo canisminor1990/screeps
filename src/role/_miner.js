@@ -1,5 +1,5 @@
 import { pathFinder }from '../task'
-import { harvest } from '../action'
+import { harvest, pickup } from '../action'
 export default (creep, sources, dropped = []) => {
 
 	if (creep.carry.energy == creep.carryCapacity) {
@@ -27,19 +27,13 @@ export default (creep, sources, dropped = []) => {
 
 	if (!creep.memory.full && creep.memory.harvestTarget) {
 
-		let pickupTarget = []
 		if (dropped.length > 0) {
-			pickupTarget = creep.pos.findInRange(dropped, 0);
+			let pickupTarget = creep.pos.findInRange(dropped, 0);
+			if (pickup(creep, pickupTarget)) return;
 		}
-		if (pickupTarget.length > 0) {
-			creep.pickup(pickupTarget[0])
-			creep.say('pickup')
-		} else {
-			const harvestTarget = Game.getObjectById(creep.memory.harvestTarget);
-			harvest(creep,harvestTarget)
-			// (creep.harvest(harvestTarget) != OK) ?
-			// pathFinder(creep, harvestTarget) : null;
-		}
+
+		let harvestTarget = Game.getObjectById(creep.memory.harvestTarget)
+		if (harvest(creep, harvestTarget)) return;
 
 	}
 
