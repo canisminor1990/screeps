@@ -14,8 +14,8 @@ module.exports.loop = () => {
 	}
 	// start
 	Manager.root()
-	Manager.memory(roomArray)
-	Manager.role(roomArray)
-	Manager.structure(roomArray)
+	Manager.memory(rooms)
+	Manager.role(rooms)
+	Manager.structure(rooms)
 }
 
