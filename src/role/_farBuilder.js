@@ -5,8 +5,10 @@ export default (creep, newRoom) => {
 	const newRoomMemory = newRoom.memory;
 	const needBuild = newRoomMemory.structures.needBuild;
 	const farMiner = newRoomMemory.creeps.my.farMiner;
-
+	let target;
+	// memory
 	isFull(creep)
+	// run
 	if (needBuild.length > 0) {
 		if (!creep.memory.full) {
 			const dropped = creep.room.memory.dropped.energy;

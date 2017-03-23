@@ -1473,8 +1473,10 @@ exports.default = function (creep, newRoom) {
 	var newRoomMemory = newRoom.memory;
 	var needBuild = newRoomMemory.structures.needBuild;
 	var farMiner = newRoomMemory.creeps.my.farMiner;
-
+	var target = void 0;
+	// memory
 	(0, _util.isFull)(creep);
+	// run
 	if (needBuild.length > 0) {
 		if (!creep.memory.full) {
 			var dropped = creep.room.memory.dropped.energy;
