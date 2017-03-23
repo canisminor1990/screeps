@@ -7,6 +7,6 @@ export default (creep, rawTarget) => {
 		if (target.length == 0) return false;
 		target = target[0];
 	}
-	action(creep, target, creep.claimController(target), emoji.claim)
+	action(creep, target, creep.reserveController(target), emoji.claim)
 	return true;
 }

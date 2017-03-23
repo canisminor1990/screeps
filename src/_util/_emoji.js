@@ -9,7 +9,7 @@ export default {
 	claim    : unescape("%uD83D%uDEA9"),
 	heal     : unescape("%uD83D%uDC9A"),
 	pickup   : unescape("%uD83E%uDD33"),
-	withdraw : unescape("%uD83E%uDD33"),
+	withdraw : unescape("%uD83D%uDCB0"),
 	upgrade  : unescape("%uD83D%uDE80"),
 	recycle  : unescape("%uD83D%uDD04"),
 	dismantle: unescape("%u2B55")
