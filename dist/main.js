@@ -530,7 +530,6 @@ exports.default = function (creep, target, fc, text) {
 			break;
 		case ERR_INVALID_TARGET:
 			creep.say(text + "TARGET");
-			console.log(target);
 			break;
 		case ERR_FULL:
 			creep.say(text + "FULL");
@@ -866,8 +865,6 @@ Object.defineProperty(exports, "__esModule", {
 	value: true
 });
 
-var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
-
 var _util = __webpack_require__(0);
 
 exports.default = function (creep, rawTarget) {
@@ -875,7 +872,6 @@ exports.default = function (creep, rawTarget) {
 
 	if (!rawTarget) return false;
 	var target = rawTarget;
-	console.log(typeof target === "undefined" ? "undefined" : _typeof(target));
 	if (target instanceof Array) {
 		target = _.compact(target);
 		if (target.length == 0) return false;
@@ -1599,49 +1595,38 @@ Object.defineProperty(exports, "__esModule", {
 	value: true
 });
 
-var _task = __webpack_require__(1);
+var _util = __webpack_require__(0);
+
+var _action = __webpack_require__(2);
 
 exports.default = function (creep) {
 	var dropped = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : [];
 
-
-	if (creep.carry.energy == 0) {
-		creep.memory.full = false;
-	}
-
-	if (creep.carry.energy == creep.carryCapacity) {
-		creep.memory.full = true;
-	}
-
+	var target = void 0;
+	// memory
+	(0, _util.isFull)(creep);
+	// run
 	if (!creep.memory.full) {
 
-		var pickupTarget = [];
 		if (dropped.length > 0) {
-			pickupTarget = creep.pos.findInRange(dropped, 5);
+			target = creep.pos.findInRange(dropped, 5);
+			if (pickup(creep, target[0])) return;
 		}
+		target = _.filter(creep.room.memory.structures.container, function (container) {
+			return container.id != '58d31e9dbbb5793fe9d0ad71' && container.store.energy > 0;
+		}).sort(function (a, b) {
+			return b.store.energy - a.store.energy;
+		});
 
-		if (pickupTarget.length > 0) {
-			creep.pickup(pickupTarget[0]) != OK ? (0, _task.pathFinder)(creep, pickupTarget[0]) : null;
+		if (transfer(creep, target[0])) return;
+	} else {
+		target = creep.room.memory.structures.needFill;
+		if (target.length > 0) {
+			target = creep.pos.findClosestByRange(target);
 		} else {
-			var transferTarget = _.filter(creep.room.memory.structures.container, function (container) {
-				return container.id != '58d31e9dbbb5793fe9d0ad71' && container.store.energy > 0;
-			});
-			transferTarget = transferTarget.sort(function (a, b) {
-				return b.store.energy - a.store.energy;
-			})[0];
-			transferTarget && creep.withdraw(transferTarget, RESOURCE_ENERGY) != OK ? (0, _task.pathFinder)(creep, transferTarget) : null;
+			target = creep.room.storage;
 		}
-	}
-
-	if (creep.memory.full) {
-		var needFill = creep.room.memory.structures.needFill;
-		var needFillTarget = void 0;
-		if (needFill.length > 0) {
-			needFillTarget = creep.pos.findClosestByRange(needFill);
-		} else {
-			needFillTarget = creep.room.storage;
-		}
-		needFillTarget && creep.transfer(needFillTarget, RESOURCE_ENERGY) != OK ? (0, _task.pathFinder)(creep, needFillTarget) : null;
+		if (transfer(creep, target)) return;
 	}
 };
 

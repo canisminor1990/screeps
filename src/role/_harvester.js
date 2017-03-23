@@ -1,44 +1,30 @@
-import { pathFinder } from '../task'
+import { isFull } from '../_util'
+import { withdraw, upgradeController } from '../action'
 export default (creep, dropped = []) => {
-
-	if (creep.carry.energy == 0) {
-		creep.memory.full = false
-	}
-
-	if (creep.carry.energy == creep.carryCapacity) {
-		creep.memory.full = true
-	}
-
+	let target;
+	// memory
+	isFull(creep)
+	// run
 	if (!creep.memory.full) {
 
-		let pickupTarget = [];
 		if (dropped.length > 0) {
-			pickupTarget = creep.pos.findInRange(dropped, 5);
+			target = creep.pos.findInRange(dropped, 5);
+			if (pickup(creep, target[0])) return;
 		}
+		target = _.filter(creep.room.memory.structures.container,
+		                  container => container.id != '58d31e9dbbb5793fe9d0ad71' &&
+		                               container.store.energy > 0
+		).sort((a, b) => b.store.energy - a.store.energy)
 
-		if (pickupTarget.length > 0) {
-			(creep.pickup(pickupTarget[0]) != OK) ? pathFinder(creep, pickupTarget[0]) : null
+		if (transfer(creep, target[0])) return;
+	} else {
+		target = creep.room.memory.structures.needFill;
+		if (target.length > 0) {
+			target = creep.pos.findClosestByRange(target);
 		} else {
-			let transferTarget = _.filter(creep.room.memory.structures.container,
-			                              container => container.id != '58d31e9dbbb5793fe9d0ad71' &&
-			                                           container.store.energy > 0
-			)
-			transferTarget     = transferTarget.sort((a, b) => b.store.energy - a.store.energy)[0];
-			(transferTarget && creep.withdraw(transferTarget, RESOURCE_ENERGY) != OK)
-				? pathFinder(creep, transferTarget) : null
+			target = creep.room.storage
 		}
+		if (transfer(creep, target)) return;
 	}
 
-	if (creep.memory.full) {
-		const needFill = creep.room.memory.structures.needFill;
-		let needFillTarget;
-		if (needFill.length > 0) {
-			needFillTarget = creep.pos.findClosestByRange(needFill);
-		} else {
-			needFillTarget = creep.room.storage
-		}
-		(needFillTarget && creep.transfer(needFillTarget, RESOURCE_ENERGY) != OK)
-			? pathFinder(creep, needFillTarget) : null
-
-	}
 }
