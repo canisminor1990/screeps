@@ -1660,7 +1660,8 @@ var _util = __webpack_require__(0);
 
 var _action = __webpack_require__(1);
 
-exports.default = function (creep, sources) {
+exports.default = function (creep) {
+	var sources = creep.room.memory.source;
 	var target = void 0;
 	// root
 	if (!creep.memory.harvestTarget) creep.memory.harvestTarget = sources[0].source.id;
