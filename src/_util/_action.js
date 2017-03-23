@@ -27,6 +27,7 @@ export default (creep, target, fc, text) => {
 			break;
 		case ERR_INVALID_TARGET        :
 			creep.say(text + "TARGET");
+			console.log(target);
 			break;
 		case ERR_FULL                  :
 			creep.say(text + "FULL");

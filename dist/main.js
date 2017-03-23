@@ -530,6 +530,7 @@ exports.default = function (creep, target, fc, text) {
 			break;
 		case ERR_INVALID_TARGET:
 			creep.say(text + "TARGET");
+			console.log(target);
 			break;
 		case ERR_FULL:
 			creep.say(text + "FULL");
@@ -877,7 +878,7 @@ exports.default = function (creep, rawTarget) {
 		if (target.length == 0) return false;
 		target = target[0];
 	};
-	console.log(target);
+
 	(0, _util.action)(creep, target, creep.transfer(target, type), _util.emoji.transfer);
 	return true;
 };
