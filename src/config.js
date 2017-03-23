@@ -8,14 +8,14 @@ export default (room = Game.rooms['W81S67']) => {
 		{
 			role: "claim",
 			body: {claim: 2, move: 1},
-			timeout: 50,
+			timeout: 80,
 			number: 1,
 			priority: 7
 		},
 		{
 			role: "farMiner",
 			body: {move: 2, work: 4, carry: 2},
-			timeout: 50,
+			timeout: 80,
 			number: 1,
 			priority: 4
 		},
@@ -53,7 +53,7 @@ export default (room = Game.rooms['W81S67']) => {
 			role: "miner",
 			body: {carry: 1, work: 8, move: 2},
 			number: 2,
-			timeout: 20,
+			timeout: 40,
 			priority: 1
 		},
 		{
