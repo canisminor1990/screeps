@@ -1840,11 +1840,9 @@ exports.default = function (spawn, my, config) {
 		var roleNumber = roleType.number - roleMy.length;
 		if (roleNumber <= 0 || priority) return;
 		var spawnName = buildName(roleName);
-		if (spawn.createCreep(buildBody(roleType.body), spawnName, { role: roleName }) == OK) {
-			console.log('Spawn', spawn.spawning.name);
-		} else {
-			priority = true;
-		}
+		spawn.createCreep(buildBody(roleType.body), spawnName, { role: roleName });
+		console.log('Spawn', spawnName);
+		priority = true;
 	});
 };
 
