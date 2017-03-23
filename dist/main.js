@@ -1408,6 +1408,7 @@ exports.default = function (creep, newRoom) {
 	var target = Game.getObjectById('5873bc3511e3e4361b4d738f');
 	if (!target) {
 		(0, _task.pathFinder)(creep, newRoom.pos);
+		return;
 	} else {
 		if ((0, _action.claimController)(creep, target)) return;
 	}
@@ -1494,6 +1495,7 @@ exports.default = function (creep, newRoom) {
 			target = creep.pos.findClosestByRange(needBuild);
 			if ((0, _action.build)(creep, target)) return;
 			(0, _task.pathFinder)(creep, newRoom.pos);
+			return;
 		}
 	} else {
 		var farMiner = newRoom.memory.creeps.my.farMiner;
@@ -1506,6 +1508,7 @@ exports.default = function (creep, newRoom) {
 			if (farMiner.length > 0) {
 				target = Game.getObjectById(farMiner[0].id);
 				(0, _task.pathFinder)(creep, target);
+				return;
 			}
 		} else {
 			var needFix = newRoom.memory.structures.needFix;
@@ -1592,6 +1595,7 @@ exports.default = function (creep, newRoom) {
 	target = Game.getObjectById('5873bc3511e3e4361b4d7390');
 	if (!target) {
 		(0, _task.pathFinder)(creep, newRoom.pos);
+		return;
 	} else {
 		if ((0, _action.harvest)(creep, target)) return;
 	}

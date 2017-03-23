@@ -21,6 +21,7 @@ export default (creep, newRoom) => {
 			target = creep.pos.findClosestByRange(needBuild);
 			if (build(creep, target))return;
 			pathFinder(creep, newRoom.pos)
+			return
 		}
 	} else {
 		const farMiner = newRoom.memory.creeps.my.farMiner;
@@ -32,7 +33,8 @@ export default (creep, newRoom) => {
 			}
 			if (farMiner.length > 0) {
 				target = Game.getObjectById(farMiner[0].id);
-				pathFinder(creep, target)
+				pathFinder(creep, target);
+				return;
 			}
 		} else {
 			const needFix =  newRoom.memory.structures.needFix;

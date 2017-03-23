@@ -7,6 +7,7 @@ export default (creep, newRoom) => {
 	target = Game.getObjectById('5873bc3511e3e4361b4d7390');
 	if (!target) {
 		pathFinder(creep, newRoom.pos)
+		return;
 	} else {
 		if (harvest(creep, target)) return;
 	}
