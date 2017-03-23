@@ -6,7 +6,7 @@ export default (room, config) => {
 			structuresOther = _.filter(structures, structure => !structure.my),
 			structuresContainer = _.filter(structuresOther, structure => structure.structureType == STRUCTURE_CONTAINER);
 
-	let structuresDocker = structuresContainer.concat([structuresStorage]);
+	let structuresDocker = _.compact(structuresContainer.concat([structuresStorage]));
 
 	return {
 		terminal: room.terminal,
@@ -15,8 +15,8 @@ export default (room, config) => {
 		tower: _.filter(structuresMy, structure => structure.structureType == STRUCTURE_TOWER)[0],
 		spawn: _.filter(structuresMy, structure => structure.structureType == STRUCTURE_SPAWN)[0],
 		container: _.filter(structuresOther, structure => structure.structureType == STRUCTURE_CONTAINER),
-		canWithdraw: (structuresDocker[0] != null) ? _.filter(structuresDocker, structure => structure.store.energy > 0) : [],
-		canFill: (structuresDocker[0] != null) ? _.filter(structuresDocker, structure => structure.store.energy < structure.storeCapacity) : [],
+		canWithdraw: (structuresDocker.length >0) ? _.filter(structuresDocker, structure => structure.store.energy > 0) : [],
+		canFill: (structuresDocker.length >0) ? _.filter(structuresDocker, structure => structure.store.energy < structure.storeCapacity) : [],
 		needFill: _.filter(structuresMy, structure => (
 		structure.structureType == STRUCTURE_EXTENSION ||
 		structure.structureType == STRUCTURE_SPAWN ||

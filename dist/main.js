@@ -1148,7 +1148,7 @@ exports.default = function (room, config) {
 		return structure.structureType == STRUCTURE_CONTAINER;
 	});
 
-	var structuresDocker = structuresContainer.concat([structuresStorage]);
+	var structuresDocker = _.compact(structuresContainer.concat([structuresStorage]));
 
 	return {
 		terminal: room.terminal,
@@ -1163,10 +1163,10 @@ exports.default = function (room, config) {
 		container: _.filter(structuresOther, function (structure) {
 			return structure.structureType == STRUCTURE_CONTAINER;
 		}),
-		canWithdraw: structuresDocker[0] != null ? _.filter(structuresDocker, function (structure) {
+		canWithdraw: structuresDocker.length > 0 ? _.filter(structuresDocker, function (structure) {
 			return structure.store.energy > 0;
 		}) : [],
-		canFill: structuresDocker[0] != null ? _.filter(structuresDocker, function (structure) {
+		canFill: structuresDocker.length > 0 ? _.filter(structuresDocker, function (structure) {
 			return structure.store.energy < structure.storeCapacity;
 		}) : [],
 		needFill: _.filter(structuresMy, function (structure) {
