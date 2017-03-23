@@ -1,7 +1,7 @@
 import {emoji} from '../_util'
 export default (spawn, my, config) => {
 	if (spawn.spawning) {
-		const percent = Math.round(1 - (spawn.spawning.remainingTimee / spawn.spawning.needTim))
+		const percent = Math.round((1 - spawn.spawning.remainingTime / spawn.spawning.needTime) * 100)
 		spawn.room.visual.text(
 				`${emoji.build}${spawn.spawning.name}(${percent}%)`,
 				spawn.pos.x + 1,
@@ -19,7 +19,7 @@ export default (spawn, my, config) => {
 		const roleNumber = roleType.number - roleMy.length;
 		if (roleNumber <= 0 || priority) return;
 		const spawnName = buildName(roleName);
-		spawn.createCreep(buildBody(roleType.body), spawnName, {role: roleName})
+		spawn.createCreep(buildBody(roleType.body), spawnName, {role: roleName, name: spawnName})
 		console.log('[Spawn]', spawnName);
 		priority = true;
 	})

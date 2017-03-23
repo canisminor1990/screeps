@@ -1834,7 +1834,7 @@ var _util = __webpack_require__(0);
 
 exports.default = function (spawn, my, config) {
 	if (spawn.spawning) {
-		var percent = Math.round(1 - spawn.spawning.remainingTimee / spawn.spawning.needTim);
+		var percent = Math.round((1 - spawn.spawning.remainingTime / spawn.spawning.needTime) * 100);
 		spawn.room.visual.text('' + _util.emoji.build + spawn.spawning.name + '(' + percent + '%)', spawn.pos.x + 1, spawn.pos.y, { align: 'left', opacity: 0.8 });
 		return;
 	}
@@ -1850,7 +1850,7 @@ exports.default = function (spawn, my, config) {
 		var roleNumber = roleType.number - roleMy.length;
 		if (roleNumber <= 0 || priority) return;
 		var spawnName = buildName(roleName);
-		spawn.createCreep(buildBody(roleType.body), spawnName, { role: roleName });
+		spawn.createCreep(buildBody(roleType.body), spawnName, { role: roleName, name: spawnName });
 		console.log('[Spawn]', spawnName);
 		priority = true;
 	});
