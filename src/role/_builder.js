@@ -32,5 +32,17 @@ export default (creep, needBuild, newRoom) => {
 			(canWithdraw && creep.withdraw(canWithdraw, RESOURCE_ENERGY) != OK)
 					? pathFinder(creep, canWithdraw) : null
 		}
+	} else {
+		if (creep.carry.energy < 50) {
+			const transferTarget = creep.room.storage;
+			(creep.withdraw(transferTarget, RESOURCE_ENERGY) != OK)
+					? pathFinder(creep, transferTarget) : null
+		} else {
+			const needFill = creep.room.memory.structures.needFill;
+			let needFillTarget = creep.pos.findClosestByRange(needFill);
+			(needFillTarget && creep.transfer(needFillTarget, RESOURCE_ENERGY) != OK)
+					? pathFinder(creep, needFillTarget) : null
+
+		}
 	}
 }

@@ -790,6 +790,15 @@ exports.default = function (creep, needBuild, newRoom) {
 			var canWithdraw = creep.pos.findClosestByRange(creep.room.memory.structures.canWithdraw);
 			canWithdraw && creep.withdraw(canWithdraw, RESOURCE_ENERGY) != OK ? (0, _task.pathFinder)(creep, canWithdraw) : null;
 		}
+	} else {
+		if (creep.carry.energy < 50) {
+			var transferTarget = creep.room.storage;
+			creep.withdraw(transferTarget, RESOURCE_ENERGY) != OK ? (0, _task.pathFinder)(creep, transferTarget) : null;
+		} else {
+			var needFill = creep.room.memory.structures.needFill;
+			var needFillTarget = creep.pos.findClosestByRange(needFill);
+			needFillTarget && creep.transfer(needFillTarget, RESOURCE_ENERGY) != OK ? (0, _task.pathFinder)(creep, needFillTarget) : null;
+		}
 	}
 };
 
