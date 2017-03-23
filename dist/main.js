@@ -1482,14 +1482,18 @@ exports.default = function (creep) {
 
 
 Object.defineProperty(exports, "__esModule", {
-    value: true
+	value: true
 });
 
 exports.default = function (creep, target) {
-    var color = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : '#ffffff';
+	var color = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : '#ffffff';
 
-    if (creep.fatigue > 0) return;
-    creep.moveTo(target, { reusePath: 12, visualizePathStyle: { stroke: color } });
+	if (creep.fatigue > 0) return;
+	creep.moveTo(target, {
+		reusePath: 12,
+		serializeMemory: true,
+		visualizePathStyle: { stroke: color }
+	});
 };
 
 /***/ }),
