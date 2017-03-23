@@ -1,6 +1,6 @@
 import { isFull } from '../_util'
 import { harvest, pickup, transfer, upgradeController } from '../action'
-export default (creep, sources, dropped) => {
+export default (creep, sources, dropped = []) => {
 	let target;
 	// root
 	if (!creep.memory.harvestTarget) creep.memory.harvestTarget = sources[0].source.id

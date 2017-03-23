@@ -1655,7 +1655,9 @@ var _util = __webpack_require__(0);
 
 var _action = __webpack_require__(2);
 
-exports.default = function (creep, sources, dropped) {
+exports.default = function (creep, sources) {
+	var dropped = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : [];
+
 	var target = void 0;
 	// root
 	if (!creep.memory.harvestTarget) creep.memory.harvestTarget = sources[0].source.id;
