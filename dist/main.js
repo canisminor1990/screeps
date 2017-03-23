@@ -1147,6 +1147,9 @@ exports.default = function (room, config) {
 
 	var structures = room.find(FIND_STRUCTURES),
 	    structuresStorage = room.storage,
+	    structureTower = _.filter(structuresMy, function (structure) {
+		return structure.structureType == STRUCTURE_TOWER;
+	})[0],
 	    structuresMy = _.filter(structures, function (structure) {
 		return structure.my;
 	}),
@@ -1157,15 +1160,13 @@ exports.default = function (room, config) {
 		return structure.structureType == STRUCTURE_CONTAINER;
 	});
 
-	var structuresDocker = structuresContainer.concat([structuresStorage]);
+	var structuresDocker = structuresContainer.concat([structuresStorage], structureTower);
 
 	return {
 		terminal: room.terminal,
 		controller: room.controller,
 		storage: structuresStorage,
-		tower: _.filter(structuresMy, function (structure) {
-			return structure.structureType == STRUCTURE_TOWER;
-		})[0],
+		tower: structureTower,
 		spawn: _.filter(structuresMy, function (structure) {
 			return structure.structureType == STRUCTURE_SPAWN;
 		})[0],
