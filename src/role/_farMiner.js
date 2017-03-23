@@ -1,6 +1,6 @@
 import { isFull } from '../_util'
 import { pathFinder } from '../task'
-import { harvest, transfer, build } from '../action'
+import { harvest, transfer, build ,pickup} from '../action'
 export default (creep, newRoom) => {
 	let target;
 	// memory
