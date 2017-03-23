@@ -969,7 +969,7 @@ exports.default = function () {
 		priority: 5
 	}, {
 		role: 'harvester',
-		body: { carry: 12, move: 4 },
+		body: { carry: 12, move: 6 },
 		number: 3,
 		priority: 2
 	}, {
@@ -1445,7 +1445,7 @@ exports.default = function (creep) {
 		target = creep.room.memory.structures.needFill;
 		target = creep.pos.findClosestByRange(target);
 		if ((0, _action.transfer)(creep, target)) return;
-		target = creep.room.memory.structures.tower;
+		target = creep.room.memory.structures.tower[0];
 		if (target.energy == target.energyCapacity) return;
 		if ((0, _action.transfer)(creep, target)) return;
 	}
