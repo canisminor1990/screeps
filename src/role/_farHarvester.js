@@ -25,15 +25,17 @@ export default (creep, newRoom) => {
 		pathFinder(creep, farMinerTarget)
 	}
 	else {
-		if (needBuild.length > 0) {
-			// const buildTarget = creep.pos.findClosestByRange(needBuild);
-			// (buildTarget && creep.build(buildTarget) != OK)
-			// 	? pathFinder(creep, buildTarget) : null;
-		} else {
 
-			( creep.transfer(room.storage, RESOURCE_ENERGY) !== OK)
-				? pathFinder(creep, room.storage) : null
-		}
+		( creep.transfer(room.storage, RESOURCE_ENERGY) !== OK)
+			? pathFinder(creep, room.storage) : null
+		// if (needBuild.length > 0) {
+		// 	// const buildTarget = creep.pos.findClosestByRange(needBuild);
+		// 	// (buildTarget && creep.build(buildTarget) != OK)
+		// 	// 	? pathFinder(creep, buildTarget) : null;
+		// } else {
+		//
+		//
+		// }
 	}
 
 }
