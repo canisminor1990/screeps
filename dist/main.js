@@ -1556,8 +1556,8 @@ exports.default = function (creep, newRoom) {
 			target = creep.pos.findInRange(dropped, 4);
 			if ((0, _action.pickup)(creep, target[0])) return;
 		}
-		target = newRoom.memory.structures.container[0];
-		if ((0, _action.withdraw)(creep, target[0])) return;
+		target = newRoom.memory.structures.structures.container;
+		if ((0, _action.withdraw)(creep, target)) return;
 	} else {
 		var needFix = newRoom.memory.structures.needFix;
 		if (needFix.length > 0) {
