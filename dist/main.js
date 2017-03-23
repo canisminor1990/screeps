@@ -1421,8 +1421,8 @@ exports.default = function (creep) {
 		if (!creep.memory.full) {
 			var dropped = creep.room.memory.dropped.energy;
 			if (dropped.length > 0) {
-				target = creep.pos.findInRange(dropped, 10);
-				if ((0, _action.pickup)(creep, target[0])) return;
+				target = creep.pos.findClosestByRange(dropped);
+				if ((0, _action.pickup)(creep, target)) return;
 			}
 
 			target = creep.room.memory.structures.container.sort(function (a, b) {

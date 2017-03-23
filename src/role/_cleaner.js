@@ -10,8 +10,8 @@ export default (creep) => {
 		if (!creep.memory.full) {
 			let dropped = creep.room.memory.dropped.energy;
 			if (dropped.length > 0) {
-				target = creep.pos.findInRange(dropped, 10);
-				if (pickup(creep, target[0])) return;
+				target = creep.pos.findClosestByRange(dropped);
+				if (pickup(creep, target)) return;
 			}
 
 			target = creep.room.memory.structures.container.sort((a, b) => b.store.enengy - a.store.enengy);
