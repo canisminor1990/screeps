@@ -951,7 +951,7 @@ exports.default = function () {
 	var needBuild = room.memory.structures.needBuild;
 	var repair = {
 		percent: 0.5,
-		maxHits: 10000
+		maxHits: 15000
 	};
 	var role = [{
 		role: "claim",

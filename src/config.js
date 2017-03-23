@@ -2,7 +2,7 @@ export default (room = Game.rooms['W81S67']) => {
 	const needBuild = room.memory.structures.needBuild;
 	const repair    = {
 		percent: 0.5,
-		maxHits: 10000,
+		maxHits: 15000,
 	}
 	const role      = [
 		{
