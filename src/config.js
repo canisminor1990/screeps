@@ -1,5 +1,6 @@
 export default (room = Game.rooms['W81S67']) => {
 	const needBuild = room.memory.structures.needBuild;
+	const builderNumber = (needBuild.length > 0) ? Math.ceil(needBuild.length / 2) : 1
 	const repair = {
 		percent: 0.5,
 		maxHits: 20000,
@@ -46,7 +47,7 @@ export default (room = Game.rooms['W81S67']) => {
 		{
 			role: 'builder',
 			body: {work: 3, carry: 3, move: 3},
-			number: (needBuild.length > 0) ? Math.ceil(needBuild.length / 2) : 1,
+			number: (builderNumber > 3) ? 3 : builderNumber,
 			priority: 6
 		},
 		{

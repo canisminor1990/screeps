@@ -940,6 +940,7 @@ exports.default = function () {
 	var room = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : Game.rooms['W81S67'];
 
 	var needBuild = room.memory.structures.needBuild;
+	var builderNumber = needBuild.length > 0 ? Math.ceil(needBuild.length / 2) : 1;
 	var repair = {
 		percent: 0.5,
 		maxHits: 20000
@@ -979,7 +980,7 @@ exports.default = function () {
 	}, {
 		role: 'builder',
 		body: { work: 3, carry: 3, move: 3 },
-		number: needBuild.length > 0 ? Math.ceil(needBuild.length / 2) : 1,
+		number: builderNumber > 3 ? 3 : builderNumber,
 		priority: 6
 	}, {
 		role: "miner",
