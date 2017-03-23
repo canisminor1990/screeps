@@ -23,7 +23,7 @@ export default (room,config) => {
 		                                                 structure.energy < structure.energyCapacity),
 		needFix    : _.filter(structures, structure =>
 		( structure.my || structure.structureType == STRUCTURE_ROAD || structure.structureType == STRUCTURE_WALL ) &&
-		(structure.hits / structure.hitsMax) < config.repair.percent && structure.hits < config.repair.maxHits),
+		(structure.hits / structure.hitsMax) < config.repair.percent && structure.hits < config.repair.maxHits).sort((a,b)=> a.hits - b.hits),
 		needBuild  : room.find(FIND_MY_CONSTRUCTION_SITES),
 	}
 }
