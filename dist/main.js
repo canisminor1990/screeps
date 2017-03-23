@@ -770,29 +770,27 @@ exports.default = function (creep, needBuild, newRoom) {
 		creep.memory.canBuild = true;
 	}
 
-	var newNeedBuild = newRoom.memory.structures.needBuild;
-	if (creep.memory.canBuild && newNeedBuild.length > 0) {
-
-		var newBuildTarget = newNeedBuild[0];
-		newBuildTarget && creep.build(newBuildTarget) != OK ? (0, _task.pathFinder)(creep, newBuildTarget) : null;
-	} else {
-		var storage = Game.getObjectById('58d07b35bfeec6256575be5d');
-		creep.withdraw(storage, RESOURCE_ENERGY) != OK ? (0, _task.pathFinder)(creep, storage) : null;
-	}
-	// if (needBuild.length > 0) {
-	// 	if (creep.memory.canBuild) {
-	// 		const buildTarget = creep.pos.findClosestByRange(needBuild);
-	// 		(buildTarget && creep.build(buildTarget) != OK)
-	// 				? pathFinder(creep, buildTarget) : null;
-	// 	} else {
-	// 		const canWithdraw = creep.pos.findClosestByRange(creep.room.memory.structures.canWithdraw);
-	// 		(canWithdraw && creep.withdraw(canWithdraw, RESOURCE_ENERGY) != OK)
-	// 				? pathFinder(creep, canWithdraw) : null
-	// 	}
+	// let newNeedBuild = newRoom.memory.structures.needBuild;
+	// if (creep.memory.canBuild && newNeedBuild.length > 0) {
+	//
+	// 	const newBuildTarget = newNeedBuild[0];
+	// 	(newBuildTarget && creep.build(newBuildTarget) != OK)
+	// 			? pathFinder(creep, newBuildTarget) : null;
+	//
 	// } else {
-	//
-	//
+	// 	let storage = Game.getObjectById('58d07b35bfeec6256575be5d');
+	// 	(creep.withdraw(storage, RESOURCE_ENERGY) != OK)
+	// 			? pathFinder(creep, storage) : null
 	// }
+	if (needBuild.length > 0) {
+		if (creep.memory.canBuild) {
+			var buildTarget = creep.pos.findClosestByRange(needBuild);
+			buildTarget && creep.build(buildTarget) != OK ? (0, _task.pathFinder)(creep, buildTarget) : null;
+		} else {
+			var canWithdraw = creep.pos.findClosestByRange(creep.room.memory.structures.canWithdraw);
+			canWithdraw && creep.withdraw(canWithdraw, RESOURCE_ENERGY) != OK ? (0, _task.pathFinder)(creep, canWithdraw) : null;
+		}
+	}
 };
 
 /***/ }),
