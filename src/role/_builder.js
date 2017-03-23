@@ -1,12 +1,12 @@
 import {isFull} from '../_util'
-import { pickup, upgradeController, build, withdraw} from '../action'
+import {pickup, upgradeController, build, withdraw} from '../action'
 
 export default (creep) => {
 	const needBuild = creep.memory.structures.needBuild;
 	let target;
 	// memory
 	isFull(creep)
-
+	// run
 	if (creep.memory.full) {
 		if (needBuild.length > 0) {
 			target = creep.pos.findClosestByRange(needBuild);

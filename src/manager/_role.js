@@ -4,10 +4,7 @@ export default (roomArrary) => {
 	_.each(roomArrary, room => {
 		room = Game.rooms[room];
 		const Memory           = room.memory;
-		const targetStructures = Memory.structures;
 		const myCreeps         = Memory.creeps.my;
-		const dropped          = (Memory.dropped) ? Memory.dropped.energy : [];
-
 		const newRoom = {
 			pos   : new RoomPosition(25, 47, roomArrary[1]),
 			memory: (Game.rooms[roomArrary[1]]) ? Game.rooms[roomArrary[1]].memory : {}
@@ -16,9 +13,9 @@ export default (roomArrary) => {
 		myCreeps.cleaner.forEach(creep => role.cleaner(creep))
 
 		myCreeps.harvester.forEach(creep => role.harvester(creep))
-		myCreeps.miner.forEach(creep => role.miner(creep, Memory.sources))
-		myCreeps.upgrader.forEach(creep => role.upgrader(creep, targetStructures.controller))
-		myCreeps.builder.forEach(creep => role.builder(creep, targetStructures.needBuild, newRoom))
+		myCreeps.miner.forEach(creep => role.miner(creep))
+		myCreeps.upgrader.forEach(creep => role.upgrader(creep))
+		myCreeps.builder.forEach(creep => role.builder(creep, newRoom))
 
 		// far
 		myCreeps.farBuilder.forEach(creep => role.farBuilder(creep, newRoom))

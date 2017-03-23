@@ -1262,10 +1262,7 @@ exports.default = function (roomArrary) {
 	_.each(roomArrary, function (room) {
 		room = Game.rooms[room];
 		var Memory = room.memory;
-		var targetStructures = Memory.structures;
 		var myCreeps = Memory.creeps.my;
-		var dropped = Memory.dropped ? Memory.dropped.energy : [];
-
 		var newRoom = {
 			pos: new RoomPosition(25, 47, roomArrary[1]),
 			memory: Game.rooms[roomArrary[1]] ? Game.rooms[roomArrary[1]].memory : {}
@@ -1279,13 +1276,13 @@ exports.default = function (roomArrary) {
 			return role.harvester(creep);
 		});
 		myCreeps.miner.forEach(function (creep) {
-			return role.miner(creep, Memory.sources);
+			return role.miner(creep);
 		});
 		myCreeps.upgrader.forEach(function (creep) {
-			return role.upgrader(creep, targetStructures.controller);
+			return role.upgrader(creep);
 		});
 		myCreeps.builder.forEach(function (creep) {
-			return role.builder(creep, targetStructures.needBuild, newRoom);
+			return role.builder(creep, newRoom);
 		});
 
 		// far
@@ -1377,7 +1374,7 @@ exports.default = function (creep) {
 	var target = void 0;
 	// memory
 	(0, _util.isFull)(creep);
-
+	// run
 	if (creep.memory.full) {
 		if (needBuild.length > 0) {
 			target = creep.pos.findClosestByRange(needBuild);
@@ -1438,8 +1435,15 @@ var _action = __webpack_require__(1);
 
 exports.default = function (creep) {
 	var target = void 0;
-
-	if (creep.carry.energy < 50) {
+	// memory
+	(0, _util.isFull)(creep);
+	// run
+	if (!creep.memory.full) {
+		var dropped = creep.room.memory.dropped.energy;
+		if (dropped.length > 0) {
+			target = creep.pos.findClosestByRange(dropped);
+			if ((0, _action.pickup)(creep, target)) return;
+		}
 		target = creep.room.storage;
 		if ((0, _action.withdraw)(creep, target)) return;
 	} else {
@@ -1447,33 +1451,6 @@ exports.default = function (creep) {
 		target = creep.pos.findClosestByRange(target);
 		if ((0, _action.transfer)(creep, target)) return;
 	}
-	// if (creep.room.memory.creeps.my.harvester.length > 0 &&
-	//     creep.room.memory.creeps.my.miner.length > 0) {
-	// 	// memory
-	// 	isFull(creep)
-	// 	if (!creep.memory.full) {
-	//
-	// 		target = creep.room.memory.structures.container.sort((a, b) => b.store.enengy - a.store.enengy);
-	// 		if (withdraw(creep, target)) return;
-	// 	} else {
-	// 		target = creep.room.memory.structures.needFill;
-	// 		if (target.length > 0) {
-	// 			target = creep.pos.findClosestByRange(target);
-	// 		} else {
-	// 			target = creep.room.storage
-	// 		}
-	// 		if (transfer(creep, target)) return;
-	// 	}
-	// } else {
-	// 	if (creep.carry.energy < 50) {
-	// 		target = creep.room.storage;
-	// 		if (withdraw(creep, target)) return;
-	// 	} else {
-	// 		target = creep.room.memory.structures.needFill;
-	// 		target = creep.pos.findClosestByRange(target);
-	// 		if (transfer(creep, target)) return;
-	// 	}
-	// }
 };
 
 /***/ }),
