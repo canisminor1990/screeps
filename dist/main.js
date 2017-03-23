@@ -1369,7 +1369,7 @@ exports.default = function (spawn, my, config) {
 	var priority = false;
 	roleFactory.forEach(function (roleType) {
 		var roleName = roleType.role;
-		var roleTimeout = roleType.roleTimeout ? roleType.roleTimeout : 100;
+		var roleTimeout = roleType.roleTimeout ? roleType.roleTimeout : 50;
 		var roleMy = my[roleName].sort(function (a, b) {
 			return a.ticksToLive - b.ticksToLive;
 		});
