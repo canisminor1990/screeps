@@ -1247,6 +1247,10 @@ exports.default = function (roomArrary) {
 			memory: Game.rooms[roomArrary[1]] ? Game.rooms[roomArrary[1]].memory : {}
 		};
 
+		myCreeps.cleaner.forEach(function (creep) {
+			return role.cleaner(creep, dropped);
+		});
+
 		myCreeps.harvester.forEach(function (creep) {
 			return role.harvester(creep, dropped);
 		});
@@ -1259,9 +1263,7 @@ exports.default = function (roomArrary) {
 		myCreeps.builder.forEach(function (creep) {
 			return role.builder(creep, targetStructures.needBuild, newRoom);
 		});
-		myCreeps.cleaner.forEach(function (creep) {
-			return role.cleaner(creep, dropped);
-		});
+
 		// far
 		myCreeps.farBuilder.forEach(function (creep) {
 			return role.farBuilder(creep, newRoom);
@@ -1424,7 +1426,6 @@ exports.default = function (creep) {
 				target = creep.pos.findInRange(dropped, 5);
 				if ((0, _action.pickup)(creep, target[0])) return;
 			}
-
 			target = creep.room.memory.structures.container.sort(function (a, b) {
 				return b.store.enengy - a.store.enengy;
 			});

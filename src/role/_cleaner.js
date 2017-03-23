@@ -13,7 +13,6 @@ export default (creep) => {
 				target = creep.pos.findInRange(dropped, 5);
 				if (pickup(creep, target[0])) return;
 			}
-
 			target = creep.room.memory.structures.container.sort((a, b) => b.store.enengy - a.store.enengy);
 			if (withdraw(creep, target)) return;
 		} else {
