@@ -1,7 +1,7 @@
 import { emoji, action } from "../_util"
-export default (creep, rawTarget, type = RESOURCE_ENERGY) => {
+export default (creep, rawTarget) => {
 	if (!rawTarget) return false;
 	let target = (rawTarget instanceof Array) ? rawTarget[0] : rawTarget;
-	action(creep, target, creep.transfer(target, type), emoji.transfer);
+	action(creep, target, creep.upgradeController(target), emoji.upgrade);
 	return true;
 }

@@ -1,4 +1,5 @@
-import {pathFinder}from '../task'
+import { pathFinder }from '../task'
+import { harvest } from '../action'
 export default (creep, sources, dropped = []) => {
 
 	if (creep.carry.energy == creep.carryCapacity) {
@@ -13,7 +14,7 @@ export default (creep, sources, dropped = []) => {
 		const canFill = creep.pos.findInRange(creep.room.memory.structures.canFill, 4);
 		if (canFill.length > 0) {
 			( creep.transfer(canFill[0], RESOURCE_ENERGY) != OK)
-					? pathFinder(creep, canFill[0]) : null
+				? pathFinder(creep, canFill[0]) : null
 		} else if (creep.memory.harvestTarget == "5873bc3511e3e4361b4d7393") {
 			const controller = creep.room.controller;
 			(creep.upgradeController(controller) != OK) ? pathFinder(creep, controller) : null;
@@ -35,8 +36,9 @@ export default (creep, sources, dropped = []) => {
 			creep.say('pickup')
 		} else {
 			const harvestTarget = Game.getObjectById(creep.memory.harvestTarget);
-			(creep.harvest(harvestTarget) != OK) ?
-					pathFinder(creep, harvestTarget) : null;
+			harvest(creep,harvestTarget)
+			// (creep.harvest(harvestTarget) != OK) ?
+			// pathFinder(creep, harvestTarget) : null;
 		}
 
 	}
