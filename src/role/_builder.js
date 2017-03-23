@@ -28,7 +28,7 @@ export default (creep, needBuild, newRoom) => {
 			(buildTarget && creep.build(buildTarget) != OK)
 					? pathFinder(creep, buildTarget) : null;
 		} else {
-			const canWithdraw = creep.pos.findClosestByRange(creep.room.memory.structures.canWithdraw);
+			const canWithdraw = creep.room.storage;
 			(canWithdraw && creep.withdraw(canWithdraw, RESOURCE_ENERGY) != OK)
 					? pathFinder(creep, canWithdraw) : null
 		}

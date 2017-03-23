@@ -787,7 +787,7 @@ exports.default = function (creep, needBuild, newRoom) {
 			var buildTarget = creep.pos.findClosestByRange(needBuild);
 			buildTarget && creep.build(buildTarget) != OK ? (0, _task.pathFinder)(creep, buildTarget) : null;
 		} else {
-			var canWithdraw = creep.pos.findClosestByRange(creep.room.memory.structures.canWithdraw);
+			var canWithdraw = creep.room.storage;
 			canWithdraw && creep.withdraw(canWithdraw, RESOURCE_ENERGY) != OK ? (0, _task.pathFinder)(creep, canWithdraw) : null;
 		}
 	} else {
