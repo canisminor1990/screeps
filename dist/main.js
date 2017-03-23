@@ -877,7 +877,7 @@ exports.default = function (creep, rawTarget) {
 		if (rawTarget.length == 0) return false;
 		target = target[0];
 	}
-	console.log(target);
+	target = Game.getObjectById(target.id);
 	(0, _util.action)(creep, target, creep.transfer(target, type), _util.emoji.transfer);
 	return true;
 };
