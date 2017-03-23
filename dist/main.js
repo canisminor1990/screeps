@@ -1625,7 +1625,7 @@ exports.default = function (creep) {
 		} else {
 			target = creep.room.storage;
 		}
-		if ((0, _action.transfer)(creep, target)) return;
+		if ((0, _action.withdraw)(creep, target)) return;
 	}
 };
 

@@ -1,5 +1,5 @@
 import { isFull } from '../_util'
-import { transfer, pickup } from '../action'
+import { transfer, pickup,withdraw } from '../action'
 export default (creep, dropped = []) => {
 	let target;
 	// memory
@@ -23,7 +23,7 @@ export default (creep, dropped = []) => {
 		} else {
 			target = creep.room.storage
 		}
-		if (transfer(creep, target)) return;
+		if (withdraw(creep, target)) return;
 	}
 
 }
