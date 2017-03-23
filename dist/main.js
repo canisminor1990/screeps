@@ -469,7 +469,7 @@ exports.default = function () {
 	}, {
 		role: 'builder',
 		body: { move: 3, work: 3, carry: 6 },
-		number: 4,
+		number: 8,
 		priority: 6
 	}, {
 		role: "miner",
