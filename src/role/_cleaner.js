@@ -9,9 +9,10 @@ export default (creep, dropped = []) => {
 		isFull(creep)
 		if (!creep.memory.full) {
 			if (dropped.length > 0) {
-				target = creep.pos.findInRange(dropped, 20);
+				target = creep.pos.findInRange(dropped, 10);
 				if (pickup(creep, target[0])) return;
 			}
+
 			target = creep.room.memory.structures.container.sort((a, b) => b.store.enengy - a.store.enengy);
 			if (withdraw(creep, target)) return;
 		} else {
