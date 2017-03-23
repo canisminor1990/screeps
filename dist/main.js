@@ -1483,7 +1483,6 @@ exports.default = function (creep, newRoom) {
 		}
 	} else {
 		var farMiner = newRoom.memory.creeps.my.farMiner;
-
 		if (!creep.memory.full) {
 			var _dropped = creep.room.memory.dropped.energy;
 			if (_dropped.length > 0) {
@@ -1495,6 +1494,11 @@ exports.default = function (creep, newRoom) {
 				(0, _task.pathFinder)(creep, target);
 			}
 		} else {
+			var needFix = newRoom.memory.structures.needFix;
+			if (needFix.length > 0) {
+				target = creep.pos.findClosestByRange(needFix);
+				if ((0, _action.repair)(creep, target)) return;
+			}
 			target = room.storage;
 			if ((0, _action.transfer)(creep, target)) return;
 		}
