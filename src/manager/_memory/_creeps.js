@@ -1,5 +1,6 @@
-export default (room, config) => {
+import { isFriend } from '../../_util';
 
+export default (room, config) => {
 	const creeps      = room.find(FIND_CREEPS),
 	      creepsMyRaw = _.filter(creeps, creep => creep.my),
 	      creepsOther = _.filter(creeps, creep => !creep.my),

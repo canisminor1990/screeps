@@ -1,7 +1,5 @@
 export default (room = Game.rooms['W81S67']) => {
 	const needBuild = room.memory.structures.needBuild;
-	const friends = ["Ruo",
-	                 "FanHua"]
 	const repair = {
 		percent: 0.5,
 		maxHits: 10000,
@@ -59,7 +57,6 @@ export default (room = Game.rooms['W81S67']) => {
 
 	return {
 		role: role.sort((a, b) => a.priority - b.priority),
-		friends: friends,
 		repair: repair,
 	};
 }

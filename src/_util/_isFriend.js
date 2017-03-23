@@ -1,3 +1,8 @@
+const friends = [
+	"Ruo",
+	"FanHua"
+];
 export default (owner) => {
-	return (Memory.config.friends.toString().match(owner)) ? true : false
+	if (!owner) return false;
+	return (friends.toString().match(owner)) ? true : false
 }
