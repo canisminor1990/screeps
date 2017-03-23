@@ -1518,6 +1518,8 @@ var _util = __webpack_require__(0);
 
 var _action = __webpack_require__(2);
 
+var _task = __webpack_require__(1);
+
 exports.default = function (creep, newRoom) {
 	var room = Game.spawns['Spawn1'].room;
 	var newRoomMemory = newRoom.memory;
@@ -1534,7 +1536,7 @@ exports.default = function (creep, newRoom) {
 
 	if (!creep.memory.full) {
 		var _target2 = Game.getObjectById(farMiner[0].id);
-		pathFinder(creep, _target2);
+		(0, _task.pathFinder)(creep, _target2);
 	} else {
 		if ((0, _action.transfer)(creep, room.storage)) return;
 	}
