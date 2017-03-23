@@ -446,7 +446,7 @@ exports.default = function () {
 	var role = [{
 		role: "claim",
 		body: { move: 1, claim: 1, tough: 1 },
-		number: 0,
+		number: 1,
 		priority: 7
 	}, {
 		role: "farMiner",
@@ -456,7 +456,7 @@ exports.default = function () {
 	}, {
 		role: 'farHarvester',
 		body: { move: 3, attack: 1, carry: 4, tough: 1 },
-		number: 0,
+		number: 3,
 		priority: 5
 	}, {
 		role: 'harvester',
