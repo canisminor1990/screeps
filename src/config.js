@@ -8,7 +8,7 @@ export default (room = Game.rooms['W81S67']) => {
 		{
 			role    : "claim",
 			body    : {move: 1, claim: 1,tough: 1},
-			number  : 1,
+			number  : 0,
 			priority: 7
 		},
 		{
@@ -20,7 +20,7 @@ export default (room = Game.rooms['W81S67']) => {
 		{
 			role    : 'farHarvester',
 			body    : {move: 3, attack: 1, carry: 4, tough: 1},
-			number  : 3,
+			number  : 0,
 			priority: 5
 		},
 		{
