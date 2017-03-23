@@ -613,8 +613,9 @@ exports.default = function (room, config) {
 	}),
 	    structuresContainer = _.filter(structuresOther, function (structure) {
 		return structure.structureType == STRUCTURE_CONTAINER;
-	}),
-	    structuresDocker = structuresContainer.concat([structuresStorage]);
+	});
+
+	var structuresDocker = structuresContainer.concat([structuresStorage]);
 
 	return {
 		terminal: room.terminal,
@@ -629,12 +630,12 @@ exports.default = function (room, config) {
 		container: _.filter(structuresOther, function (structure) {
 			return structure.structureType == STRUCTURE_CONTAINER;
 		}),
-		canWithdraw: _.filter(structuresDocker, function (structure) {
+		canWithdraw: structuresDocker ? _.filter(structuresDocker, function (structure) {
 			return structure.store.energy > 0;
-		}),
-		canFill: _.filter(structuresDocker, function (structure) {
+		}) : [],
+		canFill: structuresDocker ? _.filter(structuresDocker, function (structure) {
 			return structure.store.energy < structure.storeCapacity;
-		}),
+		}) : [],
 		needFill: _.filter(structuresMy, function (structure) {
 			return (structure.structureType == STRUCTURE_EXTENSION || structure.structureType == STRUCTURE_SPAWN || structure.structureType == STRUCTURE_TOWER) && structure.energy < structure.energyCapacity;
 		}),
