@@ -1,7 +1,7 @@
 import {pathFinder} from '../task'
 
 export default (creep, dropped = []) => {
-	if (creep.room.memory.creeps.my.miner.length > 0) {
+	if (creep.room.memory.creeps.my.harvester.length > 0) {
 
 		if (creep.carry.energy < creep.carryCapacity) {
 			if (dropped.length > 0) {
@@ -27,24 +27,18 @@ export default (creep, dropped = []) => {
 
 		}
 	} else {
-		if(creep.carry.energy < creep.carryCapacity) {
-			var sources = creep.room.find(FIND_SOURCES);
-			if(creep.harvest(sources[1]) == ERR_NOT_IN_RANGE) {
-				creep.moveTo(sources[1], {visualizePathStyle: {stroke: '#ffaa00'}});
-			}
+
+		if (creep.carry.energy < creep.carryCapacity) {
+			const transferTarget = creep.room.memory.storage;
+			(creep.withdraw(transferTarget, RESOURCE_ENERGY) != OK)
+					? pathFinder(creep, transferTarget[0]) : null
+		} else {
+			const needFill = creep.room.memory.structures.needFill;
+			let needFillTarget = creep.pos.findClosestByRange(needFill);
+			(needFillTarget && creep.transfer(needFillTarget, RESOURCE_ENERGY) != OK)
+					? pathFinder(creep, needFillTarget) : null
+
 		}
-		else {
-			var targets = creep.room.find(FIND_STRUCTURES, {
-				filter: (structure) => {
-					return (structure.structureType == STRUCTURE_EXTENSION || structure.structureType == STRUCTURE_SPAWN) &&
-							structure.energy < structure.energyCapacity;
-				}
-			});
-			if(targets.length > 0) {
-				if(creep.transfer(targets[0], RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
-					creep.moveTo(targets[0], {visualizePathStyle: {stroke: '#ffffff'}});
-				}
-			}
-		}
+
 	}
 };

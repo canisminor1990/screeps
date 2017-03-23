@@ -835,7 +835,7 @@ var _task = __webpack_require__(0);
 exports.default = function (creep) {
 	var dropped = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : [];
 
-	if (creep.room.memory.creeps.my.miner.length > 0) {
+	if (creep.room.memory.creeps.my.harvester.length > 0) {
 
 		if (creep.carry.energy < creep.carryCapacity) {
 			if (dropped.length > 0) {
@@ -859,22 +859,14 @@ exports.default = function (creep) {
 			needFillTarget && creep.transfer(needFillTarget, RESOURCE_ENERGY) != OK ? (0, _task.pathFinder)(creep, needFillTarget) : null;
 		}
 	} else {
+
 		if (creep.carry.energy < creep.carryCapacity) {
-			var sources = creep.room.find(FIND_SOURCES);
-			if (creep.harvest(sources[1]) == ERR_NOT_IN_RANGE) {
-				creep.moveTo(sources[1], { visualizePathStyle: { stroke: '#ffaa00' } });
-			}
+			var _transferTarget = creep.room.memory.storage;
+			creep.withdraw(_transferTarget, RESOURCE_ENERGY) != OK ? (0, _task.pathFinder)(creep, _transferTarget[0]) : null;
 		} else {
-			var targets = creep.room.find(FIND_STRUCTURES, {
-				filter: function filter(structure) {
-					return (structure.structureType == STRUCTURE_EXTENSION || structure.structureType == STRUCTURE_SPAWN) && structure.energy < structure.energyCapacity;
-				}
-			});
-			if (targets.length > 0) {
-				if (creep.transfer(targets[0], RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
-					creep.moveTo(targets[0], { visualizePathStyle: { stroke: '#ffffff' } });
-				}
-			}
+			var _needFill = creep.room.memory.structures.needFill;
+			var _needFillTarget = creep.pos.findClosestByRange(_needFill);
+			_needFillTarget && creep.transfer(_needFillTarget, RESOURCE_ENERGY) != OK ? (0, _task.pathFinder)(creep, _needFillTarget) : null;
 		}
 	}
 };
