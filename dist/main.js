@@ -820,11 +820,11 @@ var _util = __webpack_require__(0);
 exports.default = function (creep, rawTarget) {
 	if (!rawTarget) return false;
 	var target = rawTarget;
-	if (target instanceof Array) {
-		target = _.compact(target);
-		if (target.length == 0) return false;
-		target = target[0];
-	}
+	// if (target instanceof Array) {
+	// 	target = _.compact(target);
+	// 	if (target.length == 0) return false;
+	// 	target = target[0];
+	// }
 	(0, _util.action)(creep, target, creep.pickup(target), _util.emoji.pickup);
 	return true;
 };
