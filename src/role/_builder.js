@@ -1,5 +1,5 @@
 import {isFull} from '../_util'
-import {pickup, upgradeController, build, withdraw} from '../action'
+import {pickup, upgradeController, build, withdraw,repair} from '../action'
 
 export default (creep) => {
 	let target;

@@ -1373,7 +1373,7 @@ exports.default = function (creep) {
 		var needFix = creep.room.memory.structures.needFix;
 		if (needFix.length > 0) {
 			target = creep.pos.findClosestByRange(needFix);
-			if (repair(creep, target)) return;
+			if ((0, _action.repair)(creep, target)) return;
 		}
 		target = creep.room.controller;
 		if ((0, _action.upgradeController)(creep, target)) return;
