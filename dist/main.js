@@ -1503,7 +1503,8 @@ exports.default = function (creep, newRoom) {
 				pathFinder(creep, target);
 			}
 		} else {
-			if ((0, _action.transfer)(creep, room.storage)) return;
+			target = room.storage;
+			if ((0, _action.transfer)(creep, target)) return;
 		}
 	}
 };

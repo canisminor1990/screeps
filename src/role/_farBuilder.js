@@ -35,7 +35,8 @@ export default (creep, newRoom) => {
 				pathFinder(creep, target)
 			}
 		} else {
-			if (transfer(creep, room.storage)) return;
+			target = room.storage
+			if (transfer(creep, target)) return;
 		}
 	}
 }
