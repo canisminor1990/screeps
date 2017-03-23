@@ -132,9 +132,8 @@ var Manager = _interopRequireWildcard(_manager);
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
 module.exports.loop = function () {
-	var roomName = 'W81S67';
-	var room = Game.rooms[roomName];
-	var roomNext = Game.rooms['W81S66'];
+	var rooms = ['W81S67', 'W81S66'];
+
 	for (var name in Memory.creeps) {
 		!Game.creeps[name] ? delete Memory.creeps[name] : null;
 		if (!Game.creeps[name].memory) {
@@ -145,16 +144,10 @@ module.exports.loop = function () {
 	}
 	// start
 	Manager.root();
-	Manager.memory(room);
-	Manager.role(room);
-	if (roomNext) {
-		Manager.memory(roomNext);
-		Manager.role(roomNext);
-	}
-	Manager.structure(room, roomNext);
+	Manager.memory(roomArray);
+	Manager.role(roomArray);
+	Manager.structure(roomArray);
 };
-
-function roomBuild(roomAarray) {}
 
 /***/ }),
 /* 2 */
@@ -686,18 +679,21 @@ var _dropped2 = _interopRequireDefault(_dropped);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-exports.default = function (room) {
-	var config = (0, _config2.default)(room);
-	var creeps = (0, _creeps2.default)(room, config);
-	var memory = {
-		energyAvailable: room.energyAvailable,
-		config: config,
-		creeps: creeps,
-		structures: (0, _structures2.default)(room, config),
-		sources: (0, _sources2.default)(room, creeps.my.miner),
-		dropped: (0, _dropped2.default)(room)
-	};
-	room.memory = memory;
+exports.default = function (roomArrary) {
+	_.each(roomArrary, function (room) {
+		room = Game.rooms[room];
+		var config = (0, _config2.default)(room);
+		var creeps = (0, _creeps2.default)(room, config);
+		var memory = {
+			energyAvailable: room.energyAvailable,
+			config: config,
+			creeps: creeps,
+			structures: (0, _structures2.default)(room, config),
+			sources: (0, _sources2.default)(room, creeps.my.miner),
+			dropped: (0, _dropped2.default)(room)
+		};
+		room.memory = memory;
+	});
 };
 
 /***/ }),
@@ -717,47 +713,48 @@ var role = _interopRequireWildcard(_role);
 
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
-// import config from '../config'
-exports.default = function (room) {
-	var Memory = room.memory;
-	var targetStructures = Memory.structures;
-	var myCreeps = Memory.creeps.my;
-	var dropped = Memory.dropped ? Memory.dropped.energy : [];
+exports.default = function (roomArrary) {
 
-	var newRoom = {
-		pos: new RoomPosition(25, 47, 'W81S66'),
-		memory: Game.rooms['W81S66'] ? Game.rooms['W81S66'].memory : {}
-	};
+	_.each(roomArrary, function (room) {
+		room = Game.rooms[room];
+		var Memory = room.memory;
+		var targetStructures = Memory.structures;
+		var myCreeps = Memory.creeps.my;
+		var dropped = Memory.dropped ? Memory.dropped.energy : [];
 
-	// creepRoleRun(myCreep, config(room).role)
+		var newRoom = {
+			pos: new RoomPosition(25, 47, roomArrary[1]),
+			memory: Game.rooms[roomArrary[1]] ? Game.rooms[roomArrary[1]].memory : {}
+		};
 
-	myCreeps.harvester.forEach(function (creep) {
-		return role.harvester(creep, dropped);
-	});
-	myCreeps.miner.forEach(function (creep) {
-		return role.miner(creep, Memory.sources, dropped);
-	});
-	myCreeps.upgrader.forEach(function (creep) {
-		return role.upgrader(creep, targetStructures.controller);
-	});
-	myCreeps.builder.forEach(function (creep) {
-		return role.builder(creep, targetStructures.needBuild, newRoom);
-	});
-	myCreeps.cleaner.forEach(function (creep) {
-		return role.cleaner(creep, dropped);
-	});
-	// far
-	myCreeps.farBuilder.forEach(function (creep) {
-		return role.farBuilder(creep, newRoom);
-	});
-	myCreeps.farHarvester.forEach(function (creep) {
-		return role.farHarvester(creep, newRoom);
-	});
-	myCreeps.farMiner.forEach(function (creep) {
-		return role.farMiner(creep, newRoom);
-	});
-	myCreeps.claim.forEach(function (creep) {
-		return role.claim(creep, newRoom);
+		myCreeps.harvester.forEach(function (creep) {
+			return role.harvester(creep, dropped);
+		});
+		myCreeps.miner.forEach(function (creep) {
+			return role.miner(creep, Memory.sources, dropped);
+		});
+		myCreeps.upgrader.forEach(function (creep) {
+			return role.upgrader(creep, targetStructures.controller);
+		});
+		myCreeps.builder.forEach(function (creep) {
+			return role.builder(creep, targetStructures.needBuild, newRoom);
+		});
+		myCreeps.cleaner.forEach(function (creep) {
+			return role.cleaner(creep, dropped);
+		});
+		// far
+		myCreeps.farBuilder.forEach(function (creep) {
+			return role.farBuilder(creep, newRoom);
+		});
+		myCreeps.farHarvester.forEach(function (creep) {
+			return role.farHarvester(creep, newRoom);
+		});
+		myCreeps.farMiner.forEach(function (creep) {
+			return role.farMiner(creep, newRoom);
+		});
+		myCreeps.claim.forEach(function (creep) {
+			return role.claim(creep, newRoom);
+		});
 	});
 };
 
@@ -801,7 +798,9 @@ var structure = _interopRequireWildcard(_structure);
 
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
-exports.default = function (room, roomNext) {
+exports.default = function (roomArray) {
+	var room = Game.rooms[roomArray[0]];
+	var roomNext = Game.rooms[roomArray[1]];
 	var Memory = room.memory;
 	var nextMemory = roomNext ? roomNext.memory : null;
 	var targetStructures = Memory.structures;
