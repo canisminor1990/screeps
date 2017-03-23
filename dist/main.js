@@ -1588,13 +1588,15 @@ Object.defineProperty(exports, "__esModule", {
 	value: true
 });
 
-var _task = __webpack_require__(1);
-
 var _action = __webpack_require__(20);
 
 exports.default = function (creep, sources) {
 	var dropped = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : [];
 
+	// root
+	if (!creep.memory.harvestTarget) {
+		creep.memory.harvestTarget = sources[0].source.id;
+	}
 
 	if (creep.carry.energy == creep.carryCapacity) {
 		creep.memory.full = true;
@@ -1606,25 +1608,16 @@ exports.default = function (creep, sources) {
 
 	if (creep.memory.full) {
 		var canFill = creep.pos.findInRange(creep.room.memory.structures.canFill, 4);
-		if (canFill.length > 0) {
-			creep.transfer(canFill[0], RESOURCE_ENERGY) != OK ? (0, _task.pathFinder)(creep, canFill[0]) : null;
-		} else if (creep.memory.harvestTarget == "5873bc3511e3e4361b4d7393") {
+		if ((0, _action.transfer)(creep, canFill)) return;
+		if (creep.memory.harvestTarget == "5873bc3511e3e4361b4d7393") {
 			var controller = creep.room.controller;
-			creep.upgradeController(controller) != OK ? (0, _task.pathFinder)(creep, controller) : null;
+			if ((0, _action.upgradeController)(creep, controller)) return;
 		}
-	}
-
-	if (!creep.memory.harvestTarget) {
-		creep.memory.harvestTarget = sources[0].source.id;
-	}
-
-	if (!creep.memory.full && creep.memory.harvestTarget) {
-
+	} else {
 		if (dropped.length > 0) {
 			var pickupTarget = creep.pos.findInRange(dropped, 0);
 			if ((0, _action.pickup)(creep, pickupTarget)) return;
 		}
-
 		var harvestTarget = Game.getObjectById(creep.memory.harvestTarget);
 		if ((0, _action.harvest)(creep, harvestTarget)) return;
 	}
