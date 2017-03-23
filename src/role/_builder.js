@@ -1,36 +1,27 @@
-import {pathFinder} from '../task'
+import {isFull} from '../_util'
+import { pickup, upgradeController, build, withdraw} from '../action'
 
-export default (creep, needBuild, newRoom) => {
+export default (creep) => {
+	const needBuild = creep.memory.structures.needBuild;
+	let target;
+	// memory
+	isFull(creep)
 
-	if (creep.carry.energy == 0) {
-		creep.memory.canBuild = false;
-	}
-
-	if (creep.carry.energy == creep.carryCapacity) {
-		creep.memory.canBuild = true;
-	}
-
-	if (needBuild.length > 0) {
-		if (creep.memory.canBuild) {
-			const buildTarget = creep.pos.findClosestByRange(needBuild);
-			(buildTarget && creep.build(buildTarget) != OK)
-					? pathFinder(creep, buildTarget) : null;
+	if (creep.memory.full) {
+		if (needBuild.length > 0) {
+			target = creep.pos.findClosestByRange(needBuild);
+			if (build(creep, target))return;
 		} else {
-			const canWithdraw = creep.room.storage;
-			(canWithdraw && creep.withdraw(canWithdraw, RESOURCE_ENERGY) != OK)
-					? pathFinder(creep, canWithdraw) : null
+			target = creep.room.controller;
+			if (upgradeController(creep, target)) return;
 		}
 	} else {
-		if (creep.carry.energy < 50) {
-			const transferTarget = creep.room.storage;
-			(creep.withdraw(transferTarget, RESOURCE_ENERGY) != OK)
-					? pathFinder(creep, transferTarget) : null
-		} else {
-			const needFill = creep.room.memory.structures.needFill;
-			let needFillTarget = creep.pos.findClosestByRange(needFill);
-			(needFillTarget && creep.transfer(needFillTarget, RESOURCE_ENERGY) != OK)
-					? pathFinder(creep, needFillTarget) : null
-
+		const dropped = creep.room.memory.dropped.energy;
+		if (dropped.length > 0) {
+			target = creep.pos.findInRange(dropped, 3);
+			if (pickup(creep, target[0])) return;
 		}
+		target = creep.room.storage;
+		if (withdraw(creep, target))return;
 	}
 }

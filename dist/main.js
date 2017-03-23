@@ -145,55 +145,6 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _findMiner = __webpack_require__(46);
-
-Object.defineProperty(exports, 'taskFindMiner', {
-  enumerable: true,
-  get: function get() {
-    return _interopRequireDefault(_findMiner).default;
-  }
-});
-
-var _container = __webpack_require__(3);
-
-Object.defineProperty(exports, 'taskContainer', {
-  enumerable: true,
-  get: function get() {
-    return _interopRequireDefault(_container).default;
-  }
-});
-
-var _harvester = __webpack_require__(47);
-
-Object.defineProperty(exports, 'taskHarvester', {
-  enumerable: true,
-  get: function get() {
-    return _interopRequireDefault(_harvester).default;
-  }
-});
-
-var _pathFinder = __webpack_require__(48);
-
-Object.defineProperty(exports, 'pathFinder', {
-  enumerable: true,
-  get: function get() {
-    return _interopRequireDefault(_pathFinder).default;
-  }
-});
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-/***/ }),
-/* 2 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
 var _attack = __webpack_require__(12);
 
 Object.defineProperty(exports, "attack", {
@@ -290,6 +241,55 @@ Object.defineProperty(exports, "claimController", {
   enumerable: true,
   get: function get() {
     return _interopRequireDefault(_claimController).default;
+  }
+});
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+/***/ }),
+/* 2 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _findMiner = __webpack_require__(46);
+
+Object.defineProperty(exports, 'taskFindMiner', {
+  enumerable: true,
+  get: function get() {
+    return _interopRequireDefault(_findMiner).default;
+  }
+});
+
+var _container = __webpack_require__(3);
+
+Object.defineProperty(exports, 'taskContainer', {
+  enumerable: true,
+  get: function get() {
+    return _interopRequireDefault(_container).default;
+  }
+});
+
+var _harvester = __webpack_require__(47);
+
+Object.defineProperty(exports, 'taskHarvester', {
+  enumerable: true,
+  get: function get() {
+    return _interopRequireDefault(_harvester).default;
+  }
+});
+
+var _pathFinder = __webpack_require__(48);
+
+Object.defineProperty(exports, 'pathFinder', {
+  enumerable: true,
+  get: function get() {
+    return _interopRequireDefault(_pathFinder).default;
   }
 });
 
@@ -500,7 +500,7 @@ Object.defineProperty(exports, "__esModule", {
 	value: true
 });
 
-var _task = __webpack_require__(1);
+var _task = __webpack_require__(2);
 
 exports.default = function (creep, target, fc, text) {
 	switch (fc) {
@@ -1368,35 +1368,32 @@ Object.defineProperty(exports, "__esModule", {
 	value: true
 });
 
-var _task = __webpack_require__(1);
+var _util = __webpack_require__(0);
 
-exports.default = function (creep, needBuild, newRoom) {
+var _action = __webpack_require__(1);
 
-	if (creep.carry.energy == 0) {
-		creep.memory.canBuild = false;
-	}
+exports.default = function (creep) {
+	var needBuild = creep.memory.structures.needBuild;
+	var target = void 0;
+	// memory
+	(0, _util.isFull)(creep);
 
-	if (creep.carry.energy == creep.carryCapacity) {
-		creep.memory.canBuild = true;
-	}
-
-	if (needBuild.length > 0) {
-		if (creep.memory.canBuild) {
-			var buildTarget = creep.pos.findClosestByRange(needBuild);
-			buildTarget && creep.build(buildTarget) != OK ? (0, _task.pathFinder)(creep, buildTarget) : null;
+	if (creep.memory.full) {
+		if (needBuild.length > 0) {
+			target = creep.pos.findClosestByRange(needBuild);
+			if ((0, _action.build)(creep, target)) return;
 		} else {
-			var canWithdraw = creep.room.storage;
-			canWithdraw && creep.withdraw(canWithdraw, RESOURCE_ENERGY) != OK ? (0, _task.pathFinder)(creep, canWithdraw) : null;
+			target = creep.room.controller;
+			if ((0, _action.upgradeController)(creep, target)) return;
 		}
 	} else {
-		if (creep.carry.energy < 50) {
-			var transferTarget = creep.room.storage;
-			creep.withdraw(transferTarget, RESOURCE_ENERGY) != OK ? (0, _task.pathFinder)(creep, transferTarget) : null;
-		} else {
-			var needFill = creep.room.memory.structures.needFill;
-			var needFillTarget = creep.pos.findClosestByRange(needFill);
-			needFillTarget && creep.transfer(needFillTarget, RESOURCE_ENERGY) != OK ? (0, _task.pathFinder)(creep, needFillTarget) : null;
+		var dropped = creep.room.memory.dropped.energy;
+		if (dropped.length > 0) {
+			target = creep.pos.findInRange(dropped, 3);
+			if ((0, _action.pickup)(creep, target[0])) return;
 		}
+		target = creep.room.storage;
+		if ((0, _action.withdraw)(creep, target)) return;
 	}
 };
 
@@ -1411,9 +1408,9 @@ Object.defineProperty(exports, "__esModule", {
 	value: true
 });
 
-var _task = __webpack_require__(1);
+var _task = __webpack_require__(2);
 
-var _action = __webpack_require__(2);
+var _action = __webpack_require__(1);
 
 exports.default = function (creep, newRoom) {
 	var target = Game.getObjectById('5873bc3511e3e4361b4d738f');
@@ -1437,7 +1434,7 @@ Object.defineProperty(exports, "__esModule", {
 
 var _util = __webpack_require__(0);
 
-var _action = __webpack_require__(2);
+var _action = __webpack_require__(1);
 
 exports.default = function (creep) {
 	var target = void 0;
@@ -1490,7 +1487,7 @@ Object.defineProperty(exports, "__esModule", {
 	value: true
 });
 
-var _task = __webpack_require__(1);
+var _task = __webpack_require__(2);
 
 exports.default = function (creep, newRoom) {
 	var room = Game.spawns['Spawn1'].room;
@@ -1540,9 +1537,9 @@ Object.defineProperty(exports, "__esModule", {
 
 var _util = __webpack_require__(0);
 
-var _action = __webpack_require__(2);
+var _action = __webpack_require__(1);
 
-var _task = __webpack_require__(1);
+var _task = __webpack_require__(2);
 
 exports.default = function (creep, newRoom) {
 	var room = Game.spawns['Spawn1'].room;
@@ -1586,9 +1583,9 @@ Object.defineProperty(exports, "__esModule", {
 
 var _util = __webpack_require__(0);
 
-var _task = __webpack_require__(1);
+var _task = __webpack_require__(2);
 
-var _action = __webpack_require__(2);
+var _action = __webpack_require__(1);
 
 exports.default = function (creep, newRoom) {
 	var target = void 0;
@@ -1634,7 +1631,7 @@ Object.defineProperty(exports, "__esModule", {
 
 var _util = __webpack_require__(0);
 
-var _action = __webpack_require__(2);
+var _action = __webpack_require__(1);
 
 exports.default = function (creep) {
 	var target = void 0;
@@ -1678,7 +1675,7 @@ Object.defineProperty(exports, "__esModule", {
 
 var _util = __webpack_require__(0);
 
-var _action = __webpack_require__(2);
+var _action = __webpack_require__(1);
 
 exports.default = function (creep, sources) {
 	var target = void 0;
@@ -1718,15 +1715,16 @@ Object.defineProperty(exports, "__esModule", {
 
 var _util = __webpack_require__(0);
 
-var _action = __webpack_require__(2);
+var _action = __webpack_require__(1);
 
-exports.default = function (creep, controller) {
+exports.default = function (creep) {
 	var target = void 0;
 	// memory
 	(0, _util.isFull)(creep);
 	// run
 	if (creep.memory.full) {
-		if ((0, _action.upgradeController)(creep, controller)) return;
+		target = creep.room.controller;
+		if ((0, _action.upgradeController)(creep, target)) return;
 	} else {
 		target = creep.pos.findClosestByRange(creep.room.memory.structures.canWithdraw);
 		if ((0, _action.withdraw)(creep, target)) return;
@@ -1942,7 +1940,7 @@ Object.defineProperty(exports, "__esModule", {
     value: true
 });
 
-var _task = __webpack_require__(1);
+var _task = __webpack_require__(2);
 
 var taskFindMiner = function taskFindMiner(creep) {
     var target = void 0;
@@ -1985,7 +1983,7 @@ var _container = __webpack_require__(3);
 
 var _container2 = _interopRequireDefault(_container);
 
-var _task = __webpack_require__(1);
+var _task = __webpack_require__(2);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
