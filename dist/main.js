@@ -952,18 +952,18 @@ exports.default = function () {
 		priority: 7
 	}, {
 		role: "farMiner",
-		body: { move: 3, work: 6, carry: 1 },
+		body: { carry: 1, work: 8, move: 3 },
 		timeout: 120,
 		number: 1,
 		priority: 4
 	}, {
 		role: 'farHarvester',
-		body: { carry: 4, work: 1, move: 3, attack: 1 },
+		body: { carry: 4, work: 1, move: 2, attack: 1 },
 		number: 2,
 		priority: 5
 	}, {
 		role: 'farBuilder',
-		body: { carry: 9, work: 3, move: 3 },
+		body: { carry: 6, work: 3, move: 3 },
 		number: 1,
 		priority: 5
 	}, {
@@ -983,7 +983,7 @@ exports.default = function () {
 		priority: 6
 	}, {
 		role: "miner",
-		body: { carry: 1, work: 8, move: 2 },
+		body: { carry: 1, work: 8, move: 3 },
 		number: 2,
 		timeout: 40,
 		priority: 1
