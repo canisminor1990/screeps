@@ -700,7 +700,9 @@ exports.default = function (room, roomNext) {
 	var targetCreeps = Memory.creeps;
 	var config = Memory.config;
 
-	structure.spawn(targetStructures.spawn, _.merge(targetCreeps.my, nextMemory.creeps.my), config);
+	var spawn = nextMemory.creeps.my ? _.merge(targetCreeps.my, nextMemory.creeps.my) : targetCreeps.my;
+
+	structure.spawn(targetStructures.spawn, spawn, config);
 	structure.tower(targetStructures.tower, targetStructures.needFix, targetCreeps.enemy);
 };
 
