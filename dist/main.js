@@ -630,10 +630,10 @@ exports.default = function (room, config) {
 		container: _.filter(structuresOther, function (structure) {
 			return structure.structureType == STRUCTURE_CONTAINER;
 		}),
-		canWithdraw: structuresDocker ? _.filter(structuresDocker, function (structure) {
+		canWithdraw: structuresDocker.length > 0 ? _.filter(structuresDocker, function (structure) {
 			return structure.store.energy > 0;
 		}) : [],
-		canFill: structuresDocker ? _.filter(structuresDocker, function (structure) {
+		canFill: structuresDocker.length > 0 ? _.filter(structuresDocker, function (structure) {
 			return structure.store.energy < structure.storeCapacity;
 		}) : [],
 		needFill: _.filter(structuresMy, function (structure) {
