@@ -1562,7 +1562,7 @@ exports.default = function (creep, newRoom) {
 	(0, _util.isFull)(creep);
 	// run
 	if (!creep.memory.full) {
-		var dropped = creep.memory.dropped.energy;
+		var dropped = creep.room.memory.dropped.energy;
 		if (dropped.length > 0) {
 			target = creep.pos.findInRange(dropped, 0);
 			if (pickup(creep, target[0])) return;
