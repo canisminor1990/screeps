@@ -674,7 +674,8 @@ exports.default = function (creep, rawTarget) {
 	if (target instanceof Array) {
 		target = _.compact(target);
 		if (target.length == 0) return false;
-	}target = target[0];
+		target = target[0];
+	}
 	(0, _util.action)(creep, target, creep.attack(target), _util.emoji.attack);
 	return true;
 };
@@ -698,7 +699,8 @@ exports.default = function (creep, rawTarget) {
 	if (target instanceof Array) {
 		target = _.compact(target);
 		if (target.length == 0) return false;
-	}target = target[0];
+		target = target[0];
+	}
 	(0, _util.action)(creep, target, creep.build(target), _util.emoji.build);
 	return true;
 };
@@ -722,7 +724,8 @@ exports.default = function (creep, rawTarget) {
 	if (target instanceof Array) {
 		target = _.compact(target);
 		if (target.length == 0) return false;
-	}target = target[0];
+		target = target[0];
+	}
 	(0, _util.action)(creep, target, creep.claimController(target), _util.emoji.claim);
 	return true;
 };
@@ -746,7 +749,8 @@ exports.default = function (creep, rawTarget) {
 	if (target instanceof Array) {
 		target = _.compact(target);
 		if (target.length == 0) return false;
-	}target = target[0];
+		target = target[0];
+	}
 	(0, _util.action)(creep, target, creep.dismantle(target), _util.emoji.dismantle);
 	return true;
 };
@@ -770,7 +774,8 @@ exports.default = function (creep, rawTarget) {
 	if (target instanceof Array) {
 		target = _.compact(target);
 		if (target.length == 0) return false;
-	}target = target[0];
+		target = target[0];
+	}
 	(0, _util.action)(creep, target, creep.harvest(target), _util.emoji.harvest);
 	return true;
 };
@@ -794,7 +799,8 @@ exports.default = function (creep, rawTarget) {
 	if (target instanceof Array) {
 		target = _.compact(target);
 		if (target.length == 0) return false;
-	}target = target[0];
+		target = target[0];
+	}
 	(0, _util.action)(creep, target, creep.heal(target), _util.emoji.heal);
 	return true;
 };
@@ -818,7 +824,8 @@ exports.default = function (creep, rawTarget) {
 	if (target instanceof Array) {
 		target = _.compact(target);
 		if (target.length == 0) return false;
-	}target = target[0];
+		target = target[0];
+	}
 	(0, _util.action)(creep, target, creep.pickup(target), _util.emoji.pickup);
 	return true;
 };
@@ -842,7 +849,8 @@ exports.default = function (creep, rawTarget) {
 	if (target instanceof Array) {
 		target = _.compact(target);
 		if (target.length == 0) return false;
-	}target = target[0];
+		target = target[0];
+	}
 	(0, _util.action)(creep, target, creep.repair(target), _util.emoji.repair);
 	return true;
 };
@@ -858,6 +866,8 @@ Object.defineProperty(exports, "__esModule", {
 	value: true
 });
 
+var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+
 var _util = __webpack_require__(0);
 
 exports.default = function (creep, rawTarget) {
@@ -865,12 +875,14 @@ exports.default = function (creep, rawTarget) {
 
 	if (!rawTarget) return false;
 	var target = rawTarget;
+	console.log(typeof target === "undefined" ? "undefined" : _typeof(target));
 	if (target instanceof Array) {
 		target = _.compact(target);
 		if (target.length == 0) return false;
+		target = target[0];
 	};
-	target = target[0];
-	(0, _util.action)(creep, target, creep.transfer(target, RESOURCE_ENERGY), _util.emoji.transfer);
+
+	(0, _util.action)(creep, target, creep.transfer(target, type), _util.emoji.transfer);
 	return true;
 };
 
@@ -893,7 +905,8 @@ exports.default = function (creep, rawTarget) {
 	if (target instanceof Array) {
 		target = _.compact(target);
 		if (target.length == 0) return false;
-	}target = target[0];
+		target = target[0];
+	}
 	(0, _util.action)(creep, target, creep.upgradeController(target), _util.emoji.upgrade);
 	return true;
 };
@@ -919,7 +932,8 @@ exports.default = function (creep, rawTarget) {
 	if (target instanceof Array) {
 		target = _.compact(target);
 		if (target.length == 0) return false;
-	}target = target[0];
+		target = target[0];
+	}
 	(0, _util.action)(creep, target, creep.withdraw(target, type), _util.emoji.withdraw);
 	return true;
 };
@@ -1657,7 +1671,7 @@ exports.default = function (creep, sources) {
 	// run
 	if (creep.memory.full) {
 		target = creep.pos.findInRange(creep.room.memory.structures.canFill, 4);
-		if ((0, _action.transfer)(creep, target)) return;
+		if ((0, _action.transfer)(creep, target[0])) return;
 		if (creep.memory.harvestTarget == "5873bc3511e3e4361b4d7393") {
 			target = creep.room.controller;
 			if ((0, _action.upgradeController)(creep, target)) return;
@@ -1665,7 +1679,7 @@ exports.default = function (creep, sources) {
 	} else {
 		if (dropped.length > 0) {
 			target = creep.pos.findInRange(dropped, 0);
-			if ((0, _action.pickup)(creep, target)) return;
+			if ((0, _action.pickup)(creep, target[0])) return;
 		}
 		target = Game.getObjectById(creep.memory.harvestTarget);
 		if ((0, _action.harvest)(creep, target)) return;

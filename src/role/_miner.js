@@ -9,7 +9,7 @@ export default (creep, sources, dropped = []) => {
 	// run
 	if (creep.memory.full) {
 		target = creep.pos.findInRange(creep.room.memory.structures.canFill, 4);
-		if (transfer(creep, target)) return;
+		if (transfer(creep, target[0])) return;
 		if (creep.memory.harvestTarget == "5873bc3511e3e4361b4d7393") {
 			target = creep.room.controller;
 			if (upgradeController(creep, target)) return;
@@ -17,7 +17,7 @@ export default (creep, sources, dropped = []) => {
 	} else {
 		if (dropped.length > 0) {
 			target = creep.pos.findInRange(dropped, 0);
-			if (pickup(creep, target)) return;
+			if (pickup(creep, target[0])) return;
 		}
 		target = Game.getObjectById(creep.memory.harvestTarget)
 		if (harvest(creep, target)) return;

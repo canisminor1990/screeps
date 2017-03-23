@@ -5,8 +5,8 @@ export default (creep, rawTarget) => {
 	if (target instanceof Array) {
 		target = _.compact(target);
 		if (target.length == 0) return false;
-
-	}target = target[0];
+		target = target[0];
+	}
 	action(creep, target, creep.upgradeController(target), emoji.upgrade);
 	return true;
 }
