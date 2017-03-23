@@ -3,7 +3,10 @@ import {pickup, transfer, withdraw} from '../action'
 import {pathFinder} from '../task'
 export default (creep) => {
 	let target;
-	if (creep.room.name != 'W81S67') pathFinder(creep,Game.spawns['Spawn1'])
+	if (creep.room.name != 'W81S67') {
+		pathFinder(creep, Game.spawns[0])
+		return;
+	}
 	// memory
 	isFull(creep)
 	// run
@@ -18,9 +21,9 @@ export default (creep) => {
 	} else {
 		target = creep.room.memory.structures.needFill;
 		target = creep.pos.findClosestByRange(target);
-		if (transfer(creep,target)) return;
+		if (transfer(creep, target)) return;
 		target = creep.room.memory.structures.tower;
 		if (target && target.energy == target.energyCapacity) return;
-		if (transfer(creep,target)) return;
+		if (transfer(creep, target)) return;
 	}
 };

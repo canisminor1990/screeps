@@ -1432,7 +1432,10 @@ var _task = __webpack_require__(2);
 
 exports.default = function (creep) {
 	var target = void 0;
-	if (creep.room.name != 'W81S67') (0, _task.pathFinder)(creep, Game.spawns['Spawn1']);
+	if (creep.room.name != 'W81S67') {
+		(0, _task.pathFinder)(creep, Game.spawns[0]);
+		return;
+	}
 	// memory
 	(0, _util.isFull)(creep);
 	// run
