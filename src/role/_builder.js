@@ -2,7 +2,7 @@ import {isFull} from '../_util'
 import {pickup, upgradeController, build, withdraw} from '../action'
 
 export default (creep) => {
-	const needBuild = creep.memory.structures.needBuild;
+	const needBuild = creep.room.memory.structures.needBuild;
 	let target;
 	// memory
 	isFull(creep)

@@ -1370,7 +1370,7 @@ var _util = __webpack_require__(0);
 var _action = __webpack_require__(1);
 
 exports.default = function (creep) {
-	var needBuild = creep.memory.structures.needBuild;
+	var needBuild = creep.room.memory.structures.needBuild;
 	var target = void 0;
 	// memory
 	(0, _util.isFull)(creep);
@@ -1469,10 +1469,7 @@ var _util = __webpack_require__(0);
 var _action = __webpack_require__(1);
 
 exports.default = function (creep, newRoom) {
-	var room = Game.spawns['Spawn1'].room;
-	var newRoomMemory = newRoom.memory;
-	var needBuild = newRoomMemory.structures.needBuild;
-	var farMiner = newRoomMemory.creeps.my.farMiner;
+	var needBuild = creep.room.memory.structures.needBuild;
 	var target = void 0;
 	// memory
 	(0, _util.isFull)(creep);
@@ -1491,6 +1488,10 @@ exports.default = function (creep, newRoom) {
 			if ((0, _action.build)(creep, target)) return;
 		}
 	} else {
+		var room = Game.spawns['Spawn1'].room;
+		var newRoomMemory = newRoom.memory;
+		var farMiner = newRoomMemory.creeps.my.farMiner;
+
 		if (!creep.memory.full) {
 			var _dropped = creep.room.memory.dropped.energy;
 			if (_dropped.length > 0) {
