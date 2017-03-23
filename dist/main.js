@@ -1148,7 +1148,7 @@ exports.default = function (creep, sources) {
 	}
 
 	if (creep.memory.full) {
-		var canFill = creep.pos.findInRange(creep.room.memory.structures.canFill, 4);
+		var canFill = creep.pos.findInRange(creep.room.memory.structures.container, 4);
 		if (canFill.length > 0) {
 			creep.transfer(canFill[0], RESOURCE_ENERGY) != OK ? (0, _task.pathFinder)(creep, canFill[0]) : null;
 		} else if (creep.memory.harvestTarget == "5873bc3511e3e4361b4d7393") {
