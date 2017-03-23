@@ -1105,8 +1105,8 @@ exports.default = function (creep) {
 			});
 			transferTarget = transferTarget.sort(function (a, b) {
 				return b.store.enengy - a.store.enengy;
-			});
-			transferTarget && creep.withdraw(transferTarget[0], RESOURCE_ENERGY) != OK ? (0, _task.pathFinder)(creep, transferTarget[0]) : null;
+			})[0];
+			transferTarget && creep.withdraw(transferTarget, RESOURCE_ENERGY) != OK ? (0, _task.pathFinder)(creep, transferTarget) : null;
 		}
 	}
 

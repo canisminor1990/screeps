@@ -1,4 +1,4 @@
-import {pathFinder} from '../task'
+import { pathFinder } from '../task'
 export default (creep, dropped = []) => {
 
 	if (creep.carry.energy == 0) {
@@ -22,9 +22,9 @@ export default (creep, dropped = []) => {
 			let transferTarget = _.filter(creep.room.memory.structures.container,
 			                              container => container.id != '58d31e9dbbb5793fe9d0ad71'
 			)
-			transferTarget = transferTarget.sort((a, b) => b.store.enengy - a.store.enengy);
-			(transferTarget && creep.withdraw(transferTarget[0], RESOURCE_ENERGY) != OK)
-					? pathFinder(creep, transferTarget[0]) : null
+			transferTarget     = transferTarget.sort((a, b) => b.store.enengy - a.store.enengy)[0];
+			(transferTarget && creep.withdraw(transferTarget, RESOURCE_ENERGY) != OK)
+				? pathFinder(creep, transferTarget) : null
 		}
 	}
 
@@ -37,7 +37,7 @@ export default (creep, dropped = []) => {
 			needFillTarget = creep.room.storage
 		}
 		(needFillTarget && creep.transfer(needFillTarget, RESOURCE_ENERGY) != OK)
-				? pathFinder(creep, needFillTarget) : null
+			? pathFinder(creep, needFillTarget) : null
 
 	}
 }
