@@ -1468,6 +1468,7 @@ var _util = __webpack_require__(0);
 var _action = __webpack_require__(1);
 
 exports.default = function (creep, newRoom) {
+	var room = Game.spawns['Spawn1'].room;
 	var needBuild = newRoom.memory.structures.needBuild;
 	var target = void 0;
 	// memory
@@ -1480,14 +1481,13 @@ exports.default = function (creep, newRoom) {
 				target = creep.pos.findInRange(dropped, 3);
 				if ((0, _action.pickup)(creep, target[0])) return;
 			}
-			target = Game.spawns['Spawn1'].room.storage;
+			target = room.storage;
 			if ((0, _action.withdraw)(creep, target)) return;
 		} else {
 			target = creep.pos.findClosestByRange(needBuild);
 			if ((0, _action.build)(creep, target)) return;
 		}
 	} else {
-		var room = Game.spawns['Spawn1'].room;
 		var farMiner = newRoom.memory.creeps.my.farMiner;
 
 		if (!creep.memory.full) {

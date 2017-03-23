@@ -1,6 +1,7 @@
 import {isFull} from '../_util'
 import {withdraw, build, pickup, transfer} from '../action'
 export default (creep, newRoom) => {
+	const room = Game.spawns['Spawn1'].room;
 	const needBuild = newRoom.memory.structures.needBuild;
 	let target;
 	// memory
@@ -13,14 +14,13 @@ export default (creep, newRoom) => {
 				target = creep.pos.findInRange(dropped, 3);
 				if (pickup(creep, target[0])) return;
 			}
-			target = Game.spawns['Spawn1'].room.storage;
+			target = room.storage;
 			if (withdraw(creep, target))return;
 		} else {
 			target = creep.pos.findClosestByRange(needBuild);
 			if (build(creep, target))return;
 		}
 	} else {
-		const room = Game.spawns['Spawn1'].room;
 		const farMiner = newRoom.memory.creeps.my.farMiner;
 
 		if (!creep.memory.full) {
