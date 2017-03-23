@@ -3,6 +3,6 @@ const friends = [
 	"FanHua"
 ];
 export default (owner) => {
-	if (!owner) return false;
+	if (!owner || owner == 'Invader') return false;
 	return (friends.toString().match(owner)) ? true : false
 }

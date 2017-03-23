@@ -333,7 +333,7 @@ Object.defineProperty(exports, "__esModule", {
 var friends = ["Ruo", "FanHua"];
 
 exports.default = function (owner) {
-	if (!owner) return false;
+	if (!owner || owner == 'Invader') return false;
 	return friends.toString().match(owner) ? true : false;
 };
 
