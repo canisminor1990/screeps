@@ -24,18 +24,21 @@ export default (creep, newRoom) => {
 			return
 		}
 	} else {
-		const farMiner = newRoom.memory.creeps.my.farMiner;
 		if (!creep.memory.full) {
 			const dropped = creep.room.memory.dropped.energy;
 			if (dropped.length > 0) {
 				target = creep.pos.findInRange(dropped, 4);
 				if (pickup(creep, target[0])) return;
 			}
+			target = newRoom.memory.structures.container;
+			if (withdraw(creep, target[0])) return;
+			const farMiner = newRoom.memory.creeps.my.farMiner;
 			if (farMiner.length > 0) {
 				target = Game.getObjectById(farMiner[0].id);
 				pathFinder(creep, target);
 				return;
 			}
+
 		} else {
 			const needFix =  newRoom.memory.structures.needFix;
 			if (needFix.length > 0){

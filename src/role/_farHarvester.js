@@ -21,6 +21,12 @@ export default (creep, newRoom) => {
 		}
 		target = newRoom.memory.structures.container;
 		if (withdraw(creep, target[0])) return;
+		const farMiner = newRoom.memory.creeps.my.farMiner;
+		if (farMiner.length > 0) {
+			target = Game.getObjectById(farMiner[0].id);
+			pathFinder(creep, target);
+			return;
+		}
 	} else {
 		const needFix = newRoom.memory.structures.needFix;
 		if (needFix.length > 0) {
