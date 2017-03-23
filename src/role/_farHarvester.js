@@ -1,5 +1,5 @@
 import {isFull} from '../_util'
-import {attack, transfer,pickup} from '../action'
+import {attack, transfer, pickup} from '../action'
 import {pathFinder} from '../task'
 export default (creep, newRoom) => {
 	const room = Game.spawns['Spawn1'].room;
@@ -21,8 +21,10 @@ export default (creep, newRoom) => {
 			target = creep.pos.findInRange(dropped, 4);
 			if (pickup(creep, target[0])) return;
 		}
-		target = Game.getObjectById(farMiner[0].id);
-		pathFinder(creep, target)
+		if (farMiner.length > 0) {
+			target = Game.getObjectById(farMiner[0].id);
+			pathFinder(creep, target)
+		}
 	}
 	else {
 		if (transfer(creep, room.storage)) return;

@@ -1564,8 +1564,10 @@ exports.default = function (creep, newRoom) {
 			target = creep.pos.findInRange(dropped, 4);
 			if ((0, _action.pickup)(creep, target[0])) return;
 		}
-		target = Game.getObjectById(farMiner[0].id);
-		(0, _task.pathFinder)(creep, target);
+		if (farMiner.length > 0) {
+			target = Game.getObjectById(farMiner[0].id);
+			(0, _task.pathFinder)(creep, target);
+		}
 	} else {
 		if ((0, _action.transfer)(creep, room.storage)) return;
 	}
