@@ -20,7 +20,7 @@ export default (creep, newRoom) => {
 			if (pickup(creep, target[0])) return;
 		}
 		target = newRoom.memory.structures.container;
-		if (withdraw(creep, target)) return;
+		if (withdraw(creep, target[0])) return;
 	} else {
 		const needFix = newRoom.memory.structures.needFix;
 		if (needFix.length > 0) {

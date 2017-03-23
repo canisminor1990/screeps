@@ -1557,7 +1557,7 @@ exports.default = function (creep, newRoom) {
 			if ((0, _action.pickup)(creep, target[0])) return;
 		}
 		target = newRoom.memory.structures.container;
-		if ((0, _action.withdraw)(creep, target)) return;
+		if ((0, _action.withdraw)(creep, target[0])) return;
 	} else {
 		var needFix = newRoom.memory.structures.needFix;
 		if (needFix.length > 0) {
