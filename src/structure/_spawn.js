@@ -1,6 +1,5 @@
 export default (spawn, my, config) => {
 	if (spawn.spawning) {
-		console.log('Spawn', spawn.spawning.name);
 		spawn.room.visual.text(
 			'[Spawn] ' + spawn.spawning.name,
 			spawn.pos.x + 1,
@@ -18,7 +17,11 @@ export default (spawn, my, config) => {
 		const roleNumber  = roleType.number - roleMy.length;
 		if (roleNumber <= 0 || priority) return;
 		const spawnName = buildName(roleName);
-		if (spawn.createCreep(buildBody(roleType.body), spawnName, {role: roleName}) != OK ) priority = true;
+		if (spawn.createCreep(buildBody(roleType.body), spawnName, {role: roleName}) == OK) {
+			console.log('Spawn', spawn.spawning.name);
+		} else {
+			priority = true;
+		}
 	})
 
 }

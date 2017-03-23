@@ -1344,7 +1344,6 @@ Object.defineProperty(exports, "__esModule", {
 
 exports.default = function (spawn, my, config) {
 	if (spawn.spawning) {
-		console.log('Spawn', spawn.spawning.name);
 		spawn.room.visual.text('[Spawn] ' + spawn.spawning.name, spawn.pos.x + 1, spawn.pos.y, { align: 'left', opacity: 0.8 });
 		return;
 	}
@@ -1360,7 +1359,11 @@ exports.default = function (spawn, my, config) {
 		var roleNumber = roleType.number - roleMy.length;
 		if (roleNumber <= 0 || priority) return;
 		var spawnName = buildName(roleName);
-		if (spawn.createCreep(buildBody(roleType.body), spawnName, { role: roleName }) != OK) priority = true;
+		if (spawn.createCreep(buildBody(roleType.body), spawnName, { role: roleName }) == OK) {
+			console.log('Spawn', spawn.spawning.name);
+		} else {
+			priority = true;
+		}
 	});
 };
 
