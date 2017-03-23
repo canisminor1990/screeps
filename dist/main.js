@@ -873,12 +873,13 @@ exports.default = function (creep, rawTarget) {
 
 	if (!rawTarget) return false;
 	var target = rawTarget;
+	console.log(target instanceof Array);
 	if (target instanceof Array) {
 		target = _.compact(target);
 		if (target.length == 0) return false;
 		target = target[0];
 	};
-
+	console.log(target instanceof Array);
 	(0, _util.action)(creep, target, creep.transfer(target[0], RESOURCE_ENERGY), _util.emoji.transfer);
 	return true;
 };
