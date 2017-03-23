@@ -955,7 +955,7 @@ exports.default = function () {
 	};
 	var role = [{
 		role: "claim",
-		body: { tough: 1, move: 1, claim: 1 },
+		body: { tough: 2, move: 1 },
 		roleTimeout: 50,
 		number: 1,
 		priority: 7
