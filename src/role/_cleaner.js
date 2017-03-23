@@ -1,5 +1,5 @@
 import { isFull } from '../_util'
-import { harvest, pickup, transfer, withdraw } from '../action'
+import { pickup, transfer, withdraw } from '../action'
 
 export default (creep, dropped = []) => {
 	let target;
@@ -10,7 +10,7 @@ export default (creep, dropped = []) => {
 		if (!creep.memory.full) {
 			if (dropped.length > 0) {
 				target = creep.pos.findClosestByPath(dropped);
-				if (pickup(creep, target)) return;
+				if (pickup(creep, target[0])) return;
 			}
 			target = creep.room.memory.structures.container.sort((a, b) => b.store.enengy - a.store.enengy);
 			if (withdraw(creep, target)) return;

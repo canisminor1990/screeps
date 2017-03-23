@@ -1423,7 +1423,7 @@ exports.default = function (creep) {
 		if (!creep.memory.full) {
 			if (dropped.length > 0) {
 				target = creep.pos.findClosestByPath(dropped);
-				if ((0, _action.pickup)(creep, target)) return;
+				if ((0, _action.pickup)(creep, target[0])) return;
 			}
 			target = creep.room.memory.structures.container.sort(function (a, b) {
 				return b.store.enengy - a.store.enengy;
