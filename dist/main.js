@@ -1101,7 +1101,7 @@ exports.default = function (creep) {
 			creep.pickup(pickupTarget[0]) != OK ? (0, _task.pathFinder)(creep, pickupTarget[0]) : null;
 		} else {
 			var transferTarget = _.filter(creep.room.memory.structures.container, function (container) {
-				return container.id != '58d31e9dbbb5793fe9d0ad71';
+				return container.id != '58d31e9dbbb5793fe9d0ad71' && container.store.energy > 0;
 			});
 			transferTarget = transferTarget.sort(function (a, b) {
 				return b.store.enengy - a.store.enengy;
