@@ -986,7 +986,7 @@ exports.default = function () {
 		role: "miner",
 		body: { work: 8, move: 3 },
 		number: 2,
-		timeout: 40,
+		timeout: 0,
 		priority: 1
 	}, {
 		role: 'cleaner',
