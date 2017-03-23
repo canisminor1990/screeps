@@ -1414,13 +1414,12 @@ var _util = __webpack_require__(0);
 var _action = __webpack_require__(2);
 
 exports.default = function (creep) {
-	var dropped = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : [];
-
 	var target = void 0;
 	if (creep.room.memory.creeps.my.harvester.length > 0 && creep.room.memory.creeps.my.miner.length > 0) {
 		// memory
 		(0, _util.isFull)(creep);
 		if (!creep.memory.full) {
+			var dropped = creep.room.memory.dropped.energy;
 			if (dropped.length > 0) {
 				target = creep.pos.findInRange(dropped, 10);
 				if ((0, _action.pickup)(creep, target[0])) return;

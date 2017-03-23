@@ -1,13 +1,14 @@
 import { isFull } from '../_util'
 import { pickup, transfer, withdraw } from '../action'
 
-export default (creep, dropped = []) => {
+export default (creep) => {
 	let target;
 	if (creep.room.memory.creeps.my.harvester.length > 0 &&
 	    creep.room.memory.creeps.my.miner.length > 0) {
 		// memory
 		isFull(creep)
 		if (!creep.memory.full) {
+			let dropped = creep.room.memory.dropped.energy;
 			if (dropped.length > 0) {
 				target = creep.pos.findInRange(dropped, 10);
 				if (pickup(creep, target[0])) return;
