@@ -1,3 +1,4 @@
+import {pathFinder} from '../task'
 export default (creep, target, fc, text) => {
 	switch (fc) {
 		case OK:

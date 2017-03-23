@@ -500,6 +500,8 @@ Object.defineProperty(exports, "__esModule", {
 	value: true
 });
 
+var _task = __webpack_require__(1);
+
 exports.default = function (creep, target, fc, text) {
 	switch (fc) {
 		case OK:
@@ -533,7 +535,7 @@ exports.default = function (creep, target, fc, text) {
 			creep.say("FULL");
 			break;
 		case ERR_NOT_IN_RANGE:
-			pathFinder(creep, target);
+			(0, _task.pathFinder)(creep, target);
 			break;
 		case ERR_INVALID_ARGS:
 			creep.say("INVALID_ARGS");
