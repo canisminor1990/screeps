@@ -8,7 +8,7 @@ export default (room) => {
 
     const newRoom = {
         pos: new RoomPosition(25, 47, 'W81S66'),
-        memory: (Game.rooms['W81S66'].memory)?Game.rooms['W81S66'].memory:{}
+        memory: (Game.rooms['W81S66'])?Game.rooms['W81S66'].memory:{}
     };
 
 
