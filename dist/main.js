@@ -614,7 +614,7 @@ exports.default = function (room, config) {
 	    structuresContainer = _.filter(structuresOther, function (structure) {
 		return structure.structureType == STRUCTURE_CONTAINER;
 	}),
-	    structuresDocker = structuresContainer.push(structuresStorage);
+	    structuresDocker = structuresContainer.concat([structuresStorage]);
 
 	return {
 		terminal: room.terminal,
