@@ -4,7 +4,7 @@ export default (creep, rawTarget) => {
 	let target = rawTarget;
 	if (target instanceof Array) {
 		target = _.compact(target);
-		if (rawTarget.length == 0) return false;
+		if (target.length == 0) return false;
 		target = target[0];
 	}
 	action(creep, target, creep.dismantle(target), emoji.dismantle);

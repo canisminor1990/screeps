@@ -4,10 +4,9 @@ export default (creep, rawTarget, type = RESOURCE_ENERGY) => {
 	let target = rawTarget;
 	if (target instanceof Array) {
 		target = _.compact(target);
-		if (rawTarget.length == 0) return false;
+		if (target.length == 0) return false;
 		target = target[0];
 	}
-	target = Game.getObjectById(target.id)
 	action(creep, target, creep.transfer(target, type), emoji.transfer);
 	return true;
 }

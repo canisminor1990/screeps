@@ -672,7 +672,7 @@ exports.default = function (creep, rawTarget) {
 	var target = rawTarget;
 	if (target instanceof Array) {
 		target = _.compact(target);
-		if (rawTarget.length == 0) return false;
+		if (target.length == 0) return false;
 		target = target[0];
 	}
 	(0, _util.action)(creep, target, creep.attack(target), _util.emoji.attack);
@@ -697,7 +697,7 @@ exports.default = function (creep, rawTarget) {
 	var target = rawTarget;
 	if (target instanceof Array) {
 		target = _.compact(target);
-		if (rawTarget.length == 0) return false;
+		if (target.length == 0) return false;
 		target = target[0];
 	}
 	(0, _util.action)(creep, target, creep.build(target), _util.emoji.build);
@@ -722,7 +722,7 @@ exports.default = function (creep, rawTarget) {
 	var target = rawTarget;
 	if (target instanceof Array) {
 		target = _.compact(target);
-		if (rawTarget.length == 0) return false;
+		if (target.length == 0) return false;
 		target = target[0];
 	}
 	(0, _util.action)(creep, target, creep.claimController(target), _util.emoji.claim);
@@ -747,7 +747,7 @@ exports.default = function (creep, rawTarget) {
 	var target = rawTarget;
 	if (target instanceof Array) {
 		target = _.compact(target);
-		if (rawTarget.length == 0) return false;
+		if (target.length == 0) return false;
 		target = target[0];
 	}
 	(0, _util.action)(creep, target, creep.dismantle(target), _util.emoji.dismantle);
@@ -772,7 +772,7 @@ exports.default = function (creep, rawTarget) {
 	var target = rawTarget;
 	if (target instanceof Array) {
 		target = _.compact(target);
-		if (rawTarget.length == 0) return false;
+		if (target.length == 0) return false;
 		target = target[0];
 	}
 	(0, _util.action)(creep, target, creep.harvest(target), _util.emoji.harvest);
@@ -797,7 +797,7 @@ exports.default = function (creep, rawTarget) {
 	var target = rawTarget;
 	if (target instanceof Array) {
 		target = _.compact(target);
-		if (rawTarget.length == 0) return false;
+		if (target.length == 0) return false;
 		target = target[0];
 	}
 	(0, _util.action)(creep, target, creep.heal(target), _util.emoji.heal);
@@ -822,7 +822,7 @@ exports.default = function (creep, rawTarget) {
 	var target = rawTarget;
 	if (target instanceof Array) {
 		target = _.compact(target);
-		if (rawTarget.length == 0) return false;
+		if (target.length == 0) return false;
 		target = target[0];
 	}
 	(0, _util.action)(creep, target, creep.pickup(target), _util.emoji.pickup);
@@ -847,7 +847,7 @@ exports.default = function (creep, rawTarget) {
 	var target = rawTarget;
 	if (target instanceof Array) {
 		target = _.compact(target);
-		if (rawTarget.length == 0) return false;
+		if (target.length == 0) return false;
 		target = target[0];
 	}
 	(0, _util.action)(creep, target, creep.repair(target), _util.emoji.repair);
@@ -874,10 +874,9 @@ exports.default = function (creep, rawTarget) {
 	var target = rawTarget;
 	if (target instanceof Array) {
 		target = _.compact(target);
-		if (rawTarget.length == 0) return false;
+		if (target.length == 0) return false;
 		target = target[0];
 	}
-	target = Game.getObjectById(target.id);
 	(0, _util.action)(creep, target, creep.transfer(target, type), _util.emoji.transfer);
 	return true;
 };
@@ -900,7 +899,7 @@ exports.default = function (creep, rawTarget) {
 	var target = rawTarget;
 	if (target instanceof Array) {
 		target = _.compact(target);
-		if (rawTarget.length == 0) return false;
+		if (target.length == 0) return false;
 		target = target[0];
 	}
 	(0, _util.action)(creep, target, creep.upgradeController(target), _util.emoji.upgrade);
@@ -927,7 +926,7 @@ exports.default = function (creep, rawTarget) {
 	var target = rawTarget;
 	if (target instanceof Array) {
 		target = _.compact(target);
-		if (rawTarget.length == 0) return false;
+		if (target.length == 0) return false;
 		target = target[0];
 	}
 	(0, _util.action)(creep, target, creep.withdraw(target, type), _util.emoji.withdraw);
