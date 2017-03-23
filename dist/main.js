@@ -879,7 +879,7 @@ exports.default = function (creep, rawTarget) {
 		target = target[0];
 	};
 
-	(0, _util.action)(creep, target, creep.transfer(target, type), _util.emoji.transfer);
+	(0, _util.action)(creep, target, creep.transfer(target, RESOURCE_ENERGY), _util.emoji.transfer);
 	return true;
 };
 

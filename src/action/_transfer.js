@@ -8,6 +8,6 @@ export default (creep, rawTarget, type = RESOURCE_ENERGY) => {
 		target = target[0];
 	};
 
-	action(creep, target, creep.transfer(target, type), emoji.transfer);
+	action(creep, target, creep.transfer(target, RESOURCE_ENERGY), emoji.transfer);
 	return true;
 }
