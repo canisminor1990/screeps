@@ -8,7 +8,7 @@ export default (room = Game.rooms['W81S67']) => {
 		{
 			role: "claim",
 			body: {claim: 2, move: 1},
-			timeout: 80,
+			timeout: 200,
 			number: 1,
 			priority: 7
 		},
