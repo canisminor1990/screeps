@@ -876,7 +876,8 @@ exports.default = function (creep, rawTarget) {
 		target = _.compact(target);
 		if (target.length == 0) return false;
 		target = target[0];
-	}
+	};
+	console.log(target);
 	(0, _util.action)(creep, target, creep.transfer(target, type), _util.emoji.transfer);
 	return true;
 };
