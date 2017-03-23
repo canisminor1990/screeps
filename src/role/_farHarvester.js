@@ -1,5 +1,5 @@
 import {isFull} from '../_util'
-import {attack, transfer} from '../action'
+import {attack, transfer,pickup} from '../action'
 import {pathFinder} from '../task'
 export default (creep, newRoom) => {
 	const room = Game.spawns['Spawn1'].room;
