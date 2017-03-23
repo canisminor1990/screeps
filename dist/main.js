@@ -500,7 +500,7 @@ exports.default = function () {
 
 
 Object.defineProperty(exports, "__esModule", {
-    value: true
+	value: true
 });
 
 var _config = __webpack_require__(9);
@@ -512,111 +512,105 @@ var _util = __webpack_require__(8);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 exports.default = function (room) {
-    var config = (0, _config2.default)(room);
-    var structures = room.find(FIND_STRUCTURES),
-        myStructures = _.filter(structures, function (structure) {
-        return structure.my;
-    }),
-        otherStructures = _.filter(structures, function (structure) {
-        return !structure.my;
-    }),
-        myContainer = _.filter(otherStructures, function (structure) {
-        return structure.structureType == STRUCTURE_CONTAINER;
-    }),
-        storage = room.storage;
-    var creeps = room.find(FIND_CREEPS),
-        myCreeps = _.filter(creeps, function (creep) {
-        return creep.my;
-    }),
-        otherCreeps = _.filter(creeps, function (creep) {
-        return !creep.my;
-    }),
-        my = creepRole(myCreeps, config.role);
-    var sources = room.find(FIND_SOURCES);
+	var config = (0, _config2.default)(room);
+	var structures = room.find(FIND_STRUCTURES),
+	    myStructures = _.filter(structures, function (structure) {
+		return structure.my;
+	}),
+	    otherStructures = _.filter(structures, function (structure) {
+		return !structure.my;
+	}),
+	    myContainer = _.filter(otherStructures, function (structure) {
+		return structure.structureType == STRUCTURE_CONTAINER;
+	}),
+	    storage = room.storage,
+	    dock = _.merge(myContainer, [storage]);
+	var creeps = room.find(FIND_CREEPS),
+	    myCreeps = _.filter(creeps, function (creep) {
+		return creep.my;
+	}),
+	    otherCreeps = _.filter(creeps, function (creep) {
+		return !creep.my;
+	}),
+	    my = creepRole(myCreeps, config.role);
+	var sources = room.find(FIND_SOURCES);
 
-    var dock = myContainer;
+	var sourceMiner = function sourceMiner(rawSources) {
+		var sources = [];
+		rawSources.forEach(function (source) {
+			var minerNumber = 0;
+			my.miner.forEach(function (creep) {
+				creep.memory.harvestTarget == source.id ? minerNumber++ : null;
+			});
 
-    if (dock.length > 0 && storage) {
-        dock[dock.length] = storage;
-    } else {
-        dock = dock ? dock : [];
-    }
-    var sourceMiner = function sourceMiner(rawSources) {
-        var sources = [];
-        rawSources.forEach(function (source) {
-            var minerNumber = 0;
-            my.miner.forEach(function (creep) {
-                creep.memory.harvestTarget == source.id ? minerNumber++ : null;
-            });
+			sources.push({
+				source: source,
+				minerNumber: minerNumber
+			});
+		});
+		if (sources.length > 0) {
+			sources.sort(function (a, b) {
+				return a.minerNumber - b.minerNumber;
+			});
+		}
+		return sources;
+	};
 
-            sources.push({
-                source: source,
-                minerNumber: minerNumber
-            });
-        });
-        if (sources.length > 0) {
-            sources.sort(function (a, b) {
-                return a.minerNumber - b.minerNumber;
-            });
-        }
-        return sources;
-    };
-
-    var memory = {
-        energyAvailable: room.energyAvailable,
-        creeps: {
-            my: my,
-            friend: _.filter(otherCreeps, function (creep) {
-                return (0, _util.isFriend)(creep.owner.username);
-            }),
-            enemy: _.filter(otherCreeps, function (creep) {
-                return !(0, _util.isFriend)(creep.owner.username);
-            })
-        },
-        structures: {
-            terminal: room.terminal,
-            controller: room.controller,
-            storage: storage,
-            tower: _.filter(myStructures, function (structure) {
-                return structure.structureType == STRUCTURE_TOWER;
-            })[0],
-            spawn: _.filter(myStructures, function (structure) {
-                return structure.structureType == STRUCTURE_SPAWN;
-            })[0],
-            container: _.filter(otherStructures, function (structure) {
-                return structure.structureType == STRUCTURE_CONTAINER;
-            }),
-            canWithdraw: _.filter(dock, function (structure) {
-                return structure.store.energy > 0;
-            }),
-            canFill: _.filter(dock, function (structure) {
-                return structure.store.energy < structure.storeCapacity;
-            }),
-            needFill: _.filter(myStructures, function (structure) {
-                return (structure.structureType == STRUCTURE_EXTENSION || structure.structureType == STRUCTURE_SPAWN || structure.structureType == STRUCTURE_TOWER) && structure.energy < structure.energyCapacity;
-            }),
-            needFix: _.filter(structures, function (structure) {
-                return (structure.my || structure.structureType == STRUCTURE_ROAD || structure.structureType == STRUCTURE_WALL) && structure.hits / structure.hitsMax < config.repair.percent && structure.hits < config.repair.maxHits;
-            }),
-            needBuild: room.find(FIND_MY_CONSTRUCTION_SITES)
-        },
-        sources: sourceMiner(sources),
-        dropped: {
-            energy: room.find(FIND_DROPPED_ENERGY)
-        },
-        config: config
-    };
-    room.memory = memory;
+	var memory = {
+		energyAvailable: room.energyAvailable,
+		creeps: {
+			my: my,
+			friend: _.filter(otherCreeps, function (creep) {
+				return (0, _util.isFriend)(creep.owner.username);
+			}),
+			enemy: _.filter(otherCreeps, function (creep) {
+				return !(0, _util.isFriend)(creep.owner.username);
+			})
+		},
+		structures: {
+			terminal: room.terminal,
+			controller: room.controller,
+			storage: storage,
+			tower: _.filter(myStructures, function (structure) {
+				return structure.structureType == STRUCTURE_TOWER;
+			})[0],
+			spawn: _.filter(myStructures, function (structure) {
+				return structure.structureType == STRUCTURE_SPAWN;
+			})[0],
+			container: _.filter(otherStructures, function (structure) {
+				return structure.structureType == STRUCTURE_CONTAINER;
+			}),
+			canWithdraw: _.filter(dock, function (structure) {
+				return structure.store.energy > 0;
+			}),
+			canFill: _.filter(dock, function (structure) {
+				return structure.store.energy < structure.storeCapacity;
+			}),
+			needFill: _.filter(myStructures, function (structure) {
+				return (structure.structureType == STRUCTURE_EXTENSION || structure.structureType == STRUCTURE_SPAWN || structure.structureType == STRUCTURE_TOWER) && structure.energy < structure.energyCapacity;
+			}),
+			needFix: _.filter(structures, function (structure) {
+				return (structure.my || structure.structureType == STRUCTURE_ROAD || structure.structureType == STRUCTURE_WALL) && structure.hits / structure.hitsMax < config.repair.percent && structure.hits < config.repair.maxHits;
+			}),
+			needBuild: room.find(FIND_MY_CONSTRUCTION_SITES)
+		},
+		sources: sourceMiner(sources),
+		dropped: {
+			energy: room.find(FIND_DROPPED_ENERGY)
+		},
+		config: config
+	};
+	room.memory = memory;
 };
 
 function creepRole(myCreeps, configRole) {
-    var my = {};
-    configRole.forEach(function (role) {
-        my[role.role] = _.filter(myCreeps, function (creep) {
-            return creep.name.split('#')[0] == role.role;
-        });
-    });
-    return my;
+	var my = {};
+	configRole.forEach(function (role) {
+		my[role.role] = _.filter(myCreeps, function (creep) {
+			return creep.name.split('#')[0] == role.role;
+		});
+	});
+	return my;
 }
 
 /***/ }),
