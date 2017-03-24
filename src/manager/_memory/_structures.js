@@ -9,6 +9,7 @@ export default (room, config) => {
 	let structuresDocker = _.compact(structuresContainer.concat([structuresStorage]));
 
 	return {
+		enemy: _.filter(structuresOther, structure => structure.structureType != STRUCTURE_CONTAINER && structure.structureType != STRUCTURE_ROAD && structure.structureType != STRUCTURE_WALL),
 		terminal: room.terminal,
 		controller: room.controller,
 		storage: structuresStorage,

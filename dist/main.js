@@ -1406,6 +1406,9 @@ exports.default = function (room, config) {
 	var structuresDocker = _.compact(structuresContainer.concat([structuresStorage]));
 
 	return {
+		enemy: _.filter(structuresOther, function (structure) {
+			return structure.structureType != STRUCTURE_CONTAINER && structure.structureType != STRUCTURE_ROAD && structure.structureType != STRUCTURE_WALL;
+		}),
 		terminal: room.terminal,
 		controller: room.controller,
 		storage: structuresStorage,
@@ -2286,11 +2289,11 @@ exports.default = function (creep) {
                 target = Game.getObjectById(commandContent.replace(' ', ''));
                 if ((0, _action.attack)(creep, target[0])) break;
             }
-            target = pos.lookFor(LOOK_CREEPS);
+            target = pos.findInRange(creep.room.memory.creeps.enemy);
             if (target.length > 0) {
                 if ((0, _action.attack)(creep, target[0])) break;
             }
-            target = pos.lookFor(LOOK_STRUCTURES);
+            target = pos.findInRange(creep.room.memory.structures.enemy);
             if (target.length > 0) {
                 if ((0, _action.attack)(creep, target[0])) break;
             }
@@ -2307,7 +2310,7 @@ exports.default = function (creep) {
                 target = Game.getObjectById(commandContent.replace(' ', ''));
                 if ((0, _action.dismantle)(creep, target[0])) break;
             }
-            target = pos.lookFor(LOOK_STRUCTURES);
+            target = pos.findInRange(creep.room.memory.structures.enemy);
             if (target.length > 0) {
                 if ((0, _action.dismantle)(creep, target[0])) break;
             }
