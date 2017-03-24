@@ -29,7 +29,6 @@ export default (spawn, my, config) => {
 		console.log('[Spawn]', spawnName);
 		priority = true;
 	})
-
 }
 
 function buildName(role) {
