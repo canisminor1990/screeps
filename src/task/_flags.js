@@ -1,6 +1,6 @@
 import {attack, moveTo, dismantle} from '../action'
 export default (creep) => {
-    let flag = creep.room.memory.flags;
+    let flag = creep.room.memory.flags[0];
     if(!flag) return;
     let name = flag.name;
     if (!name.match(/\//)) flag.remove();
