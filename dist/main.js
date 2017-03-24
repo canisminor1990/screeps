@@ -1248,7 +1248,7 @@ exports.default = function () {
         priority: 0
     }, {
         role: 'attacker',
-        body: { attack: 2, move: 2 },
+        body: { attack: 2, move: 3 },
         number: 5,
         priority: 0
     }];
