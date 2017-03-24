@@ -505,7 +505,7 @@ var _task = __webpack_require__(2);
 exports.default = function (creep, target, fc, text) {
 	switch (fc) {
 		case OK:
-			if (text) creep.say(text, { public: true });
+			if (text) creep.say(text);
 			return true;
 			break;
 		case ERR_NOT_OWNER:
