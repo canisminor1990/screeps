@@ -3,7 +3,7 @@ import {moveTo, harvest, repair} from '../action'
 export default (creep, newRoom) => {
 	let target;
 	target = Game.getObjectById('58d564b2c4e2b16629ae028f');
-
+console.log(target,target.hits,target.maxHits)
 	if (target && creep.carry.energy > 0 && target.hits < target.maxHits / 2) {
 		if (repair(creep, target)) return;
 	}
