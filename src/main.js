@@ -27,7 +27,7 @@ module.exports.loop = () => {
 
 		console.log('[Controller]',
 		            `Lvl ${controller.level}`,
-		            `(${process}%|${letf}|${speed} e/tk)`,
+		            `(${process}%|${letf}|${speed}/tick)`,
 		            `TimeLeft:${timeLeft}min`);
 
 		Memory.timer['controller'] = controller.progress;
