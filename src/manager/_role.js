@@ -11,8 +11,10 @@ export default (roomArrary) => {
 			memory: (Game.rooms[roomArrary[1]]) ? Game.rooms[roomArrary[1]].memory : {}
 		};
 
+		// cheap base
 		myCreeps.cleaner.forEach(creep => role.cleaner(creep))
 
+		// source
 		myCreeps.harvester.forEach(creep => role.harvester(creep))
 		myCreeps.miner.forEach(creep => role.miner(creep))
 		myCreeps.upgrader.forEach(creep => role.upgrader(creep))
@@ -23,6 +25,9 @@ export default (roomArrary) => {
 		myCreeps.farHarvester.forEach(creep => role.farHarvester(creep, newRoom))
 		myCreeps.farMiner.forEach(creep => role.farMiner(creep, newRoom))
 		myCreeps.claim.forEach(creep => role.claim(creep, newRoom))
+
+		// attack
+        myCreeps.attacker.forEach(creep => role.attacker(creep, newRoom))
 	})
 }
 

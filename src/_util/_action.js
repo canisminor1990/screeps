@@ -1,4 +1,4 @@
-import {pathFinder} from '../task'
+import {moveTo} from '../action'
 export default (creep, target, fc, text) => {
 	switch (fc) {
 		case OK:
@@ -33,7 +33,7 @@ export default (creep, target, fc, text) => {
 			creep.say(text + "FULL");
 			break;
 		case ERR_NOT_IN_RANGE          :
-			pathFinder(creep, target);
+			moveTo(creep, target);
 			return true;
 			break;
 		case ERR_INVALID_ARGS          :

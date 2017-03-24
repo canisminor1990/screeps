@@ -1,3 +1,5 @@
+export { default as moveTo } from "./_moveTo"
+//
 export { default as attack } from "./_attack"
 export { default as heal } from "./_heal"
 //

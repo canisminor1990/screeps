@@ -12,7 +12,7 @@ export default (creep) => {
 			if (pickup(creep, target[0])) return;
 		}
 		target = _.filter(creep.room.memory.structures.container,
-		                  container => container.id != '58d31e9dbbb5793fe9d0ad71' &&
+		                  container => container.id != '58d4d78f1b7445f663aacaca' &&
 		                               container.store.energy > 0
 		).sort((a, b) => b.store.energy - a.store.energy)
 
