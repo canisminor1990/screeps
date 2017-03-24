@@ -1,5 +1,6 @@
 import {attack, moveTo, dismantle} from '../action'
-export default (creep,flag) => {
+export default (creep) => {
+    let flag = creep.room.find(FIND_FLAGS).sort((a, b) => a.secondaryColor - b.secondaryColor).sort((a, b) => a.color - b.color)[0]
     let name = flag.name;
     if (!name.match(/\//)) flag.remove();
     const pos = flag.pos;
