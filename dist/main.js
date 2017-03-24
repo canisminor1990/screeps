@@ -1917,9 +1917,55 @@ exports.default = function (creep, newRoom) {
 
 /***/ }),
 /* 41 */
-/***/ (function(module, exports) {
+/***/ (function(module, exports, __webpack_require__) {
 
-throw new Error("Module build failed: SyntaxError: Invalid left-hand side in assignment expression (7:6)\n\n\u001b[0m \u001b[90m  5 | \u001b[39m\tlet target\u001b[33m;\u001b[39m\n \u001b[90m  6 | \u001b[39m\ttarget \u001b[33m=\u001b[39m \u001b[33mGame\u001b[39m\u001b[33m.\u001b[39mgetObjectById(\u001b[32m'58d564b2c4e2b16629ae028f'\u001b[39m)\u001b[33m;\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m  7 | \u001b[39m\t\u001b[36mif\u001b[39m (\ttarget \u001b[33m&&\u001b[39m target \u001b[33m=\u001b[39m \u001b[33mGame\u001b[39m\u001b[33m.\u001b[39mgetObjectById(\u001b[32m'58d564b2c4e2b16629ae028f'\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m    | \u001b[39m\t     \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m  8 | \u001b[39m\tcreep\u001b[33m.\u001b[39mcarry\u001b[33m.\u001b[39menergy \u001b[33m>\u001b[39m \u001b[35m0\u001b[39m \u001b[33m&&\u001b[39m target\u001b[33m.\u001b[39mhits \u001b[33m<\u001b[39m target\u001b[33m.\u001b[39mmaxHits \u001b[33m/\u001b[39m \u001b[35m2\u001b[39m){\n \u001b[90m  9 | \u001b[39m\t\t\u001b[36mif\u001b[39m (repair(creep\u001b[33m,\u001b[39mtarget)) \u001b[36mreturn\u001b[39m\u001b[33m;\u001b[39m\n \u001b[90m 10 | \u001b[39m\t}\u001b[0m\n");
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+	value: true
+});
+
+var _action = __webpack_require__(1);
+
+exports.default = function (creep, newRoom) {
+	var target = void 0;
+	target = Game.getObjectById('58d564b2c4e2b16629ae028f');
+
+	if (target && creep.carry.energy > 0 && target.hits < target.maxHits / 2) {
+		if ((0, _action.repair)(creep, target)) return;
+	}
+	if (!creep.memory.harvestTarget) creep.memory.harvestTarget = newRoom.memory.sources[0].source.id;
+	target = Game.getObjectById(creep.memory.harvestTarget);
+	if (!target) {
+		(0, _action.moveTo)(creep, newRoom.pos);
+		return;
+	} else {
+		if ((0, _action.harvest)(creep, target)) return;
+	}
+
+	// // memory
+	// isFull(creep)
+	// // run
+	// if (!creep.memory.full) {
+	// 	const dropped = creep.room.memory.dropped.energy;
+	// 	if (dropped.length > 0) {
+	// 		target = creep.pos.findInRange(dropped, 0);
+	// 		if (pickup(creep, target[0])) return;
+	// 	}
+	// 	target = Game.getObjectById('5873bc3511e3e4361b4d7390');
+	// 	if (!target) {
+	// 		moveTo(creep, newRoom.pos)
+	// 	} else {
+	// 		if (harvest(creep, target)) return;
+	// 	}
+	// } else {
+	// 	target = creep.pos.findInRange(creep.room.memory.structures.canFill, 4);
+	// 	if (transfer(creep, target[0])) return;
+	// 	target = newRoom.memory.structures.needBuild;
+	// 	if (build(creep, target[0])) return;
+	// }
+};
 
 /***/ }),
 /* 42 */
