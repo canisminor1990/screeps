@@ -2332,8 +2332,10 @@ module.exports.loop = function () {
 	}
 
 	if ((0, _util.timer)(10)) {
-		var controller = Game.rooms[rooms[0]].controller;
-		console.log('Level ' + controller.level + ' (' + controller.progress + ')');
+		var controller = Game.rooms[rooms[0]].controller,
+		    process = Math.round(controller.progress / controller.progressTotal * 100),
+		    left = controller.progress - controller.progressTotal;
+		console.log('Level ' + controller.level + ' ( ' + process + '% | ' + left + ' )');
 	}
 };
 
