@@ -1248,8 +1248,8 @@ exports.default = function () {
         priority: 0
     }, {
         role: 'attacker',
-        body: { work: 1, attack: 1, move: 1 },
-        number: 1,
+        body: { attack: 2, move: 1 },
+        number: 5,
         priority: 0
     }];
 
