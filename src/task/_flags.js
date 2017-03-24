@@ -31,7 +31,7 @@ export default (creep) => {
         case 'move' || 'moveTo' || 'moveto' || 'm':
             if (commandContent == 'home') {
                 if (moveTo(creep, Game.getObjectById('58ccc9d99f9ea168313dd115')))break;
-            } else{
+            } else if (commandContent) {
                 if (moveTo(creep, new RoomPosition(48, 21, commandContent)))break;
             }
             target = pos;
