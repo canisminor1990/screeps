@@ -2290,6 +2290,7 @@ exports.default = function (creep) {
                 if ((0, _action.attack)(creep, target[0])) break;
             }
             target = pos.findClosestByRange(creep.room.memory.creeps.enemy);
+            console.log(target);
             if (target.length) {
                 if ((0, _action.attack)(creep, target[0])) break;
             }

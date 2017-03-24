@@ -20,6 +20,7 @@ export default (creep) => {
                 if (attack(creep, target[0]))break;
             }
             target = pos.findClosestByRange(creep.room.memory.creeps.enemy)
+            console.log(target)
             if (target.length) {
                 if (attack(creep, target[0]))break;
             }
