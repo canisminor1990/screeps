@@ -2327,6 +2327,9 @@ module.exports.loop = function () {
 			Manager.structure(rooms);
 		});
 	}
+	test: (function () {
+		console.log('test');
+	});
 };
 
 /***/ })

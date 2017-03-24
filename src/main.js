@@ -16,5 +16,8 @@ module.exports.loop = () => {
 			Manager.structure(rooms)
 		});
 	}
+	test: () =>{
+		console.log('test')
+	}
 }
 
