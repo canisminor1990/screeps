@@ -2271,6 +2271,7 @@ exports.default = function (creep) {
     }).sort(function (a, b) {
         return a.color - b.color;
     })[0];
+    if (!flag) return;
     var name = flag.name;
     if (!name.match(/\//)) flag.remove();
     var pos = flag.pos;
