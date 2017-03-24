@@ -2335,11 +2335,11 @@ module.exports.loop = function () {
 
 		var controller = Game.rooms[rooms[0]].controller,
 		    process = Math.round(controller.progress / controller.progressTotal * 100),
-		    speed = Math.round((controller.memory.timer - controller.progress) / 10);
+		    speed = Math.round((Memory.timer['controller'] - controller.progress) / 10);
 
 		console.log('[Controller]', 'Lvl ' + controller.level, '(' + process + '%|' + (controller.progressTotal - controller.progress) + '|' + speed + '/tick)', 'speed:' + speed + '/tick');
 
-		controller.memory.timer = controller.progress;
+		Memory.timer['controller'] = controller.progress;
 	}
 };
 
