@@ -17,7 +17,7 @@ module.exports.loop = () => {
             Manager.structure(rooms)
         });
         rooms.forEach(room => {
-            "use strict";
+            room = Game.rooms[room]
             const target = room.memory.flags
             if (!target) return;
             target.forEach(flag => flags(flag))

@@ -2290,8 +2290,7 @@ module.exports.loop = function () {
             Manager.structure(rooms);
         });
         rooms.forEach(function (room) {
-            "use strict";
-
+            room = Game.rooms[room];
             var target = room.memory.flags;
             if (!target) return;
             target.forEach(function (flag) {
