@@ -1635,8 +1635,10 @@ var _action = __webpack_require__(1);
 var _task = __webpack_require__(2);
 
 exports.default = function (creep) {
-  var flagMemory = creep.room.memory.flags;
-  if (flagMemory && flagMemory.length > 0) (0, _task.flags)(creep);
+  // let flagMemory = creep.room.memory.flags
+  // if (flagMemory && flagMemory.length > 0) flags(creep)
+
+  (0, _action.moveTo)(creep, Game.getObjectById('58ccc9d99f9ea168313dd115'));
 };
 
 /***/ }),
@@ -2303,14 +2305,13 @@ exports.default = function (creep) {
             }
             break;
         case 'move' || 'moveTo' || 'moveto' || 'm':
-            (0, _action.moveTo)(creep, Game.getObjectById('58ccc9d99f9ea168313dd115'));
-            // if (commandContent == 'home') {
-            //     if (moveTo(creep, Game.getObjectById('58ccc9d99f9ea168313dd115')))break;
-            // } else if (commandContent) {
-            //     if (moveTo(creep, new RoomPosition(48, 21, commandContent)))break;
-            // }
-            // target = pos;
-            // moveTo(creep, target);
+            if (commandContent == 'home') {
+                if ((0, _action.moveTo)(creep, Game.getObjectById('58ccc9d99f9ea168313dd115'))) break;
+            } else if (commandContent) {
+                if ((0, _action.moveTo)(creep, new RoomPosition(48, 21, commandContent))) break;
+            }
+            target = pos;
+            (0, _action.moveTo)(creep, target);
             break;
         case 'chai' || 'dis' || 'dismantle':
             if (commandContent) {

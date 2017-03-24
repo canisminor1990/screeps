@@ -29,14 +29,13 @@ export default (creep) => {
             }
             break;
         case 'move' || 'moveTo' || 'moveto' || 'm':
-            moveTo(creep, Game.getObjectById('58ccc9d99f9ea168313dd115'))
-            // if (commandContent == 'home') {
-            //     if (moveTo(creep, Game.getObjectById('58ccc9d99f9ea168313dd115')))break;
-            // } else if (commandContent) {
-            //     if (moveTo(creep, new RoomPosition(48, 21, commandContent)))break;
-            // }
-            // target = pos;
-            // moveTo(creep, target);
+            if (commandContent == 'home') {
+                if (moveTo(creep, Game.getObjectById('58ccc9d99f9ea168313dd115')))break;
+            } else if (commandContent) {
+                if (moveTo(creep, new RoomPosition(48, 21, commandContent)))break;
+            }
+            target = pos;
+            moveTo(creep, target);
             break;
         case 'chai' || 'dis' || 'dismantle':
             if (commandContent) {
