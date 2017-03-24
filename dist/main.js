@@ -1633,7 +1633,9 @@ var _task = __webpack_require__(2);
 
 exports.default = function (creep) {
 
-    (0, _task.flags)(creep);
+    // flags(creep)
+    var target = creep.pos.findClosestByRange(FIND_HOSTILE_CREEPS);
+    if ((0, _action.attack)(creep, target)) return;
 };
 
 /***/ }),
