@@ -2347,13 +2347,6 @@ module.exports.loop = function () {
             Manager.role(rooms);
             Manager.structure(rooms);
         });
-        rooms.forEach(function (room) {
-            var target = Game.rooms[room].memory.flags;
-            if (!target) return;
-            target.forEach(function (flag) {
-                return (0, _task.flags)(flag);
-            });
-        });
     }
 
     if ((0, _util.timer)(10)) {
