@@ -2301,8 +2301,8 @@ exports.default = function (creep) {
             }
             break;
         case 'move' || 'moveTo' || 'moveto' || 'm':
-            target = commandContent ? commandContent : pos;
-            (0, _action.moveTo)(creep, new RoomPosition(0, 0, commandContent));
+            target = commandContent ? new RoomPosition(0, 0, commandContent) : pos;
+            (0, _action.moveTo)(creep, target);
             break;
         case 'chai' || 'dis' || 'dismantle':
             if (commandContent) {
