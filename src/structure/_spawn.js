@@ -1,6 +1,6 @@
 import {emoji} from '../_util'
 export default (spawn, my, config) => {
-    let target = spawn.pos.findClosestByRange(spawn.room.memory.creeps.my.attacker, 1)
+    let target = spawn.pos.findInRange(spawn.room.memory.creeps.my.attacker, 1)
     if (target && target.length > 0) {
         console.log(spawn.recycleCreep(target[0]))
 
