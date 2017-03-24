@@ -1923,17 +1923,28 @@ Object.defineProperty(exports, "__esModule", {
 	value: true
 });
 
-var _util = __webpack_require__(0);
+var _task = __webpack_require__(2);
 
 var _action = __webpack_require__(1);
 
 exports.default = function (creep) {
-	var sources = creep.room.memory.sources;
+	var memory = creep.room.memory;
 	var target = void 0;
 	// root
-	if (!creep.memory.harvestTarget) creep.memory.harvestTarget = sources[0].source.id;
-	target = Game.getObjectById(creep.memory.harvestTarget);
-	if ((0, _action.harvest)(creep, target)) return;
+
+	if (!creep.memory.harvestTarget) creep.memory.harvestTarget = memory.sources[0].source.id;
+	target = Game.getObjectById(memory.harvestTarget);
+	if ((0, _action.harvest)(creep, target)) {
+		if (!creep.memory.position) {
+			target = creep.pos.findInRange(memory.structures.container, 0);
+			if (target.length > 0) creep.memory.position = true;
+			target = creep.pos.findClosestByRange(memory.structures.container);
+			(0, _task.pathFinder)(creep, target);
+		} else {
+			return;
+		}
+	}
+
 	// // memory
 	// isFull(creep)
 	// // run
