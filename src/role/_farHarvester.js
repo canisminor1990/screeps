@@ -29,11 +29,6 @@ export default (creep, newRoom) => {
 			return;
 		}
 	} else {
-		const needFix = newRoom.memory.structures.needFix;
-		if (needFix.length > 0) {
-			target = creep.pos.findClosestByRange(needFix);
-			if (repair(creep, target)) return;
-		}
 		if (transfer(creep, room.storage)) return;
 	}
 }

@@ -1569,11 +1569,6 @@ exports.default = function (creep, newRoom) {
 			return;
 		}
 	} else {
-		var needFix = newRoom.memory.structures.needFix;
-		if (needFix.length > 0) {
-			target = creep.pos.findClosestByRange(needFix);
-			if ((0, _action.repair)(creep, target)) return;
-		}
 		if ((0, _action.transfer)(creep, room.storage)) return;
 	}
 };
