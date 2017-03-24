@@ -2266,11 +2266,7 @@ Object.defineProperty(exports, "__esModule", {
 var _action = __webpack_require__(1);
 
 exports.default = function (creep) {
-    var flag = creep.room.find(FIND_FLAGS).sort(function (a, b) {
-        return a.secondaryColor - b.secondaryColor;
-    }).sort(function (a, b) {
-        return a.color - b.color;
-    })[0];
+    var flag = creep.room.memory.flags;
     if (!flag) return;
     var name = flag.name;
     if (!name.match(/\//)) flag.remove();
