@@ -19,13 +19,16 @@ module.exports.loop = () => {
 
 	if (timer(10)) {
 
-		let controller          = Game.rooms[rooms[0]].controller,
-		    process             = Math.round(controller.progress / controller.progressTotal * 100),
-		    speed               = Math.round((Memory.timer['controller'] - controller.progress) / 10);
+		let controller = Game.rooms[rooms[0]].controller,
+		    process    = Math.round(controller.progress / controller.progressTotal * 100),
+		    speed      = Math.round((controller.progress - Memory.timer['controller']) / 10),
+		    letf       = controller.progressTotal - controller.progress,
+		    timeLeft   = Math.round(letf / speed / 60);
 
 		console.log('[Controller]',
 		            `Lvl ${controller.level}`,
-		            `(${process}%|${controller.progressTotal - controller.progress}|${speed}/tick)`, `speed:${speed}/tick`);
+		            `(${process}%|${letf}|${speed}/tick)`,
+		            `TimeLeft:${timeLeft}/min`);
 
 		Memory.timer['controller'] = controller.progress;
 	}
