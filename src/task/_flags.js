@@ -29,7 +29,7 @@ export default (creep) => {
             break;
         case 'move' || 'moveTo' || 'moveto' || 'm':
             target = (commandContent) ? commandContent : pos
-            moveTo(creep, target);
+            moveTo(creep, new RoomPosition(0, 0, commandContent));
             break;
         case 'chai' || 'dis' || 'dismantle':
             if (commandContent) {
