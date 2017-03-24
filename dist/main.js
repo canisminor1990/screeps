@@ -1249,7 +1249,7 @@ exports.default = function () {
     }, {
         role: 'attacker',
         body: { attack: 2, move: 3 },
-        number: 5,
+        number: 0,
         priority: 0
     }];
 
