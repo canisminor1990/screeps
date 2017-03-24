@@ -1299,16 +1299,14 @@ var rooms = ['W81S67', 'W81S66'];
 _screepsProfiler2.default.enable();
 
 module.exports.loop = function () {
-	// if (Game.cpuLimit > 100) {
-	//
-	// }
-
-	_screepsProfiler2.default.wrap(function () {
-		Manager.root();
-		Manager.memory(rooms);
-		Manager.role(rooms);
-		Manager.structure(rooms);
-	});
+	if (Game.cpuLimit > 100) {
+		_screepsProfiler2.default.wrap(function () {
+			Manager.root();
+			Manager.memory(rooms);
+			Manager.role(rooms);
+			Manager.structure(rooms);
+		});
+	}
 
 	if ((0, _util.timer)(10)) {
 
