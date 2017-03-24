@@ -1842,7 +1842,16 @@ exports.default = function (creep, newRoom) {
 		(0, _task.pathFinder)(creep, newRoom.pos);
 		return;
 	} else {
-		if ((0, _action.harvest)(creep, target)) return;
+		if ((0, _action.harvest)(creep, target)) {
+			if (!creep.memory.position) {
+				target = creep.pos.findInRange(memory.structures.container, 0);
+				if (target.length > 0) creep.memory.position = true;
+				target = creep.pos.findClosestByRange(memory.structures.container);
+				(0, _task.pathFinder)(creep, target);
+			} else {
+				return;
+			}
+		}
 	}
 
 	// // memory

@@ -1,6 +1,6 @@
 import { isFull } from '../_util'
 import { pathFinder } from '../task'
-import { harvest, transfer, build ,pickup} from '../action'
+import { harvest, transfer, build, pickup } from '../action'
 export default (creep, newRoom) => {
 	let target;
 
@@ -9,7 +9,16 @@ export default (creep, newRoom) => {
 		pathFinder(creep, newRoom.pos)
 		return;
 	} else {
-		if (harvest(creep, target)) return;
+		if (harvest(creep, target)) {
+			if (!creep.memory.position) {
+				target = creep.pos.findInRange(memory.structures.container, 0)
+				if (target.length > 0) creep.memory.position = true;
+				target = creep.pos.findClosestByRange(memory.structures.container)
+				pathFinder(creep, target)
+			} else {
+				return
+			}
+		}
 	}
 
 	// // memory
