@@ -2160,7 +2160,7 @@ var _util = __webpack_require__(0);
 
 exports.default = function (spawn, my, config) {
     var target = spawn.pos.findClosestByRange(spawn.room.memory.creeps.attacker, 1);
-    if (target.length > 0) {
+    if (target && target.length > 0) {
         spawn.recycleCreep(target);
     }
     if (spawn.spawning) {
