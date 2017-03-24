@@ -2333,10 +2333,10 @@ module.exports.loop = function () {
 	}
 
 	if ((0, _util.timer)(10)) {
-		var speed = Math.round((left - (controller.progressTotal - controller.progress)) / 10);
 
 		var controller = Game.rooms[rooms[0]].controller,
-		    process = Math.round(controller.progress / controller.progressTotal * 100);
+		    process = Math.round(controller.progress / controller.progressTotal * 100),
+		    speed = Math.round((left - (controller.progressTotal - controller.progress)) / 10);
 		left = controller.progressTotal - controller.progress;
 		console.log('[Controller]', 'Lvl ' + controller.level, '(' + process + '%|' + left + ')', 'speed:' + speed + '/tick');
 	}
