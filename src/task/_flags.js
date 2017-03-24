@@ -10,12 +10,12 @@ export default (creep) => {
         command = command.match(/[a-z]+ /)
         commandContent = name.replace('/' + command, '')
     }
-    console.log(command,commandContent)
+    console.log(command, commandContent)
     let target;
     switch (command) {
         case 'attack' || 'a':
             if (commandContent) {
-                target = Game.getObjectById(commandContent.replace(' ',''));
+                target = Game.getObjectById(commandContent.replace(' ', ''));
                 if (attack(creep, target[0]))break;
             }
             target = pos.lookFor(LOOK_CREEPS)
@@ -28,12 +28,15 @@ export default (creep) => {
             }
             break;
         case 'move' || 'moveTo' || 'moveto' || 'm':
-            target = (commandContent) ? new RoomPosition(48, 21, commandContent) : pos
+            if (commandContent) {
+                if (moveTo(creep, new RoomPosition(48, 21, commandContent)))break;
+            }
+            target = pos;
             moveTo(creep, target);
             break;
         case 'chai' || 'dis' || 'dismantle':
             if (commandContent) {
-                target = Game.getObjectById(commandContent.replace(' ',''));
+                target = Game.getObjectById(commandContent.replace(' ', ''));
                 if (dismantle(creep, target[0]))break;
             }
             target = pos.lookFor(LOOK_STRUCTURES)
