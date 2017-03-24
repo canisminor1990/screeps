@@ -2289,11 +2289,11 @@ exports.default = function (creep) {
             target = pos.findClosestByRange(creep.room.memory.creeps.enemy);
             console.log(target);
             if (target.length) {
-                if ((0, _action.attack)(creep, target[0])) break;
+                if ((0, _action.attack)(creep, target)) break;
             }
             target = pos.findClosestByRange(creep.room.memory.creeps.enemy);
             if (target.length) {
-                if ((0, _action.attack)(creep, target[0])) break;
+                if ((0, _action.attack)(creep, target)) break;
             }
             break;
         case 'move' || 'moveTo' || 'moveto' || 'm':
@@ -2307,7 +2307,7 @@ exports.default = function (creep) {
 
             target = pos.findClosestByRange(creep.room.memory.creeps.enemy);
             if (target.length) {
-                if ((0, _action.dismantle)(creep, target[0])) break;
+                if ((0, _action.dismantle)(creep, target)) break;
             }
             break;
     }
