@@ -4,7 +4,7 @@ import { timer } from  './_util'
 import profiler from 'screeps-profiler';
 // import { Room } from 'screeps-globals';
 
-const rooms = ['W81S67'];
+const rooms = ['W81S67', 'W81S66'];
 profiler.enable();
 
 module.exports.loop = () => {

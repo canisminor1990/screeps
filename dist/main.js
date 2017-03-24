@@ -1295,7 +1295,7 @@ function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj;
 
 // import { Room } from 'screeps-globals';
 
-var rooms = ['W81S67'];
+var rooms = ['W81S67', 'W81S66'];
 _screepsProfiler2.default.enable();
 
 module.exports.loop = function () {
@@ -1512,6 +1512,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 exports.default = function (roomArrary) {
 	_.each(roomArrary, function (room) {
+		if (!Game.rooms[room]) return;
 		room = Game.rooms[room];
 		var config = (0, _config2.default)(room);
 		var creeps = (0, _creeps2.default)(room, config);

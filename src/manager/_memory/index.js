@@ -5,6 +5,7 @@ import sources from "./_sources"
 import dropped from "./_dropped"
 export default (roomArrary) => {
 	_.each(roomArrary, room => {
+		if (!Game.rooms[room]) return;
 		room         = Game.rooms[room];
 		const config = configRaw(room);
 		const creeps = creepsRaw(room, config)
