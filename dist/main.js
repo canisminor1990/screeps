@@ -2290,8 +2290,7 @@ module.exports.loop = function () {
             Manager.structure(rooms);
         });
         rooms.forEach(function (room) {
-            room = Game.rooms[room];
-            var target = room.memory.flags;
+            var target = Game.rooms[room].memory.flags;
             if (!target) return;
             target.forEach(function (flag) {
                 return (0, _task.flags)(flag);
