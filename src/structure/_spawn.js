@@ -1,8 +1,9 @@
 import {emoji} from '../_util'
 export default (spawn, my, config) => {
-    let target = spawn.room.memory.creeps.my.attacker
+    let target = spawn.pos.findClosestByRange(spawn.room.memory.creeps.my.attacker, 1)
     if (target && target.length > 0) {
         console.log(spawn.recycleCreep(target[0]))
+
     }
     if (spawn.spawning) {
         const percent = Math.round((1 - spawn.spawning.remainingTime / spawn.spawning.needTime) * 100),
