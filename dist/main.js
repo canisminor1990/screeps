@@ -1632,7 +1632,14 @@ var _action = __webpack_require__(1);
 var _task = __webpack_require__(2);
 
 exports.default = function (creep) {
-    (0, _task.flags)(creep);
+    var memoryFlags = creep.room.find(FIND_FLAGS).sort(function (a, b) {
+        return a.secondaryColor - b.secondaryColor;
+    }).sort(function (a, b) {
+        return a.color - b.color;
+    });
+    if (memoryFlags.length > 0) {
+        (0, _task.flags)(creep, memoryFlags[0]);
+    }
 };
 
 /***/ }),
@@ -2264,12 +2271,7 @@ Object.defineProperty(exports, "__esModule", {
 
 var _action = __webpack_require__(1);
 
-exports.default = function (creep) {
-    var flag = creep.room.find(FIND_FLAGS).sort(function (a, b) {
-        return a.secondaryColor - b.secondaryColor;
-    }).sort(function (a, b) {
-        return a.color - b.color;
-    })[0];
+exports.default = function (creep, flag) {
     var name = flag.name;
     if (!name.match(/\//)) flag.remove();
     var pos = flag.pos;
