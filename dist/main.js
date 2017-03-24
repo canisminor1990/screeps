@@ -1936,15 +1936,12 @@ Object.defineProperty(exports, "__esModule", {
 	value: true
 });
 
-var _task = __webpack_require__(2);
-
 var _action = __webpack_require__(1);
 
 exports.default = function (creep) {
 	var memory = creep.room.memory;
 	var target = void 0;
 	// root
-
 	if (!creep.memory.harvestTarget) creep.memory.harvestTarget = memory.sources[0].source.id;
 	target = Game.getObjectById(memory.harvestTarget);
 	if ((0, _action.harvest)(creep, target)) return;
@@ -1968,7 +1965,7 @@ exports.default = function (creep) {
 	// 	target = Game.getObjectById(creep.memory.harvestTarget)
 	// 	if (harvest(creep, target)) return;
 	// }
-};
+}; // import { pathFinder } from '../task'
 
 /***/ }),
 /* 41 */
@@ -2337,14 +2334,16 @@ var rooms = ['W81S67', 'W81S66'];
 _screepsProfiler2.default.enable();
 
 module.exports.loop = function () {
-	if (Game.cpuLimit > 100) {
-		_screepsProfiler2.default.wrap(function () {
-			Manager.root();
-			Manager.memory(rooms);
-			Manager.role(rooms);
-			Manager.structure(rooms);
-		});
-	}
+	// if (Game.cpuLimit > 100) {
+	//
+	// }
+
+	_screepsProfiler2.default.wrap(function () {
+		Manager.root();
+		Manager.memory(rooms);
+		Manager.role(rooms);
+		Manager.structure(rooms);
+	});
 
 	if ((0, _util.timer)(10)) {
 

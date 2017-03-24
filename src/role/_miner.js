@@ -1,10 +1,9 @@
-import { pathFinder } from '../task'
+// import { pathFinder } from '../task'
 import { harvest } from '../action'
 export default (creep) => {
 	const memory = creep.room.memory;
 	let target;
 	// root
-
 	if (!creep.memory.harvestTarget) creep.memory.harvestTarget = memory.sources[0].source.id;
 	target = Game.getObjectById(memory.harvestTarget)
 	if (harvest(creep, target)) return
