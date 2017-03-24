@@ -65,7 +65,7 @@ export default (room = Game.rooms['W81S67']) => {
         },
         {
             role: 'attacker',
-            body: { attack: 2, move: 1},
+            body: { attack: 2, move: 2},
             number: 5,
             priority: 0
         }
