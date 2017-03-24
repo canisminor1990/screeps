@@ -1504,7 +1504,7 @@ exports.default = function (creep, newRoom) {
 				target = creep.pos.findInRange(_dropped, 4);
 				if ((0, _action.pickup)(creep, target[0])) return;
 			}
-			target = newRoom.memory.structures.container;
+			target = newRoom.memory.structures.canWithdraw;
 			if ((0, _action.withdraw)(creep, target[0])) return;
 			var farMiner = newRoom.memory.creeps.my.farMiner;
 			if (farMiner.length > 0) {
@@ -1560,7 +1560,7 @@ exports.default = function (creep, newRoom) {
 			target = creep.pos.findInRange(dropped, 4);
 			if ((0, _action.pickup)(creep, target[0])) return;
 		}
-		target = newRoom.memory.structures.container;
+		target = newRoom.memory.structures.canWithdraw;
 		if ((0, _action.withdraw)(creep, target[0])) return;
 		var farMiner = newRoom.memory.creeps.my.farMiner;
 		if (farMiner.length > 0) {
