@@ -2159,7 +2159,7 @@ Object.defineProperty(exports, "__esModule", {
 var _util = __webpack_require__(0);
 
 exports.default = function (spawn, my, config) {
-    var target = spawn.findClosestByRange(spawn.room.memory.creeps.attacker, 1);
+    var target = spawn.pos.findClosestByRange(spawn.room.memory.creeps.attacker, 1);
     if (target.length > 0) {
         spawn.recycleCreep(target);
     }
