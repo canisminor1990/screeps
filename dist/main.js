@@ -1894,6 +1894,10 @@ var _action = __webpack_require__(1);
 
 exports.default = function (creep, newRoom) {
 	var target = void 0;
+	target = Game.getObjectById('58d564b2c4e2b16629ae028f');
+	if (creep.carry.energy > 0 && target.hits < target.maxHits / 2) {
+		if ((0, _action.repair)(creep, target)) return;
+	}
 
 	target = Game.getObjectById('5873bc3511e3e4361b4d7390');
 	if (!target) {
