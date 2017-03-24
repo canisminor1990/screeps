@@ -23,7 +23,7 @@ export default (creep) => {
             if (target.length > 0) {
                 if (attack(creep, target[0]))break;
             }
-            target = pos.findInRange(creep.room.memory.structures.enemy, 6)
+            target = creep.pos.findInRange(creep.room.memory.structures.enemy, 6)
             if (target.length > 0) {
                 if (attack(creep, target[0]))break;
             }
