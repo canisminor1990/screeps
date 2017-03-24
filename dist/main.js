@@ -2339,7 +2339,7 @@ module.exports.loop = function () {
 		    letf = controller.progressTotal - controller.progress,
 		    timeLeft = Math.round(letf / speed / 60);
 
-		console.log('[Controller]', 'Lvl ' + controller.level, '(' + process + '%|' + letf + '|' + speed + '/tick)', 'TimeLeft:' + timeLeft + '/min');
+		console.log('[Controller]', 'Lvl ' + controller.level, '(' + process + '%|' + letf + '|' + speed + 'e/tick)', 'TimeLeft:' + timeLeft + 'min');
 
 		Memory.timer['controller'] = controller.progress;
 	}
