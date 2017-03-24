@@ -11,5 +11,5 @@ export default (roomArray) => {
 	const spawn = (roomNext) ? _.merge(targetCreeps.my, roomNext.memory.creeps.my) : targetCreeps.my;
 
 	structure.spawn(targetStructures.spawn, spawn, config);
-	structure.tower(targetStructures.tower, targetStructures.needFix, targetCreeps.enemy);
+	targetStructures.tower.forEach(tower => structure.tower(tower, targetStructures.needFix, targetCreeps.enemy))
 }

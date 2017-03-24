@@ -1399,7 +1399,7 @@ exports.default = function (room, config) {
 				storage: structuresStorage,
 				tower: _.filter(structuresMy, function (structure) {
 						return structure.structureType == STRUCTURE_TOWER;
-				})[0],
+				}),
 				spawn: _.filter(structuresMy, function (structure) {
 						return structure.structureType == STRUCTURE_SPAWN;
 				})[0],
@@ -1585,7 +1585,9 @@ exports.default = function (roomArray) {
 	var spawn = roomNext ? _.merge(targetCreeps.my, roomNext.memory.creeps.my) : targetCreeps.my;
 
 	structure.spawn(targetStructures.spawn, spawn, config);
-	structure.tower(targetStructures.tower, targetStructures.needFix, targetCreeps.enemy);
+	targetStructures.tower.forEach(function (tower) {
+		return structure.tower(tower, targetStructures.needFix, targetCreeps.enemy);
+	});
 };
 
 /***/ }),
@@ -1695,7 +1697,9 @@ exports.default = function (creep) {
 		target = creep.room.memory.structures.needFill;
 		target = creep.pos.findClosestByRange(target);
 		if ((0, _action.transfer)(creep, target)) return;
-		target = creep.room.memory.structures.tower;
+		target = creep.room.memory.structures.tower.sort(function (a, b) {
+			return a.energy - b.energy;
+		})[0];
 		if (target && target.energy == target.energyCapacity) return;
 		if ((0, _action.transfer)(creep, target)) return;
 	}

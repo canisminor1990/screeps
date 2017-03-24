@@ -12,7 +12,7 @@ export default (room, config) => {
 		terminal: room.terminal,
 		controller: room.controller,
 		storage: structuresStorage,
-		tower: _.filter(structuresMy, structure => structure.structureType == STRUCTURE_TOWER)[0],
+		tower: _.filter(structuresMy, structure => structure.structureType == STRUCTURE_TOWER),
 		spawn: _.filter(structuresMy, structure => structure.structureType == STRUCTURE_SPAWN)[0],
 		container: _.filter(structuresOther, structure => structure.structureType == STRUCTURE_CONTAINER),
 		canWithdraw: (structuresDocker.length > 0) ? _.filter(structuresDocker, structure =>
