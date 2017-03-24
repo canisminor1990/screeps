@@ -1849,8 +1849,10 @@ var _util = __webpack_require__(0);
 
 exports.default = function (spawn, my, config) {
 	if (spawn.spawning) {
-		var percent = Math.round((1 - spawn.spawning.remainingTime / spawn.spawning.needTime) * 100);
-		spawn.room.visual.text([_util.emoji.build, spawn.spawning.name.split('#')[0], '(' + percent + '%)'].join(' '), spawn.pos.x + 1, spawn.pos.y, {
+		var percent = Math.round((1 - spawn.spawning.remainingTime / spawn.spawning.needTime) * 100),
+		    text = [_util.emoji.build, spawn.spawning.name.split('#')[0], '(' + percent + '%)'].join(' ');
+		console.log(text);
+		spawn.room.visual.text(text, spawn.pos.x + 1, spawn.pos.y, {
 			align: 'left',
 			stroke: '#111111',
 			color: '#ffffff'

@@ -1,11 +1,13 @@
 import {emoji} from '../_util'
 export default (spawn, my, config) => {
 	if (spawn.spawning) {
-		const percent = Math.round((1 - spawn.spawning.remainingTime / spawn.spawning.needTime) * 100)
+		const percent = Math.round((1 - spawn.spawning.remainingTime / spawn.spawning.needTime) * 100),
+				text = [emoji.build,
+				        spawn.spawning.name.split('#')[0],
+				        `(${percent}%)`].join(' ');
+		console.log(text);
 		spawn.room.visual.text(
-				[emoji.build,
-				 spawn.spawning.name.split('#')[0],
-				 `(${percent}%)`].join(' '),
+				text,
 				spawn.pos.x + 1,
 				spawn.pos.y,
 				{
