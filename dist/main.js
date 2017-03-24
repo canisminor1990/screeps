@@ -1931,7 +1931,6 @@ var _action = __webpack_require__(1);
 exports.default = function (creep, newRoom) {
 	var target = void 0;
 	target = Game.getObjectById('58d564b2c4e2b16629ae028f');
-	console.log(target, target.hits, target.hitsMax);
 	if (target && creep.carry.energy > 0 && target.hits < target.hitsMax / 2) {
 		if ((0, _action.repair)(creep, target)) return;
 	}
