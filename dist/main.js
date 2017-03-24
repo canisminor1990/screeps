@@ -1215,7 +1215,7 @@ exports.default = function () {
 	var role = [{
 		role: "claim",
 		body: { claim: 2, move: 1 },
-		timeout: 200,
+		timeout: 120,
 		number: 1,
 		priority: 7
 	}, {
@@ -1253,6 +1253,7 @@ exports.default = function () {
 		role: "miner",
 		body: { work: 8, move: 4 },
 		number: 2,
+		timeout: 0,
 		priority: 1
 	}, {
 		role: 'cleaner',
