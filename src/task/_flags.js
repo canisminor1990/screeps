@@ -10,6 +10,7 @@ export default (creep) => {
         command = command.match(/[a-z]+ /)
         commandContent = name.replace('/' + command, '')
     }
+    console.log(command,commandContent)
     let target;
     switch (command) {
         case 'attack' || 'a':

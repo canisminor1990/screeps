@@ -2283,6 +2283,7 @@ exports.default = function (creep) {
         command = command.match(/[a-z]+ /);
         commandContent = name.replace('/' + command, '');
     }
+    console.log(command, commandContent);
     var target = void 0;
     switch (command) {
         case 'attack' || 'a':
