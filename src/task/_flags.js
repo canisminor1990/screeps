@@ -12,9 +12,9 @@ export default (creep) => {
     }
     let target;
     switch (command) {
-        case 'attack':
+        case 'attack' || 'a':
             if (commandContent) {
-                target = Game.getObjectById(commandContent);
+                target = Game.getObjectById(commandContent.replace(' ',''));
                 if (attack(creep, target[0]))break;
             }
             target = pos.lookFor(LOOK_CREEPS)
@@ -26,13 +26,13 @@ export default (creep) => {
                 if (attack(creep, target[0]))break;
             }
             break;
-        case 'moveTo':
-            target = (commandContent) ? Game.getObjectById(commandContent) : pos
+        case 'move' || 'moveTo' || 'moveto' || 'm':
+            target = (commandContent) ? commandContent : pos
             moveTo(creep, target);
             break;
-        case 'dismantle':
+        case 'chai' || 'dis' || 'dismantle':
             if (commandContent) {
-                target = Game.getObjectById(commandContent);
+                target = Game.getObjectById(commandContent.replace(' ',''));
                 if (dismantle(creep, target[0]))break;
             }
             target = pos.lookFor(LOOK_STRUCTURES)

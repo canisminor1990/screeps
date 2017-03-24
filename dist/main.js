@@ -2285,9 +2285,9 @@ exports.default = function (creep) {
     }
     var target = void 0;
     switch (command) {
-        case 'attack':
+        case 'attack' || 'a':
             if (commandContent) {
-                target = Game.getObjectById(commandContent);
+                target = Game.getObjectById(commandContent.replace(' ', ''));
                 if ((0, _action.attack)(creep, target[0])) break;
             }
             target = pos.lookFor(LOOK_CREEPS);
@@ -2299,13 +2299,13 @@ exports.default = function (creep) {
                 if ((0, _action.attack)(creep, target[0])) break;
             }
             break;
-        case 'moveTo':
-            target = commandContent ? Game.getObjectById(commandContent) : pos;
+        case 'move' || 'moveTo' || 'moveto' || 'm':
+            target = commandContent ? commandContent : pos;
             (0, _action.moveTo)(creep, target);
             break;
-        case 'dismantle':
+        case 'chai' || 'dis' || 'dismantle':
             if (commandContent) {
-                target = Game.getObjectById(commandContent);
+                target = Game.getObjectById(commandContent.replace(' ', ''));
                 if ((0, _action.dismantle)(creep, target[0])) break;
             }
             target = pos.lookFor(LOOK_STRUCTURES);
