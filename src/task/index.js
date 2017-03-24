@@ -1,0 +1,1 @@
+export {default as flags} from './_flags';
