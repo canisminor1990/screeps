@@ -1637,7 +1637,7 @@ exports.default = function (creep) {
     }).sort(function (a, b) {
         return a.color - b.color;
     });
-    console.log(memoryFlags);
+    console.log(creep.room);
     if (memoryFlags.length > 0) {
         (0, _task.flags)(creep, memoryFlags[0]);
     }
