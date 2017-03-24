@@ -54,7 +54,6 @@ export default (room = Game.rooms['W81S67']) => {
 			role: "miner",
 			body: { work: 8, move: 4},
 			number: 2,
-			timeout: 0,
 			priority: 1
 		},
 		{
