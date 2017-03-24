@@ -23,7 +23,7 @@ export default (creep) => {
             if (target.length > 0) {
                 if (attack(creep, target[0]))break;
             }
-            target = pos.findInRange(creep.room.memory.creeps.enemy, 6)
+            target = pos.findInRange(creep.room.memory.structures.enemy, 6)
             if (target.length > 0) {
                 if (attack(creep, target[0]))break;
             }
@@ -40,7 +40,7 @@ export default (creep) => {
                 target = Game.getObjectById(commandContent.replace(' ', ''));
                 if (dismantle(creep, target[0]))break;
             }
-            target = pos.findInRange(creep.room.memory.creeps.enemy, 6)
+            target = pos.findInRange(creep.room.memory.structures.enemy, 6)
             if (target.length > 0) {
                 if (dismantle(creep, target[0]))break;
             }

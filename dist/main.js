@@ -2293,7 +2293,7 @@ exports.default = function (creep) {
             if (target.length > 0) {
                 if ((0, _action.attack)(creep, target[0])) break;
             }
-            target = pos.findInRange(creep.room.memory.creeps.enemy, 6);
+            target = pos.findInRange(creep.room.memory.structures.enemy, 6);
             if (target.length > 0) {
                 if ((0, _action.attack)(creep, target[0])) break;
             }
@@ -2310,7 +2310,7 @@ exports.default = function (creep) {
                 target = Game.getObjectById(commandContent.replace(' ', ''));
                 if ((0, _action.dismantle)(creep, target[0])) break;
             }
-            target = pos.findInRange(creep.room.memory.creeps.enemy, 6);
+            target = pos.findInRange(creep.room.memory.structures.enemy, 6);
             if (target.length > 0) {
                 if ((0, _action.dismantle)(creep, target[0])) break;
             }
