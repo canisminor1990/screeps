@@ -64,7 +64,7 @@ module.exports =
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 24);
+/******/ 	return __webpack_require__(__webpack_require__.s = 49);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -78,7 +78,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _timer = __webpack_require__(11);
+var _timer = __webpack_require__(12);
 
 Object.defineProperty(exports, 'Timer', {
   enumerable: true,
@@ -87,7 +87,7 @@ Object.defineProperty(exports, 'Timer', {
   }
 });
 
-var _build = __webpack_require__(7);
+var _build = __webpack_require__(8);
 
 Object.defineProperty(exports, 'Build', {
   enumerable: true,
@@ -96,7 +96,7 @@ Object.defineProperty(exports, 'Build', {
   }
 });
 
-var _emoji = __webpack_require__(8);
+var _emoji = __webpack_require__(9);
 
 Object.defineProperty(exports, 'emoji', {
   enumerable: true,
@@ -105,7 +105,7 @@ Object.defineProperty(exports, 'emoji', {
   }
 });
 
-var _action = __webpack_require__(6);
+var _action = __webpack_require__(7);
 
 Object.defineProperty(exports, 'action', {
   enumerable: true,
@@ -114,7 +114,7 @@ Object.defineProperty(exports, 'action', {
   }
 });
 
-var _isFriend = __webpack_require__(9);
+var _isFriend = __webpack_require__(10);
 
 Object.defineProperty(exports, 'isFriend', {
   enumerable: true,
@@ -123,7 +123,7 @@ Object.defineProperty(exports, 'isFriend', {
   }
 });
 
-var _isFull = __webpack_require__(10);
+var _isFull = __webpack_require__(11);
 
 Object.defineProperty(exports, 'isFull', {
   enumerable: true,
@@ -145,7 +145,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _attack = __webpack_require__(12);
+var _attack = __webpack_require__(13);
 
 Object.defineProperty(exports, "attack", {
   enumerable: true,
@@ -154,7 +154,7 @@ Object.defineProperty(exports, "attack", {
   }
 });
 
-var _heal = __webpack_require__(17);
+var _heal = __webpack_require__(18);
 
 Object.defineProperty(exports, "heal", {
   enumerable: true,
@@ -163,7 +163,7 @@ Object.defineProperty(exports, "heal", {
   }
 });
 
-var _build = __webpack_require__(13);
+var _build = __webpack_require__(14);
 
 Object.defineProperty(exports, "build", {
   enumerable: true,
@@ -172,7 +172,7 @@ Object.defineProperty(exports, "build", {
   }
 });
 
-var _repair = __webpack_require__(19);
+var _repair = __webpack_require__(20);
 
 Object.defineProperty(exports, "repair", {
   enumerable: true,
@@ -181,7 +181,7 @@ Object.defineProperty(exports, "repair", {
   }
 });
 
-var _dismantle = __webpack_require__(15);
+var _dismantle = __webpack_require__(16);
 
 Object.defineProperty(exports, "dismantle", {
   enumerable: true,
@@ -190,7 +190,7 @@ Object.defineProperty(exports, "dismantle", {
   }
 });
 
-var _harvest = __webpack_require__(16);
+var _harvest = __webpack_require__(17);
 
 Object.defineProperty(exports, "harvest", {
   enumerable: true,
@@ -199,7 +199,7 @@ Object.defineProperty(exports, "harvest", {
   }
 });
 
-var _pickup = __webpack_require__(18);
+var _pickup = __webpack_require__(19);
 
 Object.defineProperty(exports, "pickup", {
   enumerable: true,
@@ -208,7 +208,7 @@ Object.defineProperty(exports, "pickup", {
   }
 });
 
-var _transfer = __webpack_require__(20);
+var _transfer = __webpack_require__(21);
 
 Object.defineProperty(exports, "transfer", {
   enumerable: true,
@@ -217,7 +217,7 @@ Object.defineProperty(exports, "transfer", {
   }
 });
 
-var _withdraw = __webpack_require__(22);
+var _withdraw = __webpack_require__(23);
 
 Object.defineProperty(exports, "withdraw", {
   enumerable: true,
@@ -226,7 +226,7 @@ Object.defineProperty(exports, "withdraw", {
   }
 });
 
-var _upgradeController = __webpack_require__(21);
+var _upgradeController = __webpack_require__(22);
 
 Object.defineProperty(exports, "upgradeController", {
   enumerable: true,
@@ -235,7 +235,7 @@ Object.defineProperty(exports, "upgradeController", {
   }
 });
 
-var _claimController = __webpack_require__(14);
+var _claimController = __webpack_require__(15);
 
 Object.defineProperty(exports, "claimController", {
   enumerable: true,
@@ -447,6 +447,272 @@ module.exports = function (options) {
 "use strict";
 
 
+var usedOnStart = 0;
+var enabled = false;
+var depth = 0;
+
+function setupProfiler() {
+  depth = 0; // reset depth, this needs to be done each tick.
+  Game.profiler = {
+    stream: function stream(duration, filter) {
+      setupMemory('stream', duration || 10, filter);
+    },
+    email: function email(duration, filter) {
+      setupMemory('email', duration || 100, filter);
+    },
+    profile: function profile(duration, filter) {
+      setupMemory('profile', duration || 100, filter);
+    },
+    background: function background(filter) {
+      setupMemory('background', false, filter);
+    },
+    restart: function restart() {
+      if (Profiler.isProfiling()) {
+        var filter = Memory.profiler.filter;
+        var duration = false;
+        if (!!Memory.profiler.disableTick) {
+          // Calculate the original duration, profile is enabled on the tick after the first call,
+          // so add 1.
+          duration = Memory.profiler.disableTick - Memory.profiler.enabledTick + 1;
+        }
+        var type = Memory.profiler.type;
+        setupMemory(type, duration, filter);
+      }
+    },
+
+    reset: resetMemory,
+    output: Profiler.output
+  };
+
+  overloadCPUCalc();
+}
+
+function setupMemory(profileType, duration, filter) {
+  resetMemory();
+  var disableTick = Number.isInteger(duration) ? Game.time + duration : false;
+  if (!Memory.profiler) {
+    Memory.profiler = {
+      map: {},
+      totalTime: 0,
+      enabledTick: Game.time + 1,
+      disableTick: disableTick,
+      type: profileType,
+      filter: filter
+    };
+  }
+}
+
+function resetMemory() {
+  Memory.profiler = null;
+}
+
+function overloadCPUCalc() {
+  if (Game.rooms.sim) {
+    usedOnStart = 0; // This needs to be reset, but only in the sim.
+    Game.cpu.getUsed = function getUsed() {
+      return performance.now() - usedOnStart;
+    };
+  }
+}
+
+function getFilter() {
+  return Memory.profiler.filter;
+}
+
+var functionBlackList = ['getUsed', // Let's avoid wrapping this... may lead to recursion issues and should be inexpensive.
+'constructor'];
+
+function wrapFunction(name, originalFunction) {
+  return function wrappedFunction() {
+    if (Profiler.isProfiling()) {
+      var nameMatchesFilter = name === getFilter();
+      var start = Game.cpu.getUsed();
+      if (nameMatchesFilter) {
+        depth++;
+      }
+      var result = originalFunction.apply(this, arguments);
+      if (depth > 0 || !getFilter()) {
+        var end = Game.cpu.getUsed();
+        Profiler.record(name, end - start);
+      }
+      if (nameMatchesFilter) {
+        depth--;
+      }
+      return result;
+    }
+
+    return originalFunction.apply(this, arguments);
+  };
+}
+
+function hookUpPrototypes() {
+  Profiler.prototypes.forEach(function (proto) {
+    profileObjectFunctions(proto.val, proto.name);
+  });
+}
+
+function profileObjectFunctions(object, label) {
+  var objectToWrap = object.prototype ? object.prototype : object;
+
+  Object.getOwnPropertyNames(objectToWrap).forEach(function (functionName) {
+    var extendedLabel = label + '.' + functionName;
+    try {
+      var isFunction = typeof objectToWrap[functionName] === 'function';
+      var notBlackListed = functionBlackList.indexOf(functionName) === -1;
+      if (isFunction && notBlackListed) {
+        var originalFunction = objectToWrap[functionName];
+        objectToWrap[functionName] = profileFunction(originalFunction, extendedLabel);
+      }
+    } catch (e) {} /* eslint no-empty:0 */
+  });
+
+  return objectToWrap;
+}
+
+function profileFunction(fn, functionName) {
+  var fnName = functionName || fn.name;
+  if (!fnName) {
+    console.log('Couldn\'t find a function name for - ', fn);
+    console.log('Will not profile this function.');
+    return fn;
+  }
+
+  return wrapFunction(fnName, fn);
+}
+
+var Profiler = {
+  printProfile: function printProfile() {
+    console.log(Profiler.output());
+  },
+  emailProfile: function emailProfile() {
+    Game.notify(Profiler.output());
+  },
+  output: function output(numresults) {
+    var displayresults = !!numresults ? numresults : 20;
+    if (!Memory.profiler || !Memory.profiler.enabledTick) {
+      return 'Profiler not active.';
+    }
+
+    var elapsedTicks = Game.time - Memory.profiler.enabledTick + 1;
+    var header = 'calls\t\ttime\t\tavg\t\tfunction';
+    var footer = ['Avg: ' + (Memory.profiler.totalTime / elapsedTicks).toFixed(2), 'Total: ' + Memory.profiler.totalTime.toFixed(2), 'Ticks: ' + elapsedTicks].join('\t');
+    return [].concat(header, Profiler.lines().slice(0, displayresults), footer).join('\n');
+  },
+  lines: function lines() {
+    var stats = Object.keys(Memory.profiler.map).map(function (functionName) {
+      var functionCalls = Memory.profiler.map[functionName];
+      return {
+        name: functionName,
+        calls: functionCalls.calls,
+        totalTime: functionCalls.time,
+        averageTime: functionCalls.time / functionCalls.calls
+      };
+    }).sort(function (val1, val2) {
+      return val2.totalTime - val1.totalTime;
+    });
+
+    var lines = stats.map(function (data) {
+      return [data.calls, data.totalTime.toFixed(1), data.averageTime.toFixed(3), data.name].join('\t\t');
+    });
+
+    return lines;
+  },
+
+
+  prototypes: [{ name: 'Game', val: Game }, { name: 'Room', val: Room }, { name: 'Structure', val: Structure }, { name: 'Spawn', val: Spawn }, { name: 'Creep', val: Creep }, { name: 'RoomPosition', val: RoomPosition }, { name: 'Source', val: Source }, { name: 'Flag', val: Flag }],
+
+  record: function record(functionName, time) {
+    if (!Memory.profiler.map[functionName]) {
+      Memory.profiler.map[functionName] = {
+        time: 0,
+        calls: 0
+      };
+    }
+    Memory.profiler.map[functionName].calls++;
+    Memory.profiler.map[functionName].time += time;
+  },
+  endTick: function endTick() {
+    if (Game.time >= Memory.profiler.enabledTick) {
+      var cpuUsed = Game.cpu.getUsed();
+      Memory.profiler.totalTime += cpuUsed;
+      Profiler.report();
+    }
+  },
+  report: function report() {
+    if (Profiler.shouldPrint()) {
+      Profiler.printProfile();
+    } else if (Profiler.shouldEmail()) {
+      Profiler.emailProfile();
+    }
+  },
+  isProfiling: function isProfiling() {
+    if (!enabled || !Memory.profiler) {
+      return false;
+    }
+    return !Memory.profiler.disableTick || Game.time <= Memory.profiler.disableTick;
+  },
+  type: function type() {
+    return Memory.profiler.type;
+  },
+  shouldPrint: function shouldPrint() {
+    var streaming = Profiler.type() === 'stream';
+    var profiling = Profiler.type() === 'profile';
+    var onEndingTick = Memory.profiler.disableTick === Game.time;
+    return streaming || profiling && onEndingTick;
+  },
+  shouldEmail: function shouldEmail() {
+    return Profiler.type() === 'email' && Memory.profiler.disableTick === Game.time;
+  }
+};
+
+module.exports = {
+  wrap: function wrap(callback) {
+    if (enabled) {
+      setupProfiler();
+    }
+
+    if (Profiler.isProfiling()) {
+      usedOnStart = Game.cpu.getUsed();
+
+      // Commented lines are part of an on going experiment to keep the profiler
+      // performant, and measure certain types of overhead.
+
+      // var callbackStart = Game.cpu.getUsed();
+      var returnVal = callback();
+      // var callbackEnd = Game.cpu.getUsed();
+      Profiler.endTick();
+      // var end = Game.cpu.getUsed();
+
+      // var profilerTime = (end - start) - (callbackEnd - callbackStart);
+      // var callbackTime = callbackEnd - callbackStart;
+      // var unaccounted = end - profilerTime - callbackTime;
+      // console.log('total-', end, 'profiler-', profilerTime, 'callbacktime-',
+      // callbackTime, 'start-', start, 'unaccounted', unaccounted);
+      return returnVal;
+    }
+
+    return callback();
+  },
+  enable: function enable() {
+    enabled = true;
+    hookUpPrototypes();
+  },
+
+
+  output: Profiler.output,
+
+  registerObject: profileObjectFunctions,
+  registerFN: profileFunction,
+  registerClass: profileObjectFunctions
+};
+
+/***/ }),
+/* 6 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
@@ -490,7 +756,7 @@ Object.defineProperty(exports, 'role', {
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 /***/ }),
-/* 6 */
+/* 7 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -561,7 +827,7 @@ exports.default = function (creep, target, fc, text) {
 };
 
 /***/ }),
-/* 7 */
+/* 8 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -580,7 +846,7 @@ exports.default = function (x, y, type) {
 };
 
 /***/ }),
-/* 8 */
+/* 9 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -607,7 +873,7 @@ exports.default = {
 };
 
 /***/ }),
-/* 9 */
+/* 10 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -624,7 +890,7 @@ exports.default = function (owner) {
 };
 
 /***/ }),
-/* 10 */
+/* 11 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -640,7 +906,7 @@ exports.default = function (creep) {
 };
 
 /***/ }),
-/* 11 */
+/* 12 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -654,30 +920,6 @@ exports.default = function (tick) {
     if (Memory.timer[tick] && Game.time - Memory.timer[tick] < tick) return false;
     Memory.timer[tick] = Game.time;
     return true;
-};
-
-/***/ }),
-/* 12 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-	value: true
-});
-
-var _util = __webpack_require__(0);
-
-exports.default = function (creep, rawTarget) {
-	if (!rawTarget) return false;
-	var target = rawTarget;
-	if (target instanceof Array) {
-		target = _.compact(target);
-		if (target.length == 0) return false;
-		target = target[0];
-	}
-	if ((0, _util.action)(creep, target, creep.attack(target), _util.emoji.attack)) return true;
 };
 
 /***/ }),
@@ -701,7 +943,7 @@ exports.default = function (creep, rawTarget) {
 		if (target.length == 0) return false;
 		target = target[0];
 	}
-	if ((0, _util.action)(creep, target, creep.build(target), _util.emoji.build)) return true;
+	if ((0, _util.action)(creep, target, creep.attack(target), _util.emoji.attack)) return true;
 };
 
 /***/ }),
@@ -725,7 +967,7 @@ exports.default = function (creep, rawTarget) {
 		if (target.length == 0) return false;
 		target = target[0];
 	}
-	if ((0, _util.action)(creep, target, creep.reserveController(target), _util.emoji.claim)) return true;
+	if ((0, _util.action)(creep, target, creep.build(target), _util.emoji.build)) return true;
 };
 
 /***/ }),
@@ -749,7 +991,7 @@ exports.default = function (creep, rawTarget) {
 		if (target.length == 0) return false;
 		target = target[0];
 	}
-	if ((0, _util.action)(creep, target, creep.dismantle(target), _util.emoji.dismantle)) return true;
+	if ((0, _util.action)(creep, target, creep.reserveController(target), _util.emoji.claim)) return true;
 };
 
 /***/ }),
@@ -773,7 +1015,7 @@ exports.default = function (creep, rawTarget) {
 		if (target.length == 0) return false;
 		target = target[0];
 	}
-	if ((0, _util.action)(creep, target, creep.harvest(target), _util.emoji.harvest)) return true;
+	if ((0, _util.action)(creep, target, creep.dismantle(target), _util.emoji.dismantle)) return true;
 };
 
 /***/ }),
@@ -797,7 +1039,7 @@ exports.default = function (creep, rawTarget) {
 		if (target.length == 0) return false;
 		target = target[0];
 	}
-	if ((0, _util.action)(creep, target, creep.heal(target), _util.emoji.heal)) return true;
+	if ((0, _util.action)(creep, target, creep.harvest(target), _util.emoji.harvest)) return true;
 };
 
 /***/ }),
@@ -821,7 +1063,7 @@ exports.default = function (creep, rawTarget) {
 		if (target.length == 0) return false;
 		target = target[0];
 	}
-	if ((0, _util.action)(creep, target, creep.pickup(target), _util.emoji.pickup)) return true;
+	if ((0, _util.action)(creep, target, creep.heal(target), _util.emoji.heal)) return true;
 };
 
 /***/ }),
@@ -845,11 +1087,35 @@ exports.default = function (creep, rawTarget) {
 		if (target.length == 0) return false;
 		target = target[0];
 	}
-	if ((0, _util.action)(creep, target, creep.repair(target), _util.emoji.repair)) return true;
+	if ((0, _util.action)(creep, target, creep.pickup(target), _util.emoji.pickup)) return true;
 };
 
 /***/ }),
 /* 20 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+	value: true
+});
+
+var _util = __webpack_require__(0);
+
+exports.default = function (creep, rawTarget) {
+	if (!rawTarget) return false;
+	var target = rawTarget;
+	if (target instanceof Array) {
+		target = _.compact(target);
+		if (target.length == 0) return false;
+		target = target[0];
+	}
+	if ((0, _util.action)(creep, target, creep.repair(target), _util.emoji.repair)) return true;
+};
+
+/***/ }),
+/* 21 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -876,7 +1142,7 @@ exports.default = function (creep, rawTarget) {
 };
 
 /***/ }),
-/* 21 */
+/* 22 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -900,7 +1166,7 @@ exports.default = function (creep, rawTarget) {
 };
 
 /***/ }),
-/* 22 */
+/* 23 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -926,7 +1192,7 @@ exports.default = function (creep, rawTarget) {
 };
 
 /***/ }),
-/* 23 */
+/* 24 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1001,30 +1267,6 @@ exports.default = function () {
 		}),
 		repair: repair
 	};
-};
-
-/***/ }),
-/* 24 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-__webpack_require__(4);
-
-var _manager = __webpack_require__(5);
-
-var Manager = _interopRequireWildcard(_manager);
-
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
-
-module.exports.loop = function () {
-	var rooms = ['W81S67', 'W81S66'];
-	// start
-	Manager.root();
-	Manager.memory(rooms);
-	Manager.role(rooms);
-	Manager.structure(rooms);
 };
 
 /***/ }),
@@ -1193,7 +1435,7 @@ Object.defineProperty(exports, "__esModule", {
 	value: true
 });
 
-var _config = __webpack_require__(23);
+var _config = __webpack_require__(24);
 
 var _config2 = _interopRequireDefault(_config);
 
@@ -2047,6 +2289,44 @@ exports.default = function (creep, target) {
 		visualizePathStyle: { stroke: color }
 	});
 	return;
+};
+
+/***/ }),
+/* 49 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+__webpack_require__(4);
+
+var _manager = __webpack_require__(6);
+
+var Manager = _interopRequireWildcard(_manager);
+
+var _screepsProfiler = __webpack_require__(5);
+
+var _screepsProfiler2 = _interopRequireDefault(_screepsProfiler);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+
+// import { Room } from 'screeps-globals';
+
+var rooms = ['W81S67', 'W81S66'];
+
+_screepsProfiler2.default.enable();
+
+module.exports.loop = function () {
+	if (Game.cpuLimit > 100) {
+		_screepsProfiler2.default.wrap(function () {
+			Manager.root();
+			Manager.memory(rooms);
+			Manager.role(rooms);
+			Manager.structure(rooms);
+		});
+	}
 };
 
 /***/ })
