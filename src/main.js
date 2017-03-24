@@ -2,10 +2,12 @@ import 'screeps-perf';
 import * as Manager from './manager'
 import { timer } from  './_util'
 import profiler from 'screeps-profiler';
-// import { Room } from 'screeps-globals';
+import { Room } from 'screeps-globals';
 
 const rooms = ['W81S67', 'W81S66'];
 profiler.enable();
+
+Memory.test = Room;
 
 module.exports.loop = () => {
 	if (Game.cpuLimit > 100) {
