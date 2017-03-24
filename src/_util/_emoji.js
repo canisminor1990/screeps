@@ -3,7 +3,7 @@ export default {
 	harvest  : unescape("%u26CF"),
 	error    : unescape("%u274C"),
 	move     : unescape("%uD83D%uDEB6"),
-	transfer : unescape("%uD83E%uDD1D"),
+	transfer : unescape("%uD83D%uDC50"),
 	build    : unescape("%uD83D%uDEA7"),
 	repair   : unescape("%uD83D%uDD27"),
 	claim    : unescape("%uD83D%uDEA9"),
