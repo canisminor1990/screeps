@@ -18,11 +18,11 @@ export default (creep) => {
 
             target = pos.findClosestByRange(creep.room.memory.creeps.enemy)
             console.log(target)
-            if (target.length) {
+            if (target) {
                 if (attack(creep, target))break;
             }
             target = pos.findClosestByRange(creep.room.memory.creeps.enemy)
-            if (target.length) {
+            if (target) {
                 if (attack(creep, target))break;
             }
             break;
@@ -36,7 +36,7 @@ export default (creep) => {
         case 'chai' || 'dis' || 'dismantle':
 
             target = pos.findClosestByRange(creep.room.memory.creeps.enemy)
-            if (target.length) {
+            if (target) {
                 if (dismantle(creep, target))break;
             }
             break;
