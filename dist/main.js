@@ -1947,17 +1947,17 @@ exports.default = function (creep) {
 
 	if (!creep.memory.harvestTarget) creep.memory.harvestTarget = memory.sources[0].source.id;
 	target = Game.getObjectById(creep.memory.harvestTarget);
-	if ((0, _action.harvest)(creep, target)) {
-		if (!creep.memory.position) {
-			target = creep.pos.findInRange(memory.structures.container, 0);
-			if (target.length > 0) creep.memory.position = true;
-			target = creep.pos.findClosestByRange(memory.structures.container);
-			(0, _task.pathFinder)(creep, target);
-		} else {
-			return;
-		}
-		return;
-	}
+	if ((0, _action.harvest)(creep, target)) {}
+	// if (!creep.memory.position) {
+	// 	target = creep.pos.findInRange(memory.structures.container, 0)
+	// 	if (target.length > 0) creep.memory.position = true;
+	// 	target = creep.pos.findClosestByRange(memory.structures.container)
+	// 	pathFinder(creep, target)
+	// } else {
+	// 	return
+	// }
+	// return
+
 
 	// // memory
 	// isFull(creep)
