@@ -1335,11 +1335,11 @@ exports.default = function (creep, target) {
     if (creep.fatigue > 0) return false;
     if (!target) return false;
 
-    if ((0, _util.action)(creep, target, creep.moveTo(target, {
+    if (creep.moveTo(target, {
         reusePath: 12,
         serializeMemory: true,
         visualizePathStyle: { stroke: color }
-    }), emoji.heal)) return true;
+    }) == OK) return true;
 };
 
 /***/ }),
