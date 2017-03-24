@@ -1907,7 +1907,7 @@ exports.default = function (creep) {
 			if ((0, _action.pickup)(creep, target[0])) return;
 		}
 		target = _.filter(creep.room.memory.structures.container, function (container) {
-			return container.id != '58d31e9dbbb5793fe9d0ad71' && container.store.energy > 0;
+			return container.id != '58d4d78f1b7445f663aacaca' && container.store.energy > 0;
 		}).sort(function (a, b) {
 			return b.store.energy - a.store.energy;
 		});
