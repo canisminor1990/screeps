@@ -2289,12 +2289,12 @@ exports.default = function (creep) {
                 target = Game.getObjectById(commandContent.replace(' ', ''));
                 if ((0, _action.attack)(creep, target[0])) break;
             }
-            target = creep.pos.findInRange(creep.room.memory.creeps.enemy);
-            if (target.length > 0) {
+            target = pos.findClosestByRange(creep.room.memory.creeps.enemy);
+            if (target.length) {
                 if ((0, _action.attack)(creep, target[0])) break;
             }
-            target = creep.pos.findInRange(creep.room.memory.structures.enemy);
-            if (target.length > 0) {
+            target = pos.findClosestByRange(creep.room.memory.creeps.enemy);
+            if (target.length) {
                 if ((0, _action.attack)(creep, target[0])) break;
             }
             break;
@@ -2310,8 +2310,8 @@ exports.default = function (creep) {
                 target = Game.getObjectById(commandContent.replace(' ', ''));
                 if ((0, _action.dismantle)(creep, target[0])) break;
             }
-            target = creep.pos.findInRange(creep.room.memory.structures.enemy);
-            if (target.length > 0) {
+            target = pos.findClosestByRange(creep.room.memory.creeps.enemy);
+            if (target.length) {
                 if ((0, _action.dismantle)(creep, target[0])) break;
             }
             break;

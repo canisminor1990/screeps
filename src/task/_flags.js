@@ -19,12 +19,12 @@ export default (creep) => {
                 target = Game.getObjectById(commandContent.replace(' ', ''));
                 if (attack(creep, target[0]))break;
             }
-            target = creep.pos.findInRange(creep.room.memory.creeps.enemy)
-            if (target.length > 0) {
+            target = pos.findClosestByRange(creep.room.memory.creeps.enemy,)
+            if (target.length) {
                 if (attack(creep, target[0]))break;
             }
-            target = creep.pos.findInRange(creep.room.memory.structures.enemy)
-            if (target.length > 0) {
+            target = pos.findClosestByRange(creep.room.memory.creeps.enemy)
+            if (target.length) {
                 if (attack(creep, target[0]))break;
             }
             break;
@@ -40,8 +40,8 @@ export default (creep) => {
                 target = Game.getObjectById(commandContent.replace(' ', ''));
                 if (dismantle(creep, target[0]))break;
             }
-            target = creep.pos.findInRange(creep.room.memory.structures.enemy)
-            if (target.length > 0) {
+            target = pos.findClosestByRange(creep.room.memory.creeps.enemy)
+            if (target.length) {
                 if (dismantle(creep, target[0]))break;
             }
             break;
