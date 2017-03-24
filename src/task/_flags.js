@@ -28,7 +28,7 @@ export default (creep) => {
             }
             break;
         case 'move' || 'moveTo' || 'moveto' || 'm':
-            target = (commandContent) ? new RoomPosition(0, 0, commandContent) : pos
+            target = (commandContent) ? new RoomPosition(48, 21, commandContent) : pos
             moveTo(creep, target);
             break;
         case 'chai' || 'dis' || 'dismantle':
