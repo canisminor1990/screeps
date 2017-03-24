@@ -1632,7 +1632,7 @@ var _action = __webpack_require__(1);
 var _task = __webpack_require__(2);
 
 exports.default = function (creep) {
-  var flagMemory = creep.memory.flags;
+  var flagMemory = creep.room.memory.flags;
   if (flagMemory && flagMemory.length > 0) (0, _task.flags)(creep);
 };
 
