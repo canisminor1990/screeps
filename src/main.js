@@ -5,6 +5,7 @@ import profiler from 'screeps-profiler';
 // import { Room } from 'screeps-globals';
 
 const rooms = ['W81S67', 'W81S66'];
+let left;
 profiler.enable();
 
 module.exports.loop = () => {
@@ -18,10 +19,12 @@ module.exports.loop = () => {
 	}
 
 	if (timer(10)) {
+		let speed = Math.round((left - (controller.progressTotal - controller.progress))/10)
+
 		let controller = Game.rooms[rooms[0]].controller,
-		    process    = Math.round(controller.progress / controller.progressTotal * 100),
-		    left       = controller.progressTotal - controller.progress;
-		console.log(`Level ${controller.level} ( ${process}% | ${left} )`);
+		    process    = Math.round(controller.progress / controller.progressTotal * 100);
+		left           = controller.progressTotal - controller.progress;
+		console.log('[Controller]', `Lvl ${controller.level}`, `(${process}%|${left})`,`speed:${speed}/tick`);
 	}
 }
 
