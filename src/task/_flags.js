@@ -19,7 +19,7 @@ export default (creep) => {
                 target = Game.getObjectById(commandContent.replace(' ', ''));
                 if (attack(creep, target[0]))break;
             }
-            target = pos.findClosestByRange(creep.room.memory.creeps.enemy,)
+            target = pos.findClosestByRange(creep.room.memory.creeps.enemy)
             if (target.length) {
                 if (attack(creep, target[0]))break;
             }
