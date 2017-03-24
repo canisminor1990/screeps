@@ -1295,7 +1295,7 @@ function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj;
 
 // import { Room } from 'screeps-globals';
 
-var rooms = ['W81S67', 'W81S66'];
+var rooms = ['W81S67'];
 _screepsProfiler2.default.enable();
 
 module.exports.loop = function () {
