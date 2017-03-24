@@ -1624,7 +1624,7 @@ exports.default = function (roomArray) {
 
 
 Object.defineProperty(exports, "__esModule", {
-    value: true
+  value: true
 });
 
 var _action = __webpack_require__(1);
@@ -1632,8 +1632,8 @@ var _action = __webpack_require__(1);
 var _task = __webpack_require__(2);
 
 exports.default = function (creep) {
-
-    (0, _task.flags)(creep);
+  var flagMemory = creep.memory.flags;
+  if (flagMemory.length > 0) (0, _task.flags)(creep);
 };
 
 /***/ }),
