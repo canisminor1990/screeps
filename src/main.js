@@ -4,7 +4,7 @@ import {timer} from  './_util'
 import profiler from 'screeps-profiler';
 import {flags} from './task';
 
-const rooms = ['W81S67', 'W81S66'];
+const rooms = ['W81S67', 'W81S66','W82S67'];
 profiler.enable();
 
 
