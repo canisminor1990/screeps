@@ -1,6 +1,6 @@
 import 'screeps-perf';
 import * as Manager from './manager'
-import {timer} from  './_util'
+import { timer } from  './_util'
 import profiler from 'screeps-profiler';
 // import { Room } from 'screeps-globals';
 
@@ -17,11 +17,11 @@ module.exports.loop = () => {
 		});
 	}
 
-	if (timer(10)){
+	if (timer(10)) {
 		let controller = Game.rooms[rooms[0]].controller,
-		    process = Math.round(controller.progress/controller.progressTotal*100),
-		    left = controller.progress - controller.progressTotal;
-		 console.log(`Level ${controller.level} ( ${process}% | ${left} )`);
+		    process    = Math.round(controller.progress / controller.progressTotal * 100),
+		    left       = controller.progressTotal - controller.progress;
+		console.log(`Level ${controller.level} ( ${process}% | ${left} )`);
 	}
 }
 
