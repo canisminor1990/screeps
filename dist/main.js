@@ -2337,7 +2337,7 @@ module.exports.loop = function () {
 		    process = Math.round(controller.progress / controller.progressTotal * 100),
 		    speed = Math.round((controller.progress - Memory.timer['controller']) / 10),
 		    letf = controller.progressTotal - controller.progress,
-		    timeLeft = Math.round(letf / speed / 60);
+		    timeLeft = Math.round(letf / speed / 60 * 1.5);
 
 		console.log('[Controller]', 'Lvl ' + controller.level, '(' + process + '%|' + letf + '|' + speed + 'e/tick)', 'TimeLeft:' + timeLeft + 'min');
 
