@@ -1632,7 +1632,7 @@ var _action = __webpack_require__(1);
 var _task = __webpack_require__(2);
 
 exports.default = function (creep) {
-    var memoryFlags = Game.rooms['W82S61'].find(FIND_FLAGS).sort(function (a, b) {
+    var memoryFlags = creep.room.find(FIND_FLAGS).sort(function (a, b) {
         return a.secondaryColor - b.secondaryColor;
     }).sort(function (a, b) {
         return a.color - b.color;
