@@ -1549,6 +1549,7 @@ function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj;
 exports.default = function (roomArrary) {
 
 	_.each(roomArrary, function (room) {
+		if (!Game.rooms[room]) return;
 		room = Game.rooms[room];
 		var Memory = room.memory;
 		var myCreeps = Memory.creeps.my;

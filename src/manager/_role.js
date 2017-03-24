@@ -2,6 +2,7 @@ import * as role from '../role';
 export default (roomArrary) => {
 
 	_.each(roomArrary, room => {
+		if (!Game.rooms[room]) return;
 		room = Game.rooms[room];
 		const Memory           = room.memory;
 		const myCreeps         = Memory.creeps.my;
