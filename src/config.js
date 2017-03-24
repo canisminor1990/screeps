@@ -18,7 +18,7 @@ export default (room = Game.rooms['W81S67']) => {
 			body    : {work: 8, move: 3},
 			timeout : 120,
 			number  : 1,
-			priority: 4
+			priority: 1
 		},
 		{
 			role    : 'farHarvester',

@@ -1223,7 +1223,7 @@ exports.default = function () {
 		body: { work: 8, move: 3 },
 		timeout: 120,
 		number: 1,
-		priority: 4
+		priority: 1
 	}, {
 		role: 'farHarvester',
 		body: { carry: 5, move: 3, attack: 1 },
