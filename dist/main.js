@@ -1242,7 +1242,7 @@ exports.default = function () {
 	}, {
 		role: 'upgrader',
 		body: { carry: 2, work: 4, move: 2 },
-		number: 3,
+		number: builderNumber > 1 ? 1 : 3,
 		priority: 3
 	}, {
 		role: 'builder',
