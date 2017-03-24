@@ -1,7 +1,7 @@
 import {attack, moveTo, dismantle} from '../action'
 export default (creep) => {
     let flag = creep.room.memory.flags[0];
-    if(!flag) return;
+    if (!flag) return;
     let name = flag.name;
     if (!name.match(/\//)) flag.remove();
     const pos = flag.pos;
@@ -15,12 +15,18 @@ export default (creep) => {
     let target;
     switch (command) {
         case 'attack' || 'a':
-
-            target = pos.findClosestByRange(creep.room.memory.creeps.enemy)
-            console.log(target)
-            if (attack(creep, target))break;
-            target = pos.findClosestByRange(creep.room.memory.creeps.enemy)
-            if (attack(creep, target))break;
+            if (commandContent) {
+                target = Game.getObjectById(commandContent.replace(' ', ''));
+                if (attack(creep, target[0]))break;
+            }
+            target = pos.findInRange(creep.room.memory.creeps.enemy, 6)
+            if (target.length > 0) {
+                if (attack(creep, target[0]))break;
+            }
+            target = pos.findInRange(creep.room.memory.creeps.enemy, 6)
+            if (target.length > 0) {
+                if (attack(creep, target[0]))break;
+            }
             break;
         case 'move' || 'moveTo' || 'moveto' || 'm':
             if (commandContent) {
@@ -30,9 +36,14 @@ export default (creep) => {
             moveTo(creep, target);
             break;
         case 'chai' || 'dis' || 'dismantle':
-
-            target = pos.findClosestByRange(creep.room.memory.creeps.enemy)
-            if (dismantle(creep, target))break;
+            if (commandContent) {
+                target = Game.getObjectById(commandContent.replace(' ', ''));
+                if (dismantle(creep, target[0]))break;
+            }
+            target = pos.findInRange(creep.room.memory.creeps.enemy, 6)
+            if (target.length > 0) {
+                if (dismantle(creep, target[0]))break;
+            }
             break;
     }
 }

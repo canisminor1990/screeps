@@ -2285,12 +2285,18 @@ exports.default = function (creep) {
     var target = void 0;
     switch (command) {
         case 'attack' || 'a':
-
-            target = pos.findClosestByRange(creep.room.memory.creeps.enemy);
-            console.log(target);
-            if ((0, _action.attack)(creep, target)) break;
-            target = pos.findClosestByRange(creep.room.memory.creeps.enemy);
-            if ((0, _action.attack)(creep, target)) break;
+            if (commandContent) {
+                target = Game.getObjectById(commandContent.replace(' ', ''));
+                if ((0, _action.attack)(creep, target[0])) break;
+            }
+            target = pos.findInRange(creep.room.memory.creeps.enemy, 6);
+            if (target.length > 0) {
+                if ((0, _action.attack)(creep, target[0])) break;
+            }
+            target = pos.findInRange(creep.room.memory.creeps.enemy, 6);
+            if (target.length > 0) {
+                if ((0, _action.attack)(creep, target[0])) break;
+            }
             break;
         case 'move' || 'moveTo' || 'moveto' || 'm':
             if (commandContent) {
@@ -2300,9 +2306,14 @@ exports.default = function (creep) {
             (0, _action.moveTo)(creep, target);
             break;
         case 'chai' || 'dis' || 'dismantle':
-
-            target = pos.findClosestByRange(creep.room.memory.creeps.enemy);
-            if ((0, _action.dismantle)(creep, target)) break;
+            if (commandContent) {
+                target = Game.getObjectById(commandContent.replace(' ', ''));
+                if ((0, _action.dismantle)(creep, target[0])) break;
+            }
+            target = pos.findInRange(creep.room.memory.creeps.enemy, 6);
+            if (target.length > 0) {
+                if ((0, _action.dismantle)(creep, target[0])) break;
+            }
             break;
     }
 };
