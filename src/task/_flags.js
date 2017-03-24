@@ -1,13 +1,14 @@
 import {attack, moveTo, dismantle} from '../action'
-export default (creep, flag) => {
+export default (creep) => {
+    const flag = creep.room.find(FIND_FLAGS).sort((a, b) => a.secondaryColor - b.secondaryColor).sort((a, b) => a.color - b.color)[0]
     const name = flag.name;
     if (!name.match(/\//)) flag.remove();
     const pos = flag.pos;
     let command, commandContent;
     command = name.replace('/', '');
     if (name.match(' ')) {
-        command = command.split(' ')[0]
-        commandContent = command.split(' ')[1];
+        command = command.match(/[a-z]+ /)
+        commandContent = name.replace('/' + command, '')
     }
     let target;
     switch (command) {

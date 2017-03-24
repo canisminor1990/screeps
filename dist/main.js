@@ -2267,7 +2267,12 @@ Object.defineProperty(exports, "__esModule", {
 
 var _action = __webpack_require__(1);
 
-exports.default = function (creep, flag) {
+exports.default = function (creep) {
+    var flag = creep.room.find(FIND_FLAGS).sort(function (a, b) {
+        return a.secondaryColor - b.secondaryColor;
+    }).sort(function (a, b) {
+        return a.color - b.color;
+    })[0];
     var name = flag.name;
     if (!name.match(/\//)) flag.remove();
     var pos = flag.pos;
@@ -2275,8 +2280,8 @@ exports.default = function (creep, flag) {
         commandContent = void 0;
     command = name.replace('/', '');
     if (name.match(' ')) {
-        command = command.split(' ')[0];
-        commandContent = command.split(' ')[1];
+        command = command.match(/[a-z]+ /);
+        commandContent = name.replace('/' + command, '');
     }
     var target = void 0;
     switch (command) {
