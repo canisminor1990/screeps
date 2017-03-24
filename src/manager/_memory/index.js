@@ -5,7 +5,7 @@ import sources from "./_sources"
 import dropped from "./_dropped"
 export default (roomArrary) => {
 	_.each(roomArrary, room => {
-		room = Game.rooms[room];
+		room         = Game.rooms[room];
 		const config = configRaw(room);
 		const creeps = creepsRaw(room, config)
 		const memory = {
@@ -17,6 +17,7 @@ export default (roomArrary) => {
 			dropped        : dropped(room),
 		}
 		room.memory  = memory;
+		// Memory.game  = Game;
 	})
 }
 

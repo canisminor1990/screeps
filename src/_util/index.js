@@ -1,5 +1,5 @@
-export { default as Timer } from './_timer'
-export { default as Build } from './_build'
+export { default as timer } from './_timer'
+export { default as build } from './_build'
 export { default as emoji } from './_emoji'
 export { default as action } from './_action'
 export { default as isFriend } from './_isFriend'

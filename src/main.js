@@ -1,10 +1,10 @@
 import 'screeps-perf';
 import * as Manager from './manager'
+import {timer} from  './_util'
 import profiler from 'screeps-profiler';
 // import { Room } from 'screeps-globals';
 
 const rooms = ['W81S67', 'W81S66'];
-
 profiler.enable();
 
 module.exports.loop = () => {
@@ -16,8 +16,10 @@ module.exports.loop = () => {
 			Manager.structure(rooms)
 		});
 	}
-	test: () =>{
-		console.log('test')
+
+	if (timer(10)){
+		let controller = Game.rooms[rooms[0]].controller;
+		 console.log(`Level ${controller.level} (${controller.progress})`);
 	}
 }
 

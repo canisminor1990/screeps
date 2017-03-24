@@ -80,7 +80,7 @@ Object.defineProperty(exports, "__esModule", {
 
 var _timer = __webpack_require__(12);
 
-Object.defineProperty(exports, 'Timer', {
+Object.defineProperty(exports, 'timer', {
   enumerable: true,
   get: function get() {
     return _interopRequireDefault(_timer).default;
@@ -89,7 +89,7 @@ Object.defineProperty(exports, 'Timer', {
 
 var _build = __webpack_require__(8);
 
-Object.defineProperty(exports, 'Build', {
+Object.defineProperty(exports, 'build', {
   enumerable: true,
   get: function get() {
     return _interopRequireDefault(_build).default;
@@ -1471,6 +1471,7 @@ exports.default = function (roomArrary) {
 			dropped: (0, _dropped2.default)(room)
 		};
 		room.memory = memory;
+		// Memory.game  = Game;
 	});
 };
 
@@ -2304,6 +2305,8 @@ var _manager = __webpack_require__(6);
 
 var Manager = _interopRequireWildcard(_manager);
 
+var _util = __webpack_require__(0);
+
 var _screepsProfiler = __webpack_require__(5);
 
 var _screepsProfiler2 = _interopRequireDefault(_screepsProfiler);
@@ -2315,7 +2318,6 @@ function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj;
 // import { Room } from 'screeps-globals';
 
 var rooms = ['W81S67', 'W81S66'];
-
 _screepsProfiler2.default.enable();
 
 module.exports.loop = function () {
@@ -2327,9 +2329,11 @@ module.exports.loop = function () {
 			Manager.structure(rooms);
 		});
 	}
-	test: (function () {
-		console.log('test');
-	});
+
+	if ((0, _util.timer)(10)) {
+		var controller = Game.rooms[rooms[0]].controller;
+		console.log('Level ' + controller.level + ' (' + controller.progress + ')');
+	}
 };
 
 /***/ })
