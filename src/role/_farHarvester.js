@@ -1,6 +1,5 @@
 import {isFull} from '../_util'
-import {attack, transfer, pickup, repair,withdraw} from '../action'
-import {pathFinder} from '../task'
+import {attack, transfer, pickup, moveTo,withdraw} from '../action'
 export default (creep, newRoom) => {
 	const room = Game.spawns['Spawn1'].room;
 	const newRoomMemory = newRoom.memory;
@@ -25,7 +24,7 @@ export default (creep, newRoom) => {
 		const farMiner = newRoom.memory.creeps.my.farMiner;
 		if (farMiner.length > 0) {
 			target = Game.getObjectById(farMiner[0].id);
-			pathFinder(creep, target);
+			moveTo(creep, target);
 			return;
 		}
 	} else {

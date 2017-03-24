@@ -1,10 +1,9 @@
 import {isFull} from '../_util'
-import {pickup, transfer, withdraw} from '../action'
-import {pathFinder} from '../task'
+import {moveTo,pickup, transfer, withdraw} from '../action'
 export default (creep) => {
 	let target;
 	if (creep.room.name !== 'W81S67') {
-		pathFinder(creep, Game.spawns['Spawn1'])
+		moveTo(creep, Game.spawns['Spawn1'])
 		return;
 	}
 	// memory
