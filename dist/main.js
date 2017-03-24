@@ -1206,7 +1206,7 @@ Object.defineProperty(exports, "__esModule", {
 exports.default = function () {
 	var room = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : Game.rooms['W81S67'];
 
-	var needBuild = room.memory.structures.needBuild;
+	var needBuild = room.memory.structures ? room.memory.structures.needBuild : [];
 	var builderNumber = needBuild.length > 0 ? Math.ceil(needBuild.length / 2) : 1;
 	var repair = {
 		percent: 0.5,
