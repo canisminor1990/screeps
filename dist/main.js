@@ -1843,7 +1843,13 @@ var _action = __webpack_require__(1);
 exports.default = function (creep, newRoom) {
 	var target = void 0;
 
-	target = Game.getObjectById('5873bc3511e3e4361b4d7390');
+	target = newRoom.memory.constructor.container;
+	target = creep.pos.findClosestByRange(target, 0);
+	if (target && target.hits < target.hitsMax / 2) {
+		if ((0, _action.repair)(creep, target)) return;
+	}
+	if (!creep.memory.harvestTarget) creep.memory.harvestTarget = newRoom.memory.sources[0].source.id;
+	target = Game.getObjectById(creep.memory.harvestTarget);
 	if (!target) {
 		(0, _task.pathFinder)(creep, newRoom.pos);
 		return;

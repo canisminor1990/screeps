@@ -1,10 +1,16 @@
 import { isFull } from '../_util'
 import { pathFinder } from '../task'
-import { harvest, transfer, build, pickup } from '../action'
+import { harvest, repair } from '../action'
 export default (creep, newRoom) => {
 	let target;
 
-	target = Game.getObjectById('5873bc3511e3e4361b4d7390');
+	target = newRoom.memory.constructor.container;
+	target = creep.pos.findClosestByRange(target, 0);
+	if (target && target.hits < target.hitsMax / 2) {
+		if (repair(creep, target)) return
+	}
+	if (!creep.memory.harvestTarget) creep.memory.harvestTarget = newRoom.memory.sources[0].source.id;
+	target = Game.getObjectById(creep.memory.harvestTarget)
 	if (!target) {
 		pathFinder(creep, newRoom.pos)
 		return;
