@@ -2285,10 +2285,7 @@ exports.default = function (creep) {
     var target = void 0;
     switch (command) {
         case 'attack' || 'a':
-            if (commandContent) {
-                target = Game.getObjectById(commandContent.replace(' ', ''));
-                if ((0, _action.attack)(creep, target[0])) break;
-            }
+
             target = pos.findClosestByRange(creep.room.memory.creeps.enemy);
             console.log(target);
             if (target.length) {
@@ -2307,10 +2304,7 @@ exports.default = function (creep) {
             (0, _action.moveTo)(creep, target);
             break;
         case 'chai' || 'dis' || 'dismantle':
-            if (commandContent) {
-                target = Game.getObjectById(commandContent.replace(' ', ''));
-                if ((0, _action.dismantle)(creep, target[0])) break;
-            }
+
             target = pos.findClosestByRange(creep.room.memory.creeps.enemy);
             if (target.length) {
                 if ((0, _action.dismantle)(creep, target[0])) break;
