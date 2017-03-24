@@ -1,6 +1,6 @@
 import {emoji} from '../_util'
 export default (spawn, my, config) => {
-    let target = spawn.room.memory.creeps.attacker
+    let target = spawn.room.memory.creeps.my.attacker
     if (target && target.length > 0) {
         console.log(spawn.recycleCreep(target[0]))
     }
