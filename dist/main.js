@@ -262,6 +262,28 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 "use strict";
 
 
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _flags = __webpack_require__(48);
+
+Object.defineProperty(exports, 'flags', {
+  enumerable: true,
+  get: function get() {
+    return _interopRequireDefault(_flags).default;
+  }
+});
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+/***/ }),
+/* 3 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
 var originalFindPath = Room.prototype.findPath;
 var setup = false;
 
@@ -378,7 +400,7 @@ module.exports = function (options) {
 };
 
 /***/ }),
-/* 3 */
+/* 4 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -644,7 +666,7 @@ module.exports = {
 };
 
 /***/ }),
-/* 4 */
+/* 5 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -687,28 +709,6 @@ Object.defineProperty(exports, 'role', {
   enumerable: true,
   get: function get() {
     return _interopRequireDefault(_role).default;
-  }
-});
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-/***/ }),
-/* 5 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _flags = __webpack_require__(48);
-
-Object.defineProperty(exports, 'flags', {
-  enumerable: true,
-  get: function get() {
-    return _interopRequireDefault(_flags).default;
   }
 });
 
@@ -1186,74 +1186,79 @@ exports.default = function (creep, rawTarget) {
 
 
 Object.defineProperty(exports, "__esModule", {
-	value: true
+    value: true
 });
 
 exports.default = function () {
-	var room = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : Game.rooms['W81S67'];
+    var room = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : Game.rooms['W81S67'];
 
-	var needBuild = room.memory.structures ? room.memory.structures.needBuild : [];
-	var builderNumber = needBuild.length > 0 ? Math.ceil(needBuild.length / 2) : 1;
-	var repair = {
-		percent: 0.5,
-		maxHits: 20000
-	};
-	var role = [{
-		role: "claim",
-		body: { claim: 2, move: 1 },
-		timeout: 120,
-		number: 1,
-		priority: 7
-	}, {
-		role: "farMiner",
-		body: { work: 8, carry: 1, move: 4 },
-		timeout: 120,
-		number: 1,
-		priority: 1
-	}, {
-		role: 'farHarvester',
-		body: { carry: 5, move: 3, attack: 1 },
-		number: 3,
-		priority: 5
-	}, {
-		role: 'farBuilder',
-		body: { carry: 4, work: 2, move: 3 },
-		number: 1,
-		priority: 5
-	}, {
-		role: 'harvester',
-		body: { carry: 12, move: 6 },
-		number: 3,
-		priority: 2
-	}, {
-		role: 'upgrader',
-		body: { carry: 2, work: 4, move: 2 },
-		number: builderNumber > 1 ? 1 : 3,
-		priority: 3
-	}, {
-		role: 'builder',
-		body: { work: 3, carry: 3, move: 3 },
-		number: builderNumber > 4 ? 4 : builderNumber,
-		priority: 6
-	}, {
-		role: "miner",
-		body: { work: 8, move: 4 },
-		number: 2,
-		timeout: 0,
-		priority: 1
-	}, {
-		role: 'cleaner',
-		body: { carry: 2, move: 1 },
-		number: 2,
-		priority: 0
-	}];
+    var needBuild = room.memory.structures ? room.memory.structures.needBuild : [];
+    var builderNumber = needBuild.length > 0 ? Math.ceil(needBuild.length / 2) : 1;
+    var repair = {
+        percent: 0.5,
+        maxHits: 20000
+    };
+    var role = [{
+        role: "claim",
+        body: { claim: 2, move: 1 },
+        timeout: 120,
+        number: 1,
+        priority: 7
+    }, {
+        role: "farMiner",
+        body: { work: 8, carry: 1, move: 4 },
+        timeout: 120,
+        number: 1,
+        priority: 1
+    }, {
+        role: 'farHarvester',
+        body: { carry: 5, move: 3, attack: 1 },
+        number: 3,
+        priority: 5
+    }, {
+        role: 'farBuilder',
+        body: { carry: 4, work: 2, move: 3 },
+        number: 1,
+        priority: 5
+    }, {
+        role: 'harvester',
+        body: { carry: 12, move: 6 },
+        number: 3,
+        priority: 2
+    }, {
+        role: 'upgrader',
+        body: { carry: 2, work: 4, move: 2 },
+        number: builderNumber > 1 ? 1 : 3,
+        priority: 3
+    }, {
+        role: 'builder',
+        body: { work: 3, carry: 3, move: 3 },
+        number: builderNumber > 4 ? 4 : builderNumber,
+        priority: 6
+    }, {
+        role: "miner",
+        body: { work: 8, move: 4 },
+        number: 2,
+        timeout: 0,
+        priority: 1
+    }, {
+        role: 'cleaner',
+        body: { carry: 2, move: 1 },
+        number: 2,
+        priority: 0
+    }, {
+        role: 'attacker',
+        body: { work: 1, attack: 1, move: 1 },
+        number: 1,
+        priority: 0
+    }];
 
-	return {
-		role: role.sort(function (a, b) {
-			return a.priority - b.priority;
-		}),
-		repair: repair
-	};
+    return {
+        role: role.sort(function (a, b) {
+            return a.priority - b.priority;
+        }),
+        repair: repair
+    };
 };
 
 /***/ }),
@@ -1496,7 +1501,7 @@ exports.default = function (roomArrary) {
 
 
 Object.defineProperty(exports, "__esModule", {
-	value: true
+		value: true
 });
 
 var _role = __webpack_require__(44);
@@ -1507,47 +1512,54 @@ function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj;
 
 exports.default = function (roomArrary) {
 
-	_.each(roomArrary, function (room) {
-		if (!Game.rooms[room]) return;
-		room = Game.rooms[room];
-		var Memory = room.memory;
-		var myCreeps = Memory.creeps.my;
-		var newRoom = {
-			pos: new RoomPosition(25, 47, roomArrary[1]),
-			memory: Game.rooms[roomArrary[1]] ? Game.rooms[roomArrary[1]].memory : {}
-		};
+		_.each(roomArrary, function (room) {
+				if (!Game.rooms[room]) return;
+				room = Game.rooms[room];
+				var Memory = room.memory;
+				var myCreeps = Memory.creeps.my;
+				var newRoom = {
+						pos: new RoomPosition(25, 47, roomArrary[1]),
+						memory: Game.rooms[roomArrary[1]] ? Game.rooms[roomArrary[1]].memory : {}
+				};
 
-		myCreeps.cleaner.forEach(function (creep) {
-			return role.cleaner(creep);
-		});
+				// cheap base
+				myCreeps.cleaner.forEach(function (creep) {
+						return role.cleaner(creep);
+				});
 
-		myCreeps.harvester.forEach(function (creep) {
-			return role.harvester(creep);
-		});
-		myCreeps.miner.forEach(function (creep) {
-			return role.miner(creep);
-		});
-		myCreeps.upgrader.forEach(function (creep) {
-			return role.upgrader(creep);
-		});
-		myCreeps.builder.forEach(function (creep) {
-			return role.builder(creep);
-		});
+				// source
+				myCreeps.harvester.forEach(function (creep) {
+						return role.harvester(creep);
+				});
+				myCreeps.miner.forEach(function (creep) {
+						return role.miner(creep);
+				});
+				myCreeps.upgrader.forEach(function (creep) {
+						return role.upgrader(creep);
+				});
+				myCreeps.builder.forEach(function (creep) {
+						return role.builder(creep);
+				});
 
-		// far
-		myCreeps.farBuilder.forEach(function (creep) {
-			return role.farBuilder(creep, newRoom);
+				// far
+				myCreeps.farBuilder.forEach(function (creep) {
+						return role.farBuilder(creep, newRoom);
+				});
+				myCreeps.farHarvester.forEach(function (creep) {
+						return role.farHarvester(creep, newRoom);
+				});
+				myCreeps.farMiner.forEach(function (creep) {
+						return role.farMiner(creep, newRoom);
+				});
+				myCreeps.claim.forEach(function (creep) {
+						return role.claim(creep, newRoom);
+				});
+
+				// attack
+				myCreeps.attacker.forEach(function (creep) {
+						return role.attacker(creep, newRoom);
+				});
 		});
-		myCreeps.farHarvester.forEach(function (creep) {
-			return role.farHarvester(creep, newRoom);
-		});
-		myCreeps.farMiner.forEach(function (creep) {
-			return role.farMiner(creep, newRoom);
-		});
-		myCreeps.claim.forEach(function (creep) {
-			return role.claim(creep, newRoom);
-		});
-	});
 };
 
 /***/ }),
@@ -1617,8 +1629,13 @@ Object.defineProperty(exports, "__esModule", {
 
 var _action = __webpack_require__(1);
 
+var _task = __webpack_require__(2);
+
 exports.default = function (creep) {
-    "use strict";
+    var memoryFlags = creep.room.memory.flags;
+    if (memoryFlags.length > 0) {
+        (0, _task.flags)(creep, memoryFlags[0]);
+    }
 };
 
 /***/ }),
@@ -2248,9 +2265,50 @@ Object.defineProperty(exports, "__esModule", {
     value: true
 });
 
-exports.default = function (flag) {
+var _action = __webpack_require__(1);
+
+exports.default = function (creep, flag) {
     var name = flag.name;
     if (!name.match(/\//)) flag.remove();
+    var pos = flag.pos;
+    var command = void 0,
+        commandContent = void 0;
+    command = name.replace('/', '');
+    if (name.match(' ')) {
+        command = command.split(' ')[0];
+        commandContent = command.split(' ')[1];
+    }
+    var target = void 0;
+    switch (command) {
+        case 'attack':
+            if (commandContent) {
+                target = Game.getObjectById(commandContent);
+                if ((0, _action.attack)(creep, target[0])) break;
+            }
+            target = pos.lookFor(LOOK_CREEPS);
+            if (target.length > 0) {
+                if ((0, _action.attack)(creep, target[0])) break;
+            }
+            target = pos.lookFor(LOOK_STRUCTURES);
+            if (target.length > 0) {
+                if ((0, _action.attack)(creep, target[0])) break;
+            }
+            break;
+        case 'moveTo':
+            target = commandContent ? Game.getObjectById(commandContent) : pos;
+            (0, _action.moveTo)(creep, target);
+            break;
+        case 'dismantle':
+            if (commandContent) {
+                target = Game.getObjectById(commandContent);
+                if ((0, _action.dismantle)(creep, target[0])) break;
+            }
+            target = pos.lookFor(LOOK_STRUCTURES);
+            if (target.length > 0) {
+                if ((0, _action.dismantle)(creep, target[0])) break;
+            }
+            break;
+    }
 };
 
 /***/ }),
@@ -2260,19 +2318,19 @@ exports.default = function (flag) {
 "use strict";
 
 
-__webpack_require__(2);
+__webpack_require__(3);
 
-var _manager = __webpack_require__(4);
+var _manager = __webpack_require__(5);
 
 var Manager = _interopRequireWildcard(_manager);
 
 var _util = __webpack_require__(0);
 
-var _screepsProfiler = __webpack_require__(3);
+var _screepsProfiler = __webpack_require__(4);
 
 var _screepsProfiler2 = _interopRequireDefault(_screepsProfiler);
 
-var _task = __webpack_require__(5);
+var _task = __webpack_require__(2);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
