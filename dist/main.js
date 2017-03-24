@@ -1936,16 +1936,18 @@ Object.defineProperty(exports, "__esModule", {
 	value: true
 });
 
+var _util = __webpack_require__(0);
+
 var _action = __webpack_require__(1);
 
 exports.default = function (creep) {
 	var memory = creep.room.memory;
 	var target = void 0;
 	// root
+
 	if (!creep.memory.harvestTarget) creep.memory.harvestTarget = memory.sources[0].source.id;
 	target = Game.getObjectById(memory.harvestTarget);
 	if ((0, _action.harvest)(creep, target)) return;
-
 	// // memory
 	// isFull(creep)
 	// // run
@@ -1965,7 +1967,7 @@ exports.default = function (creep) {
 	// 	target = Game.getObjectById(creep.memory.harvestTarget)
 	// 	if (harvest(creep, target)) return;
 	// }
-}; // import { pathFinder } from '../task'
+};
 
 /***/ }),
 /* 41 */

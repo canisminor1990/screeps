@@ -1,13 +1,13 @@
-// import { pathFinder } from '../task'
-import { harvest } from '../action'
+import { isFull } from '../_util'
+import { harvest, pickup, transfer, upgradeController } from '../action'
 export default (creep) => {
 	const memory = creep.room.memory;
 	let target;
 	// root
+
 	if (!creep.memory.harvestTarget) creep.memory.harvestTarget = memory.sources[0].source.id;
 	target = Game.getObjectById(memory.harvestTarget)
-	if (harvest(creep, target)) return
-
+	if (harvest(creep, target)) return;
 	// // memory
 	// isFull(creep)
 	// // run
