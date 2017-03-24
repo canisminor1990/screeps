@@ -1220,7 +1220,7 @@ exports.default = function () {
 		priority: 7
 	}, {
 		role: "farMiner",
-		body: { work: 8, move: 3 },
+		body: { work: 8, move: 4 },
 		timeout: 120,
 		number: 1,
 		priority: 1
