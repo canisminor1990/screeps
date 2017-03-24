@@ -12,5 +12,7 @@ screeps-multimeter.json
 
 /temp
 /temp_rou
+/test
+/testDist
 
 yarn.lock

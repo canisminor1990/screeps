@@ -9,17 +9,7 @@ export default (creep, newRoom) => {
 		pathFinder(creep, newRoom.pos)
 		return;
 	} else {
-		if (harvest(creep, target)) {
-			if (!creep.memory.position) {
-				target = creep.pos.findInRange(newRoom.memory.structures.container, 0)
-				if (target.length > 0) creep.memory.position = true;
-				target = creep.pos.findClosestByRange(newRoom.memory.structures.container)
-				pathFinder(creep, target)
-			} else {
-				return
-			}
-			return
-		}
+		if (harvest(creep, target)) return
 	}
 
 	// // memory
