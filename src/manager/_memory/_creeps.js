@@ -5,6 +5,15 @@ export default (room, config) => {
 	      creepsMyRaw = _.filter(creeps, creep => creep.my),
 	      creepsOther = _.filter(creeps, creep => !creep.my),
 	      creepsMy    = creepRole(creepsMyRaw, config.role);
+	
+	let creepArray = {}
+	for (let name in Game.creeps) {
+		let creep = Game.creeps[name]
+		if (!creepArray[creep.memory.role])creepArray[creep.memory.role] = [];
+		creepArray[creep.memory.role].push(Game.creeps[name])
+	}
+	
+	Memory.creepsGlobal = creepArray;
 
 	return {
 		my    : creepsMy,

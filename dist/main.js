@@ -1569,6 +1569,15 @@ exports.default = function (room, config) {
 	}),
 	    creepsMy = creepRole(creepsMyRaw, config.role);
 
+	var creepArray = {};
+	for (var name in Game.creeps) {
+		var creep = Game.creeps[name];
+		if (!creepArray[creep.memory.role]) creepArray[creep.memory.role] = [];
+		creepArray[creep.memory.role].push(Game.creeps[name]);
+	}
+
+	Memory.creepsGlobal = creepArray;
+
 	return {
 		my: creepsMy,
 		friend: _.filter(creepsOther, function (creep) {
