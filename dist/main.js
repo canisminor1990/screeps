@@ -2472,16 +2472,16 @@ exports.default = function (roomName) {
 	    gclLeft = gcl.progressTotal - gcl.progress,
 	    gclProcess = Math.round(gcl.progress / gcl.progressTotal * 100);
 
-	var cl = room.controller,
-	    clProcess = Math.round(cl.progress / cl.progressTotal * 100),
-	    clSpeed = Math.round((cl.progress - Memory.timer['controller']) / 10),
-	    clLeft = cl.progressTotal - cl.progress,
-	    clTimeLeft = Math.round(clLeft / clSpeed);
-	Memory.timer['controller'] = cl.progress;
+	var rcl = room.controller,
+	    rclProcess = Math.round(rcl.progress / rcl.progressTotal * 100),
+	    rclSpeed = Math.round((rcl.progress - Memory.timer['controller']) / 10),
+	    rclLeft = cl.progressTotal - rcl.progress,
+	    rclTimeLeft = Math.round(rclLeft / rclSpeed);
+	Memory.timer['controller'] = rcl.progress;
 
 	var gclLog = {
 		header: ['Type', 'Lvl', 'Progress', 'EnergyLeft', 'Speed(e/t)', 'TickLeft'],
-		body: [[_util.color.blue('GCL'), gcl.level, gclProcess + '%', gclLeft, '', ''], [_util.color.orange('CL'), cl.level, clProcess + '%', clLeft, clSpeed, clTimeLeft]]
+		body: [[_util.color.blue('GCL'), gcl.level, gclProcess + '%', gclLeft, '', ''], [_util.color.orange('RCL'), rcl.level, rclProcess + '%', rclLeft, rclSpeed, rclTimeLeft]]
 	};
 	//
 	var extension = room.memory.structures.extension;
