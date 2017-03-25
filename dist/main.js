@@ -1530,7 +1530,7 @@ function gui(room, x, y, color, content) {
 };
 
 function guiCreep(room, x, y, name, number) {
-	var creeps = room.memory.creeps.my,
+	var creeps = Memory.creepsGlobal,
 	    nowNumber = creeps[name] ? creeps[name].length : 0;
 	var color = void 0,
 	    colorSwitch = nowNumber - number;
