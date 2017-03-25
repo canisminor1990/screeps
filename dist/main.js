@@ -1464,7 +1464,7 @@ exports.default = function (roomName) {
 		y += 1.5;
 	});
 
-	var x = 10;
+	var x = 6;
 	gui(room, x, 1, colorType.blue, ['GCL', 'Lvl ' + gcl.level, gcl.progress, gcl.progressTotal]);
 	gui(room, x, 3, colorType.orange, ['RCL', 'Lvl ' + rcl.level, rcl.progress, rcl.progressTotal]);
 	gui(room, x, 5, colorType.yellow, ['Storage', '', storage.store.energy, storage.storeCapacity]);
