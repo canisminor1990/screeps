@@ -2346,10 +2346,25 @@ exports.default = function (creep) {
 	(0, _util.isFull)(creep);
 	// run
 	if (creep.memory.full) {
+		var needBuild = creep.room.memory.structures.needBuild;
+		if (needBuild.length > 0) {
+			target = creep.pos.findClosestByRange(needBuild);
+			if ((0, _action.build)(creep, target)) return;
+		}
+		var needFix = creep.room.memory.structures.needFix;
+		if (needFix.length > 0) {
+			target = creep.pos.findClosestByRange(needFix);
+			if ((0, _action.repair)(creep, target)) return;
+		}
 		target = creep.room.controller;
 		if ((0, _action.upgradeController)(creep, target)) return;
 	} else {
-		target = creep.pos.findClosestByRange(creep.room.memory.structures.canWithdraw);
+		var dropped = creep.room.memory.dropped.energy;
+		if (dropped.length > 0) {
+			target = creep.pos.findInRange(dropped, 3);
+			if ((0, _action.pickup)(creep, target[0])) return;
+		}
+		target = creep.room.storage;
 		if ((0, _action.withdraw)(creep, target)) return;
 	}
 };
