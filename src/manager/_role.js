@@ -11,7 +11,7 @@ export default (roomArrary) => {
 			memory: (Game.rooms[roomArrary[1]]) ? Game.rooms[roomArrary[1]].memory : {}
 		};
 		
-		Game.creeps.forEach(creep => {
+		Object.valueOf(Game.creeps).forEach(creep => {
 			switch (creep.memory.role) {
 				case 'cleaner':
 					role.cleaner(creep)

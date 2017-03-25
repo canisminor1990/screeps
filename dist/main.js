@@ -1815,7 +1815,7 @@ exports.default = function (roomArrary) {
 			memory: Game.rooms[roomArrary[1]] ? Game.rooms[roomArrary[1]].memory : {}
 		};
 
-		Game.creeps.forEach(function (creep) {
+		Object.valueOf(Game.creeps).forEach(function (creep) {
 			switch (creep.memory.role) {
 				case 'cleaner':
 					role.cleaner(creep);
