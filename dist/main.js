@@ -1434,6 +1434,19 @@ var colorType = {
 	green: '#A6E22E'
 };
 
+RoomVisual.prototype.gui = function (x, y, color, content) {
+	undefined.rect(x, y + 0.3, 6, 0.7, { fill: '#fff', opacity: 0.2 });
+	undefined.rect(x, y + 0.3, 6 / gcl.progressTotal * gcl.progress, 0.7, { fill: color, opacity: 0.7 });
+	undefined.text(content[0], x, y, { font: 0.5, align: 'left', stroke: 'rgba(0,0,0,.7)', strokeWidth: 0.1 });
+	undefined.text(content[1], x + 6, y, { font: 0.4, align: 'right', stroke: 'rgba(0,0,0,.7)', strokeWidth: 0.1 });
+	undefined.text(content[3], x + .2, y + 0.8, {
+		font: 0.4,
+		align: 'left',
+		stroke: 'rgba(0,0,0,.7)',
+		strokeWidth: 0.1
+	});
+};
+
 exports.default = function (roomName) {
 	"use strict";
 
@@ -1452,7 +1465,7 @@ exports.default = function (roomName) {
 	    rclTimeLeft = Math.round(rclLeft / rclSpeed);
 	Memory.timer['rcl'] = rcl.progress;
 
-	room.visual.rect(1, 1.3, 6, 0.7, { fill: '#fff', opacity: 0.2 }).rect(1, 1.3, 6 / gcl.progressTotal * gcl.progress, 0.7, { fill: colorType.blue, opacity: 0.7 }).text('GCL', 1, 1, { font: 0.5, align: 'left', stroke: 'rgba(0,0,0,.5)', strokeWidth: 0.1 }).text('Lvl ' + gcl.level, 7, 1, { font: 0.4, align: 'right', stroke: 'rgba(0,0,0,.5)', strokeWidth: 0.1 }).text(gcl.progress + '/' + gcl.progressTotal, 1.2, 1.8, { font: 0.4, align: 'left', stroke: 'rgba(0,0,0,.5)', strokeWidth: 0.1 });
+	room.visual.gui(1, 1, colorType.blue, ['GCL', 'Lvl ' + gcl.level, gcl.progress + '/' + gcl.progressTotal]);
 };
 
 /***/ }),
