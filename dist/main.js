@@ -2322,12 +2322,12 @@ exports.default = function (creep) {
 			target = creep.pos.findInRange(needBuild, 0);
 			if (target.length > 0 && (0, _action.build)(creep, target[0])) return;
 		}
+		var container = target.pos.findClosestByRange(target.room.memory.structures.container);
+		if (container && container.hits < container.hitsMax) {
+			if (repair(creep, container)) return;
+		}
 	}
 	target = Game.getObjectById(creep.memory.harvestTarget);
-	var container = target.pos.findClosestByRange(target.room.memory.structures.container);
-	if (container && creep.carry.energy >= 50 && target.hits < target.hitsMax) {
-		if (repair(creep, container)) return;
-	}
 	if ((0, _action.harvest)(creep, target)) {}
 	// if (!creep.memory.position) {
 	// 	target = creep.pos.findInRange(memory.structures.container, 0)
