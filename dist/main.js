@@ -1794,7 +1794,7 @@ exports.default = function (roomArrary) {
 
 
 Object.defineProperty(exports, "__esModule", {
-		value: true
+	value: true
 });
 
 var _role = __webpack_require__(49);
@@ -1805,54 +1805,69 @@ function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj;
 
 exports.default = function (roomArrary) {
 
-		_.each(roomArrary, function (room) {
-				if (!Game.rooms[room]) return;
-				room = Game.rooms[room];
-				var Memory = room.memory;
-				var myCreeps = Memory.creeps.my;
-				var newRoom = {
-						pos: new RoomPosition(25, 47, roomArrary[1]),
-						memory: Game.rooms[roomArrary[1]] ? Game.rooms[roomArrary[1]].memory : {}
-				};
+	_.each(roomArrary, function (room) {
+		if (!Game.rooms[room]) return;
+		room = Game.rooms[room];
+		var Memory = room.memory;
+		var myCreeps = Memory.creeps.my;
+		var newRoom = {
+			pos: new RoomPosition(25, 47, roomArrary[1]),
+			memory: Game.rooms[roomArrary[1]] ? Game.rooms[roomArrary[1]].memory : {}
+		};
 
-				// cheap base
-				myCreeps.cleaner.forEach(function (creep) {
-						return role.cleaner(creep);
-				});
-
-				// source
-				myCreeps.harvester.forEach(function (creep) {
-						return role.harvester(creep);
-				});
-				myCreeps.miner.forEach(function (creep) {
-						return role.miner(creep);
-				});
-				myCreeps.upgrader.forEach(function (creep) {
-						return role.upgrader(creep);
-				});
-				myCreeps.builder.forEach(function (creep) {
-						return role.builder(creep);
-				});
-
-				// far
-				myCreeps.farBuilder.forEach(function (creep) {
-						return role.farBuilder(creep, newRoom);
-				});
-				myCreeps.farHarvester.forEach(function (creep) {
-						return role.farHarvester(creep, newRoom);
-				});
-				myCreeps.farMiner.forEach(function (creep) {
-						return role.farMiner(creep, newRoom);
-				});
-				myCreeps.claim.forEach(function (creep) {
-						return role.claim(creep, newRoom);
-				});
-
-				// attack
-				myCreeps.attacker.forEach(function (creep) {
-						return role.attacker(creep, newRoom);
-				});
+		Game.creeps.forEach(function (creep) {
+			switch (creep.memory.role) {
+				case 'cleaner':
+					role.cleaner(creep);
+					break;
+				case 'harvester':
+					role.harvester(creep);
+					break;
+				case 'miner':
+					role.miner(creep);
+					break;
+				case 'upgrader':
+					role.upgrader(creep);
+					break;
+				case 'builder':
+					role.builder(creep);
+					break;
+				case 'farBuilder':
+					role.farBuilder(creep, newRoom);
+					break;
+				case 'farHarvester':
+					role.farHarvester(creep, newRoom);
+					break;
+				case 'farMiner':
+					role.farMiner(creep, newRoom);
+					break;
+				case 'claim':
+					role.claim(creep, newRoom);
+					break;
+				case 'attacker':
+					role.attacker(creep, newRoom);
+					break;
+			}
 		});
+
+		// // cheap base
+		// myCreeps.cleaner.forEach(creep => role.cleaner(creep))
+		//
+		// // source
+		// myCreeps.harvester.forEach(creep => role.harvester(creep))
+		// myCreeps.miner.forEach(creep => role.miner(creep))
+		// myCreeps.upgrader.forEach(creep => role.upgrader(creep))
+		// myCreeps.builder.forEach(creep => role.builder(creep))
+		//
+		// // far
+		// myCreeps.farBuilder.forEach(creep => role.farBuilder(creep, newRoom))
+		// myCreeps.farHarvester.forEach(creep => role.farHarvester(creep, newRoom))
+		// myCreeps.farMiner.forEach(creep => role.farMiner(creep, newRoom))
+		// myCreeps.claim.forEach(creep => role.claim(creep, newRoom))
+		//
+		// // attack
+		// myCreeps.attacker.forEach(creep => role.attacker(creep, newRoom))
+	});
 };
 
 /***/ }),
