@@ -2494,8 +2494,7 @@ exports.default = function (roomName) {
 		body: [[_util.color.yellow(room.memory.structures.storage.store.energy), room.memory.structures.spawn.energy, extensionFull + '/' + extension.length, extensionFull * 50 + room.memory.structures.spawn.energy, Object.keys(Memory.creeps).length]]
 	};
 
-	console.log((0, _util.table)(gclLog));
-	console.log((0, _util.table)(energyLog));
+	console.log((0, _util.table)(gclLog), (0, _util.table)(energyLog));
 };
 
 /***/ }),

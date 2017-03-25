@@ -39,7 +39,7 @@ export default (roomName) => {
 		]]
 	}
 	
-	console.log(table(gclLog));
-	console.log(table(energyLog));
+	console.log(table(gclLog),table(energyLog));
+
 }
 
