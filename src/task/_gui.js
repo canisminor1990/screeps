@@ -5,8 +5,8 @@ export default (roomName) =>{
 		room.visual.rect(
 			creep.pos.x,
 			creep.pos.y-1,
-			20,
 			2,
+			0.2,
 			{
 				stroke: '#111111',
 				color: '#ffffff'
