@@ -1,7 +1,8 @@
 import 'screeps-perf';
 import * as Manager from './manager'
+import * as Gui from './gui'
 import {timer} from  './_util'
-import {log, gui} from  './task'
+import {log} from  './task'
 import profiler from 'screeps-profiler';
 const rooms = ['W81S67', 'W81S66', 'W82S67'];
 profiler.enable();
@@ -13,11 +14,12 @@ module.exports.loop = () => {
 			Manager.memory(rooms)
 			Manager.role(rooms)
 			Manager.structure(rooms)
-			gui(rooms[0])
+			// Gui.creepBar(rooms[0])
+			Gui.cl(rooms[0])
 		});
 		
 	}
 	
-	if (timer(10)) log(rooms[0], 10)
+	// if (timer(10)) log(rooms[0], 10)
 }
 
