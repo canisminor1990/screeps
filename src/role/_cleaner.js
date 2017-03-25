@@ -1,5 +1,5 @@
 import {isFull} from '../_util'
-import {moveTo,pickup, transfer, withdraw} from '../action'
+import {moveTo, pickup, transfer, withdraw} from '../action'
 export default (creep) => {
 	let target;
 	if (creep.room.name !== 'W81S67') {
@@ -9,19 +9,22 @@ export default (creep) => {
 	// memory
 	isFull(creep)
 	// run
+	let needFill = creep.room.memory.structures.needFill;
 	if (!creep.memory.full) {
-		const dropped = creep.room.memory.dropped.energy;
-		if (dropped.length > 0) {
-			target = creep.pos.findClosestByRange(dropped);
-			if (pickup(creep, target)) return;
+		if (!needFill) {
+			const dropped = creep.room.memory.dropped.energy;
+			if (dropped.length > 0) {
+				target = creep.pos.findClosestByRange(dropped);
+				if (pickup(creep, target)) return;
+			}
+			target = creep.room.storage;
 		}
-		target = creep.room.storage;
 		if (withdraw(creep, target)) return;
 	} else {
-		target = creep.room.memory.structures.needFill;
-		target = creep.pos.findClosestByRange(target);
+		
+		target = creep.pos.findClosestByRange(needFill);
 		if (transfer(creep, target)) return;
-		target = creep.room.memory.structures.tower.sort((a,b) => a.energy - b.energy)[0];
+		target = creep.room.memory.structures.tower.sort((a, b) => a.energy - b.energy)[0];
 		if (target && target.energy == target.energyCapacity) return;
 		if (transfer(creep, target)) return;
 	}

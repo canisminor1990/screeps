@@ -2047,17 +2047,20 @@ exports.default = function (creep) {
 	// memory
 	(0, _util.isFull)(creep);
 	// run
+	var needFill = creep.room.memory.structures.needFill;
 	if (!creep.memory.full) {
-		var dropped = creep.room.memory.dropped.energy;
-		if (dropped.length > 0) {
-			target = creep.pos.findClosestByRange(dropped);
-			if ((0, _action.pickup)(creep, target)) return;
+		if (!needFill) {
+			var dropped = creep.room.memory.dropped.energy;
+			if (dropped.length > 0) {
+				target = creep.pos.findClosestByRange(dropped);
+				if ((0, _action.pickup)(creep, target)) return;
+			}
+			target = creep.room.storage;
 		}
-		target = creep.room.storage;
 		if ((0, _action.withdraw)(creep, target)) return;
 	} else {
-		target = creep.room.memory.structures.needFill;
-		target = creep.pos.findClosestByRange(target);
+
+		target = creep.pos.findClosestByRange(needFill);
 		if ((0, _action.transfer)(creep, target)) return;
 		target = creep.room.memory.structures.tower.sort(function (a, b) {
 			return a.energy - b.energy;
