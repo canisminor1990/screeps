@@ -7,7 +7,7 @@ export default () => {
 	const logGcl     = `[GCL] Lv${gcl.level} (${gclProcess}%|${gclLeft})`
 	
 	
-	const cl                   = Game.spawns['Spawn1'].controller,
+	const cl                   = Game.spawns['Spawn1'].room.controller,
 	      clProcess            = Math.round(cl.progress / cl.progressTotal * 100),
 	      clSpeed              = Math.round((cl.progress - Memory.timer['controller']) / 10),
 	      clLeft               = cl.progressTotal - cl.progress,

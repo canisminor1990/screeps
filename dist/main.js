@@ -2355,7 +2355,7 @@ exports.default = function () {
 	    gclProcess = Math.round(gcl.progress / gcl.progressTotal * 100);
 	var logGcl = '[GCL] Lv' + gcl.level + ' (' + gclProcess + '%|' + gclLeft + ')';
 
-	var cl = Game.spawns['Spawn1'].controller,
+	var cl = Game.spawns['Spawn1'].room.controller,
 	    clProcess = Math.round(cl.progress / cl.progressTotal * 100),
 	    clSpeed = Math.round((cl.progress - Memory.timer['controller']) / 10),
 	    clLeft = cl.progressTotal - cl.progress,
