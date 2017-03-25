@@ -6,7 +6,7 @@ export default (content) => {
 	} else {
 		contentHeadr    = content.header;
 		contentBody     = content.body;
-		contentHeadr.forEach(col => tableHeader += `<th>${col}</th>`)
+		contentHeadr.forEach(col => tableHeader += `<th style="padding:2px 4px">${col}</th>`)
 		tableHeader = `<tr style="border:1px solid #444;background: #444" >${tableHeader}</tr>`
 	}
 	contentBody.forEach(row => {
