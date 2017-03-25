@@ -18,11 +18,11 @@ const rowMargin         = 0.3,
 
 
 export default (roomName) => {
-	let guiX      = 5,
-	    guiY      = 1,
+	let bgPadding = 0.5,
 	    guiCreepX = .5,
 	    guiCreepY = 1,
-	    bgPadding = 0.5;
+	    guiX      = guiCreepX + guiCreepWidth + bgPadding * 2,
+	    guiY      = 1;
 	
 	
 	const room      = Game.rooms[roomName],

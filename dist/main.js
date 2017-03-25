@@ -1449,11 +1449,11 @@ var rowMargin = 0.3,
     guiCreepRowMargin = guiCreepHeight + rowMargin + 1;
 
 exports.default = function (roomName) {
-	var guiX = 5,
-	    guiY = 1,
+	var bgPadding = 0.5,
 	    guiCreepX = .5,
 	    guiCreepY = 1,
-	    bgPadding = 0.5;
+	    guiX = guiCreepX + guiCreepWidth + bgPadding * 2,
+	    guiY = 1;
 
 	var room = Game.rooms[roomName],
 	    gcl = Game.gcl,
