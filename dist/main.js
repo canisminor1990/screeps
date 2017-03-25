@@ -2053,8 +2053,8 @@ exports.default = function (creep) {
 				target = creep.pos.findClosestByRange(dropped);
 				if ((0, _action.pickup)(creep, target)) return;
 			}
-			target = creep.room.storage;
 		}
+		target = creep.room.storage;
 		if ((0, _action.withdraw)(creep, target)) return;
 	} else {
 
