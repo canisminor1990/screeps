@@ -1456,7 +1456,7 @@ exports.default = function (roomName) {
 		if (ex.energy == ex.energyCapacity) extensionFull++;
 	});
 
-	room.visual.rect(0.1, 0.2, 4, 15, { fill: 'rgba(0,0,0,.5)', opacity: 0.5, stroke: '#000', strokeWidth: 0.1 });
+	room.visual.rect(0.1, 0.2, 4, 15.5, { fill: 'rgba(0,0,0,.5)', opacity: 0.5, stroke: '#000', strokeWidth: 0.1 });
 
 	var y = 1;
 	(0, _config2.default)().role.forEach(function (eachRole) {
