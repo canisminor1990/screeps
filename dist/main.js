@@ -2323,10 +2323,10 @@ exports.default = function (creep) {
 			if (target.length > 0 && (0, _action.build)(creep, target[0])) return;
 		}
 	}
-	// target = creep.pos.findInRange(memory.structures.container, 1)
-	// if (target && target.length > 0 && target[0].hits < target[0].hitsMax) {
-	// 	if (repair(creep, target[0])) return;
-	// }
+	target = creep.pos.findInRange(memory.structures.container, 1);
+	if (target && target.length > 0 && target[0].hits < target[0].hitsMax) {
+		if ((0, _action.repair)(creep, target[0])) return;
+	}
 	target = Game.getObjectById(creep.memory.harvestTarget);
 	if ((0, _action.harvest)(creep, target)) return;
 };
