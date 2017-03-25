@@ -34,7 +34,7 @@ export default (roomName) => {
 	});
 	
 	room.visual
-		.rect(guiCreepX - bgPadding, guiCreepY + bgPadding, guiCreepX + guiCreepWidth + bgPadding, 15.5, {
+		.rect(guiCreepX - bgPadding, guiCreepY - bgPadding, guiCreepX + guiCreepWidth + bgPadding, 15.5, {
 			fill       : 'rgba(0,0,0,.5)',
 			opacity    : 0.5,
 			stroke     : '#000',
