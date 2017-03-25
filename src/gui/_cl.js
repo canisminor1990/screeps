@@ -21,7 +21,7 @@ export default (roomName) => {
 	let bgPadding = 0.5,
 	    guiCreepX = .5,
 	    guiCreepY = 1,
-	    guiX      = guiCreepX + guiCreepWidth + bgPadding * 2,
+	    guiX      = guiCreepX + guiCreepWidth + bgPadding * 3,
 	    guiY      = 1;
 	
 	
