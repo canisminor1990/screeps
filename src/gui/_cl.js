@@ -26,6 +26,6 @@ export default (roomName) => {
 	Memory.timer['rcl'] = rcl.progress;
 	
 	room.visual
-		.text(`GCL: ${gcl.level}`, 1, 1, {font: .5})
+		.text(`GCL: ${gcl.level}`, 1, 1, {font: 0.8})
 	
 }

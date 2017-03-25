@@ -1452,7 +1452,7 @@ exports.default = function (roomName) {
 	    rclTimeLeft = Math.round(rclLeft / rclSpeed);
 	Memory.timer['rcl'] = rcl.progress;
 
-	room.visual.text('GCL: ' + gcl.level, 1, 1, { font: .5 });
+	room.visual.text('GCL: ' + gcl.level, 1, 1, { font: 0.8 });
 };
 
 /***/ }),
