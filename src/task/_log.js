@@ -21,9 +21,6 @@ export default () => {
 		]
 	}
 	
-	return console.log(table([
-		[color.blue('GCL'), gcl.level, `${gclProcess}%`, gclLeft, '', ''],
-		[color.orange('CL'), cl.level, `${clProcess}%`, clLeft, clSpeed, clTimeLeft],
-	]));
+	return console.log(table(tableLog));
 }
 

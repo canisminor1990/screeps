@@ -984,7 +984,7 @@ exports.default = function (content) {
 		});
 		tableBody += "<tr style=\"border:1px solid #444\" >" + tableCol + "</tr>";
 	});
-	return "<table style=\"border:1px solid #444\">" + tableHeader + tableBody + "</table>";
+	return "";
 };
 
 /***/ }),
@@ -2480,7 +2480,7 @@ exports.default = function () {
 		body: [[_util.color.blue('GCL'), gcl.level, gclProcess + '%', gclLeft, '', ''], [_util.color.orange('CL'), cl.level, clProcess + '%', clLeft, clSpeed, clTimeLeft]]
 	};
 
-	return console.log((0, _util.table)([[_util.color.blue('GCL'), gcl.level, gclProcess + '%', gclLeft, '', ''], [_util.color.orange('CL'), cl.level, clProcess + '%', clLeft, clSpeed, clTimeLeft]]));
+	return console.log((0, _util.table)(tableLog));
 };
 
 /***/ }),
