@@ -35,13 +35,13 @@ export default (roomName) => {
 	});
 	
 	room.visual
-		.rect(guiCreepX - bgPadding, guiCreepY - 2 * bgPadding, guiCreepWidth + 2 * bgPadding, 10 * (rowMargin + guiCreeHeight) + 2 * bgPadding, {
+		.rect(guiCreepX - bgPadding, guiCreepY - 2 * bgPadding, guiCreepWidth + 2 * bgPadding, 10 * (rowMargin + guiCreeHeight)*2 + 2 * bgPadding, {
 			fill       : 'rgba(0,0,0,.5)',
 			opacity    : 0.5,
 			stroke     : '#000',
 			strokeWidth: 0.05
 		})
-		.rect(guiX - bgPadding, guiY - 2 * bgPadding, guiWidth + 2 * bgPadding, 6 * (rowMargin + guiHeight) + 2 * bgPadding, {
+		.rect(guiX - bgPadding, guiY - 2 * bgPadding, guiWidth + 2 * bgPadding, 6 * (rowMargin + guiHeight)*2 + 2 * bgPadding, {
 			fill       : 'rgba(0,0,0,.5)',
 			opacity    : 0.5,
 			stroke     : '#000',
