@@ -29,11 +29,12 @@ export default (roomName) => {
 		}
 	);
 	const energyLog = {
-		header: ['Storage', 'Spawn', 'Extension'],
+		header: ['Storage', 'Spawn', 'Extension', 'CanUse'],
 		body  : [[
-			room.memory.structures.spawn.energy,
 			room.memory.structures.storage.store.energy,
-			`${extensionFull}/${extension.length}`
+			room.memory.structures.spawn.energy,
+			`${extensionFull}/${extension.length}`,
+			extensionFull * 50 + room.memory.structures.storage.store.energy
 		]]
 	}
 	
