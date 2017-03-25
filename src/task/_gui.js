@@ -12,9 +12,12 @@ export default (roomName) => {
 		room.visual.rect(
 			creep.pos.x,
 			creep.pos.y - 1,
-			1/1500*creep.ticksToLive,
+			1 / 1500 * creep.ticksToLive,
 			0.2,
-			{fill: '#44b336'})
+			{
+				fill   : '#66D9EF',
+				opacity: 1
+			})
 	})
 	
 	
