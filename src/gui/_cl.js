@@ -1,5 +1,5 @@
 import config from '../config';
-const colorType = {
+const colorType     = {
 	yellow: '#E6DB74',
 	blue  : '#66D9EF',
 	red   : '#F92672',
@@ -8,6 +8,15 @@ const colorType = {
 	orange: '#FD971F',
 	green : '#A6E22E',
 };
+const guiWidth      = 4.8,
+      guiHeight     = 0.7,
+      guiCreepWidth = 3.5,
+      guiCreeHeight = 0.2;
+let guiX            = 5,
+      guiY          = 1,
+      guiCreepX     = .5,
+      guiCreepY     = 1,
+      bgPadding     = 0.5;
 
 
 export default (roomName) => {
@@ -27,32 +36,36 @@ export default (roomName) => {
 	});
 	
 	room.visual
-		.rect(0.1, 0.2, 4.2, 15.5, {fill: 'rgba(0,0,0,.5)', opacity: 0.5, stroke: '#000', strokeWidth: 0.05})
-		.rect(4.6, 0.2, 5.6, 12, {fill: 'rgba(0,0,0,.5)', opacity: 0.5, stroke: '#000', strokeWidth: 0.05})
+		.rect(guiCreepX - bgPadding, guiCreepY + bgPadding, guiCreepX + guiCreepWidth + bgPadding, 15.5, {
+			fill       : 'rgba(0,0,0,.5)',
+			opacity    : 0.5,
+			stroke     : '#000',
+			strokeWidth: 0.05
+		})
+		.rect(4.6, .2, 5.6, 12, {fill: 'rgba(0,0,0,.5)', opacity: 0.5, stroke: '#000', strokeWidth: 0.05})
 	
-	let y = 1;
+	
 	config().role.forEach(eachRole => {
-		guiCreep(room, .5, y, eachRole.role, eachRole.number)
-		y += 1.5;
+		guiCreep(room, guiCreepX, guiCreepY, eachRole.role, eachRole.number)
+		guiCreepY += 1.5;
 	})
 	
-	let x = 5
-	gui(room, x, 1, colorType.blue, ['GCL', `Lvl ${gcl.level}`, gcl.progress, gcl.progressTotal])
-	gui(room, x, 3, colorType.orange, ['RCL', `Lvl ${rcl.level}`, rcl.progress, rcl.progressTotal])
-	gui(room, x, 5, colorType.purple, ['CPU', '', Math.round(Game.cpu.getUsed()), Game.cpu.limit])
-	gui(room, x, 7, colorType.yellow, ['Storage', '', storage.store.energy, storage.storeCapacity])
-	gui(room, x, 9, colorType.yellow, ['Extension', '', extensionFull, extension.length])
-	gui(room, x, 11, colorType.yellow, ['Spawn', '', spawn + extensionFull * 50, 300 + extension.length * 50])
+	
+	gui(room, guiX, guiY, colorType.blue, ['GCL', `Lvl ${gcl.level}`, gcl.progress, gcl.progressTotal])
+	gui(room, guiX, guiY + 2, colorType.orange, ['RCL', `Lvl ${rcl.level}`, rcl.progress, rcl.progressTotal])
+	gui(room, guiX, guiY + 4, colorType.purple, ['CPU', '', Math.round(Game.cpu.getUsed()), Game.cpu.limit])
+	gui(room, guiX, guiY + 6, colorType.yellow, ['Storage', '', storage.store.energy, storage.storeCapacity])
+	gui(room, guiX, guiY + 8, colorType.yellow, ['Extension', '', extensionFull, extension.length])
+	gui(room, guiX, guiY + 10, colorType.yellow, ['Spawn', '', spawn + extensionFull * 50, 300 + extension.length * 50])
 }
 
 function gui(room, x, y, color, content) {
-	const width  = 4.8,
-	      height = 0.7;
+	
 	room.visual
-		.rect(x, y + 0.3, width, height, {fill: '#fff', opacity: 0.2})
-		.rect(x, y + 0.3, width * content[2] / content[3], height, {fill: color, opacity: 0.7})
+		.rect(x, y + 0.3, guiWidth, guiHeight, {fill: '#fff', opacity: 0.2})
+		.rect(x, y + 0.3, guiWidth * content[2] / content[3], guiHeight, {fill: color, opacity: 0.7})
 		.text(content[0], x, y, {font: 0.5, align: 'left', stroke: 'rgba(0,0,0,.7)', strokeWidth: 0.1})
-		.text(content[1], x + width, y, {font: 0.4, align: 'right', stroke: 'rgba(0,0,0,.7)', strokeWidth: 0.1})
+		.text(content[1], x + guiWidth, y, {font: 0.4, align: 'right', stroke: 'rgba(0,0,0,.7)', strokeWidth: 0.1})
 		.text(`${content[2]} / ${content[3]}`, x + .2, y + 0.8, {
 			font       : 0.4,
 			align      : 'left',
@@ -63,9 +76,7 @@ function gui(room, x, y, color, content) {
 
 function guiCreep(room, x, y, name, number) {
 	const creeps           = room.memory.creeps.my,
-	      nowNumber        = (creeps[name]) ? creeps[name].length : 0,
-	      width            = 3.5,
-	      height           = 0.2;
+	      nowNumber        = (creeps[name]) ? creeps[name].length : 0;
 	let color, colorSwitch = nowNumber - number;
 	if (colorSwitch > 0) color = colorType.green;
 	if (colorSwitch == 0) color = '#fff';
@@ -73,10 +84,10 @@ function guiCreep(room, x, y, name, number) {
 	
 	let LineWidth = (nowNumber > number) ? number : nowNumber
 	room.visual
-		.rect(x, y + 0.3, width, height, {fill: color, opacity: 0.2})
-		.rect(x, y + 0.3, width * LineWidth / number, height, {fill: color, opacity: 0.7})
+		.rect(x, y + 0.3, guiCreepWidth, guiCreeHeight, {fill: color, opacity: 0.2})
+		.rect(x, y + 0.3, guiCreepWidth * LineWidth / number, guiCreeHeight, {fill: color, opacity: 0.7})
 		.text(name, x, y, {font: 0.5, align: 'left', stroke: 'rgba(0,0,0,.7)', strokeWidth: 0.1})
-		.text(`${nowNumber}/${number}`, x + width, y, {
+		.text(`${nowNumber}/${number}`, x + guiCreepWidth, y, {
 			font       : 0.4,
 			align      : 'right',
 			stroke     : 'rgba(0,0,0,.7)',
