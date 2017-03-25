@@ -26,8 +26,8 @@ export default (roomName) => {
 	Memory.timer['rcl'] = rcl.progress;
 	
 	room.visual
-		.rect(1, 1.1, 1, 0.2, {fill: '#000'})
-		.rect(1, 1.1, 1 / gcl.progressTotal * gcl.progress, 0.2, {fill: '#66D9EF', opacity: 1})
+		.rect(1, 1.2, 4, 0.4, {fill: '#000'})
+		.rect(1, 1.2, 4 / gcl.progressTotal * gcl.progress, 0.4, {fill: 'rgba(255,255,255,.2)'})
 		.text(`GCL: ${gcl.level}`, 1, 1, {font: 0.8, align: 'left'})
 	
 }
