@@ -40,7 +40,7 @@ export default (roomName) => {
 			stroke     : '#000',
 			strokeWidth: 0.05
 		})
-		.rect(4.6, .2, 5.6, 12, {fill: 'rgba(0,0,0,.5)', opacity: 0.5, stroke: '#000', strokeWidth: 0.05})
+		.rect(guiX - bgPadding, guiY - 2 * bgPadding, guiX + guiWidth + bgPadding, 12, {fill: 'rgba(0,0,0,.5)', opacity: 0.5, stroke: '#000', strokeWidth: 0.05})
 	
 	
 	config().role.forEach(eachRole => {
