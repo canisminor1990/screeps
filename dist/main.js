@@ -1456,6 +1456,10 @@ exports.default = function (room, config) {
 
 		var structuresDocker = _.compact(structuresContainer.concat([structuresStorage]));
 
+		var needFix = _.filter(structures, function (structure) {
+				return (structure.my || structure.structureType == STRUCTURE_ROAD || structure.structureType == STRUCTURE_WALL) && structure.hits / structure.hitsMax < config.repair.percent && structure.hits < config.repair.maxHits && structure.id !== Memory.flags.dismantle;
+		});
+
 		return {
 				enemy: _.filter(structuresOther, function (structure) {
 						return structure.structureType != STRUCTURE_CONTAINER && structure.structureType != STRUCTURE_ROAD && structure.structureType != STRUCTURE_WALL;
@@ -1481,9 +1485,7 @@ exports.default = function (room, config) {
 				needFill: _.filter(structuresMy, function (structure) {
 						return (structure.structureType == STRUCTURE_EXTENSION || structure.structureType == STRUCTURE_SPAWN || structure.structureType == STRUCTURE_TOWER) && structure.energy < structure.energyCapacity && structure.energy < 300;
 				}),
-				needFix: _.filter(structures, function (structure) {
-						return (structure.my || structure.structureType == STRUCTURE_ROAD || structure.structureType == STRUCTURE_WALL) && structure.hits / structure.hitsMax < config.repair.percent && structure.hits < config.repair.maxHits;
-				}).sort(function (a, b) {
+				needFix: needFix.sort(function (a, b) {
 						return a.hits - b.hits;
 				}),
 				needBuild: room.find(FIND_MY_CONSTRUCTION_SITES)
@@ -1788,7 +1790,7 @@ exports.default = function (creep) {
 		if (dropped.length > 0) {
 			target = creep.pos.findClosestByRange(dropped);
 			if ((0, _action.pickup)(creep, target)) return;
-		}pioj;
+		}
 		target = creep.room.storage;
 		if ((0, _action.withdraw)(creep, target)) return;
 	} else {

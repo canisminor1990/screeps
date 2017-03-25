@@ -14,7 +14,7 @@ export default (creep) => {
 		if (dropped.length > 0) {
 			target = creep.pos.findClosestByRange(dropped);
 			if (pickup(creep, target)) return;
-		}pioj
+		}
 		target = creep.room.storage;
 		if (withdraw(creep, target)) return;
 	} else {

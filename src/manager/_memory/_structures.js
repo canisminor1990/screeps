@@ -8,6 +8,12 @@ export default (room, config) => {
 
 	let structuresDocker = _.compact(structuresContainer.concat([structuresStorage]));
 
+	let needFix = _.filter(structures, structure =>
+			( structure.my || structure.structureType == STRUCTURE_ROAD || structure.structureType == STRUCTURE_WALL ) &&
+			(structure.hits / structure.hitsMax) < config.repair.percent &&
+			structure.hits < config.repair.maxHits &&
+			structure.id !== Memory.flags.dismantle);
+
 	return {
 		enemy: _.filter(structuresOther, structure => structure.structureType != STRUCTURE_CONTAINER && structure.structureType != STRUCTURE_ROAD && structure.structureType != STRUCTURE_WALL),
 		terminal: room.terminal,
@@ -25,10 +31,7 @@ export default (room, config) => {
 		structure.structureType == STRUCTURE_SPAWN ||
 		structure.structureType == STRUCTURE_TOWER ) && (
 		structure.energy < structure.energyCapacity && structure.energy < 300)),
-		needFix: _.filter(structures, structure =>
-		( structure.my || structure.structureType == STRUCTURE_ROAD || structure.structureType == STRUCTURE_WALL ) &&
-		(structure.hits / structure.hitsMax) < config.repair.percent && structure.hits < config.repair.maxHits)
-				.sort((a, b) => a.hits - b.hits),
+		needFix: needFix.sort((a, b) => a.hits - b.hits),
 		needBuild: room.find(FIND_MY_CONSTRUCTION_SITES),
 	}
 }
