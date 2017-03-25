@@ -14,7 +14,7 @@ export default (roomName) => {
 	      clTimeLeft           = Math.round(clLeft / clSpeed);
 	Memory.timer['controller'] = cl.progress;
 	
-	const gclLog    = {
+	const gclLog      = {
 		header: ['Type', 'Lvl', 'Progress', 'EnergyLeft', 'Speed(e/t)', 'TickLeft'],
 		body  : [
 			[color.blue('GCL'), gcl.level, `${gclProcess}%`, gclLeft, '', ''],
@@ -22,15 +22,22 @@ export default (roomName) => {
 		]
 	}
 	//
+	const extension   = room.memory.structures.extension;
+	let extensionFull = 0;
+	extension.forEach(ex => {
+			if (ex.energy == ex.energyCapacity) extensionFull++
+		}
+	);
 	const energyLog = {
-		header: ['Type', 'Store'],
-		body  : [
-			[color.yellow('Spawn'), room.memory.structures.spawn.energy],
-			[color.yellow('Storage'), room.memory.structures.storage.store.energy]
-		]
+		header: ['Storage', 'Spawn', 'Extension'],
+		body  : [[
+			room.memory.structures.spawn.energy,
+			room.memory.structures.storage.store.energy,
+			`${extensionFull}/${extension.length}`
+		]]
 	}
 	
-	 console.log(table(gclLog));
-	 console.log(table(energyLog));
+	console.log(table(gclLog));
+	console.log(table(energyLog));
 }
 

@@ -1544,6 +1544,9 @@ exports.default = function (room, config) {
 		spawn: _.filter(structuresMy, function (structure) {
 			return structure.structureType == STRUCTURE_SPAWN;
 		})[0],
+		extension: _.filter(structuresMy, function (structure) {
+			return structure.structureType == STRUCTURE_EXTENSION;
+		}),
 		container: _.filter(structuresOther, function (structure) {
 			return structure.structureType == STRUCTURE_CONTAINER;
 		}),
@@ -2481,9 +2484,14 @@ exports.default = function (roomName) {
 		body: [[_util.color.blue('GCL'), gcl.level, gclProcess + '%', gclLeft, '', ''], [_util.color.orange('CL'), cl.level, clProcess + '%', clLeft, clSpeed, clTimeLeft]]
 	};
 	//
+	var extension = room.memory.structures.extension;
+	var extensionFull = 0;
+	extension.forEach(function (ex) {
+		if (ex.energy == ex.energyCapacity) extensionFull++;
+	});
 	var energyLog = {
-		header: ['Type', 'Store'],
-		body: [[_util.color.yellow('Spawn'), room.memory.structures.spawn.energy], [_util.color.yellow('Storage'), room.memory.structures.storage.store.energy]]
+		header: ['Storage', 'Spawn', 'Extension'],
+		body: [[room.memory.structures.spawn.energy, room.memory.structures.storage.store.energy, extensionFull + '/' + extension.length]]
 	};
 
 	console.log((0, _util.table)(gclLog));
