@@ -1456,7 +1456,7 @@ exports.default = function (roomName) {
 		if (ex.energy == ex.energyCapacity) extensionFull++;
 	});
 
-	room.visual.rect(0.1, 0.2, 4.2, 15.5, { fill: 'rgba(0,0,0,.5)', opacity: 0.5, stroke: '#000', strokeWidth: 0.1 }).rect(4.6, 0.2, 5.4, 10, { fill: 'rgba(0,0,0,.5)', opacity: 0.5, stroke: '#000', strokeWidth: 0.1 });
+	room.visual.rect(0.1, 0.2, 4.2, 15.5, { fill: 'rgba(0,0,0,.5)', opacity: 0.5, stroke: '#000', strokeWidth: 0.1 }).rect(4.6, 0.2, 5.6, 10, { fill: 'rgba(0,0,0,.5)', opacity: 0.5, stroke: '#000', strokeWidth: 0.1 });
 
 	var y = 1;
 	(0, _config2.default)().role.forEach(function (eachRole) {
@@ -1473,7 +1473,7 @@ exports.default = function (roomName) {
 };
 
 function gui(room, x, y, color, content) {
-	var width = 5,
+	var width = 4.7,
 	    height = 0.7;
 	room.visual.rect(x, y + 0.3, width, height, { fill: '#fff', opacity: 0.2 }).rect(x, y + 0.3, width * content[2] / content[3], height, { fill: color, opacity: 0.7 }).text(content[0], x, y, { font: 0.5, align: 'left', stroke: 'rgba(0,0,0,.7)', strokeWidth: 0.1 }).text(content[1], x + width, y, { font: 0.4, align: 'right', stroke: 'rgba(0,0,0,.7)', strokeWidth: 0.1 }).text(content[2] + ' / ' + content[3], x + .2, y + 0.8, {
 		font: 0.4,

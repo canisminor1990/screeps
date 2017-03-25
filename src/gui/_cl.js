@@ -28,7 +28,7 @@ export default (roomName) => {
 	
 	room.visual
 		.rect(0.1, 0.2, 4.2, 15.5, {fill: 'rgba(0,0,0,.5)', opacity: 0.5, stroke: '#000', strokeWidth: 0.1})
-		.rect(4.6, 0.2, 5.4, 10, {fill: 'rgba(0,0,0,.5)', opacity: 0.5, stroke: '#000', strokeWidth: 0.1})
+		.rect(4.6, 0.2, 5.6, 10, {fill: 'rgba(0,0,0,.5)', opacity: 0.5, stroke: '#000', strokeWidth: 0.1})
 	
 	let y = 1;
 	config().role.forEach(eachRole => {
@@ -45,7 +45,7 @@ export default (roomName) => {
 }
 
 function gui(room, x, y, color, content) {
-	const width  = 5,
+	const width  = 4.7,
 	      height = 0.7;
 	room.visual
 		.rect(x, y + 0.3, width, height, {fill: '#fff', opacity: 0.2})
