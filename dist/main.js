@@ -973,7 +973,7 @@ exports.default = function (content) {
 		contentHeadr = content.header;
 		contentBody = content.body;
 		contentHeadr.forEach(function (col) {
-			return tableHeader += "<th style=\"padding:4px 8px\">" + col + "</th>";
+			return tableHeader += "<th style=\"border:1px solid #444;padding:4px 8px\">" + col + "</th>";
 		});
 		tableHeader = "<tr style=\"border:1px solid #444;background: #333;color:#888\" >" + tableHeader + "</tr>";
 	}
