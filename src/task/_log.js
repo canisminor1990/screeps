@@ -1,4 +1,4 @@
-import {emoji, color} from '../_util'
+import {emoji, color,table} from '../_util'
 export default () => {
 	"use strict";
 	const gcl        = Game.gcl,
@@ -16,5 +16,9 @@ export default () => {
 	const logController        = color.orange('[CL]') + `Lv${cl.level} (${clProcess}%|${clLeft}|${clSpeed}/tick|${clTimeLeft}tickLeft)`;
 	
 	
-	console.log(emoji.claim, logGcl, logController);
+	console.log(table([
+		[color.blue('GCL'),`Lv${gcl.level} (${gclProcess}%|${gclLeft})`],
+		[color.orange('CL',`Lv${cl.level} (${clProcess}%|${clLeft}|${clSpeed}/tick|${clTimeLeft}tickLeft)`)]
+	]));
 }
+
