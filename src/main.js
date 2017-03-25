@@ -17,6 +17,6 @@ module.exports.loop = () => {
 		
 	}
 	
-	if (timer(10)) log(rooms[0])
+	if (timer(10)) log(rooms[0], 10)
 }
 

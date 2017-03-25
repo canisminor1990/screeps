@@ -2538,7 +2538,7 @@ module.exports.loop = function () {
 		});
 	}
 
-	if ((0, _util.timer)(10)) (0, _task.log)(rooms[0]);
+	if ((0, _util.timer)(10)) (0, _task.log)(rooms[0], 10);
 };
 
 /***/ })
