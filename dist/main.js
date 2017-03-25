@@ -1816,7 +1816,8 @@ exports.default = function (roomArrary) {
 		};
 
 		for (var name in Game.creeps) {
-			switch (Game.creeps[name].memory.role) {
+			var creep = Game.creeps[name];
+			switch (creep.memory.role) {
 				case 'cleaner':
 					role.cleaner(creep);
 					break;

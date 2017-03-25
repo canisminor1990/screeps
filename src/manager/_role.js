@@ -12,7 +12,8 @@ export default (roomArrary) => {
 			};
 			
 			for (let name in Game.creeps) {
-				switch (Game.creeps[name].memory.role) {
+				let creep = Game.creeps[name]
+				switch (creep.memory.role) {
 					case 'cleaner':
 						role.cleaner(creep)
 						break;
