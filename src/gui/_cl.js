@@ -57,14 +57,15 @@ function gui(room, x, y, color, content) {
 };
 
 function guiCreep(room, x, y, name, number) {
-	const creeps = room.memory.creeps.my;
-	const nowNumber = (creeps[name])?creeps[name].length:0
+	const creeps           = room.memory.creeps.my,
+	      nowNumber        = (creeps[name]) ? creeps[name].length : 0,
+	      width            = 3,
+	      height           = 0.2;
 	let color, colorSwitch = nowNumber - number;
 	if (colorSwitch > 0) color = colorType.green;
 	if (colorSwitch == 0) color = '#fff';
 	if (colorSwitch < 0) color = colorType.red;
-	const width  = 3,
-	      height = 0.2;
+	
 	
 	room.visual
 		.rect(x, y + 0.3, width, height, {fill: '#fff', opacity: 0.2})
