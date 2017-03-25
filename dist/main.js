@@ -1441,7 +1441,8 @@ exports.default = function (roomName) {
 	    gcl = Game.gcl,
 	    rcl = room.controller,
 	    storage = room.memory.structures.storage,
-	    extension = room.memory.structures.extension;
+	    extension = room.memory.structures.extension,
+	    spawn = room.memory.structures.spawn.energy;
 
 	var extensionFull = 0;
 	extension.forEach(function (ex) {
@@ -1452,6 +1453,7 @@ exports.default = function (roomName) {
 	gui(room, .5, 3, colorType.orange, ['RCL', 'Lvl ' + rcl.level, rcl.progress, rcl.progressTotal]);
 	gui(room, .5, 5, colorType.yellow, ['Storage', '', storage.store.energy, storage.storeCapacity]);
 	gui(room, .5, 7, colorType.yellow, ['Extension', '', extensionFull, extension.length]);
+	gui(room, .5, 9, colorType.yellow, ['Spawn', '', spawn + extensionFull * 50, 300 + extension.length * 50]);
 };
 
 function gui(room, x, y, color, content) {
