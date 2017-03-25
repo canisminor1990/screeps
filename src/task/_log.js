@@ -1,4 +1,4 @@
-import  'chalk';
+import chalk from 'chalk';
 import {emoji} from '../_util'
 export default () => {
 	"use strict";
