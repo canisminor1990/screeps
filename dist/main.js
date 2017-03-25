@@ -2472,7 +2472,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 
 exports.default = function (roomName) {
-	var room = Game.room[roomName];
+	var room = Game.rooms[roomName];
 	room.find(FIND_MY_CREEPS).forEach(function (creep) {
 		"use strict";
 

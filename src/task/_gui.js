@@ -1,5 +1,5 @@
 export default (roomName) =>{
-	const room = Game.room[roomName]
+	const room = Game.rooms[roomName]
 	room.find(FIND_MY_CREEPS).forEach(creep => {
 		"use strict";
 		room.visual.text(
