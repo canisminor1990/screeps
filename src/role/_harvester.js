@@ -9,7 +9,7 @@ export default (creep) => {
 		container => container.id != '58d4d78f1b7445f663aacaca' &&
 		container.store.energy > 0
 	).sort((a, b) => b.store.energy - a.store.energy)
-	if (target) {
+	if (target && target.length > 0) {
 		if (!creep.memory.full) {
 			const dropped = creep.room.memory.dropped.energy;
 			if (dropped.length > 0) {

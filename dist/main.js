@@ -2229,7 +2229,7 @@ exports.default = function (creep) {
 	}).sort(function (a, b) {
 		return b.store.energy - a.store.energy;
 	});
-	if (target) {
+	if (target && target.length > 0) {
 		if (!creep.memory.full) {
 			var dropped = creep.room.memory.dropped.energy;
 			if (dropped.length > 0) {
