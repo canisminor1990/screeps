@@ -1,4 +1,4 @@
-import chalk from 'chalk';
+const chalk = require('chalk');
 import {emoji} from '../_util'
 export default () => {
 	"use strict";

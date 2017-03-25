@@ -2864,13 +2864,9 @@ Object.defineProperty(exports, "__esModule", {
 	value: true
 });
 
-var _chalk = __webpack_require__(9);
-
-var _chalk2 = _interopRequireDefault(_chalk);
-
 var _util = __webpack_require__(0);
 
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+var chalk = __webpack_require__(9);
 
 exports.default = function () {
 	"use strict";
@@ -2878,7 +2874,7 @@ exports.default = function () {
 	var gcl = Game.gcl,
 	    gclLeft = gcl.progressTotal - gcl.progress,
 	    gclProcess = Math.round(gcl.progress / gcl.progressTotal * 100);
-	var logGcl = _chalk2.default.red('[GCL]') + ('Lv' + gcl.level + ' (' + gclProcess + '%|' + gclLeft + ')');
+	var logGcl = chalk.red('[GCL]') + ('Lv' + gcl.level + ' (' + gclProcess + '%|' + gclLeft + ')');
 
 	var cl = Game.spawns['Spawn1'].room.controller,
 	    clProcess = Math.round(cl.progress / cl.progressTotal * 100),
@@ -2886,7 +2882,7 @@ exports.default = function () {
 	    clLeft = cl.progressTotal - cl.progress,
 	    clTimeLeft = Math.round(clLeft / clSpeed);
 	Memory.timer['controller'] = cl.progress;
-	var logController = _chalk2.default.blue('[GCL]') + ('Lv' + cl.level + ' (' + clProcess + '%|' + clLeft + '|' + clSpeed + '/tick|' + clTimeLeft + 'tickLeft)');
+	var logController = chalk.blue('[GCL]') + ('Lv' + cl.level + ' (' + clProcess + '%|' + clLeft + '|' + clSpeed + '/tick|' + clTimeLeft + 'tickLeft)');
 
 	console.log(_util.emoji.claim, logGcl, logController);
 };
