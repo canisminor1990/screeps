@@ -1481,7 +1481,7 @@ function gui(room, x, y, content) {
 
 function guiCreep(room, x, y, name, number) {
 	var creeps = room.memory.creeps.my;
-	room.visual.rect(x, y + 0.3, 6, 0.7, { fill: '#fff', opacity: 0.2 }).rect(x, y + 0.3, 6 * creeps[name].length / number, 0.7, { fill: color, opacity: 0.7 }).text(name, x, y, { font: 0.5, align: 'left', stroke: 'rgba(0,0,0,.7)', strokeWidth: 0.1 }).text(creeps[name].length + '/' + number, x + 6, y, {
+	room.visual.rect(x, y + 0.3, 6, 0.7, { fill: '#fff', opacity: 0.2 }).rect(x, y + 0.3, 6 * number, 0.7, { fill: color, opacity: 0.7 }).text(name, x, y, { font: 0.5, align: 'left', stroke: 'rgba(0,0,0,.7)', strokeWidth: 0.1 }).text('' + number, x + 6, y, {
 		font: 0.4,
 		align: 'right',
 		stroke: 'rgba(0,0,0,.7)',
