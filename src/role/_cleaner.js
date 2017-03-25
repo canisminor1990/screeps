@@ -11,7 +11,7 @@ export default (creep) => {
 	// run
 	let needFill = creep.room.memory.structures.needFill;
 	if (!creep.memory.full) {
-		if (!needFill) {
+		if (!needFill || needFill.length == 0) {
 			const dropped = creep.room.memory.dropped.energy;
 			if (dropped.length > 0) {
 				target = creep.pos.findClosestByRange(dropped);
