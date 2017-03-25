@@ -2224,27 +2224,47 @@ exports.default = function (creep) {
 	// memory
 	(0, _util.isFull)(creep);
 	// run
-	if (!creep.memory.full) {
-		var dropped = creep.room.memory.dropped.energy;
-		if (dropped.length > 0) {
-			target = creep.pos.findInRange(dropped, 6);
-			if ((0, _action.pickup)(creep, target[0])) return;
-		}
-		target = _.filter(creep.room.memory.structures.container, function (container) {
-			return container.id != '58d4d78f1b7445f663aacaca' && container.store.energy > 0;
-		}).sort(function (a, b) {
-			return b.store.energy - a.store.energy;
-		});
-
-		if ((0, _action.withdraw)(creep, target[0])) return;
-	} else {
-		target = creep.room.memory.structures.needFill;
-		if (target.length > 0) {
-			target = creep.pos.findClosestByRange(target);
+	target = _.filter(creep.room.memory.structures.container, function (container) {
+		return container.id != '58d4d78f1b7445f663aacaca' && container.store.energy > 0;
+	}).sort(function (a, b) {
+		return b.store.energy - a.store.energy;
+	});
+	if (target) {
+		if (!creep.memory.full) {
+			var dropped = creep.room.memory.dropped.energy;
+			if (dropped.length > 0) {
+				target = creep.pos.findInRange(dropped, 6);
+				if ((0, _action.pickup)(creep, target[0])) return;
+			}
+			if ((0, _action.withdraw)(creep, target[0])) return;
 		} else {
-			target = creep.room.storage;
+			target = creep.room.memory.structures.needFill;
+			if (target.length > 0) {
+				target = creep.pos.findClosestByRange(target);
+			} else {
+				target = creep.room.storage;
+			}
+			if ((0, _action.transfer)(creep, target)) return;
 		}
-		if ((0, _action.transfer)(creep, target)) return;
+	} else {
+		if (!creep.memory.full) {
+			var _dropped = creep.room.memory.dropped.energy;
+			if (_dropped.length > 0) {
+				target = creep.pos.findClosestByRange(_dropped);
+				if ((0, _action.pickup)(creep, target)) return;
+			}
+			target = creep.room.storage;
+			if ((0, _action.withdraw)(creep, target)) return;
+		} else {
+			target = creep.room.memory.structures.needFill;
+			target = creep.pos.findClosestByRange(target);
+			if ((0, _action.transfer)(creep, target)) return;
+			target = creep.room.memory.structures.tower.sort(function (a, b) {
+				return a.energy - b.energy;
+			})[0];
+			if (target && target.energy == target.energyCapacity) return;
+			if ((0, _action.transfer)(creep, target)) return;
+		}
 	}
 };
 
