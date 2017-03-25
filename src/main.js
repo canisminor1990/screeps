@@ -20,8 +20,6 @@ module.exports.loop = () => {
 		
 	}
 	
-	if (timer(10)) {
-		log()
-	}
+	if (timer(10)) log()
 }
 

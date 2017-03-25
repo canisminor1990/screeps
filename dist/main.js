@@ -2404,9 +2404,7 @@ module.exports.loop = function () {
 		});
 	}
 
-	if ((0, _util.timer)(10)) {
-		(0, _task.log)();
-	}
+	if ((0, _util.timer)(10)) (0, _task.log)();
 };
 
 /***/ })
