@@ -1464,7 +1464,7 @@ exports.default = function (roomName) {
 		if (ex.energy == ex.energyCapacity) extensionFull++;
 	});
 
-	room.visual.rect(guiCreepX - bgPadding, guiCreepY - bgPadding, guiCreepX + guiCreepWidth + bgPadding, 15.5, {
+	room.visual.rect(guiCreepX - bgPadding, guiCreepY - 2 * bgPadding, guiCreepX + guiCreepWidth + bgPadding, 15.5, {
 		fill: 'rgba(0,0,0,.5)',
 		opacity: 0.5,
 		stroke: '#000',

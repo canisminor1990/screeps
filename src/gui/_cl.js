@@ -14,11 +14,11 @@ const guiWidth      = 4.8,
       guiCreeHeight = 0.2;
 
 export default (roomName) => {
-	let guiX            = 5,
-	      guiY          = 1,
-	      guiCreepX     = .5,
-	      guiCreepY     = 1,
-	      bgPadding     = 0.5;
+	let guiX      = 5,
+	    guiY      = 1,
+	    guiCreepX = .5,
+	    guiCreepY = 1,
+	    bgPadding = 0.5;
 	
 	
 	const room      = Game.rooms[roomName],
@@ -34,7 +34,7 @@ export default (roomName) => {
 	});
 	
 	room.visual
-		.rect(guiCreepX - bgPadding, guiCreepY - bgPadding, guiCreepX + guiCreepWidth + bgPadding, 15.5, {
+		.rect(guiCreepX - bgPadding, guiCreepY - 2 * bgPadding, guiCreepX + guiCreepWidth + bgPadding, 15.5, {
 			fill       : 'rgba(0,0,0,.5)',
 			opacity    : 0.5,
 			stroke     : '#000',
