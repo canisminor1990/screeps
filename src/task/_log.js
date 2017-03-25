@@ -21,6 +21,6 @@ export default () => {
 		]
 	}
 	
-	console.log(table(tableLog));
+	return console.log(table(tableLog));
 }
 
