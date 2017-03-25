@@ -26,7 +26,7 @@ export default (roomName) => {
 		if (ex.energy == ex.energyCapacity) extensionFull++
 	});
 	
-	room.visual.rect(0.2, 0.2, 4, 14, {fill: '#000', opacity: 0.2})
+	room.visual.rect(0.1, 0.2, 4, 16, {fill: '#000', opacity: 0.2})
 	
 	let y = 1;
 	config().role.forEach(eachRole => {
