@@ -2475,7 +2475,7 @@ exports.default = function (roomName) {
 	var rcl = room.controller,
 	    rclProcess = Math.round(rcl.progress / rcl.progressTotal * 100),
 	    rclSpeed = Math.round((rcl.progress - Memory.timer['controller']) / 10),
-	    rclLeft = cl.progressTotal - rcl.progress,
+	    rclLeft = rcl.progressTotal - rcl.progress,
 	    rclTimeLeft = Math.round(rclLeft / rclSpeed);
 	Memory.timer['controller'] = rcl.progress;
 
