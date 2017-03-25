@@ -2480,7 +2480,7 @@ exports.default = function () {
 		body: [[_util.color.blue('GCL'), gcl.level, gclProcess + '%', gclLeft, '', ''], [_util.color.orange('CL'), cl.level, clProcess + '%', clLeft, clSpeed, clTimeLeft]]
 	};
 
-	return console.log((0, _util.table)(tableLog));
+	return console.log((0, _util.table)([[_util.color.blue('GCL'), gcl.level, gclProcess + '%', gclLeft, '', ''], [_util.color.orange('CL'), cl.level, clProcess + '%', clLeft, clSpeed, clTimeLeft]]));
 };
 
 /***/ }),
