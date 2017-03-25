@@ -2464,24 +2464,27 @@ Object.defineProperty(exports, "__esModule", {
 
 var _util = __webpack_require__(0);
 
-exports.default = function (roomName) {
+exports.default = function (roomName, timeout) {
 	"use strict";
 
 	var room = Game.rooms[roomName];
 	var gcl = Game.gcl,
 	    gclLeft = gcl.progressTotal - gcl.progress,
-	    gclProcess = Math.round(gcl.progress / gcl.progressTotal * 100);
+	    gclSpeed = Math.round((gcl.progress - Memory.timer['gcl']) / timeout),
+	    gclProcess = Math.round(gcl.progress / gcl.progressTotal * 100),
+	    gclTimeLeft = Math.round(gclLeft / gclSpeed);
+	Memory.timer['gcl'] = gcl.progress;
 
 	var rcl = room.controller,
 	    rclProcess = Math.round(rcl.progress / rcl.progressTotal * 100),
-	    rclSpeed = Math.round((rcl.progress - Memory.timer['controller']) / 10),
+	    rclSpeed = Math.round((rcl.progress - Memory.timer['rcl']) / timeout),
 	    rclLeft = rcl.progressTotal - rcl.progress,
 	    rclTimeLeft = Math.round(rclLeft / rclSpeed);
-	Memory.timer['controller'] = rcl.progress;
+	Memory.timer['rcl'] = rcl.progress;
 
 	var gclLog = {
 		header: ['Type', 'Lvl', 'Progress', 'EnergyLeft', 'Speed(e/t)', 'TickLeft'],
-		body: [[_util.color.blue('GCL'), gcl.level, gclProcess + '%', gclLeft, '', ''], [_util.color.orange('RCL'), rcl.level, rclProcess + '%', rclLeft, rclSpeed, rclTimeLeft]]
+		body: [[_util.color.blue('GCL'), gcl.level, gclProcess + '%', gclLeft, gclSpeed, gclTimeLeft], [_util.color.orange('RCL'), rcl.level, rclProcess + '%', rclLeft, rclSpeed, rclTimeLeft]]
 	};
 	//
 	var extension = room.memory.structures.extension;

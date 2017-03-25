@@ -1,23 +1,26 @@
 import {color, table} from '../_util'
-export default (roomName) => {
+export default (roomName,timeout) => {
 	"use strict";
 	const room       = Game.rooms[roomName];
 	const gcl        = Game.gcl,
 	      gclLeft    = gcl.progressTotal - gcl.progress,
-	      gclProcess = Math.round(gcl.progress / gcl.progressTotal * 100);
-	
+	      gclSpeed              = Math.round((gcl.progress - Memory.timer['gcl']) / timeout),
+	      gclProcess = Math.round(gcl.progress / gcl.progressTotal * 100),
+	      gclTimeLeft           = Math.round(gclLeft / gclSpeed);
+	Memory.timer['gcl'] = gcl.progress;
 	
 	const rcl                   = room.controller,
 	      rclProcess            = Math.round(rcl.progress / rcl.progressTotal * 100),
-	      rclSpeed              = Math.round((rcl.progress - Memory.timer['controller']) / 10),
+	      rclSpeed              = Math.round((rcl.progress - Memory.timer['rcl']) / timeout),
 	      rclLeft               = rcl.progressTotal - rcl.progress,
 	      rclTimeLeft           = Math.round(rclLeft / rclSpeed);
-	Memory.timer['controller'] = rcl.progress;
+	Memory.timer['rcl'] = rcl.progress;
+	
 	
 	const gclLog      = {
 		header: ['Type', 'Lvl', 'Progress', 'EnergyLeft', 'Speed(e/t)', 'TickLeft'],
 		body  : [
-			[color.blue('GCL'), gcl.level, `${gclProcess}%`, gclLeft, '', ''],
+			[color.blue('GCL'), gcl.level, `${gclProcess}%`, gclLeft, gclSpeed, gclTimeLeft],
 			[color.orange('RCL'), rcl.level, `${rclProcess}%`, rclLeft, rclSpeed, rclTimeLeft],
 		]
 	}
