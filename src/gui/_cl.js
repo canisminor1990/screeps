@@ -27,7 +27,7 @@ export default (roomName) => {
 	gui(room, .5, 1, colorType.blue, ['GCL', `Lvl ${gcl.level}`, gcl.progress, gcl.progressTotal])
 	gui(room, .5, 3, colorType.orange, ['RCL', `Lvl ${rcl.level}`, rcl.progress, rcl.progressTotal])
 	gui(room, .5, 5, colorType.yellow, ['Storage', null, storage.store.energy, storage.storeCapacity])
-	gui(room, .5, 7, colorType.yellow, ['Extension', null, extensionFull.length, extension])
+	gui(room, .5, 7, colorType.yellow, ['Extension', null, extensionFull, extension.length])
 }
 
 function gui(room, x, y, color, content) {
