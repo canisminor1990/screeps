@@ -1451,7 +1451,7 @@ exports.default = function (roomName) {
 	gui(room, .5, 1, colorType.blue, ['GCL', 'Lvl ' + gcl.level, gcl.progress, gcl.progressTotal]);
 	gui(room, .5, 3, colorType.orange, ['RCL', 'Lvl ' + rcl.level, rcl.progress, rcl.progressTotal]);
 	gui(room, .5, 5, colorType.yellow, ['Storage', '', storage.store.energy, storage.storeCapacity]);
-	gui(room, .5, 5, colorType.yellow, ['Extension', '', extensionFull, extension]);
+	gui(room, .5, 5, colorType.yellow, ['Extension', '', extensionFull.length, extension]);
 };
 
 function gui(room, x, y, color, content) {
