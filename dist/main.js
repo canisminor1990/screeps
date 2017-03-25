@@ -967,12 +967,11 @@ exports.default = function (content) {
 	content.forEach(function (row) {
 		var tableCol = "";
 		row.forEach(function (col) {
-			tableCol += "<td style=\"padding:2px 4px\">" + col + "</td>";
+			tableCol += "<td style=\"border:1px solid #444;padding:2px 4px\">" + col + "</td>";
 		});
-		tableRow += "<tr>" + tableCol + "</tr>";
+		tableRow += "<tr style=\"border:1px solid #444\" >" + tableCol + "</tr>";
 	});
-
-	return "<table style=\"border:1px solid #999\">" + tableRow + "</table>";
+	return "<table style=\"border:1px solid #444\">" + tableRow + "</table>";
 };
 
 /***/ }),
