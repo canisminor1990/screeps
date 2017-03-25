@@ -8,21 +8,22 @@ const colorType = {
 	green : '#A6E22E',
 };
 
-RoomVisual.prototype.gui = (x, y, color, content) => {
-	this.rect(x, y + 0.3, 6, 0.7, {fill: '#fff', opacity: 0.2});
-	this.rect(x, y + 0.3, 6 / gcl.progressTotal * gcl.progress, 0.7, {fill: color, opacity: 0.7});
-	this.text(content[0], x, y, {font: 0.5, align: 'left', stroke: 'rgba(0,0,0,.7)', strokeWidth: 0.1});
-	this.text(content[1], x + 6, y, {font: 0.4, align: 'right', stroke: 'rgba(0,0,0,.7)', strokeWidth: 0.1});
-	this.text(content[3], x + .2, y + 0.8, {
-		font       : 0.4,
-		align      : 'left',
-		stroke     : 'rgba(0,0,0,.7)',
-		strokeWidth: 0.1
-	});
-	
-};
+
 export default (roomName) => {
 	"use strict";
+	RoomVisual.prototype.gui = (x, y, color, content) => {
+		this.rect(x, y + 0.3, 6, 0.7, {fill: '#fff', opacity: 0.2});
+		this.rect(x, y + 0.3, 6 / gcl.progressTotal * gcl.progress, 0.7, {fill: color, opacity: 0.7});
+		this.text(content[0], x, y, {font: 0.5, align: 'left', stroke: 'rgba(0,0,0,.7)', strokeWidth: 0.1});
+		this.text(content[1], x + 6, y, {font: 0.4, align: 'right', stroke: 'rgba(0,0,0,.7)', strokeWidth: 0.1});
+		this.text(content[3], x + .2, y + 0.8, {
+			font       : 0.4,
+			align      : 'left',
+			stroke     : 'rgba(0,0,0,.7)',
+			strokeWidth: 0.1
+		});
+	};
+	
 	const room          = Game.rooms[roomName];
 	const gcl           = Game.gcl,
 	      gclLeft       = gcl.progressTotal - gcl.progress,
