@@ -57,6 +57,7 @@ function gui(room, x, y, color, content) {
 };
 
 function guiCreep(room, x, y, name, number) {
+	const creeps = room.memory.creeps.my;
 	const nowNumber = (creeps[name])?creeps[name].length:0
 	let color, colorSwitch = nowNumber - number;
 	if (colorSwitch > 0) color = colorType.green;
@@ -64,7 +65,7 @@ function guiCreep(room, x, y, name, number) {
 	if (colorSwitch < 0) color = colorType.red;
 	const width  = 3,
 	      height = 0.2;
-	const creeps = room.memory.creeps.my;
+	
 	room.visual
 		.rect(x, y + 0.3, width, height, {fill: '#fff', opacity: 0.2})
 		.rect(x, y + 0.3, width * nowNumber / number, height, {fill: color, opacity: 0.7})

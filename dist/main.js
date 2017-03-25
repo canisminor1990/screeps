@@ -1482,6 +1482,7 @@ function gui(room, x, y, color, content) {
 };
 
 function guiCreep(room, x, y, name, number) {
+	var creeps = room.memory.creeps.my;
 	var nowNumber = creeps[name] ? creeps[name].length : 0;
 	var color = void 0,
 	    colorSwitch = nowNumber - number;
@@ -1490,7 +1491,7 @@ function guiCreep(room, x, y, name, number) {
 	if (colorSwitch < 0) color = colorType.red;
 	var width = 3,
 	    height = 0.2;
-	var creeps = room.memory.creeps.my;
+
 	room.visual.rect(x, y + 0.3, width, height, { fill: '#fff', opacity: 0.2 }).rect(x, y + 0.3, width * nowNumber / number, height, { fill: color, opacity: 0.7 }).text(name, x, y, { font: 0.5, align: 'left', stroke: 'rgba(0,0,0,.7)', strokeWidth: 0.1 }).text(nowNumber + '/' + number, x + width, y, {
 		font: 0.4,
 		align: 'right',
