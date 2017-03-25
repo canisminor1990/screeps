@@ -1440,18 +1440,17 @@ var colorType = {
 	orange: '#FD971F',
 	green: '#A6E22E'
 };
-var guiWidth = 4.8,
-    guiHeight = 0.7,
-    guiCreepWidth = 3.5,
-    guiCreeHeight = 0.2;
-var guiX = 5,
-    guiY = 1,
-    guiCreepX = .5,
-    guiCreepY = 1,
-    bgPadding = 0.5;
 
 exports.default = function (roomName) {
-	"use strict";
+	var guiWidth = 4.8,
+	    guiHeight = 0.7,
+	    guiCreepWidth = 3.5,
+	    guiCreeHeight = 0.2;
+	var guiX = 5,
+	    guiY = 1,
+	    guiCreepX = .5,
+	    guiCreepY = 1,
+	    bgPadding = 0.5;
 
 	var room = Game.rooms[roomName],
 	    gcl = Game.gcl,
