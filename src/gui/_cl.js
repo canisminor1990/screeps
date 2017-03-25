@@ -14,7 +14,7 @@ const rowMargin         = 0.3,
       guiRowMargin      = guiHeight + rowMargin + 1,
       guiCreepWidth     = 3.5,
       guiCreepHeight    = 0.2,
-      guiCreepRowMargin = guiCreepHeight + rowMargin;
+      guiCreepRowMargin = guiCreepHeight + rowMargin + 1;
 
 
 export default (roomName) => {
