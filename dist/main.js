@@ -1437,19 +1437,6 @@ var colorType = {
 exports.default = function (roomName) {
 	"use strict";
 
-	RoomVisual.prototype.gui = function (x, y, color, content) {
-		undefined.rect(x, y + 0.3, 6, 0.7, { fill: '#fff', opacity: 0.2 });
-		undefined.rect(x, y + 0.3, 6 / gcl.progressTotal * gcl.progress, 0.7, { fill: color, opacity: 0.7 });
-		undefined.text(content[0], x, y, { font: 0.5, align: 'left', stroke: 'rgba(0,0,0,.7)', strokeWidth: 0.1 });
-		undefined.text(content[1], x + 6, y, { font: 0.4, align: 'right', stroke: 'rgba(0,0,0,.7)', strokeWidth: 0.1 });
-		undefined.text(content[3], x + .2, y + 0.8, {
-			font: 0.4,
-			align: 'left',
-			stroke: 'rgba(0,0,0,.7)',
-			strokeWidth: 0.1
-		});
-	};
-
 	var room = Game.rooms[roomName];
 	var gcl = Game.gcl,
 	    gclLeft = gcl.progressTotal - gcl.progress,
@@ -1465,7 +1452,16 @@ exports.default = function (roomName) {
 	    rclTimeLeft = Math.round(rclLeft / rclSpeed);
 	Memory.timer['rcl'] = rcl.progress;
 
-	room.visual.gui(1, 1, colorType.blue, ['GCL', 'Lvl ' + gcl.level, gcl.progress + '/' + gcl.progressTotal]);
+	gui(room, 1, 1, colorType.blue, ['GCL', 'Lvl ' + gcl.level, gcl.progress / gcl.progressTotal, gcl.progress + '/' + gcl.progressTotal]);
+};
+
+function gui(room, x, y, color, content) {
+	room.visual.rect(x, y + 0.3, 6, 0.7, { fill: '#fff', opacity: 0.2 }).rect(x, y + 0.3, 6 / content[2], 0.7, { fill: color, opacity: 0.7 }).text(content[0], x, y, { font: 0.5, align: 'left', stroke: 'rgba(0,0,0,.7)', strokeWidth: 0.1 }).text(content[1], x + 6, y, { font: 0.4, align: 'right', stroke: 'rgba(0,0,0,.7)', strokeWidth: 0.1 }).text(content[3], x + .2, y + 0.8, {
+		font: 0.4,
+		align: 'left',
+		stroke: 'rgba(0,0,0,.7)',
+		strokeWidth: 0.1
+	});
 };
 
 /***/ }),
