@@ -28,15 +28,16 @@ export default (roomName) => {
 	
 	let y = 1;
 	config().role.forEach(eachRole => {
-		guiCreep(room, 10, y, eachRole.role, eachRole.number)
-		y += 1;
+		guiCreep(room, .5, y, eachRole.role, eachRole.number)
+		y += 1.5;
 	})
 	
-	gui(room, .5, 1, colorType.blue, ['GCL', `Lvl ${gcl.level}`, gcl.progress, gcl.progressTotal])
-	gui(room, .5, 3, colorType.orange, ['RCL', `Lvl ${rcl.level}`, rcl.progress, rcl.progressTotal])
-	gui(room, .5, 5, colorType.yellow, ['Storage', '', storage.store.energy, storage.storeCapacity])
-	gui(room, .5, 7, colorType.yellow, ['Extension', '', extensionFull, extension.length])
-	gui(room, .5, 9, colorType.yellow, ['Spawn', '', spawn + extensionFull * 50, 300 + extension.length * 50])
+	let x = 10
+	gui(room, x, 1, colorType.blue, ['GCL', `Lvl ${gcl.level}`, gcl.progress, gcl.progressTotal])
+	gui(room, x, 3, colorType.orange, ['RCL', `Lvl ${rcl.level}`, rcl.progress, rcl.progressTotal])
+	gui(room, x, 5, colorType.yellow, ['Storage', '', storage.store.energy, storage.storeCapacity])
+	gui(room, x, 7, colorType.yellow, ['Extension', '', extensionFull, extension.length])
+	gui(room, x, 9, colorType.yellow, ['Spawn', '', spawn + extensionFull * 50, 300 + extension.length * 50])
 }
 
 function gui(room, x, y, color, content) {
