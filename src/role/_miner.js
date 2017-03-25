@@ -1,5 +1,5 @@
 import {isFull} from '../_util'
-import {build, harvest,repair} from '../action'
+import {build, harvest, repair} from '../action'
 export default (creep) => {
 	const memory = creep.room.memory;
 	let target;
@@ -14,10 +14,10 @@ export default (creep) => {
 			if (target.length > 0 && build(creep, target[0]))return;
 		}
 	}
-	target = creep.pos.findInRange(memory.structures.container, 1)
-	if (target && target.length > 0 && target[0].hits < target[0].hitsMax) {
-		if (repair(creep, target[0])) return;
+	target          = Game.getObjectById(creep.memory.harvestTarget)
+	const container = target.pos.findInRange(memory.structures.container, 1)
+	if (container.length > 0 && container[0].hits < container[0].hitsMax / 5) {
+		if (repair(creep, container[0])) return;
 	}
-	target = Game.getObjectById(creep.memory.harvestTarget)
 	if (harvest(creep, target)) return;
 }
