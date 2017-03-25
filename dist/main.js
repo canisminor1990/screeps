@@ -1452,7 +1452,7 @@ exports.default = function (roomName) {
 	    rclTimeLeft = Math.round(rclLeft / rclSpeed);
 	Memory.timer['rcl'] = rcl.progress;
 
-	room.visual.rect(1, 1.2, 4, 0.4, { fill: 'rgba(255,255,255,.2)' }).rect(1, 1.2, 4 / gcl.progressTotal * gcl.progress, 0.4, { fill: colorType.blue }).text('GCL: ' + gcl.level, 1, 1, { font: 0.5, align: 'left' });
+	room.visual.rect(1, 1.2, 4, 0.4, { fill: 'rgba(255,255,255,.2)', opacity: 1 }).rect(1, 1.2, 4 / gcl.progressTotal * gcl.progress, 0.4, { fill: colorType.blue, opacity: 1 }).text('GCL: ' + gcl.level, 1, 1, { font: 0.5, align: 'left', opacity: 1 });
 };
 
 /***/ }),
