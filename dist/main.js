@@ -2324,7 +2324,7 @@ exports.default = function (creep) {
 		}
 	}
 	target = Game.getObjectById(creep.memory.harvestTarget);
-	var container = target.pos.findInRange(target.room.memory.structures.container, 1);
+	var container = target.pos.findInRange(creep.room.memory.structures.container, 1);
 	if (container.length > 0 && container[0].hits < container[0].hitsMax) {
 		if (repair(creep, container[0])) return;
 	}
