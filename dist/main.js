@@ -2461,10 +2461,10 @@ Object.defineProperty(exports, "__esModule", {
 
 var _util = __webpack_require__(0);
 
-exports.default = function () {
+exports.default = function (roomName) {
 	"use strict";
 
-	var room = Game.spawns['Spawn1'].room;
+	var room = Game.rooms[roomName];
 	var gcl = Game.gcl,
 	    gclLeft = gcl.progressTotal - gcl.progress,
 	    gclProcess = Math.round(gcl.progress / gcl.progressTotal * 100);
@@ -2486,8 +2486,8 @@ exports.default = function () {
 		body: [[_util.color.yellow('Spawn'), room.memory.structures.spawn.energy], [_util.color.yellow('Storage'), room.memory.structures.storage.store.energy]]
 	};
 
-	return console.log((0, _util.table)(gclLog));
-	return console.log((0, _util.table)(energyLog));
+	console.log((0, _util.table)(gclLog));
+	console.log((0, _util.table)(energyLog));
 };
 
 /***/ }),
@@ -2528,7 +2528,7 @@ module.exports.loop = function () {
 		});
 	}
 
-	if ((0, _util.timer)(10)) (0, _task.log)();
+	if ((0, _util.timer)(10)) (0, _task.log)(rooms[0]);
 };
 
 /***/ })

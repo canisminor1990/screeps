@@ -1,7 +1,7 @@
-import {emoji, color, table} from '../_util'
-export default () => {
+import {color, table} from '../_util'
+export default (roomName) => {
 	"use strict";
-	const room       = Game.spawns['Spawn1'].room
+	const room       = Game.rooms[roomName];
 	const gcl        = Game.gcl,
 	      gclLeft    = gcl.progressTotal - gcl.progress,
 	      gclProcess = Math.round(gcl.progress / gcl.progressTotal * 100);
@@ -30,7 +30,7 @@ export default () => {
 		]
 	}
 	
-	return console.log(table(gclLog));
-	return console.log(table(energyLog));
+	 console.log(table(gclLog));
+	 console.log(table(energyLog));
 }
 
