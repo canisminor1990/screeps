@@ -28,7 +28,7 @@ export default (roomName) => {
 	
 	room.visual
 		.rect(0.1, 0.2, 4.2, 15.5, {fill: 'rgba(0,0,0,.5)', opacity: 0.5, stroke: '#000', strokeWidth: 0.1})
-		.rect(0.1, 4.4, 5.2, 15.5, {fill: 'rgba(0,0,0,.5)', opacity: 0.5, stroke: '#000', strokeWidth: 0.1})
+		.rect(4.4, 0.4, 5.2, 15.5, {fill: 'rgba(0,0,0,.5)', opacity: 0.5, stroke: '#000', strokeWidth: 0.1})
 	
 	let y = 1;
 	config().role.forEach(eachRole => {
