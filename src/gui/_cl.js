@@ -26,7 +26,7 @@ export default (roomName) => {
 		if (ex.energy == ex.energyCapacity) extensionFull++
 	});
 	
-	room.visual.rect(0.1, 0.2, 4, 15.5, {fill: 'rgba(0,0,0,.5)', opacity: 0.5, stroke: '#000', strokeWidth: 0.1})
+	room.visual.rect(0.1, 0.2, 5, 15.5, {fill: 'rgba(0,0,0,.5)', opacity: 0.5, stroke: '#000', strokeWidth: 0.1})
 	
 	let y = 1;
 	config().role.forEach(eachRole => {
@@ -34,7 +34,7 @@ export default (roomName) => {
 		y += 1.5;
 	})
 	
-	let x = 6
+	let x = 5
 	gui(room, x, 1, colorType.blue, ['GCL', `Lvl ${gcl.level}`, gcl.progress, gcl.progressTotal])
 	gui(room, x, 3, colorType.orange, ['RCL', `Lvl ${rcl.level}`, rcl.progress, rcl.progressTotal])
 	gui(room, x, 5, colorType.yellow, ['Storage', '', storage.store.energy, storage.storeCapacity])
@@ -43,7 +43,7 @@ export default (roomName) => {
 }
 
 function gui(room, x, y, color, content) {
-	const width  = 6,
+	const width  = 7,
 	      height = 0.7;
 	room.visual
 		.rect(x, y + 0.3, width, height, {fill: '#fff', opacity: 0.2})
