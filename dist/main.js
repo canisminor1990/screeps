@@ -1467,12 +1467,12 @@ exports.default = function (roomName) {
 		if (ex.energy == ex.energyCapacity) extensionFull++;
 	});
 
-	room.visual.rect(guiCreepX - bgPadding, guiCreepY - 2 * bgPadding, guiCreepWidth + 2 * bgPadding, 10 * (guiCreepHeight + guiCreepRowMargin - rowMargin) + 2 * bgPadding, {
+	room.visual.rect(guiCreepX - bgPadding, guiCreepY - 2 * bgPadding, guiCreepWidth + 2 * bgPadding, 10 * (guiCreepHeight + guiCreepRowMargin) - guiCreepRowMargin + 2 * bgPadding, {
 		fill: 'rgba(0,0,0,.5)',
 		opacity: 0.5,
 		stroke: '#000',
 		strokeWidth: 0.05
-	}).rect(guiX - bgPadding, guiY - 2 * bgPadding, guiWidth + 2 * bgPadding, 6 * (guiHeight + guiRowMargin - rowMargin) + 2 * bgPadding, {
+	}).rect(guiX - bgPadding, guiY - 2 * bgPadding, guiWidth + 2 * bgPadding, 6 * (guiHeight + guiRowMargin) - guiRowMargin + 2 * bgPadding, {
 		fill: 'rgba(0,0,0,.5)',
 		opacity: 0.5,
 		stroke: '#000',
