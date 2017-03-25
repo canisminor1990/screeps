@@ -30,6 +30,6 @@ export default (roomName) => {
 		.rect(1, 1.3, 6 / gcl.progressTotal * gcl.progress, 0.6, {fill: colorType.blue, opacity: 1})
 		.text(`GCL`, 1, 1, {font: 0.5, align: 'left', opacity: 1})
 		.text(`Lvl ${gcl.level}`, 1.5, 1, {font: 0.4, align: 'left',color:colorType.blue})
-		.text(`${gcl.progress}/${gcl.progressTotal}`, 1.2, 1.6, {font: 0.3, align: 'left',stroke:'rgba(0,0,0,.5)'})
+		.text(`${gcl.progress}/${gcl.progressTotal}`, 1.2, 1.6, {font: 0.4, align: 'left',stroke:'rgba(0,0,0,.5)'})
 	
 }
