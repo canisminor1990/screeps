@@ -2464,23 +2464,30 @@ var _util = __webpack_require__(0);
 exports.default = function () {
 	"use strict";
 
+	var room = Game.spawns['Spawn1'];
 	var gcl = Game.gcl,
 	    gclLeft = gcl.progressTotal - gcl.progress,
 	    gclProcess = Math.round(gcl.progress / gcl.progressTotal * 100);
 
-	var cl = Game.spawns['Spawn1'].room.controller,
+	var cl = room.room.controller,
 	    clProcess = Math.round(cl.progress / cl.progressTotal * 100),
 	    clSpeed = Math.round((cl.progress - Memory.timer['controller']) / 10),
 	    clLeft = cl.progressTotal - cl.progress,
 	    clTimeLeft = Math.round(clLeft / clSpeed);
 	Memory.timer['controller'] = cl.progress;
 
-	var tableLog = {
-		header: ['', 'Lvl', 'Progress', 'Left', 'Speed(tick)', 'TimeLeft'],
+	var gclLog = {
+		header: ['Type', 'Lvl', 'Progress', 'EnergyLeft', 'Speed(e/t)', 'TickLeft'],
 		body: [[_util.color.blue('GCL'), gcl.level, gclProcess + '%', gclLeft, '', ''], [_util.color.orange('CL'), cl.level, clProcess + '%', clLeft, clSpeed, clTimeLeft]]
 	};
+	//
+	var energyLog = {
+		header: ['Type', 'Store'],
+		body: [[_util.color.orange('Spawn'), room.spawn.store.energy], [_util.color.orange('Storage'), room.memory.structures.spawn.energy]]
+	};
 
-	return console.log((0, _util.table)(tableLog));
+	return console.log((0, _util.table)(gclLog));
+	return console.log((0, _util.table)(energyLog));
 };
 
 /***/ }),
