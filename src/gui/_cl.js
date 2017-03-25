@@ -25,5 +25,5 @@ export default (roomName) => {
 	      rclTimeLeft   = Math.round(rclLeft / rclSpeed);
 	Memory.timer['rcl'] = rcl.progress;
 	
-	room.visual.circle(1,1)
+	room.visual.circle(1,1,{radius:4,fill:'rgba(0,0,0,.5)',stroke:colorType.blue,strokeWidth:1,opcity:1})
 }
