@@ -15,7 +15,7 @@ export default (creep) => {
 		}
 	}
 	target = creep.pos.findInRange(memory.structures.container, 1)
-	if (target.length > 0 && target[0].hits < target[0].hitsMax) {
+	if (target && target.length > 0 && target[0].hits < target[0].hitsMax) {
 		if (repair(creep, target[0])) return;
 	}
 	target = Game.getObjectById(creep.memory.harvestTarget)
