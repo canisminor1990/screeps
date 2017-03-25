@@ -28,8 +28,8 @@ export default (roomName) => {
 	room.visual
 		.rect(1, 1.3, 6, 0.6, {fill: '#fff', opacity: 0.25})
 		.rect(1, 1.3, 6 / gcl.progressTotal * gcl.progress, 0.6, {fill: colorType.blue, opacity: 1})
-		.text(`GCL`, 1, 1, {font: 0.5, align: 'left',stroke:'rgba(0,0,0,.5)',strokeWidth:0.05})
-		.text(`Lvl ${gcl.level}`, 6, 1, {font: 0.4, align: 'right',stroke:'rgba(0,0,0,.5)',strokeWidth:0.05})
-		.text(`${gcl.progress}/${gcl.progressTotal}`, 1.2, 1.8, {font: 0.4, align: 'left',stroke:'rgba(0,0,0,.5)',strokeWidth:0.05})
+		.text(`GCL`, 1, 1, {font: 0.5, align: 'left',stroke:'rgba(0,0,0,.5)',strokeWidth:0.1})
+		.text(`Lvl ${gcl.level}`, 8, 1, {font: 0.4, align: 'right',stroke:'rgba(0,0,0,.5)',strokeWidth:0.1})
+		.text(`${gcl.progress}/${gcl.progressTotal}`, 1.2, 1.8, {font: 0.4, align: 'left',stroke:'rgba(0,0,0,.5)',strokeWidth:0.1})
 	
 }
