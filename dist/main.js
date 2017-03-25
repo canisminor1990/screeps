@@ -1456,7 +1456,7 @@ exports.default = function (roomName) {
 		if (ex.energy == ex.energyCapacity) extensionFull++;
 	});
 
-	room.visual.rect(0.1, 0.2, 4.2, 15.5, { fill: 'rgba(0,0,0,.5)', opacity: 0.5, stroke: '#000', strokeWidth: 0.1 }).rect(4.6, 0.2, 5.6, 10.5, { fill: 'rgba(0,0,0,.5)', opacity: 0.5, stroke: '#000', strokeWidth: 0.1 });
+	room.visual.rect(0.1, 0.2, 4.2, 15.5, { fill: 'rgba(0,0,0,.5)', opacity: 0.5, stroke: '#000', strokeWidth: 0.1 }).rect(4.6, 0.2, 5.6, 13, { fill: 'rgba(0,0,0,.5)', opacity: 0.5, stroke: '#000', strokeWidth: 0.1 });
 
 	var y = 1;
 	(0, _config2.default)().role.forEach(function (eachRole) {
@@ -1467,9 +1467,10 @@ exports.default = function (roomName) {
 	var x = 5;
 	gui(room, x, 1, colorType.blue, ['GCL', 'Lvl ' + gcl.level, gcl.progress, gcl.progressTotal]);
 	gui(room, x, 3, colorType.orange, ['RCL', 'Lvl ' + rcl.level, rcl.progress, rcl.progressTotal]);
-	gui(room, x, 5, colorType.yellow, ['Storage', '', storage.store.energy, storage.storeCapacity]);
-	gui(room, x, 7, colorType.yellow, ['Extension', '', extensionFull, extension.length]);
-	gui(room, x, 9, colorType.yellow, ['Spawn', '', spawn + extensionFull * 50, 300 + extension.length * 50]);
+	gui(room, x, 5, colorType.purple, ['CPU', '', Game.cpu.getUsed(), Game.cpu.limit]);
+	gui(room, x, 7, colorType.yellow, ['Storage', '', storage.store.energy, storage.storeCapacity]);
+	gui(room, x, 9, colorType.yellow, ['Extension', '', extensionFull, extension.length]);
+	gui(room, x, 11, colorType.yellow, ['Spawn', '', spawn + extensionFull * 50, 300 + extension.length * 50]);
 };
 
 function gui(room, x, y, color, content) {
