@@ -2464,12 +2464,12 @@ var _util = __webpack_require__(0);
 exports.default = function () {
 	"use strict";
 
-	var room = Game.spawns['Spawn1'];
+	var room = Game.spawns['Spawn1'].room;
 	var gcl = Game.gcl,
 	    gclLeft = gcl.progressTotal - gcl.progress,
 	    gclProcess = Math.round(gcl.progress / gcl.progressTotal * 100);
 
-	var cl = room.room.controller,
+	var cl = room.controller,
 	    clProcess = Math.round(cl.progress / cl.progressTotal * 100),
 	    clSpeed = Math.round((cl.progress - Memory.timer['controller']) / 10),
 	    clLeft = cl.progressTotal - cl.progress,

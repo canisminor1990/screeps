@@ -1,13 +1,13 @@
 import {emoji, color, table} from '../_util'
 export default () => {
 	"use strict";
-	const room       = Game.spawns['Spawn1']
+	const room       = Game.spawns['Spawn1'].room
 	const gcl        = Game.gcl,
 	      gclLeft    = gcl.progressTotal - gcl.progress,
 	      gclProcess = Math.round(gcl.progress / gcl.progressTotal * 100);
 	
 	
-	const cl                   = room.room.controller,
+	const cl                   = room.controller,
 	      clProcess            = Math.round(cl.progress / cl.progressTotal * 100),
 	      clSpeed              = Math.round((cl.progress - Memory.timer['controller']) / 10),
 	      clLeft               = cl.progressTotal - cl.progress,
