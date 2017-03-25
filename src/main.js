@@ -15,11 +15,11 @@ module.exports.loop = () => {
 			Manager.role(rooms)
 			Manager.structure(rooms)
 			// Gui.creepBar(rooms[0])
-			Gui.cl(rooms[0])
+			Gui.room(rooms[0])
 		});
 		
 	}
 	
-	// if (timer(10)) log(rooms[0], 10)
+	if (timer(10)) log(rooms[0], 10)
 }
 

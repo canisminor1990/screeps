@@ -785,7 +785,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _creepBar = __webpack_require__(29);
+var _creepBar = __webpack_require__(28);
 
 Object.defineProperty(exports, 'creepBar', {
   enumerable: true,
@@ -794,12 +794,12 @@ Object.defineProperty(exports, 'creepBar', {
   }
 });
 
-var _cl = __webpack_require__(28);
+var _room = __webpack_require__(29);
 
-Object.defineProperty(exports, 'cl', {
+Object.defineProperty(exports, 'room', {
   enumerable: true,
   get: function get() {
-    return _interopRequireDefault(_cl).default;
+    return _interopRequireDefault(_room).default;
   }
 });
 
@@ -1425,6 +1425,31 @@ Object.defineProperty(exports, "__esModule", {
 	value: true
 });
 
+exports.default = function (roomName) {
+	var room = Game.rooms[roomName];
+	room.find(FIND_MY_CREEPS).forEach(function (creep) {
+		"use strict";
+
+		room.visual.rect(creep.pos.x - 1, creep.pos.y - 1, 1, 0.2, { fill: '#000' });
+
+		room.visual.rect(creep.pos.x - 1, creep.pos.y - 1, 1 / 1500 * creep.ticksToLive, 0.2, {
+			fill: '#66D9EF',
+			opacity: 1
+		});
+	});
+};
+
+/***/ }),
+/* 29 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+	value: true
+});
+
 var _config = __webpack_require__(3);
 
 var _config2 = _interopRequireDefault(_config);
@@ -1518,31 +1543,6 @@ function guiCreep(room, x, y, name, number) {
 		align: 'right',
 		stroke: 'rgba(0,0,0,.7)',
 		strokeWidth: 0.1
-	});
-};
-
-/***/ }),
-/* 29 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-	value: true
-});
-
-exports.default = function (roomName) {
-	var room = Game.rooms[roomName];
-	room.find(FIND_MY_CREEPS).forEach(function (creep) {
-		"use strict";
-
-		room.visual.rect(creep.pos.x - 1, creep.pos.y - 1, 1, 0.2, { fill: '#000' });
-
-		room.visual.rect(creep.pos.x - 1, creep.pos.y - 1, 1 / 1500 * creep.ticksToLive, 0.2, {
-			fill: '#66D9EF',
-			opacity: 1
-		});
 	});
 };
 
@@ -2703,11 +2703,11 @@ module.exports.loop = function () {
 			Manager.role(rooms);
 			Manager.structure(rooms);
 			// Gui.creepBar(rooms[0])
-			Gui.cl(rooms[0]);
+			Gui.room(rooms[0]);
 		});
 	}
 
-	// if (timer(10)) log(rooms[0], 10)
+	if ((0, _util.timer)(10)) (0, _task.log)(rooms[0], 10);
 };
 
 /***/ })
