@@ -8,12 +8,12 @@ const colorType     = {
 	orange: '#FD971F',
 	green : '#A6E22E',
 };
+const guiWidth      = 4.8,
+      guiHeight     = 0.7,
+      guiCreepWidth = 3.5,
+      guiCreeHeight = 0.2;
 
 export default (roomName) => {
-	const guiWidth      = 4.8,
-	      guiHeight     = 0.7,
-	      guiCreepWidth = 3.5,
-	      guiCreeHeight = 0.2;
 	let guiX            = 5,
 	      guiY          = 1,
 	      guiCreepX     = .5,

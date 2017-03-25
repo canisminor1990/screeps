@@ -1440,12 +1440,12 @@ var colorType = {
 	orange: '#FD971F',
 	green: '#A6E22E'
 };
+var guiWidth = 4.8,
+    guiHeight = 0.7,
+    guiCreepWidth = 3.5,
+    guiCreeHeight = 0.2;
 
 exports.default = function (roomName) {
-	var guiWidth = 4.8,
-	    guiHeight = 0.7,
-	    guiCreepWidth = 3.5,
-	    guiCreeHeight = 0.2;
 	var guiX = 5,
 	    guiY = 1,
 	    guiCreepX = .5,
