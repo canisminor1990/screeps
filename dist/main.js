@@ -1443,7 +1443,8 @@ var colorType = {
 var guiWidth = 4.8,
     guiHeight = 0.7,
     guiCreepWidth = 3.5,
-    guiCreeHeight = 0.2;
+    guiCreeHeight = 0.2,
+    rowMargin = 0.3;
 
 exports.default = function (roomName) {
 	var guiX = 5,
@@ -1464,12 +1465,12 @@ exports.default = function (roomName) {
 		if (ex.energy == ex.energyCapacity) extensionFull++;
 	});
 
-	room.visual.rect(guiCreepX - bgPadding, guiCreepY - 2 * bgPadding, guiCreepWidth + 2 * bgPadding, 15.5, {
+	room.visual.rect(guiCreepX - bgPadding, guiCreepY - 2 * bgPadding, guiCreepWidth + 2 * bgPadding, 10 * (rowMargin + guiCreeHeight) + 2 * bgPadding, {
 		fill: 'rgba(0,0,0,.5)',
 		opacity: 0.5,
 		stroke: '#000',
 		strokeWidth: 0.05
-	}).rect(guiX - bgPadding, guiY - 2 * bgPadding, guiWidth + 2 * bgPadding, 12, {
+	}).rect(guiX - bgPadding, guiY - 2 * bgPadding, guiWidth + 2 * bgPadding, 6 * (rowMargin + guiHeight) + 2 * bgPadding, {
 		fill: 'rgba(0,0,0,.5)',
 		opacity: 0.5,
 		stroke: '#000',
@@ -1491,7 +1492,7 @@ exports.default = function (roomName) {
 
 function gui(room, x, y, color, content) {
 
-	room.visual.rect(x, y + 0.3, guiWidth, guiHeight, { fill: '#fff', opacity: 0.2 }).rect(x, y + 0.3, guiWidth * content[2] / content[3], guiHeight, { fill: color, opacity: 0.7 }).text(content[0], x, y, { font: 0.5, align: 'left', stroke: 'rgba(0,0,0,.7)', strokeWidth: 0.1 }).text(content[1], x + guiWidth, y, { font: 0.4, align: 'right', stroke: 'rgba(0,0,0,.7)', strokeWidth: 0.1 }).text(content[2] + ' / ' + content[3], x + .2, y + 0.8, {
+	room.visual.rect(x, y + rowMargin, guiWidth, guiHeight, { fill: '#fff', opacity: 0.2 }).rect(x, y + rowMargin, guiWidth * content[2] / content[3], guiHeight, { fill: color, opacity: 0.7 }).text(content[0], x, y, { font: 0.5, align: 'left', stroke: 'rgba(0,0,0,.7)', strokeWidth: 0.1 }).text(content[1], x + guiWidth, y, { font: 0.4, align: 'right', stroke: 'rgba(0,0,0,.7)', strokeWidth: 0.1 }).text(content[2] + ' / ' + content[3], x + .2, y + 0.8, {
 		font: 0.4,
 		align: 'left',
 		stroke: 'rgba(0,0,0,.7)',
@@ -1509,7 +1510,7 @@ function guiCreep(room, x, y, name, number) {
 	if (colorSwitch < 0) color = colorType.red;
 
 	var LineWidth = nowNumber > number ? number : nowNumber;
-	room.visual.rect(x, y + 0.3, guiCreepWidth, guiCreeHeight, { fill: color, opacity: 0.2 }).rect(x, y + 0.3, guiCreepWidth * LineWidth / number, guiCreeHeight, { fill: color, opacity: 0.7 }).text(name, x, y, { font: 0.5, align: 'left', stroke: 'rgba(0,0,0,.7)', strokeWidth: 0.1 }).text(nowNumber + '/' + number, x + guiCreepWidth, y, {
+	room.visual.rect(x, y + rowMargin, guiCreepWidth, guiCreeHeight, { fill: color, opacity: 0.2 }).rect(x, y + rowMargin, guiCreepWidth * LineWidth / number, guiCreeHeight, { fill: color, opacity: 0.7 }).text(name, x, y, { font: 0.5, align: 'left', stroke: 'rgba(0,0,0,.7)', strokeWidth: 0.1 }).text(nowNumber + '/' + number, x + guiCreepWidth, y, {
 		font: 0.4,
 		align: 'right',
 		stroke: 'rgba(0,0,0,.7)',
