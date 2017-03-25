@@ -40,7 +40,7 @@ export default (roomName) => {
 	gui(room, .5, 9, ['Spawn', '', spawn + extensionFull * 50, 300 + extension.length * 50])
 }
 
-function gui(room, x, y, content) {
+function gui(room, x, y, color,content) {
 	room.visual
 		.rect(x, y + 0.3, 6, 0.7, {fill: '#fff', opacity: 0.2})
 		.rect(x, y + 0.3, 6 * content[2] / content[3], 0.7, {fill: color, opacity: 0.7})
