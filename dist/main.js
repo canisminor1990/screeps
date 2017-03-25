@@ -1437,23 +1437,14 @@ var colorType = {
 exports.default = function (roomName) {
 	"use strict";
 
-	var room = Game.rooms[roomName];
-	var gcl = Game.gcl,
-	    gclLeft = gcl.progressTotal - gcl.progress,
-	    gclSpeed = Math.round(gcl.progress - Memory.timer['gcl']),
-	    gclProcess = Math.round(gcl.progress / gcl.progressTotal * 100),
-	    gclTimeLeft = Math.round(gclLeft / gclSpeed);
-	Memory.timer['gcl'] = gcl.progress;
+	var room = Game.rooms[roomName],
+	    gcl = Game.gcl,
+	    rcl = room.controller,
+	    storage = room.memory.structures.storage;
 
-	var rcl = room.controller,
-	    rclProcess = Math.round(rcl.progress / rcl.progressTotal * 100),
-	    rclSpeed = Math.round(rcl.progress - Memory.timer['rcl']),
-	    rclLeft = rcl.progressTotal - rcl.progress,
-	    rclTimeLeft = Math.round(rclLeft / rclSpeed);
-	Memory.timer['rcl'] = rcl.progress;
-
-	gui(room, .5, 1, colorType.blue, ['GCL', 'Lvl ' + gcl.level, gcl.progress / gcl.progressTotal, gcl.progress + '/' + gcl.progressTotal]);
-	gui(room, .5, 3, colorType.orange, ['RCL', 'Lvl ' + rcl.level, rcl.progress / rcl.progressTotal, rcl.progress + '/' + rcl.progressTotal]);
+	gui(room, .5, 1, colorType.blue, ['GCL', 'Lvl ' + gcl.level, gcl.progress / gcl.progressTotal, gcl.progress + ' / ' + gcl.progressTotal]);
+	gui(room, .5, 3, colorType.orange, ['RCL', 'Lvl ' + rcl.level, rcl.progress / rcl.progressTotal, rcl.progress + ' / ' + rcl.progressTotal]);
+	gui(room, .5, 5, colorType.yellow, ['Storage', '', storage.store.energy / storage.storeCapacity, storage.store.energy + ' / ' + storage.storeCapacity]);
 };
 
 function gui(room, x, y, color, content) {
