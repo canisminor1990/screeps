@@ -1201,23 +1201,22 @@ exports.default = function () {
     var role = [{
         role: "claim",
         body: { claim: 2, move: 1 },
-        timeout: 120,
         number: 1,
         priority: 7
     }, {
         role: "farMiner",
         body: { work: 8, carry: 1, move: 4 },
-        timeout: 120,
+        timeout: 100,
         number: 1,
         priority: 1
     }, {
         role: 'farHarvester',
         body: { carry: 5, move: 3, attack: 1 },
-        number: 3,
+        number: 2,
         priority: 5
     }, {
         role: 'farBuilder',
-        body: { carry: 4, work: 2, move: 3 },
+        body: { carry: 5, work: 1, move: 3 },
         number: 1,
         priority: 5
     }, {
