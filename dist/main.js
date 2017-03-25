@@ -1452,7 +1452,7 @@ exports.default = function (roomName) {
 	    rclTimeLeft = Math.round(rclLeft / rclSpeed);
 	Memory.timer['rcl'] = rcl.progress;
 
-	room.visual.circle(1, 1, { radius: .6, fill: 'rgba(0,0,0,.5)', stroke: colorType.blue, strokeWidth: .1, opacity: 1 }).text('<text>GCL</text>', 1, 1, { color: colorType.blue, font: '10px' }).text(gcl.level, 1, 1.2, { color: colorType.blue });
+	room.visual.circle(1, 1, { radius: .6, fill: 'rgba(0,0,0,.5)', stroke: colorType.blue, strokeWidth: .1, opacity: 1 }).text('GCL', 1, 1, { color: colorType.blue, font: 1 }).text(gcl.level, 1, 1.2, { color: colorType.blue });
 };
 
 /***/ }),
