@@ -66,10 +66,10 @@ function guiCreep(room, x, y, name, number) {
 	if (colorSwitch == 0) color = '#fff';
 	if (colorSwitch < 0) color = colorType.red;
 	
-	
+	let LineWidth = (nowNumber > number) ? number : nowNumber
 	room.visual
-		.rect(x, y + 0.3, width, height, {fill: '#fff', opacity: 0.2})
-		.rect(x, y + 0.3, width * nowNumber / number, height, {fill: color, opacity: 0.7})
+		.rect(x, y + 0.3, width, height, {fill: color, opacity: 0.2})
+		.rect(x, y + 0.3, width * LineWidth / number, height, {fill: color, opacity: 0.7})
 		.text(name, x, y, {font: 0.5, align: 'left', stroke: 'rgba(0,0,0,.7)', strokeWidth: 0.1})
 		.text(`${nowNumber}/${number}`, x + width, y, {
 			font       : 0.4,
