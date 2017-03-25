@@ -1926,9 +1926,7 @@ exports.default = function (roomArray) {
 	var targetCreeps = Memory.creeps;
 	var config = Memory.config;
 
-	var spawn = roomNext ? _.merge(targetCreeps.my, roomNext.memory.creeps.my) : targetCreeps.my;
-
-	structure.spawn(targetStructures.spawn, spawn, config);
+	structure.spawn(targetStructures.spawn, Memory.creepsGlobal, config);
 	targetStructures.tower.forEach(function (tower) {
 		return structure.tower(tower, targetStructures.needFix, targetCreeps.enemy);
 	});
