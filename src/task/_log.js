@@ -4,7 +4,7 @@ export default () => {
 	const gcl        = Game.gcl,
 	      gclLeft    = gcl.progressTotal - gcl.progress,
 	      gclProcess = Math.round(gcl.progress / gcl.progressTotal * 100);
-	const logGcl     = color('red', '[GCL]') + `Lv${gcl.level} (${gclProcess}%|${gclLeft})`
+	const logGcl     = color.blue('[GCL]') + `Lv${gcl.level} (${gclProcess}%|${gclLeft})`
 	
 	
 	const cl                   = Game.spawns['Spawn1'].room.controller,
@@ -13,7 +13,7 @@ export default () => {
 	      clLeft               = cl.progressTotal - cl.progress,
 	      clTimeLeft           = Math.round(clLeft / clSpeed);
 	Memory.timer['controller'] = cl.progress;
-	const logController        = color('blue', '[CL]') + `Lv${cl.level} (${clProcess}%|${clLeft}|${clSpeed}/tick|${clTimeLeft}tickLeft)`;
+	const logController        = color.orange('[CL]') + `Lv${cl.level} (${clProcess}%|${clLeft}|${clSpeed}/tick|${clTimeLeft}tickLeft)`;
 	
 	
 	console.log(emoji.claim, logGcl, logController);

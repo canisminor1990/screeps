@@ -832,10 +832,55 @@ exports.default = function (x, y, type) {
 Object.defineProperty(exports, "__esModule", {
 	value: true
 });
-
-exports.default = function (color, text) {
-	return "<font color=" + color + ">" + text + "</font>";
+var colorType = {
+	yellow: '#E6DB74',
+	blue: '#66D9EF',
+	red: '#F92672',
+	purple: '#AE81FF',
+	grey: '#75715E',
+	orange: '#FD971F',
+	green: '#A6E22E'
 };
+
+var color = function color(_color, content) {
+	return '<font color=' + _color + '>' + content + '</font>';
+};
+color.yellow = function (content) {
+	"use strict";
+
+	return '<font color=' + colorType.yellow + '>' + content + '</font>';
+};
+color.blue = function (content) {
+	"use strict";
+
+	return '<font color=' + colorType.blue + '>' + content + '</font>';
+};
+color.red = function (content) {
+	"use strict";
+
+	return '<font color=' + colorType.red + '>' + content + '</font>';
+};
+color.purple = function (content) {
+	"use strict";
+
+	return '<font color=' + colorType.purple + '>' + content + '</font>';
+};
+color.grey = function (content) {
+	"use strict";
+
+	return '<font color=' + colorType.grey + '>' + content + '</font>';
+};
+color.orange = function (content) {
+	"use strict";
+
+	return '<font color=' + colorType.orange + '>' + content + '</font>';
+};
+color.green = function (content) {
+	"use strict";
+
+	return '<font color=' + colorType.green + '>' + content + '</font>';
+};
+exports.default = color;
 
 /***/ }),
 /* 9 */
@@ -2377,7 +2422,7 @@ exports.default = function () {
 	var gcl = Game.gcl,
 	    gclLeft = gcl.progressTotal - gcl.progress,
 	    gclProcess = Math.round(gcl.progress / gcl.progressTotal * 100);
-	var logGcl = (0, _util.color)('red', '[GCL]') + ('Lv' + gcl.level + ' (' + gclProcess + '%|' + gclLeft + ')');
+	var logGcl = _util.color.blue('[GCL]') + ('Lv' + gcl.level + ' (' + gclProcess + '%|' + gclLeft + ')');
 
 	var cl = Game.spawns['Spawn1'].room.controller,
 	    clProcess = Math.round(cl.progress / cl.progressTotal * 100),
@@ -2385,7 +2430,7 @@ exports.default = function () {
 	    clLeft = cl.progressTotal - cl.progress,
 	    clTimeLeft = Math.round(clLeft / clSpeed);
 	Memory.timer['controller'] = cl.progress;
-	var logController = (0, _util.color)('blue', '[CL]') + ('Lv' + cl.level + ' (' + clProcess + '%|' + clLeft + '|' + clSpeed + '/tick|' + clTimeLeft + 'tickLeft)');
+	var logController = _util.color.orange('[CL]') + ('Lv' + cl.level + ' (' + clProcess + '%|' + clLeft + '|' + clSpeed + '/tick|' + clTimeLeft + 'tickLeft)');
 
 	console.log(_util.emoji.claim, logGcl, logController);
 };
