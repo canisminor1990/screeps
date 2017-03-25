@@ -25,8 +25,8 @@ export default () => {
 	const energyLog = {
 		header: ['Type', 'Store'],
 		body  : [
-			[color.yellow('Spawn'), room.spawn.store.energy],
-			[color.yellow('Storage'), room.memory.structures.spawn.energy]
+			[color.yellow('Spawn'), room.memory.structures.spawn.energy],
+			[color.yellow('Storage'), room.memory.structures.storage.store.energy]
 		]
 	}
 	
