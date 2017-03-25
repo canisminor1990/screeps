@@ -9,6 +9,6 @@ export default (roomArray) => {
 	const config           = Memory.config;
 	
 
-	structure.spawn(targetStructures.spawn, Memory.creepsGlobal, config);
+	structure.spawn(targetStructures.spawn, config);
 	targetStructures.tower.forEach(tower => structure.tower(tower, targetStructures.needFix, targetCreeps.enemy))
 }

@@ -1926,7 +1926,7 @@ exports.default = function (roomArray) {
 	var targetCreeps = Memory.creeps;
 	var config = Memory.config;
 
-	structure.spawn(targetStructures.spawn, Memory.creepsGlobal, config);
+	structure.spawn(targetStructures.spawn, config);
 	targetStructures.tower.forEach(function (tower) {
 		return structure.tower(tower, targetStructures.needFix, targetCreeps.enemy);
 	});
@@ -2506,7 +2506,7 @@ Object.defineProperty(exports, "__esModule", {
 
 var _util = __webpack_require__(0);
 
-exports.default = function (spawn, my, config) {
+exports.default = function (spawn, config) {
     var target = spawn.pos.findInRange(spawn.room.memory.creeps.my.attacker, 1);
     if (target && target.length > 0) {
         console.log(spawn.recycleCreep(target[0]));
@@ -2528,7 +2528,7 @@ exports.default = function (spawn, my, config) {
     roleFactory.forEach(function (roleType) {
         var roleName = roleType.role;
         var roleTimeout = roleType.timeout ? roleType.timeout : 10;
-        var roleMy = _.filter(my[roleName], function (roleCreep) {
+        var roleMy = _.filter(Memory.creepsGlobal[roleName], function (roleCreep) {
             return roleCreep.ticksToLive >= roleTimeout;
         });
         if (roleMy.length - roleType.number >= 0 || priority) return;
