@@ -2476,10 +2476,9 @@ exports.default = function (roomName) {
 	room.find(FIND_MY_CREEPS).forEach(function (creep) {
 		"use strict";
 
-		room.visual.rect(creep.pos.x, creep.pos.y - 1, 2, 0.2, {
-			stroke: '#111111',
-			color: '#ffffff'
-		});
+		room.visual.rect(creep.pos.x, creep.pos.y - 1, 1, 0.2, { fill: '#000' });
+
+		room.visual.rect(creep.pos.x, creep.pos.y - 1, 1 / 1500 * creep.ticksToLive, 0.2, { fill: '#44b336' });
 	});
 };
 
