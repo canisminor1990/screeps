@@ -26,6 +26,8 @@ export default (roomName) => {
 		if (ex.energy == ex.energyCapacity) extensionFull++
 	});
 	
+	room.visual.rect(1, 1, 7, 10, {fill: '#000', opacity: 0.2})
+	
 	let y = 1;
 	config().role.forEach(eachRole => {
 		guiCreep(room, .5, y, eachRole.role, eachRole.number)
