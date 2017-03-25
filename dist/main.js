@@ -1788,7 +1788,7 @@ exports.default = function (creep) {
 		if (dropped.length > 0) {
 			target = creep.pos.findClosestByRange(dropped);
 			if ((0, _action.pickup)(creep, target)) return;
-		}
+		}pioj;
 		target = creep.room.storage;
 		if ((0, _action.withdraw)(creep, target)) return;
 	} else {
@@ -2316,61 +2316,63 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 
 Object.defineProperty(exports, "__esModule", {
-    value: true
+	value: true
 });
 
 var _action = __webpack_require__(1);
 
 exports.default = function (creep) {
-    var flag = creep.room.memory.flags[0];
-    if (!flag) return;
-    var name = flag.name;
-    if (!name.match(/\//)) flag.remove();
-    var pos = flag.pos;
-    var command = void 0,
-        commandContent = void 0;
-    command = name.replace('/', '');
-    if (name.match(' ')) {
-        command = command.match(/[a-z]+ /);
-        commandContent = name.replace('/' + command, '');
-    }
-    console.log(command, commandContent);
-    var target = void 0;
-    switch (command) {
-        case 'attack' || 'a':
-            if (commandContent) {
-                target = Game.getObjectById(commandContent.replace(' ', ''));
-                if ((0, _action.attack)(creep, target[0])) break;
-            }
-            target = pos.findInRange(creep.room.memory.creeps.enemy, 6);
-            if (target.length > 0) {
-                if ((0, _action.attack)(creep, target[0])) break;
-            }
-            target = creep.pos.findInRange(creep.room.memory.structures.enemy, 6);
-            if (target.length > 0) {
-                if ((0, _action.attack)(creep, target[0])) break;
-            }
-            break;
-        case 'move' || 'moveTo' || 'moveto' || 'm':
-            if (commandContent == 'home') {
-                if ((0, _action.moveTo)(creep, Game.getObjectById('58ccc9d99f9ea168313dd115'))) break;
-            } else if (commandContent) {
-                if ((0, _action.moveTo)(creep, new RoomPosition(48, 21, commandContent))) break;
-            }
-            target = pos;
-            (0, _action.moveTo)(creep, target);
-            break;
-        case 'chai' || 'dis' || 'dismantle':
-            if (commandContent) {
-                target = Game.getObjectById(commandContent.replace(' ', ''));
-                if ((0, _action.dismantle)(creep, target[0])) break;
-            }
-            target = pos.findInRange(creep.room.memory.structures.enemy, 6);
-            if (target.length > 0) {
-                if ((0, _action.dismantle)(creep, target[0])) break;
-            }
-            break;
-    }
+	var flag = creep.room.memory.flags[0];
+	if (!flag) return;
+	var name = flag.name;
+	if (!name.match(/\//)) flag.remove();
+	var pos = flag.pos;
+	var command = void 0,
+	    commandContent = void 0;
+	command = name.replace('/', '');
+	if (name.match(' ')) {
+		command = command.match(/[a-z]+ /);
+		commandContent = name.replace('/' + command, '');
+	}
+	console.log(command, commandContent);
+	var target = void 0;
+	switch (command) {
+		case 'attack' || 'a':
+			if (commandContent) {
+				target = Game.getObjectById(commandContent.replace(' ', ''));
+				if ((0, _action.attack)(creep, target[0])) break;
+			}
+			target = pos.findInRange(creep.room.memory.creeps.enemy, 6);
+			if (target.length > 0) {
+				if ((0, _action.attack)(creep, target[0])) break;
+			}
+			target = creep.pos.findInRange(creep.room.memory.structures.enemy, 6);
+			if (target.length > 0) {
+				if ((0, _action.attack)(creep, target[0])) break;
+			}
+			break;
+		case 'move' || 'moveTo' || 'moveto' || 'm':
+			if (commandContent == 'home') {
+				if ((0, _action.moveTo)(creep, Game.getObjectById('58ccc9d99f9ea168313dd115'))) break;
+			} else if (commandContent) {
+				if ((0, _action.moveTo)(creep, new RoomPosition(48, 21, commandContent))) break;
+			}
+			target = pos;
+			(0, _action.moveTo)(creep, target);
+			break;
+		case 'chai' || 'dis' || 'dismantle':
+			if (commandContent) {
+				target = Game.getObjectById(commandContent.replace(' ', ''));
+				Memory.flags.dismantle = target.id;
+				if ((0, _action.dismantle)(creep, target)) break;
+			}
+			target = pos.findInRange(creep.room.memory.structures.enemy, 6);
+			if (target.length > 0) {
+				Memory.flags.dismantle = target[0].id;
+				if ((0, _action.dismantle)(creep, target[0])) break;
+			}
+			break;
+	}
 };
 
 /***/ })
