@@ -2279,17 +2279,23 @@ Object.defineProperty(exports, "__esModule", {
 	value: true
 });
 
+var _util = __webpack_require__(0);
+
 var _action = __webpack_require__(1);
 
 exports.default = function (creep) {
 	var memory = creep.room.memory;
 	var target = void 0;
 	// root
-	if (!creep.memory.harvestTarget) creep.memory.harvestTarget = memory.sources[0].source.id;
-	var needBuild = creep.room.memory.structures.needBuild;
-	if (needBuild.length > 0) {
-		target = creep.pos.findInRange(needBuild, 0);
-		if (target.length > 0 && (0, _action.build)(creep, target[0])) return;
+	(0, _util.isFull)(creep);
+	//run
+	if (creep.memory.full) {
+		if (!creep.memory.harvestTarget) creep.memory.harvestTarget = memory.sources[0].source.id;
+		var needBuild = creep.room.memory.structures.needBuild;
+		if (needBuild.length > 0) {
+			target = creep.pos.findInRange(needBuild, 0);
+			if (target.length > 0 && (0, _action.build)(creep, target[0])) return;
+		}
 	}
 	target = Game.getObjectById(creep.memory.harvestTarget);
 	var container = target.pos.findClosestByRange(target.room.memory.structures.container);
