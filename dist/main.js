@@ -2483,7 +2483,7 @@ exports.default = function () {
 	//
 	var energyLog = {
 		header: ['Type', 'Store'],
-		body: [[_util.color.orange('Spawn'), room.spawn.store.energy], [_util.color.orange('Storage'), room.memory.structures.spawn.energy]]
+		body: [[_util.color.yellow('Spawn'), room.spawn.store.energy], [_util.color.yellow('Storage'), room.memory.structures.spawn.energy]]
 	};
 
 	return console.log((0, _util.table)(gclLog));
