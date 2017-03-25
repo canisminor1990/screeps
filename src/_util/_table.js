@@ -10,6 +10,7 @@ export default (content) => {
 		tableHeader = `<tr style="border:1px solid #444;background: #444" >${tableHeader}</tr>`
 	}
 	contentBody.forEach(row => {
+		let tableCol;
 		row.forEach(col => tableCol += `<td style="border:1px solid #444;padding:2px 4px">${col}</td>`)
 		tableBody += `<tr style="border:1px solid #444" >${tableCol}</tr>`
 	})
