@@ -1459,7 +1459,7 @@ exports.default = function (roomName) {
 	var y = 1;
 	(0, _config2.default)().role.forEach(function (eachRole) {
 		guiCreep(room, 10, y, eachRole.role, eachRole.number);
-		y += 2;
+		y += 1;
 	});
 
 	gui(room, .5, 1, colorType.blue, ['GCL', 'Lvl ' + gcl.level, gcl.progress, gcl.progressTotal]);
@@ -1467,7 +1467,6 @@ exports.default = function (roomName) {
 	gui(room, .5, 5, colorType.yellow, ['Storage', '', storage.store.energy, storage.storeCapacity]);
 	gui(room, .5, 7, colorType.yellow, ['Extension', '', extensionFull, extension.length]);
 	gui(room, .5, 9, colorType.yellow, ['Spawn', '', spawn + extensionFull * 50, 300 + extension.length * 50]);
-	gui(room, .5, 9, ['Spawn', '', spawn + extensionFull * 50, 300 + extension.length * 50]);
 };
 
 function gui(room, x, y, color, content) {
@@ -1483,7 +1482,7 @@ function gui(room, x, y, color, content) {
 
 function guiCreep(room, x, y, name, number) {
 	var width = 3,
-	    height = 0.3;
+	    height = 0.2;
 	var creeps = room.memory.creeps.my;
 	room.visual.rect(x, y + 0.3, width, height, { fill: '#fff', opacity: 0.2 }).rect(x, y + 0.3, width * creeps[name].length / number, height, { fill: '#fff', opacity: 0.7 }).text(name, x, y, { font: 0.5, align: 'left', stroke: 'rgba(0,0,0,.7)', strokeWidth: 0.1 }).text(creeps[name].length + '/' + number, x + width, y, {
 		font: 0.4,

@@ -29,7 +29,7 @@ export default (roomName) => {
 	let y = 1;
 	config().role.forEach(eachRole => {
 		guiCreep(room, 10, y, eachRole.role, eachRole.number)
-		y += 2;
+		y += 1;
 	})
 	
 	gui(room, .5, 1, colorType.blue, ['GCL', `Lvl ${gcl.level}`, gcl.progress, gcl.progressTotal])
@@ -37,7 +37,6 @@ export default (roomName) => {
 	gui(room, .5, 5, colorType.yellow, ['Storage', '', storage.store.energy, storage.storeCapacity])
 	gui(room, .5, 7, colorType.yellow, ['Extension', '', extensionFull, extension.length])
 	gui(room, .5, 9, colorType.yellow, ['Spawn', '', spawn + extensionFull * 50, 300 + extension.length * 50])
-	gui(room, .5, 9, ['Spawn', '', spawn + extensionFull * 50, 300 + extension.length * 50])
 }
 
 function gui(room, x, y, color, content) {
@@ -58,7 +57,7 @@ function gui(room, x, y, color, content) {
 
 function guiCreep(room, x, y, name, number) {
 	const width  = 3,
-	      height = 0.3;
+	      height = 0.2;
 	const creeps = room.memory.creeps.my;
 	room.visual
 		.rect(x, y + 0.3, width, height, {fill: '#fff', opacity: 0.2})
