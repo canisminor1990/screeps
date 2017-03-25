@@ -1,6 +1,6 @@
 export default (room = Game.rooms['W81S67']) => {
     const needBuild = (room.memory.structures) ? room.memory.structures.needBuild : [];
-    const builderNumber = (needBuild.length > 0) ? Math.ceil(needBuild.length / 2) : 1
+    const builderNumber = (needBuild.length > 0) ? needBuild.length : 1
     const repair = {
         percent: 0.5,
         maxHits: 20000,
