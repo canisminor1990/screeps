@@ -29,10 +29,8 @@ export default (roomName) => {
 	Memory.timer['rcl'] = rcl.progress;
 	
 	
-	gui(room, 1, 1, colorType.blue, [
-		'GCL', `Lvl ${gcl.level}`, gcl.progress / gcl.progressTotal, `${gcl.progress}/${gcl.progressTotal}`
-	])
-	
+	gui(room, .5, 1, colorType.blue, ['GCL', `Lvl ${gcl.level}`, gcl.progress / gcl.progressTotal, `${gcl.progress}/${gcl.progressTotal}`])
+	gui(room, .5, 2, colorType.orange, ['RCL', `Lvl ${rcl.level}`, rcl.progress / rcl.progressTotal, `${rcl.progress}/${rcl.progressTotal}`])
 }
 
 function gui(room, x, y, color, content) {
