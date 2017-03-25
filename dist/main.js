@@ -2490,8 +2490,8 @@ exports.default = function (roomName) {
 		if (ex.energy == ex.energyCapacity) extensionFull++;
 	});
 	var energyLog = {
-		header: ['Spawn', 'Extension', 'CanUse', 'Storage'],
-		body: [[_util.color.yellow(room.memory.structures.spawn.energy), _util.color.green(extensionFull + '/' + extension.length), _util.color.yellow(extensionFull * 50 + room.memory.structures.spawn.energy), _util.color.yellow(room.memory.structures.storage.store.energy)]]
+		header: ['Storage', 'Spawn', 'Extension', 'CanUse'],
+		body: [[_util.color.yellow(room.memory.structures.storage.store.energy), room.memory.structures.spawn.energy, extensionFull + '/' + extension.length, extensionFull * 50 + room.memory.structures.spawn.energy]]
 	};
 
 	console.log((0, _util.table)(gclLog));
