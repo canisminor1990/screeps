@@ -2289,7 +2289,7 @@ exports.default = function (creep) {
 	var needBuild = creep.room.memory.structures.needBuild;
 	if (needBuild.length > 0) {
 		target = creep.pos.findInRange(needBuild, 0);
-		if (target && (0, _action.build)(creep, target)) return;
+		if (target.length > 0 && (0, _action.build)(creep, target[0])) return;
 	}
 	target = Game.getObjectById(creep.memory.harvestTarget);
 	var container = target.pos.findClosestByRange(target.room.memory.structures.container);
