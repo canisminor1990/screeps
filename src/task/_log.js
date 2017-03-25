@@ -39,7 +39,7 @@ export default (roomName, timeout) => {
 			extensionFull + '/' + extension.length,
 			extensionFull * 50 + room.memory.structures.spawn.energy,
 			Object.keys(Memory.creeps).length,
-			Game.cpu.getUsed() + '/' + Game.cpu.limit,
+			Math.floor(Game.cpu.getUsed()) + '/' + Game.cpu.limit,
 			Game.cpu.bucket
 		]]
 	}
