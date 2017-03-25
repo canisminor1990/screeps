@@ -1,10 +1,14 @@
-import {moveTo, harvest} from '../action'
+import {build, harvest} from '../action'
 export default (creep) => {
 	const memory = creep.room.memory;
 	let target;
 	// root
-	
 	if (!creep.memory.harvestTarget) creep.memory.harvestTarget = memory.sources[0].source.id;
+	const needBuild = creep.room.memory.structures.needBuild;
+	if (needBuild.length > 0) {
+		target = creep.pos.findInRange(needBuild,0);
+		if (target && build(creep, target))return;
+	}
 	target        = Game.getObjectById(creep.memory.harvestTarget)
 	let container = target.pos.findClosestByRange(target.room.memory.structures.container)
 	if (container && creep.carry.energy >= 50 && target.hits < target.hitsMax / 5) {

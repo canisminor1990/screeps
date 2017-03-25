@@ -2285,8 +2285,12 @@ exports.default = function (creep) {
 	var memory = creep.room.memory;
 	var target = void 0;
 	// root
-
 	if (!creep.memory.harvestTarget) creep.memory.harvestTarget = memory.sources[0].source.id;
+	var needBuild = creep.room.memory.structures.needBuild;
+	if (needBuild.length > 0) {
+		target = creep.pos.findInRange(needBuild, 0);
+		if (target && (0, _action.build)(creep, target)) return;
+	}
 	target = Game.getObjectById(creep.memory.harvestTarget);
 	var container = target.pos.findClosestByRange(target.room.memory.structures.container);
 	if (container && creep.carry.energy >= 50 && target.hits < target.hitsMax / 5) {
