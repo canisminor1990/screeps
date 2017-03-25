@@ -1493,8 +1493,10 @@ exports.default = function (roomName) {
 };
 
 function gui(room, x, y, color, content) {
-
-	room.visual.rect(x, y + rowMargin, guiWidth, guiHeight, { fill: '#fff', opacity: 0.2 }).rect(x, y + rowMargin, guiWidth * content[2] / content[3], guiHeight, { fill: color, opacity: 0.7 }).text(content[0], x, y, { font: 0.5, align: 'left', stroke: 'rgba(0,0,0,.7)', strokeWidth: 0.1 }).text(content[1], x + guiWidth, y, { font: 0.4, align: 'right', stroke: 'rgba(0,0,0,.7)', strokeWidth: 0.1 }).text(content[2] + ' / ' + content[3], x + .2, y + 0.8, {
+	var colorSwitch = content[2] - content[3];
+	if (colorSwitch > 0) color = colorType.red;
+	var LineWidth = colorSwitch > 0 ? content[3] : content[2];
+	room.visual.rect(x, y + rowMargin, guiWidth, guiHeight, { fill: '#fff', opacity: 0.2 }).rect(x, y + rowMargin, guiWidth * LineWidth / content[3], guiHeight, { fill: color, opacity: 0.7 }).text(content[0], x, y, { font: 0.5, align: 'left', stroke: 'rgba(0,0,0,.7)', strokeWidth: 0.1 }).text(content[1], x + guiWidth, y, { font: 0.4, align: 'right', stroke: 'rgba(0,0,0,.7)', strokeWidth: 0.1 }).text(content[2] + ' / ' + content[3], x + .2, y + 0.8, {
 		font: 0.4,
 		align: 'left',
 		stroke: 'rgba(0,0,0,.7)',
@@ -1510,8 +1512,7 @@ function guiCreep(room, x, y, name, number) {
 	if (colorSwitch > 0) color = colorType.green;
 	if (colorSwitch == 0) color = '#fff';
 	if (colorSwitch < 0) color = colorType.red;
-
-	var LineWidth = nowNumber > number ? number : nowNumber;
+	var LineWidth = colorSwitch > 0 ? number : nowNumber;
 	room.visual.rect(x, y + rowMargin, guiCreepWidth, guiCreepHeight, { fill: color, opacity: 0.2 }).rect(x, y + rowMargin, guiCreepWidth * LineWidth / number, guiCreepHeight, { fill: color, opacity: 0.7 }).text(name, x, y, { font: 0.5, align: 'left', stroke: 'rgba(0,0,0,.7)', strokeWidth: 0.1 }).text(nowNumber + '/' + number, x + guiCreepWidth, y, {
 		font: 0.4,
 		align: 'right',
