@@ -26,7 +26,7 @@ export default (roomName) => {
 		if (ex.energy == ex.energyCapacity) extensionFull++
 	});
 	
-	room.visual.rect(0.1, 0.2, 5, 15.5, {fill: 'rgba(0,0,0,.5)', opacity: 0.5, stroke: '#000', strokeWidth: 0.1})
+	room.visual.rect(0.1, 0.2, 4, 15.5, {fill: 'rgba(0,0,0,.5)', opacity: 0.5, stroke: '#000', strokeWidth: 0.1})
 	
 	let y = 1;
 	config().role.forEach(eachRole => {
@@ -43,7 +43,7 @@ export default (roomName) => {
 }
 
 function gui(room, x, y, color, content) {
-	const width  = 7,
+	const width  = 5,
 	      height = 0.7;
 	room.visual
 		.rect(x, y + 0.3, width, height, {fill: '#fff', opacity: 0.2})
@@ -61,7 +61,7 @@ function gui(room, x, y, color, content) {
 function guiCreep(room, x, y, name, number) {
 	const creeps           = room.memory.creeps.my,
 	      nowNumber        = (creeps[name]) ? creeps[name].length : 0,
-	      width            = 3,
+	      width            = 3.5,
 	      height           = 0.2;
 	let color, colorSwitch = nowNumber - number;
 	if (colorSwitch > 0) color = colorType.green;
