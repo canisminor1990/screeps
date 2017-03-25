@@ -2455,7 +2455,6 @@ exports.default = function () {
 	var gcl = Game.gcl,
 	    gclLeft = gcl.progressTotal - gcl.progress,
 	    gclProcess = Math.round(gcl.progress / gcl.progressTotal * 100);
-	var logGcl = _util.color.blue('[GCL]') + ('Lv' + gcl.level + ' (' + gclProcess + '%|' + gclLeft + ')');
 
 	var cl = Game.spawns['Spawn1'].room.controller,
 	    clProcess = Math.round(cl.progress / cl.progressTotal * 100),
@@ -2463,9 +2462,8 @@ exports.default = function () {
 	    clLeft = cl.progressTotal - cl.progress,
 	    clTimeLeft = Math.round(clLeft / clSpeed);
 	Memory.timer['controller'] = cl.progress;
-	var logController = _util.color.orange('[CL]') + ('Lv' + cl.level + ' (' + clProcess + '%|' + clLeft + '|' + clSpeed + '/tick|' + clTimeLeft + 'tickLeft)');
 
-	console.log((0, _util.table)([[_util.color.blue('GCL'), 'Lv' + gcl.level + ' (' + gclProcess + '%|' + gclLeft + ')'], [_util.color.orange('CL', 'Lv' + cl.level + ' (' + clProcess + '%|' + clLeft + '|' + clSpeed + '/tick|' + clTimeLeft + 'tickLeft)')]]));
+	console.log((0, _util.table)([[_util.color.blue('GCL'), 'Lv' + gcl.level, gclProcess + '%', gclLeft, '', ''], [_util.color.orange('CL'), 'Lv' + cl.level, clProcess + '%', clLeft, clSpeed + '/tick', clTimeLeft + 'tickLeft']]));
 };
 
 /***/ }),
