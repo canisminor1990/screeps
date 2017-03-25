@@ -4,7 +4,6 @@ export default () => {
 	const gcl        = Game.gcl,
 	      gclLeft    = gcl.progressTotal - gcl.progress,
 	      gclProcess = Math.round(gcl.progress / gcl.progressTotal * 100);
-
 	
 	
 	const cl                   = Game.spawns['Spawn1'].room.controller,
@@ -14,11 +13,14 @@ export default () => {
 	      clTimeLeft           = Math.round(clLeft / clSpeed);
 	Memory.timer['controller'] = cl.progress;
 	
+	const tableLog = {
+		header: ['', 'Lvl', 'Progress', 'Left', 'Speed(tick)', 'TimeLeft'],
+		body  : [
+			[color.blue('GCL'), gcl.level, `${gclProcess}%`, gclLeft, '', ''],
+			[color.orange('CL'), cl.level, `${clProcess}%`, clLeft, clSpeed, clTimeLeft],
+		]
+	}
 	
-	
-	console.log(table([
-		[color.blue('GCL'), `Lv${gcl.level}`, `${gclProcess}%`, gclLeft, '', ''],
-		[color.orange('CL'), `Lv${cl.level}`, `${clProcess}%`, clLeft, `${clSpeed}/tick`, `${clTimeLeft}tickLeft`],
-	]));
+	console.log(table(tableLog));
 }
 

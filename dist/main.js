@@ -963,15 +963,27 @@ Object.defineProperty(exports, "__esModule", {
 });
 
 exports.default = function (content) {
-	var tableRow = "";
-	content.forEach(function (row) {
-		var tableCol = "";
-		row.forEach(function (col) {
-			tableCol += "<td style=\"border:1px solid #444;padding:2px 4px\">" + col + "</td>";
+	var tableHeader = void 0,
+	    tableBody = void 0;
+	var contentHeadr = void 0,
+	    contentBody = void 0;
+	if (content instanceof Array) {
+		contentBody = content;
+	} else {
+		contentHeadr = content.header;
+		contentBody = content.body;
+		contentHeadr.forEach(function (col) {
+			return tableHeader += "<th>" + col + "</th>";
 		});
-		tableRow += "<tr style=\"border:1px solid #444\" >" + tableCol + "</tr>";
+		tableHeader = "<tr style=\"border:1px solid #444;background: #444\" >" + tableHeader + "</tr>";
+	}
+	contentBody.forEach(function (row) {
+		row.forEach(function (col) {
+			return tableCol += "<td style=\"border:1px solid #444;padding:2px 4px\">" + col + "</td>";
+		});
+		tableBody += "<tr style=\"border:1px solid #444\" >" + tableCol + "</tr>";
 	});
-	return "<table style=\"border:1px solid #444\">" + tableRow + "</table>";
+	return "<table style=\"border:1px solid #444\">" + tableHeader + tableBody + "</table>";
 };
 
 /***/ }),
@@ -2462,7 +2474,12 @@ exports.default = function () {
 	    clTimeLeft = Math.round(clLeft / clSpeed);
 	Memory.timer['controller'] = cl.progress;
 
-	console.log((0, _util.table)([[_util.color.blue('GCL'), 'Lv' + gcl.level, gclProcess + '%', gclLeft, '', ''], [_util.color.orange('CL'), 'Lv' + cl.level, clProcess + '%', clLeft, clSpeed + '/tick', clTimeLeft + 'tickLeft']]));
+	var tableLog = {
+		header: ['', 'Lvl', 'Progress', 'Left', 'Speed(tick)', 'TimeLeft'],
+		body: [[_util.color.blue('GCL'), gcl.level, gclProcess + '%', gclLeft, '', ''], [_util.color.orange('CL'), cl.level, clProcess + '%', clLeft, clSpeed, clTimeLeft]]
+	};
+
+	console.log((0, _util.table)(tableLog));
 };
 
 /***/ }),
