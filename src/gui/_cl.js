@@ -19,8 +19,7 @@ export default (roomName) => {
 	      rcl       = room.controller,
 	      storage   = room.memory.structures.storage,
 	      extension = room.memory.structures.extension,
-	      spawn     = room.memory.structures.spawn.energy,
-	      creeps    = room.memory.creeps.my;
+	      spawn     = room.memory.structures.spawn.energy;
 	
 	let extensionFull = 0;
 	extension.forEach(ex => {
@@ -28,7 +27,7 @@ export default (roomName) => {
 	});
 	
 	let y = 1;
-	config.role.forEach(role => {
+	config().role.forEach(role => {
 		guiCreep(room, 10, y, role.name, role.number)
 		y += 2;
 	})
@@ -41,7 +40,7 @@ export default (roomName) => {
 	gui(room, .5, 9, ['Spawn', '', spawn + extensionFull * 50, 300 + extension.length * 50])
 }
 
-function gui(creeps, x, y, name, content) {
+function gui(room, x, y, content) {
 	room.visual
 		.rect(x, y + 0.3, 6, 0.7, {fill: '#fff', opacity: 0.2})
 		.rect(x, y + 0.3, 6 * content[2] / content[3], 0.7, {fill: color, opacity: 0.7})
@@ -55,10 +54,11 @@ function gui(creeps, x, y, name, content) {
 		});
 };
 
-function guiCreep(creeps, x, y, name, number) {
+function guiCreep(room, x, y, name, number) {
+	const creeps = room.memory.creeps.my;
 	room.visual
 		.rect(x, y + 0.3, 6, 0.7, {fill: '#fff', opacity: 0.2})
-		.rect(x, y + 0.3, 6 * creeps[name].length/number, 0.7, {fill: color, opacity: 0.7})
+		.rect(x, y + 0.3, 6 * creeps[name].length / number, 0.7, {fill: color, opacity: 0.7})
 		.text(name, x, y, {font: 0.5, align: 'left', stroke: 'rgba(0,0,0,.7)', strokeWidth: 0.1})
 		.text(`${creeps[name].length}/${number}`, x + 6, y, {
 			font       : 0.4,
