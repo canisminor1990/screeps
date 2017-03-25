@@ -64,7 +64,7 @@ module.exports =
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 52);
+/******/ 	return __webpack_require__(__webpack_require__.s = 53);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -293,12 +293,21 @@ Object.defineProperty(exports, 'flags', {
   }
 });
 
-var _log = __webpack_require__(51);
+var _log = __webpack_require__(52);
 
 Object.defineProperty(exports, 'log', {
   enumerable: true,
   get: function get() {
     return _interopRequireDefault(_log).default;
+  }
+});
+
+var _gui = __webpack_require__(51);
+
+Object.defineProperty(exports, 'gui', {
+  enumerable: true,
+  get: function get() {
+    return _interopRequireDefault(_gui).default;
   }
 });
 
@@ -2462,6 +2471,29 @@ Object.defineProperty(exports, "__esModule", {
 	value: true
 });
 
+exports.default = function (roomName) {
+	var room = Game.room[roomName];
+	room.find(FIND_MY_CREEPS).forEach(function (creep) {
+		"use strict";
+
+		room.visual.text(creep.ticksToLive, creep.pos.x, creep.pos.y + 1, {
+			stroke: '#111111',
+			color: '#ffffff'
+		});
+	});
+};
+
+/***/ }),
+/* 52 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+	value: true
+});
+
 var _util = __webpack_require__(0);
 
 exports.default = function (roomName, timeout) {
@@ -2501,7 +2533,7 @@ exports.default = function (roomName, timeout) {
 };
 
 /***/ }),
-/* 52 */
+/* 53 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2535,6 +2567,7 @@ module.exports.loop = function () {
 			Manager.memory(rooms);
 			Manager.role(rooms);
 			Manager.structure(rooms);
+			(0, _task.gui)(rooms[0]);
 		});
 	}
 
