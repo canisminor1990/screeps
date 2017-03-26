@@ -338,8 +338,8 @@ exports.default = function () {
 		priority: 5
 	}, {
 		role: 'harvester',
-		body: { carry: 12, move: 6 },
-		number: 3,
+		body: { carry: 8, move: 1 },
+		number: 1,
 		priority: 2
 	}, {
 		role: 'upgrader',
