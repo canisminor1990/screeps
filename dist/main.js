@@ -329,6 +329,8 @@ exports.default = function () {
 
 	var needBuild = room.memory.structures ? room.memory.structures.needBuild : [];
 	var builderNumber = needBuild.length > 0 ? needBuild.length : 1;
+	if (!Memory.if) Memory.if = {};
+	var ifEnemy = Memory.if.enemy ? Memory.if.enemy : false;
 	var repair = {
 		percent: 0.5,
 		maxHits: 20000
@@ -337,24 +339,24 @@ exports.default = function () {
 		role: "claim",
 		body: { claim: 2, move: 1 },
 		timeout: 100,
-		number: 1,
+		number: ifEnemy ? 1 : 0,
 		priority: 7
 	}, {
 		role: "farMiner",
 		body: { work: 8, carry: 1, move: 4 },
 		timeout: 100,
-		number: 0,
+		number: ifEnemy ? 1 : 0,
 		priority: 1
 	}, {
 		role: 'farHarvester',
-		// body    : {carry: 5, move: 3, attack: 1},
-		body: { tough: 1, move: 1, attack: 1 },
-		number: 0,
+		body: { carry: 5, move: 3, attack: 1 },
+		// body    : {tough: 1, move: 1, attack: 1},
+		number: ifEnemy ? 2 : 0,
 		priority: 5
 	}, {
 		role: 'farBuilder',
 		body: { carry: 5, work: 1, move: 3 },
-		number: 0,
+		number: ifEnemy ? 1 : 0,
 		priority: 5
 	}, {
 		role: 'harvester',

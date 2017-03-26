@@ -1,36 +1,38 @@
 export default (room = Game.rooms['W81S67']) => {
 	const needBuild     = (room.memory.structures) ? room.memory.structures.needBuild : [];
 	const builderNumber = (needBuild.length > 0) ? needBuild.length : 1
-	const repair        = {
+	if (!Memory.if) Memory.if = {};
+	const ifEnemy = (Memory.if.enemy)?Memory.if.enemy:false;
+	const repair  = {
 		percent: 0.5,
 		maxHits: 20000,
 	}
-	const role          = [
+	const role    = [
 		{
 			role    : "claim",
 			body    : {claim: 2, move: 1},
 			timeout : 100,
-			number  : 1,
+			number  : (ifEnemy)?1:0,
 			priority: 7
 		},
 		{
 			role    : "farMiner",
 			body    : {work: 8, carry: 1, move: 4},
 			timeout : 100,
-			number  : 0,
+			number  : (ifEnemy)?1:0,
 			priority: 1
 		},
 		{
 			role    : 'farHarvester',
-			// body    : {carry: 5, move: 3, attack: 1},
-			body    : {tough: 1, move: 1, attack: 1},
-			number  : 0,
+			body    : {carry: 5, move: 3, attack: 1},
+			// body    : {tough: 1, move: 1, attack: 1},
+			number  : (ifEnemy)?2:0,
 			priority: 5
 		},
 		{
 			role    : 'farBuilder',
 			body    : {carry: 5, work: 1, move: 3},
-			number  : 0,
+			number  : (ifEnemy)?1:0,
 			priority: 5
 		},
 		{
