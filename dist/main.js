@@ -2690,7 +2690,7 @@ exports.default = function (creep, newRoom) {
 			if ((0, _action.build)(creep, target)) return;
 		}
 		target = Game.getObjectById('58d07b35bfeec6256575be5d');
-		if (transfer(creep, target)) return;
+		if ((0, _action.transfer)(creep, target)) return;
 	}
 };
 
