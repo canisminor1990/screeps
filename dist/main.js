@@ -2010,7 +2010,7 @@ exports.default = function (room, miner) {
 	rawSources.forEach(function (source) {
 		var minerNumber = 0;
 		miner.forEach(function (creep) {
-			if (creep.memory.harvestTarget == source.id) minerNumber++;
+			if (creep.memory.harvestTarget == source.id && creep.ticksToLive > 100) minerNumber++;
 			if (creep.pos.inRangeTo(source, 2)) minerNumber++;
 		});
 
