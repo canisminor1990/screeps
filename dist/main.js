@@ -299,37 +299,6 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 
 Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _flags = __webpack_require__(57);
-
-Object.defineProperty(exports, 'flags', {
-  enumerable: true,
-  get: function get() {
-    return _interopRequireDefault(_flags).default;
-  }
-});
-
-var _log = __webpack_require__(58);
-
-Object.defineProperty(exports, 'log', {
-  enumerable: true,
-  get: function get() {
-    return _interopRequireDefault(_log).default;
-  }
-});
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-/***/ }),
-/* 3 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
 	value: true
 });
 
@@ -413,6 +382,37 @@ exports.default = function () {
 		linkMain: '58d505eb204ecd9e507951f0'
 	};
 };
+
+/***/ }),
+/* 3 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _flags = __webpack_require__(57);
+
+Object.defineProperty(exports, 'flags', {
+  enumerable: true,
+  get: function get() {
+    return _interopRequireDefault(_flags).default;
+  }
+});
+
+var _log = __webpack_require__(58);
+
+Object.defineProperty(exports, 'log', {
+  enumerable: true,
+  get: function get() {
+    return _interopRequireDefault(_log).default;
+  }
+});
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 /***/ }),
 /* 4 */
@@ -1532,7 +1532,7 @@ Object.defineProperty(exports, "__esModule", {
 
 var _util = __webpack_require__(0);
 
-var _config = __webpack_require__(3);
+var _config = __webpack_require__(2);
 
 var _config2 = _interopRequireDefault(_config);
 
@@ -1855,7 +1855,7 @@ Object.defineProperty(exports, "__esModule", {
 	value: true
 });
 
-var _config = __webpack_require__(3);
+var _config = __webpack_require__(2);
 
 var _config2 = _interopRequireDefault(_config);
 
@@ -2053,7 +2053,7 @@ Object.defineProperty(exports, "__esModule", {
 
 var _action = __webpack_require__(1);
 
-var _task = __webpack_require__(2);
+var _task = __webpack_require__(3);
 
 exports.default = function (creep) {
   // let flagMemory = creep.room.memory.flags
@@ -2606,8 +2606,14 @@ Object.defineProperty(exports, "__esModule", {
 	value: true
 });
 
+var _config = __webpack_require__(2);
+
+var _config2 = _interopRequireDefault(_config);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
 exports.default = function (link) {
-	var linkMain = link.room.memory.config.linkMain;
+	var linkMain = (0, _config2.default)().linkMain;
 	if (link.id == linkMain && link.cooldown > 0 && link.energy < link.energyCapacity) return;
 	var target = Game.getObjectById('58d505eb204ecd9e507951f0');
 	link.transferEnergy(target);
@@ -2866,7 +2872,7 @@ var Gui = _interopRequireWildcard(_gui);
 
 var _util = __webpack_require__(0);
 
-var _task = __webpack_require__(2);
+var _task = __webpack_require__(3);
 
 var _screepsProfiler = __webpack_require__(5);
 
