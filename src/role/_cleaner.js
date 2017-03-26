@@ -11,6 +11,7 @@ export default (creep) => {
 	// run
 	let needFill = creep.room.memory.structures.needFill;
 	target = Game.getObjectById(creep.room.memory.linkMain);
+	console.log(target)
 	if (withdraw(creep, target)) return;
 	if (!creep.memory.full) {
 		if (!needFill || needFill.length == 0) {
