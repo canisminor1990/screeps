@@ -1,17 +1,12 @@
 import {attack, moveTo, dismantle} from '../action'
+import {flagCommand} from '../_util'
 export default (creep) => {
-	let flag = creep.room.memory.flags[0];
+	let flagRaw = creep.room.memory.flags[0];
 	if (!flag) return;
-	let name = flag.name;
-	if (!name.match(/\//)) flag.remove();
-	const pos = flag.pos;
-	let command, commandContent;
-	command = name.replace('/', '');
-	if (name.match(' ')) {
-		command = command.match(/[a-z]+ /)
-		commandContent = name.replace('/' + command, '')
-	}
-	console.log(command, commandContent)
+	const flag           = flagCommand(flagRaw),
+	      pos            = flag.pos,
+	      command        = flag.command,
+	      commandContent = flag.commandContent;
 	let target;
 	switch (command) {
 		case 'attack' || 'a':
@@ -39,7 +34,7 @@ export default (creep) => {
 			break;
 		case 'chai' || 'dis' || 'dismantle':
 			if (commandContent) {
-				target = Game.getObjectById(commandContent.replace(' ', ''));
+				target                 = Game.getObjectById(commandContent.replace(' ', ''));
 				Memory.flags.dismantle = target.id
 				if (dismantle(creep, target))break;
 			}
