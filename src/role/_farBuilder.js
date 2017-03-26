@@ -1,6 +1,7 @@
 import {isFull} from '../_util'
 import {moveTo,withdraw, build, pickup, transfer,repair} from '../action'
 export default (creep, newRoom) => {
+	if(!newRoom) return;
 	const room = Game.spawns['Spawn1'].room;
 	const needBuild = newRoom.memory.structures.needBuild;
 	let target;
