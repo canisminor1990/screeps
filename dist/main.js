@@ -1153,7 +1153,7 @@ exports.default = function (flag) {
 		commandContent = name.replace('/' + command, '');
 	}
 	return {
-		command: command,
+		command: command.replace(/ /g, ''),
 		commandContent: commandContent,
 		pos: flag.pos
 	};
