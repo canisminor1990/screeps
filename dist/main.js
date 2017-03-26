@@ -986,7 +986,6 @@ exports.default = function (creep, target, fc, text) {
 			break;
 		case ERR_NOT_ENOUGH_ENERGY:
 			creep.say(text + "ENERGY");
-			return true;
 			break;
 		case ERR_NOT_ENOUGH_RESOURCES:
 			creep.say(text + "RESOURCES");
