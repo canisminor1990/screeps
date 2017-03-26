@@ -1,5 +1,5 @@
 export default (flag) => {
-	let name = flag.name;
+	let name = flag.name.split(' ');
 	if (!name.match(/\//)) flag.remove();
 	let command, commandContent;
 	command = name.replace('/', '');
@@ -9,8 +9,8 @@ export default (flag) => {
 	}
 
 	return {
-		command       : command.replace(/ /g,''),
-		commandContent: commandContent,
+		command       : name[0].replace('/',''),
+		commandContent: name[1],
 		pos           : flag.pos
 	}
 }

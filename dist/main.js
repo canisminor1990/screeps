@@ -1143,7 +1143,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 
 exports.default = function (flag) {
-	var name = flag.name;
+	var name = flag.name.split(' ');
 	if (!name.match(/\//)) flag.remove();
 	var command = void 0,
 	    commandContent = void 0;
@@ -1154,8 +1154,8 @@ exports.default = function (flag) {
 	}
 
 	return {
-		command: command.replace(/ /g, ''),
-		commandContent: commandContent,
+		command: name[0].replace('/', ''),
+		commandContent: name[1],
 		pos: flag.pos
 	};
 };
