@@ -9,7 +9,7 @@ export default (creep, newRoom) => {
 	if (!creep.memory.full) {
 		const dropped = creep.room.memory.dropped.energy;
 		if (dropped.length > 0) {
-			target = creep.pos.findInRange(dropped, 0);
+			target = creep.pos.findInRange(dropped, 4);
 			if (pickup(creep, target[0])) return;
 		}
 		target = Game.getObjectById(creep.memory.harvestTarget)
