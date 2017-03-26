@@ -2326,7 +2326,9 @@ exports.default = function (creep) {
 				target = creep.pos.findInRange(dropped, 6);
 				if ((0, _action.pickup)(creep, target[0])) return;
 			}
-			if ((0, _action.withdraw)(creep, container)) return;
+			if (container.store.energy > 0) {
+				if ((0, _action.withdraw)(creep, container)) return;
+			}
 		} else {
 			target = creep.room.memory.structures.needFill;
 			if (target.length > 0) {
