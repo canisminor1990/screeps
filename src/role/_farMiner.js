@@ -22,7 +22,7 @@ export default (creep, newRoom) => {
 		}
 	}
 	target = Game.getObjectById('58d564b2c4e2b16629ae028f');
-	if (target && creep.carry.energy >= 50 && target.hits < target.hitsMax / 2) {
+	if (target && creep.carry.energy >= 50 && target.hits < target.hitsMax) {
 		if (repair(creep, target)) return;
 	}
 	if (!creep.memory.harvestTarget) creep.memory.harvestTarget = '5873bc3511e3e4361b4d7390';

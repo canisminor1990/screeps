@@ -1,16 +1,12 @@
 import * as role from '../role';
 export default (roomArrary) => {
-	
-	_.each(roomArrary, room => {
-			if (!Game.rooms[room]) return;
-			room           = Game.rooms[room];
-			const Memory   = room.memory;
-			const myCreeps = Memory.creeps.my;
-			const newRoom  = {
-				pos   : new RoomPosition(25, 47, roomArrary[1]),
-				memory: (Game.rooms[roomArrary[1]]) ? Game.rooms[roomArrary[1]].memory : {}
-			};
-			
+	const newRoom = {
+		pos   : new RoomPosition(25, 47, roomArrary[1]),
+		memory: (Game.rooms[roomArrary[1]]) ? Game.rooms[roomArrary[1]].memory : {}
+	};
+	roomArrary.forEach(room => {
+			room = Game.rooms[room];
+			if (!room) return;
 			for (let name in Game.creeps) {
 				let creep = Game.creeps[name]
 				switch (creep.memory.role) {

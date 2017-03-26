@@ -1,0 +1,1 @@
+export {default as attack} from './_attack'

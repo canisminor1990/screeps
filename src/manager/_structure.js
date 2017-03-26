@@ -1,11 +1,11 @@
 import * as structure from '../structure';
 
 export default (roomArray) => {
-	
-	_.each(roomArray, room => {
-		if (Game.rooms[room] && Game.rooms[room].memory) {
-			const structures = Game.rooms[room].memory.structures;
-			const config     = Game.rooms[room].memory.config;
+	roomArray.forEach(room => {
+		room = Game.rooms[room];
+		if (room && room.memory) {
+			const structures = room.memory.structures;
+			const config     = room.memory.config;
 			if (structures.spawn) structure.spawn(structures.spawn, config);
 			if (structures.link) structures.link.forEach(link => structure.link(link));
 			if (structures.tower) structures.tower.forEach(tower => structure.tower(tower))
