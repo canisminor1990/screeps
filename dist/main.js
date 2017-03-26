@@ -2158,8 +2158,9 @@ exports.default = function (creep) {
 	var needFill = creep.room.memory.structures.needFill;
 	if (!creep.memory.full) {
 		target = Game.getObjectById(creep.room.memory.config.linkMain);
-		if ((0, _action.withdraw)(creep, target)) return;
 		console.log(target);
+		if ((0, _action.withdraw)(creep, target)) return;
+
 		if (!needFill || needFill.length == 0) {
 			var dropped = creep.room.memory.dropped.energy;
 			if (dropped.length > 0) {
