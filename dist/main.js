@@ -1890,7 +1890,6 @@ exports.default = function (room) {
 		var flag = (0, _util.flagCommand)(flagRaw),
 		    command = flag.command,
 		    commandContent = flag.commandContent;
-		console.log(command, commandContent);
 		switch (command) {
 			case 'attack' || 'a':
 				flagsMemory.attack.push(flags.attack(commandContent, flagRaw));
@@ -1902,6 +1901,7 @@ exports.default = function (room) {
 				flagsMemory.dismantle.push(flags.dismantle(commandContent, flagRaw));
 				break;
 			case 'gui':
+				console.log(command, commandContent);
 				flagsMemory.gui[commandContent] = flagRaw.pos;
 				break;
 		}
