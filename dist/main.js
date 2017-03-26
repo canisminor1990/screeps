@@ -2515,57 +2515,58 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 
 Object.defineProperty(exports, "__esModule", {
-    value: true
+	value: true
 });
 
 var _util = __webpack_require__(0);
 
 exports.default = function (spawn, config) {
-    var target = spawn.pos.findInRange(spawn.room.memory.creeps.my.attacker, 1);
-    if (target && target.length > 0) {
-        console.log(spawn.recycleCreep(target[0]));
-    }
-    if (spawn.spawning) {
-        var percent = Math.round((1 - spawn.spawning.remainingTime / spawn.spawning.needTime) * 100),
-            text = [_util.emoji.build, spawn.spawning.name.split('#')[0], '(' + percent + '%)'].join(' ');
-        console.log(text);
-        spawn.room.visual.text(text, spawn.pos.x + 1, spawn.pos.y, {
-            align: 'left',
-            stroke: '#111111',
-            color: '#ffffff'
-        });
-        return;
-    }
-
-    var roleFactory = config.role;
-    var priority = false;
-    roleFactory.forEach(function (roleType) {
-        var roleName = roleType.role;
-        var roleTimeout = roleType.timeout ? roleType.timeout : 10;
-        var roleMy = _.filter(Memory.creepsGlobal[roleName], function (roleCreep) {
-            return roleCreep.ticksToLive >= roleTimeout;
-        });
-        if (roleMy.length - roleType.number >= 0 || priority) return;
-        var spawnName = buildName(roleName);
-        spawn.createCreep(buildBody(roleType.body), spawnName, { role: roleName, name: spawnName });
-        console.log(roleName, 'now:', roleMy.length, 'need:', roleType.number);
-        priority = true;
-    });
+	var target = spawn.pos.findInRange(spawn.room.memory.creeps.my.attacker, 1);
+	if (target && target.length > 0) {
+		console.log(spawn.recycleCreep(target[0]));
+	}
+	if (spawn.spawning) {
+		var percent = Math.round((1 - spawn.spawning.remainingTime / spawn.spawning.needTime) * 100),
+		    text = [_util.emoji.build, spawn.spawning.name.split('#')[0], '(' + percent + '%)'].join(' ');
+		console.log(text);
+		spawn.room.visual.text(text, spawn.pos.x + 1, spawn.pos.y, {
+			align: 'left',
+			stroke: '#111111',
+			color: '#ffffff'
+		});
+		return;
+	}
+	if ((0, _util.timer)(2)) {
+		var roleFactory = config.role;
+		var priority = false;
+		roleFactory.forEach(function (roleType) {
+			var roleName = roleType.role;
+			var roleTimeout = roleType.timeout ? roleType.timeout : 10;
+			var roleMy = _.filter(Memory.creepsGlobal[roleName], function (roleCreep) {
+				return roleCreep.ticksToLive >= roleTimeout;
+			});
+			if (roleMy.length - roleType.number >= 0 || priority) return;
+			var spawnName = buildName(roleName);
+			spawn.createCreep(buildBody(roleType.body), spawnName, { role: roleName, name: spawnName });
+			console.log(roleName, 'now:', roleMy.length, 'need:', roleType.number);
+			priority = true;
+		});
+	}
 };
 
 function buildName(role) {
-    var date = new Date();
-    return [role, "#", date.getHours(), date.getMinutes(), date.getSeconds()].join('');
+	var date = new Date();
+	return [role, "#", date.getHours(), date.getMinutes(), date.getSeconds()].join('');
 }
 
 function buildBody(obj) {
-    var array = [];
-    for (var key in obj) {
-        for (var num = 0; num < obj[key]; num++) {
-            array.push(key);
-        }
-    }
-    return array;
+	var array = [];
+	for (var key in obj) {
+		for (var num = 0; num < obj[key]; num++) {
+			array.push(key);
+		}
+	}
+	return array;
 }
 
 /***/ }),
