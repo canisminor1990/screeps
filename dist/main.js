@@ -333,9 +333,9 @@ exports.default = function () {
 		priority: 1
 	}, {
 		role: "farMinerSec",
-		body: { work: 4, carry: 6, move: 6 },
+		body: { work: 4, carry: 6, move: 5 },
 		timeout: 100,
-		number: noEnemy['W82S67'].safe ? 6 : 0,
+		number: noEnemy['W82S67'].safe ? 5 : 0,
 		priority: 8
 	}, {
 		role: 'farHarvester',
