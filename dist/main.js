@@ -2241,9 +2241,8 @@ exports.default = function (creep) {
 	// run
 	target = creep.room.memory.flags.dismantle;
 	if (target.length > 0) {
-		console.log(111);
 		target = creep.pos.findClosestByRange(target);
-		(0, _action.dismantle)(target);
+		(0, _action.dismantle)(creep, target);
 	}
 	if (creep.memory.full) {
 		var needBuild = creep.room.memory.structures.needBuild;
