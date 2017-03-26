@@ -61,7 +61,7 @@ export default (room = Game.rooms['W81S67']) => {
 		},
 		{
 			role    : 'cleaner',
-			body    : {carry: 4, move: 2},
+			body    : {carry: 6, move: 3},
 			number  : 2,
 			priority: 0
 		},
