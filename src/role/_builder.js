@@ -8,7 +8,7 @@ export default (creep) => {
 	// run
 	target = creep.room.memory.flags.dismantle
 	if (target.length > 0) {
-		target.creep.pos.findClosestByRange(target)
+		target = creep.pos.findClosestByRange(target)
 		dismantle(target)
 	}
 	if (creep.memory.full) {
