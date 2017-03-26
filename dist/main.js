@@ -2245,7 +2245,7 @@ exports.default = function (creep, newRoom) {
 	if (target && creep.carry.energy >= 50 && target.hits < target.hitsMax / 5) {
 		if ((0, _action.repair)(creep, target)) return;
 	}
-	if (!creep.memory.harvestTarget) creep.memory.harvestTarget = newRoom.memory.sources[0].source.id;
+	if (!creep.memory.harvestTarget) creep.memory.harvestTarget = '5873bc3511e3e4361b4d7390';
 	target = Game.getObjectById(creep.memory.harvestTarget);
 	if (!target) {
 		(0, _action.moveTo)(creep, newRoom.pos);
