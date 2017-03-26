@@ -334,7 +334,7 @@ exports.default = function () {
 		role: "farMiner",
 		body: { work: 8, carry: 1, move: 4 },
 		timeout: 100,
-		number: 2,
+		number: 1,
 		priority: 1
 	}, {
 		role: 'farHarvester',
