@@ -35,7 +35,7 @@ export default (creep) => {
 		case 'chai' || 'dis' || 'dismantle':
 			if (commandContent) {
 				target              = Game.getObjectById(commandContent.replace(' ', ''));
-				Memory.if.dismantle = target.id
+				Memory.trigger.dismantle = target.id
 				if (dismantle(creep, target))break;
 			}
 			target = pos.findInRange(creep.room.memory.structures.enemy, 6)

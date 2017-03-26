@@ -1,10 +1,12 @@
-export default () => {
-	"use strict";
-	/*
-	 let trigger = {
-	 noEnemy: true || false,
-	 dismantle : id,
-	 }
-	 */
+const trigger = () => {
+
 	
 }
+
+trigger.install = () => {
+	if (!Memory.trigger) Memory.trigger = {
+		dismantle: '',
+		noEnemy  : true
+	};
+}
+export default trigger;

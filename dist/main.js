@@ -64,7 +64,7 @@ module.exports =
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 59);
+/******/ 	return __webpack_require__(__webpack_require__.s = 60);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -320,6 +320,15 @@ Object.defineProperty(exports, 'log', {
   }
 });
 
+var _trigger = __webpack_require__(59);
+
+Object.defineProperty(exports, 'trigger', {
+  enumerable: true,
+  get: function get() {
+    return _interopRequireDefault(_trigger).default;
+  }
+});
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 /***/ }),
@@ -338,8 +347,7 @@ exports.default = function () {
 
 	var needBuild = room.memory.structures ? room.memory.structures.needBuild : [];
 	var builderNumber = needBuild.length > 0 ? needBuild.length : 1;
-	if (!Memory.if) Memory.if = {};
-	var noEnemy = Memory.if.noEnemy ? Memory.if.noEnemy : true;
+	var noEnemy = Memory.trigger.noEnemy ? Memory.trigger.noEnemy : true;
 	// const ifEnemy = true;
 	var repair = {
 		percent: 0.5,
@@ -2806,7 +2814,7 @@ exports.default = function (creep) {
 		case 'chai' || 'dis' || 'dismantle':
 			if (commandContent) {
 				target = Game.getObjectById(commandContent.replace(' ', ''));
-				Memory.if.dismantle = target.id;
+				Memory.trigger.dismantle = target.id;
 				if ((0, _action.dismantle)(creep, target)) break;
 			}
 			target = pos.findInRange(creep.room.memory.structures.enemy, 6);
@@ -2873,6 +2881,26 @@ exports.default = function (roomName, timeout) {
 "use strict";
 
 
+Object.defineProperty(exports, "__esModule", {
+	value: true
+});
+var trigger = function trigger() {};
+
+trigger.install = function () {
+	if (!Memory.trigger) Memory.trigger = {
+		dismantle: '',
+		noEnemy: true
+	};
+};
+exports.default = trigger;
+
+/***/ }),
+/* 60 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
 __webpack_require__(4);
 
 var _manager = __webpack_require__(7);
@@ -2898,9 +2926,11 @@ function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj;
 var rooms = ['W81S67', 'W81S66', 'W82S67'];
 _screepsProfiler2.default.enable();
 console.log('# Coding Update!');
+_task.trigger.install();
 module.exports.loop = function () {
 	if (Game.cpuLimit > 100) {
 		_screepsProfiler2.default.wrap(function () {
+			(0, _task.trigger)();
 			Manager.root();
 			Manager.memory(rooms);
 			Manager.role(rooms);

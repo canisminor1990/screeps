@@ -1,8 +1,7 @@
 export default (room = Game.rooms['W81S67']) => {
 	const needBuild     = (room.memory.structures) ? room.memory.structures.needBuild : [];
 	const builderNumber = (needBuild.length > 0) ? needBuild.length : 1
-	if (!Memory.if) Memory.if = {};
-	const noEnemy = (Memory.if.noEnemy) ? Memory.if.noEnemy : true;
+	const noEnemy = (Memory.trigger.noEnemy) ? Memory.trigger.noEnemy : true;
 	// const ifEnemy = true;
 	const repair  = {
 		percent: 0.5,
