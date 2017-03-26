@@ -22,6 +22,8 @@ export default (creep, target, fc, text) => {
 			break;
 		case ERR_NOT_ENOUGH_ENERGY     :
 			creep.say(text + "ENERGY");
+			if (creep.memory.role.match('iner')) moveTo(creep, target);
+			return true;
 			break;
 		case ERR_NOT_ENOUGH_RESOURCES  :
 			creep.say(text + "RESOURCES");
