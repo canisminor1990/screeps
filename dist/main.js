@@ -1902,6 +1902,7 @@ exports.default = function (room) {
 				flagsMemory.moveTo.push(flags.moveTo(commandContent, flagRaw));
 				break;
 			case 'dis' || 'dismantle':
+				console.log(command, commandContent);
 				flagsMemory.dismantle.push(flags.dismantle(commandContent, flagRaw));
 				break;
 		}
