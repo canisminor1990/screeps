@@ -37,6 +37,9 @@ export default (roomArrary) => {
 					case 'claim':
 						role.claim(creep, newRoom)
 						break;
+					case 'claimSec':
+						role.claimSec(creep)
+						break;
 					case 'attacker':
 						role.attacker(creep, newRoom)
 						break;

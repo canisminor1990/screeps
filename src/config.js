@@ -14,6 +14,12 @@ export default (room = Game.rooms['W81S67']) => {
 			timeout : 100,
 			number  : (noEnemy) ? 1 : 0,
 			priority: 7
+		},	{
+			role    : "claimSec",
+			body    : {claim: 2, move: 1},
+			timeout : 100,
+			number  : (noEnemy) ? 1 : 0,
+			priority: 7
 		},
 		{
 			role    : "farMiner",
