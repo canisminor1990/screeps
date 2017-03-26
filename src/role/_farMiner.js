@@ -4,9 +4,6 @@ export default (creep, newRoom) => {
 	let target;
 	isFull(creep)
 	//
-	const enemy = newRoom.memory.creeps.enemy;
-	if (enemy.length > 0) Memory.if.noEnemy = false;
-	//
 	if (creep.memory.full) {
 		const needBuild = creep.room.memory.structures.needBuild;
 		if (needBuild.length > 0) {

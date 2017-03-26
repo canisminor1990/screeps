@@ -1,7 +1,7 @@
 export default (room = Game.rooms['W81S67']) => {
 	const needBuild     = (room.memory.structures) ? room.memory.structures.needBuild : [];
 	const builderNumber = (needBuild.length > 0) ? needBuild.length : 1
-	const noEnemy       = (Memory.trigger.noEnemy) ? Memory.trigger.noEnemy : true;
+	const noEnemy       = Memory.trigger.noEnemy
 	// const ifEnemy = true;
 	const repair        = {
 		percent: 0.5,
@@ -12,33 +12,32 @@ export default (room = Game.rooms['W81S67']) => {
 			role    : "claim",
 			body    : {claim: 2, move: 1},
 			timeout : 100,
-			number  : (noEnemy) ? 1 : 0,
+			number  : (noEnemy['W81S66']) ? 1 : 0,
 			priority: 7
 		}, {
 			role    : "claimSec",
-			body    : {claim: 2, move: 1},
-			timeout : 100,
-			number  : (noEnemy) ? 1 : 0,
+			body    : {claim: 2, move: 4},
+			timeout : 200,
+			number  : (noEnemy['W82S67']) ? 1 : 0,
 			priority: 7
 		},
 		{
 			role    : "farMiner",
 			body    : {work: 8, carry: 1, move: 4},
 			timeout : 100,
-			number  : (noEnemy) ? 1 : 0,
+			number  : (noEnemy['W81S66']) ? 1 : 0,
 			priority: 1
 		},
 		{
 			role    : "farMinerSec",
 			body    : {work: 4, carry: 6, move: 6},
 			timeout : 100,
-			number  : (noEnemy) ? 4 : 0,
+			number  : (noEnemy['W82S67']) ? 4 : 0,
 			priority: 8
 		},
 		{
 			role    : 'farHarvester',
 			body    : {carry: 6, move: 3},
-			// body    : {tough: 1, move: 1, attack: 1},
 			number  : (noEnemy) ? 2 : 0,
 			priority: 5
 		},
