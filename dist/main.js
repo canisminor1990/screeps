@@ -2715,13 +2715,14 @@ exports.default = function (creep) {
 			target = creep.pos.findInRange(needBuild, 0);
 			if (target.length > 0 && (0, _action.build)(creep, target[0])) return;
 		}
+	} else {
+		target = Game.getObjectById(creep.memory.harvestTarget);
+		var container = target.pos.findInRange(memory.structures.container, 1);
+		if (container && container.length > 0 && container[0].hits < container[0].hitsMax / 2) {
+			if ((0, _action.repair)(creep, container[0])) return;
+		}
+		if ((0, _action.harvest)(creep, target)) return;
 	}
-	target = Game.getObjectById(creep.memory.harvestTarget);
-	var container = target.pos.findInRange(memory.structures.container, 1);
-	if (container && container.length > 0 && container[0].hits < container[0].hitsMax / 2) {
-		if ((0, _action.repair)(creep, container[0])) return;
-	}
-	if ((0, _action.harvest)(creep, target)) return;
 };
 
 /***/ }),
