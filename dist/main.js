@@ -1864,6 +1864,7 @@ exports.default = function (roomArray) {
 	var sources = [];
 	roomArray.forEach(function (room) {
 		room = Game.rooms[room];
+		console.log(room);
 		if (room) sources.concat(room.memory.sources);
 	});
 
