@@ -1904,9 +1904,8 @@ exports.default = function (room) {
 				flagsMemory.gui[commandContent] = flagRaw.pos;
 				break;
 		}
-
-		return flagsMemory;
 	});
+	return flagsMemory;
 };
 
 /***/ }),

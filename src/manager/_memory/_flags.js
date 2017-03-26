@@ -28,7 +28,6 @@ export default (room) => {
 				flagsMemory.gui[commandContent] = flagRaw.pos;
 				break;
 		}
-		
-		return flagsMemory
 	})
+	return flagsMemory
 }
