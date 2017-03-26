@@ -1960,8 +1960,19 @@ exports.default = function (room, config) {
 	var structuresDocker = _.compact(structuresContainer.concat([structuresStorage]));
 
 	var needFix = _.filter(structures, function (structure) {
-		return (structure.my || structure.structureType == STRUCTURE_ROAD || structure.structureType == STRUCTURE_WALL) && structure.hits / structure.hitsMax < config.repair.percent && structure.hits < config.repair.maxHits && structure.id !== Memory.trigger.dismantle;
+		return (structure.my || structure.structureType == STRUCTURE_ROAD || structure.structureType == STRUCTURE_WALL) && structure.hits / structure.hitsMax < config.repair.percent && structure.hits < config.repair.maxHits;
 	});
+
+	if (room.memory.flags.dismantle > 0) {
+		needFix = _.remove(needFix, function (structure) {
+			var remove = void 0;
+			room.memory.flags.dismantle.forEach(function (dismantle) {
+				if (structure.id == dismantle.id) remove = structure;
+				return;
+			});
+			return structure;
+		});
+	}
 
 	return {
 		enemy: _.filter(structuresOther, function (structure) {

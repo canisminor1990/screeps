@@ -11,8 +11,18 @@ export default (room, config) => {
 	let needFix = _.filter(structures, structure =>
 	( structure.my || structure.structureType == STRUCTURE_ROAD || structure.structureType == STRUCTURE_WALL ) &&
 	(structure.hits / structure.hitsMax) < config.repair.percent &&
-	structure.hits < config.repair.maxHits &&
-	structure.id !== Memory.trigger.dismantle);
+	structure.hits < config.repair.maxHits);
+	
+	if (room.memory.flags.dismantle > 0) {
+		needFix = _.remove(needFix, structure => {
+			let remove
+			room.memory.flags.dismantle.forEach(dismantle => {
+				if (structure.id == dismantle.id) remove = structure
+				return
+			})
+			return structure;
+		})
+	}
 	
 	return {
 		enemy      : _.filter(structuresOther, structure => structure.structureType != STRUCTURE_CONTAINER && structure.structureType != STRUCTURE_ROAD && structure.structureType != STRUCTURE_WALL),
