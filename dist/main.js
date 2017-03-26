@@ -2176,10 +2176,12 @@ exports.default = function (creep) {
 		target = creep.room.memory.structures.tower.sort(function (a, b) {
 			return a.energy - b.energy;
 		})[0];
-		if (target && target.energy == target.energyCapacity) return;
-		if ((0, _action.transfer)(creep, target)) return;
-		target = creep.room.storage;
-		if ((0, _action.transfer)(creep, target)) return;
+		if (target && target.energy == target.energyCapacity) {
+			target = creep.room.storage;
+			if ((0, _action.transfer)(creep, target)) return;
+		} else {
+			if ((0, _action.transfer)(creep, target)) return;
+		}
 	}
 };
 
