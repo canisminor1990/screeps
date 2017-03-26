@@ -17,7 +17,7 @@ export default (room = Game.rooms['W81S67']) => {
 			role    : "farMiner",
 			body    : {work: 8, carry: 1, move: 4},
 			timeout : 100,
-			number  : 1,
+			number  : 2,
 			priority: 1
 		},
 		{
@@ -29,7 +29,7 @@ export default (room = Game.rooms['W81S67']) => {
 		{
 			role    : 'farBuilder',
 			body    : {carry: 5, work: 1, move: 3},
-			number  : 1,
+			number  : 2,
 			priority: 5
 		},
 		{
