@@ -30,5 +30,7 @@ export default (creep) => {
 		target = creep.room.memory.structures.tower.sort((a, b) => a.energy - b.energy)[0];
 		if (target && target.energy == target.energyCapacity) return;
 		if (transfer(creep, target)) return;
+		target = creep.room.storage;
+		if (transfer(creep, target)) return;
 	}
 };

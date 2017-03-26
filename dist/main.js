@@ -2178,6 +2178,8 @@ exports.default = function (creep) {
 		})[0];
 		if (target && target.energy == target.energyCapacity) return;
 		if ((0, _action.transfer)(creep, target)) return;
+		target = creep.room.storage;
+		if ((0, _action.transfer)(creep, target)) return;
 	}
 };
 
