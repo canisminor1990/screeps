@@ -2234,10 +2234,10 @@ exports.default = function (creep) {
 	// memory
 	(0, _util.isFull)(creep);
 	// run
-	target = creep.room.memory.flags.dismantle;
-	if (target.length > 0, target[0] != null) {
-		if ((0, _action.dismantle)(creep, target[0])) return;
-	}
+	// target = creep.room.memory.flags.dismantle
+	// if (target.length > 0, target[0] != null) {
+	// 	if (dismantle(creep, target[0]))return
+	// }
 	if (creep.memory.full) {
 		var needBuild = creep.room.memory.structures.needBuild;
 		if (needBuild.length > 0) {

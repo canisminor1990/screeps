@@ -6,10 +6,10 @@ export default (creep) => {
 	// memory
 	isFull(creep)
 	// run
-	target = creep.room.memory.flags.dismantle
-	if (target.length > 0, target[0] != null) {
-		if (dismantle(creep, target[0]))return
-	}
+	// target = creep.room.memory.flags.dismantle
+	// if (target.length > 0, target[0] != null) {
+	// 	if (dismantle(creep, target[0]))return
+	// }
 	if (creep.memory.full) {
 		const needBuild = creep.room.memory.structures.needBuild;
 		if (needBuild.length > 0) {
