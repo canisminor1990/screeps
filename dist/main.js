@@ -2895,7 +2895,7 @@ Object.defineProperty(exports, "__esModule", {
 
 exports.default = function (link) {
 	var linkMain = link.room.memory.config.linkMain;
-	if (link.id == linkMain || link.cooldown > 0 || link.energy < link.energyCapacity) return;
+	if (link.id == linkMain || link.cooldown > 0 || link.energy == 0) return;
 	var target = Game.getObjectById(linkMain);
 	link.transferEnergy(target);
 };
