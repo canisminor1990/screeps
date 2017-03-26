@@ -12,5 +12,5 @@ export default {
 	withdraw : unescape("%uD83D%uDCB0"),
 	upgrade  : unescape("%uD83D%uDE80"),
 	recycle  : unescape("%uD83D%uDD04"),
-	dismantle: unescape("%u2B55")
+	dismantle: unescape("%u26A0%uFE0F")
 }
