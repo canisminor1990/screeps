@@ -12,7 +12,7 @@ export default (room, config) => {
 	( structure.my || structure.structureType == STRUCTURE_ROAD || structure.structureType == STRUCTURE_WALL ) &&
 	(structure.hits / structure.hitsMax) < config.repair.percent &&
 	structure.hits < config.repair.maxHits &&
-	structure.id !== Memory.flags.dismantle);
+	structure.id !== Memory.trigger.dismantle);
 	
 	return {
 		enemy      : _.filter(structuresOther, structure => structure.structureType != STRUCTURE_CONTAINER && structure.structureType != STRUCTURE_ROAD && structure.structureType != STRUCTURE_WALL),

@@ -1811,7 +1811,7 @@ exports.default = function (room, config) {
 	var structuresDocker = _.compact(structuresContainer.concat([structuresStorage]));
 
 	var needFix = _.filter(structures, function (structure) {
-		return (structure.my || structure.structureType == STRUCTURE_ROAD || structure.structureType == STRUCTURE_WALL) && structure.hits / structure.hitsMax < config.repair.percent && structure.hits < config.repair.maxHits && structure.id !== Memory.flags.dismantle;
+		return (structure.my || structure.structureType == STRUCTURE_ROAD || structure.structureType == STRUCTURE_WALL) && structure.hits / structure.hitsMax < config.repair.percent && structure.hits < config.repair.maxHits && structure.id !== Memory.trigger.dismantle;
 	});
 
 	return {
