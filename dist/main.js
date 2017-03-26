@@ -2255,7 +2255,7 @@ exports.default = function (creep, newRoom) {
 		var dropped = creep.room.memory.dropped.energy;
 		if (dropped.length > 0) {
 			target = creep.pos.findInRange(dropped, 0);
-			if (pickup(creep, target[0])) return;
+			if ((0, _action.pickup)(creep, target[0])) return;
 		}
 	}
 	target = Game.getObjectById('58d564b2c4e2b16629ae028f');
