@@ -4,6 +4,7 @@ export default (roomArrary) => {
 		pos   : new RoomPosition(25, 47, roomArrary[1]),
 		memory: (Game.rooms[roomArrary[1]]) ? Game.rooms[roomArrary[1]].memory : {}
 	};
+	
 	roomArrary.forEach(room => {
 			room = Game.rooms[room];
 			if (!room) return;
@@ -26,19 +27,22 @@ export default (roomArrary) => {
 						role.builder(creep)
 						break;
 					case 'farBuilder':
-						role.farBuilder(creep, newRoom)
+						role.farBuilder(creep, newRoomMaker(roomArrary[1]))
 						break;
 					case 'farHarvester':
-						role.farHarvester(creep, newRoom)
+						role.farHarvester(creep, newRoomMaker(roomArrary[1]))
 						break;
 					case 'farMiner':
-						role.farMiner(creep, newRoom)
+						role.farMiner(creep, newRoomMaker(roomArrary[1]))
 						break;
 					case 'claim':
-						role.claim(creep, newRoom)
+						role.claim(creep, newRoomMaker(roomArrary[1]))
+						break;
+					case 'farMinerSec':
+						role.farMinerSec(creep, newRoomMaker(roomArrary[2]))
 						break;
 					case 'claimSec':
-						role.claimSec(creep)
+						role.claimSec(creep,newRoomMaker(roomArrary[2]))
 						break;
 					case 'attacker':
 						role.attacker(creep, newRoom)
@@ -67,3 +71,9 @@ export default (roomArrary) => {
 	)
 }
 
+function newRoomMaker(roomName) {
+	return 	{
+		pos   : new RoomPosition(25, 47, room),
+		memory: (Game.rooms[room]) ? Game.rooms[room].memory : {}
+	};
+}

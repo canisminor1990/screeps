@@ -1,20 +1,20 @@
 export default (room = Game.rooms['W81S67']) => {
 	const needBuild     = (room.memory.structures) ? room.memory.structures.needBuild : [];
 	const builderNumber = (needBuild.length > 0) ? needBuild.length : 1
-	const noEnemy = (Memory.trigger.noEnemy) ? Memory.trigger.noEnemy : true;
+	const noEnemy       = (Memory.trigger.noEnemy) ? Memory.trigger.noEnemy : true;
 	// const ifEnemy = true;
-	const repair  = {
+	const repair        = {
 		percent: 0.5,
 		maxHits: 20000,
 	}
-	const role    = [
+	const role          = [
 		{
 			role    : "claim",
 			body    : {claim: 2, move: 1},
 			timeout : 100,
 			number  : (noEnemy) ? 1 : 0,
 			priority: 7
-		},	{
+		}, {
 			role    : "claimSec",
 			body    : {claim: 2, move: 1},
 			timeout : 100,
@@ -27,6 +27,13 @@ export default (room = Game.rooms['W81S67']) => {
 			timeout : 100,
 			number  : (noEnemy) ? 1 : 0,
 			priority: 1
+		},
+		{
+			role    : "farMinerSec",
+			body    : {work: 4, carry: 4, move: 8},
+			timeout : 100,
+			number  : (noEnemy) ? 1 : 0,
+			priority: 6
 		},
 		{
 			role    : 'farHarvester',

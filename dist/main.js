@@ -332,6 +332,12 @@ exports.default = function () {
 		number: noEnemy ? 1 : 0,
 		priority: 1
 	}, {
+		role: "farMinerSec",
+		body: { work: 4, carry: 4, move: 8 },
+		timeout: 100,
+		number: noEnemy ? 1 : 0,
+		priority: 6
+	}, {
 		role: 'farHarvester',
 		body: { carry: 6, move: 3 },
 		// body    : {tough: 1, move: 1, attack: 1},
@@ -2093,6 +2099,7 @@ exports.default = function (roomArrary) {
 		pos: new RoomPosition(25, 47, roomArrary[1]),
 		memory: Game.rooms[roomArrary[1]] ? Game.rooms[roomArrary[1]].memory : {}
 	};
+
 	roomArrary.forEach(function (room) {
 		room = Game.rooms[room];
 		if (!room) return;
@@ -2115,19 +2122,22 @@ exports.default = function (roomArrary) {
 					role.builder(creep);
 					break;
 				case 'farBuilder':
-					role.farBuilder(creep, newRoom);
+					role.farBuilder(creep, newRoomMaker(roomArrary[1]));
 					break;
 				case 'farHarvester':
-					role.farHarvester(creep, newRoom);
+					role.farHarvester(creep, newRoomMaker(roomArrary[1]));
 					break;
 				case 'farMiner':
-					role.farMiner(creep, newRoom);
+					role.farMiner(creep, newRoomMaker(roomArrary[1]));
 					break;
 				case 'claim':
-					role.claim(creep, newRoom);
+					role.claim(creep, newRoomMaker(roomArrary[1]));
+					break;
+				case 'farMinerSec':
+					role.farMinerSec(creep, newRoomMaker(roomArrary[2]));
 					break;
 				case 'claimSec':
-					role.claimSec(creep);
+					role.claimSec(creep, newRoomMaker(roomArrary[2]));
 					break;
 				case 'attacker':
 					role.attacker(creep, newRoom);
@@ -2154,6 +2164,13 @@ exports.default = function (roomArrary) {
 		// myCreeps.attacker.forEach(creep => role.attacker(creep, newRoom))
 	});
 };
+
+function newRoomMaker(roomName) {
+	return {
+		pos: new RoomPosition(25, 47, room),
+		memory: Game.rooms[room] ? Game.rooms[room].memory : {}
+	};
+}
 
 /***/ }),
 /* 44 */
@@ -2311,15 +2328,8 @@ Object.defineProperty(exports, "__esModule", {
 
 var _action = __webpack_require__(1);
 
-exports.default = function (creep) {
-	var newRoom = {
-		pos: new RoomPosition(25, 47, 'W82S67'),
-		memory: Game.rooms['W82S67'] ? Game.rooms['W82S67'].memory : {}
-	};
-	//
-	// const enemy = newRoom.memory.creeps.enemy;
-	// if (enemy.length > 0) Memory.if.noEnemy = false;
-	//
+exports.default = function (creep, newRoom) {
+
 	var target = Game.getObjectById('5873bc1d11e3e4361b4d7140');
 	if (!target) {
 		(0, _action.moveTo)(creep, newRoom.pos);
