@@ -1,4 +1,4 @@
-import {moveTo, harvest, repair,build} from '../action'
+import {moveTo, harvest, repair, build} from '../action'
 import {isFull} from '../_util'
 export default (creep, newRoom) => {
 	let target;
@@ -8,6 +8,13 @@ export default (creep, newRoom) => {
 		if (needBuild.length > 0) {
 			target = creep.pos.findInRange(needBuild, 0);
 			if (target.length > 0 && build(creep, target[0]))return;
+		}
+	}
+	if (!creep.memory.full) {
+		const dropped = creep.room.memory.dropped.energy;
+		if (dropped.length > 0) {
+			target = creep.pos.findInRange(dropped, 0);
+			if (pickup(creep, target[0])) return;
 		}
 	}
 	target = Game.getObjectById('58d564b2c4e2b16629ae028f');
@@ -22,7 +29,7 @@ export default (creep, newRoom) => {
 	} else {
 		if (harvest(creep, target)) return
 	}
-
+	
 	// // memory
 	// isFull(creep)
 	// // run
