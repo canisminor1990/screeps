@@ -15,8 +15,8 @@ export default (room) => {
 		      command        = flag.command,
 		      commandContent = flag.commandContent;
 		switch (command) {
-			case 'gui':
-				console.log(command,commandContent)
+			case "gui":
+				console.log(command, commandContent)
 				flagsMemory.gui[commandContent] = flagRaw.pos;
 				break;
 			case 'attack' || 'a':
