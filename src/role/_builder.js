@@ -8,6 +8,7 @@ export default (creep) => {
 	// run
 	target = creep.room.memory.flags.dismantle
 	if (target.length > 0) {
+		console.log(111)
 		target = creep.pos.findClosestByRange(target)
 		dismantle(target)
 	}
