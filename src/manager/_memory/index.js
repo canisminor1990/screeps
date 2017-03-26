@@ -6,8 +6,8 @@ import dropped from "./_dropped"
 import flags from "./_flags"
 export default (roomArrary) => {
 	_.each(roomArrary, room => {
-		if (!Game.rooms[room]) return;
 		room         = Game.rooms[room];
+		if (!room) return;
 		const config = configRaw(room);
 		const creeps = creepsRaw(room, config)
 		const memory = {
@@ -20,7 +20,7 @@ export default (roomArrary) => {
 			flags          : flags(room)
 		}
 		
-		if (room) room.memory = memory;
+		 room.memory = memory;
 		// Memory.game  = Game;
 	})
 }

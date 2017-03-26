@@ -1794,8 +1794,8 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 exports.default = function (roomArrary) {
 	_.each(roomArrary, function (room) {
-		if (!Game.rooms[room]) return;
 		room = Game.rooms[room];
+		if (!room) return;
 		var config = (0, _config2.default)(room);
 		var creeps = (0, _creeps2.default)(room, config);
 		var memory = {
@@ -1808,7 +1808,7 @@ exports.default = function (roomArrary) {
 			flags: (0, _flags2.default)(room)
 		};
 
-		if (room) room.memory = memory;
+		room.memory = memory;
 		// Memory.game  = Game;
 	});
 };
