@@ -2797,7 +2797,6 @@ exports.default = function (creep) {
 	(0, _util.isFull)(creep);
 	//run
 	if (!creep.memory.harvestTarget) creep.memory.harvestTarget = memory.sources[0].source.id;
-	target = Game.getObjectById(creep.memory.harvestTarget);
 	if (creep.memory.full) {
 		var container = target.pos.findInRange(memory.structures.container, 1);
 		if (container && container.length > 0 && container[0].hits < container[0].hitsMax / 2) {
@@ -2809,6 +2808,7 @@ exports.default = function (creep) {
 			if (target.length > 0 && (0, _action.build)(creep, target[0])) return;
 		}
 	}
+	target = Game.getObjectById(creep.memory.harvestTarget);
 	if ((0, _action.harvest)(creep, target)) return;
 };
 
