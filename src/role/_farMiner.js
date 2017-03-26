@@ -24,15 +24,15 @@ export default (creep, newRoom) => {
 			target = creep.pos.findInRange(dropped, 0);
 			if (pickup(creep, target[0])) return;
 		}
-		target = Game.getObjectById(creep.memory.harvestTarget)
-		if (!target) {
-			moveTo(creep, newRoom.pos)
-			return;
-		} else {
-			if (harvest(creep, target)) return
-		}
 	}
 	
+	target = Game.getObjectById(creep.memory.harvestTarget)
+	if (!target) {
+		moveTo(creep, newRoom.pos)
+		return;
+	} else {
+		if (harvest(creep, target)) return
+	}
 	// // memory
 	// isFull(creep)
 	// // run
