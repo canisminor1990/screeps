@@ -2276,7 +2276,7 @@ exports.default = function (creep, newRoom) {
 		}
 	}
 	target = Game.getObjectById('58d564b2c4e2b16629ae028f');
-	if (target && creep.carry.energy >= 50 && target.hits < target.hitsMax / 5) {
+	if (target && creep.carry.energy >= 50 && target.hits < target.hitsMax / 2) {
 		if ((0, _action.repair)(creep, target)) return;
 	}
 	if (!creep.memory.harvestTarget) creep.memory.harvestTarget = '5873bc3511e3e4361b4d7390';
@@ -2408,7 +2408,7 @@ exports.default = function (creep) {
 	}
 	target = Game.getObjectById(creep.memory.harvestTarget);
 	var container = target.pos.findInRange(memory.structures.container, 1);
-	if (container && container.length > 0 && container[0].hits < container[0].hitsMax / 5) {
+	if (container && container.length > 0 && container[0].hits < container[0].hitsMax / 2) {
 		if ((0, _action.repair)(creep, container[0])) return;
 	}
 	if ((0, _action.harvest)(creep, target)) return;
