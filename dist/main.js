@@ -1969,7 +1969,7 @@ exports.default = function (room, config) {
 		return (structure.my || structure.structureType == STRUCTURE_ROAD || structure.structureType == STRUCTURE_WALL) && structure.hits / structure.hitsMax < config.repair.percent && structure.hits < config.repair.maxHits;
 	});
 
-	if (room.memory.flags.dismantle.length > 0 && room.memory.flags.dismantle[0] != null) {
+	if (room.memory.flags.dismantle && room.memory.flags.dismantle.length > 0 && room.memory.flags.dismantle[0] != null) {
 		needFix = _.filter(needFix, function (structure) {
 			return structure.id != room.memory.flags.dismantle[0].id;
 		});
