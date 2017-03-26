@@ -18,10 +18,11 @@ export default (creep) => {
 				if (pickup(creep, target)) return;
 			}
 		}
+		target = Game.getObjectById(creep.room.memory.linkMain);
+		if (withdraw(creep, target)) return;
 		target = creep.room.storage;
 		if (withdraw(creep, target)) return;
 	} else {
-		
 		target = creep.pos.findClosestByRange(needFill);
 		if (transfer(creep, target)) return;
 		target = creep.room.memory.structures.tower.sort((a, b) => a.energy - b.energy)[0];

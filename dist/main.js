@@ -2164,10 +2164,11 @@ exports.default = function (creep) {
 				if ((0, _action.pickup)(creep, target)) return;
 			}
 		}
+		target = Game.getObjectById(creep.room.memory.linkMain);
+		if ((0, _action.withdraw)(creep, target)) return;
 		target = creep.room.storage;
 		if ((0, _action.withdraw)(creep, target)) return;
 	} else {
-
 		target = creep.pos.findClosestByRange(needFill);
 		if ((0, _action.transfer)(creep, target)) return;
 		target = creep.room.memory.structures.tower.sort(function (a, b) {
