@@ -26,6 +26,6 @@ function isSafe(roomName) {
 		Memory.trigger[roomName].timeout = Game.time
 	}
 	if (!Memory.trigger[roomName].safe) {
-		if (Game.time - Memory.trigger.timeout > 1500) Memory.trigger[roomName].safe = true;
+		if (Game.time - Memory.trigger[roomName].timeout > 1500) Memory.trigger[roomName].safe = true;
 	}
 }
