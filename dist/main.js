@@ -339,7 +339,8 @@ exports.default = function () {
 	var needBuild = room.memory.structures ? room.memory.structures.needBuild : [];
 	var builderNumber = needBuild.length > 0 ? needBuild.length : 1;
 	if (!Memory.if) Memory.if = {};
-	var ifEnemy = Memory.if.enemy ? Memory.if.enemy : false;
+	// const ifEnemy = (Memory.if.enemy)?Memory.if.enemy:false;
+	var ifEnemy = true;
 	var repair = {
 		percent: 0.5,
 		maxHits: 20000
