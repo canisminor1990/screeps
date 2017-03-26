@@ -2362,8 +2362,8 @@ exports.default = function (creep) {
 	// root
 	(0, _util.isFull)(creep);
 	//run
+	if (!creep.memory.harvestTarget) creep.memory.harvestTarget = memory.sources[0].source.id;
 	if (creep.memory.full) {
-		if (!creep.memory.harvestTarget) creep.memory.harvestTarget = memory.sources[0].source.id;
 		var needBuild = creep.room.memory.structures.needBuild;
 		if (needBuild.length > 0) {
 			target = creep.pos.findInRange(needBuild, 0);
