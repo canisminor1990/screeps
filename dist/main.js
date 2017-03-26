@@ -2248,7 +2248,7 @@ exports.default = function (creep, newRoom) {
 		var needBuild = creep.room.memory.structures.needBuild;
 		if (needBuild.length > 0) {
 			target = creep.pos.findInRange(needBuild, 0);
-			if (target.length > 0 && build(creep, target[0])) return;
+			if (target.length > 0 && (0, _action.build)(creep, target[0])) return;
 		}
 	}
 	target = Game.getObjectById('58d564b2c4e2b16629ae028f');

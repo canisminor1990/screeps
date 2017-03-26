@@ -1,4 +1,4 @@
-import {moveTo, harvest, repair} from '../action'
+import {moveTo, harvest, repair,build} from '../action'
 import {isFull} from '../_util'
 export default (creep, newRoom) => {
 	let target;
