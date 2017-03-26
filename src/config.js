@@ -17,19 +17,19 @@ export default (room = Game.rooms['W81S67']) => {
 			role    : "farMiner",
 			body    : {work: 8, carry: 1, move: 4},
 			timeout : 100,
-			number  : 1,
+			number  : 0,
 			priority: 1
 		},
 		{
 			role    : 'farHarvester',
-			body    : {carry: 5, move: 3, attack: 1},
+			body    : {tough: 3, move: 3, attack: 3},
 			number  : 2,
 			priority: 5
 		},
 		{
 			role    : 'farBuilder',
 			body    : {carry: 5, work: 1, move: 3},
-			number  : 1,
+			number  : 0,
 			priority: 5
 		},
 		{
