@@ -349,7 +349,7 @@ exports.default = function () {
 		role: 'farHarvester',
 		// body    : {carry: 5, move: 3, attack: 1},
 		body: { tough: 1, move: 1, attack: 1 },
-		number: 2,
+		number: 0,
 		priority: 5
 	}, {
 		role: 'farBuilder',
