@@ -8,8 +8,8 @@ export default (flag) => {
 		commandContent = name.replace('/' + command, '')
 	}
 	return {
-		command       : command,
-		commandContent: commandContent,
+		command       : command.replace(/ /g, ''),
+		commandContent: commandContent.replace(/ /g, ''),
 		pos           : flag.pos
 	}
 }

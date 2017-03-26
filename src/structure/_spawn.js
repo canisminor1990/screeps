@@ -32,7 +32,7 @@ export default (spawn, config) => {
 			if (roleMy.length - roleType.number >= 0 || priority) return;
 			const spawnName = buildName(roleName);
 			spawn.createCreep(buildBody(roleType.body), spawnName, {role: roleName, name: spawnName})
-			console.log(roleName, 'now:', roleMy.length, 'need:', roleType.number);
+			console.log(emoji.build, roleName, 'now:', roleMy.length, 'need:', roleType.number);
 			priority = true;
 		})
 	}

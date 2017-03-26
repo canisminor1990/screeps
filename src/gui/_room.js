@@ -4,15 +4,17 @@ const rowMargin    = 0.3,
       guiHeight    = 0.7,
       guiRowMargin = guiHeight + rowMargin + 1;
 export default (roomName) => {
-	const room      = Game.rooms[roomName],
-	      gcl       = Game.gcl,
+	const room = Game.rooms[roomName];
+	
+	let flag = room.memory.flags.gui.room
+	if (!flag) return;
+	
+	const gcl       = Game.gcl,
 	      rcl       = room.controller,
 	      storage   = room.memory.structures.storage,
 	      extension = room.memory.structures.extension,
 	      spawn     = room.memory.structures.spawn.energy;
 	
-	let flag = room.memory.flags.filter(flags => flags.name.match(/\/gui room/))[0]
-	if (!flag) return;
 	let bgPadding = 0.5,
 	    guiX      = flag.pos.x,
 	    guiY      = flag.pos.y;

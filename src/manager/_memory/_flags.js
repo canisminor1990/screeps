@@ -1,4 +1,34 @@
+import {flagCommand} from '../../_util'
+import * as flags from '../../flags'
 export default (room) => {
-    const flags = room.find(FIND_FLAGS).sort((a,b) => a.secondaryColor - b.secondaryColor).sort((a,b) => a.color - b.color)
-    return flags
+	const flagsRaw = room.find(FIND_FLAGS).sort((a, b) => a.secondaryColor - b.secondaryColor).sort((a, b) => a.color - b.color);
+	
+	let flagsMemory = {
+		attack   : [],
+		moveTo   : [],
+		dismantle: [],
+		gui      : {}
+	}
+	flagsRaw.forEach(flagRaw => {
+		const flag           = flagCommand(flagRaw),
+		      command        = flag.command,
+		      commandContent = flag.commandContent;
+		
+		switch (command) {
+			case 'attack' || 'a':
+				flagsMemory.push(flags.attack(commandContent, flagRaw));
+				break;
+			case 'move' || 'moveTo' || 'moveto' || 'm':
+				flagsMemory.push(flags.moveTo(commandContent, flagRaw));
+				break;
+			case 'dis' || 'dismantle':
+				flagsMemory.push(flags.dismantle(commandContent, flagRaw));
+				break;
+			case 'gui':
+				flagsMemory[commandContent] = flagRaw.pos;
+				break;
+		}
+		
+		return flagsMemory
+	})
 }

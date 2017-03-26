@@ -13,7 +13,6 @@ export default (creep, target, color = '#ffffff') => {
 			serializeMemory   : true,
 			visualizePathStyle: {stroke: color}
 		}))) return true;
-	
 }
 
 

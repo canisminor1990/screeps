@@ -6,12 +6,11 @@ const rowMargin         = 0.3,
       guiCreepRowMargin = guiCreepHeight + rowMargin + 1;
 export default (roomName) => {
 	const room = Game.rooms[roomName];
-	
-	let flag = room.memory.flags.filter(flags => flags.name.match(/\/gui role/))[0]
+	let flag = room.memory.flags.gui.role
 	if (!flag) return;
 	let bgPadding = 0.5,
-	    guiCreepX = flag.pos.x,
-	    guiCreepY = flag.pos.y;
+	    guiCreepX = flag.x,
+	    guiCreepY = flag.y;
 	
 	room.visual
 		.rect(guiCreepX - bgPadding, guiCreepY - 2 * bgPadding, guiCreepWidth + 2 * bgPadding, config().role.length * guiCreepRowMargin + bgPadding, {
