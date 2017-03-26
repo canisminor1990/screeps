@@ -1969,7 +1969,8 @@ exports.default = function (roomArray) {
 
 	_.each(roomArray, function (room) {
 		var structures = Game.rooms[room].memory.structures;
-		structure.spawn(structures.spawn);
+		var confit = Game.rooms[room].memory.config;
+		structure.spawn(structures.spawn, confit);
 		structures.tower.forEach(function (tower) {
 			return structure.tower(tower);
 		});
@@ -2537,8 +2538,7 @@ Object.defineProperty(exports, "__esModule", {
 
 var _util = __webpack_require__(0);
 
-exports.default = function (spawn) {
-    var config = spawn.room.memory.config;
+exports.default = function (spawn, config) {
     var target = spawn.pos.findInRange(spawn.room.memory.creeps.my.attacker, 1);
     if (target && target.length > 0) {
         console.log(spawn.recycleCreep(target[0]));
