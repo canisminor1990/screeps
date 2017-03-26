@@ -10,7 +10,7 @@ export default (creep) => {
 	// 	container.store.energy > 0).sort((a, b) => b.store.energy - a.store.energy)
 	target= Game.getObjectById('58d6a0f58f53422d7fea1d52')
 	
-	if (target && target.length > 0) {
+	if (target) {
 		if (!creep.memory.full) {
 			const dropped = creep.room.memory.dropped.energy;
 			if (dropped.length > 0) {
