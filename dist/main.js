@@ -343,11 +343,12 @@ exports.default = function () {
 		role: "farMiner",
 		body: { work: 8, carry: 1, move: 4 },
 		timeout: 100,
-		number: 1,
+		number: 0,
 		priority: 1
 	}, {
 		role: 'farHarvester',
-		body: { carry: 5, move: 3, attack: 1 },
+		// body    : {carry: 5, move: 3, attack: 1},
+		body: { tough: 3, move: 3, attack: 3 },
 		number: 2,
 		priority: 5
 	}, {
@@ -383,6 +384,11 @@ exports.default = function () {
 	}, {
 		role: 'attacker',
 		body: { attack: 2, move: 3 },
+		number: 0,
+		priority: 0
+	}, {
+		role: 'traveller',
+		body: { move: 1 },
 		number: 0,
 		priority: 0
 	}];
