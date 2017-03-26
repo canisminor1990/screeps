@@ -16,6 +16,7 @@ module.exports.loop = () => {
 			Manager.structure(rooms)
 			// Gui.creepBar(rooms[0])
 			Gui.room(rooms[0])
+			Gui.role(rooms[0])
 		});
 		
 	}
