@@ -32,7 +32,7 @@ export default (room = Game.rooms['W81S67']) => {
 			role    : "farMinerSec",
 			body    : {work: 4, carry: 4, move: 8},
 			timeout : 100,
-			number  : (noEnemy) ? 1 : 0,
+			number  : (noEnemy) ? 2 : 0,
 			priority: 6
 		},
 		{
