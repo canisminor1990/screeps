@@ -30,30 +30,18 @@ export default (roomName) => {
 			strokeWidth: 0.05
 		})
 	
-	gui(room, guiX, guiY, colorType.blue, ['GCL',
-		`Lvl ${gcl.level}`,
-		gcl.progress,
-		gcl.progressTotal])
-	gui(room, guiX, guiY + guiRowMargin, colorType.orange, ['RCL',
-		`Lvl ${rcl.level}`,
-		rcl.progress,
-		rcl.progressTotal])
-	gui(room, guiX, guiY + guiRowMargin * 2, colorType.purple, ['CPU',
-		'',
-		Math.round(Game.cpu.getUsed()),
-		Game.cpu.limit])
-	gui(room, guiX, guiY + guiRowMargin * 3, colorType.yellow, ['Storage',
-		'',
-		storage.store.energy,
-		storage.storeCapacity])
-	gui(room, guiX, guiY + guiRowMargin * 4, colorType.yellow, ['Extension',
-		'',
-		extensionFull,
-		extension.length])
-	gui(room, guiX, guiY + guiRowMargin * 5, colorType.yellow, ['Spawn',
-		'',
-		spawn + extensionFull * 50,
-		300 + extension.length * 50])
+	const guiContent = [
+		[colorType.blue, ['GCL', `Lvl ${gcl.level}`, gcl.progress, gcl.progressTotal]],
+		[colorType.orange, ['RCL', `Lvl ${rcl.level}`, rcl.progress, rcl.progressTotal]],
+		[colorType.purple, ['CPU', '', Math.round(Game.cpu.getUsed()), Game.cpu.limit]],
+		[colorType.yellow, ['Storage', '', storage.store.energy, storage.storeCapacity]],
+		[colorType.yellow, ['Extension', '', extensionFull, extension.length]],
+		[colorType.yellow, ['Spawn', '', spawn + extensionFull * 50, 300 + extension.length * 50]]
+	]
+	
+	_.forEach(guiContent, (content, index) => {
+		gui(room, guiX, guiY + guiRowMargin * index, content[0], content[1])
+	})
 }
 
 function gui(room, x, y, color, content) {
@@ -72,3 +60,4 @@ function gui(room, x, y, color, content) {
 			strokeWidth: 0.1
 		});
 };
+
