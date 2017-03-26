@@ -1968,12 +1968,14 @@ function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj;
 exports.default = function (roomArray) {
 
 	_.each(roomArray, function (room) {
-		var structures = Game.rooms[room].memory.structures;
-		var config = Game.rooms[room].memory.config;
-		if (structures.spawn) structure.spawn(structures.spawn, config);
-		structures.tower.forEach(function (tower) {
-			return structure.tower(tower);
-		});
+		if (Game.rooms[room] && Game.rooms[room].memory) {
+			var structures = Game.rooms[room].memory.structures;
+			var config = Game.rooms[room].memory.config;
+			if (structures.spawn) structure.spawn(structures.spawn, config);
+			if (structures.tower) structures.tower.forEach(function (tower) {
+				return structure.tower(tower);
+			});
+		}
 	});
 };
 
