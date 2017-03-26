@@ -17,7 +17,7 @@ export default (room) => {
 		switch (command) {
 			case "gui":
 				console.log(command, commandContent)
-				flagsMemory.gui[commandContent] = flagRaw.pos;
+				// flagsMemory.gui[commandContent] = flagRaw.pos;
 				break;
 			case 'attack' || 'a':
 				flagsMemory.attack.push(flags.attack(commandContent, flagRaw));
@@ -26,7 +26,6 @@ export default (room) => {
 				flagsMemory.moveTo.push(flags.moveTo(commandContent, flagRaw));
 				break;
 			case 'dis' || 'dismantle':
-				console.log(command, commandContent)
 				flagsMemory.dismantle.push(flags.dismantle(commandContent, flagRaw));
 				break;
 		}
