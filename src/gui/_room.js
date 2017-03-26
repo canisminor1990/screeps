@@ -1,29 +1,18 @@
+import {colorType} from '../_util'
 import config from '../config';
-const colorType         = {
-	yellow: '#E6DB74',
-	blue  : '#66D9EF',
-	red   : '#F92672',
-	purple: '#AE81FF',
-	grey  : '#75715E',
-	orange: '#FD971F',
-	green : '#A6E22E',
-};
-const rowMargin         = 0.3,
-      guiWidth          = 4.8,
-      guiHeight         = 0.7,
-      guiRowMargin      = guiHeight + rowMargin + 1,
-      guiCreepWidth     = 3.5,
-      guiCreepHeight    = 0.2,
-      guiCreepRowMargin = guiCreepHeight + rowMargin + 1;
-
-
 export default (roomName) => {
-	let bgPadding = 0.5,
-	    guiCreepX = .5,
-	    guiCreepY = 1,
-	    guiX      = guiCreepX + guiCreepWidth + bgPadding * 2,
-	    guiY      = 1;
-	
+	const rowMargin         = 0.3,
+	      guiWidth          = 4.8,
+	      guiHeight         = 0.7,
+	      guiRowMargin      = guiHeight + rowMargin + 1,
+	      guiCreepWidth     = 3.5,
+	      guiCreepHeight    = 0.2,
+	      guiCreepRowMargin = guiCreepHeight + rowMargin + 1;
+	let bgPadding           = 0.5,
+	      guiCreepX         = .5,
+	      guiCreepY         = 1,
+	      guiX              = guiCreepX + guiCreepWidth + bgPadding * 2,
+	      guiY              = 1;
 	
 	const room      = Game.rooms[roomName],
 	      gcl       = Game.gcl,
@@ -51,19 +40,35 @@ export default (roomName) => {
 			strokeWidth: 0.05
 		})
 	
-	
 	config().role.forEach(eachRole => {
 		guiCreep(room, guiCreepX, guiCreepY, eachRole.role, eachRole.number)
 		guiCreepY += guiCreepRowMargin;
 	})
 	
-	
-	gui(room, guiX, guiY, colorType.blue, ['GCL', `Lvl ${gcl.level}`, gcl.progress, gcl.progressTotal])
-	gui(room, guiX, guiY + guiRowMargin, colorType.orange, ['RCL', `Lvl ${rcl.level}`, rcl.progress, rcl.progressTotal])
-	gui(room, guiX, guiY + guiRowMargin * 2, colorType.purple, ['CPU', '', Math.round(Game.cpu.getUsed()), Game.cpu.limit])
-	gui(room, guiX, guiY + guiRowMargin * 3, colorType.yellow, ['Storage', '', storage.store.energy, storage.storeCapacity])
-	gui(room, guiX, guiY + guiRowMargin * 4, colorType.yellow, ['Extension', '', extensionFull, extension.length])
-	gui(room, guiX, guiY + guiRowMargin * 5, colorType.yellow, ['Spawn', '', spawn + extensionFull * 50, 300 + extension.length * 50])
+	gui(room, guiX, guiY, colorType.blue, ['GCL',
+	                                       `Lvl ${gcl.level}`,
+	                                       gcl.progress,
+	                                       gcl.progressTotal])
+	gui(room, guiX, guiY + guiRowMargin, colorType.orange, ['RCL',
+	                                                        `Lvl ${rcl.level}`,
+	                                                        rcl.progress,
+	                                                        rcl.progressTotal])
+	gui(room, guiX, guiY + guiRowMargin * 2, colorType.purple, ['CPU',
+	                                                            '',
+	                                                            Math.round(Game.cpu.getUsed()),
+	                                                            Game.cpu.limit])
+	gui(room, guiX, guiY + guiRowMargin * 3, colorType.yellow, ['Storage',
+	                                                            '',
+	                                                            storage.store.energy,
+	                                                            storage.storeCapacity])
+	gui(room, guiX, guiY + guiRowMargin * 4, colorType.yellow, ['Extension',
+	                                                            '',
+	                                                            extensionFull,
+	                                                            extension.length])
+	gui(room, guiX, guiY + guiRowMargin * 5, colorType.yellow, ['Spawn',
+	                                                            '',
+	                                                            spawn + extensionFull * 50,
+	                                                            300 + extension.length * 50])
 }
 
 function gui(room, x, y, color, content) {
