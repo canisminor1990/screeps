@@ -25,6 +25,7 @@ export default (room) => {
 				flagsMemory.dismantle.push(flags.dismantle(commandContent, flagRaw));
 				break;
 			case 'gui':
+				console.log(commandContent)
 				flagsMemory.gui[commandContent] = flagRaw.pos;
 				break;
 		}
