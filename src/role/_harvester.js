@@ -11,11 +11,13 @@ export default (creep) => {
 	} else {
 		const dropped = creep.room.memory.dropped.energy;
 		if (dropped.length > 0) {
-			target = creep.pos.findInRange(dropped,4);
+			target = creep.pos.findInRange(dropped, 4);
 			if (pickup(creep, target[0])) return;
 		}
 		target = Game.getObjectById('58d6a0f58f53422d7fea1d52')
-		withdraw(creep, target)
+		if (target.store.energy > 0) {
+			if (withdraw(creep, target))return;
+		}
 	}
 	// let container = Game.getObjectById('58d6a0f58f53422d7fea1d52')
 	//
