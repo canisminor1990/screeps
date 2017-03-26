@@ -44,8 +44,8 @@ export default (creep) => {
 			}
 			target = pos.findInRange(creep.room.memory.structures.my, 0)
 			if (target.length > 0) {
-				if (dismantle(creep, target[0]))break;
 				Memory.trigger.dismantle = target.id
+				if (dismantle(creep, target[0]))break;
 			}
 			break;
 	}

@@ -2823,8 +2823,8 @@ exports.default = function (creep) {
 			}
 			target = pos.findInRange(creep.room.memory.structures.my, 0);
 			if (target.length > 0) {
-				if ((0, _action.dismantle)(creep, target[0])) break;
 				Memory.trigger.dismantle = target.id;
+				if ((0, _action.dismantle)(creep, target[0])) break;
 			}
 			break;
 	}
