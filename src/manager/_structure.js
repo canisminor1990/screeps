@@ -1,5 +1,5 @@
 import * as structure from '../structure';
-
+import {timer} from '../_util'
 export default (roomArray) => {
 	const room             = Game.rooms[roomArray[0]];
 	const roomNext         = Game.rooms[roomArray[1]];
@@ -10,5 +10,5 @@ export default (roomArray) => {
 	
 
 	structure.spawn(targetStructures.spawn, config);
-	targetStructures.tower.forEach(tower => structure.tower(tower, targetStructures.needFix, targetCreeps.enemy))
+	if(timer(2)) targetStructures.tower.forEach(tower => structure.tower(tower, targetStructures.needFix, targetCreeps.enemy))
 }

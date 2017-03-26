@@ -1963,6 +1963,8 @@ var _structure = __webpack_require__(53);
 
 var structure = _interopRequireWildcard(_structure);
 
+var _util = __webpack_require__(0);
+
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
 exports.default = function (roomArray) {
@@ -1974,7 +1976,7 @@ exports.default = function (roomArray) {
 	var config = Memory.config;
 
 	structure.spawn(targetStructures.spawn, config);
-	targetStructures.tower.forEach(function (tower) {
+	if ((0, _util.timer)(2)) targetStructures.tower.forEach(function (tower) {
 		return structure.tower(tower, targetStructures.needFix, targetCreeps.enemy);
 	});
 };
