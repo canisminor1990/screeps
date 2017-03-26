@@ -10,11 +10,11 @@ export default (room) => {
 		gui      : {}
 	}
 	flagsRaw.forEach(flagRaw => {
-		console.log(flagRaw.name)
+		
 		const flag           = flagCommand(flagRaw),
 		      command        = flag.command,
 		      commandContent = flag.commandContent;
-		
+		console.log(command,commandContent)
 		switch (command) {
 			case 'attack' || 'a':
 				flagsMemory.attack.push(flags.attack(commandContent, flagRaw));
