@@ -14,8 +14,7 @@ export default (creep) => {
 	if (creep.memory.full) {
 		const needBuild = creep.room.memory.structures.needBuild;
 		if (needBuild.length > 0) {
-			target = creep.pos.findClosestByRange(needBuild);
-			if (build(creep, target))return;
+			if (build(creep, target[0]))return;
 		}
 		const needFix = creep.room.memory.structures.needFix;
 		if (needFix.length > 0) {

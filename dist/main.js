@@ -1964,13 +1964,8 @@ exports.default = function (room, config) {
 	});
 
 	if (room.memory.flags.dismantle.length > 0) {
-		needFix = _.remove(needFix, function (structure) {
-			var remove = void 0;
-			room.memory.flags.dismantle.forEach(function (dismantle) {
-				if (structure.id == dismantle.id) remove = structure;
-				return;
-			});
-			return structure;
+		needFix = _.filter(needFix, function (structure) {
+			return structure.id != room.memory.flags.dismantle[0].id;
 		});
 	}
 
@@ -2247,8 +2242,7 @@ exports.default = function (creep) {
 	if (creep.memory.full) {
 		var needBuild = creep.room.memory.structures.needBuild;
 		if (needBuild.length > 0) {
-			target = creep.pos.findClosestByRange(needBuild);
-			if ((0, _action.build)(creep, target)) return;
+			if ((0, _action.build)(creep, target[0])) return;
 		}
 		var needFix = creep.room.memory.structures.needFix;
 		if (needFix.length > 0) {
