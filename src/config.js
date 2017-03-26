@@ -2,8 +2,8 @@ export default (room = Game.rooms['W81S67']) => {
 	const needBuild     = (room.memory.structures) ? room.memory.structures.needBuild : [];
 	const builderNumber = (needBuild.length > 0) ? needBuild.length : 1
 	if (!Memory.if) Memory.if = {};
-	// const ifEnemy = (Memory.if.enemy)?Memory.if.enemy:false;
-	const ifEnemy = true;
+	const noEnemy = (Memory.if.noEnemy) ? Memory.if.noEnemy : true;
+	// const ifEnemy = true;
 	const repair  = {
 		percent: 0.5,
 		maxHits: 20000,
@@ -13,27 +13,27 @@ export default (room = Game.rooms['W81S67']) => {
 			role    : "claim",
 			body    : {claim: 2, move: 1},
 			timeout : 100,
-			number  : (ifEnemy) ? 1 : 0,
+			number  : (noEnemy) ? 1 : 0,
 			priority: 7
 		},
 		{
 			role    : "farMiner",
 			body    : {work: 8, carry: 1, move: 4},
 			timeout : 100,
-			number  : (ifEnemy) ? 1 : 0,
+			number  : (noEnemy) ? 1 : 0,
 			priority: 1
 		},
 		{
 			role    : 'farHarvester',
 			body    : {carry: 6, move: 3},
 			// body    : {tough: 1, move: 1, attack: 1},
-			number  : (ifEnemy) ? 2 : 0,
+			number  : (noEnemy) ? 2 : 0,
 			priority: 5
 		},
 		{
 			role    : 'farBuilder',
 			body    : {carry: 5, work: 1, move: 3},
-			number  : (ifEnemy) ? 1 : 0,
+			number  : (noEnemy) ? 1 : 0,
 			priority: 5
 		},
 		{
@@ -81,8 +81,8 @@ export default (room = Game.rooms['W81S67']) => {
 	]
 	
 	return {
-		role  : role.sort((a, b) => a.priority - b.priority),
-		repair: repair,
-		linkMain : '58d505eb204ecd9e507951f0',
+		role    : role.sort((a, b) => a.priority - b.priority),
+		repair  : repair,
+		linkMain: '58d505eb204ecd9e507951f0',
 	};
 }

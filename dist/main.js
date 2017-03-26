@@ -339,8 +339,8 @@ exports.default = function () {
 	var needBuild = room.memory.structures ? room.memory.structures.needBuild : [];
 	var builderNumber = needBuild.length > 0 ? needBuild.length : 1;
 	if (!Memory.if) Memory.if = {};
-	// const ifEnemy = (Memory.if.enemy)?Memory.if.enemy:false;
-	var ifEnemy = true;
+	var noEnemy = Memory.if.noEnemy ? Memory.if.noEnemy : true;
+	// const ifEnemy = true;
 	var repair = {
 		percent: 0.5,
 		maxHits: 20000
@@ -349,24 +349,24 @@ exports.default = function () {
 		role: "claim",
 		body: { claim: 2, move: 1 },
 		timeout: 100,
-		number: ifEnemy ? 1 : 0,
+		number: noEnemy ? 1 : 0,
 		priority: 7
 	}, {
 		role: "farMiner",
 		body: { work: 8, carry: 1, move: 4 },
 		timeout: 100,
-		number: ifEnemy ? 1 : 0,
+		number: noEnemy ? 1 : 0,
 		priority: 1
 	}, {
 		role: 'farHarvester',
 		body: { carry: 6, move: 3 },
 		// body    : {tough: 1, move: 1, attack: 1},
-		number: ifEnemy ? 2 : 0,
+		number: noEnemy ? 2 : 0,
 		priority: 5
 	}, {
 		role: 'farBuilder',
 		body: { carry: 5, work: 1, move: 3 },
-		number: ifEnemy ? 1 : 0,
+		number: noEnemy ? 1 : 0,
 		priority: 5
 	}, {
 		role: 'harvester',
@@ -2122,6 +2122,10 @@ Object.defineProperty(exports, "__esModule", {
 var _action = __webpack_require__(1);
 
 exports.default = function (creep, newRoom) {
+	//
+	var enemy = newRoom.memory.creeps.enemy;
+	if (enemy.length > 0) Memory.if.noEnemy = false;
+	//
 	var target = Game.getObjectById('5873bc3511e3e4361b4d738f');
 	if (!target) {
 		(0, _action.moveTo)(creep, newRoom.pos);
@@ -2158,9 +2162,7 @@ exports.default = function (creep) {
 	var needFill = creep.room.memory.structures.needFill;
 	if (!creep.memory.full) {
 		target = Game.getObjectById(creep.room.memory.config.linkMain);
-		console.log(target);
 		if ((0, _action.withdraw)(creep, target)) return;
-
 		if (!needFill || needFill.length == 0) {
 			var dropped = creep.room.memory.dropped.energy;
 			if (dropped.length > 0) {
@@ -2207,6 +2209,9 @@ exports.default = function (creep, newRoom) {
 	var target = void 0;
 	// memory
 	(0, _util.isFull)(creep);
+	//
+	var enemy = newRoom.memory.creeps.enemy;
+	if (enemy.length > 0) Memory.if.noEnemy = false;
 	// run
 	if (needBuild.length > 0) {
 		if (!creep.memory.full) {
@@ -2267,15 +2272,12 @@ var _action = __webpack_require__(1);
 
 exports.default = function (creep, newRoom) {
 	var room = Game.spawns['Spawn1'].room;
-	// const enemy = newRoomMemory.creeps.enemy;
 	var target = void 0;
 	// memory
 	(0, _util.isFull)(creep);
 	// run
-	// if (enemy.length > 0) {
-	// 	target = creep.pos.findClosestByRange(enemy);
-	// 	if (attack(creep, target)) return;
-	// }
+	var enemy = newRoom.memory.creeps.enemy;
+	if (enemy.length > 0) Memory.if.noEnemy = false;
 
 	if (!creep.memory.full) {
 		var dropped = creep.room.memory.dropped.energy;
@@ -2314,6 +2316,10 @@ var _util = __webpack_require__(0);
 exports.default = function (creep, newRoom) {
 	var target = void 0;
 	(0, _util.isFull)(creep);
+	//
+	var enemy = newRoom.memory.creeps.enemy;
+	if (enemy.length > 0) Memory.if.noEnemy = false;
+	//
 	if (creep.memory.full) {
 		var needBuild = creep.room.memory.structures.needBuild;
 		if (needBuild.length > 0) {

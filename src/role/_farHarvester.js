@@ -1,17 +1,14 @@
 import {isFull} from '../_util'
-import {attack, transfer, pickup, moveTo,withdraw} from '../action'
+import {attack, transfer, pickup, moveTo, withdraw} from '../action'
 export default (creep, newRoom) => {
 	const room = Game.spawns['Spawn1'].room;
-	// const enemy = newRoomMemory.creeps.enemy;
 	let target;
 	// memory
 	isFull(creep);
 	// run
-	// if (enemy.length > 0) {
-	// 	target = creep.pos.findClosestByRange(enemy);
-	// 	if (attack(creep, target)) return;
-	// }
-
+	const enemy = newRoom.memory.creeps.enemy;
+	if (enemy.length > 0) Memory.if.noEnemy = false;
+	
 	if (!creep.memory.full) {
 		const dropped = creep.room.memory.dropped.energy;
 		if (dropped.length > 0) {
