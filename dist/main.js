@@ -2317,8 +2317,8 @@ exports.default = function (creep) {
 		memory: Game.rooms['W82S67'] ? Game.rooms['W82S67'].memory : {}
 	};
 	//
-	var enemy = newRoom.memory.creeps.enemy;
-	if (enemy.length > 0) Memory.if.noEnemy = false;
+	// const enemy = newRoom.memory.creeps.enemy;
+	// if (enemy.length > 0) Memory.if.noEnemy = false;
 	//
 	var target = Game.getObjectById('5873bc1d11e3e4361b4d7140');
 	if (!target) {
