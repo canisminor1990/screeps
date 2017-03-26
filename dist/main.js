@@ -333,7 +333,7 @@ exports.default = function () {
 		priority: 1
 	}, {
 		role: "farMinerSec",
-		body: { work: 4, carry: 4, move: 8 },
+		body: { work: 4, carry: 6, move: 6 },
 		timeout: 100,
 		number: noEnemy ? 4 : 0,
 		priority: 6
