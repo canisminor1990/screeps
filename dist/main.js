@@ -2598,9 +2598,9 @@ exports.default = function (creep, newRoom) {
 	if (!creep.memory.harvestTarget) creep.memory.harvestTarget = newRoom.memory.sources[0].source.id;
 	//
 	if (creep.memory.full) {
-		target = creep.pos.findInRange(creep.room.memory.structures.container)[0];
-		if (target) {
-			if (target.hits < target.hitsMax && (0, _action.repair)(creep, target)) return;
+		var container = creep.pos.findInRange(creep.room.memory.structures.container)[0];
+		if (container) {
+			if (container.hits < container.hitsMax && (0, _action.repair)(creep, container)) return;
 		} else {
 			creep.room.createConstructionSite(creep.pos.x, creep.pos.y, STRUCTURE_CONTAINER);
 		}
