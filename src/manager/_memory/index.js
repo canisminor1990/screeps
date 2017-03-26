@@ -15,7 +15,7 @@ export default (roomArrary) => {
 			config         : config,
 			creeps         : creeps,
 			structures     : structures(room, config),
-			sources        : sources(room, creeps.my.miner),
+			sources        : sources(room, _.merge(creeps.my.miner,creeps.my.farMiner)),
 			dropped        : dropped(room),
 			flags          : flags(room)
 		}

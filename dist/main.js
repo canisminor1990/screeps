@@ -2061,7 +2061,7 @@ exports.default = function (roomArrary) {
 			config: config,
 			creeps: creeps,
 			structures: (0, _structures2.default)(room, config),
-			sources: (0, _sources2.default)(room, creeps.my.miner),
+			sources: (0, _sources2.default)(room, _.merge(creeps.my.miner, creeps.my.farMiner)),
 			dropped: (0, _dropped2.default)(room),
 			flags: (0, _flags2.default)(room)
 		};
