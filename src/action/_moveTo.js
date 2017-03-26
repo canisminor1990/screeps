@@ -5,7 +5,7 @@ export default (creep, target, color = '#ffffff') => {
     if (creep.fatigue > 0) return false;
     if (!target) return false;
 	
-	if (!Game.rooms[target.room.name] && target.pos && target.room.name) {
+	if (!Game.rooms[target.room.name] && target.pos && target.room) {
 		target = new RoomPosition(target.pos.x, target.pos.y, target.room.name)
 	}
 
