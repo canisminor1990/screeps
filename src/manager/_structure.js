@@ -1,14 +1,13 @@
 import * as structure from '../structure';
 
 export default (roomArray) => {
-	const room             = Game.rooms[roomArray[0]];
-	const roomNext         = Game.rooms[roomArray[1]];
-	const Memory           = room.memory;
-	const targetStructures = Memory.structures;
-	const targetCreeps     = Memory.creeps;
-	const config           = Memory.config;
 	
-
-	structure.spawn(targetStructures.spawn, config);
-	targetStructures.tower.forEach(tower => structure.tower(tower, targetStructures.needFix, targetCreeps.enemy))
+	_.each(roomArray, room => {
+		if (Game.rooms[room] && Game.rooms[room].memory) {
+			const structures = Game.rooms[room].memory.structures;
+			const config     = Game.rooms[room].memory.config;
+			if (structures.spawn) structure.spawn(structures.spawn, config);
+			if (structures.tower) structures.tower.forEach(tower => structure.tower(tower))
+		}
+	})
 }

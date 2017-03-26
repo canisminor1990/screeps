@@ -5,18 +5,21 @@ export default (creep) => {
 	// memory
 	isFull(creep)
 	// run
-	target = _.filter(creep.room.memory.structures.container,
-		container => container.id != '58d4d78f1b7445f663aacaca' &&
-		container.store.energy > 0
-	).sort((a, b) => b.store.energy - a.store.energy)
-	if (target && target.length > 0) {
+	// target = _.filter(creep.room.memory.structures.container,
+	// 	container => container.id != '58d4d78f1b7445f663aacaca' &&
+	// 	container.store.energy > 0).sort((a, b) => b.store.energy - a.store.energy)
+	let container = Game.getObjectById('58d6a0f58f53422d7fea1d52')
+	
+	if (container) {
 		if (!creep.memory.full) {
 			const dropped = creep.room.memory.dropped.energy;
 			if (dropped.length > 0) {
 				target = creep.pos.findInRange(dropped, 6);
 				if (pickup(creep, target[0])) return;
 			}
-			if (withdraw(creep, target[0])) return;
+			if (container.store.energy > 0) {
+				if (withdraw(creep, container)) return;
+			}
 		} else {
 			target = creep.room.memory.structures.needFill;
 			if (target.length > 0) {
