@@ -1969,8 +1969,8 @@ exports.default = function (roomArray) {
 
 	_.each(roomArray, function (room) {
 		var structures = Game.rooms[room].memory.structures;
-		var confit = Game.rooms[room].memory.config;
-		structure.spawn(structures.spawn, confit);
+		var config = Game.rooms[room].memory.config;
+		if (structures.spawn) structure.spawn(structures.spawn, config);
 		structures.tower.forEach(function (tower) {
 			return structure.tower(tower);
 		});
