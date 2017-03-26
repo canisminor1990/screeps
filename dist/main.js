@@ -1358,25 +1358,27 @@ exports.default = function (creep, rawTarget) {
 
 
 Object.defineProperty(exports, "__esModule", {
-	value: true
+    value: true
 });
 
 var _util = __webpack_require__(0);
 
 exports.default = function (creep, target) {
-	var color = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : '#ffffff';
+    var color = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : '#ffffff';
 
 
-	if (creep.fatigue > 0) return false;
-	if (!target) return false;
+    if (creep.fatigue > 0) return false;
+    if (!target) return false;
 
-	target = new RoomPosition(target.pos.x, target.pos.y, target.room.name);
+    if (!Game.rooms[target.room.name] && target.pos && target.room.name) {
+        target = new RoomPosition(target.pos.x, target.pos.y, target.room.name);
+    }
 
-	if ((0, _util.action)(creep, target, creep.moveTo(target, {
-		reusePath: 12,
-		serializeMemory: true,
-		visualizePathStyle: { stroke: color }
-	}))) return true;
+    if ((0, _util.action)(creep, target, creep.moveTo(target, {
+        reusePath: 12,
+        serializeMemory: true,
+        visualizePathStyle: { stroke: color }
+    }))) return true;
 };
 
 /***/ }),

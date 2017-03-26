@@ -24,7 +24,7 @@ export default (roomArrary) => {
 					break;
 				case 'chai' || 'dis' || 'dismantle':
 					if (commandContent) {
-						target              = Game.getObjectById(commandContent.replace(' ', ''));
+						target                   = Game.getObjectById(commandContent.replace(' ', ''));
 						Memory.trigger.dismantle = target.id
 						if (dismantle(creep, target))break;
 					}
@@ -38,6 +38,13 @@ export default (roomArrary) => {
 						if (dismantle(creep, target[0]))break;
 					}
 					break;
+			}
+			
+			return {
+				attack   : [],
+				moveTo   : [],
+				dismantle: [],
+				gui      : []
 			}
 		})
 	})
