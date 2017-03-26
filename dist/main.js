@@ -2162,7 +2162,9 @@ exports.default = function (creep) {
 	var needFill = creep.room.memory.structures.needFill;
 	if (!creep.memory.full) {
 		target = Game.getObjectById(creep.room.memory.config.linkMain);
-		if ((0, _action.withdraw)(creep, target)) return;
+		if (target.energy > 0) {
+			if ((0, _action.withdraw)(creep, target)) return;
+		}
 		if (!needFill || needFill.length == 0) {
 			var dropped = creep.room.memory.dropped.energy;
 			if (dropped.length > 0) {
@@ -2804,12 +2806,11 @@ exports.default = function (creep) {
 		case 'chai' || 'dis' || 'dismantle':
 			if (commandContent) {
 				target = Game.getObjectById(commandContent.replace(' ', ''));
-				Memory.flags.dismantle = target.id;
+				Memory.if.dismantle = target.id;
 				if ((0, _action.dismantle)(creep, target)) break;
 			}
 			target = pos.findInRange(creep.room.memory.structures.enemy, 6);
 			if (target.length > 0) {
-				Memory.flags.dismantle = target[0].id;
 				if ((0, _action.dismantle)(creep, target[0])) break;
 			}
 			break;
