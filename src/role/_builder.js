@@ -7,9 +7,8 @@ export default (creep) => {
 	isFull(creep)
 	// run
 	target = creep.room.memory.flags.dismantle
-	if (target.length > 0) {
-		target = creep.pos.findClosestByRange(target)
-		if (dismantle(creep,target))return
+	if (target.length > 0, target[0] != null) {
+		if (dismantle(creep, target[0]))return
 	}
 	if (creep.memory.full) {
 		const needBuild = creep.room.memory.structures.needBuild;
