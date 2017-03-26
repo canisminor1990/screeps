@@ -1,7 +1,15 @@
 import {moveTo, harvest, repair} from '../action'
-
+import {isFull} from '../_util'
 export default (creep, newRoom) => {
 	let target;
+	isFull(creep)
+	if (creep.memory.full) {
+		const needBuild = creep.room.memory.structures.needBuild;
+		if (needBuild.length > 0) {
+			target = creep.pos.findInRange(needBuild, 0);
+			if (target.length > 0 && build(creep, target[0]))return;
+		}
+	}
 	target = Game.getObjectById('58d564b2c4e2b16629ae028f');
 	if (target && creep.carry.energy >= 50 && target.hits < target.hitsMax / 5) {
 		if (repair(creep, target)) return;

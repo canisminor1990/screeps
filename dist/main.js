@@ -2239,8 +2239,18 @@ Object.defineProperty(exports, "__esModule", {
 
 var _action = __webpack_require__(1);
 
+var _util = __webpack_require__(0);
+
 exports.default = function (creep, newRoom) {
 	var target = void 0;
+	(0, _util.isFull)(creep);
+	if (creep.memory.full) {
+		var needBuild = creep.room.memory.structures.needBuild;
+		if (needBuild.length > 0) {
+			target = creep.pos.findInRange(needBuild, 0);
+			if (target.length > 0 && build(creep, target[0])) return;
+		}
+	}
 	target = Game.getObjectById('58d564b2c4e2b16629ae028f');
 	if (target && creep.carry.energy >= 50 && target.hits < target.hitsMax / 5) {
 		if ((0, _action.repair)(creep, target)) return;
