@@ -7,7 +7,7 @@ export default (flag) => {
 		command        = command.match(/[a-z]+ /)
 		commandContent = name.replace('/' + command, '')
 	}
-	command = command.replace(/ /g,'')
+	if (command) command = command.replace(/ /g,'')
 	return {
 		command       : command,
 		commandContent: commandContent,
