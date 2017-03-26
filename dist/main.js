@@ -1551,7 +1551,7 @@ exports.default = function (roomName) {
 	    guiCreepX = flag.pos.x,
 	    guiCreepY = flag.pos.y,
 	    guiX = guiCreepX + guiCreepWidth + bgPadding * 2,
-	    guiY = 1;
+	    guiY = flag.pos.y;
 
 	var extensionFull = 0;
 	extension.forEach(function (ex) {

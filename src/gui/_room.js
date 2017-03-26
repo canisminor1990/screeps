@@ -21,7 +21,7 @@ export default (roomName) => {
 	    guiCreepX = flag.pos.x,
 	    guiCreepY = flag.pos.y,
 	    guiX      = guiCreepX + guiCreepWidth + bgPadding * 2,
-	    guiY      = 1;
+	    guiY      = flag.pos.y;
 	
 	let extensionFull = 0;
 	extension.forEach(ex => {
