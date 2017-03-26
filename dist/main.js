@@ -339,8 +339,8 @@ exports.default = function () {
 		priority: 8
 	}, {
 		role: 'farHarvester',
-		body: { carry: 6, move: 3 },
-		number: noEnemy['W81S66'].safe ? 2 : 0,
+		body: { carry: 8, move: 4 },
+		number: noEnemy['W81S66'].safe ? 3 : 0,
 		priority: 5
 	}, {
 		role: 'farBuilder',
