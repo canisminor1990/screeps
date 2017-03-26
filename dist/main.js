@@ -2889,7 +2889,7 @@ exports.default = function (link) {
 	var linkMain = link.room.memory.config.linkMain;
 	if (link.id == linkMain || link.cooldown > 0 || link.energy < link.energyCapacity) return;
 	var target = Game.getObjectById(linkMain);
-	if (linkMain.energy == 0) link.transferEnergy(target);
+	if (target.energy == 0) link.transferEnergy(target);
 };
 
 /***/ }),
