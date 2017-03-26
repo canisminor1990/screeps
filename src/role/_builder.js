@@ -9,7 +9,7 @@ export default (creep) => {
 	target = creep.room.memory.flags.dismantle
 	if (target.length > 0) {
 		target = creep.pos.findClosestByRange(target)
-		dismantle(creep,target)
+		if (dismantle(creep,target))return
 	}
 	if (creep.memory.full) {
 		const needBuild = creep.room.memory.structures.needBuild;
