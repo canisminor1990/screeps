@@ -1763,7 +1763,7 @@ exports.default = function (room, config) {
 
 
 Object.defineProperty(exports, "__esModule", {
-    value: true
+	value: true
 });
 
 var _config = __webpack_require__(3);
@@ -1793,23 +1793,24 @@ var _flags2 = _interopRequireDefault(_flags);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 exports.default = function (roomArrary) {
-    _.each(roomArrary, function (room) {
-        if (!Game.rooms[room]) return;
-        room = Game.rooms[room];
-        var config = (0, _config2.default)(room);
-        var creeps = (0, _creeps2.default)(room, config);
-        var memory = {
-            energyAvailable: room.energyAvailable,
-            config: config,
-            creeps: creeps,
-            structures: (0, _structures2.default)(room, config),
-            sources: (0, _sources2.default)(room, creeps.my.miner),
-            dropped: (0, _dropped2.default)(room),
-            flags: (0, _flags2.default)(room)
-        };
-        room.memory = memory;
-        // Memory.game  = Game;
-    });
+	_.each(roomArrary, function (room) {
+		if (!Game.rooms[room]) return;
+		room = Game.rooms[room];
+		var config = (0, _config2.default)(room);
+		var creeps = (0, _creeps2.default)(room, config);
+		var memory = {
+			energyAvailable: room.energyAvailable,
+			config: config,
+			creeps: creeps,
+			structures: (0, _structures2.default)(room, config),
+			sources: (0, _sources2.default)(room, creeps.my.miner),
+			dropped: (0, _dropped2.default)(room),
+			flags: (0, _flags2.default)(room)
+		};
+
+		if (room) room.memory = memory;
+		// Memory.game  = Game;
+	});
 };
 
 /***/ }),
