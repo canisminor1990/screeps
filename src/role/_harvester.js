@@ -49,3 +49,12 @@ export default (creep) => {
 	}
 	
 }
+
+
+// if (creep.memory.full) {
+// 	target = Game.getObjectById('58d758a13de0ed30b84fb81e')
+// 	transfer(creep, target)
+// } else {
+// 	target = Game.getObjectById('58d6a0f58f53422d7fea1d52')
+// 	withdraw(creep, target)
+// }
