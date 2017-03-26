@@ -13,27 +13,27 @@ export default (room = Game.rooms['W81S67']) => {
 			role    : "claim",
 			body    : {claim: 2, move: 1},
 			timeout : 100,
-			number  : (ifEnemy)?1:0,
+			number  : (ifEnemy) ? 1 : 0,
 			priority: 7
 		},
 		{
 			role    : "farMiner",
 			body    : {work: 8, carry: 1, move: 4},
 			timeout : 100,
-			number  : (ifEnemy)?1:0,
+			number  : (ifEnemy) ? 1 : 0,
 			priority: 1
 		},
 		{
 			role    : 'farHarvester',
-			body    : {carry: 5, move: 3, attack: 1},
+			body    : {carry: 6, move: 3},
 			// body    : {tough: 1, move: 1, attack: 1},
-			number  : (ifEnemy)?2:0,
+			number  : (ifEnemy) ? 2 : 0,
 			priority: 5
 		},
 		{
 			role    : 'farBuilder',
 			body    : {carry: 5, work: 1, move: 3},
-			number  : (ifEnemy)?1:0,
+			number  : (ifEnemy) ? 1 : 0,
 			priority: 5
 		},
 		{

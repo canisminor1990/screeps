@@ -359,7 +359,7 @@ exports.default = function () {
 		priority: 1
 	}, {
 		role: 'farHarvester',
-		body: { carry: 5, move: 3, attack: 1 },
+		body: { carry: 6, move: 3 },
 		// body    : {tough: 1, move: 1, attack: 1},
 		number: ifEnemy ? 2 : 0,
 		priority: 5
