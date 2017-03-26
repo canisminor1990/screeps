@@ -1963,21 +1963,16 @@ var _structure = __webpack_require__(53);
 
 var structure = _interopRequireWildcard(_structure);
 
-var _util = __webpack_require__(0);
-
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
 exports.default = function (roomArray) {
-	var room = Game.rooms[roomArray[0]];
-	var roomNext = Game.rooms[roomArray[1]];
-	var Memory = room.memory;
-	var targetStructures = Memory.structures;
-	var targetCreeps = Memory.creeps;
-	var config = Memory.config;
 
-	if ((0, _util.timer)(2)) structure.spawn(targetStructures.spawn, config);
-	targetStructures.tower.forEach(function (tower) {
-		return structure.tower(tower, targetStructures.needFix, targetCreeps.enemy);
+	_.each(roomArray, function (room) {
+		var structures = Game.rooms[room].memory.structures;
+		structure.spawn(structures.spawn);
+		structures.tower.forEach(function (tower) {
+			return structure.tower(tower);
+		});
 	});
 };
 
@@ -2602,9 +2597,8 @@ Object.defineProperty(exports, "__esModule", {
 });
 
 exports.default = function (tower) {
-	var needFix = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : [];
-	var enemy = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : [];
-
+	var needFix = tower.room.memory.structures.needFix,
+	    enemy = tower.room.memory.creeps.enemy;
 	if (enemy.length > 0) {
 		tower.attack(enemy[0]);
 	} else if (needFix.length > 0) {
