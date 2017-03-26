@@ -1886,6 +1886,7 @@ exports.default = function (room) {
 		gui: {}
 	};
 	flagsRaw.forEach(function (flagRaw) {
+		console.log(flagRaw.name);
 		var flag = (0, _util.flagCommand)(flagRaw),
 		    command = flag.command,
 		    commandContent = flag.commandContent;
@@ -1901,7 +1902,6 @@ exports.default = function (room) {
 				flagsMemory.dismantle.push(flags.dismantle(commandContent, flagRaw));
 				break;
 			case 'gui':
-				console.log(commandContent);
 				flagsMemory.gui[commandContent] = flagRaw.pos;
 				break;
 		}

@@ -10,6 +10,7 @@ export default (room) => {
 		gui      : {}
 	}
 	flagsRaw.forEach(flagRaw => {
+		console.log(flagRaw.name)
 		const flag           = flagCommand(flagRaw),
 		      command        = flag.command,
 		      commandContent = flag.commandContent;
@@ -25,7 +26,6 @@ export default (room) => {
 				flagsMemory.dismantle.push(flags.dismantle(commandContent, flagRaw));
 				break;
 			case 'gui':
-				console.log(commandContent)
 				flagsMemory.gui[commandContent] = flagRaw.pos;
 				break;
 		}
