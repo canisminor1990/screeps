@@ -13,7 +13,7 @@ export default (room, config) => {
 		creepArray[creep.memory.role].push(Game.creeps[name])
 	}
 	
-	Memory.creepsGlobal = creepArray;
+	Memory.global.creeps = creepArray;
 
 	return {
 		my    : creepsMy,

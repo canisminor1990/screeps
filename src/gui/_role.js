@@ -27,7 +27,7 @@ export default (roomName) => {
 }
 
 function guiCreep(room, x, y, name, number) {
-	const creeps           = Memory.creepsGlobal,
+	const creeps           = Memory.global.creeps,
 	      nowNumber        = (creeps[name]) ? creeps[name].length : 0;
 	let color, colorSwitch = nowNumber - number;
 	if (colorSwitch > 0) color = colorType.green;

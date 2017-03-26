@@ -28,7 +28,7 @@ export default (spawn, config) => {
 		roleFactory.forEach(roleType => {
 			const roleName    = roleType.role;
 			const roleTimeout = (roleType.timeout) ? roleType.timeout : 10;
-			const roleMy      = _.filter(Memory.creepsGlobal[roleName], roleCreep => roleCreep.ticksToLive >= roleTimeout)
+			const roleMy      = _.filter(Memory.global.creeps[roleName], roleCreep => roleCreep.ticksToLive >= roleTimeout)
 			if (roleMy.length - roleType.number >= 0 || priority) return;
 			const spawnName = buildName(roleName);
 			spawn.createCreep(buildBody(roleType.body), spawnName, {role: roleName, name: spawnName})

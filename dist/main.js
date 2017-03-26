@@ -1701,7 +1701,7 @@ exports.default = function (roomName) {
 };
 
 function guiCreep(room, x, y, name, number) {
-	var creeps = Memory.creepsGlobal,
+	var creeps = Memory.global.creeps,
 	    nowNumber = creeps[name] ? creeps[name].length : 0;
 	var color = void 0,
 	    colorSwitch = nowNumber - number;
@@ -1862,7 +1862,7 @@ exports.default = function (room, config) {
 		creepArray[creep.memory.role].push(Game.creeps[name]);
 	}
 
-	Memory.creepsGlobal = creepArray;
+	Memory.global.creeps = creepArray;
 
 	return {
 		my: creepsMy,
@@ -2983,7 +2983,7 @@ exports.default = function (spawn, config) {
 		roleFactory.forEach(function (roleType) {
 			var roleName = roleType.role;
 			var roleTimeout = roleType.timeout ? roleType.timeout : 10;
-			var roleMy = _.filter(Memory.creepsGlobal[roleName], function (roleCreep) {
+			var roleMy = _.filter(Memory.global.creeps[roleName], function (roleCreep) {
 				return roleCreep.ticksToLive >= roleTimeout;
 			});
 			if (roleMy.length - roleType.number >= 0 || priority) return;
