@@ -4,7 +4,7 @@ const trigger = () => {
 }
 
 trigger.install = () => {
-	if (!Memory.trigger) Memory.trigger = {
+	Memory.trigger = {
 		noEnemy: {
 			'W81S66': {
 				timeout: 0,
