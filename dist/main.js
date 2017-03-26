@@ -1882,11 +1882,9 @@ exports.default = function (room) {
 		var flag = (0, _util.flagCommand)(flagRaw),
 		    command = flag.command,
 		    commandContent = flag.commandContent;
-		console.log(command);
 		switch (command) {
 			case "gui":
-				console.log(111);
-				// flagsMemory.gui[commandContent] = flagRaw.pos;
+				flagsMemory.gui[commandContent] = flagRaw.pos;
 				break;
 			case 'attack' || 'a':
 				flagsMemory.attack.push(flags.attack(commandContent, flagRaw));
