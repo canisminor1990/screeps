@@ -14,6 +14,7 @@ module.exports.loop = () => {
 			trigger()
 			Manager.root()
 			Manager.memory(rooms)
+			Manager.global(rooms)
 			Manager.role(rooms)
 			Manager.structure(rooms)
 			// Gui.creepBar(rooms[0])
