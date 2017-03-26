@@ -1149,12 +1149,12 @@ exports.default = function (flag) {
 	    commandContent = void 0;
 	command = name.replace('/', '');
 	if (name.match(' ')) {
-		command = command.match(/[a-z]+ /);
+		command = command.match(/[a-z]+ /)[0];
 		commandContent = name.replace('/' + command, '');
 	}
-	if (command) command = command.replace(/ /g, '');
+
 	return {
-		command: command,
+		command: command.replace(/ /g, ''),
 		commandContent: commandContent,
 		pos: flag.pos
 	};
