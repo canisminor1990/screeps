@@ -1963,7 +1963,7 @@ exports.default = function (room, config) {
 		return (structure.my || structure.structureType == STRUCTURE_ROAD || structure.structureType == STRUCTURE_WALL) && structure.hits / structure.hitsMax < config.repair.percent && structure.hits < config.repair.maxHits;
 	});
 
-	if (room.memory.flags.dismantle > 0) {
+	if (room.memory.flags.dismantle.length > 0) {
 		needFix = _.remove(needFix, function (structure) {
 			var remove = void 0;
 			room.memory.flags.dismantle.forEach(function (dismantle) {
@@ -2239,6 +2239,11 @@ exports.default = function (creep) {
 	// memory
 	(0, _util.isFull)(creep);
 	// run
+	target = creep.room.memory.flags.dismantle;
+	if (target.length > 0) {
+		target.creep.pos.findClosestByRange(target);
+		(0, _action.dismantle)(target);
+	}
 	if (creep.memory.full) {
 		var needBuild = creep.room.memory.structures.needBuild;
 		if (needBuild.length > 0) {

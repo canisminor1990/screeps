@@ -1,11 +1,16 @@
 import {isFull} from '../_util'
-import {pickup, upgradeController, build, withdraw,repair} from '../action'
+import {pickup, upgradeController, build, withdraw, repair, dismantle} from '../action'
 
 export default (creep) => {
 	let target;
 	// memory
 	isFull(creep)
 	// run
+	target = creep.room.memory.flags.dismantle
+	if (target.length > 0) {
+		target.creep.pos.findClosestByRange(target)
+		dismantle(target)
+	}
 	if (creep.memory.full) {
 		const needBuild = creep.room.memory.structures.needBuild;
 		if (needBuild.length > 0) {
@@ -19,7 +24,7 @@ export default (creep) => {
 		}
 		target = creep.room.controller;
 		if (upgradeController(creep, target)) return;
-
+		
 	} else {
 		const dropped = creep.room.memory.dropped.energy;
 		if (dropped.length > 0) {
