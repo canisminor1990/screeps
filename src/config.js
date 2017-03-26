@@ -30,7 +30,7 @@ export default (room = Game.rooms['W81S67']) => {
 			role    : 'farBuilder',
 			body    : {carry: 5, work: 1, move: 3},
 			number  : 2,
-			priority: 5
+			priority: 4
 		},
 		{
 			role    : 'harvester',

@@ -345,7 +345,7 @@ exports.default = function () {
 		role: 'farBuilder',
 		body: { carry: 5, work: 1, move: 3 },
 		number: 2,
-		priority: 5
+		priority: 4
 	}, {
 		role: 'harvester',
 		body: { carry: 12, move: 6 },
