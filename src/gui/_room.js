@@ -15,7 +15,7 @@ export default (roomName) => {
 	      extension = room.memory.structures.extension,
 	      spawn     = room.memory.structures.spawn.energy;
 	
-	let flag = room.memory.flags.filter(flags => flags.match(/\/gui room/))[0]
+	let flag = room.memory.flags.filter(flags => flags.name.match(/\/gui room/))[0]
 	if (!flag) return;
 	let bgPadding = 0.5,
 	    guiCreepX = flag.pos.x,

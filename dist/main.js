@@ -1544,7 +1544,7 @@ exports.default = function (roomName) {
 	    spawn = room.memory.structures.spawn.energy;
 
 	var flag = room.memory.flags.filter(function (flags) {
-		return flags.match(/\/gui room/);
+		return flags.name.match(/\/gui room/);
 	})[0];
 	if (!flag) return;
 	var bgPadding = 0.5,
