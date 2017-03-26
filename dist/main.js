@@ -2032,7 +2032,9 @@ exports.default = function (roomArray) {
 			var structures = Game.rooms[room].memory.structures;
 			var config = Game.rooms[room].memory.config;
 			if (structures.spawn) structure.spawn(structures.spawn, config);
-			if (structures.link) structure.link(structures.link);
+			if (structures.link) structures.link.forEach(function (link) {
+				return structure.link(link);
+			});
 			if (structures.tower) structures.tower.forEach(function (tower) {
 				return structure.tower(tower);
 			});
@@ -2616,8 +2618,7 @@ var _config2 = _interopRequireDefault(_config);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 exports.default = function (link) {
-	console.log(link);
-	if (!link || !Game.getObjectById(link.id)) return;
+
 	var linkMain = (0, _config2.default)().linkMain;
 	if (link.id == linkMain || link.cooldown > 0 || link.energy < link.energyCapacity) return;
 	var target = Game.getObjectById(linkMain);

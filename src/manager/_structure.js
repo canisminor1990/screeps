@@ -7,7 +7,7 @@ export default (roomArray) => {
 			const structures = Game.rooms[room].memory.structures;
 			const config     = Game.rooms[room].memory.config;
 			if (structures.spawn) structure.spawn(structures.spawn, config);
-			if (structures.link) structure.link(structures.link);
+			if (structures.link) structures.link.forEach(link => structure.link(link));
 			if (structures.tower) structures.tower.forEach(tower => structure.tower(tower))
 		}
 	})
