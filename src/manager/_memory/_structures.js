@@ -13,7 +13,7 @@ export default (room, config) => {
 	(structure.hits / structure.hitsMax) < config.repair.percent &&
 	structure.hits < config.repair.maxHits);
 	
-	if (room.memory.flags.dismantle.length > 0) {
+	if (room.memory.flags.dismantle.length > 0 && room.memory.flags.dismantle[0] != null) {
 		needFix = _.filter(needFix, structure => structure.id != room.memory.flags.dismantle[0].id)
 	}
 	
