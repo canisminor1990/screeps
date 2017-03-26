@@ -1737,8 +1737,8 @@ exports.default = function (roomName) {
 	    spawn = room.memory.structures.spawn.energy;
 
 	var bgPadding = 0.5,
-	    guiX = flag.pos.x,
-	    guiY = flag.pos.y;
+	    guiX = flag.x,
+	    guiY = flag.y;
 
 	var extensionFull = 0;
 	extension.forEach(function (ex) {

@@ -16,8 +16,8 @@ export default (roomName) => {
 	      spawn     = room.memory.structures.spawn.energy;
 	
 	let bgPadding = 0.5,
-	    guiX      = flag.pos.x,
-	    guiY      = flag.pos.y;
+	    guiX      = flag.x,
+	    guiY      = flag.y;
 	
 	let extensionFull = 0;
 	extension.forEach(ex => {
