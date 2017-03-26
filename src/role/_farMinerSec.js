@@ -15,6 +15,11 @@ export default (creep, newRoom) => {
 		target = Game.getObjectById(creep.memory.harvestTarget)
 		if (harvest(creep, target)) return;
 	} else {
+		const needFix =  newRoom.memory.structures.needFix;
+		if (needFix.length > 0){
+			target = creep.pos.findClosestByRange(needFix);
+			if (repair(creep, target)) return;
+		}
 		const needBuild = creep.room.memory.structures.needBuild;
 		if (needBuild.length > 0) {
 			target = creep.pos.findClosestByRange(needBuild);

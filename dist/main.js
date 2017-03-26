@@ -2593,6 +2593,11 @@ exports.default = function (creep, newRoom) {
 		target = Game.getObjectById(creep.memory.harvestTarget);
 		if ((0, _action.harvest)(creep, target)) return;
 	} else {
+		var needFix = newRoom.memory.structures.needFix;
+		if (needFix.length > 0) {
+			target = creep.pos.findClosestByRange(needFix);
+			if ((0, _action.repair)(creep, target)) return;
+		}
 		var needBuild = creep.room.memory.structures.needBuild;
 		if (needBuild.length > 0) {
 			target = creep.pos.findClosestByRange(needBuild);
