@@ -1,7 +1,6 @@
 import {isFull} from '../_util'
 import {attack, transfer, pickup, moveTo, withdraw} from '../action'
 export default (creep, newRoom) => {
-	const room = Game.spawns['Spawn1'].room;
 	let target;
 	// memory
 	isFull(creep);
@@ -21,6 +20,7 @@ export default (creep, newRoom) => {
 			return;
 		}
 	} else {
-		if (transfer(creep, room.storage)) return;
+		target = Game.getObjectById('58d07b35bfeec6256575be5d')
+		if (transfer(creep, target)) return;
 	}
 }

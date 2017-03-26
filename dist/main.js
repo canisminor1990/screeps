@@ -2470,7 +2470,6 @@ var _util = __webpack_require__(0);
 var _action = __webpack_require__(1);
 
 exports.default = function (creep, newRoom) {
-	var room = Game.spawns['Spawn1'].room;
 	var target = void 0;
 	// memory
 	(0, _util.isFull)(creep);
@@ -2490,7 +2489,8 @@ exports.default = function (creep, newRoom) {
 			return;
 		}
 	} else {
-		if ((0, _action.transfer)(creep, room.storage)) return;
+		target = Game.getObjectById('58d07b35bfeec6256575be5d');
+		if ((0, _action.transfer)(creep, target)) return;
 	}
 };
 
@@ -2603,6 +2603,8 @@ exports.default = function (creep, newRoom) {
 			target = creep.pos.findClosestByRange(needBuild);
 			if ((0, _action.build)(creep, target)) return;
 		}
+		target = Game.getObjectById('58d07b35bfeec6256575be5d');
+		if (transfer(creep, target)) return;
 	}
 };
 

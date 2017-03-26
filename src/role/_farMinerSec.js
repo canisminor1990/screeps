@@ -25,5 +25,7 @@ export default (creep, newRoom) => {
 			target = creep.pos.findClosestByRange(needBuild);
 			if (build(creep, target))return;
 		}
+		target = Game.getObjectById('58d07b35bfeec6256575be5d')
+		if (transfer(creep, target)) return;
 	}
 }
