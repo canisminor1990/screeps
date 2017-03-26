@@ -83,5 +83,6 @@ export default (room = Game.rooms['W81S67']) => {
 	return {
 		role  : role.sort((a, b) => a.priority - b.priority),
 		repair: repair,
+		linkMain : '58d505eb204ecd9e507951f0',
 	};
 }

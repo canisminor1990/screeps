@@ -19,6 +19,8 @@ export default (room, config) => {
 		terminal   : room.terminal,
 		controller : room.controller,
 		storage    : structuresStorage,
+		link       : _.filter(structuresMy, structure =>
+		structure.structureType == STRUCTURE_LINK),
 		tower      : _.filter(structuresMy, structure => structure.structureType == STRUCTURE_TOWER),
 		spawn      : _.filter(structuresMy, structure => structure.structureType == STRUCTURE_SPAWN)[0],
 		extension  : _.filter(structuresMy, structure => structure.structureType == STRUCTURE_EXTENSION),
