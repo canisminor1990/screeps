@@ -1892,16 +1892,16 @@ exports.default = function (room) {
 
 		switch (command) {
 			case 'attack' || 'a':
-				flagsMemory.push(flags.attack(commandContent, flagRaw));
+				flagsMemory.attack.push(flags.attack(commandContent, flagRaw));
 				break;
 			case 'move' || 'moveTo' || 'moveto' || 'm':
-				flagsMemory.push(flags.moveTo(commandContent, flagRaw));
+				flagsMemory.moveTo.push(flags.moveTo(commandContent, flagRaw));
 				break;
 			case 'dis' || 'dismantle':
-				flagsMemory.push(flags.dismantle(commandContent, flagRaw));
+				flagsMemory.dismantle.push(flags.dismantle(commandContent, flagRaw));
 				break;
 			case 'gui':
-				flagsMemory[commandContent] = flagRaw.pos;
+				flagsMemory.gui[commandContent] = flagRaw.pos;
 				break;
 		}
 
