@@ -1480,14 +1480,15 @@ var _config2 = _interopRequireDefault(_config);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+var rowMargin = 0.3,
+    guiWidth = 4.8,
+    guiHeight = 0.7,
+    guiRowMargin = guiHeight + rowMargin + 1,
+    guiCreepWidth = 3.5,
+    guiCreepHeight = 0.2,
+    guiCreepRowMargin = guiCreepHeight + rowMargin + 1;
+
 exports.default = function (roomName) {
-	var rowMargin = 0.3,
-	    guiWidth = 4.8,
-	    guiHeight = 0.7,
-	    guiRowMargin = guiHeight + rowMargin + 1,
-	    guiCreepWidth = 3.5,
-	    guiCreepHeight = 0.2,
-	    guiCreepRowMargin = guiCreepHeight + rowMargin + 1;
 	var bgPadding = 0.5,
 	    guiCreepX = .5,
 	    guiCreepY = 1,
