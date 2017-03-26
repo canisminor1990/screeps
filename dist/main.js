@@ -317,25 +317,25 @@ exports.default = function () {
 		role: "claim",
 		body: { claim: 2, move: 1 },
 		timeout: 100,
-		number: noEnemy['W81S66'] ? 1 : 0,
+		number: noEnemy['W81S66'].safe ? 1 : 0,
 		priority: 7
 	}, {
 		role: "claimSec",
 		body: { claim: 2, move: 4 },
 		timeout: 200,
-		number: noEnemy['W82S67'] ? 1 : 0,
+		number: noEnemy['W82S67'].safe ? 1 : 0,
 		priority: 7
 	}, {
 		role: "farMiner",
 		body: { work: 8, carry: 1, move: 4 },
 		timeout: 100,
-		number: noEnemy['W81S66'] ? 1 : 0,
+		number: noEnemy['W81S66'].safe ? 1 : 0,
 		priority: 1
 	}, {
 		role: "farMinerSec",
 		body: { work: 4, carry: 6, move: 6 },
 		timeout: 100,
-		number: noEnemy['W82S67'] ? 4 : 0,
+		number: noEnemy['W82S67'].safe ? 4 : 0,
 		priority: 8
 	}, {
 		role: 'farHarvester',
@@ -3070,18 +3070,36 @@ Object.defineProperty(exports, "__esModule", {
 	value: true
 });
 var trigger = function trigger() {
-	if (!Game.rooms['W81S66'] || Game.rooms['W81S66'].memory.creeps) {}
+	isSafe('W81S66');
+	isSafe('W82S67');
 };
 
 trigger.install = function () {
 	if (!Memory.trigger) Memory.trigger = {
 		noEnemy: {
-			'W81S66': true,
-			'W82S67': true
+			'W81S66': {
+				timeout: 0,
+				safe: true
+			},
+			'W82S67': {
+				timeout: 0,
+				safe: true
+			}
 		}
 	};
 };
 exports.default = trigger;
+
+
+function isSafe(roomName) {
+	if (Memory.trigger[roomName].safe && (!Game.rooms[roomName] || Game.rooms[roomName].memory.creeps.enemy.length > 0)) {
+		Memory.trigger[roomName].safe = false;
+		Memory.trigger[roomName].timeout = Game.time;
+	}
+	if (!Memory.trigger[roomName].safe) {
+		if (Game.time - Memory.trigger.timeout > 1500) Memory.trigger[roomName].safe = true;
+	}
+}
 
 /***/ }),
 /* 65 */
