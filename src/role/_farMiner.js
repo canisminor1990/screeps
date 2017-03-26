@@ -2,14 +2,16 @@ import {moveTo, harvest, repair, build, pickup} from '../action'
 import {isFull} from '../_util'
 export default (creep, newRoom) => {
 	let target;
-	//
 	isFull(creep)
-	if (!creep.memory.harvestTarget) creep.memory.harvestTarget = '5873bc3511e3e4361b4d7390';
+	//
+	if (!creep.memory.harvestTarget) creep.memory.harvestTarget = newRoom.memory.sources[0].source.id;
 	//
 	if (creep.memory.full) {
 		target = creep.pos.findInRange(creep.room.memory.structures.container)[0];
-		if (target && target.hits < target.hitsMax) {
-			if (repair(creep, target)) return;
+		if (target) {
+			if (target.hits < target.hitsMax && repair(creep, target)) return;
+		} else {
+			creep.room.createConstructionSite(creep.pos.x, creep.pos.y, STRUCTURE_CONTAINER)
 		}
 		const needBuild = creep.room.memory.structures.needBuild;
 		if (needBuild.length > 0) {

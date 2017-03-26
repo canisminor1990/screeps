@@ -2561,14 +2561,16 @@ var _util = __webpack_require__(0);
 
 exports.default = function (creep, newRoom) {
 	var target = void 0;
-	//
 	(0, _util.isFull)(creep);
-	if (!creep.memory.harvestTarget) creep.memory.harvestTarget = '5873bc3511e3e4361b4d7390';
+	//
+	if (!creep.memory.harvestTarget) creep.memory.harvestTarget = newRoom.memory.sources[0].source.id;
 	//
 	if (creep.memory.full) {
 		target = creep.pos.findInRange(creep.room.memory.structures.container)[0];
-		if (target && target.hits < target.hitsMax) {
-			if ((0, _action.repair)(creep, target)) return;
+		if (target) {
+			if (target.hits < target.hitsMax && (0, _action.repair)(creep, target)) return;
+		} else {
+			creep.room.createConstructionSite(creep.pos.x, creep.pos.y, STRUCTURE_CONTAINER);
 		}
 		var needBuild = creep.room.memory.structures.needBuild;
 		if (needBuild.length > 0) {
