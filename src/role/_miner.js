@@ -7,8 +7,8 @@ export default (creep) => {
 	isFull(creep)
 	//run
 	if (!creep.memory.harvestTarget) creep.memory.harvestTarget = memory.sources[0].source.id;
+	target          = Game.getObjectById(creep.memory.harvestTarget)
 	if (creep.memory.full) {
-		target = Game.getObjectById(creep.memory.harvestTarget)
 		const container = target.pos.findInRange(memory.structures.container, 1)
 		if (container && container.length > 0 && container[0].hits < container[0].hitsMax / 2) {
 			if (repair(creep, container[0])) return;
@@ -18,8 +18,6 @@ export default (creep) => {
 			target = creep.pos.findInRange(needBuild, 0);
 			if (target.length > 0 && build(creep, target[0]))return;
 		}
-	} else {
-		target = Game.getObjectById(creep.memory.harvestTarget)
-		if (harvest(creep, target)) return;
 	}
+	if (harvest(creep, target)) return;
 }
