@@ -8,9 +8,8 @@ export default (roomArray) => {
 	
 	let sources = []
 	roomArray.forEach(room => {
-		room = Game.rooms[room].memory;
-		sources.concat(room.sources)
-		
+		room = Game.rooms[room]
+		if (room) sources.concat(room.memory.sources)
 	})
 	
 	Memory.global = {
