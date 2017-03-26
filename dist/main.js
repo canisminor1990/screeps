@@ -2846,7 +2846,7 @@ Object.defineProperty(exports, 'farMiner', {
 
 var _farMinerSec = __webpack_require__(54);
 
-Object.defineProperty(exports, 'farMinerSrc', {
+Object.defineProperty(exports, 'farMinerSec', {
   enumerable: true,
   get: function get() {
     return _interopRequireDefault(_farMinerSec).default;
