@@ -2253,16 +2253,15 @@ var _action = __webpack_require__(1);
 
 exports.default = function (creep, newRoom) {
 	var room = Game.spawns['Spawn1'].room;
-	var newRoomMemory = newRoom.memory;
-	var enemy = newRoomMemory.creeps.enemy;
+	// const enemy = newRoomMemory.creeps.enemy;
 	var target = void 0;
 	// memory
 	(0, _util.isFull)(creep);
 	// run
-	if (enemy.length > 0) {
-		target = creep.pos.findClosestByRange(enemy);
-		if ((0, _action.attack)(creep, target)) return;
-	}
+	// if (enemy.length > 0) {
+	// 	target = creep.pos.findClosestByRange(enemy);
+	// 	if (attack(creep, target)) return;
+	// }
 
 	if (!creep.memory.full) {
 		var dropped = creep.room.memory.dropped.energy;
