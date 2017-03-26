@@ -2102,7 +2102,7 @@ var _util = __webpack_require__(0);
 var _action = __webpack_require__(1);
 
 exports.default = function (creep, newRoom) {
-	if (!newRoom) return;
+	if (!newRoom.memory) return;
 	var room = Game.spawns['Spawn1'].room;
 	var needBuild = newRoom.memory.structures.needBuild;
 	var target = void 0;
