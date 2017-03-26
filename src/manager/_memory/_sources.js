@@ -4,7 +4,7 @@ export default (room, miner) => {
 	rawSources.forEach(source => {
 			let minerNumber = 0;
 			miner.forEach(creep => {
-					(creep.memory.harvestTarget == source.id && creep.ticksToLive > 50) ?
+					(creep.memory.harvestTarget == source.id && creep.ticksToLive > 100) ?
 						minerNumber++ : null
 				}
 			)
