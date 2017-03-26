@@ -10,9 +10,6 @@ export default (creep) => {
 	isFull(creep)
 	// run
 	let needFill = creep.room.memory.structures.needFill;
-	target = Game.getObjectById(creep.room.memory.linkMain);
-	console.log(target)
-	if (withdraw(creep, target)) return;
 	if (!creep.memory.full) {
 		if (!needFill || needFill.length == 0) {
 			const dropped = creep.room.memory.dropped.energy;
@@ -21,6 +18,8 @@ export default (creep) => {
 				if (pickup(creep, target)) return;
 			}
 		}
+		target = Game.getObjectById(creep.room.memory.config.linkMain);
+		if (withdraw(creep, target)) return;
 		target = creep.room.storage;
 		if (withdraw(creep, target)) return;
 	} else {
