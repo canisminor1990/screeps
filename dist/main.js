@@ -2616,8 +2616,10 @@ var _config2 = _interopRequireDefault(_config);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 exports.default = function (link) {
+	console.log(link);
+	if (!link || !Game.getObjectById(link.id)) return;
 	var linkMain = (0, _config2.default)().linkMain;
-	if (!link || link.id == linkMain || link.cooldown > 0 || link.energy < link.energyCapacity) return;
+	if (link.id == linkMain || link.cooldown > 0 || link.energy < link.energyCapacity) return;
 	var target = Game.getObjectById(linkMain);
 	link.transferEnergy(target);
 };
