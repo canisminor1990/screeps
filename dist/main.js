@@ -1975,8 +1975,8 @@ exports.default = function (roomArray) {
 	var targetCreeps = Memory.creeps;
 	var config = Memory.config;
 
-	structure.spawn(targetStructures.spawn, config);
-	if ((0, _util.timer)(2)) targetStructures.tower.forEach(function (tower) {
+	if ((0, _util.timer)(2)) structure.spawn(targetStructures.spawn, config);
+	targetStructures.tower.forEach(function (tower) {
 		return structure.tower(tower, targetStructures.needFix, targetCreeps.enemy);
 	});
 };
