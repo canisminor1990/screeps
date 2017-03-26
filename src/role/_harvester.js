@@ -5,10 +5,11 @@ export default (creep) => {
 	// memory
 	isFull(creep)
 	// run
-	target = _.filter(creep.room.memory.structures.container,
-		container => container.id != '58d4d78f1b7445f663aacaca' &&
-		container.store.energy > 0
-	).sort((a, b) => b.store.energy - a.store.energy)
+	// target = _.filter(creep.room.memory.structures.container,
+	// 	container => container.id != '58d4d78f1b7445f663aacaca' &&
+	// 	container.store.energy > 0).sort((a, b) => b.store.energy - a.store.energy)
+	target= Game.getObjectById('58d6a0f58f53422d7fea1d52')
+	
 	if (target && target.length > 0) {
 		if (!creep.memory.full) {
 			const dropped = creep.room.memory.dropped.energy;

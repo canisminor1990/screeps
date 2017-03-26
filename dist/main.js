@@ -2314,11 +2314,11 @@ exports.default = function (creep) {
 	// memory
 	(0, _util.isFull)(creep);
 	// run
-	target = _.filter(creep.room.memory.structures.container, function (container) {
-		return container.id != '58d4d78f1b7445f663aacaca' && container.store.energy > 0;
-	}).sort(function (a, b) {
-		return b.store.energy - a.store.energy;
-	});
+	// target = _.filter(creep.room.memory.structures.container,
+	// 	container => container.id != '58d4d78f1b7445f663aacaca' &&
+	// 	container.store.energy > 0).sort((a, b) => b.store.energy - a.store.energy)
+	target = Game.getObjectById('58d6a0f58f53422d7fea1d52');
+
 	if (target && target.length > 0) {
 		if (!creep.memory.full) {
 			var dropped = creep.room.memory.dropped.energy;
