@@ -2,6 +2,7 @@ import { emoji } from '../_util'
 import { targetFormat } from '../_util'
 export default (creep, target, type = 'default') => {
 	target = targetFormat(target)
+	if (creep.memory.target[type].id == target.id) return
 	if (!target) return false;
 	creep.memory.target[type] = {
 		id  : target.id,
