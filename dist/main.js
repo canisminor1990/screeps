@@ -2790,7 +2790,7 @@ exports.default = function (creep, newRoom) {
 	(0, _util.isFull)(creep);
 	//
 
-	(0, _util.targetMaker)(creep, Memory.rooms['W81S66'].sources[0].source);
+	(0, _util.targetMaker)(creep, Memory.rooms['W81S66'].sources[0].source, 'harvest');
 	//
 	if (creep.memory.full) {
 		target = (0, _action.findClosestInRange)(creep, creep.room.memory.structures.container, 2);
