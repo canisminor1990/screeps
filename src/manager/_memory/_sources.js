@@ -6,6 +6,7 @@ export default (room) => {
 	rawSources.forEach(source => {
 		                   let minerArray = []
 		                   miner.forEach(creep => {
+			                   creep= Game.getObjectById(creep.id)
 			                   console.log(0)
 				                   if (creep.memory.target) {
 					                   console.log(1)

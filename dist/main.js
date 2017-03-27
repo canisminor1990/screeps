@@ -2200,6 +2200,7 @@ exports.default = function (room) {
 	rawSources.forEach(function (source) {
 		var minerArray = [];
 		miner.forEach(function (creep) {
+			creep = Game.getObjectById(creep.id);
 			console.log(0);
 			if (creep.memory.target) {
 				console.log(1);
