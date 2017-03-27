@@ -3,7 +3,7 @@ export default (creep, target, color = '#ffffff', noPathFinding = true) => {
 	if (!target.pos || creep.fatigue > 0) return false;
 	if (target.pos.roomName != creep.pos.roomName) {
 		target = new RoomPosition(target.pos.x, target.pos.y, target.pos.roomName)
-		console.log(target)
+		noPathFinding = false
 	} else {
 		target = targetFormat(target)
 	}

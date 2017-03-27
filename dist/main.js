@@ -1594,7 +1594,7 @@ exports.default = function (creep, target) {
 	if (!target.pos || creep.fatigue > 0) return false;
 	if (target.pos.roomName != creep.pos.roomName) {
 		target = new RoomPosition(target.pos.x, target.pos.y, target.pos.roomName);
-		console.log(target);
+		noPathFinding = false;
 	} else {
 		target = (0, _util.targetFormat)(target);
 	}
