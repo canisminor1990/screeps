@@ -1,6 +1,7 @@
 import { targetChange } from  '../../_util'
-export default (room, miner) => {
+export default (room) => {
 	const rawSources = room.find(FIND_SOURCES);
+	const miner = room.memory.creeps.my.miner;
 	let sources      = []
 	rawSources.forEach(source => {
 		                   let minerArray = []

@@ -2193,8 +2193,9 @@ Object.defineProperty(exports, "__esModule", {
 
 var _util = __webpack_require__(0);
 
-exports.default = function (room, miner) {
+exports.default = function (room) {
 	var rawSources = room.find(FIND_SOURCES);
+	var miner = room.memory.creeps.my.miner;
 	var sources = [];
 	rawSources.forEach(function (source) {
 		var minerArray = [];
