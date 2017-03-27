@@ -1457,7 +1457,7 @@ exports.default = function (creep, targetRaw) {
 	if (!opt) return;
 	var target = void 0;
 	target = (0, _util.targetFormat)(targetRaw);
-	if (!targetRaw) {
+	if (!target) {
 		if ((0, _.moveTo)(creep, target)) return;
 	}
 	(0, _util.targetMaker)(creep, target, 'attack');
@@ -1485,7 +1485,7 @@ exports.default = function (creep, targetRaw) {
 	if (!opt) return;
 	var target = void 0;
 	target = (0, _util.targetFormat)(targetRaw);
-	if (!targetRaw) {
+	if (!target) {
 		if ((0, _.moveTo)(creep, target)) return;
 	}
 	(0, _util.targetMaker)(creep, target, 'build');
@@ -1513,7 +1513,7 @@ exports.default = function (creep, targetRaw) {
 	if (!opt) return;
 	var target = void 0;
 	target = (0, _util.targetFormat)(targetRaw);
-	if (!targetRaw) {
+	if (!target) {
 		if ((0, _.moveTo)(creep, target)) return;
 	}
 	(0, _util.targetMaker)(creep, target, 'reserveController');
@@ -1541,7 +1541,7 @@ exports.default = function (creep, targetRaw) {
 	if (!opt) return;
 	var target = void 0;
 	target = (0, _util.targetFormat)(targetRaw);
-	if (!targetRaw) {
+	if (!target) {
 		if ((0, _.moveTo)(creep, target)) return;
 	}
 	(0, _util.targetMaker)(creep, target, 'dismantle');
@@ -1569,7 +1569,7 @@ exports.default = function (creep, targetRaw) {
 	if (!opt) return;
 	var target = void 0;
 	target = (0, _util.targetFormat)(targetRaw);
-	if (!targetRaw) {
+	if (!target) {
 		if ((0, _.moveTo)(creep, target)) return;
 	}
 	(0, _util.targetMaker)(creep, target, 'harvest');
@@ -1597,7 +1597,7 @@ exports.default = function (creep, targetRaw) {
 	if (!opt) return;
 	var target = void 0;
 	target = (0, _util.targetFormat)(targetRaw);
-	if (!targetRaw) {
+	if (!target) {
 		if ((0, _.moveTo)(creep, target)) return;
 	}
 	(0, _util.targetMaker)(creep, target, 'heal');
@@ -1671,7 +1671,7 @@ exports.default = function (creep, targetRaw) {
 	if (!opt) return;
 	var target = void 0;
 	target = (0, _util.targetFormat)(targetRaw);
-	if (!targetRaw) {
+	if (!target) {
 		if ((0, _.moveTo)(creep, target)) return;
 	}
 	(0, _util.targetMaker)(creep, target, 'pickup');
@@ -1699,7 +1699,7 @@ exports.default = function (creep, targetRaw) {
 	if (!opt) return;
 	var target = void 0;
 	target = (0, _util.targetFormat)(targetRaw);
-	if (!targetRaw) {
+	if (!target) {
 		if ((0, _.moveTo)(creep, target)) return;
 	}
 	(0, _util.targetMaker)(creep, target, 'repair');
@@ -1728,7 +1728,7 @@ exports.default = function (creep, targetRaw) {
 	if (!opt) return;
 	var target = void 0;
 	target = (0, _util.targetFormat)(targetRaw);
-	if (!targetRaw) {
+	if (!target) {
 		if ((0, _.moveTo)(creep, target)) return;
 	}
 	(0, _util.targetMaker)(creep, target, 'transfer');
@@ -1756,7 +1756,7 @@ exports.default = function (creep, targetRaw) {
 	if (!opt) return;
 	var target = void 0;
 	target = (0, _util.targetFormat)(targetRaw);
-	if (!targetRaw) {
+	if (!target) {
 		if ((0, _.moveTo)(creep, target)) return;
 	}
 	if (!target) return;
@@ -1786,7 +1786,7 @@ exports.default = function (creep, targetRaw) {
 	if (!opt) return;
 	var target = void 0;
 	target = (0, _util.targetFormat)(targetRaw);
-	if (!targetRaw) {
+	if (!target) {
 		if ((0, _.moveTo)(creep, target)) return;
 	}
 	(0, _util.targetMaker)(creep, target, 'withdraw');

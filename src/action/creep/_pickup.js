@@ -4,7 +4,7 @@ export default (creep, targetRaw,opt = true) => {
 	if (!opt) return;
 	let target;
 	target = targetFormat(targetRaw)
-	if (!targetRaw) {
+	if (!target) {
 		if (moveTo(creep, target))return
 	}
 	targetMaker(creep,target,'pickup')
