@@ -4,9 +4,6 @@ export default (creep, roomName) => {
 	const storage = Game.getObjectById('58d07b35bfeec6256575be5d')
 	isFull(creep)
 	targetMaker(creep, Memory.rooms[roomName].structures.container[0], 'withdraw')
-	if (creep.pos.roomName != creep.memory.target.withdraw.pos.roomName) {
-		targetChange(creep, Memory.rooms[roomName].structures.container[0], 'withdraw')
-	}
 	// run
 	
 	let withdrawTarget = creep.memory.target.withdraw
@@ -20,6 +17,9 @@ export default (creep, roomName) => {
 			
 			if (repair(creep, findClosestByRange(creep, needFix)))return;
 			if (build(creep, findClosestByRange(creep, needBuild)))return;
+		}
+		if (creep.pos.roomName != creep.memory.target.withdraw.pos.roomName) {
+			targetChange(creep, Memory.rooms[roomName].structures.container[0], 'withdraw')
 		}
 		if (transfer(creep, storage)) return;
 	}

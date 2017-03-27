@@ -1,5 +1,5 @@
 import {isFull, targetMaker, targetChange} from '../_util'
-import {findClosestInRange, transfer, pickup, withdraw} from '../action'
+import {findClosestInRange,findClosestByRange, build, pickup, withdraw} from '../action'
 export default (creep, roomName) => {
 	let target;
 	// memory
@@ -12,6 +12,10 @@ export default (creep, roomName) => {
 		if (withdraw(creep, creep.memory.target.withdraw)) return
 	}
 	else {
+		if (creep.pos.roomName == creep.memory.target.withdraw.pos.roomName) {
+			const needBuild = creep.room.memory.structures.needBuild;
+			if (build(creep, findClosestByRange(creep, needBuild)))return;
+		}
 		if (creep.pos.roomName != creep.memory.target.withdraw.pos.roomName){
 			targetChange(creep, Memory.rooms[roomName].structures.container[0], 'withdraw')
 		}
