@@ -2002,19 +2002,16 @@ exports.default = function (room, miner) {
 	var rawSources = room.find(FIND_SOURCES);
 	var sources = [];
 	rawSources.forEach(function (source) {
-		var minerNumber = 0;
-		miner.forEach(function (creep) {
-			if (creep.memory.target.harvest.id == source.id && creep.ticksToLive > 100) minerNumber++;
-		});
-
 		sources.push({
 			source: source,
-			minerNumber: minerNumber
+			minerNumber: source.pos.findInRange(source.room.memory.creeps.miner, 1)
 		});
 	});
 	if (sources.length > 0) {
 		sources.sort(function (a, b) {
 			return b.source.energy - a.source.energy;
+		}).sort(function (a, b) {
+			return b.minerNumber - a.minerNumber;
 		});
 	}
 	return sources;
