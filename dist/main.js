@@ -3064,8 +3064,13 @@ exports.default = function (creep) {
 		target = (0, _action.findInRange)(harvestTarget, creep.room.memory.structures.container, 2);
 		if (!creep.pos.isEqualTo(target.pos) && (0, _action.moveTo)(creep, target)) return;
 		if ((0, _action.repair)(creep, target, target.hits < target.hitsMax / 2)) return;
-		// target = findInRange(creep, creep.room.memory.structures.needBuild, 0);
-		// if (build(creep, target))return;
+		target = (0, _action.findInRange)(creep, creep.room.memory.structures.needBuild, 1)[1];
+		if ((0, _action.build)(creep, target)) return;
+	} else {
+		target = (0, _action.findInRange)(harvestTarget, creep.room.memory.creeps.miner, 2, function (miner) {
+			return miner.id != creep.id && miner.ticksToLive > 20;
+		});
+		if (target.length) (0, _util.targetChange)(creep, sources[0].source, 'harvest');
 	}
 	if ((0, _action.harvest)(creep, harvestTarget)) return;
 };
