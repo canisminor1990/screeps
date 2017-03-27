@@ -3,15 +3,15 @@ export default (room, miner) => {
 	const rawSources = room.find(FIND_SOURCES);
 	let sources      = []
 	rawSources.forEach(source => {
-		                   let miner = []
+		                   let minerArray = []
 		                   miner.forEach(creep => {
 			                   console.log('id', creep.memory.target.harvest.id)
-			                   if (creep.memory.target.harvest && creep.memory.target.harvest.id == source.id) miner.push(creep.id)
+			                   if (creep.memory.target.harvest && creep.memory.target.harvest.id == source.id) minerArray.push(creep.id)
 		                   })
 
 		                   sources.push({
 			                                source: source,
-			                                miner : miner
+			                                miner : minerArray
 		                                })
 	                   }
 	)
