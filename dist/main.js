@@ -1448,7 +1448,7 @@ exports.default = function (creep, target) {
 		}
 	}))) {
 		target.room.visual.circle(target.pos, { fill: 'transparent', radius: 0.55, stroke: color });
-		if (target.room.roomName == creep.room.roomName) {
+		if (target.pos.roomName == creep.pos.roomName) {
 			target.room.visual.line(creep.pos, target.pos, { color: color, width: 0.05, opacity: 0.25 });
 		}
 		return true;
