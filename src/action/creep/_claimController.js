@@ -5,7 +5,7 @@ export default (creep, targetRaw,opt = true) => {
 	let target;
 	target = targetFormat(targetRaw)
 	if (!target) {
-		if (moveTo(creep, target))return
+		if (moveTo(creep, targetRaw))return
 	}
 	targetMaker(creep,target,'reserveController')
 	if (action(creep, target, creep.reserveController(target), emoji.claim,colorType.orange)) return true;
