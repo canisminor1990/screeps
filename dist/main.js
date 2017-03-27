@@ -2492,16 +2492,16 @@ exports.default = function (roomArrary) {
 					role.builder(creep);
 					break;
 				case 'farBuilder':
-					role.farBuilder(creep, newRoomMaker(roomArrary[1]));
+					role.farBuilder(creep, roomArrary[1]);
 					break;
 				case 'farHarvester':
-					role.farHarvester(creep, newRoomMaker(roomArrary[1]));
+					role.farHarvester(creep, roomArrary[1]);
 					break;
 				case 'farMiner':
-					role.farMiner(creep, newRoomMaker(roomArrary[1]));
+					role.farMiner(creep, roomArrary[1]);
 					break;
 				case 'claim':
-					role.claim(creep, newRoomMaker(roomArrary[1]));
+					role.claim(creep, roomArrary[1]);
 					break;
 				case 'farMinerSec':
 					role.farMinerSec(creep, newRoomMaker(roomArrary[2]));
@@ -2644,15 +2644,10 @@ Object.defineProperty(exports, "__esModule", {
 
 var _action = __webpack_require__(1);
 
-exports.default = function (creep, newRoom) {
+exports.default = function (creep, roomName) {
 	//
-	var target = Game.getObjectById('5873bc3511e3e4361b4d738f');
-	if (!target) {
-		(0, _action.moveTo)(creep, newRoom.pos);
-		return;
-	} else {
-		if ((0, _action.claimController)(creep, target)) return;
-	}
+	targetMaker(creep, Memory.rooms[roomName].structures.controller, 'claim');
+	if ((0, _action.claimController)(creep, creep.memory.claim)) return;
 };
 
 /***/ }),
@@ -2743,22 +2738,16 @@ var _util = __webpack_require__(0);
 
 var _action = __webpack_require__(1);
 
-exports.default = function (creep, newRoom) {
-	var target = void 0;
+exports.default = function (creep, roomName) {
 	var storage = Game.getObjectById('58d07b35bfeec6256575be5d');
 	(0, _util.isFull)(creep);
-	(0, _util.targetMaker)(creep, newRoom.memory.structures.container[0], 'withdraw');
+	(0, _util.targetMaker)(creep, Memory.rooms[roomName].structures.container[0], 'withdraw');
 	// run
 
 	var withdrawTarget = creep.memory.target.withdraw;
 	if (!creep.memory.full) {
-		if (creep.pos.roomName != withdrawTarget.pos.roomName) {
-			(0, _action.moveTo)(creep, withdrawTarget);
-			return;
-		} else {
-			if ((0, _action.pickup)(creep, (0, _action.findClosestInRange)(creep, creep.room.memory.dropped.energy, 3))) return;
-			if ((0, _action.withdraw)(creep, withdrawTarget)) return;
-		}
+		if ((0, _action.pickup)(creep, (0, _action.findClosestInRange)(creep, creep.room.memory.dropped.energy, 3))) return;
+		if ((0, _action.withdraw)(creep, withdrawTarget)) return;
 	} else {
 		var needBuild = creep.room.memory.structures.needBuild,
 		    needFix = creep.room.memory.structures.needFix;
@@ -2784,11 +2773,11 @@ var _util = __webpack_require__(0);
 
 var _action = __webpack_require__(1);
 
-exports.default = function (creep, newRoom) {
+exports.default = function (creep, roomName) {
 	var target = void 0;
 	// memory
 	(0, _util.isFull)(creep);
-	(0, _util.targetMaker)(creep, newRoom.memory.structures.container[0], 'withdraw');
+	(0, _util.targetMaker)(creep, Memory.rooms[roomName].structures.container[0], 'withdraw');
 	// run
 	if (!creep.memory.full) {
 		if ((0, _action.pickup)(creep, (0, _action.findClosestInRange)(creep, creep.room.memory.dropped.energy, 4))) return;
@@ -2813,11 +2802,11 @@ var _action = __webpack_require__(1);
 
 var _util = __webpack_require__(0);
 
-exports.default = function (creep) {
+exports.default = function (creep, roomName) {
 	var target = void 0;
 	(0, _util.isFull)(creep);
 	//
-	(0, _util.targetMaker)(creep, Memory.rooms['W81S66'].sources[0].source, 'harvest');
+	(0, _util.targetMaker)(creep, Memory.rooms[roomName].sources[0].source, 'harvest');
 	//
 	if (creep.memory.full) {
 		target = (0, _action.findClosestInRange)(creep, creep.room.memory.structures.container, 2);

@@ -1,10 +1,10 @@
 import {moveTo, harvest, repair, build, findInRange, findClosestInRange} from '../action'
 import {isFull, targetMaker, targetFormat} from '../_util'
-export default (creep) => {
+export default (creep,roomName) => {
 	let target;
 	isFull(creep)
 	//
-	targetMaker(creep, Memory.rooms['W81S66'].sources[0].source, 'harvest')
+	targetMaker(creep, Memory.rooms[roomName].sources[0].source, 'harvest')
 	//
 	if (creep.memory.full) {
 		target = findClosestInRange(creep, creep.room.memory.structures.container, 2);
