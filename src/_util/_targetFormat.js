@@ -6,5 +6,5 @@ export default (targetRaw) => {
 	}
 	let target;
 	target = Game.getObjectById(targetRaw.id);
-	return target
+	return (target) ? target : false
 }

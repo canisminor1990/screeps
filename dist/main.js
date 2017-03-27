@@ -1373,7 +1373,7 @@ exports.default = function (targetRaw) {
 	}
 	var target = void 0;
 	target = Game.getObjectById(targetRaw.id);
-	return target;
+	return target ? target : false;
 };
 
 /***/ }),
