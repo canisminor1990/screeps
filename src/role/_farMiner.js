@@ -12,7 +12,7 @@ export default (creep,roomName) => {
 			if (!creep.pos.isEqualTo(target.pos) && moveTo(creep, target)) return;
 			if (repair(creep, target, target.hits < target.hitsMax))return;
 		} else {
-			if (creep.pos.isNearTo(creep.memory.target.harvest.pos)) creep.room.createConstructionSite(creep.pos.x, creep.pos.y, STRUCTURE_CONTAINER)
+			
 		}
 		if (build(creep, findInRange(creep, creep.room.memory.structures.needBuild, 2)[0]))return;
 	}
