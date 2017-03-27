@@ -11,10 +11,10 @@ export default (room) => {
 		sources.sort((a, b) => b.source.energy - a.source.energy)
 			.sort((a, b) => a.miner.length - b.miner.length);
 	}
-	// if (sources.length > 1 && sources[0].miner.length == 0 && sources[sources.length - 1].miner.length > 1) {
-	// 	const targetSource = sources[sources.length - 1],
-	// 	      targetCreep  = Game.getObjectById(targetSource.miner[targetSource.miner.length - 1].id);
-	// 	targetChange(targetCreep, sources[0].source, 'harvest')
-	// }
+	if (sources.length > 1 && sources[0].miner.length == 0 && sources[sources.length - 1].miner.length > 1) {
+		const targetSource = sources[sources.length - 1],
+		      targetCreep  = Game.getObjectById(targetSource.miner.sort((a, b) => b.ticksToLive - a.ticksToLive)[0].id);
+		targetChange(targetCreep, sources[0].source, 'harvest')
+	}
 	return sources
 }
