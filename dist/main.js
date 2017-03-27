@@ -2752,13 +2752,13 @@ exports.default = function (creep, newRoom) {
 	var needBuild = Memory.rooms['W81S66'].structures.needBuild,
 	    needFix = Memory.rooms['W81S66'].structures.needFix;
 	// run
-	if (needBuild.length > 0 || needFix.length > 0) {
+	if (needBuild && needBuild.length > 0 || needFix && needFix.length > 0) {
 		if (!creep.memory.full) {
 			target = (0, _action.findClosestInRange)(creep, creep.room.memory.dropped.energy, 3);
 			if ((0, _action.pickup)(creep, target)) return;
 			if ((0, _action.withdraw)(creep, storage)) return;
 		} else {
-			if ((0, _action.repair)(creep, (0, _action.findClosestByRange)(Memory.rooms['W81S66'].structures.needFix))) return;
+			if ((0, _action.repair)(creep, (0, _action.findClosestByRange)(needFix))) return;
 			if ((0, _action.build)(creep, (0, _action.findClosestByRange)(needBuild))) return;
 		}
 	} else {

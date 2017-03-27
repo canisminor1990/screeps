@@ -9,13 +9,13 @@ export default (creep, newRoom) => {
 	const needBuild = Memory.rooms['W81S66'].structures.needBuild,
 	      needFix   = Memory.rooms['W81S66'].structures.needFix
 	// run
-	if (needBuild.length > 0 || needFix.length > 0 ) {
+	if ((needBuild && needBuild.length > 0 )|| (needFix && needFix.length > 0 )) {
 		if (!creep.memory.full) {
 			target = findClosestInRange(creep, creep.room.memory.dropped.energy, 3);
 			if (pickup(creep, target)) return;
 			if (withdraw(creep, storage))return;
 		} else {
-			if (repair(creep, findClosestByRange(Memory.rooms['W81S66'].structures.needFix)))return;
+			if (repair(creep, findClosestByRange(needFix)))return;
 			if (build(creep, findClosestByRange(needBuild)))return;
 		}
 	} else {
