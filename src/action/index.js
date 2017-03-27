@@ -1,16 +1,16 @@
-export { default as moveTo } from "./_moveTo"
+export { default as moveTo } from "./creep/_moveTo"
 //
-export { default as attack } from "./_attack"
-export { default as heal } from "./_heal"
+export { default as attack } from "./creep/_attack"
+export { default as heal } from "./creep/_heal"
 //
-export { default as build } from "./_build"
-export { default as repair } from "./_repair"
-export { default as dismantle } from "./_dismantle"
+export { default as build } from "./creep/_build"
+export { default as repair } from "./creep/_repair"
+export { default as dismantle } from "./creep/_dismantle"
 //
-export { default as harvest } from "./_harvest"
-export { default as pickup } from "./_pickup"
-export { default as transfer } from "./_transfer"
-export { default as withdraw } from "./_withdraw"
+export { default as harvest } from "./creep/_harvest"
+export { default as pickup } from "./creep/_pickup"
+export { default as transfer } from "./creep/_transfer"
+export { default as withdraw } from "./creep/_withdraw"
 //
-export { default as upgradeController } from "./_upgradeController"
-export { default as claimController } from "./_claimController"
+export { default as upgradeController } from "./creep/_upgradeController"
+export { default as claimController } from "./creep/_claimController"

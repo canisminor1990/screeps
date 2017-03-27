@@ -1,4 +1,4 @@
-import { action,colorType } from "../_util"
+import { action, colorType } from "../../_util"
 export default (creep, target, color = '#ffffff') => {
 
 	if (creep.fatigue > 0) return false;
@@ -15,9 +15,11 @@ export default (creep, target, color = '#ffffff') => {
 			visualizePathStyle: {
 				stroke   : color,
 				lineStyle: 'dotted',
-				opacity: 0.25,
+				opacity  : 0.25,
 			}
 		}))) {
+		target.room.visual.circle(target.pos,
+		                          {fill: 'transparent', radius: 0.55, stroke: color});
 		return true;
 	}
 }

@@ -1448,6 +1448,7 @@ exports.default = function (creep, target) {
 			opacity: 0.25
 		}
 	}))) {
+		target.room.visual.circle(target.pos, { fill: 'transparent', radius: 0.55, stroke: color });
 		return true;
 	}
 };
@@ -2769,7 +2770,7 @@ exports.default = function (creep) {
 	if (!creep.memory.harvestTarget) creep.memory.harvestTarget = memory.sources[0].source.id;
 	var harvestTarget = Game.getObjectById(creep.memory.harvestTarget);
 	if (creep.memory.full) {
-		var container = harvestTarget.pos.findInRange(memory.structures.container, 1);
+		var container = harvestTarget.pos.findInRange(creep.room.memory.structures.container, 1);
 		if (container && container.length > 0 && container[0].hits < container[0].hitsMax / 2) {
 			if ((0, _action.repair)(creep, container[0])) return;
 		}
