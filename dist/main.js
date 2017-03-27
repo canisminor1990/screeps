@@ -2203,7 +2203,7 @@ exports.default = function (room) {
 
 			if (creep.memory) {
 				console.log(1);
-				if (creep.memory.target.harvest && creep.memory.target.harvest.id && creep.memory.target.harvest.id == source.id) {
+				if (creep.memory.target.harvest) {
 					console.log(2);
 					if (creep.memory.target.harvest.id && creep.memory.target.harvest.id == source.id) {
 						console.log(3);
