@@ -21,5 +21,6 @@ export default (creep) => {
 		if (pickup(creep, target[0])) return;
 	}
 	target = creep.memory.target.harvest
+	console.log(1)
 	if (harvest(creep, target)) return;
 }

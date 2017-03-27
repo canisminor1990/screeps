@@ -2857,6 +2857,7 @@ exports.default = function (creep) {
 		if ((0, _action.pickup)(creep, target[0])) return;
 	}
 	target = creep.memory.target.harvest;
+	console.log(1);
 	if ((0, _action.harvest)(creep, target)) return;
 };
 
