@@ -2807,9 +2807,7 @@ exports.default = function (creep) {
 		target = (0, _action.findClosestInRange)(creep, creep.room.memory.dropped.energy, 0);
 		if ((0, _action.pickup)(creep, target[0])) return;
 	}
-	console.log(123);
 	var harvestTarget = (0, _util.targetFormat)(creep.memory.target.harvest);
-	console.log(harvestTarget);
 	if (!harvestTarget) {
 		console.log(123);
 		(0, _action.moveTo)(creep, creep.memory.target.harvest);

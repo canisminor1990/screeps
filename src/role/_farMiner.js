@@ -21,9 +21,7 @@ export default (creep) => {
 		target = findClosestInRange(creep, creep.room.memory.dropped.energy, 0);
 		if (pickup(creep, target[0])) return;
 	}
-	console.log(123)
 	const harvestTarget = targetFormat(creep.memory.target.harvest)
-	console.log(harvestTarget)
 	if (!harvestTarget) {
 		console.log(123)
 		moveTo(creep, creep.memory.target.harvest)
