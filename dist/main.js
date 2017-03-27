@@ -2640,15 +2640,10 @@ exports.default = function (creep) {
 	var needFill = creep.room.memory.structures.needFill;
 	if (!creep.memory.full) {
 		target = Game.getObjectById(creep.room.memory.config.linkMain);
-		if (target.energy > 0) {
-			if ((0, _action.withdraw)(creep, target)) return;
-		}
+		if ((0, _action.withdraw)(creep, target, target.energy > 0)) return;
 		if (!needFill || needFill.length == 0) {
-			var dropped = creep.room.memory.dropped.energy;
-			if (dropped.length > 0) {
-				target = creep.pos.findClosestByRange(dropped);
-				if ((0, _action.pickup)(creep, target)) return;
-			}
+			target = (0, _action.findClosestByRange)(creep, creep.room.memory.dropped.energy);
+			if ((0, _action.pickup)(creep, target)) return;
 		}
 		target = creep.room.storage;
 		if ((0, _action.withdraw)(creep, target)) return;
