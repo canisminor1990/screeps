@@ -3070,6 +3070,7 @@ exports.default = function (creep) {
 		target = (0, _action.findInRange)(harvestTarget, creep.room.memory.creeps.miner, 2, function (miner) {
 			return miner.id != creep.id && miner.ticksToLive > 20;
 		});
+		console.log(target);
 		if (target.length > 0) (0, _util.targetChange)(creep, sources[0].source, 'harvest');
 	}
 	if ((0, _action.harvest)(creep, harvestTarget)) return;
