@@ -7,5 +7,5 @@ export default (creep, rawTarget) => {
 		if (target.length == 0) return false;
 		target = target[0];
 	}
-	if(action(creep, target, creep.heal(target), emoji.heal)) return true;
+	if (action(creep, target, creep.heal(target), emoji.heal, colorType.green)) return true;
 }

@@ -1,4 +1,4 @@
-import { emoji, action } from "../_util"
+import { emoji, action,colorType } from "../_util"
 export default (creep, rawTarget, type = RESOURCE_ENERGY) => {
 	if (!rawTarget) return false;
 	let target = rawTarget;
@@ -8,5 +8,5 @@ export default (creep, rawTarget, type = RESOURCE_ENERGY) => {
 		target = target[0];
 	};
 
-	if(action(creep, target, creep.transfer(target, type), emoji.transfer)) return true;
+	if(action(creep, target, creep.transfer(target, type), emoji.transfer,colorType.purple)) return true;
 }

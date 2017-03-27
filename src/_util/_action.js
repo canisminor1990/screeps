@@ -1,6 +1,6 @@
 import { moveTo } from '../action'
 import { emoji } from '../_util'
-export default (creep, target, fc, text = "") => {
+export default (creep, target, fc, text = "", color = "#fff") => {
 	switch (fc) {
 		case OK:
 			if (text) creep.say(text);
@@ -30,7 +30,7 @@ export default (creep, target, fc, text = "") => {
 			break;
 		case ERR_NOT_ENOUGH_ENERGY     :
 			creep.say(text + "ENERGY");
-			if (creep.memory.role.match('iner')) moveTo(creep, target);
+			if (creep.memory.role.match('iner')) moveTo(creep, target, color);
 			return true;
 			break;
 		case ERR_NOT_ENOUGH_RESOURCES  :
