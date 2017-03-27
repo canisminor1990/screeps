@@ -2183,7 +2183,9 @@ exports.default = function (room, config) {
 };
 
 function creepRole(creepsMyRaw, configRole) {
-	var creepsMy = {};
+	var creepsMy = {
+		all: creepsMyRaw
+	};
 	configRole.forEach(function (role) {
 		creepsMy[role.role] = _.filter(creepsMyRaw, function (creep) {
 			return creep.name.split('#')[0] == role.role;
@@ -2289,7 +2291,7 @@ exports.default = function (room, miner) {
 	rawSources.forEach(function (source) {
 		return sources.push({
 			source: source,
-			miner: source.pos.findInRange(FIND_MY_CREEPS, 2).filter(function (creep) {
+			miner: source.pos.findInRange(source.memory.creeps.my.all, 2).filter(function (creep) {
 				return creep.memory.role.match('iner');
 			})
 		});

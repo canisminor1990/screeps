@@ -16,7 +16,9 @@ export default (room, config) => {
 }
 
 function creepRole(creepsMyRaw, configRole) {
-	let creepsMy = {}
+	let creepsMy = {
+		all : creepsMyRaw
+	}
 	configRole.forEach(role => {
 		creepsMy[role.role] = _.filter(creepsMyRaw, creep => creep.name.split('#')[0] == role.role)
 	})
