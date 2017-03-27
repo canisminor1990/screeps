@@ -6,12 +6,10 @@ export default  (creep) => {
 	isFull(creep)
 	// run
 	if (creep.memory.full) {
-		target = creep.room.controller;
-		if (upgradeController(creep, target)) return;
+		if (upgradeController(creep, creep.room.controller)) return;
 	}
 	else {
-		target = findClosestByRange(creep, creep.room.memory.structures.canWithdraw);
-		if (withdraw(creep, target)) return;
+		if (withdraw(creep, findClosestByRange(creep, creep.room.memory.structures.canWithdraw))) return;
 	}
 }
 

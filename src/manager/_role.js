@@ -50,8 +50,8 @@ export default (roomArrary) => {
 					case 'farBuilderSec':
 						role.farBuilder(creep, roomArrary[2])
 						break;
-					case 'claimSec':
-						role.claim(creep, roomArrary[2])
+					case 'farUpgrader':
+						role.farUpgrader(creep, roomArrary[2])
 						break;
 					case 'attacker':
 						role.attacker(creep, newRoom)

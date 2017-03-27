@@ -38,7 +38,7 @@ export default (room = Game.rooms['W81S67']) => {
 		{
 			role    : 'farHarvesterSec',
 			body    : {carry: 8, move: 4},
-			number  : (noEnemy['W82S67'].safe) ? 6 : 0,
+			number  : (noEnemy['W82S67'].safe) ? 4 : 0,
 			priority: 5
 		},
 		{
@@ -69,6 +69,12 @@ export default (room = Game.rooms['W81S67']) => {
 			body    : {carry: 2, work: 4, move: 2},
 			number  : (builderNumber > 1) ? 1 : 3,
 			priority: 3
+		},
+		{
+			role    : 'farUpgrader',
+			body    : {carry: 5, work: 1, move: 3},
+			number  : (noEnemy['W82S67'].safe) ? 2 : 0,
+			priority: 9
 		},
 		{
 			role    : 'builder',
