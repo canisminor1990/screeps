@@ -1569,11 +1569,13 @@ exports.default = function (creep, targetRaw) {
 	var opt = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : true;
 
 	if (!opt) return;
+
 	var target = void 0;
 	target = (0, _util.targetFormat)(targetRaw);
 	if (!target) {
 		(0, _.moveTo)(creep, targetRaw);return true;
 	}
+	console.log(111);
 	(0, _util.targetMaker)(creep, target, 'harvest');
 	if ((0, _util.action)(creep, target, creep.harvest(target), _util.emoji.harvest, _util.colorType.yellow)) return true;
 };
