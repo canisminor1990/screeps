@@ -10,9 +10,11 @@ export default (creep) => {
 
 	const harvestTarget = Game.getObjectById(creep.memory.target.harvest.id)
 	if (creep.memory.full) {
-		const container = harvestTarget.pos.findInRange(creep.room.memory.structures.container, 1)
-		if (container && container.length > 0 && container[0].hits < container[0].hitsMax / 2) {
-			if (repair(creep, container[0])) return;
+		if (harvestTarget) {
+			const container = harvestTarget.pos.findInRange(creep.room.memory.structures.container, 1)
+			if (container && container.length > 0 && container[0].hits < container[0].hitsMax / 2) {
+				if (repair(creep, container[0])) return;
+			}
 		}
 		const needBuild = creep.room.memory.structures.needBuild;
 		if (needBuild.length > 0) {

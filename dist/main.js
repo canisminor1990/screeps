@@ -1352,8 +1352,8 @@ exports.default = function (creep, target) {
 			time: Game.time
 		};
 		creep.say(_util.emoji.target);
-		return true;
 	}
+	return true;
 };
 
 /***/ }),
@@ -2829,9 +2829,11 @@ exports.default = function (creep) {
 
 	var harvestTarget = Game.getObjectById(creep.memory.target.harvest.id);
 	if (creep.memory.full) {
-		var container = harvestTarget.pos.findInRange(creep.room.memory.structures.container, 1);
-		if (container && container.length > 0 && container[0].hits < container[0].hitsMax / 2) {
-			if ((0, _action.repair)(creep, container[0])) return;
+		if (harvestTarget) {
+			var container = harvestTarget.pos.findInRange(creep.room.memory.structures.container, 1);
+			if (container && container.length > 0 && container[0].hits < container[0].hitsMax / 2) {
+				if ((0, _action.repair)(creep, container[0])) return;
+			}
 		}
 		var needBuild = creep.room.memory.structures.needBuild;
 		if (needBuild.length > 0) {

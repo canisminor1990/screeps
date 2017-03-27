@@ -11,6 +11,6 @@ export default (creep, target, type = 'default') => {
 			time: Game.time
 		};
 		creep.say(emoji.target)
-		return true;
 	}
+	return true;
 }
