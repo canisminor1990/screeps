@@ -27,6 +27,7 @@ export default (creep, target, fc, text = "", color = "#fff") => {
 		case ERR_NOT_ENOUGH_ENERGY     :
 			creep.say(text + "ENERGY");
 			if (creep.memory.role.match('iner')) moveTo(creep, target, color);
+			targetChange(creep, creep.room.memory.structures.container[0], 'withdraw')
 			return true;
 			break;
 		case ERR_NOT_ENOUGH_RESOURCES  :
