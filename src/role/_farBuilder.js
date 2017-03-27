@@ -14,9 +14,9 @@ export default (creep, roomName) => {
 		if (creep.pos.roomName == creep.memory.target.withdraw.pos.roomName) {
 			const needBuild = creep.room.memory.structures.needBuild,
 			      needFix   = creep.room.memory.structures.needFix
-			
-			if (repair(creep, findClosestByRange(creep, needFix)))return;
 			if (build(creep, findClosestByRange(creep, needBuild)))return;
+			if (repair(creep, findClosestByRange(creep, needFix)))return;
+			
 		}
 		targetChange(creep, Memory.rooms[roomName].structures.container[0], 'withdraw')
 		if (transfer(creep, storage)) return;
