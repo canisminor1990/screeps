@@ -8,7 +8,6 @@ export default (creep) => {
 	if (creep.memory.full) {
 		target = creep.room.memory.structures.link.filter(link => link.id != creep.room.memory.config.linkMain)[0];
 		if (transfer(creep, target, target.energy > 0)) return;
-		transfer(creep, target)
 	} else {
 		target = findClosestInRange(creep, creep.room.memory.dropped.energy, 4)
 		if (pickup(creep, target)) return;
