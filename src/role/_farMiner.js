@@ -9,6 +9,7 @@ export default (creep, newRoom) => {
 	if (creep.memory.full) {
 		const container = creep.pos.findInRange(creep.room.memory.structures.container)[0];
 		if (container) {
+			console.log(container.hits)
 			if (container.hits < container.hitsMax && repair(creep, container)) return;
 		} else {
 			creep.room.createConstructionSite(creep.pos.x, creep.pos.y, STRUCTURE_CONTAINER)
