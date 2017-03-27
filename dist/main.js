@@ -1590,15 +1590,12 @@ var _util = __webpack_require__(0);
 exports.default = function (creep, target) {
 	var color = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : '#ffffff';
 	var noPathFinding = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : true;
-	var targetPos = arguments.length > 4 && arguments[4] !== undefined ? arguments[4] : false;
 
 	if (creep.fatigue > 0) return false;
-	if (!targetPos) {
-		target = (0, _util.targetFormat)(target);
-		if (!target) return;
-		if (!target.room || !Game.rooms[target.pos.roomName]) {
-			target = new RoomPosition(target.pos.x, target.pos.y, target.pos.roomName);
-		}
+	target = (0, _util.targetFormat)(target);
+	if (!target) return;
+	if (!Game.rooms[target.pos.roomName]) {
+		target = new RoomPosition(target.pos.x, target.pos.y, target.pos.roomName);
 	}
 	(0, _util.targetMaker)(creep, target, 'moveTo');
 	if ((0, _util.action)(creep, target, creep.moveTo(target, {
@@ -2823,8 +2820,7 @@ exports.default = function (creep, newRoom) {
 
 	var harvestTarget = (0, _util.targetFormat)(creep.memory.target.harvest);
 	if (!harvestTarget) {
-		(0, _action.moveTo)(creep, (0, _util.targetPos)(creep.memory.target.harvest));
-		console.log(222);
+		(0, _action.moveTo)(creep, creep.memory.target.harvest);
 	} else {
 		if ((0, _action.harvest)(creep, harvestTarget)) return;
 	}

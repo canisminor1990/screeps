@@ -1,12 +1,10 @@
-import { action, colorType, targetFormat, targetMaker } from "../../_util"
-export default (creep, target, color = '#ffffff', noPathFinding = true, targetPos = false) => {
+import { action, targetFormat, targetMaker } from "../../_util"
+export default (creep, target, color = '#ffffff', noPathFinding = true) => {
 	if (creep.fatigue > 0) return false;
-	if (!targetPos) {
-		target = targetFormat(target)
-		if (!target) return;
-		if (!target.room || !Game.rooms[target.pos.roomName]) {
-			target = new RoomPosition(target.pos.x, target.pos.y, target.pos.roomName)
-		}
+	target = targetFormat(target)
+	if (!target) return;
+	if (!Game.rooms[target.pos.roomName]) {
+		target = new RoomPosition(target.pos.x, target.pos.y, target.pos.roomName)
 	}
 	targetMaker(creep, target, 'moveTo')
 	if (action(creep, target, creep.moveTo(target, {
