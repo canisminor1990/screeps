@@ -7,9 +7,10 @@ export default (creep, newRoom) => {
 	targetMaker(creep, newRoom.memory.sources[0].source)
 	//
 	if (creep.memory.full) {
-		const container = findClosestByRange(creep, creep.room.memory.structures.container, 0);
-		if (container) {
-			if (repair(creep, container, container.hits < container.hitsMax))return;
+		target = findClosestByRange(creep, creep.room.memory.structures.container, 2);
+		if (target) {
+			if (!creep.pos.isEqualTo(target.pos) && moveTo(creep, target)) return;
+			if (repair(creep, target, target.hits < target.hitsMax))return;
 		} else {
 			creep.room.createConstructionSite(creep.pos.x, creep.pos.y, STRUCTURE_CONTAINER)
 		}
@@ -19,7 +20,6 @@ export default (creep, newRoom) => {
 		target = findClosestByRange(creep, creep.room.memory.dropped.energy, 0);
 		if (pickup(creep, target[0])) return;
 	}
-
 	const harvestTarget = targetFormat(creep.memory.target.harvest)
 	if (!harvestTarget) {
 		moveTo(creep, creep.memory.target.harvest)

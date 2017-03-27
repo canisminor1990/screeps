@@ -2805,9 +2805,10 @@ exports.default = function (creep, newRoom) {
 	(0, _util.targetMaker)(creep, newRoom.memory.sources[0].source);
 	//
 	if (creep.memory.full) {
-		var container = (0, _action.findClosestByRange)(creep, creep.room.memory.structures.container, 0);
-		if (container) {
-			if ((0, _action.repair)(creep, container, container.hits < container.hitsMax)) return;
+		target = (0, _action.findClosestByRange)(creep, creep.room.memory.structures.container, 2);
+		if (target) {
+			if (!creep.pos.isEqualTo(target.pos) && (0, _action.moveTo)(creep, target)) return;
+			if ((0, _action.repair)(creep, target, target.hits < target.hitsMax)) return;
 		} else {
 			creep.room.createConstructionSite(creep.pos.x, creep.pos.y, STRUCTURE_CONTAINER);
 		}
@@ -2817,7 +2818,6 @@ exports.default = function (creep, newRoom) {
 		target = (0, _action.findClosestByRange)(creep, creep.room.memory.dropped.energy, 0);
 		if ((0, _action.pickup)(creep, target[0])) return;
 	}
-
 	var harvestTarget = (0, _util.targetFormat)(creep.memory.target.harvest);
 	if (!harvestTarget) {
 		(0, _action.moveTo)(creep, creep.memory.target.harvest);
