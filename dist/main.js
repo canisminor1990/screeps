@@ -2292,7 +2292,7 @@ exports.default = function (room, miner) {
 			miner: (0, _action.findInRange)(source, FIND_MY_CREEPS, 2, function (creep) {
 				"use strict";
 
-				creep.role.match('iner');
+				creep.memory.role.match('iner');
 			})
 		});
 	});
