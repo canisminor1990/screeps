@@ -1415,6 +1415,7 @@ Object.defineProperty(exports, "__esModule", {
 
 exports.default = function (targetRaw) {
 	if (!targetRaw.pos) return false;
+	console.log(targetRaw);
 	return new RoomPosition(targetRaw.pos.x, targetRaw.pos.y, targetRaw.pos.roomName);
 };
 
@@ -2819,7 +2820,6 @@ exports.default = function (creep, newRoom) {
 	}
 
 	var harvestTarget = (0, _util.targetFormat)(creep.memory.target.harvest);
-	console.log(harvestTarget);
 	if (!harvestTarget) {
 		(0, _action.moveTo)(creep, (0, _util.targetPos)(creep.memory.target.harvest));
 		console.log(222);
