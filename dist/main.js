@@ -2558,7 +2558,7 @@ exports.default = function (creep) {
 		target = creep.room.controller;
 		if ((0, _action.upgradeController)(creep, target)) return;
 	} else {
-		target = findClosestInRange(creep, creep.room.memory.dropped.energy, 2);
+		target = (0, _action.findClosestInRange)(creep, creep.room.memory.dropped.energy, 2);
 		if ((0, _action.pickup)(creep, target[0])) return;
 		target = creep.room.storage;
 		if ((0, _action.withdraw)(creep, target)) return;
