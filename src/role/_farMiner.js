@@ -14,7 +14,8 @@ export default (creep,roomName) => {
 		} else {
 			if (creep.pos.isNearTo(target.pos)) creep.room.createConstructionSite(creep.pos.x, creep.pos.y, STRUCTURE_CONTAINER)
 		}
-		if (build(creep, findInRange(creep, creep.room.memory.structures.needBuild, 0)))return;
+		if (build(creep, findInRange(creep, creep.room.memory.structures.needBuild, 2)))return;
 	}
+	if (harvest(creep, creep.memory.target.harvest)) return;
 	if (harvest(creep, creep.memory.target.harvest)) return;
 }
