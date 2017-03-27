@@ -2744,53 +2744,27 @@ var _util = __webpack_require__(0);
 var _action = __webpack_require__(1);
 
 exports.default = function (creep, newRoom) {
-	if (!newRoom.memory || !newRoom.memory.structures) return;
-	var room = Game.spawns['Spawn1'].room;
-	var needBuild = newRoom.memory.structures.needBuild;
 	var target = void 0;
-	// memory
-	(0, _util.isFull)(creep);
+	var storage = Game.getObjectById('58d07b35bfeec6256575be5d');
+	targetMaker(creep, newRoom.memory.structures.container[0], 'withdraw');
+	// run
+	var needBuild = Memory.rooms['W81S66'].structures.needBuild;
 	// run
 	if (needBuild.length > 0) {
 		if (!creep.memory.full) {
-			var dropped = creep.room.memory.dropped.energy;
-			if (dropped.length > 0) {
-				target = creep.pos.findInRange(dropped, 3);
-				if ((0, _action.pickup)(creep, target[0])) return;
-			}
-			target = room.storage;
-			if ((0, _action.withdraw)(creep, target)) return;
+			target = (0, _action.findClosestInRange)(creep, creep.room.memory.dropped.energy, 3);
+			if ((0, _action.pickup)(creep, target)) return;
+			if ((0, _action.withdraw)(creep, storage)) return;
 		} else {
-			target = creep.pos.findClosestByRange(needBuild);
-			if ((0, _action.build)(creep, target)) return;
-			(0, _action.moveTo)(creep, newRoom.pos);
-			return;
+			if ((0, _action.repair)(creep, (0, _action.findClosestByRange)(Memory.rooms['W81S66'].structures.needFix))) return;
+			if ((0, _action.build)(creep, (0, _action.findClosestByRange)(needBuild))) return;
 		}
 	} else {
 		if (!creep.memory.full) {
-			var _dropped = creep.room.memory.dropped.energy;
-			if (_dropped.length > 0) {
-				target = creep.pos.findInRange(_dropped, 4);
-				if ((0, _action.pickup)(creep, target[0])) return;
-			}
-
-			target = (0, _util.targetFormat)(newRoom.memory.structures.canWithdraw);
-			if ((0, _action.withdraw)(creep, target)) return;
-
-			var farMiner = newRoom.memory.creeps.my.farMiner;
-			if (farMiner.length > 0) {
-				target = Game.getObjectById(farMiner[0].id);
-				(0, _action.moveTo)(creep, target);
-				return;
-			}
+			if ((0, _action.pickup)(creep, (0, _action.findClosestInRange)(creep, creep.room.memory.dropped.energy, 4))) return;
+			if ((0, _action.withdraw)(creep, creep.memory.target.withdraw)) return;
 		} else {
-			var needFix = newRoom.memory.structures.needFix;
-			if (needFix.length > 0) {
-				target = creep.pos.findClosestByRange(needFix);
-				if ((0, _action.repair)(creep, target)) return;
-			}
-			target = room.storage;
-			if ((0, _action.transfer)(creep, target)) return;
+			if ((0, _action.transfer)(creep, storage)) return;
 		}
 	}
 };

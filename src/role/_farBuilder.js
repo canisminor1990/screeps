@@ -1,54 +1,28 @@
 import {isFull,targetFormat} from '../_util'
-import {moveTo,withdraw, build, pickup, transfer,repair} from '../action'
+import {moveTo,withdraw, build, pickup, transfer,repair,findClosestInRange,findClosestByRange} from '../action'
 export default (creep, newRoom) => {
-	if(!newRoom.memory || !newRoom.memory.structures) return;
-	const room = Game.spawns['Spawn1'].room;
-	const needBuild = newRoom.memory.structures.needBuild;
 	let target;
-	// memory
-	isFull(creep)
+	const storage =  Game.getObjectById('58d07b35bfeec6256575be5d')
+	targetMaker(creep, newRoom.memory.structures.container[0], 'withdraw')
+	// run
+	const needBuild =  Memory.rooms['W81S66'].structures.needBuild
 	// run
 	if (needBuild.length > 0) {
 		if (!creep.memory.full) {
-			const dropped = creep.room.memory.dropped.energy;
-			if (dropped.length > 0) {
-				target = creep.pos.findInRange(dropped, 3);
-				if (pickup(creep, target[0])) return;
-			}
-			target = room.storage;
-			if (withdraw(creep, target))return;
+			target = findClosestInRange(creep,creep.room.memory.dropped.energy, 3);
+			if (pickup(creep, target)) return;
+			if (withdraw(creep, storage))return;
 		} else {
-			target = creep.pos.findClosestByRange(needBuild);
-			if (build(creep, target))return;
-			moveTo(creep, newRoom.pos)
-			return
+			if (repair(creep, findClosestByRange(Memory.rooms['W81S66'].structures.needFix)))return;
+			if (build(creep, findClosestByRange(needBuild)))return;
 		}
 	} else {
 		if (!creep.memory.full) {
-			const dropped = creep.room.memory.dropped.energy;
-			if (dropped.length > 0) {
-				target = creep.pos.findInRange(dropped, 4);
-				if (pickup(creep, target[0])) return;
-			}
-
-				target = targetFormat(newRoom.memory.structures.canWithdraw);
-				if (withdraw(creep, target)) return;
-
-			const farMiner = newRoom.memory.creeps.my.farMiner;
-			if (farMiner.length > 0) {
-				target = Game.getObjectById(farMiner[0].id);
-				moveTo(creep, target);
-				return;
-			}
-
-		} else {
-			const needFix =  newRoom.memory.structures.needFix;
-			if (needFix.length > 0){
-				target = creep.pos.findClosestByRange(needFix);
-				if (repair(creep, target)) return;
-			}
-			target = room.storage
-			if (transfer(creep, target)) return;
+			if (pickup(creep, findClosestInRange(creep, creep.room.memory.dropped.energy, 4))) return;
+			if (withdraw(creep, creep.memory.target.withdraw)) return
+		}
+		else {
+			if (transfer(creep, storage)) return;
 		}
 	}
 }
