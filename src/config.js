@@ -2,7 +2,7 @@ export default (room = Game.rooms['W81S67']) => {
 	const needBuild     = (room.memory.structures) ? room.memory.structures.needBuild : [];
 	const builderNumber = (needBuild.length > 0) ? needBuild.length : 1
 	const noEnemy       = Memory.trigger.noEnemy
-
+	
 	const repair = {
 		percent: 0.5,
 		maxHits: 20000,
@@ -30,7 +30,7 @@ export default (room = Game.rooms['W81S67']) => {
 		},
 		{
 			role    : "farMinerSec",
-			body    : {work: 8, carry:1, move: 4},
+			body    : {work: 8, carry: 1, move: 4},
 			timeout : 100,
 			number  : (noEnemy['W82S67'].safe) ? 2 : 0,
 			priority: 1
@@ -42,9 +42,20 @@ export default (room = Game.rooms['W81S67']) => {
 			priority: 5
 		},
 		{
+			role    : 'farHarvesterSec',
+			body    : {carry: 8, move: 4},
+			number  : (noEnemy['W82S67'].safe) ? 6 : 0,
+			priority: 5
+		},
+		{
 			role    : 'farBuilder',
 			body    : {carry: 5, work: 1, move: 3},
-			number  : (noEnemy['W81S66'].safe) ? 1 : 0,
+			number  : (noEnemy['W81S66'].safe) ? 2 : 0,
+			priority: 5
+		}, {
+			role    : 'farBuilderSec',
+			body    : {carry: 5, work: 1, move: 3},
+			number  : (noEnemy['W82S67'].safe) ? 1 : 0,
 			priority: 5
 		},
 		{
@@ -96,7 +107,7 @@ export default (room = Game.rooms['W81S67']) => {
 			priority: 0
 		}
 	]
-
+	
 	return {
 		role    : role.sort((a, b) => a.priority - b.priority),
 		repair  : repair,

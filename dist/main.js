@@ -415,9 +415,19 @@ exports.default = function () {
 		number: noEnemy['W81S66'].safe ? 2 : 0,
 		priority: 5
 	}, {
+		role: 'farHarvesterSec',
+		body: { carry: 8, move: 4 },
+		number: noEnemy['W82S67'].safe ? 6 : 0,
+		priority: 5
+	}, {
 		role: 'farBuilder',
 		body: { carry: 5, work: 1, move: 3 },
-		number: noEnemy['W81S66'].safe ? 1 : 0,
+		number: noEnemy['W81S66'].safe ? 2 : 0,
+		priority: 5
+	}, {
+		role: 'farBuilderSec',
+		body: { carry: 5, work: 1, move: 3 },
+		number: noEnemy['W82S67'].safe ? 1 : 0,
 		priority: 5
 	}, {
 		role: 'harvester',
@@ -2506,6 +2516,12 @@ exports.default = function (roomArrary) {
 				case 'farMinerSec':
 					role.farMiner(creep, roomArrary[2]);
 					break;
+				case 'farHarvesterSec':
+					role.farHarvester(creep, roomArrary[2]);
+					break;
+				case 'farBuilderSec':
+					role.farBuilder(creep, roomArrary[2]);
+					break;
 				case 'claimSec':
 					role.claim(creep, roomArrary[2]);
 					break;
@@ -2730,8 +2746,8 @@ exports.default = function (creep, roomName) {
 		var needBuild = creep.room.memory.structures.needBuild,
 		    needFix = creep.room.memory.structures.needFix;
 
-		if ((0, _action.repair)(creep, (0, _action.findClosestInRange)(creep, needFix))) return;
-		if ((0, _action.build)(creep, (0, _action.findClosestInRange)(creep, needBuild))) return;
+		if ((0, _action.repair)(creep, findClosestByRange(creep, needFix))) return;
+		if ((0, _action.build)(creep, findClosestByRange(creep, needBuild))) return;
 		if ((0, _action.transfer)(creep, storage)) return;
 	}
 };

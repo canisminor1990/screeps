@@ -44,6 +44,12 @@ export default (roomArrary) => {
 					case 'farMinerSec':
 						role.farMiner(creep, roomArrary[2])
 						break;
+					case 'farHarvesterSec':
+						role.farHarvester(creep, roomArrary[2])
+						break;
+					case 'farBuilderSec':
+						role.farBuilder(creep, roomArrary[2])
+						break;
 					case 'claimSec':
 						role.claim(creep, roomArrary[2])
 						break;

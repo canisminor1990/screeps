@@ -14,8 +14,8 @@ export default (creep, roomName) => {
 		const needBuild    = creep.room.memory.structures.needBuild,
 		      needFix      = creep.room.memory.structures.needFix
 		
-		if (repair(creep, findClosestInRange(creep, needFix)))return;
-		if (build(creep, findClosestInRange(creep, needBuild)))return;
+		if (repair(creep, findClosestByRange(creep, needFix)))return;
+		if (build(creep, findClosestByRange(creep, needBuild)))return;
 		if (transfer(creep, storage)) return;
 	}
 }
