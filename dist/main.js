@@ -1598,7 +1598,7 @@ exports.default = function (creep, target) {
 		target = (0, _util.targetFormat)(target);
 		if (!target) return;
 	}
-	(0, _util.targetMaker)(creep, target, 'moveTo');
+	// targetMaker(creep, target, 'moveTo')
 	if ((0, _util.action)(creep, target, creep.moveTo(target, {
 		reusePath: 15,
 		serializeMemory: true,

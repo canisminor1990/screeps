@@ -7,7 +7,7 @@ export default (creep, target, color = '#ffffff', noPathFinding = true) => {
 		target = targetFormat(target)
 		if (!target) return;
 	}
-	targetMaker(creep, target, 'moveTo')
+	// targetMaker(creep, target, 'moveTo')
 	if (action(creep, target, creep.moveTo(target, {
 			reusePath         : 15,
 			serializeMemory   : true,
