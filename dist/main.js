@@ -3044,9 +3044,8 @@ exports.default = function (creep) {
 		target = (0, _action.findInRange)(harvestTarget, creep.room.memory.structures.container, 2);
 		if (!creep.pos.isEqualTo(target.pos) && (0, _action.moveTo)(creep, target)) return;
 		if ((0, _action.repair)(creep, target, target.hits < target.hitsMax / 2)) return;
-		target = (0, _action.findInRange)(creep, creep.room.memory.structures.needBuild, 0);
-		if ((0, _action.build)(creep, target)) return;
-		console.log(1);
+		// target = findInRange(creep, creep.room.memory.structures.needBuild, 0);
+		// if (build(creep, target))return;
 	}
 	if ((0, _action.harvest)(creep, harvestTarget)) return;
 };
