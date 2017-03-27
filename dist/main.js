@@ -1336,17 +1336,12 @@ exports.default = function (creep, target) {
 
 	target = (0, _util.targetFormat)(target);
 	if (!target) return false;
-	if (!creep.memory.target[type]) {
-		(0, _util.targetMaker)(creep, target, type);
-	} else {
-		if (target.id == creep.memory.target[type].id) return true;
-		creep.memory.target[type] = {
-			id: target.id,
-			pos: target.pos,
-			time: Game.time
-		};
-		creep.say(_util.emoji.targetChange);
-	}
+	creep.memory.target[type] = {
+		id: target.id,
+		pos: target.pos,
+		time: Game.time
+	};
+	creep.say(_util.emoji.targetChange);
 	return true;
 };
 
@@ -1386,7 +1381,6 @@ exports.default = function (creep, target) {
 	target = (0, _util.targetFormat)(target);
 	if (!target) return false;
 	if (creep.memory.target[type] && creep.memory.target[type].id) return;
-
 	creep.memory.target[type] = {
 		id: target.id,
 		pos: target.pos,
