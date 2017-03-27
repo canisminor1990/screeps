@@ -2377,11 +2377,9 @@ exports.default = function (room, config) {
 		extension: _.filter(structuresMy, function (structure) {
 			return structure.structureType == STRUCTURE_EXTENSION;
 		}),
-		container: _.filter(structuresOther, function (structure) {
-			return structure.structureType == STRUCTURE_CONTAINER;
-		}).sort(function (a, b) {
+		container: structuresContainer ? structuresContainer.sort(function (a, b) {
 			return b.store.energy - a.store.energy;
-		}),
+		}) : [],
 		canWithdraw: structuresDocker.length > 0 ? _.filter(structuresDocker, function (structure) {
 			return structure.store && structure.store.energy > 0;
 		}) : [],
