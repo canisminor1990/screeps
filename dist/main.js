@@ -2819,7 +2819,7 @@ exports.default = function (creep, newRoom) {
 		}
 	}
 
-	var harvestTarget = (0, _util.targetFormat)(creep.memory.target.harvest.id);
+	var harvestTarget = (0, _util.targetFormat)(creep.memory.target.harvest);
 	if (!harvestTarget && (0, _action.moveTo)(creep, (0, _util.targetPos)(creep.memory.target.harvest))) return;
 	if ((0, _action.harvest)(creep, harvestTarget)) return;
 };
