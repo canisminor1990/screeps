@@ -5,6 +5,7 @@ export default (creep) => {
 	isFull(creep)
 	//
 	targetMaker(creep, Memory.rooms['W81S66'].sources[0].source, 'harvest')
+	console.log(1)
 	//
 	if (creep.memory.full) {
 		target = findClosestInRange(creep, creep.room.memory.structures.container, 2);
