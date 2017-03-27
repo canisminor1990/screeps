@@ -22,8 +22,11 @@ export default (creep, newRoom) => {
 
 	const harvestTarget = targetFormat(creep.memory.target.harvest)
 	console.log(harvestTarget)
-	if (!harvestTarget && moveTo(creep, targetPos(creep.memory.target.harvest))) return
-	console.log(222)
-	if (harvest(creep, harvestTarget)) return
+	if (!harvestTarget) {
+		moveTo(creep, targetPos(creep.memory.target.harvest))
+		console.log(222)
+	} else {
+		if (harvest(creep, harvestTarget)) return
+	}
 
 }
