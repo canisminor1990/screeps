@@ -2425,7 +2425,7 @@ exports.default = function (roomArrary) {
 function newRoomMaker(roomName) {
 	return {
 		pos: new RoomPosition(25, 47, roomName),
-		memory: Game.rooms[roomName] ? Game.rooms[roomName].memory : {}
+		memory: Memory.rooms[roomName] ? Memory.rooms[roomName].memory : {}
 	};
 }
 
