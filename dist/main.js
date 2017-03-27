@@ -1980,9 +1980,8 @@ var rowMargin = 0.3,
     guiRowMargin = guiHeight + rowMargin + 1;
 
 exports.default = function (roomName) {
-	var room = Game.rooms[roomName];
-
-	var flag = room.memory.flags.gui.room;
+	var room = Memory.rooms[roomName];
+	var flag = room.flags.gui.room;
 	if (!flag) return;
 
 	var gcl = Game.gcl,
