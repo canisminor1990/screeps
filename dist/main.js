@@ -1357,7 +1357,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 
 exports.default = function (target) {
-	var getid = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false;
+	var getid = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : true;
 
 	if (!target) return;
 	if (target.length) target = _.compact(target)[0];
