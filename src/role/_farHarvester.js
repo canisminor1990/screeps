@@ -11,7 +11,7 @@ export default (creep, newRoom) => {
 			target = creep.pos.findInRange(dropped, 4);
 			if (pickup(creep, target[0])) return;
 		}
-		if (!newRoom) return;
+		if (!(newRoom || newRoom.memory ||newRoom.memory.structures || newRoom.memory.structures.canWithdraw )) return;
 		target = newRoom.memory.structures.canWithdraw;
 		if (withdraw(creep, target[0])) return;
 		const farMiner = newRoom.memory.creeps.my.farMiner;

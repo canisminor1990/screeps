@@ -2692,7 +2692,7 @@ exports.default = function (creep, newRoom) {
 				target = creep.pos.findInRange(_dropped, 4);
 				if ((0, _action.pickup)(creep, target[0])) return;
 			}
-			if (!newRoom) return;
+			if (!(newRoom || newRoom.memory || newRoom.memory.structures || newRoom.memory.structures.canWithdraw)) return;
 			target = newRoom.memory.structures.canWithdraw;
 			if ((0, _action.withdraw)(creep, target[0])) return;
 			var farMiner = newRoom.memory.creeps.my.farMiner;
@@ -2739,7 +2739,7 @@ exports.default = function (creep, newRoom) {
 			target = creep.pos.findInRange(dropped, 4);
 			if ((0, _action.pickup)(creep, target[0])) return;
 		}
-		if (!newRoom) return;
+		if (!(newRoom || newRoom.memory || newRoom.memory.structures || newRoom.memory.structures.canWithdraw)) return;
 		target = newRoom.memory.structures.canWithdraw;
 		if ((0, _action.withdraw)(creep, target[0])) return;
 		var farMiner = newRoom.memory.creeps.my.farMiner;
