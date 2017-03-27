@@ -2193,14 +2193,15 @@ Object.defineProperty(exports, "__esModule", {
 
 var _util = __webpack_require__(0);
 
+var _action = __webpack_require__(1);
+
 exports.default = function (room, miner) {
 	var rawSources = room.find(FIND_SOURCES);
 	var sources = [];
 	rawSources.forEach(function (source) {
-		var minerArray = source.findInRange(miner, 2);
-		sources.push({
+		return sources.push({
 			source: source,
-			miner: minerArray
+			miner: (0, _action.findInRange)(source, miner, 2)
 		});
 	});
 	if (sources.length > 0) {

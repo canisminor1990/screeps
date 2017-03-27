@@ -1,14 +1,13 @@
 import { targetChange } from  '../../_util'
+import { findInRange } from  '../../action'
 export default (room, miner) => {
 	const rawSources = room.find(FIND_SOURCES);
 	let sources      = []
-	rawSources.forEach(source => {
-		                   let minerArray = source.findInRange(miner, 2)
+	rawSources.forEach(source =>
 		                   sources.push({
 			                                source: source,
-			                                miner : minerArray
+			                                miner : findInRange(source, miner, 2)
 		                                })
-	                   }
 	)
 	if (sources.length > 0) {
 		sources.sort((a, b) => b.source.energy - a.source.energy).sort((a, b) => a.miner.length - b.miner.length)
