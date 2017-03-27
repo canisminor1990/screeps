@@ -3400,7 +3400,7 @@ function isSafe(roomName) {
 		};
 	}
 	if (!trigger.safe) {
-		if (trigger.timeout > 0 && Game.time - trigger.timeout > 1500) {
+		if (Game.time - trigger.timeout > 1500) {
 			Memory.trigger.noEnemy[roomName].safe = true;
 			Memory.rooms[roomName].creeps.enemy = [];
 		}
