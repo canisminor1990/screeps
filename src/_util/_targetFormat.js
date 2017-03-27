@@ -1,6 +1,7 @@
-export default (target, getid = true) => {
-	if (!target) return
-	if (target.length) target = _.compact(target)[0];
-	if (getid) target = Game.getObjectById(target.id)
+export default (targetRaw) => {
+	if (!targetRaw) return
+	if (targetRaw.length) targetRaw = _.compact(targetRaw)[0];
+	let target;
+	target = Game.getObjectById(targetRaw.id);
 	return target
 }
