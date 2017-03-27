@@ -2004,7 +2004,7 @@ exports.default = function (room, miner) {
 	rawSources.forEach(function (source) {
 		sources.push({
 			source: source,
-			minerNumber: source.pos.findInRange(source.room.memory.creeps.miner, 1)
+			minerNumber: source.pos.findInRange(source.room.memory.creeps.miner, 1).length
 		});
 	});
 	if (sources.length > 0) {
@@ -2012,7 +2012,7 @@ exports.default = function (room, miner) {
 			return b.source.energy - a.source.energy;
 		}).sort(function (a, b) {
 			return b.minerNumber - a.minerNumber;
-		}).length;
+		});
 	}
 	return sources;
 };

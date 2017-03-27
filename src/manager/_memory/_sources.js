@@ -4,12 +4,12 @@ export default (room, miner) => {
 	rawSources.forEach(source => {
 		                   sources.push({
 			                                source     : source,
-			                                minerNumber: source.pos.findInRange(source.room.memory.creeps.miner, 1)
+			                                minerNumber: source.pos.findInRange(source.room.memory.creeps.miner, 1).length
 		                                })
 	                   }
 	)
 	if (sources.length > 0) {
-		sources.sort((a, b) => b.source.energy - a.source.energy).sort((a, b) => b.minerNumber - a.minerNumber).length
+		sources.sort((a, b) => b.source.energy - a.source.energy).sort((a, b) => b.minerNumber - a.minerNumber)
 	}
 	return sources
 }
