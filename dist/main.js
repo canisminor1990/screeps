@@ -1368,8 +1368,6 @@ Object.defineProperty(exports, "__esModule", {
 exports.default = function (targetRaw) {
 	if (targetRaw instanceof Array && targetRaw[0] != null) {
 		targetRaw = targetRaw[0];
-	} else {
-		return false;
 	}
 	var target = void 0;
 	target = Game.getObjectById(targetRaw.id);
