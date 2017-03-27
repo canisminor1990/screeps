@@ -2363,7 +2363,7 @@ exports.default = function (room) {
 	rawSources.forEach(function (source) {
 		return sources.push({
 			source: source,
-			miner: source.pos.findInRange(source.room.memory.creeps.my.all, 2).filter(function (creep) {
+			miner: source.pos.findInRange(source.room.memory.creeps.my.all, 4).filter(function (creep) {
 				return creep.name.match('iner');
 			})
 		});
