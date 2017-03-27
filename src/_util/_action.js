@@ -23,11 +23,7 @@ export default (creep, target, fc, text) => {
 			creep.say(text + "FOUND");
 			creep.moveTo(target, {
 				reusePath         : 15,
-				serializeMemory   : true,
-				visualizePathStyle: {
-					stroke   : color,
-					lineStyle: 'dotted'
-				}
+				serializeMemory   : true
 			});
 			return true;
 			break;
