@@ -3,5 +3,5 @@ import {targetMaker} from '../_util'
 export default (creep, roomName) => {
 	//
 	targetMaker(creep, Memory.rooms[roomName].structures.controller, 'claim')
-	if (claimController(creep, creep.memory.claim))return;
+	if (claimController(creep, creep.memory.target.claim))return;
 }

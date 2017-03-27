@@ -2649,7 +2649,7 @@ var _util = __webpack_require__(0);
 exports.default = function (creep, roomName) {
 	//
 	(0, _util.targetMaker)(creep, Memory.rooms[roomName].structures.controller, 'claim');
-	if ((0, _action.claimController)(creep, creep.memory.claim)) return;
+	if ((0, _action.claimController)(creep, creep.memory.target.claim)) return;
 };
 
 /***/ }),
