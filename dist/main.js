@@ -3053,12 +3053,11 @@ var _util = __webpack_require__(0);
 var _action = __webpack_require__(1);
 
 exports.default = function (creep) {
-	var memory = creep.room.memory;
 	var target = void 0;
 	// root
 	(0, _util.isFull)(creep);
 	//run
-	(0, _util.targetMaker)(creep, memory.sources[0].source, 'harvest');
+	(0, _util.targetMaker)(creep, creep.room.memory.sources[0].source, 'harvest');
 	var harvestTarget = Game.getObjectById(creep.memory.target.harvest.id);
 	if (creep.memory.full) {
 		target = (0, _action.findInRange)(harvestTarget, creep.room.memory.structures.container, 2);
@@ -3070,8 +3069,7 @@ exports.default = function (creep) {
 		target = (0, _action.findInRange)(harvestTarget, creep.room.memory.creeps.miner, 2, function (miner) {
 			return miner.id != creep.id && miner.ticksToLive > 20;
 		});
-		console.log(target);
-		if (target.length > 0) (0, _util.targetChange)(creep, sources[0].source, 'harvest');
+		if (target.length > 0) (0, _util.targetChange)(creep, creep.room.memory.sources[0].source, 'harvest');
 	}
 	if ((0, _action.harvest)(creep, harvestTarget)) return;
 };
