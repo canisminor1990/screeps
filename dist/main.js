@@ -2969,7 +2969,7 @@ exports.default = function (creep) {
 		target = creep.room.memory.structures.link.filter(function (link) {
 			return link.id != creep.room.memory.config.linkMain;
 		})[0];
-		if ((0, _action.withdraw)(creep, target, target.energy > 0)) return;
+		if ((0, _action.transfer)(creep, target, target.energy > 0)) return;
 		(0, _action.transfer)(creep, target);
 	} else {
 		target = (0, _action.findClosestInRange)(creep, creep.room.memory.dropped.energy, 4);
