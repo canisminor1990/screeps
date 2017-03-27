@@ -2197,14 +2197,7 @@ exports.default = function (room, miner) {
 	var rawSources = room.find(FIND_SOURCES);
 	var sources = [];
 	rawSources.forEach(function (source) {
-		var minerArray = [];
-		miner.forEach(function (creep) {
-			creep = Game.getObjectById(creep.id);
-			if (creep.memory.target.harvest && creep.memory.target.harvest.id && creep.memory.target.harvest.id == source.id) {
-				minerArray.push(creep.id);
-			}
-		});
-
+		var minerArray = source.findInRange(miner, 2);
 		sources.push({
 			source: source,
 			miner: minerArray
@@ -2219,7 +2212,7 @@ exports.default = function (room, miner) {
 	}
 	if (sources.length > 1 && sources[0].miner.length == 0 && sources[sources.length - 1].miner.length > 1) {
 		var targetSource = sources[sources.length - 1],
-		    targetCreep = Game.getObjectById(targetSource.miner[targetSource.miner.length - 1]);
+		    targetCreep = Game.getObjectById(targetSource.miner[targetSource.miner.length - 1].id);
 		(0, _util.targetChange)(targetCreep, sources[0].source, 'harvest');
 	}
 	return sources;

@@ -3,16 +3,7 @@ export default (room, miner) => {
 	const rawSources = room.find(FIND_SOURCES);
 	let sources      = []
 	rawSources.forEach(source => {
-		                   let minerArray = []
-		                   miner.forEach(creep => {
-			                   creep = Game.getObjectById(creep.id)
-			                   if (creep.memory.target.harvest &&
-			                       creep.memory.target.harvest.id &&
-			                       creep.memory.target.harvest.id == source.id) {
-				                   minerArray.push(creep.id)
-			                   }
-		                   })
-
+		                   let minerArray = source.findInRange(miner, 2)
 		                   sources.push({
 			                                source: source,
 			                                miner : minerArray
@@ -24,7 +15,7 @@ export default (room, miner) => {
 	}
 	if (sources.length > 1 && sources[0].miner.length == 0 && sources[sources.length - 1].miner.length > 1) {
 		const targetSource = sources[sources.length - 1],
-		      targetCreep  = Game.getObjectById(targetSource.miner[targetSource.miner.length - 1]);
+		      targetCreep  = Game.getObjectById(targetSource.miner[targetSource.miner.length - 1].id);
 		targetChange(targetCreep, sources[0].source, 'harvest')
 	}
 	return sources
