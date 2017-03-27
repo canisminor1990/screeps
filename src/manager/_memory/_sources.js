@@ -5,7 +5,7 @@ export default (room, miner) => {
 	let sources      = []
 	rawSources.forEach(source => sources.push({
 		                                          source: source,
-		                                          miner : findInRange(source, FIND_MY_CREEPS, creep =>{
+		                                          miner : findInRange(source, FIND_MY_CREEPS,2, creep =>{
 		                                          	"use strict";
 			                                          creep.role.match('iner')
 		                                          })

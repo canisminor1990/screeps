@@ -2289,7 +2289,7 @@ exports.default = function (room, miner) {
 	rawSources.forEach(function (source) {
 		return sources.push({
 			source: source,
-			miner: (0, _action.findInRange)(source, FIND_MY_CREEPS, function (creep) {
+			miner: (0, _action.findInRange)(source, FIND_MY_CREEPS, 2, function (creep) {
 				"use strict";
 
 				creep.role.match('iner');
