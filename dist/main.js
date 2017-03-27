@@ -392,12 +392,6 @@ exports.default = function () {
 		number: noEnemy['W81S66'].safe ? 1 : 0,
 		priority: 7
 	}, {
-		role: "claimSec",
-		body: { claim: 2, move: 4 },
-		timeout: 100,
-		number: noEnemy['W82S67'].safe ? 1 : 0,
-		priority: 7
-	}, {
 		role: "farMiner",
 		body: { work: 8, carry: 1, move: 4 },
 		timeout: 100,
