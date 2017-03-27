@@ -5,10 +5,7 @@ export default (room, miner) => {
 	let sources      = []
 	rawSources.forEach(source => sources.push({
 		source: source,
-		miner : findInRange(source, FIND_MY_CREEPS, 2, creep => {
-			"use strict";
-			creep.memory.role.match('iner')
-		})
+		miner : findInRange(source, FIND_MY_CREEPS, 2, creep => creep.memory.role.match('iner'))
 	}))
 	if (sources.length > 0) {
 		sources.sort((a, b) => b.source.energy - a.source.energy)
