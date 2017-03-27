@@ -2012,7 +2012,7 @@ exports.default = function (room, miner) {
 			return b.source.energy - a.source.energy;
 		}).sort(function (a, b) {
 			return b.minerNumber - a.minerNumber;
-		});
+		}).length;
 	}
 	return sources;
 };

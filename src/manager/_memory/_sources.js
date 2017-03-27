@@ -9,7 +9,7 @@ export default (room, miner) => {
 	                   }
 	)
 	if (sources.length > 0) {
-		sources.sort((a, b) => b.source.energy - a.source.energy).sort((a, b) => b.minerNumber - a.minerNumber)
+		sources.sort((a, b) => b.source.energy - a.source.energy).sort((a, b) => b.minerNumber - a.minerNumber).length
 	}
 	return sources
 }
