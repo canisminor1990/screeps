@@ -1,8 +1,9 @@
-import {isFull,targetFormat} from '../_util'
-import {moveTo,withdraw, build, pickup, transfer,repair,findClosestInRange,findClosestByRange} from '../action'
+import {isFull,targetMaker } from '../_util'
+import {withdraw, build, pickup, transfer,repair,findClosestInRange,findClosestByRange} from '../action'
 export default (creep, newRoom) => {
 	let target;
 	const storage =  Game.getObjectById('58d07b35bfeec6256575be5d')
+	isFull(creep)
 	targetMaker(creep, newRoom.memory.structures.container[0], 'withdraw')
 	// run
 	const needBuild =  Memory.rooms['W81S66'].structures.needBuild

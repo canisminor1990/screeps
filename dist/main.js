@@ -2746,7 +2746,8 @@ var _action = __webpack_require__(1);
 exports.default = function (creep, newRoom) {
 	var target = void 0;
 	var storage = Game.getObjectById('58d07b35bfeec6256575be5d');
-	targetMaker(creep, newRoom.memory.structures.container[0], 'withdraw');
+	(0, _util.isFull)(creep);
+	(0, _util.targetMaker)(creep, newRoom.memory.structures.container[0], 'withdraw');
 	// run
 	var needBuild = Memory.rooms['W81S66'].structures.needBuild;
 	// run
