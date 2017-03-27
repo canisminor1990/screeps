@@ -1357,8 +1357,11 @@ Object.defineProperty(exports, "__esModule", {
 });
 
 exports.default = function (target) {
+	var getid = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false;
+
 	if (!target) return;
 	if (target.length) target = _.compact(target)[0];
+	if (getid) target = Game.getObjectById(target.id);
 	return target;
 };
 
@@ -2689,6 +2692,7 @@ exports.default = function (creep, newRoom) {
 				target = creep.pos.findInRange(_dropped, 4);
 				if ((0, _action.pickup)(creep, target[0])) return;
 			}
+			if (!newRoom) return;
 			target = newRoom.memory.structures.canWithdraw;
 			if ((0, _action.withdraw)(creep, target[0])) return;
 			var farMiner = newRoom.memory.creeps.my.farMiner;
@@ -2735,6 +2739,7 @@ exports.default = function (creep, newRoom) {
 			target = creep.pos.findInRange(dropped, 4);
 			if ((0, _action.pickup)(creep, target[0])) return;
 		}
+		if (!newRoom) return;
 		target = newRoom.memory.structures.canWithdraw;
 		if ((0, _action.withdraw)(creep, target[0])) return;
 		var farMiner = newRoom.memory.creeps.my.farMiner;
