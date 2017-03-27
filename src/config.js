@@ -33,7 +33,7 @@ export default (room = Game.rooms['W81S67']) => {
 			body    : {work: 4, carry: 6, move: 5},
 			timeout : 100,
 			number  : (noEnemy['W82S67'].safe) ? 8 : 0,
-			priority: 8
+			priority: 2
 		},
 		{
 			role    : 'farHarvester',
