@@ -42,7 +42,7 @@ export default (roomArrary) => {
 						role.claim(creep, roomArrary[1])
 						break;
 					case 'farMinerSec':
-						role.farMinerSec(creep, newRoomMaker(roomArrary[2]))
+						role.farMinerSec(creep, roomArrary[2])
 						break;
 					case 'claimSec':
 						role.claimSec(creep, newRoomMaker(roomArrary[2]))
