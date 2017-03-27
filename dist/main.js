@@ -1433,7 +1433,7 @@ var _util = __webpack_require__(0);
 exports.default = function (creep, target) {
 	target = (0, _util.targetFormat)(target);
 	if (!target) return;
-	(0, _util.targetMaker)(creep, target, 'harvest');
+	// targetMaker(creep,target,'harvest')
 	if ((0, _util.action)(creep, target, creep.harvest(target), _util.emoji.harvest, _util.colorType.yellow)) return true;
 };
 
