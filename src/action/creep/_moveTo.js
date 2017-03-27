@@ -1,4 +1,4 @@
-import { action, colorType ,targetFormat,targetMaker} from "../../_util"
+import { action, colorType ,targetFormat,targetChange} from "../../_util"
 export default (creep, target, color = '#ffffff', noPathFinding = true) => {
 	if (creep.fatigue > 0) return false;
 	target = targetFormat(target)
