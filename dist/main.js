@@ -1591,12 +1591,11 @@ exports.default = function (creep, target) {
 	var color = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : '#ffffff';
 	var noPathFinding = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : true;
 
-	if (creep.fatigue > 0) return false;
-	if (target.pos && target.pos.roomName && !Game.rooms[target.pos.roomName]) {
+	if (!target || creep.fatigue > 0) return false;
+	if (target.pos && !Game.rooms[target.pos.roomName]) {
 		target = new RoomPosition(target.pos.x, target.pos.y, target.pos.roomName);
 	} else {
 		target = (0, _util.targetFormat)(target);
-		if (!target) return;
 	}
 	// targetMaker(creep, target, 'moveTo')
 	if ((0, _util.action)(creep, target, creep.moveTo(target, {
@@ -2787,11 +2786,11 @@ var _action = __webpack_require__(1);
 
 var _util = __webpack_require__(0);
 
-exports.default = function (creep, newRoom) {
+exports.default = function (creep) {
 	var target = void 0;
 	(0, _util.isFull)(creep);
 	//
-
+	console.log(2);
 	(0, _util.targetMaker)(creep, Memory.rooms['W81S66'].sources[0].source, 'harvest');
 	//
 	if (creep.memory.full) {
@@ -2808,8 +2807,11 @@ exports.default = function (creep, newRoom) {
 		target = (0, _action.findClosestInRange)(creep, creep.room.memory.dropped.energy, 0);
 		if ((0, _action.pickup)(creep, target[0])) return;
 	}
+	console.log(123);
 	var harvestTarget = (0, _util.targetFormat)(creep.memory.target.harvest);
+	console.log(harvestTarget);
 	if (!harvestTarget) {
+		console.log(123);
 		(0, _action.moveTo)(creep, creep.memory.target.harvest);
 	} else {
 		if ((0, _action.harvest)(creep, harvestTarget)) return;
