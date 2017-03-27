@@ -59,6 +59,6 @@ export default (roomArrary) => {
 function newRoomMaker(roomName) {
 	return {
 		pos   : new RoomPosition(25, 47, roomName),
-		memory: (Memory.rooms[roomName]) ? Memory.rooms[roomName].memory : {}
+		memory: (Memory.rooms[roomName]) ? Memory.rooms[roomName] : {}
 	};
 }
