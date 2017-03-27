@@ -1,5 +1,5 @@
 import { isFull } from '../_util'
-import { withdraw, upgradeController } from '../action'
+import { withdraw, upgradeController, findClosestByRange } from '../action'
 export default  (creep) => {
 	let target;
 	// memory
@@ -10,7 +10,7 @@ export default  (creep) => {
 		if (upgradeController(creep, target)) return;
 	}
 	else {
-		target = creep.pos.findClosestByRange(creep.room.memory.structures.canWithdraw);
+		target = findClosestByRange(creep, creep.room.memory.structures.canWithdraw);
 		if (withdraw(creep, target)) return;
 	}
 }

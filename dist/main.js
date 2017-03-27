@@ -3000,20 +3000,12 @@ exports.default = function (creep) {
 	(0, _util.isFull)(creep);
 	//run
 	(0, _util.targetMaker)(creep, memory.sources[0].source, 'harvest');
-
 	var harvestTarget = Game.getObjectById(creep.memory.target.harvest.id);
 	if (creep.memory.full) {
-		if (harvestTarget) {
-			var container = harvestTarget.pos.findInRange(creep.room.memory.structures.container, 1);
-			if (container && container.length > 0 && container[0].hits < container[0].hitsMax / 2) {
-				if ((0, _action.repair)(creep, container[0])) return;
-			}
-		}
-		var needBuild = creep.room.memory.structures.needBuild;
-		if (needBuild.length > 0) {
-			target = creep.pos.findInRange(needBuild, 0);
-			if (target.length > 0 && (0, _action.build)(creep, target[0])) return;
-		}
+		target = (0, _action.findClosestInRange)(harvestTarget, creep.room.memory.structures.container, 1);
+		if ((0, _action.repair)(creep, target, target.hits < target.hitsMax / 2)) return;
+		target = (0, _action.findClosestInRange)(creep, creep.room.memory.structures.needBuild, 0);
+		if ((0, _action.build)(creep, target)) return;
 	}
 	if ((0, _action.harvest)(creep, harvestTarget)) return;
 };
@@ -3042,7 +3034,7 @@ exports.default = function (creep) {
 		target = creep.room.controller;
 		if ((0, _action.upgradeController)(creep, target)) return;
 	} else {
-		target = creep.pos.findClosestByRange(creep.room.memory.structures.canWithdraw);
+		target = (0, _action.findClosestByRange)(creep, creep.room.memory.structures.canWithdraw);
 		if ((0, _action.withdraw)(creep, target)) return;
 	}
 };
