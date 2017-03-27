@@ -43,7 +43,7 @@ export default (creep, target, fc, text = "", color = "#fff") => {
 			creep.say(text + "FULL");
 			break;
 		case ERR_NOT_IN_RANGE          :
-			moveTo(creep, target);
+			moveTo(creep, target, color);
 			return true;
 			break;
 		case ERR_INVALID_ARGS          :

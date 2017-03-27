@@ -1020,7 +1020,7 @@ exports.default = function (creep, target, fc) {
 			creep.say(text + "FULL");
 			break;
 		case ERR_NOT_IN_RANGE:
-			(0, _action.moveTo)(creep, target);
+			(0, _action.moveTo)(creep, target, color);
 			return true;
 			break;
 		case ERR_INVALID_ARGS:
