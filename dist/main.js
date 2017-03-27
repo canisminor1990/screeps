@@ -2193,21 +2193,15 @@ Object.defineProperty(exports, "__esModule", {
 
 var _util = __webpack_require__(0);
 
-exports.default = function (room) {
+exports.default = function (room, miner) {
 	var rawSources = room.find(FIND_SOURCES);
-	var miner = room.memory.creeps.my.miner;
 	var sources = [];
 	rawSources.forEach(function (source) {
 		var minerArray = [];
 		miner.forEach(function (creep) {
 			creep = Game.getObjectById(creep.id);
-			console.log(0);
-			if (creep.memory.target) {
-				console.log(1);
-				if (creep.memory.target.harvest.id && creep.memory.target.harvest.id == source.id) {
-					console.log(2);
-					minerArray.push(creep.id);
-				}
+			if (creep.memory.target.harvest && creep.memory.target.harvest.id && creep.memory.target.harvest.id == source.id) {
+				minerArray.push(creep.id);
 			}
 		});
 

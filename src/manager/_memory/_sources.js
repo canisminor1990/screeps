@@ -1,21 +1,16 @@
 import { targetChange } from  '../../_util'
-export default (room) => {
+export default (room, miner) => {
 	const rawSources = room.find(FIND_SOURCES);
-	const miner      = room.memory.creeps.my.miner;
 	let sources      = []
 	rawSources.forEach(source => {
 		                   let minerArray = []
 		                   miner.forEach(creep => {
-			                   creep= Game.getObjectById(creep.id)
-			                   console.log(0)
-				                   if (creep.memory.target) {
-					                   console.log(1)
-					                   if (creep.memory.target.harvest.id && creep.memory.target.harvest.id == source.id) {
-						                   console.log(2)
-						                   minerArray.push(creep.id)
-					                   }
+			                   creep = Game.getObjectById(creep.id)
+			                   if (creep.memory.target.harvest &&
+			                       creep.memory.target.harvest.id &&
+			                       creep.memory.target.harvest.id == source.id) {
+				                   minerArray.push(creep.id)
 			                   }
-
 		                   })
 
 		                   sources.push({
