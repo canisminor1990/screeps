@@ -1813,8 +1813,13 @@ exports.default = function (creep) {
 	var opt = arguments[2];
 
 	var found = creep.pos.lookFor(type);
-	if (opt) found.filter(opt);
-	return found;
+	if (opt) {
+		found.filter(function (opt) {
+			opt.structureType == opt;
+		});
+	}
+
+	return found && found.length > 0 ? found[0] : false;
 };
 
 /***/ }),
@@ -2800,23 +2805,17 @@ exports.default = function (creep, newRoom) {
 	(0, _util.targetMaker)(creep, newRoom.memory.sources[0].source);
 	//
 	if (creep.memory.full) {
-		var container = creep.pos.findInRange(creep.room.memory.structures.container, 0)[0];
+		var container = (0, _action.findClosestByRange)(creep, creep.room.memory.structures.container, 0);
 		if (container) {
-			if (container.hits < container.hitsMax && (0, _action.repair)(creep, container)) return;
+			if ((0, _action.repair)(creep, container, container.hits < container.hitsMax)) return;
 		} else {
 			creep.room.createConstructionSite(creep.pos.x, creep.pos.y, STRUCTURE_CONTAINER);
 		}
-		var needBuild = creep.room.memory.structures.needBuild;
-		if (needBuild.length > 0) {
-			target = creep.pos.findInRange(needBuild, 0);
-			if (target.length > 0 && (0, _action.build)(creep, target[0])) return;
-		}
+		target = (0, _action.findClosestByRange)(creep, creep.room.memory.structures.needBuild, 0);
+		if ((0, _action.build)(creep, target)) return;
 	} else {
-		var dropped = creep.room.memory.dropped.energy;
-		if (dropped.length > 0) {
-			target = creep.pos.findInRange(dropped, 0);
-			if ((0, _action.pickup)(creep, target[0])) return;
-		}
+		target = (0, _action.findClosestByRange)(creep, creep.room.memory.dropped.energy, 0);
+		if ((0, _action.pickup)(creep, target[0])) return;
 	}
 
 	var harvestTarget = (0, _util.targetFormat)(creep.memory.target.harvest);
