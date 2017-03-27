@@ -2379,6 +2379,8 @@ exports.default = function (room, config) {
 		}),
 		container: _.filter(structuresOther, function (structure) {
 			return structure.structureType == STRUCTURE_CONTAINER;
+		}).sort(function (a, b) {
+			return b.carry.energy - a.carry.energy;
 		}),
 		canWithdraw: structuresDocker.length > 0 ? _.filter(structuresDocker, function (structure) {
 			return structure.store && structure.store.energy > 0;

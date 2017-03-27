@@ -27,7 +27,7 @@ export default (room, config) => {
 		tower      : _.filter(structuresMy, structure => structure.structureType == STRUCTURE_TOWER),
 		spawn      : _.filter(structuresMy, structure => structure.structureType == STRUCTURE_SPAWN)[0],
 		extension  : _.filter(structuresMy, structure => structure.structureType == STRUCTURE_EXTENSION),
-		container  : _.filter(structuresOther, structure => structure.structureType == STRUCTURE_CONTAINER),
+		container  : _.filter(structuresOther, structure => structure.structureType == STRUCTURE_CONTAINER).sort((a,b)=> b.carry.energy - a.carry.energy),
 		canWithdraw: (structuresDocker.length > 0) ? _.filter(structuresDocker, structure =>
 			structure.store && structure.store.energy > 0) : [],
 		canFill    : (structuresDocker.length > 0) ? _.filter(structuresDocker, structure =>
