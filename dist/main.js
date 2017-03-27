@@ -1808,7 +1808,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 
 exports.default = function (creep, array, opt) {
-	if (!array.length || array[0] == null) return false;
+	if (!array instanceof Array || array.length == 0 || array[0] == null) return false;
 	var found = creep.pos.findClosestByRange(array);
 	if (opt) found.filter(opt);
 	return found;
@@ -2752,7 +2752,7 @@ exports.default = function (creep, newRoom) {
 	var needBuild = Memory.rooms['W81S66'].structures.needBuild,
 	    needFix = Memory.rooms['W81S66'].structures.needFix;
 	// run
-	if (needBuild && needBuild.length > 0 || needFix && needFix.length > 0) {
+	if (needBuild.length > 0 || needFix.length > 0) {
 		if (!creep.memory.full) {
 			target = (0, _action.findClosestInRange)(creep, creep.room.memory.dropped.energy, 3);
 			if ((0, _action.pickup)(creep, target)) return;
