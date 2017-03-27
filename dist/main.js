@@ -1447,7 +1447,10 @@ exports.default = function (creep, target) {
 			width: 0.05
 		}
 	}))) {
-		target.room.visual.circle(target.pos, { fill: 'transparent', radius: 0.55, stroke: color }).line(creep.pos, target.pos, { fill: color, width: 0.05 });
+		target.room.visual.circle(target.pos, { fill: 'transparent', radius: 0.55, stroke: color });
+		if (target.room.roomName == creep.room.roomName) {
+			target.room.visual.line(creep.pos, target.pos, { color: color, width: 0.05, opacity: 0.25 });
+		}
 		return true;
 	}
 };
