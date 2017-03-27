@@ -3,5 +3,5 @@ export default (targetRaw) => {
 	if (targetRaw.length) targetRaw = _.compact(targetRaw)[0];
 	let target;
 	target = Game.getObjectById(targetRaw.id);
-	return target
+	return (target != null) ? target : false
 }

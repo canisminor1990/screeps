@@ -1370,7 +1370,7 @@ exports.default = function (targetRaw) {
 	if (targetRaw.length) targetRaw = _.compact(targetRaw)[0];
 	var target = void 0;
 	target = Game.getObjectById(targetRaw.id);
-	return target;
+	return target != null ? target : false;
 };
 
 /***/ }),
