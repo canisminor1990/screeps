@@ -1345,13 +1345,15 @@ exports.default = function (creep, target) {
 	target = (0, _util.targetFormat)(target);
 	if (!target) return false;
 	if (!creep.memory.target) creep.memory.target = {};
-	creep.memory.target[type] = {
-		id: target.id,
-		pos: target.pos,
-		time: Game.time
-	};
-	creep.say(_util.emoji.target);
-	return true;
+	if (!creep.memory.target[type]) {
+		creep.memory.target[type] = {
+			id: target.id,
+			pos: target.pos,
+			time: Game.time
+		};
+		creep.say(_util.emoji.target);
+		return true;
+	}
 };
 
 /***/ }),
