@@ -2819,13 +2819,9 @@ exports.default = function (creep, newRoom) {
 		}
 	}
 
-	var harvestTarget = Game.getObjectById(creep.memory.target.harvest.id);
-	if (!harvestTarget) {
-		(0, _action.moveTo)(creep, (0, _util.targetPos)(creep.memory.target.harvest));
-		return;
-	} else {
-		if ((0, _action.harvest)(creep, harvestTarget)) return;
-	}
+	var harvestTarget = (0, _util.targetFormat)(creep.memory.target.harvest.id);
+	if (!harvestTarget && (0, _action.moveTo)(creep, (0, _util.targetPos)(creep.memory.target.harvest))) return;
+	if ((0, _action.harvest)(creep, harvestTarget)) return;
 };
 
 /***/ }),

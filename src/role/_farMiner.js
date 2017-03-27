@@ -1,5 +1,5 @@
 import { moveTo, harvest, repair, build, pickup } from '../action'
-import { isFull, targetMaker, targetPos } from '../_util'
+import { isFull, targetMaker, targetPos, targetFormat } from '../_util'
 export default (creep, newRoom) => {
 	let target;
 	isFull(creep)
@@ -26,12 +26,8 @@ export default (creep, newRoom) => {
 		}
 	}
 
-	const harvestTarget = Game.getObjectById(creep.memory.target.harvest.id)
-	if (!harvestTarget) {
-		moveTo(creep, targetPos(creep.memory.target.harvest))
-		return;
-	} else {
-		if (harvest(creep, harvestTarget)) return
-	}
+	const harvestTarget = targetFormat(creep.memory.target.harvest.id)
+	if (!harvestTarget && moveTo(creep, targetPos(creep.memory.target.harvest))) return
+	if (harvest(creep, harvestTarget)) return
 
 }
