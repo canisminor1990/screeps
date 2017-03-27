@@ -12,7 +12,7 @@ export default (creep, target, fc, text = "", color = "#fff") => {
 		case ERR_NO_PATH               :
 			creep.say(text + "PATH");
 			if (creep.memory.role.match('iner')) {
-				// targetChange(creep, creep.room.memory.sources[0], 'harvest');
+				targetChange(creep, creep.room.memory.sources[0], 'harvest');
 			} else {
 				targetChange(creep, creep.room.memory.structures.container[0], 'withdraw')
 			}

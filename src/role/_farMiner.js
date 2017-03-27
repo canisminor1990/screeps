@@ -6,12 +6,7 @@ export default (creep, roomName) => {
 	//
 	targetMaker(creep, Memory.rooms[roomName].sources[0].source, 'harvest')
 	//
-	const harvestTarget = Game.getObjectById(creep.memory.target.harvest.id)
-	target = findInRange(harvestTarget, creep.room.memory.creeps.my.farMiner, 1, miner =>
-		miner.id != creep.id && miner.ticksToLive > 20
-	)
-	console.log(target.length)
-	if (target.length >1) targetChange(creep, Memory.rooms[roomName].sources[0].source, 'harvest')
+	
 	if (creep.memory.full) {
 		target = findInRange(creep, creep.room.memory.structures.container, 2)[0];
 		if (target) {
