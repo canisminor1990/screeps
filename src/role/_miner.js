@@ -18,7 +18,7 @@ export default (creep) => {
 		target = findInRange(harvestTarget, creep.room.memory.creeps.miner, 2, miner =>
 			miner.id != creep.id && miner.ticksToLive > 20
 		)
-		if (target.length) targetChange(creep, sources[0].source, 'harvest')
+		if (target.length >0) targetChange(creep, sources[0].source, 'harvest')
 	}
 	if (harvest(creep, harvestTarget)) return;
 }
