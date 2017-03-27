@@ -3040,13 +3040,7 @@ exports.default = function (creep) {
 	//run
 	(0, _util.targetMaker)(creep, memory.sources[0].source, 'harvest');
 	var harvestTarget = Game.getObjectById(creep.memory.target.harvest.id);
-	if (creep.memory.full) {
-		target = (0, _action.findClosestInRange)(harvestTarget, creep.room.memory.structures.container, 2);
-		if (!creep.pos.isEqualTo(target.pos) && (0, _action.moveTo)(creep, target)) return;
-		if ((0, _action.repair)(creep, target, target.hits < target.hitsMax / 2)) return;
-		target = (0, _action.findClosestInRange)(creep, creep.room.memory.structures.needBuild, 0);
-		if ((0, _action.build)(creep, target)) return;
-	}
+	if (creep.memory.full) {}
 	if ((0, _action.harvest)(creep, harvestTarget)) return;
 };
 
