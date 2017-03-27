@@ -6,7 +6,7 @@ export default (creep, targetRaw, opt = true) => {
 	target = targetFormat(targetRaw)
 	if (!target) {
 		moveTo(creep, targetRaw);
-		return true
+		return false
 	}
 	targetMaker(creep, target, 'pickup')
 	if (action(creep, target, creep.pickup(target), emoji.pickup, colorType.yellow)) return true;

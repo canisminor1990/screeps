@@ -5,7 +5,7 @@ export default (creep, targetRaw,opt = true) => {
 	let target;
 	target = targetFormat(targetRaw)
 	if (!target) {
-		 moveTo(creep, targetRaw);return true
+		 moveTo(creep, targetRaw);return false
 	}
 	targetMaker(creep,target,'dismantle')
 	if (action(creep, target, creep.dismantle(target), emoji.dismantle,colorType.red)) return true;

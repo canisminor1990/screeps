@@ -1460,7 +1460,7 @@ exports.default = function (creep, targetRaw) {
 	var target = void 0;
 	target = (0, _util.targetFormat)(targetRaw);
 	if (!target) {
-		(0, _.moveTo)(creep, targetRaw);return true;
+		(0, _.moveTo)(creep, targetRaw);return false;
 	}
 	(0, _util.targetMaker)(creep, target, 'attack');
 	if ((0, _util.action)(creep, target, creep.attack(target), _util.emoji.attack, _util.colorType.red)) return true;
@@ -1488,7 +1488,7 @@ exports.default = function (creep, targetRaw) {
 	var target = void 0;
 	target = (0, _util.targetFormat)(targetRaw);
 	if (!target) {
-		(0, _.moveTo)(creep, targetRaw);return true;
+		(0, _.moveTo)(creep, targetRaw);return false;
 	}
 	(0, _util.targetMaker)(creep, target, 'build');
 	if ((0, _util.action)(creep, target, creep.build(target), _util.emoji.build, _util.colorType.blue)) return true;
@@ -1516,7 +1516,7 @@ exports.default = function (creep, targetRaw) {
 	var target = void 0;
 	target = (0, _util.targetFormat)(targetRaw);
 	if (!target) {
-		(0, _.moveTo)(creep, targetRaw);return true;
+		(0, _.moveTo)(creep, targetRaw);return false;
 	}
 	(0, _util.targetMaker)(creep, target, 'reserveController');
 	if ((0, _util.action)(creep, target, creep.reserveController(target), _util.emoji.claim, _util.colorType.orange)) return true;
@@ -1544,7 +1544,7 @@ exports.default = function (creep, targetRaw) {
 	var target = void 0;
 	target = (0, _util.targetFormat)(targetRaw);
 	if (!target) {
-		(0, _.moveTo)(creep, targetRaw);return true;
+		(0, _.moveTo)(creep, targetRaw);return false;
 	}
 	(0, _util.targetMaker)(creep, target, 'dismantle');
 	if ((0, _util.action)(creep, target, creep.dismantle(target), _util.emoji.dismantle, _util.colorType.red)) return true;
@@ -1572,7 +1572,7 @@ exports.default = function (creep, targetRaw) {
 	var target = void 0;
 	target = (0, _util.targetFormat)(targetRaw);
 	if (!target) {
-		(0, _.moveTo)(creep, targetRaw);return true;
+		(0, _.moveTo)(creep, targetRaw);return false;
 	}
 	(0, _util.targetMaker)(creep, target, 'harvest');
 	if ((0, _util.action)(creep, target, creep.harvest(target), _util.emoji.harvest, _util.colorType.yellow)) return true;
@@ -1600,7 +1600,7 @@ exports.default = function (creep, targetRaw) {
 	var target = void 0;
 	target = (0, _util.targetFormat)(targetRaw);
 	if (!target) {
-		(0, _.moveTo)(creep, targetRaw);return true;
+		(0, _.moveTo)(creep, targetRaw);return false;
 	}
 	(0, _util.targetMaker)(creep, target, 'heal');
 	if ((0, _util.action)(creep, target, creep.heal(target), _util.emoji.heal, _util.colorType.green)) return true;
@@ -1675,7 +1675,7 @@ exports.default = function (creep, targetRaw) {
 	target = (0, _util.targetFormat)(targetRaw);
 	if (!target) {
 		(0, _.moveTo)(creep, targetRaw);
-		return true;
+		return false;
 	}
 	(0, _util.targetMaker)(creep, target, 'pickup');
 	if ((0, _util.action)(creep, target, creep.pickup(target), _util.emoji.pickup, _util.colorType.yellow)) return true;
@@ -1703,7 +1703,7 @@ exports.default = function (creep, targetRaw) {
 	var target = void 0;
 	target = (0, _util.targetFormat)(targetRaw);
 	if (!target) {
-		(0, _.moveTo)(creep, targetRaw);return true;
+		(0, _.moveTo)(creep, targetRaw);return false;
 	}
 	(0, _util.targetMaker)(creep, target, 'repair');
 	if ((0, _util.action)(creep, target, creep.repair(target), _util.emoji.repair, _util.colorType.blue)) return true;
@@ -1732,7 +1732,7 @@ exports.default = function (creep, targetRaw) {
 	var target = void 0;
 	target = (0, _util.targetFormat)(targetRaw);
 	if (!target) {
-		(0, _.moveTo)(creep, targetRaw);return true;
+		(0, _.moveTo)(creep, targetRaw);return false;
 	}
 	(0, _util.targetMaker)(creep, target, 'transfer');
 	if ((0, _util.action)(creep, target, creep.transfer(target, type), _util.emoji.transfer, _util.colorType.purple)) return true;
@@ -1760,7 +1760,7 @@ exports.default = function (creep, targetRaw) {
 	var target = void 0;
 	target = (0, _util.targetFormat)(targetRaw);
 	if (!target) {
-		(0, _.moveTo)(creep, targetRaw);return true;
+		(0, _.moveTo)(creep, targetRaw);return false;
 	}
 	if (!target) return;
 	(0, _util.targetMaker)(creep, target, 'upgradeController');
@@ -1790,7 +1790,7 @@ exports.default = function (creep, targetRaw) {
 	var target = void 0;
 	target = (0, _util.targetFormat)(targetRaw);
 	if (!target) {
-		(0, _.moveTo)(creep, targetRaw);return true;
+		(0, _.moveTo)(creep, targetRaw);return false;
 	}
 	(0, _util.targetMaker)(creep, target, 'withdraw');
 	if ((0, _util.action)(creep, target, creep.withdraw(target, type), _util.emoji.withdraw, _util.colorType.purple)) return true;
