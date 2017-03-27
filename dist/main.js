@@ -1924,8 +1924,8 @@ var rowMargin = 0.3,
     guiCreepRowMargin = guiCreepHeight + rowMargin + 1;
 
 exports.default = function (roomName) {
-	var room = Game.rooms[roomName];
-	var flag = room.memory.flags.gui.role;
+	var room = Memory.rooms[roomName];
+	var flag = room.flags.gui.role;
 	if (!flag) return;
 	var bgPadding = 0.5,
 	    guiCreepX = flag.x,
