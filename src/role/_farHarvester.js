@@ -1,17 +1,20 @@
-import {isFull, targetFormat} from '../_util'
+import {isFull, targetFormat, targetMaker} from '../_util'
 import {findClosestInRange, transfer, pickup, moveTo, withdraw} from '../action'
 export default (creep, newRoom) => {
 	let target;
 	// memory
 	isFull(creep);
+	targetMaker(creep, newRoom.memory.structures.container[0], 'withdraw')
 	// run
 	if (!creep.memory.full) {
 		target = findClosestInRange(creep, creep.room.memory.dropped.energy, 4);
 		if (pickup(creep, target[0])) return;
-		target = targetFormat(newRoom.memory.structures.canWithdraw);
-		if (withdraw(creep, target)) return;
-		target = targetFormat(newRoom.memory.creeps.my.farMiner);
-		moveTo(creep, target);
+		const withdrawTarget = targetFormat(creep.memory.target.withdraw)
+		if (!withdrawTarget) {
+			moveTo(creep, creep.memory.target.withdraw)
+		} else {
+			if (harvest(creep, withdrawTarget)) return
+		}
 		return;
 	}
 	else {

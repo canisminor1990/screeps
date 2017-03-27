@@ -2751,14 +2751,17 @@ exports.default = function (creep, newRoom) {
 	var target = void 0;
 	// memory
 	(0, _util.isFull)(creep);
+	(0, _util.targetMaker)(creep, newRoom.memory.structures.container[0], 'withdraw');
 	// run
 	if (!creep.memory.full) {
 		target = (0, _action.findClosestInRange)(creep, creep.room.memory.dropped.energy, 4);
 		if ((0, _action.pickup)(creep, target[0])) return;
-		target = (0, _util.targetFormat)(newRoom.memory.structures.canWithdraw);
-		if ((0, _action.withdraw)(creep, target)) return;
-		target = (0, _util.targetFormat)(newRoom.memory.creeps.my.farMiner);
-		(0, _action.moveTo)(creep, target);
+		var withdrawTarget = (0, _util.targetFormat)(creep.memory.target.withdraw);
+		if (!withdrawTarget) {
+			(0, _action.moveTo)(creep, creep.memory.target.withdraw);
+		} else {
+			if (harvest(creep, withdrawTarget)) return;
+		}
 		return;
 	} else {
 		target = Game.getObjectById('58d07b35bfeec6256575be5d');
