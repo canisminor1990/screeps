@@ -2694,7 +2694,7 @@ exports.default = function (creep, newRoom) {
 			}
 
 			target = (0, _util.targetFormat)(newRoom.memory.structures.canWithdraw);
-			if ((0, _action.withdraw)(creep, target[0])) return;
+			if ((0, _action.withdraw)(creep, target)) return;
 
 			var farMiner = newRoom.memory.creeps.my.farMiner;
 			if (farMiner.length > 0) {
@@ -2741,7 +2741,7 @@ exports.default = function (creep, newRoom) {
 			if ((0, _action.pickup)(creep, target[0])) return;
 		}
 		target = (0, _util.targetFormat)(newRoom.memory.structures.canWithdraw);
-		if ((0, _action.withdraw)(creep, target[0])) return;
+		if ((0, _action.withdraw)(creep, target)) return;
 		var farMiner = newRoom.memory.creeps.my.farMiner;
 		if (farMiner.length > 0) {
 			target = Game.getObjectById(farMiner[0].id);

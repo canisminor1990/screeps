@@ -32,7 +32,7 @@ export default (creep, newRoom) => {
 			}
 
 				target = targetFormat(newRoom.memory.structures.canWithdraw);
-				if (withdraw(creep, target[0])) return;
+				if (withdraw(creep, target)) return;
 
 			const farMiner = newRoom.memory.creeps.my.farMiner;
 			if (farMiner.length > 0) {
