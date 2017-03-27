@@ -1,7 +1,8 @@
-import { emoji, action,colorType,targetFormat ,targetChange} from "../../_util"
-export default (creep, target) => {
+import { emoji, action,colorType,targetFormat ,targetMaker} from "../../_util"
+export default (creep, target,opt = true) => {
+	if (!opt) return;
 	target = targetFormat(target)
 	if (!target) return;
-	targetChange(creep,target,'pickup')
+	targetMaker(creep,target,'pickup')
 	if (action(creep, target, creep.pickup(target), emoji.pickup, colorType.yellow)) return true;
 }

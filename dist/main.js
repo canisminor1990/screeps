@@ -1429,9 +1429,12 @@ Object.defineProperty(exports, "__esModule", {
 var _util = __webpack_require__(0);
 
 exports.default = function (creep, target) {
+	var opt = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : true;
+
+	if (!opt) return;
 	target = (0, _util.targetFormat)(target);
 	if (!target) return;
-	(0, _util.targetChange)(creep, target, 'attack');
+	(0, _util.targetMaker)(creep, target, 'attack');
 	if ((0, _util.action)(creep, target, creep.attack(target), _util.emoji.attack, _util.colorType.red)) return true;
 };
 
@@ -1449,9 +1452,12 @@ Object.defineProperty(exports, "__esModule", {
 var _util = __webpack_require__(0);
 
 exports.default = function (creep, target) {
+	var opt = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : true;
+
+	if (!opt) return;
 	target = (0, _util.targetFormat)(target);
 	if (!target) return;
-	(0, _util.targetChange)(creep, target, 'build');
+	(0, _util.targetMaker)(creep, target, 'build');
 	if ((0, _util.action)(creep, target, creep.build(target), _util.emoji.build, _util.colorType.blue)) return true;
 };
 
@@ -1469,9 +1475,12 @@ Object.defineProperty(exports, "__esModule", {
 var _util = __webpack_require__(0);
 
 exports.default = function (creep, target) {
+	var opt = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : true;
+
+	if (!opt) return;
 	target = (0, _util.targetFormat)(target);
 	if (!target) return;
-	(0, _util.targetChange)(creep, target, 'reserveController');
+	(0, _util.targetMaker)(creep, target, 'reserveController');
 	if ((0, _util.action)(creep, target, creep.reserveController(target), _util.emoji.claim, _util.colorType.orange)) return true;
 };
 
@@ -1489,9 +1498,12 @@ Object.defineProperty(exports, "__esModule", {
 var _util = __webpack_require__(0);
 
 exports.default = function (creep, target) {
+	var opt = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : true;
+
+	if (!opt) return;
 	target = (0, _util.targetFormat)(target);
 	if (!target) return;
-	(0, _util.targetChange)(creep, target, 'dismantle');
+	(0, _util.targetMaker)(creep, target, 'dismantle');
 	if ((0, _util.action)(creep, target, creep.dismantle(target), _util.emoji.dismantle, _util.colorType.red)) return true;
 };
 
@@ -1509,9 +1521,12 @@ Object.defineProperty(exports, "__esModule", {
 var _util = __webpack_require__(0);
 
 exports.default = function (creep, target) {
+	var opt = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : true;
+
+	if (!opt) return;
 	target = (0, _util.targetFormat)(target);
 	if (!target) return;
-	// targetChange(creep,target,'harvest')
+	// targetMaker(creep,target,'harvest')
 	if ((0, _util.action)(creep, target, creep.harvest(target), _util.emoji.harvest, _util.colorType.yellow)) return true;
 };
 
@@ -1529,9 +1544,12 @@ Object.defineProperty(exports, "__esModule", {
 var _util = __webpack_require__(0);
 
 exports.default = function (creep, target) {
+	var opt = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : true;
+
+	if (!opt) return;
 	target = (0, _util.targetFormat)(target);
 	if (!target) return;
-	(0, _util.targetChange)(creep, target, 'heal');
+	(0, _util.targetMaker)(creep, target, 'heal');
 	if ((0, _util.action)(creep, target, creep.heal(target), _util.emoji.heal, _util.colorType.green)) return true;
 };
 
@@ -1558,6 +1576,7 @@ exports.default = function (creep, target) {
 	if (!target.room || !Game.rooms[target.pos.roomName]) {
 		target = new RoomPosition(target.pos.x, target.pos.y, target.pos.roomName);
 	}
+	(0, _util.targetMaker)(creep, target, 'moveTo');
 	if ((0, _util.action)(creep, target, creep.moveTo(target, {
 		reusePath: 15,
 		serializeMemory: true,
@@ -1591,9 +1610,12 @@ Object.defineProperty(exports, "__esModule", {
 var _util = __webpack_require__(0);
 
 exports.default = function (creep, target) {
+	var opt = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : true;
+
+	if (!opt) return;
 	target = (0, _util.targetFormat)(target);
 	if (!target) return;
-	(0, _util.targetChange)(creep, target, 'pickup');
+	(0, _util.targetMaker)(creep, target, 'pickup');
 	if ((0, _util.action)(creep, target, creep.pickup(target), _util.emoji.pickup, _util.colorType.yellow)) return true;
 };
 
@@ -1611,9 +1633,12 @@ Object.defineProperty(exports, "__esModule", {
 var _util = __webpack_require__(0);
 
 exports.default = function (creep, target) {
+	var opt = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : true;
+
 	target = (0, _util.targetFormat)(target);
+	if (!opt) return;
 	if (!target) return;
-	(0, _util.targetChange)(creep, target, 'repair');
+	(0, _util.targetMaker)(creep, target, 'repair');
 	if ((0, _util.action)(creep, target, creep.repair(target), _util.emoji.repair, _util.colorType.blue)) return true;
 };
 
@@ -1632,10 +1657,12 @@ var _util = __webpack_require__(0);
 
 exports.default = function (creep, target) {
 	var type = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : RESOURCE_ENERGY;
+	var opt = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : true;
 
+	if (!opt) return;
 	target = (0, _util.targetFormat)(target);
 	if (!target) return;
-	(0, _util.targetChange)(creep, target, 'transfer');
+	(0, _util.targetMaker)(creep, target, 'transfer');
 	if ((0, _util.action)(creep, target, creep.transfer(target, type), _util.emoji.transfer, _util.colorType.purple)) return true;
 };
 
@@ -1653,9 +1680,12 @@ Object.defineProperty(exports, "__esModule", {
 var _util = __webpack_require__(0);
 
 exports.default = function (creep, target) {
+	var opt = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : true;
+
+	if (!opt) return;
 	target = (0, _util.targetFormat)(target);
 	if (!target) return;
-	(0, _util.targetChange)(creep, target, 'upgradeController');
+	(0, _util.targetMaker)(creep, target, 'upgradeController');
 	if ((0, _util.action)(creep, target, creep.upgradeController(target), _util.emoji.upgrade, _util.colorType.orange)) return true;
 };
 
@@ -1674,10 +1704,12 @@ var _util = __webpack_require__(0);
 
 exports.default = function (creep, target) {
 	var type = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : RESOURCE_ENERGY;
+	var opt = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : true;
 
+	if (!opt) return;
 	target = (0, _util.targetFormat)(target);
 	if (!target) return;
-	(0, _util.targetChange)(creep, target, 'withdraw');
+	(0, _util.targetMaker)(creep, target, 'withdraw');
 	if ((0, _util.action)(creep, target, creep.withdraw(target, type), _util.emoji.withdraw, _util.colorType.purple)) return true;
 };
 
@@ -1692,11 +1724,9 @@ Object.defineProperty(exports, "__esModule", {
 	value: true
 });
 
-exports.default = function (creep) {
-	var type = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : LOOK_STRUCTURES;
-	var opt = arguments[2];
-
-	var found = creep.pos.findClosestByRange(type);
+exports.default = function (creep, array, opt) {
+	if (!array.length || array[0] == null) return false;
+	var found = creep.pos.findClosestByRange(array);
 	if (opt) found.filter(opt);
 	return found;
 };
@@ -1714,12 +1744,12 @@ Object.defineProperty(exports, "__esModule", {
 
 var _ = __webpack_require__(1);
 
-exports.default = function (creep) {
-	var type = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : LOOK_STRUCTURES;
+exports.default = function (creep, array) {
 	var range = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 0;
 	var opt = arguments[3];
 
-	var found = (0, _.findInRange)(creep, type, range);
+	if (!array.length || array[0] == null) return false;
+	var found = (0, _.findInRange)(creep, array, range);
 	if (opt) found.filter(opt);
 	found = (0, _.findClosestByRange)(creep, found);
 	return found;
@@ -1736,12 +1766,12 @@ Object.defineProperty(exports, "__esModule", {
 	value: true
 });
 
-exports.default = function (creep) {
-	var type = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : LOOK_STRUCTURES;
+exports.default = function (creep, array) {
 	var range = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 0;
 	var opt = arguments[3];
 
-	var found = creep.pos.findInRange(type, range);
+	if (!array.length || array[0] == null) return false;
+	var found = creep.pos.findInRange(array, range);
 	if (opt) found.filter(opt);
 	return found;
 };
@@ -2936,67 +2966,18 @@ exports.default = function (creep) {
 	(0, _util.isFull)(creep);
 	// run
 	if (creep.memory.full) {
-		target = Game.getObjectById('58d758a13de0ed30b84fb81e');
+		target = creep.room.memory.structures.link.filter(function (link) {
+			return link.id != creep.room.memory.config.linkMain;
+		})[0];
+		if ((0, _action.withdraw)(creep, target, target.energy > 0)) return;
 		(0, _action.transfer)(creep, target);
 	} else {
-		var dropped = creep.room.memory.dropped.energy;
-		if (dropped.length > 0) {
-			target = creep.pos.findInRange(dropped, 4);
-			if ((0, _action.pickup)(creep, target[0])) return;
-		}
+		target = (0, _action.findClosestInRange)(creep, creep.room.memory.dropped.energy, 4);
+		if ((0, _action.pickup)(creep, target)) return;
 		target = Game.getObjectById('58d6a0f58f53422d7fea1d52');
-		if (target.store.energy > 0) {
-			if ((0, _action.withdraw)(creep, target)) return;
-		}
+		if ((0, _action.withdraw)(creep, target, target.store.energy > 0)) return;
 	}
-	// let container = Game.getObjectById('58d6a0f58f53422d7fea1d52')
-	//
-	// if (container) {
-	// 	if (!creep.memory.full) {
-	// 		const dropped = creep.room.memory.dropped.energy;
-	// 		if (dropped.length > 0) {
-	// 			target = creep.pos.findInRange(dropped, 6);
-	// 			if (pickup(creep, target[0])) return;
-	// 		}
-	// 		if (container.store.energy > 0) {
-	// 			if (withdraw(creep, container)) return;
-	// 		}
-	// 	} else {
-	// 		target = creep.room.memory.structures.needFill;
-	// 		if (target.length > 0) {
-	// 			target = creep.pos.findClosestByRange(target);
-	// 		} else {
-	// 			target = creep.room.storage
-	// 		}
-	// 		if (transfer(creep, target)) return;
-	// 	}
-	// } else {
-	// 	if (!creep.memory.full) {
-	// 		const dropped = creep.room.memory.dropped.energy;
-	// 		if (dropped.length > 0) {
-	// 			target = creep.pos.findClosestByRange(dropped);
-	// 			if (pickup(creep, target)) return;
-	// 		}
-	// 		target = creep.room.storage;
-	// 		if (withdraw(creep, target)) return;
-	// 	} else {
-	// 		target = creep.room.memory.structures.needFill;
-	// 		target = creep.pos.findClosestByRange(target);
-	// 		if (transfer(creep, target)) return;
-	// 		target = creep.room.memory.structures.tower.sort((a, b) => a.energy - b.energy)[0];
-	// 		if (target && target.energy == target.energyCapacity) return;
-	// 		if (transfer(creep, target)) return;
-	// 	}
-	// }
 };
-
-// if (creep.memory.full) {
-// 	target = Game.getObjectById('58d758a13de0ed30b84fb81e')
-// 	transfer(creep, target)
-// } else {
-// 	target = Game.getObjectById('58d6a0f58f53422d7fea1d52')
-// 	withdraw(creep, target)
-// }
 
 /***/ }),
 /* 65 */
