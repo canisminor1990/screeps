@@ -74,7 +74,7 @@ export default (room = Game.rooms['W81S67']) => {
 			role    : 'farUpgrader',
 			body    : {carry: 5, work: 1, move: 3},
 			number  : (noEnemy['W82S67'].safe) ? 2 : 0,
-			priority: 9
+			priority: 3
 		},
 		{
 			role    : 'builder',
