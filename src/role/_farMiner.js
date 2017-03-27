@@ -1,4 +1,4 @@
-import {moveTo, harvest, repair, build, pickup, findClosestInRange} from '../action'
+import {moveTo, harvest, repair, build, findInRange, findClosestInRange} from '../action'
 import {isFull, targetMaker, targetFormat} from '../_util'
 export default (creep) => {
 	let target;
@@ -14,7 +14,7 @@ export default (creep) => {
 		} else {
 			creep.room.createConstructionSite(creep.pos.x, creep.pos.y, STRUCTURE_CONTAINER)
 		}
-		if (build(creep, findClosestInRange(creep, creep.room.memory.structures.needBuild, 0)))return;
+		if (build(creep, findInRange(creep, creep.room.memory.structures.needBuild, 0)))return;
 	}
 	if (harvest(creep, creep.memory.target.harvest)) return;
 }

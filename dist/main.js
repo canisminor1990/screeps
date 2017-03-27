@@ -2853,7 +2853,7 @@ exports.default = function (creep) {
 		} else {
 			creep.room.createConstructionSite(creep.pos.x, creep.pos.y, STRUCTURE_CONTAINER);
 		}
-		if ((0, _action.build)(creep, (0, _action.findClosestInRange)(creep, creep.room.memory.structures.needBuild, 0))) return;
+		if ((0, _action.build)(creep, (0, _action.findInRange)(creep, creep.room.memory.structures.needBuild, 0))) return;
 	}
 	if ((0, _action.harvest)(creep, creep.memory.target.harvest)) return;
 };
