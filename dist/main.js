@@ -2285,14 +2285,14 @@ var _util = __webpack_require__(0);
 
 var _action = __webpack_require__(1);
 
-exports.default = function (room, miner) {
+exports.default = function (room) {
 	var rawSources = room.find(FIND_SOURCES);
 	var sources = [];
 	rawSources.forEach(function (source) {
 		return sources.push({
 			source: source,
 			miner: source.pos.findInRange(source.room.memory.creeps.my.all, 2).filter(function (creep) {
-				return creep.memory.role.match('iner');
+				return creep.memory && creep.memory.role && creep.memory.role.match('iner');
 			})
 		});
 	});

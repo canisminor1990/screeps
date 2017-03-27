@@ -1,11 +1,11 @@
 import {targetChange} from  '../../_util'
 import {findInRange} from  '../../action'
-export default (room, miner) => {
+export default (room) => {
 	const rawSources = room.find(FIND_SOURCES);
 	let sources      = []
 	rawSources.forEach(source => sources.push({
 		source: source,
-		miner : source.pos.findInRange(source.room.memory.creeps.my.all, 2).filter(creep => creep.memory.role.match('iner'))
+		miner : source.pos.findInRange(source.room.memory.creeps.my.all, 2).filter(creep => creep.memory &&creep.memory.role && creep.memory.role.match('iner'))
 	}))
 	if (sources.length > 0) {
 		sources.sort((a, b) => b.source.energy - a.source.energy)
