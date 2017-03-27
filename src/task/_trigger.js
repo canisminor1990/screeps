@@ -29,6 +29,7 @@ function isSafe(roomName) {
 	}
 	if (!trigger.safe) {
 		if (Game.time - trigger.timeout > 1500) {
+			console.log(roomName + 'Safe now !')
 			Memory.trigger.noEnemy[roomName].safe = true;
 			Memory.rooms[roomName].creeps.enemy   = [];
 		}
