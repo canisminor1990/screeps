@@ -5,7 +5,7 @@ export default (creep, targetRaw, opt = true, type = RESOURCE_ENERGY) => {
 	let target;
 	target = targetFormat(targetRaw)
 	if (!target) {
-		if (moveTo(creep, targetRaw))return
+		 moveTo(creep, targetRaw);return true
 	}
 	targetMaker(creep, target, 'withdraw')
 	if (action(creep, target, creep.withdraw(target, type), emoji.withdraw, colorType.purple))return true;

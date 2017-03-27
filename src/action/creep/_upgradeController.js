@@ -5,7 +5,7 @@ export default (creep, targetRaw,opt = true) => {
 	let target;
 	target = targetFormat(targetRaw)
 	if (!target) {
-		if (moveTo(creep, targetRaw))return
+		 moveTo(creep, targetRaw);return true
 	}
 	if (!target) return;
 	targetMaker(creep,target,'upgradeController')

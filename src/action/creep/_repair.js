@@ -5,7 +5,7 @@ export default (creep, targetRaw,opt = true) => {
 	let target;
 	target = targetFormat(targetRaw)
 	if (!target) {
-		if (moveTo(creep, targetRaw))return
+		 moveTo(creep, targetRaw);return true
 	}
 	targetMaker(creep,target,'repair')
 	if(action(creep, target, creep.repair(target), emoji.repair,colorType.blue)) return true;
