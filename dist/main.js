@@ -2870,8 +2870,10 @@ exports.default = function (creep, roomName) {
 	//
 	(0, _util.targetMaker)(creep, Memory.rooms[roomName].sources[0].source, 'harvest');
 	//
-	target = (0, _action.findInRange)(creep.memory.target.harvest, creep.room.memory.creeps.farMiner, 2, function (miner) {
-		return miner.id != creep.id && miner.ticksToLive > 20;
+	target = harvestTarget.pos.findInRange(creep.room.memory.creeps.my.farMiner, 2, {
+		filter: function filter(miner) {
+			return miner.id != creep.id && miner.ticksToLive > 20;
+		}
 	});
 	if (target.length > 0) targetChange(creep, creep.room.memory.sources[0].source, 'harvest');
 	if (creep.memory.full) {
@@ -3063,8 +3065,10 @@ exports.default = function (creep) {
 	//run
 	(0, _util.targetMaker)(creep, creep.room.memory.sources[0].source, 'harvest');
 	var harvestTarget = Game.getObjectById(creep.memory.target.harvest.id);
-	target = (0, _action.findInRange)(harvestTarget, creep.room.memory.creeps.miner, 2, function (miner) {
-		return miner.id != creep.id && miner.ticksToLive > 20;
+	target = harvestTarget.pos.findInRange(creep.room.memory.creeps.my.miner, 2, {
+		filter: function filter(miner) {
+			return miner.id != creep.id && miner.ticksToLive > 20;
+		}
 	});
 	if (target.length > 0) (0, _util.targetChange)(creep, creep.room.memory.sources[0].source, 'harvest');
 	if (creep.memory.full) {
