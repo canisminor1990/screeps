@@ -2291,7 +2291,7 @@ exports.default = function (room, miner) {
 	rawSources.forEach(function (source) {
 		return sources.push({
 			source: source,
-			miner: source.pos.findInRange(source.memory.creeps.my.all, 2).filter(function (creep) {
+			miner: source.pos.findInRange(source.room.memory.creeps.my.all, 2).filter(function (creep) {
 				return creep.memory.role.match('iner');
 			})
 		});
@@ -2434,7 +2434,7 @@ exports.default = function (roomArrary) {
 			config: config,
 			creeps: creeps,
 			structures: (0, _structures2.default)(room, config),
-			sources: (0, _sources2.default)(room, _.merge(creeps.my.miner, creeps.my.farMiner, creeps.my.farMinerSec)),
+			sources: (0, _sources2.default)(room),
 			dropped: (0, _dropped2.default)(room),
 			flags: (0, _flags2.default)(room)
 		};
