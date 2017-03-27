@@ -2200,11 +2200,11 @@ exports.default = function (room, miner) {
 		var minerArray = [];
 		miner.forEach(function (creep) {
 			if (creep.memory.target.harvest && creep.memory.target.harvest.id && creep.memory.target.harvest.id == source.id) {
+				console.log('miner:', JSON.justifyContent(creep.memory.target));
 				minerArray.push(creep.id);
 			}
 		});
 
-		console.log('miner:', minerArray);
 		sources.push({
 			source: source,
 			miner: minerArray
