@@ -1592,7 +1592,7 @@ exports.default = function (creep, target) {
 	var noPathFinding = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : true;
 
 	if (creep.fatigue > 0) return false;
-	if (!Game.rooms[target.pos.roomName]) {
+	if (target.pos && target.pos.roomName && !Game.rooms[target.pos.roomName]) {
 		target = new RoomPosition(target.pos.x, target.pos.y, target.pos.roomName);
 	} else {
 		target = (0, _util.targetFormat)(target);
