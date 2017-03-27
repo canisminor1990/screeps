@@ -1056,7 +1056,7 @@ exports.default = function (creep, target, fc) {
 			break;
 		case ERR_NO_PATH:
 			creep.say(text + "PATH");
-			if (creep.memory.role.match('iner')) (0, _util.targetMaker)(creep, creep.room.memory.sources[0], 'harvest');
+			if (creep.memory.role.match('iner')) (0, _util.targetChange)(creep, creep.room.memory.sources[0], 'harvest');
 			break;
 		case ERR_NAME_EXISTS:
 			creep.say(text + "NAME");
