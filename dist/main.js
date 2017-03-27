@@ -2907,7 +2907,7 @@ exports.default = function (creep, roomName) {
 			if ((0, _action.build)(creep, (0, _action.findClosestByRange)(creep, needBuild))) return;
 		}
 		(0, _util.targetChange)(creep, Memory.rooms[roomName].structures.container[0], 'withdraw');
-		if (upgradeController(creep, creep.room.controller)) return;
+		if ((0, _action.upgradeController)(creep, creep.room.controller)) return;
 	}
 };
 

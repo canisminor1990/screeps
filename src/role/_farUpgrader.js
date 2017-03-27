@@ -1,5 +1,5 @@
 import {isFull, targetMaker, targetChange} from '../_util'
-import {findClosestInRange,findClosestByRange, build, pickup, withdraw} from '../action'
+import {findClosestInRange,findClosestByRange, build, pickup, withdraw,upgradeController} from '../action'
 export default (creep, roomName) => {
 	let target;
 	// memory
