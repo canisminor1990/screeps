@@ -1074,7 +1074,12 @@ exports.default = function (creep, target, fc) {
 			break;
 		case ERR_NO_PATH:
 			creep.say(text + "PATH");
-			if (creep.memory.role.match('iner')) (0, _util.targetChange)(creep, creep.room.memory.sources[0], 'harvest');
+			if (creep.memory.role.match('iner')) {
+				(0, _util.targetChange)(creep, creep.room.memory.sources[0], 'harvest');
+			} else {
+				(0, _util.targetChange)(creep, creep.room.memory.structures.container[0], 'withdraw');
+			}
+
 			break;
 		case ERR_NAME_EXISTS:
 			creep.say(text + "NAME");
@@ -1089,8 +1094,12 @@ exports.default = function (creep, target, fc) {
 			break;
 		case ERR_NOT_ENOUGH_ENERGY:
 			creep.say(text + "ENERGY");
-			if (creep.memory.role.match('iner')) (0, _action.moveTo)(creep, target, color);
-			(0, _util.targetChange)(creep, creep.room.memory.structures.container[0], 'withdraw');
+			if (creep.memory.role.match('iner')) {
+				(0, _action.moveTo)(creep, target, color);
+			} else {
+				(0, _util.targetChange)(creep, creep.room.memory.structures.container[0], 'withdraw');
+			}
+
 			return true;
 			break;
 		case ERR_NOT_ENOUGH_RESOURCES:

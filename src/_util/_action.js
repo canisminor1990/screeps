@@ -1,5 +1,5 @@
-import { moveTo } from '../action'
-import { emoji, targetChange } from '../_util'
+import {moveTo} from '../action'
+import {emoji, targetChange} from '../_util'
 export default (creep, target, fc, text = "", color = "#fff") => {
 	switch (fc) {
 		case OK:
@@ -11,7 +11,12 @@ export default (creep, target, fc, text = "", color = "#fff") => {
 			break;
 		case ERR_NO_PATH               :
 			creep.say(text + "PATH");
-			if (creep.memory.role.match('iner')) targetChange(creep, creep.room.memory.sources[0], 'harvest');
+			if (creep.memory.role.match('iner')) {
+				targetChange(creep, creep.room.memory.sources[0], 'harvest');
+			} else {
+				targetChange(creep, creep.room.memory.structures.container[0], 'withdraw')
+			}
+			
 			break;
 		case ERR_NAME_EXISTS           :
 			creep.say(text + "NAME");
@@ -26,8 +31,12 @@ export default (creep, target, fc, text = "", color = "#fff") => {
 			break;
 		case ERR_NOT_ENOUGH_ENERGY     :
 			creep.say(text + "ENERGY");
-			if (creep.memory.role.match('iner')) moveTo(creep, target, color);
-			targetChange(creep, creep.room.memory.structures.container[0], 'withdraw')
+			if (creep.memory.role.match('iner')) {
+				moveTo(creep, target, color);
+			} else {
+				targetChange(creep, creep.room.memory.structures.container[0], 'withdraw')
+			}
+			
 			return true;
 			break;
 		case ERR_NOT_ENOUGH_RESOURCES  :
