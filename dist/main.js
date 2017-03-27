@@ -1610,7 +1610,7 @@ exports.default = function (creep, target) {
 			strokeWidth: 0.1
 		}
 	}))) {
-		if (Game.rooms[target.pos.roomName]) {
+		if (target.pos && target.pos.roomName && Game.rooms[target.pos.roomName]) {
 			target.room.visual.circle(target.pos, { fill: 'transparent', radius: 0.55, stroke: color });
 			if (target.pos.roomName == creep.pos.roomName) {
 				target.room.visual.line(creep.pos, target.pos, { color: color, width: 0.1, opacity: 0.05 });

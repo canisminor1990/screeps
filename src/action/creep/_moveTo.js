@@ -19,7 +19,7 @@ export default (creep, target, color = '#ffffff', noPathFinding = true) => {
 				strokeWidth: 0.1
 			}
 		}))) {
-		if (Game.rooms[target.pos.roomName]) {
+		if (target.pos && target.pos.roomName && Game.rooms[target.pos.roomName]) {
 			target.room.visual
 			      .circle(target.pos, {fill: 'transparent', radius: 0.55, stroke: color})
 			if (target.pos.roomName == creep.pos.roomName) {
