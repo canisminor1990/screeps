@@ -2753,7 +2753,7 @@ exports.default = function (creep, newRoom) {
 	    needFix = creep.room.memory.structures.needFix;
 	// run
 	var withdrawTarget = creep.memory.target.withdraw;
-	if (creep.pos.roomName != withdrawTarget.pos.roomName) {
+	if (!creep.memory.full && creep.pos.roomName != withdrawTarget.pos.roomName) {
 		(0, _action.moveTo)(creep, withdrawTarget);
 		return;
 	}
@@ -2770,7 +2770,6 @@ exports.default = function (creep, newRoom) {
 	} else {
 		if (!creep.memory.full) {
 			if ((0, _action.pickup)(creep, (0, _action.findClosestInRange)(creep, creep.room.memory.dropped.energy, 4))) return;
-			if ((0, _action.withdraw)(creep, withdrawTarget)) return;
 		} else {
 			if ((0, _action.transfer)(creep, storage)) return;
 		}

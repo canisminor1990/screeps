@@ -10,7 +10,7 @@ export default (creep, newRoom) => {
 	      needFix      = creep.room.memory.structures.needFix
 	// run
 	let withdrawTarget = creep.memory.target.withdraw
-	if (creep.pos.roomName != withdrawTarget.pos.roomName) {
+	if (!creep.memory.full && creep.pos.roomName != withdrawTarget.pos.roomName) {
 		moveTo(creep, withdrawTarget)
 		return
 	}
@@ -27,7 +27,6 @@ export default (creep, newRoom) => {
 	} else {
 		if (!creep.memory.full) {
 			if (pickup(creep, findClosestInRange(creep, creep.room.memory.dropped.energy, 4))) return;
-			if (withdraw(creep, withdrawTarget)) return
 		}
 		else {
 			if (transfer(creep, storage)) return;
