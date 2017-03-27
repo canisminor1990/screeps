@@ -5,7 +5,6 @@ export default (creep) => {
 	isFull(creep)
 	//
 	targetMaker(creep, Memory.rooms['W81S66'].sources[0].source, 'harvest')
-	console.log(1)
 	//
 	if (creep.memory.full) {
 		target = findClosestInRange(creep, creep.room.memory.structures.container, 2);
@@ -17,11 +16,7 @@ export default (creep) => {
 		}
 		target = findClosestInRange(creep, creep.room.memory.structures.needBuild, 0);
 		if (build(creep, target))return;
-	} else {
-		target = findClosestInRange(creep, creep.room.memory.dropped.energy, 0);
-		if (pickup(creep, target[0])) return;
 	}
-	target = creep.memory.target.harvest
 	console.log(1)
-	if (harvest(creep, target)) return;
+	if (harvest(creep, creep.memory.target.harvest)) return;
 }

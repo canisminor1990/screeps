@@ -2841,7 +2841,6 @@ exports.default = function (creep) {
 	(0, _util.isFull)(creep);
 	//
 	(0, _util.targetMaker)(creep, Memory.rooms['W81S66'].sources[0].source, 'harvest');
-	console.log(1);
 	//
 	if (creep.memory.full) {
 		target = (0, _action.findClosestInRange)(creep, creep.room.memory.structures.container, 2);
@@ -2853,13 +2852,9 @@ exports.default = function (creep) {
 		}
 		target = (0, _action.findClosestInRange)(creep, creep.room.memory.structures.needBuild, 0);
 		if ((0, _action.build)(creep, target)) return;
-	} else {
-		target = (0, _action.findClosestInRange)(creep, creep.room.memory.dropped.energy, 0);
-		if ((0, _action.pickup)(creep, target[0])) return;
 	}
-	target = creep.memory.target.harvest;
 	console.log(1);
-	if ((0, _action.harvest)(creep, target)) return;
+	if ((0, _action.harvest)(creep, creep.memory.target.harvest)) return;
 };
 
 /***/ }),
