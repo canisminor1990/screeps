@@ -5,7 +5,9 @@ export default (creep, targetRaw, opt = true) => {
 
 	let target;
 	target = targetFormat(targetRaw)
-
+	if (!target) {
+		 moveTo(creep, targetRaw);return true
+	}
 	console.log(111)
 	targetMaker(creep, target, 'harvest')
 	if (action(creep, target, creep.harvest(target), emoji.harvest, colorType.yellow)) return true;
