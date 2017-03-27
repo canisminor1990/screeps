@@ -13,7 +13,7 @@ export default (creep, newRoom) => {
 		if (!withdrawTarget) {
 			moveTo(creep, creep.memory.target.withdraw)
 		} else {
-			if (harvest(creep, withdrawTarget)) return
+			if (withdraw(creep, withdrawTarget)) return
 		}
 		return;
 	}

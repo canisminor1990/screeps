@@ -2760,7 +2760,7 @@ exports.default = function (creep, newRoom) {
 		if (!withdrawTarget) {
 			(0, _action.moveTo)(creep, creep.memory.target.withdraw);
 		} else {
-			if (harvest(creep, withdrawTarget)) return;
+			if ((0, _action.withdraw)(creep, withdrawTarget)) return;
 		}
 		return;
 	} else {
