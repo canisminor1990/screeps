@@ -6,6 +6,10 @@ export default (creep, roomName) => {
 	//
 	targetMaker(creep, Memory.rooms[roomName].sources[0].source, 'harvest')
 	//
+	target = findInRange(creep.memory.target.harvest, creep.room.memory.creeps.farMiner, 2, miner =>
+		miner.id != creep.id && miner.ticksToLive > 20
+	)
+	if (target.length >0) targetChange(creep, creep.room.memory.sources[0].source, 'harvest')
 	if (creep.memory.full) {
 		target = findInRange(creep, creep.room.memory.structures.container, 2)[0];
 		if (target) {
@@ -17,11 +21,6 @@ export default (creep, roomName) => {
 			// }
 		}
 		if (build(creep, findInRange(creep, creep.room.memory.structures.needBuild, 2)[0]))return;
-	}else{
-		target = findInRange(creep.memory.target.harvest, creep.room.memory.creeps.farMiner, 2, miner =>
-			miner.id != creep.id && miner.ticksToLive > 20
-		)
-		if (target.length >0) targetChange(creep, creep.room.memory.sources[0].source, 'harvest')
 	}
 	if (pickup(creep, findInRange(creep, creep.room.memory.dropped.energy, 2)[0])) return;
 	if (harvest(creep, creep.memory.target.harvest)) return;

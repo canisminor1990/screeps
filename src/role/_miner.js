@@ -7,6 +7,10 @@ export default (creep) => {
 	//run
 	targetMaker(creep, creep.room.memory.sources[0].source, 'harvest')
 	const harvestTarget = Game.getObjectById(creep.memory.target.harvest.id)
+	target = findInRange(harvestTarget, creep.room.memory.creeps.miner, 2, miner =>
+		miner.id != creep.id && miner.ticksToLive > 20
+	)
+	if (target.length >0) targetChange(creep, creep.room.memory.sources[0].source, 'harvest')
 	if (creep.memory.full) {
 		target = findInRange(harvestTarget, creep.room.memory.structures.container, 2);
 		if (!creep.pos.isEqualTo(target.pos) && moveTo(creep, target)) return;
@@ -14,10 +18,7 @@ export default (creep) => {
 		target = findInRange(creep, creep.room.memory.structures.needBuild, 1)[1];
 		if (build(creep, target))return;
 	} else {
-		target = findInRange(harvestTarget, creep.room.memory.creeps.miner, 2, miner =>
-			miner.id != creep.id && miner.ticksToLive > 20
-		)
-		if (target.length >0) targetChange(creep, creep.room.memory.sources[0].source, 'harvest')
+		
 	}
 	if (harvest(creep, harvestTarget)) return;
 }
