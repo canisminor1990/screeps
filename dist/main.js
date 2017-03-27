@@ -2799,7 +2799,6 @@ var _action = __webpack_require__(1);
 var _util = __webpack_require__(0);
 
 exports.default = function (creep, newRoom) {
-	console.log(111);
 	var target = void 0;
 	(0, _util.isFull)(creep);
 	//
@@ -2820,7 +2819,9 @@ exports.default = function (creep, newRoom) {
 	}
 
 	var harvestTarget = (0, _util.targetFormat)(creep.memory.target.harvest);
+	console.log(111);
 	if (!harvestTarget && (0, _action.moveTo)(creep, (0, _util.targetPos)(creep.memory.target.harvest))) return;
+	console.log(222);
 	if ((0, _action.harvest)(creep, harvestTarget)) return;
 };
 

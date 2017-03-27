@@ -1,7 +1,6 @@
 import { moveTo, harvest, repair, build, pickup, findClosestByRange } from '../action'
 import { isFull, targetMaker, targetPos, targetFormat } from '../_util'
 export default (creep, newRoom) => {
-	console.log(111)
 	let target;
 	isFull(creep)
 	//
@@ -22,7 +21,9 @@ export default (creep, newRoom) => {
 	}
 
 	const harvestTarget = targetFormat(creep.memory.target.harvest)
+	console.log(111)
 	if (!harvestTarget && moveTo(creep, targetPos(creep.memory.target.harvest))) return
+	console.log(222)
 	if (harvest(creep, harvestTarget)) return
 
 }
