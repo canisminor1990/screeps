@@ -16,7 +16,7 @@ export default (creep, target, color = '#ffffff', noPathFinding = true) => {
 				stroke   : color,
 				lineStyle: 'dotted',
 				opacity  : 0.25,
-				width    : 0.05
+				strokeWidth    : 0.05
 			}
 		}))) {
 		target.room.visual

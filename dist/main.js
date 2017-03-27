@@ -1444,7 +1444,7 @@ exports.default = function (creep, target) {
 			stroke: color,
 			lineStyle: 'dotted',
 			opacity: 0.25,
-			width: 0.05
+			strokeWidth: 0.05
 		}
 	}))) {
 		target.room.visual.circle(target.pos, { fill: 'transparent', radius: 0.55, stroke: color });
