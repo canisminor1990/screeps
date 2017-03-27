@@ -1,5 +1,5 @@
 import { emoji } from '../_util'
-import { targetFormat, targetMaker } from '../_util'
+import { targetFormat } from '../_util'
 export default (creep, target, type = 'default') => {
 	target = targetFormat(target)
 	if (!target) return false;
