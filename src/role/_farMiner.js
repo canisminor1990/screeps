@@ -1,4 +1,4 @@
-import {moveTo, harvest, repair, build, findInRange, findClosestInRange} from '../action'
+import {moveTo, harvest, repair, build, findInRange, findClosestInRange,pickup} from '../action'
 import {isFull, targetMaker} from '../_util'
 export default (creep,roomName) => {
 	let target;
@@ -16,6 +16,6 @@ export default (creep,roomName) => {
 		}
 		if (build(creep, findInRange(creep, creep.room.memory.structures.needBuild, 2)))return;
 	}
-	if (harvest(creep, creep.memory.target.harvest)) return;
+	if (pickup(creep, findInRange(creep, creep.room.memory.pickup.energy, 2))) return;
 	if (harvest(creep, creep.memory.target.harvest)) return;
 }
