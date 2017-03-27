@@ -2014,7 +2014,7 @@ exports.default = function (room, miner) {
 	});
 	if (sources.length > 0) {
 		sources.sort(function (a, b) {
-			return a.minerNumber - b.minerNumber;
+			return b.source.energy - a.source.energy;
 		});
 	}
 	return sources;
