@@ -30,7 +30,7 @@ function isSafe(roomName) {
 	if (!trigger.safe) {
 		if (trigger.timeout > 0 &&
 		    Game.time - trigger.timeout > 1500) {
-			trigger.safe = true;
+			Memory.trigger.noEnemy[roomName].safe = true;
 		}
 	}
 }
