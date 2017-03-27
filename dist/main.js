@@ -1592,7 +1592,7 @@ exports.default = function (creep, target) {
 	var noPathFinding = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : true;
 
 	if (!target || creep.fatigue > 0) return false;
-	if (target.pos && !Game.rooms[target.pos.roomName]) {
+	if (target.pos.roomName != creep.pos.roomName) {
 		target = new RoomPosition(target.pos.x, target.pos.y, target.pos.roomName);
 	} else {
 		target = (0, _util.targetFormat)(target);
@@ -2790,7 +2790,6 @@ exports.default = function (creep) {
 	var target = void 0;
 	(0, _util.isFull)(creep);
 	//
-	console.log(2);
 	(0, _util.targetMaker)(creep, Memory.rooms['W81S66'].sources[0].source, 'harvest');
 	//
 	if (creep.memory.full) {
@@ -2809,7 +2808,6 @@ exports.default = function (creep) {
 	}
 	var harvestTarget = (0, _util.targetFormat)(creep.memory.target.harvest);
 	if (!harvestTarget) {
-		console.log(123);
 		(0, _action.moveTo)(creep, creep.memory.target.harvest);
 	} else {
 		if ((0, _action.harvest)(creep, harvestTarget)) return;

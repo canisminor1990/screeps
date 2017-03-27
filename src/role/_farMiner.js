@@ -4,7 +4,6 @@ export default (creep) => {
 	let target;
 	isFull(creep)
 	//
-	console.log(2)
 	targetMaker(creep, Memory.rooms['W81S66'].sources[0].source,'harvest')
 	//
 	if (creep.memory.full) {
@@ -23,7 +22,6 @@ export default (creep) => {
 	}
 	const harvestTarget = targetFormat(creep.memory.target.harvest)
 	if (!harvestTarget) {
-		console.log(123)
 		moveTo(creep, creep.memory.target.harvest)
 	} else {
 		if (harvest(creep, harvestTarget)) return
