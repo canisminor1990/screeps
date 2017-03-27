@@ -2799,6 +2799,7 @@ var _action = __webpack_require__(1);
 var _util = __webpack_require__(0);
 
 exports.default = function (creep, newRoom) {
+	console.log(111);
 	var target = void 0;
 	(0, _util.isFull)(creep);
 	//
