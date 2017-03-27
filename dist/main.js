@@ -1526,7 +1526,7 @@ exports.default = function (creep, target) {
 	if (!opt) return;
 	target = (0, _util.targetFormat)(target);
 	if (!target) return;
-	// targetMaker(creep,target,'harvest')
+	(0, _util.targetMaker)(creep, target, 'harvest');
 	if ((0, _util.action)(creep, target, creep.harvest(target), _util.emoji.harvest, _util.colorType.yellow)) return true;
 };
 
@@ -2191,21 +2191,33 @@ Object.defineProperty(exports, "__esModule", {
 	value: true
 });
 
+var _util = __webpack_require__(0);
+
 exports.default = function (room, miner) {
 	var rawSources = room.find(FIND_SOURCES);
 	var sources = [];
 	rawSources.forEach(function (source) {
+		var miner = [];
+		miner.forEach(function (creep) {
+			if (creep.target.harvest && creep.target.harvest.id == source.id) miner.push(creep.id);
+		});
+
 		sources.push({
 			source: source,
-			minerNumber: source.pos.findInRange(miner, 2).length
+			miner: miner
 		});
 	});
 	if (sources.length > 0) {
 		sources.sort(function (a, b) {
 			return b.source.energy - a.source.energy;
 		}).sort(function (a, b) {
-			return a.minerNumber - b.minerNumber;
+			return a.miner.length - a.miner.length;
 		});
+	}
+	if (sources.length > 1 && sources[0].miner.length == 0 && sources[sources.length - 1].miner.length > 1) {
+		var targetSource = sources[sources.length - 1],
+		    targetCreep = Game.getObjectById(targetSource.miner[targetSource.miner.length - 1]);
+		(0, _util.targetChange)(targetCreep, sources[0].source, 'harvest');
 	}
 	return sources;
 };
