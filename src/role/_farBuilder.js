@@ -18,9 +18,7 @@ export default (creep, roomName) => {
 			if (repair(creep, findClosestByRange(creep, needFix)))return;
 			if (build(creep, findClosestByRange(creep, needBuild)))return;
 		}
-		if (creep.pos.roomName != creep.memory.target.withdraw.pos.roomName) {
-			targetChange(creep, Memory.rooms[roomName].structures.container[0], 'withdraw')
-		}
+		targetChange(creep, Memory.rooms[roomName].structures.container[0], 'withdraw')
 		if (transfer(creep, storage)) return;
 	}
 }

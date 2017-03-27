@@ -16,9 +16,7 @@ export default (creep, roomName) => {
 			const needBuild = creep.room.memory.structures.needBuild;
 			if (build(creep, findClosestByRange(creep, needBuild)))return;
 		}
-		if (creep.pos.roomName != creep.memory.target.withdraw.pos.roomName){
-			targetChange(creep, Memory.rooms[roomName].structures.container[0], 'withdraw')
-		}
+		targetChange(creep, Memory.rooms[roomName].structures.container[0], 'withdraw')
 		if (upgradeController(creep, creep.room.controller)) return;
 	}
 }

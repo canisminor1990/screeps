@@ -2801,9 +2801,7 @@ exports.default = function (creep, roomName) {
 			if ((0, _action.repair)(creep, (0, _action.findClosestByRange)(creep, needFix))) return;
 			if ((0, _action.build)(creep, (0, _action.findClosestByRange)(creep, needBuild))) return;
 		}
-		if (creep.pos.roomName != creep.memory.target.withdraw.pos.roomName) {
-			(0, _util.targetChange)(creep, Memory.rooms[roomName].structures.container[0], 'withdraw');
-		}
+		(0, _util.targetChange)(creep, Memory.rooms[roomName].structures.container[0], 'withdraw');
 		if ((0, _action.transfer)(creep, storage)) return;
 	}
 };
@@ -2908,9 +2906,7 @@ exports.default = function (creep, roomName) {
 			var needBuild = creep.room.memory.structures.needBuild;
 			if ((0, _action.build)(creep, (0, _action.findClosestByRange)(creep, needBuild))) return;
 		}
-		if (creep.pos.roomName != creep.memory.target.withdraw.pos.roomName) {
-			(0, _util.targetChange)(creep, Memory.rooms[roomName].structures.container[0], 'withdraw');
-		}
+		(0, _util.targetChange)(creep, Memory.rooms[roomName].structures.container[0], 'withdraw');
 		if (upgradeController(creep, creep.room.controller)) return;
 	}
 };
