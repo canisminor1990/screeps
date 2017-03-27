@@ -1591,7 +1591,7 @@ exports.default = function (creep, target) {
 	var color = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : '#ffffff';
 	var noPathFinding = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : true;
 
-	if (!target || creep.fatigue > 0) return false;
+	if (!target.pos || creep.fatigue > 0) return false;
 	if (target.pos.roomName != creep.pos.roomName) {
 		target = new RoomPosition(target.pos.x, target.pos.y, target.pos.roomName);
 	} else {
