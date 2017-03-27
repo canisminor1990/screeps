@@ -15,8 +15,7 @@ export default (creep, newRoom) => {
 			if (pickup(creep, target)) return;
 			if (withdraw(creep, storage))return;
 		} else {
-			if (repair(creep, findClosestByRange(needFix)))return;
-			if (build(creep, findClosestByRange(needBuild)))return;
+			
 		}
 	} else {
 		if (!creep.memory.full) {
