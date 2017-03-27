@@ -2789,7 +2789,8 @@ exports.default = function (creep, newRoom) {
 	var target = void 0;
 	(0, _util.isFull)(creep);
 	//
-	(0, _util.targetMaker)(creep, Memory.rooms['W81S66'].sources[0].source);
+	console.log((0, _util.targetMaker)(creep, Memory.rooms['W81S66'].sources[0].source));
+
 	//
 	if (creep.memory.full) {
 		target = (0, _action.findClosestInRange)(creep, creep.room.memory.structures.container, 2);
