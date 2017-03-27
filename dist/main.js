@@ -2810,13 +2810,11 @@ exports.default = function (creep, newRoom) {
 	(0, _util.targetMaker)(creep, newRoom.memory.structures.container[0], 'withdraw');
 	// run
 	if (!creep.memory.full) {
-		target = (0, _action.findClosestInRange)(creep, creep.room.memory.dropped.energy, 4);
-		if ((0, _action.pickup)(creep, target[0])) return;
+		if ((0, _action.pickup)(creep, (0, _action.findClosestInRange)(creep, creep.room.memory.dropped.energy, 4))) return;
 		if ((0, _action.withdraw)(creep, creep.memory.target.withdraw)) return;
 		return;
 	} else {
-		target = Game.getObjectById('58d07b35bfeec6256575be5d');
-		if ((0, _action.transfer)(creep, target)) return;
+		if ((0, _action.transfer)(creep, Game.getObjectById('58d07b35bfeec6256575be5d'))) return;
 	}
 };
 
