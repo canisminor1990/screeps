@@ -1,5 +1,6 @@
-import {moveTo} from '../action'
-export default (creep, target, fc, text) => {
+import { moveTo } from '../action'
+import { emoji } from '../_util'
+export default (creep, target, fc, text = "") => {
 	switch (fc) {
 		case OK:
 			if (text) creep.say(text);
@@ -20,10 +21,10 @@ export default (creep, target, fc, text) => {
 			creep.say(text + "BUSY");
 			break;
 		case ERR_NOT_FOUND             :
-			creep.say(text + "FOUND");
+			creep.say(emoji.move);
 			creep.moveTo(target, {
-				reusePath         : 15,
-				serializeMemory   : true
+				reusePath      : 15,
+				serializeMemory: true
 			});
 			return true;
 			break;

@@ -972,7 +972,11 @@ Object.defineProperty(exports, "__esModule", {
 
 var _action = __webpack_require__(1);
 
-exports.default = function (creep, target, fc, text) {
+var _util = __webpack_require__(0);
+
+exports.default = function (creep, target, fc) {
+	var text = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : "";
+
 	switch (fc) {
 		case OK:
 			if (text) creep.say(text);
@@ -993,7 +997,7 @@ exports.default = function (creep, target, fc, text) {
 			creep.say(text + "BUSY");
 			break;
 		case ERR_NOT_FOUND:
-			creep.say(text + "FOUND");
+			creep.say(_util.emoji.move);
 			creep.moveTo(target, {
 				reusePath: 15,
 				serializeMemory: true
