@@ -1280,12 +1280,9 @@ Object.defineProperty(exports, "__esModule", {
 });
 
 exports.default = function (target) {
+	if (!target) return;
 	if (target.length) target = _.compact(target)[0];
-	if (target) {
-		return target;
-	} else {
-		return false;
-	}
+	return target;
 };
 
 /***/ }),
