@@ -1569,13 +1569,11 @@ exports.default = function (creep, targetRaw) {
 	var opt = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : true;
 
 	if (!opt) return;
-
 	var target = void 0;
 	target = (0, _util.targetFormat)(targetRaw);
 	if (!target) {
 		(0, _.moveTo)(creep, targetRaw);return true;
 	}
-	console.log(111);
 	(0, _util.targetMaker)(creep, target, 'harvest');
 	if ((0, _util.action)(creep, target, creep.harvest(target), _util.emoji.harvest, _util.colorType.yellow)) return true;
 };
@@ -3042,7 +3040,19 @@ exports.default = function (creep) {
 	//run
 	(0, _util.targetMaker)(creep, memory.sources[0].source, 'harvest');
 	var harvestTarget = Game.getObjectById(creep.memory.target.harvest.id);
-	if (creep.memory.full) {}
+	if (creep.memory.full) {
+		console.log(1);
+		target = (0, _action.findClosestInRange)(harvestTarget, creep.room.memory.structures.container, 2);
+		console.log(2);
+		if (!creep.pos.isEqualTo(target.pos) && (0, _action.moveTo)(creep, target)) return;
+		console.log(3);
+		if ((0, _action.repair)(creep, target, target.hits < target.hitsMax / 2)) return;
+		console.log(4);
+		target = (0, _action.findClosestInRange)(creep, creep.room.memory.structures.needBuild, 0);
+		console.log(5);
+		if ((0, _action.build)(creep, target)) return;
+		console.log(6);
+	}
 	if ((0, _action.harvest)(creep, harvestTarget)) return;
 };
 
