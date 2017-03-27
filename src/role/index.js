@@ -8,8 +8,8 @@ export { default as cleaner } from'./_cleaner';
 export { default as farBuilder } from './_farBuilder';
 export { default as farHarvester } from './_farHarvester';
 export { default as farMiner } from './_farMiner';
-export { default as farMinerSec } from './_farMinerSec';
+
 export { default as claim } from './_claim';
-export { default as claimSec } from './_claimSec';
+
 // attacker
 export { default as attacker } from './_attacker';
