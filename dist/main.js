@@ -2004,7 +2004,7 @@ exports.default = function (room, miner) {
 	rawSources.forEach(function (source) {
 		sources.push({
 			source: source,
-			minerNumber: source.pos.findInRange(source.room.memory.creeps.miner, 2).length
+			minerNumber: source.pos.findInRange(source.room.memory.creeps.my.miner, 2).length
 		});
 	});
 	if (sources.length > 0) {
