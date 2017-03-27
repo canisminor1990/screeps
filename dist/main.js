@@ -1672,7 +1672,8 @@ exports.default = function (creep, targetRaw) {
 	var target = void 0;
 	target = (0, _util.targetFormat)(targetRaw);
 	if (!target) {
-		(0, _.moveTo)(creep, targetRaw);return true;
+		(0, _.moveTo)(creep, targetRaw);
+		return true;
 	}
 	(0, _util.targetMaker)(creep, target, 'pickup');
 	if ((0, _util.action)(creep, target, creep.pickup(target), _util.emoji.pickup, _util.colorType.yellow)) return true;
@@ -2811,8 +2812,8 @@ exports.default = function (creep, newRoom) {
 	// run
 	if (!creep.memory.full) {
 		if ((0, _action.pickup)(creep, (0, _action.findClosestInRange)(creep, creep.room.memory.dropped.energy, 4))) return;
+		console.log(111);
 		if ((0, _action.withdraw)(creep, creep.memory.target.withdraw)) return;
-		return;
 	} else {
 		if ((0, _action.transfer)(creep, Game.getObjectById('58d07b35bfeec6256575be5d'))) return;
 	}
