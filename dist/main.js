@@ -1389,7 +1389,7 @@ var _util = __webpack_require__(0);
 exports.default = function (creep, target) {
 	var type = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 'default';
 
-	target = (0, _util.targetFormat)(target);
+
 	if (!target) return false;
 	if (creep.memory.target[type] && creep.memory.target[type].id) return;
 	creep.memory.target[type] = {
@@ -2789,8 +2789,8 @@ exports.default = function (creep, newRoom) {
 	var target = void 0;
 	(0, _util.isFull)(creep);
 	//
-	console.log((0, _util.targetMaker)(creep, Memory.rooms['W81S66'].sources[0].source));
 
+	(0, _util.targetMaker)(creep, Memory.rooms['W81S66'].sources[0].source);
 	//
 	if (creep.memory.full) {
 		target = (0, _action.findClosestInRange)(creep, creep.room.memory.structures.container, 2);
