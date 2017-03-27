@@ -2644,9 +2644,11 @@ Object.defineProperty(exports, "__esModule", {
 
 var _action = __webpack_require__(1);
 
+var _util = __webpack_require__(0);
+
 exports.default = function (creep, roomName) {
 	//
-	targetMaker(creep, Memory.rooms[roomName].structures.controller, 'claim');
+	(0, _util.targetMaker)(creep, Memory.rooms[roomName].structures.controller, 'claim');
 	if ((0, _action.claimController)(creep, creep.memory.claim)) return;
 };
 

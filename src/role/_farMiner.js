@@ -1,5 +1,5 @@
 import {moveTo, harvest, repair, build, findInRange, findClosestInRange} from '../action'
-import {isFull, targetMaker, targetFormat} from '../_util'
+import {isFull, targetMaker} from '../_util'
 export default (creep,roomName) => {
 	let target;
 	isFull(creep)

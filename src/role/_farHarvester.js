@@ -1,5 +1,5 @@
-import {isFull, targetFormat, targetMaker} from '../_util'
-import {findClosestInRange, transfer, pickup, moveTo, withdraw} from '../action'
+import {isFull, targetMaker} from '../_util'
+import {findClosestInRange, transfer, pickup, withdraw} from '../action'
 export default (creep, roomName) => {
 	let target;
 	// memory
