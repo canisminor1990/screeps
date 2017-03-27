@@ -7,6 +7,7 @@ export default (creep, target, type = 'default') => {
 		creep.memory.target[type] = {}
 		creep.say(emoji.target)
 	} else {
+		if (target.id == creep.memory.target[type].id) return true;
 		creep.say(emoji.targetChange)
 	}
 	creep.memory.target[type] = {

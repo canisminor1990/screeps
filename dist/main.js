@@ -1308,6 +1308,7 @@ exports.default = function (creep, target) {
 		creep.memory.target[type] = {};
 		creep.say(_util.emoji.target);
 	} else {
+		if (target.id == creep.memory.target[type].id) return true;
 		creep.say(_util.emoji.targetChange);
 	}
 	creep.memory.target[type] = {
