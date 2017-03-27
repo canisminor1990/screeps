@@ -1075,7 +1075,7 @@ exports.default = function (creep, target, fc) {
 		case ERR_NO_PATH:
 			creep.say(text + "PATH");
 			if (creep.memory.role.match('iner')) {
-				(0, _util.targetChange)(creep, creep.room.memory.sources[0], 'harvest');
+				// targetChange(creep, creep.room.memory.sources[0], 'harvest');
 			} else {
 				(0, _util.targetChange)(creep, creep.room.memory.structures.container[0], 'withdraw');
 			}
