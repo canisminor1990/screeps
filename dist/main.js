@@ -2749,19 +2749,25 @@ exports.default = function (creep, newRoom) {
 	(0, _util.isFull)(creep);
 	(0, _util.targetMaker)(creep, newRoom.memory.structures.container[0], 'withdraw');
 	// run
-	var needBuild = Memory.rooms['W81S66'].structures.needBuild,
-	    needFix = Memory.rooms['W81S66'].structures.needFix;
+	var needBuild = creep.room.memory.structures.needBuild,
+	    needFix = creep.room.memory.structures.needFix;
 	// run
+	var withdrawTarget = creep.memory.target.withdraw;
+	if (creep.pos.roomName != withdrawTarget.pos.roomName) (0, _action.moveTo)(creep, withdrawTarget);
+
 	if (needBuild.length > 0 || needFix.length > 0) {
 		if (!creep.memory.full) {
 			target = (0, _action.findClosestInRange)(creep, creep.room.memory.dropped.energy, 3);
 			if ((0, _action.pickup)(creep, target)) return;
 			if ((0, _action.withdraw)(creep, storage)) return;
-		} else {}
+		} else {
+			if ((0, _action.repair)(creep, (0, _action.findClosestInRange)(creep, needBuild))) return;
+			if ((0, _action.build)(creep, (0, _action.findClosestInRange)(creep, needFix))) return;
+		}
 	} else {
 		if (!creep.memory.full) {
 			if ((0, _action.pickup)(creep, (0, _action.findClosestInRange)(creep, creep.room.memory.dropped.energy, 4))) return;
-			if ((0, _action.withdraw)(creep, creep.memory.target.withdraw)) return;
+			if ((0, _action.withdraw)(creep, withdrawTarget)) return;
 		} else {
 			if ((0, _action.transfer)(creep, storage)) return;
 		}
