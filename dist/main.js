@@ -1656,8 +1656,8 @@ Object.defineProperty(exports, "__esModule", {
 var _util = __webpack_require__(0);
 
 exports.default = function (creep, target) {
-	var type = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : RESOURCE_ENERGY;
-	var opt = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : true;
+	var opt = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : true;
+	var type = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : RESOURCE_ENERGY;
 
 	if (!opt) return;
 	target = (0, _util.targetFormat)(target);
@@ -1703,8 +1703,8 @@ Object.defineProperty(exports, "__esModule", {
 var _util = __webpack_require__(0);
 
 exports.default = function (creep, target) {
-	var type = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : RESOURCE_ENERGY;
-	var opt = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : true;
+	var opt = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : true;
+	var type = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : RESOURCE_ENERGY;
 
 	if (!opt) return;
 	target = (0, _util.targetFormat)(target);
@@ -2974,7 +2974,7 @@ exports.default = function (creep) {
 		target = (0, _action.findClosestInRange)(creep, creep.room.memory.dropped.energy, 4);
 		if ((0, _action.pickup)(creep, target)) return;
 		target = Game.getObjectById('58d6a0f58f53422d7fea1d52');
-		if ((0, _action.withdraw)(creep, target, RESOURCE_ENERGY, target.store.energy > 0)) return;
+		if ((0, _action.withdraw)(creep, target, target.store.energy > 0)) return;
 	}
 };
 

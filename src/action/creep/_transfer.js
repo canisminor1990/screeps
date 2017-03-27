@@ -1,5 +1,5 @@
 import { emoji, action, colorType, targetFormat ,targetMaker} from "../../_util"
-export default (creep, target, type = RESOURCE_ENERGY,opt = true) => {
+export default (creep, target,opt = true,type = RESOURCE_ENERGY) => {
 	if (!opt) return;
 	target = targetFormat(target)
 	if (!target) return;
