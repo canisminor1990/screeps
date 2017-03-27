@@ -2817,8 +2817,7 @@ exports.default = function (creep, newRoom) {
 	(0, _util.targetMaker)(creep, newRoom.memory.structures.container[0], 'withdraw');
 	// run
 	if (!creep.memory.full) {
-		// if (pickup(creep, findClosestInRange(creep, creep.room.memory.dropped.energy, 4))) return;
-		// console.log(111)
+		if ((0, _action.pickup)(creep, (0, _action.findClosestInRange)(creep, creep.room.memory.dropped.energy, 4))) return;
 		if ((0, _action.withdraw)(creep, creep.memory.target.withdraw)) return;
 	} else {
 		if ((0, _action.transfer)(creep, Game.getObjectById('58d07b35bfeec6256575be5d'))) return;
@@ -2854,8 +2853,7 @@ exports.default = function (creep) {
 		} else {
 			creep.room.createConstructionSite(creep.pos.x, creep.pos.y, STRUCTURE_CONTAINER);
 		}
-		// target = findClosestInRange(creep, creep.room.memory.structures.needBuild, 0);
-		// if (build(creep, target))return;
+		if ((0, _action.build)(creep, (0, _action.findClosestInRange)(creep, creep.room.memory.structures.needBuild, 0))) return;
 	}
 	if ((0, _action.harvest)(creep, creep.memory.target.harvest)) return;
 };

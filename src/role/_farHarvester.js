@@ -7,8 +7,7 @@ export default (creep, newRoom) => {
 	targetMaker(creep, newRoom.memory.structures.container[0], 'withdraw')
 	// run
 	if (!creep.memory.full) {
-		// if (pickup(creep, findClosestInRange(creep, creep.room.memory.dropped.energy, 4))) return;
-		// console.log(111)
+		if (pickup(creep, findClosestInRange(creep, creep.room.memory.dropped.energy, 4))) return;
 		if (withdraw(creep, creep.memory.target.withdraw)) return
 	}
 	else {
