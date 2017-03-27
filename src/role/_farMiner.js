@@ -6,7 +6,7 @@ export default (creep, roomName) => {
 	//
 	targetMaker(creep, Memory.rooms[roomName].sources[0].source, 'harvest')
 	//
-	target              = harvestTarget.pos.findInRange(creep.room.memory.creeps.my.farMiner, 2, {
+	target              = creep.memory.target.harvest.pos.findInRange(creep.room.memory.creeps.my.farMiner, 2, {
 		filter: miner => miner.id != creep.id && miner.ticksToLive > 20
 	})
 	if (target.length >0) targetChange(creep, creep.room.memory.sources[0].source, 'harvest')

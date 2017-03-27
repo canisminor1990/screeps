@@ -2870,7 +2870,7 @@ exports.default = function (creep, roomName) {
 	//
 	(0, _util.targetMaker)(creep, Memory.rooms[roomName].sources[0].source, 'harvest');
 	//
-	target = harvestTarget.pos.findInRange(creep.room.memory.creeps.my.farMiner, 2, {
+	target = creep.memory.target.harvest.pos.findInRange(creep.room.memory.creeps.my.farMiner, 2, {
 		filter: function filter(miner) {
 			return miner.id != creep.id && miner.ticksToLive > 20;
 		}
