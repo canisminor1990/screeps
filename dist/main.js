@@ -2874,7 +2874,7 @@ exports.default = function (creep, roomName) {
 	target = (0, _action.findInRange)(harvestTarget, creep.room.memory.creeps.my.farMiner, 1, function (miner) {
 		return miner.id != creep.id && miner.ticksToLive > 20;
 	});
-	if (target.length > 0) targetChange(creep, creep.room.memory.sources[0].source, 'harvest');
+	if (target.length > 1) targetChange(creep, creep.room.memory.sources[0].source, 'harvest');
 	if (creep.memory.full) {
 		target = (0, _action.findInRange)(creep, creep.room.memory.structures.container, 2)[0];
 		if (target) {
@@ -3067,7 +3067,7 @@ exports.default = function (creep) {
 	target = (0, _action.findInRange)(harvestTarget, creep.room.memory.creeps.my.miner, 1, function (miner) {
 		return miner.id != creep.id && miner.ticksToLive > 20;
 	});
-	if (target.length > 0) (0, _util.targetChange)(creep, creep.room.memory.sources[0].source, 'harvest');
+	if (target.length > 1) (0, _util.targetChange)(creep, creep.room.memory.sources[0].source, 'harvest');
 	if (creep.memory.full) {
 		target = (0, _action.findInRange)(harvestTarget, creep.room.memory.structures.container, 2);
 		if (!creep.pos.isEqualTo(target.pos) && (0, _action.moveTo)(creep, target)) return;
