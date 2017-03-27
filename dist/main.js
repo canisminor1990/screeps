@@ -440,7 +440,7 @@ exports.default = function () {
 		priority: 3
 	}, {
 		role: 'builder',
-		body: { work: 4, carry: 6, move: 5 },
+		body: { work: 2, carry: 6, move: 4 },
 		number: builderNumber > 2 ? 2 : builderNumber,
 		priority: 6
 	}, {
