@@ -983,6 +983,7 @@ exports.default = function (creep, target, fc, text) {
 			break;
 		case ERR_NO_PATH:
 			creep.say(text + "PATH");
+			console.log(11);
 			if (creep.memory.role.match('iner')) creep.memory.harvestTarget = creep.room.memory.sources[0].source.id;
 			break;
 		case ERR_NAME_EXISTS:
