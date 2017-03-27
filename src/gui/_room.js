@@ -4,8 +4,9 @@ const rowMargin    = 0.3,
       guiHeight    = 0.7,
       guiRowMargin = guiHeight + rowMargin + 1;
 export default (roomName) => {
-	const room = Memory.rooms[roomName];
-	let flag = room.flags.gui.room
+	const room = Game.rooms[roomName];
+
+	let flag = room.memory.flags.gui.room
 	if (!flag) return;
 	
 	const gcl       = Game.gcl,
