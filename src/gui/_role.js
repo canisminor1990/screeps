@@ -5,7 +5,7 @@ const rowMargin         = 0.3,
       guiCreepHeight    = 0.2,
       guiCreepRowMargin = guiCreepHeight + rowMargin + 1;
 export default (roomName) => {
-	const room = Game.rooms[roomName];
+	const room = Memory.rooms[roomName];
 	let flag = room.memory.flags.gui.role
 	if (!flag) return;
 	let bgPadding = 0.5,

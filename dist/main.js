@@ -1924,7 +1924,7 @@ var rowMargin = 0.3,
     guiCreepRowMargin = guiCreepHeight + rowMargin + 1;
 
 exports.default = function (roomName) {
-	var room = Game.rooms[roomName];
+	var room = Memory.rooms[roomName];
 	var flag = room.memory.flags.gui.role;
 	if (!flag) return;
 	var bgPadding = 0.5,
@@ -2802,27 +2802,6 @@ exports.default = function (creep, newRoom) {
 	} else {
 		if ((0, _action.harvest)(creep, target)) return;
 	}
-	// // memory
-	// isFull(creep)
-	// // run
-	// if (!creep.memory.full) {
-	// 	const dropped = creep.room.memory.dropped.energy;
-	// 	if (dropped.length > 0) {
-	// 		target = creep.pos.findInRange(dropped, 0);
-	// 		if (pickup(creep, target[0])) return;
-	// 	}
-	// 	target = Game.getObjectById('5873bc3511e3e4361b4d7390');
-	// 	if (!target) {
-	// 		moveTo(creep, newRoom.pos)
-	// 	} else {
-	// 		if (harvest(creep, target)) return;
-	// 	}
-	// } else {
-	// 	target = creep.pos.findInRange(creep.room.memory.structures.canFill, 4);
-	// 	if (transfer(creep, target[0])) return;
-	// 	target = newRoom.memory.structures.needBuild;
-	// 	if (build(creep, target[0])) return;
-	// }
 };
 
 /***/ }),
@@ -3406,7 +3385,7 @@ exports.default = trigger;
 
 function isSafe(roomName) {
 	if (!Memory.trigger[roomName]) return;
-	if (Memory.trigger[roomName].safe && (!Game.rooms[roomName] || Game.rooms[roomName].memory.creeps.enemy.length > 0)) {
+	if (Memory.trigger[roomName].safe && (!Game.rooms[roomName] || Memory.rooms[roomName].memory.creeps.enemy.length > 0)) {
 		Memory.trigger[roomName].safe = false;
 		Memory.trigger[roomName].timeout = Game.time;
 	}
