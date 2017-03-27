@@ -2200,7 +2200,7 @@ exports.default = function (room) {
 	rawSources.forEach(function (source) {
 		var minerArray = [];
 		miner.forEach(function (creep) {
-
+			console.log(0);
 			if (creep.memory) {
 				console.log(1);
 				if (creep.memory.target.harvest) {

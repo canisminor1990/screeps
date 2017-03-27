@@ -6,7 +6,7 @@ export default (room) => {
 	rawSources.forEach(source => {
 		                   let minerArray = []
 		                   miner.forEach(creep => {
-
+			                   console.log(0)
 			                   if (creep.memory) {
 				                   console.log(1)
 				                   if (creep.memory.target.harvest) {
