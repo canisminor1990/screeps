@@ -2724,7 +2724,7 @@ exports.default = function (creep, roomName) {
 
 	var withdrawTarget = creep.memory.target.withdraw;
 	if (!creep.memory.full) {
-		if ((0, _action.pickup)(creep, (0, _action.findClosestInRange)(creep, creep.room.memory.dropped.energy, 3))) return;
+		if ((0, _action.pickup)(creep, (0, _action.findInRange)(creep, creep.room.memory.dropped.energy, 3)[0])) return;
 		if ((0, _action.withdraw)(creep, withdrawTarget)) return;
 	} else {
 		var needBuild = creep.room.memory.structures.needBuild,
@@ -2758,7 +2758,7 @@ exports.default = function (creep, roomName) {
 	(0, _util.targetMaker)(creep, Memory.rooms[roomName].structures.container[0], 'withdraw');
 	// run
 	if (!creep.memory.full) {
-		if ((0, _action.pickup)(creep, (0, _action.findClosestInRange)(creep, creep.room.memory.dropped.energy, 4))) return;
+		if ((0, _action.pickup)(creep, (0, _action.findInRange)(creep, creep.room.memory.dropped.energy, 4)[0])) return;
 		if ((0, _action.withdraw)(creep, creep.memory.target.withdraw)) return;
 	} else {
 		if ((0, _action.transfer)(creep, Game.getObjectById('58d07b35bfeec6256575be5d'))) return;
@@ -2787,7 +2787,7 @@ exports.default = function (creep, roomName) {
 	(0, _util.targetMaker)(creep, Memory.rooms[roomName].sources[0].source, 'harvest');
 	//
 	if (creep.memory.full) {
-		target = (0, _action.findClosestInRange)(creep, creep.room.memory.structures.container, 2);
+		target = (0, _action.findInRange)(creep, creep.room.memory.structures.container, 2)[0];
 		if (target) {
 			if (!creep.pos.isEqualTo(target.pos) && (0, _action.moveTo)(creep, target)) return;
 			if ((0, _action.repair)(creep, target, target.hits < target.hitsMax)) return;
