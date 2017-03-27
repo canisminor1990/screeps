@@ -1,4 +1,4 @@
-import { action } from "../_util"
+import { action,colorType } from "../_util"
 export default (creep, target, color = '#ffffff') => {
 
 	if (creep.fatigue > 0) return false;

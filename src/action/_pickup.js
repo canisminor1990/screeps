@@ -1,4 +1,4 @@
-import { emoji, action } from "../_util"
+import { emoji, action,colorType } from "../_util"
 export default (creep, rawTarget) => {
 	if (!rawTarget) return false;
 	let target = rawTarget;

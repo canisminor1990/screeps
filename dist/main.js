@@ -1291,7 +1291,7 @@ exports.default = function (creep, rawTarget) {
 		if (target.length == 0) return false;
 		target = target[0];
 	}
-	if ((0, _util.action)(creep, target, creep.attack(target), _util.emoji.attack, colorType.red)) return true;
+	if ((0, _util.action)(creep, target, creep.attack(target), _util.emoji.attack, _util.colorType.red)) return true;
 };
 
 /***/ }),
@@ -1315,7 +1315,7 @@ exports.default = function (creep, rawTarget) {
 		if (target.length == 0) return false;
 		target = target[0];
 	}
-	if ((0, _util.action)(creep, target, creep.build(target), _util.emoji.build, colorType.blue)) return true;
+	if ((0, _util.action)(creep, target, creep.build(target), _util.emoji.build, _util.colorType.blue)) return true;
 };
 
 /***/ }),
@@ -1339,7 +1339,7 @@ exports.default = function (creep, rawTarget) {
 		if (target.length == 0) return false;
 		target = target[0];
 	}
-	if ((0, _util.action)(creep, target, creep.reserveController(target), _util.emoji.claim, colorType.orange)) return true;
+	if ((0, _util.action)(creep, target, creep.reserveController(target), _util.emoji.claim, _util.colorType.orange)) return true;
 };
 
 /***/ }),
@@ -1363,7 +1363,7 @@ exports.default = function (creep, rawTarget) {
 		if (target.length == 0) return false;
 		target = target[0];
 	}
-	if ((0, _util.action)(creep, target, creep.dismantle(target), _util.emoji.dismantle, colorType.red)) return true;
+	if ((0, _util.action)(creep, target, creep.dismantle(target), _util.emoji.dismantle, _util.colorType.red)) return true;
 };
 
 /***/ }),
@@ -1411,7 +1411,7 @@ exports.default = function (creep, rawTarget) {
 		if (target.length == 0) return false;
 		target = target[0];
 	}
-	if ((0, _util.action)(creep, target, creep.heal(target), _util.emoji.heal, colorType.green)) return true;
+	if ((0, _util.action)(creep, target, creep.heal(target), _util.emoji.heal, _util.colorType.green)) return true;
 };
 
 /***/ }),
@@ -1472,7 +1472,7 @@ exports.default = function (creep, rawTarget) {
 		if (target.length == 0) return false;
 		target = target[0];
 	}
-	if ((0, _util.action)(creep, target, creep.pickup(target), _util.emoji.pickup, colorType.yellow)) return true;
+	if ((0, _util.action)(creep, target, creep.pickup(target), _util.emoji.pickup, _util.colorType.yellow)) return true;
 };
 
 /***/ }),
@@ -1496,7 +1496,7 @@ exports.default = function (creep, rawTarget) {
 		if (target.length == 0) return false;
 		target = target[0];
 	}
-	if ((0, _util.action)(creep, target, creep.repair(target), _util.emoji.repair, colorType.blue)) return true;
+	if ((0, _util.action)(creep, target, creep.repair(target), _util.emoji.repair, _util.colorType.blue)) return true;
 };
 
 /***/ }),
@@ -1547,7 +1547,7 @@ exports.default = function (creep, rawTarget) {
 		if (target.length == 0) return false;
 		target = target[0];
 	}
-	if ((0, _util.action)(creep, target, creep.upgradeController(target), _util.emoji.upgrade, colorType.orange)) return true;
+	if ((0, _util.action)(creep, target, creep.upgradeController(target), _util.emoji.upgrade, _util.colorType.orange)) return true;
 };
 
 /***/ }),
@@ -1573,7 +1573,7 @@ exports.default = function (creep, rawTarget) {
 		if (target.length == 0) return false;
 		target = target[0];
 	}
-	if ((0, _util.action)(creep, target, creep.withdraw(target, type), _util.emoji.withdraw, colorType.purple)) return true;
+	if ((0, _util.action)(creep, target, creep.withdraw(target, type), _util.emoji.withdraw, _util.colorType.purple)) return true;
 };
 
 /***/ }),
