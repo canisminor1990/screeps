@@ -999,10 +999,7 @@ exports.default = function (creep, target, fc) {
 			break;
 		case ERR_NOT_FOUND:
 			creep.say(_util.emoji.move);
-			creep.moveTo(target, {
-				reusePath: 15,
-				serializeMemory: true
-			});
+			(0, _action.moveTo)(creep, target, color, false);
 			return true;
 			break;
 		case ERR_NOT_ENOUGH_ENERGY:
@@ -1429,6 +1426,7 @@ var _util = __webpack_require__(0);
 
 exports.default = function (creep, target) {
 	var color = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : '#ffffff';
+	var noPathFinding = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : true;
 
 
 	if (creep.fatigue > 0) return false;
@@ -1441,14 +1439,15 @@ exports.default = function (creep, target) {
 	if ((0, _util.action)(creep, target, creep.moveTo(target, {
 		reusePath: 15,
 		serializeMemory: true,
-		noPathFinding: true,
+		noPathFinding: noPathFinding,
 		visualizePathStyle: {
 			stroke: color,
 			lineStyle: 'dotted',
-			opacity: 0.25
+			opacity: 0.25,
+			width: 0.05
 		}
 	}))) {
-		target.room.visual.circle(target.pos, { fill: 'transparent', radius: 0.55, stroke: color });
+		target.room.visual.circle(target.pos, { fill: 'transparent', radius: 0.55, stroke: color }).line(creep.pos, target.pos, { fill: color, width: 0.05 });
 		return true;
 	}
 };

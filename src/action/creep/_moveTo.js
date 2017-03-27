@@ -1,5 +1,5 @@
 import { action, colorType } from "../../_util"
-export default (creep, target, color = '#ffffff') => {
+export default (creep, target, color = '#ffffff',noPathFinding = true) => {
 
 	if (creep.fatigue > 0) return false;
 	if (!target) return false;
@@ -11,15 +11,17 @@ export default (creep, target, color = '#ffffff') => {
 	if (action(creep, target, creep.moveTo(target, {
 			reusePath         : 15,
 			serializeMemory   : true,
-			noPathFinding     : true,
+			noPathFinding     : noPathFinding,
 			visualizePathStyle: {
 				stroke   : color,
 				lineStyle: 'dotted',
 				opacity  : 0.25,
+				width: 0.05
 			}
 		}))) {
-		target.room.visual.circle(target.pos,
-		                          {fill: 'transparent', radius: 0.55, stroke: color});
+		target.room.visual
+		      .circle(target.pos, {fill: 'transparent', radius: 0.55, stroke: color})
+		      .line(creep.pos, target.pos, {fill: color, width: 0.05})
 		return true;
 	}
 }

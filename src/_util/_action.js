@@ -22,10 +22,7 @@ export default (creep, target, fc, text = "", color = "#fff") => {
 			break;
 		case ERR_NOT_FOUND             :
 			creep.say(emoji.move);
-			creep.moveTo(target, {
-				reusePath      : 15,
-				serializeMemory: true
-			});
+			moveTo(creep, target, color, false);
 			return true;
 			break;
 		case ERR_NOT_ENOUGH_ENERGY     :
