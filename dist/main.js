@@ -2738,6 +2738,9 @@ exports.default = function (creep, roomName) {
 	var storage = Game.getObjectById('58d07b35bfeec6256575be5d');
 	(0, _util.isFull)(creep);
 	(0, _util.targetMaker)(creep, Memory.rooms[roomName].structures.container[0], 'withdraw');
+	if (creep.pos.roomName != creep.memory.target.withdraw.pos.roomName) {
+		targetChange(creep, Memory.rooms[roomName].structures.container[0], 'withdraw');
+	}
 	// run
 
 	var withdrawTarget = creep.memory.target.withdraw;
@@ -2774,6 +2777,10 @@ exports.default = function (creep, roomName) {
 	// memory
 	(0, _util.isFull)(creep);
 	(0, _util.targetMaker)(creep, Memory.rooms[roomName].structures.container[0], 'withdraw');
+	if (creep.pos.roomName != creep.memory.target.withdraw.pos.roomName) {
+		(0, _util.targetChange)(creep, Memory.rooms[roomName].structures.container[0], 'withdraw');
+	}
+
 	// run
 	if (!creep.memory.full) {
 		if ((0, _action.pickup)(creep, (0, _action.findClosestInRange)(creep, creep.room.memory.dropped.energy, 4))) return;
