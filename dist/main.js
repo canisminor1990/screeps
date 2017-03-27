@@ -2292,7 +2292,7 @@ exports.default = function (room) {
 		return sources.push({
 			source: source,
 			miner: source.pos.findInRange(source.room.memory.creeps.my.all, 2).filter(function (creep) {
-				return creep.memory && creep.memory.role && creep.memory.role.match('iner');
+				return Game.getObjectById(creep.id).memory.role.match('iner');
 			})
 		});
 	});
