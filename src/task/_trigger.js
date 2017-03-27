@@ -22,7 +22,7 @@ export default trigger;
 function isSafe(roomName) {
 	if (!Memory.trigger[roomName]) return;
 	if (Memory.trigger[roomName].safe &&
-	    (!Game.rooms[roomName] || Memory.rooms[roomName].memory.creeps.enemy.length > 0)) {
+	    (!Game.rooms[roomName] || Memory.rooms[roomName].creeps.enemy.length > 0)) {
 		Memory.trigger[roomName] = {
 			safe   : false,
 			timeout: Game.time
