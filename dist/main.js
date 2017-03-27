@@ -2871,7 +2871,24 @@ var _util = __webpack_require__(0);
 // }
 
 
-exports.default = function (creep, roomName) {};
+exports.default = function (creep, roomName) {
+	var target = void 0;
+	(0, _util.isFull)(creep);
+	//
+	(0, _util.targetMaker)(creep, Memory.rooms[roomName].sources[0].source, 'harvest');
+	//
+	if (creep.memory.full) {
+		target = (0, _action.findClosestInRange)(creep, creep.room.memory.structures.container, 2);
+		if (target) {
+			if (!creep.pos.isEqualTo(target.pos) && (0, _action.moveTo)(creep, target)) return;
+			if ((0, _action.repair)(creep, target, target.hits < target.hitsMax)) return;
+		} else {
+			if (!creep.pos.isNearTo(target.pos)) creep.room.createConstructionSite(creep.pos.x, creep.pos.y, STRUCTURE_CONTAINER);
+		}
+		if ((0, _action.build)(creep, (0, _action.findInRange)(creep, creep.room.memory.structures.needBuild, 0))) return;
+	}
+	if ((0, _action.harvest)(creep, creep.memory.target.harvest)) return;
+};
 
 /***/ }),
 /* 64 */
