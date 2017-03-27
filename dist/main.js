@@ -1366,11 +1366,14 @@ Object.defineProperty(exports, "__esModule", {
 });
 
 exports.default = function (targetRaw) {
-	if (!targetRaw) return;
-	if (targetRaw.length) targetRaw = _.compact(targetRaw)[0];
+	if (targetRaw.length && targetRaw[0] != null) {
+		targetRaw = targetRaw[0];
+	} else {
+		return false;
+	}
 	var target = void 0;
 	target = Game.getObjectById(targetRaw.id);
-	return target != null ? target : false;
+	return target;
 };
 
 /***/ }),
@@ -2811,7 +2814,7 @@ exports.default = function (creep, newRoom) {
 	(0, _util.targetMaker)(creep, newRoom.memory.structures.container[0], 'withdraw');
 	// run
 	if (!creep.memory.full) {
-		if ((0, _action.pickup)(creep, (0, _action.findClosestByRange)(creep, creep.room.memory.dropped.energy, 4))) return;
+		if ((0, _action.pickup)(creep, (0, _action.findClosestInRange)(creep, creep.room.memory.dropped.energy, 4))) return;
 		console.log(111);
 		if ((0, _action.withdraw)(creep, creep.memory.target.withdraw)) return;
 	} else {

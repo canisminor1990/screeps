@@ -1,7 +1,10 @@
 export default (targetRaw) => {
-	if (!targetRaw) return
-	if (targetRaw.length) targetRaw = _.compact(targetRaw)[0];
+	if (targetRaw.length && targetRaw[0] != null) {
+		targetRaw = targetRaw[0];
+	} else {
+		return false
+	}
 	let target;
 	target = Game.getObjectById(targetRaw.id);
-	return (target != null) ? target : false
+	return target
 }
