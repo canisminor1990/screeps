@@ -14,6 +14,7 @@ export default (creep) => {
 		if (repair(creep, target, target.hits < target.hitsMax / 2)) return;
 		target = findInRange(creep, creep.room.memory.structures.needBuild, 0);
 		if (build(creep, target))return;
+		console.log(1)
 	}
 	if (harvest(creep, harvestTarget)) return;
 }
