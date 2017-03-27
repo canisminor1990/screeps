@@ -405,10 +405,10 @@ exports.default = function () {
 		priority: 1
 	}, {
 		role: "farMinerSec",
-		body: { work: 4, carry: 6, move: 5 },
+		body: { work: 8, carry: 1, move: 4 },
 		timeout: 100,
-		number: noEnemy['W82S67'].safe ? 8 : 0,
-		priority: 2
+		number: noEnemy['W82S67'].safe ? 2 : 0,
+		priority: 1
 	}, {
 		role: 'farHarvester',
 		body: { carry: 8, move: 4 },
@@ -2791,7 +2791,11 @@ exports.default = function (creep, roomName) {
 		if (target) {
 			if (!creep.pos.isEqualTo(target.pos) && (0, _action.moveTo)(creep, target)) return;
 			if ((0, _action.repair)(creep, target, target.hits < target.hitsMax)) return;
-		} else {}
+		} else {
+			// if (creep.pos.isNearTo(creep.memory.target.harvest.pos)) {
+			// 	creep.room.createConstructionSite(creep.pos.x, creep.pos.y, STRUCTURE_CONTAINER)
+			// }
+		}
 		if ((0, _action.build)(creep, (0, _action.findInRange)(creep, creep.room.memory.structures.needBuild, 2)[0])) return;
 	}
 	if ((0, _action.pickup)(creep, (0, _action.findInRange)(creep, creep.room.memory.dropped.energy, 2)[0])) return;
