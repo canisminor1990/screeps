@@ -14,6 +14,5 @@ export default (creep) => {
 		if (pickup(creep, target)) return;
 		target = Game.getObjectById('58d6a0f58f53422d7fea1d52')
 		if (withdraw(creep, target, target.store.energy > 0))return;
-
 	}
 }
