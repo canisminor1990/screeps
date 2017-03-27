@@ -1594,9 +1594,7 @@ exports.default = function (creep, target) {
 	if (creep.fatigue > 0) return false;
 
 	if (!target) return;
-	if (!target.room || !Game.rooms[target.pos.roomName]) {
-		target = new RoomPosition(target.pos.x, target.pos.y, target.pos.roomName);
-	}
+
 	(0, _util.targetMaker)(creep, target, 'moveTo');
 	if ((0, _util.action)(creep, target, creep.moveTo(target, {
 		reusePath: 15,
