@@ -1415,7 +1415,6 @@ Object.defineProperty(exports, "__esModule", {
 
 exports.default = function (targetRaw) {
 	if (!targetRaw.pos) return false;
-	console.log(targetRaw);
 	return new RoomPosition(targetRaw.pos.x, targetRaw.pos.y, targetRaw.pos.roomName);
 };
 
@@ -1593,7 +1592,7 @@ exports.default = function (creep, target) {
 	var noPathFinding = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : true;
 
 	if (creep.fatigue > 0) return false;
-	target = (0, _util.targetFormat)(target);
+
 	if (!target) return;
 	if (!target.room || !Game.rooms[target.pos.roomName]) {
 		target = new RoomPosition(target.pos.x, target.pos.y, target.pos.roomName);

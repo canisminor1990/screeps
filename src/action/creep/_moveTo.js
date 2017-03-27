@@ -1,7 +1,7 @@
 import { action, colorType, targetFormat, targetMaker } from "../../_util"
 export default (creep, target, color = '#ffffff', noPathFinding = true) => {
 	if (creep.fatigue > 0) return false;
-	target = targetFormat(target)
+
 	if (!target) return;
 	if (!target.room || !Game.rooms[target.pos.roomName]) {
 		target = new RoomPosition(target.pos.x, target.pos.y, target.pos.roomName)
