@@ -1,5 +1,5 @@
 export default (targetRaw) => {
-	if (targetRaw.length && targetRaw[0] != null) {
+	if (targetRaw instanceof Array && targetRaw[0] != null) {
 		targetRaw = targetRaw[0];
 	} else {
 		return false
