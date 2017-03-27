@@ -3,7 +3,7 @@ export default (roomName, timeout) => {
 	"use strict";
 	const room          = Game.rooms[roomName];
 	const gcl           = Game.gcl,
-	      gclLeft       = gcl.progressTotal - gcl.progress,
+	      gclLeft       = Math.floor(gcl.progressTotal - gcl.progress),
 	      gclSpeed      = Math.round((gcl.progress - Memory.timer['gcl']) / timeout),
 	      gclProcess    = Math.round(gcl.progress / gcl.progressTotal * 100),
 	      gclTimeLeft   = Math.round(gclLeft / gclSpeed);

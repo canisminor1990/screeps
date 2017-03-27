@@ -33,8 +33,8 @@ export default (roomName) => {
 		})
 	
 	const guiContent = [
-		[colorType.blue, ['GCL', `Lvl ${gcl.level}`, gcl.progress, gcl.progressTotal]],
-		[colorType.orange, ['RCL', `Lvl ${rcl.level}`, rcl.progress, rcl.progressTotal]],
+		[colorType.blue, ['GCL', `Lvl ${gcl.level}`, gcl.progress, Math.floor(gcl.progressTotal)]],
+		[colorType.orange, ['RCL', `Lvl ${rcl.level}`, rcl.progress, Math.floor(rcl.progressTotal)]],
 		[colorType.purple, ['CPU', '', Math.round(Game.cpu.getUsed()), Game.cpu.limit]],
 		[colorType.yellow, ['Storage', '', storage.store.energy, storage.storeCapacity]],
 		[colorType.yellow, ['Extension', '', extensionFull, extension.length]],

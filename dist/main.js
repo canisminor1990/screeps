@@ -1774,7 +1774,7 @@ exports.default = function (roomName) {
 		strokeWidth: 0.05
 	});
 
-	var guiContent = [[_util.colorType.blue, ['GCL', 'Lvl ' + gcl.level, gcl.progress, gcl.progressTotal]], [_util.colorType.orange, ['RCL', 'Lvl ' + rcl.level, rcl.progress, rcl.progressTotal]], [_util.colorType.purple, ['CPU', '', Math.round(Game.cpu.getUsed()), Game.cpu.limit]], [_util.colorType.yellow, ['Storage', '', storage.store.energy, storage.storeCapacity]], [_util.colorType.yellow, ['Extension', '', extensionFull, extension.length]], [_util.colorType.yellow, ['Spawn', '', spawn + extensionFull * 50, 300 + extension.length * 50]]];
+	var guiContent = [[_util.colorType.blue, ['GCL', 'Lvl ' + gcl.level, gcl.progress, Math.floor(gcl.progressTotal)]], [_util.colorType.orange, ['RCL', 'Lvl ' + rcl.level, rcl.progress, Math.floor(rcl.progressTotal)]], [_util.colorType.purple, ['CPU', '', Math.round(Game.cpu.getUsed()), Game.cpu.limit]], [_util.colorType.yellow, ['Storage', '', storage.store.energy, storage.storeCapacity]], [_util.colorType.yellow, ['Extension', '', extensionFull, extension.length]], [_util.colorType.yellow, ['Spawn', '', spawn + extensionFull * 50, 300 + extension.length * 50]]];
 
 	_.forEach(guiContent, function (content, index) {
 		gui(room, guiX, guiY + guiRowMargin * index, content[0], content[1]);
@@ -3125,7 +3125,7 @@ exports.default = function (roomName, timeout) {
 
 	var room = Game.rooms[roomName];
 	var gcl = Game.gcl,
-	    gclLeft = gcl.progressTotal - gcl.progress,
+	    gclLeft = Math.floor(gcl.progressTotal - gcl.progress),
 	    gclSpeed = Math.round((gcl.progress - Memory.timer['gcl']) / timeout),
 	    gclProcess = Math.round(gcl.progress / gcl.progressTotal * 100),
 	    gclTimeLeft = Math.round(gclLeft / gclSpeed);
