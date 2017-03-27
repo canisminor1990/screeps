@@ -3384,15 +3384,16 @@ exports.default = trigger;
 
 
 function isSafe(roomName) {
-	if (Memory.trigger.noEnemy[roomName].safe && Memory.rooms[roomName].creeps.enemy.length > 0) {
+	var trigger = Memory.trigger.noEnemy[roomName];
+	if (trigger.safe && Memory.rooms[roomName].creeps.enemy.length > 0) {
 		Memory.trigger.noEnemy[roomName] = {
 			safe: false,
 			timeout: Game.time
 		};
 	}
-	if (!Memory.trigger.noEnemy[roomName].safe) {
-		if (Memory.trigger.noEnemy[roomName].timeout > 0 && Game.time - Memory.trigger.noEnemy[roomName].timeout > 1500) {
-			Memory.trigger.noEnemy[roomName].safe = true;
+	if (!trigger.safe) {
+		if (trigger.timeout > 0 && Game.time - trigger.timeout > 1500) {
+			trigger.safe = true;
 		}
 	}
 }
