@@ -7,15 +7,12 @@ export default (room) => {
 		                   let minerArray = []
 		                   miner.forEach(creep => {
 			                   console.log(0)
-			                   if (creep.memory) {
-				                   console.log(1)
-				                   if (creep.memory.target.harvest) {
-					                   console.log(2)
+				                   if (creep.memory.target) {
+					                   console.log(1)
 					                   if (creep.memory.target.harvest.id && creep.memory.target.harvest.id == source.id) {
-						                   console.log(3)
+						                   console.log(2)
 						                   minerArray.push(creep.id)
 					                   }
-				                   }
 			                   }
 
 		                   })

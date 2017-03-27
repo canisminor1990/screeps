@@ -2201,14 +2201,11 @@ exports.default = function (room) {
 		var minerArray = [];
 		miner.forEach(function (creep) {
 			console.log(0);
-			if (creep.memory) {
+			if (creep.memory.target) {
 				console.log(1);
-				if (creep.memory.target.harvest) {
+				if (creep.memory.target.harvest.id && creep.memory.target.harvest.id == source.id) {
 					console.log(2);
-					if (creep.memory.target.harvest.id && creep.memory.target.harvest.id == source.id) {
-						console.log(3);
-						minerArray.push(creep.id);
-					}
+					minerArray.push(creep.id);
 				}
 			}
 		});
