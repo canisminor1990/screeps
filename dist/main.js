@@ -349,7 +349,7 @@ exports.default = function () {
 	}, {
 		role: "claimSec",
 		body: { claim: 2, move: 4 },
-		timeout: 200,
+		timeout: 100,
 		number: noEnemy['W82S67'].safe ? 1 : 0,
 		priority: 7
 	}, {
@@ -362,7 +362,7 @@ exports.default = function () {
 		role: "farMinerSec",
 		body: { work: 4, carry: 6, move: 5 },
 		timeout: 100,
-		number: noEnemy['W82S67'].safe ? 5 : 0,
+		number: noEnemy['W82S67'].safe ? 8 : 0,
 		priority: 8
 	}, {
 		role: 'farHarvester',
