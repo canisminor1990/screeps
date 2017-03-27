@@ -15,7 +15,7 @@ export default (creep, newRoom) => {
 		return;
 	}
 	else {
-		target = targetFormat(newRoom.memory.structures.container);
+		target = Game.getObjectById('58d07b35bfeec6256575be5d')
 		if (transfer(creep, target)) return;
 	}
 }

@@ -2761,7 +2761,7 @@ exports.default = function (creep, newRoom) {
 		(0, _action.moveTo)(creep, target);
 		return;
 	} else {
-		target = (0, _util.targetFormat)(newRoom.memory.structures.container);
+		target = Game.getObjectById('58d07b35bfeec6256575be5d');
 		if ((0, _action.transfer)(creep, target)) return;
 	}
 };
