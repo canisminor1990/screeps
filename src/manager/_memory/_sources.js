@@ -4,7 +4,7 @@ export default (room, miner) => {
 	rawSources.forEach(source => {
 		                   sources.push({
 			                                source     : source,
-			                                minerNumber: source.pos.findInRange(source.room.memory.creeps.my.miner, 2).length
+			                                minerNumber: source.pos.findInRange(miner, 2).length
 		                                })
 	                   }
 	)
