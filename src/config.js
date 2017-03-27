@@ -3,11 +3,11 @@ export default (room = Game.rooms['W81S67']) => {
 	const builderNumber = (needBuild.length > 0) ? needBuild.length : 1
 	const noEnemy       = Memory.trigger.noEnemy
 
-	const repair        = {
+	const repair = {
 		percent: 0.5,
 		maxHits: 20000,
 	}
-	const role          = [
+	const role   = [
 		{
 			role    : "claim",
 			body    : {claim: 2, move: 1},
@@ -50,6 +50,12 @@ export default (room = Game.rooms['W81S67']) => {
 		{
 			role    : 'harvester',
 			body    : {carry: 2, move: 1},
+			number  : 0,
+			priority: 2
+		},
+		{
+			role    : 'linker',
+			body    : {carry: 1, move: 1},
 			number  : 1,
 			priority: 2
 		},
@@ -90,7 +96,7 @@ export default (room = Game.rooms['W81S67']) => {
 			priority: 0
 		}
 	]
-	
+
 	return {
 		role    : role.sort((a, b) => a.priority - b.priority),
 		repair  : repair,

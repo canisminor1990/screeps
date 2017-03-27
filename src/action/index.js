@@ -1,3 +1,4 @@
+// ------------ creep ------------
 export { default as moveTo } from "./creep/_moveTo"
 //
 export { default as attack } from "./creep/_attack"
@@ -14,3 +15,9 @@ export { default as withdraw } from "./creep/_withdraw"
 //
 export { default as upgradeController } from "./creep/_upgradeController"
 export { default as claimController } from "./creep/_claimController"
+
+// ------------ find ------------
+export { default as findInRange } from "./find/_findInRange"
+export { default as findClosestInRange } from "./find/_findClosestInRange"
+export { default as findClosestByRange } from "./find/_findClosestByRange"
+export { default as lookFor } from "./find/_lookFor"
