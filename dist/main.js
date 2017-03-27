@@ -2749,9 +2749,10 @@ exports.default = function (creep, newRoom) {
 	(0, _util.isFull)(creep);
 	(0, _util.targetMaker)(creep, newRoom.memory.structures.container[0], 'withdraw');
 	// run
-	var needBuild = Memory.rooms['W81S66'].structures.needBuild;
+	var needBuild = Memory.rooms['W81S66'].structures.needBuild,
+	    needFix = Memory.rooms['W81S66'].structures.needFix;
 	// run
-	if (needBuild.length > 0) {
+	if (needBuild.length || needFix.length) {
 		if (!creep.memory.full) {
 			target = (0, _action.findClosestInRange)(creep, creep.room.memory.dropped.energy, 3);
 			if ((0, _action.pickup)(creep, target)) return;

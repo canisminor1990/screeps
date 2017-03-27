@@ -1,16 +1,17 @@
-import {isFull,targetMaker } from '../_util'
-import {withdraw, build, pickup, transfer,repair,findClosestInRange,findClosestByRange} from '../action'
+import {isFull, targetMaker} from '../_util'
+import {withdraw, build, pickup, transfer, repair, findClosestInRange, findClosestByRange} from '../action'
 export default (creep, newRoom) => {
 	let target;
-	const storage =  Game.getObjectById('58d07b35bfeec6256575be5d')
+	const storage = Game.getObjectById('58d07b35bfeec6256575be5d')
 	isFull(creep)
 	targetMaker(creep, newRoom.memory.structures.container[0], 'withdraw')
 	// run
-	const needBuild =  Memory.rooms['W81S66'].structures.needBuild
+	const needBuild = Memory.rooms['W81S66'].structures.needBuild,
+	      needFix   = Memory.rooms['W81S66'].structures.needFix
 	// run
-	if (needBuild.length > 0) {
+	if (needBuild.length || needFix.length) {
 		if (!creep.memory.full) {
-			target = findClosestInRange(creep,creep.room.memory.dropped.energy, 3);
+			target = findClosestInRange(creep, creep.room.memory.dropped.energy, 3);
 			if (pickup(creep, target)) return;
 			if (withdraw(creep, storage))return;
 		} else {
