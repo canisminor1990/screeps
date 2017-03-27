@@ -17,6 +17,5 @@ export default (creep) => {
 		target = findClosestInRange(creep, creep.room.memory.structures.needBuild, 0);
 		if (build(creep, target))return;
 	}
-	console.log(1)
 	if (harvest(creep, creep.memory.target.harvest)) return;
 }
