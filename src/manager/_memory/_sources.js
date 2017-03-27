@@ -5,8 +5,11 @@ export default (room, miner) => {
 	rawSources.forEach(source => {
 		                   let minerArray = []
 		                   miner.forEach(creep => {
-
-			                   if (creep.memory.target.harvest && creep.memory.target.harvest.id && creep.memory.target.harvest.id == source.id) minerArray.push(creep.id)
+			                   console.log(creep)
+			                   if (creep.memory.target.harvest && creep.memory.target.harvest.id && creep.memory.target.harvest.id == source.id) {
+				                   console.log(creep.memory.target.harvest.id)
+				                   minerArray.push(creep.id)
+			                   }
 		                   })
 
 		                   sources.push({
