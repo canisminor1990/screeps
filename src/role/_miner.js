@@ -1,13 +1,14 @@
-import {isFull} from '../_util'
-import {build, harvest, repair} from '../action'
+import { isFull, targetMaker } from '../_util'
+import { build, harvest, repair } from '../action'
 export default (creep) => {
 	const memory = creep.room.memory;
 	let target;
 	// root
 	isFull(creep)
 	//run
-	if (!creep.memory.harvestTarget) creep.memory.harvestTarget = memory.sources[0].source.id;
-	const harvestTarget          = Game.getObjectById(creep.memory.harvestTarget)
+	targetMaker(creep, memory.sources[0].source, 'harvest')
+
+	const harvestTarget = Game.getObjectById(creep.memory.target.harvest.id)
 	if (creep.memory.full) {
 		const container = harvestTarget.pos.findInRange(creep.room.memory.structures.container, 1)
 		if (container && container.length > 0 && container[0].hits < container[0].hitsMax / 2) {

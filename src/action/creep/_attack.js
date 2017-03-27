@@ -1,12 +1,8 @@
-import {emoji, action,colorType} from "../../_util"
-export default (creep, rawTarget) => {
-	if (!rawTarget) return false;
-	let target = rawTarget;
-	if (target instanceof Array) {
-		target = _.compact(target);
-		if (target.length == 0) return false;
-		target = target[0];
-	}
-	if (action(creep, target, creep.attack(target), emoji.attack,colorType.red)) return true;
+import { emoji, action, colorType, targetFormat, targetMaker } from "../../_util"
+export default (creep, target) => {
+	target = targetFormat(target)
+	if (!target) return;
+	targetMaker(creep, target, 'attack')
+	if (action(creep, target, creep.attack(target), emoji.attack, colorType.red)) return true;
 
 }

@@ -1,15 +1,17 @@
-import {emoji, timer} from '../_util'
+import { emoji, timer } from '../_util'
 export default (spawn, config) => {
 	let target = spawn.pos.findInRange(spawn.room.memory.creeps.my.attacker, 1)
 	if (target && target.length > 0) {
 		console.log(spawn.recycleCreep(target[0]))
-		
+
 	}
 	if (spawn.spawning) {
 		const percent = Math.round((1 - spawn.spawning.remainingTime / spawn.spawning.needTime) * 100),
-		      text    = [emoji.build,
+		      text    = [
+			      emoji.build,
 			      spawn.spawning.name.split('#')[0],
-			      `(${percent}%)`].join(' ');
+			      `(${percent}%)`
+		      ].join(' ');
 		console.log(text);
 		spawn.room.visual.text(
 			text,
@@ -31,7 +33,11 @@ export default (spawn, config) => {
 			const roleMy      = _.filter(Memory.global.creeps[roleName], roleCreep => roleCreep.ticksToLive >= roleTimeout)
 			if (roleMy.length - roleType.number >= 0 || priority) return;
 			const spawnName = buildName(roleName);
-			spawn.createCreep(buildBody(roleType.body), spawnName, {role: roleName, name: spawnName})
+			spawn.createCreep(buildBody(roleType.body), spawnName, {
+				role  : roleName,
+				name  : spawnName,
+				target: {}
+			})
 			console.log(emoji.build, roleName, 'now:', roleMy.length, 'need:', roleType.number);
 			priority = true;
 		})
