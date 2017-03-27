@@ -1,10 +1,10 @@
-import { moveTo, harvest, repair, build, pickup, findClosestInRange } from '../action'
-import { isFull, targetMaker, targetFormat } from '../_util'
+import {moveTo, harvest, repair, build, pickup, findClosestInRange} from '../action'
+import {isFull, targetMaker, targetFormat} from '../_util'
 export default (creep) => {
 	let target;
 	isFull(creep)
 	//
-	targetMaker(creep, Memory.rooms['W81S66'].sources[0].source,'harvest')
+	targetMaker(creep, Memory.rooms['W81S66'].sources[0].source, 'harvest')
 	//
 	if (creep.memory.full) {
 		target = findClosestInRange(creep, creep.room.memory.structures.container, 2);
@@ -20,11 +20,6 @@ export default (creep) => {
 		target = findClosestInRange(creep, creep.room.memory.dropped.energy, 0);
 		if (pickup(creep, target[0])) return;
 	}
-	const harvestTarget = targetFormat(creep.memory.target.harvest)
-	if (!harvestTarget) {
-		moveTo(creep, creep.memory.target.harvest)
-	} else {
-		if (harvest(creep, harvestTarget)) return
-	}
-
+	target = creep.memory.target.harvest
+	if (moveTo(creep, target)) return;
 }

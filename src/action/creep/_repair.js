@@ -1,8 +1,12 @@
 import { emoji, action,colorType ,targetFormat,targetMaker} from "../../_util"
-export default (creep, target,opt = true) => {
-	target = targetFormat(target)
+import {moveTo} from '../'
+export default (creep, targetRaw,opt = true) => {
 	if (!opt) return;
-	if (!target) return;
+	let target;
+	target = targetFormat(targetRaw)
+	if (!targetRaw) {
+		if (moveTo(creep, target))return
+	}
 	targetMaker(creep,target,'repair')
 	if(action(creep, target, creep.repair(target), emoji.repair,colorType.blue)) return true;
 }

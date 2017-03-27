@@ -1449,12 +1449,17 @@ Object.defineProperty(exports, "__esModule", {
 
 var _util = __webpack_require__(0);
 
-exports.default = function (creep, target) {
+var _ = __webpack_require__(1);
+
+exports.default = function (creep, targetRaw) {
 	var opt = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : true;
 
 	if (!opt) return;
-	target = (0, _util.targetFormat)(target);
-	if (!target) return;
+	var target = void 0;
+	target = (0, _util.targetFormat)(targetRaw);
+	if (!targetRaw) {
+		if ((0, _.moveTo)(creep, target)) return;
+	}
 	(0, _util.targetMaker)(creep, target, 'attack');
 	if ((0, _util.action)(creep, target, creep.attack(target), _util.emoji.attack, _util.colorType.red)) return true;
 };
@@ -1472,12 +1477,17 @@ Object.defineProperty(exports, "__esModule", {
 
 var _util = __webpack_require__(0);
 
-exports.default = function (creep, target) {
+var _ = __webpack_require__(1);
+
+exports.default = function (creep, targetRaw) {
 	var opt = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : true;
 
 	if (!opt) return;
-	target = (0, _util.targetFormat)(target);
-	if (!target) return;
+	var target = void 0;
+	target = (0, _util.targetFormat)(targetRaw);
+	if (!targetRaw) {
+		if ((0, _.moveTo)(creep, target)) return;
+	}
 	(0, _util.targetMaker)(creep, target, 'build');
 	if ((0, _util.action)(creep, target, creep.build(target), _util.emoji.build, _util.colorType.blue)) return true;
 };
@@ -1495,12 +1505,17 @@ Object.defineProperty(exports, "__esModule", {
 
 var _util = __webpack_require__(0);
 
-exports.default = function (creep, target) {
+var _ = __webpack_require__(1);
+
+exports.default = function (creep, targetRaw) {
 	var opt = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : true;
 
 	if (!opt) return;
-	target = (0, _util.targetFormat)(target);
-	if (!target) return;
+	var target = void 0;
+	target = (0, _util.targetFormat)(targetRaw);
+	if (!targetRaw) {
+		if ((0, _.moveTo)(creep, target)) return;
+	}
 	(0, _util.targetMaker)(creep, target, 'reserveController');
 	if ((0, _util.action)(creep, target, creep.reserveController(target), _util.emoji.claim, _util.colorType.orange)) return true;
 };
@@ -1518,12 +1533,17 @@ Object.defineProperty(exports, "__esModule", {
 
 var _util = __webpack_require__(0);
 
-exports.default = function (creep, target) {
+var _ = __webpack_require__(1);
+
+exports.default = function (creep, targetRaw) {
 	var opt = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : true;
 
 	if (!opt) return;
-	target = (0, _util.targetFormat)(target);
-	if (!target) return;
+	var target = void 0;
+	target = (0, _util.targetFormat)(targetRaw);
+	if (!targetRaw) {
+		if ((0, _.moveTo)(creep, target)) return;
+	}
 	(0, _util.targetMaker)(creep, target, 'dismantle');
 	if ((0, _util.action)(creep, target, creep.dismantle(target), _util.emoji.dismantle, _util.colorType.red)) return true;
 };
@@ -1541,12 +1561,17 @@ Object.defineProperty(exports, "__esModule", {
 
 var _util = __webpack_require__(0);
 
-exports.default = function (creep, target) {
+var _ = __webpack_require__(1);
+
+exports.default = function (creep, targetRaw) {
 	var opt = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : true;
 
 	if (!opt) return;
-	target = (0, _util.targetFormat)(target);
-	if (!target) return;
+	var target = void 0;
+	target = (0, _util.targetFormat)(targetRaw);
+	if (!targetRaw) {
+		if ((0, _.moveTo)(creep, target)) return;
+	}
 	(0, _util.targetMaker)(creep, target, 'harvest');
 	if ((0, _util.action)(creep, target, creep.harvest(target), _util.emoji.harvest, _util.colorType.yellow)) return true;
 };
@@ -1564,12 +1589,17 @@ Object.defineProperty(exports, "__esModule", {
 
 var _util = __webpack_require__(0);
 
-exports.default = function (creep, target) {
+var _ = __webpack_require__(1);
+
+exports.default = function (creep, targetRaw) {
 	var opt = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : true;
 
 	if (!opt) return;
-	target = (0, _util.targetFormat)(target);
-	if (!target) return;
+	var target = void 0;
+	target = (0, _util.targetFormat)(targetRaw);
+	if (!targetRaw) {
+		if ((0, _.moveTo)(creep, target)) return;
+	}
 	(0, _util.targetMaker)(creep, target, 'heal');
 	if ((0, _util.action)(creep, target, creep.heal(target), _util.emoji.heal, _util.colorType.green)) return true;
 };
@@ -1633,12 +1663,17 @@ Object.defineProperty(exports, "__esModule", {
 
 var _util = __webpack_require__(0);
 
-exports.default = function (creep, target) {
+var _ = __webpack_require__(1);
+
+exports.default = function (creep, targetRaw) {
 	var opt = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : true;
 
 	if (!opt) return;
-	target = (0, _util.targetFormat)(target);
-	if (!target) return;
+	var target = void 0;
+	target = (0, _util.targetFormat)(targetRaw);
+	if (!targetRaw) {
+		if ((0, _.moveTo)(creep, target)) return;
+	}
 	(0, _util.targetMaker)(creep, target, 'pickup');
 	if ((0, _util.action)(creep, target, creep.pickup(target), _util.emoji.pickup, _util.colorType.yellow)) return true;
 };
@@ -1656,12 +1691,17 @@ Object.defineProperty(exports, "__esModule", {
 
 var _util = __webpack_require__(0);
 
-exports.default = function (creep, target) {
+var _ = __webpack_require__(1);
+
+exports.default = function (creep, targetRaw) {
 	var opt = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : true;
 
-	target = (0, _util.targetFormat)(target);
 	if (!opt) return;
-	if (!target) return;
+	var target = void 0;
+	target = (0, _util.targetFormat)(targetRaw);
+	if (!targetRaw) {
+		if ((0, _.moveTo)(creep, target)) return;
+	}
 	(0, _util.targetMaker)(creep, target, 'repair');
 	if ((0, _util.action)(creep, target, creep.repair(target), _util.emoji.repair, _util.colorType.blue)) return true;
 };
@@ -1679,13 +1719,18 @@ Object.defineProperty(exports, "__esModule", {
 
 var _util = __webpack_require__(0);
 
-exports.default = function (creep, target) {
+var _ = __webpack_require__(1);
+
+exports.default = function (creep, targetRaw) {
 	var opt = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : true;
 	var type = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : RESOURCE_ENERGY;
 
 	if (!opt) return;
-	target = (0, _util.targetFormat)(target);
-	if (!target) return;
+	var target = void 0;
+	target = (0, _util.targetFormat)(targetRaw);
+	if (!targetRaw) {
+		if ((0, _.moveTo)(creep, target)) return;
+	}
 	(0, _util.targetMaker)(creep, target, 'transfer');
 	if ((0, _util.action)(creep, target, creep.transfer(target, type), _util.emoji.transfer, _util.colorType.purple)) return true;
 };
@@ -1703,11 +1748,17 @@ Object.defineProperty(exports, "__esModule", {
 
 var _util = __webpack_require__(0);
 
-exports.default = function (creep, target) {
+var _ = __webpack_require__(1);
+
+exports.default = function (creep, targetRaw) {
 	var opt = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : true;
 
 	if (!opt) return;
-	target = (0, _util.targetFormat)(target);
+	var target = void 0;
+	target = (0, _util.targetFormat)(targetRaw);
+	if (!targetRaw) {
+		if ((0, _.moveTo)(creep, target)) return;
+	}
 	if (!target) return;
 	(0, _util.targetMaker)(creep, target, 'upgradeController');
 	if ((0, _util.action)(creep, target, creep.upgradeController(target), _util.emoji.upgrade, _util.colorType.orange)) return true;
@@ -1726,13 +1777,18 @@ Object.defineProperty(exports, "__esModule", {
 
 var _util = __webpack_require__(0);
 
-exports.default = function (creep, target) {
+var _ = __webpack_require__(1);
+
+exports.default = function (creep, targetRaw) {
 	var opt = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : true;
 	var type = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : RESOURCE_ENERGY;
 
 	if (!opt) return;
-	target = (0, _util.targetFormat)(target);
-	if (!target) return;
+	var target = void 0;
+	target = (0, _util.targetFormat)(targetRaw);
+	if (!targetRaw) {
+		if ((0, _.moveTo)(creep, target)) return;
+	}
 	(0, _util.targetMaker)(creep, target, 'withdraw');
 	if ((0, _util.action)(creep, target, creep.withdraw(target, type), _util.emoji.withdraw, _util.colorType.purple)) return true;
 };
@@ -2756,12 +2812,8 @@ exports.default = function (creep, newRoom) {
 	if (!creep.memory.full) {
 		target = (0, _action.findClosestInRange)(creep, creep.room.memory.dropped.energy, 4);
 		if ((0, _action.pickup)(creep, target[0])) return;
-		var withdrawTarget = (0, _util.targetFormat)(creep.memory.target.withdraw);
-		if (!withdrawTarget) {
-			(0, _action.moveTo)(creep, creep.memory.target.withdraw);
-		} else {
-			if ((0, _action.withdraw)(creep, withdrawTarget)) return;
-		}
+		target = creep.memory.target.withdraw;
+		if ((0, _action.withdraw)(creep, target)) return;
 		return;
 	} else {
 		target = Game.getObjectById('58d07b35bfeec6256575be5d');
@@ -2804,12 +2856,8 @@ exports.default = function (creep) {
 		target = (0, _action.findClosestInRange)(creep, creep.room.memory.dropped.energy, 0);
 		if ((0, _action.pickup)(creep, target[0])) return;
 	}
-	var harvestTarget = (0, _util.targetFormat)(creep.memory.target.harvest);
-	if (!harvestTarget) {
-		(0, _action.moveTo)(creep, creep.memory.target.harvest);
-	} else {
-		if ((0, _action.harvest)(creep, harvestTarget)) return;
-	}
+	target = creep.memory.target.harvest;
+	if ((0, _action.moveTo)(creep, target)) return;
 };
 
 /***/ }),
