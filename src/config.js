@@ -50,12 +50,12 @@ export default (room = Game.rooms['W81S67']) => {
 		{
 			role    : 'farBuilder',
 			body    : {carry: 5, work: 1, move: 3},
-			number  : (noEnemy['W81S66'].safe) ? 2 : 0,
+			number  : (noEnemy['W81S66'].safe) ? 1 : 0,
 			priority: 5
 		}, {
 			role    : 'farBuilderSec',
 			body    : {carry: 5, work: 1, move: 3},
-			number  : (noEnemy['W82S67'].safe) ? 1 : 0,
+			number  : (noEnemy['W82S67'].safe) ? 2 : 0,
 			priority: 5
 		},
 		{
