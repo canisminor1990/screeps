@@ -447,7 +447,7 @@ exports.default = function () {
 	}, {
 		role: 'builder',
 		body: { work: 3, carry: 3, move: 3 },
-		number: builderNumber > 4 ? 4 : builderNumber,
+		number: builderNumber > 2 ? 2 : builderNumber,
 		priority: 6
 	}, {
 		role: "miner",
