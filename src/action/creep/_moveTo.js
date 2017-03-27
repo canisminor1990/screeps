@@ -15,14 +15,14 @@ export default (creep, target, color = '#ffffff', noPathFinding = true) => {
 			visualizePathStyle: {
 				stroke   : color,
 				lineStyle: 'dotted',
-				opacity  : 0.25,
+				opacity  : 0.5,
 				strokeWidth    : 0.05
 			}
 		}))) {
 		target.room.visual
 		      .circle(target.pos, {fill: 'transparent', radius: 0.55, stroke: color})
 		if (target.pos.roomName == creep.pos.roomName) {
-			target.room.visual.line(creep.pos, target.pos, {color: color, width: 0.05, opacity: 0.25})
+			target.room.visual.line(creep.pos, target.pos, {color: color, width: 0.05, opacity: 0.1})
 		}
 		return true;
 	}
