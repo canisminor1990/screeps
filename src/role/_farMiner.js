@@ -28,7 +28,7 @@ export default (creep, newRoom) => {
 
 	const harvestTarget = Game.getObjectById(creep.memory.target.harvest.id)
 	if (!harvestTarget) {
-		moveTo(creep, targetPos(harvestTarget))
+		moveTo(creep, targetPos(creep.memory.target.harvest.id))
 		return;
 	} else {
 		if (harvest(creep, harvestTarget)) return
