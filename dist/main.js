@@ -2216,7 +2216,7 @@ exports.default = function (room, miner) {
 		sources.sort(function (a, b) {
 			return b.source.energy - a.source.energy;
 		}).sort(function (a, b) {
-			return a.miner.length - a.miner.length;
+			return a.miner.length - b.miner.length;
 		});
 	}
 	if (sources.length > 1 && sources[0].miner.length == 0 && sources[sources.length - 1].miner.length > 1) {
