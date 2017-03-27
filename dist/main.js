@@ -3047,7 +3047,7 @@ exports.default = function (creep) {
 		target = (0, _action.findClosestInRange)(creep, creep.room.memory.structures.needBuild, 0);
 		if ((0, _action.build)(creep, target)) return;
 	}
-	if ((0, _action.harvest)(creep, harvestTarget)) return;
+	if ((0, _action.harvest)(creep, creep.memory.target.harvest)) return;
 };
 
 /***/ }),
