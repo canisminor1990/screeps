@@ -2602,7 +2602,7 @@ exports.default = function (creep, newRoom) {
 	if (!creep.memory.harvestTarget) creep.memory.harvestTarget = newRoom.memory.sources[0].source.id;
 	//
 	if (creep.memory.full) {
-		var container = creep.pos.findInRange(creep.room.memory.structures.container, 1)[0];
+		var container = creep.pos.findInRange(creep.room.memory.structures.container, 0)[0];
 		if (container) {
 			if (container.hits < container.hitsMax && (0, _action.repair)(creep, container)) return;
 		} else {
