@@ -21,6 +21,15 @@ export default (creep, target, fc, text) => {
 			break;
 		case ERR_NOT_FOUND             :
 			creep.say(text + "FOUND");
+			creep.moveTo(target, {
+				reusePath         : 15,
+				serializeMemory   : true,
+				visualizePathStyle: {
+					stroke   : color,
+					lineStyle: 'dotted'
+				}
+			});
+			return true;
 			break;
 		case ERR_NOT_ENOUGH_ENERGY     :
 			creep.say(text + "ENERGY");
