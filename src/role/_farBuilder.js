@@ -1,5 +1,5 @@
 import {isFull, targetMaker} from '../_util'
-import {withdraw, build, pickup, transfer, repair, findClosestInRange} from '../action'
+import {withdraw, build, pickup, transfer, repair, findClosestInRange,findClosestByRange} from '../action'
 export default (creep, roomName) => {
 	const storage = Game.getObjectById('58d07b35bfeec6256575be5d')
 	isFull(creep)
