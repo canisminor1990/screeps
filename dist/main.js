@@ -2792,7 +2792,7 @@ exports.default = function (creep, roomName) {
 			if (!creep.pos.isEqualTo(target.pos) && (0, _action.moveTo)(creep, target)) return;
 			if ((0, _action.repair)(creep, target, target.hits < target.hitsMax)) return;
 		} else {
-			if (creep.pos.isNearTo(target.pos)) creep.room.createConstructionSite(creep.pos.x, creep.pos.y, STRUCTURE_CONTAINER);
+			if (creep.pos.isNearTo(creep.memory.target.harvest.pos)) creep.room.createConstructionSite(creep.pos.x, creep.pos.y, STRUCTURE_CONTAINER);
 		}
 		if ((0, _action.build)(creep, (0, _action.findInRange)(creep, creep.room.memory.structures.needBuild, 2)[0])) return;
 	}
