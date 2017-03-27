@@ -5,7 +5,7 @@ export default (room) => {
 	let sources      = []
 	rawSources.forEach(source => sources.push({
 		source: source,
-		miner : source.pos.findInRange(source.room.memory.creeps.my.all, 2).filter(creep =>  Game.getObjectById(creep.id).memory.role.match('iner'))
+		miner : source.pos.findInRange(source.room.memory.creeps.my.all, 2).filter(creep => creep.name.match('iner'))
 	}))
 	if (sources.length > 0) {
 		sources.sort((a, b) => b.source.energy - a.source.energy)
