@@ -2199,7 +2199,7 @@ exports.default = function (room, miner) {
 	rawSources.forEach(function (source) {
 		var miner = [];
 		miner.forEach(function (creep) {
-			if (creep.target.harvest && creep.target.harvest.id == source.id) miner.push(creep.id);
+			if (creep.memory.target.harvest && creep.memory.target.harvest.id == source.id) miner.push(creep.id);
 		});
 
 		sources.push({
