@@ -1444,7 +1444,8 @@ exports.default = function (creep, target) {
 		noPathFinding: true,
 		visualizePathStyle: {
 			stroke: color,
-			lineStyle: 'dotted'
+			lineStyle: 'dotted',
+			opacity: 0.25
 		}
 	}))) {
 		return true;
