@@ -1,4 +1,7 @@
 export default (targetRaw) => {
-	if (!targetRaw.pos) return false
-	return new RoomPosition(targetRaw.pos.x, targetRaw.pos.y, targetRaw.pos.roomName)
+	try {
+		return new RoomPosition(targetRaw.pos.x, targetRaw.pos.y, targetRaw.pos.roomName)
+	} catch (e) {
+		return false
+	}
 }

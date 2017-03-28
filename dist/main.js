@@ -1313,10 +1313,12 @@ exports.default = function (targetRaw) {
 	if (targetRaw instanceof Array) {
 		targetRaw = targetRaw[0];
 	}
-	if (!targetRaw || !targetRaw.id) return false;
-	var target = void 0;
-	target = Game.getObjectById(targetRaw.id);
-	return target ? target : false;
+	try {
+		var target = Game.getObjectById(targetRaw.id);
+		return target ? target : false;
+	} catch (e) {
+		return false;
+	}
 };
 
 /***/ }),
@@ -1360,8 +1362,11 @@ Object.defineProperty(exports, "__esModule", {
 });
 
 exports.default = function (targetRaw) {
-	if (!targetRaw.pos) return false;
-	return new RoomPosition(targetRaw.pos.x, targetRaw.pos.y, targetRaw.pos.roomName);
+	try {
+		return new RoomPosition(targetRaw.pos.x, targetRaw.pos.y, targetRaw.pos.roomName);
+	} catch (e) {
+		return false;
+	}
 };
 
 /***/ }),

@@ -6,5 +6,4 @@ export default (creep, array, range = 0, opt) => {
 	} catch (e) {
 		return false
 	}
-
 }
