@@ -93,8 +93,8 @@ export default  (room) => {
 		},
 		{
 			role    : 'attacker',
-			body    : {attack: 2, move: 3},
-			number  : 0,
+			body    : {tough:2,attack: 2, move: 2},
+			number  : 1,
 			priority: 0
 		},
 		{

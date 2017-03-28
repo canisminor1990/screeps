@@ -2040,8 +2040,8 @@ exports.default = function (room) {
 		priority: 0
 	}, {
 		role: 'attacker',
-		body: { attack: 2, move: 3 },
-		number: 0,
+		body: { tough: 2, attack: 2, move: 2 },
+		number: 1,
 		priority: 0
 	}, {
 		role: 'traveller',
