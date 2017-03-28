@@ -2361,8 +2361,6 @@ Object.defineProperty(exports, "__esModule", {
 
 var _util = __webpack_require__(0);
 
-var _action = __webpack_require__(1);
-
 exports.default = function (room) {
 	var rawSources = room.find(FIND_SOURCES);
 	var sources = [];
@@ -2382,6 +2380,7 @@ exports.default = function (room) {
 		});
 	}
 	if (sources.length > 1 && sources[0].miner.length == 0 && sources[sources.length - 1].miner.length > 1) {
+		console.log(sources);
 		var targetSource = sources[sources.length - 1],
 		    targetCreep = Game.getObjectById(targetSource.miner.sort(function (a, b) {
 			return b.ticksToLive - a.ticksToLive;

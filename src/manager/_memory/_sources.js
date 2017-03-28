@@ -1,5 +1,4 @@
 import {targetChange} from  '../../_util'
-import {findInRange} from  '../../action'
 export default (room) => {
 	const rawSources = room.find(FIND_SOURCES);
 	let sources      = []
@@ -12,6 +11,7 @@ export default (room) => {
 			.sort((a, b) => a.miner.length - b.miner.length);
 	}
 	if (sources.length > 1 && sources[0].miner.length == 0 && sources[sources.length - 1].miner.length > 1) {
+		console.log(sources)
 		const targetSource = sources[sources.length - 1],
 		      targetCreep  = Game.getObjectById(targetSource.miner.sort((a, b) => b.ticksToLive - a.ticksToLive)[0].id);
 		targetChange(targetCreep, sources[0].source, 'harvest')
