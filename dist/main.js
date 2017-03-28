@@ -3417,9 +3417,16 @@ exports.default = function (roomName, timeout) {
 	    rclTimeLeft = Math.round(rclLeft / rclSpeed);
 	Memory.timer['rcl'] = rcl.progress;
 
+	var rcl2 = Game.rooms['W82S67'].controller,
+	    rcl2Process = Math.round(rcl2.progress / rcl2.progressTotal * 100),
+	    rcl2Speed = Math.round((rcl2.progress - Memory.timer['rcl']) / timeout),
+	    rcl2Left = rcl2.progressTotal - rcl2.progress,
+	    rcl2TimeLeft = Math.round(rcl2Left / rcl2Speed);
+	Memory.timer['rcl2'] = rcl2.progress;
+
 	var gclLog = {
 		header: ['Type', 'Lvl', 'Progress', 'EnergyLeft', 'Speed(e/t)', 'TickLeft'],
-		body: [[_util.color.blue('GCL'), gcl.level, gclProcess + '%', gclLeft, gclSpeed, gclTimeLeft], [_util.color.orange('RCL'), rcl.level, rclProcess + '%', rclLeft, rclSpeed, rclTimeLeft]]
+		body: [[_util.color.blue('GCL'), gcl.level, gclProcess + '%', gclLeft, gclSpeed, gclTimeLeft], [_util.color.orange('RCL 1'), rcl.level, rclProcess + '%', rclLeft, rclSpeed, rclTimeLeft], [_util.color.orange('RCL 2'), rcl2.level, rcl2Process + '%', rcl2Left, rcl2Speed, rcl2TimeLeft]]
 	};
 	//
 	var extension = room.memory.structures.extension;
