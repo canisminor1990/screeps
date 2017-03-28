@@ -2697,7 +2697,7 @@ exports.default = function (roomArray) {
 		if (room && room.memory) {
 			var structures = room.memory.structures;
 			var config = room.memory.config;
-			if (structures.spawn) structure.spawn(structures.spawn, config);
+			if (room == "W81S67" && structures.spawn) structure.spawn(structures.spawn, config);
 			if (structures.link) structures.link.forEach(function (link) {
 				return structure.link(link);
 			});
@@ -2991,7 +2991,7 @@ exports.default = function (creep) {
 		var container = (0, _action.findInRange)(creep.memory.target.withdraw, creep.room.memory.structures.container, 2)[0];
 		if ((0, _action.withdraw)(creep, container, container && container.store.energy > 0)) return;
 	} else {
-
+		console.log(link);
 		if (link && (0, _action.transfer)(creep, link, link.energy < link.energyCapacity)) return;
 	}
 };
