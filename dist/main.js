@@ -2947,7 +2947,8 @@ exports.default = function (creep, roomName) {
 		if ((0, _action.withdraw)(creep, creep.memory.target.withdraw)) return;
 	} else {
 		if (creep.pos.roomName == creep.memory.target.withdraw.pos.roomName) {
-
+			var store = creep.room.memory.flags.store[0];
+			if (store && (0, _action.transfer)(creep, store, store.store.energy < store.storeCapacity)) return;
 			var spawn = Memory.rooms[roomName].structures.spawn;
 			if (spawn && (0, _action.transfer)(creep, spawn, spawn.energy < spawn.energyCapacity)) return;
 		} else {

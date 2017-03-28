@@ -11,7 +11,8 @@ export default (creep, roomName) => {
 		if (withdraw(creep, creep.memory.target.withdraw)) return
 	} else {
 		if (creep.pos.roomName == creep.memory.target.withdraw.pos.roomName) {
-			
+			const store = creep.room.memory.flags.store[0];
+			if (store && transfer(creep, store, store.store.energy < store.storeCapacity))return;
 			let spawn = Memory.rooms[roomName].structures.spawn
 			if (spawn && transfer(creep, spawn, spawn.energy < spawn.energyCapacity)) return;
 		} else {
