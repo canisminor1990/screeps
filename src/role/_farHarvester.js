@@ -9,7 +9,7 @@ export default (creep, roomName) => {
 	// run
 	if (!isFull) {
 		if (pickup(creep, findClosestInRange(creep, creep.room.memory.dropped.energy, 4))) return;
-		if (withdraw(creep, creep.memory.target.withdraw)) return
+		if (withdraw(creep, targetWithdraw)) return
 	} else {
 		if (creep.pos.roomName == creep.memory.target.withdraw.pos.roomName) {
 			const store = targetFormat(creep.room.memory.flags.store);
