@@ -2380,11 +2380,11 @@ exports.default = function (room) {
 		});
 	}
 	if (sources.length > 1 && sources[0].miner.length == 0 && sources[sources.length - 1].miner.length > 1) {
-		console.log(sources);
 		var targetSource = sources[sources.length - 1],
 		    targetCreep = Game.getObjectById(targetSource.miner.sort(function (a, b) {
 			return b.ticksToLive - a.ticksToLive;
 		})[0].id);
+		console.log(targetCreep);
 		(0, _util.targetChange)(targetCreep, sources[0].source, 'harvest');
 	}
 	return sources;
