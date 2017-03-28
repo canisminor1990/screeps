@@ -1,4 +1,4 @@
-import { color, table,emoji } from '../_util'
+import { color, table, emoji } from '../_util'
 export default (roomName, timeout) => {
 	"use strict";
 	const room          = Game.rooms[roomName];
@@ -65,7 +65,7 @@ export default (roomName, timeout) => {
 		]
 	}
 
-	console.log(`${emoji.claim} GameTime:${Game.time}`, table(gclLog), table(energyLog), table(roleLog[0]), table(roleLog[1]));
+	console.log(emoji.claim, color.grey(`GameTime:${Game.time}`), table(gclLog), table(energyLog), table(roleLog[0]), table(roleLog[1]));
 
 }
 
