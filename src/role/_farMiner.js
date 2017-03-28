@@ -13,10 +13,8 @@ export default (creep, roomName) => {
 			if (!creep.pos.isEqualTo(target.pos) && moveTo(creep, target)) return;
 			if (repair(creep, target, target.hits < target.hitsMax))return;
 			if (build(creep, findInRange(creep, creep.room.memory.structures.needBuild, 2)[0]))return;
-		} catch (e) {
-
-		}
+		} catch (e) {}
 	}
-
+	if (pickup(creep, findInRange(creep, creep.room.memory.dropped.energy, 2)[0])) return;
 	if (harvest(creep, creep.memory.target.harvest)) return;
 }
