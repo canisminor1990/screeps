@@ -2912,10 +2912,6 @@ exports.default = function (creep, roomName) {
 		if ((0, _action.pickup)(creep, (0, _action.findClosestInRange)(creep, creep.room.memory.dropped.energy, 4))) return;
 		if ((0, _action.withdraw)(creep, creep.memory.target.withdraw)) return;
 	} else {
-		if (creep.pos.roomName == creep.memory.target.withdraw.pos.roomName) {
-			var needBuild = creep.room.memory.structures.needBuild;
-			if ((0, _action.build)(creep, (0, _action.findClosestByRange)(creep, needBuild))) return;
-		}
 		(0, _util.targetChange)(creep, Memory.rooms[roomName].structures.container[0], 'withdraw');
 		if ((0, _action.upgradeController)(creep, creep.room.controller)) return;
 	}
