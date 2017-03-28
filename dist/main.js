@@ -2942,7 +2942,9 @@ exports.default = function (creep, roomName) {
 	// state
 	var isFull = (0, _util.fullCheck)(creep);
 	// target
-	var targetWithdraw = _.filter(Memory.rooms[roomName].structures.container, container.id != '58da68e6b6335f86219c4717')[0];
+	var targetWithdraw = _.filter(Memory.rooms[roomName].structures.container, function (container) {
+		return container.id != '58da68e6b6335f86219c4717';
+	})[0];
 	(0, _util.targetMaker)(creep, targetWithdraw, 'withdraw');
 	// run
 	if (!isFull) {

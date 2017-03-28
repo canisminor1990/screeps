@@ -4,7 +4,7 @@ export default (creep, roomName) => {
 	// state
 	const isFull = fullCheck(creep);
 	// target
-	const targetWithdraw = _.filter(Memory.rooms[roomName].structures.container,container.id != '58da68e6b6335f86219c4717')[0]
+	const targetWithdraw = _.filter(Memory.rooms[roomName].structures.container,container => container.id != '58da68e6b6335f86219c4717')[0]
 	targetMaker(creep, targetWithdraw, 'withdraw')
 	// run
 	if (!isFull) {
