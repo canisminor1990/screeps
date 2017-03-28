@@ -3068,7 +3068,7 @@ exports.default = function (creep) {
 			if ((0, _action.build)(creep, (0, _action.findInRange)(creep, creep.room.memory.structures.needBuild, 3)[0])) return;
 		} catch (e) {}
 	}
-	if (pickup(creep, (0, _action.findInRange)(creep, creep.room.memory.dropped.energy, 1)[0])) return;
+	if ((0, _action.pickup)(creep, (0, _action.findInRange)(creep, creep.room.memory.dropped.energy, 1)[0])) return;
 	if ((0, _action.harvest)(creep, harvestTarget)) return;
 };
 

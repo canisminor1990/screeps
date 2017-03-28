@@ -1,5 +1,5 @@
 import { isFull, targetMaker } from '../_util'
-import { build, harvest, repair, findInRange, moveTo } from '../action'
+import { build, harvest, repair, findInRange, moveTo,pickup } from '../action'
 export default (creep) => {
 	let target;
 	// root
