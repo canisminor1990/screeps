@@ -1978,7 +1978,7 @@ exports.default = function (room) {
 	}, {
 		role: 'farUpgrader',
 		body: { carry: 5, work: 1, move: 3 },
-		number: noEnemy['W82S67'].safe ? 2 : 0,
+		number: noEnemy['W82S67'].safe ? 3 : 0,
 		priority: 3
 	}, {
 		role: 'builder',
