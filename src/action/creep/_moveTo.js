@@ -1,5 +1,6 @@
 import { action, targetFormat, targetChanger } from "../../_util"
 export default (creep, target, color = '#ffffff', noPathFinding = true) => {
+	const actionName = 'moveTo';
 	if (creep.fatigue > 0) return false;
 	try {
 		if (target.pos.roomName != creep.pos.roomName) {
@@ -9,7 +10,7 @@ export default (creep, target, color = '#ffffff', noPathFinding = true) => {
 		else {
 			target = targetFormat(target);
 		}
-		targetChanger(creep, target, 'moveTo')
+		targetChanger(creep, target, actionName)
 		const opt = {
 			reusePath         : 15,
 			serializeMemory   : true,
@@ -21,22 +22,25 @@ export default (creep, target, color = '#ffffff', noPathFinding = true) => {
 				strokeWidth: 0.1
 			}
 		}
-		if (action(creep, target, creep.moveTo(target, opt))) {
+		if (action(creep, target, creep[actionName](target, opt))) {
 			visual(target, creep)
 			return true
 		}
 	} catch (e) {
-		console.log("# Error", e)
+		console.log("# Error", actionName, e)
 		return false
 	}
 }
 
-function visual(target, creep) {
-	if (target.pos && target.pos.roomName && Game.rooms[target.pos.roomName]) {
-		target.room.visual
-		      .circle(target.pos, {fill: 'transparent', radius: 0.55, stroke: color})
+function visual(target, creep, color) {
+	try {
+		target.room.visual.circle(target.pos, {fill: 'transparent', radius: 0.55, stroke: color})
 		if (target.pos.roomName == creep.pos.roomName) {
-			target.room.visual.line(creep.pos, target.pos, {color: color, width: 0.1, opacity: 0.05})
+			target.room.visual.line(creep.pos, target.pos, {
+				color  : color,
+				width  : 0.1,
+				opacity: 0.05
+			})
 		}
-	}
+	} catch (e) {}
 }

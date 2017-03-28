@@ -1402,13 +1402,14 @@ var _util = __webpack_require__(0);
 var _ = __webpack_require__(1);
 
 exports.default = function (creep, targetRaw) {
+	var actionName = 'attack';
 	try {
 		var target = (0, _util.targetFormat)(targetRaw);
 		if (!target && (0, _.moveTo)(creep, targetRaw)) return true;
-		(0, _util.targetChanger)(creep, targetRaw, 'attack');
-		if ((0, _util.action)(creep, target, creep.attack(target), _util.emoji.attack, _util.colorType.red)) return true;
+		(0, _util.targetChanger)(creep, targetRaw, actionName);
+		if ((0, _util.action)(creep, target, creep[actionName](target), _util.emoji.attack, _util.colorType.red)) return true;
 	} catch (e) {
-		console.log("# Error", e);
+		console.log("# Error", actionName, e);
 		return false;
 	}
 };
@@ -1429,13 +1430,14 @@ var _util = __webpack_require__(0);
 var _ = __webpack_require__(1);
 
 exports.default = function (creep, targetRaw) {
+	var actionName = 'build';
 	try {
 		var target = (0, _util.targetFormat)(targetRaw);
 		if (!target && (0, _.moveTo)(creep, targetRaw)) return true;
-		(0, _util.targetChanger)(creep, target, 'build');
-		if ((0, _util.action)(creep, target, creep.build(target), _util.emoji.build, _util.colorType.blue)) return true;
+		(0, _util.targetChanger)(creep, targetRaw, actionName);
+		if ((0, _util.action)(creep, target, creep[actionName](target), _util.emoji.build, _util.colorType.blue)) return true;
 	} catch (e) {
-		console.log("# Error", e);
+		console.log("# Error", actionName, e);
 		return false;
 	}
 };
@@ -1456,13 +1458,14 @@ var _util = __webpack_require__(0);
 var _ = __webpack_require__(1);
 
 exports.default = function (creep, targetRaw) {
+	var actionName = 'reserveController';
 	try {
 		var target = (0, _util.targetFormat)(targetRaw);
 		if (!target && (0, _.moveTo)(creep, targetRaw)) return true;
-		(0, _util.targetChanger)(creep, target, 'reserveController');
-		if ((0, _util.action)(creep, target, creep.reserveController(target), _util.emoji.claim, _util.colorType.orange)) return true;
+		(0, _util.targetChanger)(creep, target, actionName);
+		if ((0, _util.action)(creep, target, creep[actionName](target), _util.emoji.claim, _util.colorType.orange)) return true;
 	} catch (e) {
-		console.log("# Error", e);
+		console.log("# Error", actionName, e);
 		return false;
 	}
 };
@@ -1483,13 +1486,14 @@ var _util = __webpack_require__(0);
 var _ = __webpack_require__(1);
 
 exports.default = function (creep, targetRaw) {
+	var actionName = 'dismantle';
 	try {
 		var target = (0, _util.targetFormat)(targetRaw);
 		if (!target && (0, _.moveTo)(creep, targetRaw)) return true;
-		(0, _util.targetChanger)(creep, targetRaw, 'dismantle');
-		if ((0, _util.action)(creep, target, creep.dismantle(target), _util.emoji.dismantle, _util.colorType.red)) return true;
+		(0, _util.targetChanger)(creep, targetRaw, actionName);
+		if ((0, _util.action)(creep, target, creep[actionName](target), _util.emoji.dismantle, _util.colorType.red)) return true;
 	} catch (e) {
-		console.log("# Error", e);
+		console.log("# Error", actionName, e);
 		return false;
 	}
 };
@@ -1510,13 +1514,14 @@ var _util = __webpack_require__(0);
 var _ = __webpack_require__(1);
 
 exports.default = function (creep, targetRaw) {
+	var actionName = 'harvest';
 	try {
 		var target = (0, _util.targetFormat)(targetRaw);
 		if (!target && (0, _.moveTo)(creep, targetRaw)) return true;
-		(0, _util.targetChanger)(creep, targetRaw, 'harvest');
-		if ((0, _util.action)(creep, target, creep.harvest(target), _util.emoji.harvest, _util.colorType.yellow)) return true;
+		(0, _util.targetChanger)(creep, targetRaw, actionName);
+		if ((0, _util.action)(creep, target, creep[actionName](target), _util.emoji.harvest, _util.colorType.yellow)) return true;
 	} catch (e) {
-		console.log("# Error", e);
+		console.log("# Error", actionName, e);
 		return false;
 	}
 };
@@ -1537,13 +1542,14 @@ var _util = __webpack_require__(0);
 var _ = __webpack_require__(1);
 
 exports.default = function (creep, targetRaw) {
+	var actionName = 'heal';
 	try {
 		var target = (0, _util.targetFormat)(targetRaw);
 		if (!target && (0, _.moveTo)(creep, targetRaw)) return true;
-		(0, _util.targetChanger)(creep, targetRaw, 'heal');
-		if ((0, _util.action)(creep, target, creep.heal(target), _util.emoji.heal, _util.colorType.green)) return true;
+		(0, _util.targetChanger)(creep, targetRaw, actionName);
+		if ((0, _util.action)(creep, target, creep[actionName](target), _util.emoji.heal, _util.colorType.green)) return true;
 	} catch (e) {
-		console.log("# Error", e);
+		console.log("# Error", actionName, e);
 		return false;
 	}
 };
@@ -1565,6 +1571,7 @@ exports.default = function (creep, target) {
 	var color = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : '#ffffff';
 	var noPathFinding = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : true;
 
+	var actionName = 'moveTo';
 	if (creep.fatigue > 0) return false;
 	try {
 		if (target.pos.roomName != creep.pos.roomName) {
@@ -1573,7 +1580,7 @@ exports.default = function (creep, target) {
 		} else {
 			target = (0, _util.targetFormat)(target);
 		}
-		(0, _util.targetChanger)(creep, target, 'moveTo');
+		(0, _util.targetChanger)(creep, target, actionName);
 		var opt = {
 			reusePath: 15,
 			serializeMemory: true,
@@ -1585,23 +1592,27 @@ exports.default = function (creep, target) {
 				strokeWidth: 0.1
 			}
 		};
-		if ((0, _util.action)(creep, target, creep.moveTo(target, opt))) {
+		if ((0, _util.action)(creep, target, creep[actionName](target, opt))) {
 			visual(target, creep);
 			return true;
 		}
 	} catch (e) {
-		console.log("# Error", e);
+		console.log("# Error", actionName, e);
 		return false;
 	}
 };
 
-function visual(target, creep) {
-	if (target.pos && target.pos.roomName && Game.rooms[target.pos.roomName]) {
+function visual(target, creep, color) {
+	try {
 		target.room.visual.circle(target.pos, { fill: 'transparent', radius: 0.55, stroke: color });
 		if (target.pos.roomName == creep.pos.roomName) {
-			target.room.visual.line(creep.pos, target.pos, { color: color, width: 0.1, opacity: 0.05 });
+			target.room.visual.line(creep.pos, target.pos, {
+				color: color,
+				width: 0.1,
+				opacity: 0.05
+			});
 		}
-	}
+	} catch (e) {}
 }
 
 /***/ }),
@@ -1620,13 +1631,14 @@ var _util = __webpack_require__(0);
 var _ = __webpack_require__(1);
 
 exports.default = function (creep, targetRaw) {
+	var actionName = 'pickup';
 	try {
 		var target = (0, _util.targetFormat)(targetRaw);
 		if (!target && (0, _.moveTo)(creep, targetRaw)) return true;
-		(0, _util.targetChanger)(creep, targetRaw, 'pickup');
-		if ((0, _util.action)(creep, target, creep.pickup(target), _util.emoji.pickup, _util.colorType.yellow)) return true;
+		(0, _util.targetChanger)(creep, targetRaw, actionName);
+		if ((0, _util.action)(creep, target, creep[actionName](target), _util.emoji.pickup, _util.colorType.yellow)) return true;
 	} catch (e) {
-		console.log("# Error", e);
+		console.log("# Error", actionName, e);
 		return false;
 	}
 };
@@ -1647,13 +1659,14 @@ var _util = __webpack_require__(0);
 var _ = __webpack_require__(1);
 
 exports.default = function (creep, targetRaw) {
+	var actionName = 'repair';
 	try {
 		var target = (0, _util.targetFormat)(targetRaw);
 		if (!target && (0, _.moveTo)(creep, targetRaw)) return true;
-		(0, _util.targetChanger)(creep, targetRaw, 'repair');
-		if ((0, _util.action)(creep, target, creep.repair(target), _util.emoji.repair, _util.colorType.blue)) return true;
+		(0, _util.targetChanger)(creep, targetRaw, actionName);
+		if ((0, _util.action)(creep, target, creep[actionName](target), _util.emoji.repair, _util.colorType.blue)) return true;
 	} catch (e) {
-		console.log("# Error", e);
+		console.log("# Error", actionName, e);
 		return false;
 	}
 };
@@ -1677,13 +1690,14 @@ exports.default = function (creep, targetRaw) {
 	var opt = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : true;
 	var type = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : RESOURCE_ENERGY;
 
+	var actionName = 'transfer';
 	try {
 		var target = (0, _util.targetFormat)(targetRaw);
 		if (!target && (0, _.moveTo)(creep, targetRaw)) return true;
-		(0, _util.targetChanger)(creep, targetRaw, 'transfer');
-		if ((0, _util.action)(creep, target, creep.transfer(target, type), _util.emoji.transfer, _util.colorType.purple)) return true;
+		(0, _util.targetChanger)(creep, targetRaw, actionName);
+		if ((0, _util.action)(creep, target, creep[actionName](target, type), _util.emoji.transfer, _util.colorType.purple)) return true;
 	} catch (e) {
-		console.log("# Error", e);
+		console.log("# Error", actionName, e);
 		return false;
 	}
 };
@@ -1704,13 +1718,14 @@ var _util = __webpack_require__(0);
 var _ = __webpack_require__(1);
 
 exports.default = function (creep, targetRaw) {
+	var actionName = 'upgradeController';
 	try {
 		var target = (0, _util.targetFormat)(targetRaw);
 		if (!target && (0, _.moveTo)(creep, targetRaw)) return true;
-		(0, _util.targetChanger)(creep, targetRaw, 'upgradeController');
-		if ((0, _util.action)(creep, target, creep.upgradeController(target), _util.emoji.upgrade, _util.colorType.orange)) return true;
+		(0, _util.targetChanger)(creep, targetRaw, actionName);
+		if ((0, _util.action)(creep, target, creep[actionName](target), _util.emoji.upgrade, _util.colorType.orange)) return true;
 	} catch (e) {
-		console.log("# Error", e);
+		console.log("# Error", actionName, e);
 		return false;
 	}
 };
@@ -1734,13 +1749,14 @@ exports.default = function (creep, targetRaw) {
 	var opt = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : true;
 	var type = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : RESOURCE_ENERGY;
 
+	var actionName = 'withdraw';
 	try {
 		var target = (0, _util.targetFormat)(targetRaw);
 		if (!target && (0, _.moveTo)(creep, targetRaw)) return true;
-		(0, _util.targetChanger)(creep, targetRaw, 'withdraw');
-		if ((0, _util.action)(creep, target, creep.withdraw(target, type), _util.emoji.withdraw, _util.colorType.purple)) return true;
+		(0, _util.targetChanger)(creep, targetRaw, actionName);
+		if ((0, _util.action)(creep, target, creep[actionName](target, type), _util.emoji.withdraw, _util.colorType.purple)) return true;
 	} catch (e) {
-		console.log("# Error", e);
+		console.log("# Error", actionName, e);
 		return false;
 	}
 };
