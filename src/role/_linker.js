@@ -10,7 +10,7 @@ export default (creep) => {
 	if (!isFull) {
 		if (pickup(creep, findInRange(creep, creep.room.memory.dropped.energy, 4)[0])) return;
 		const container = findInRange(creep.memory.target.withdraw, creep.room.memory.structures.container, 2)[0]
-		if (withdraw(creep, container, container.store.energy > 0))return;
+		if (withdraw(creep, container, container && container.store.energy > 0))return;
 	} else {
 		if (transfer(creep, link, link.energy < link.energyCapacity)) return;
 	}

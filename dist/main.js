@@ -2987,7 +2987,7 @@ exports.default = function (creep) {
 	if (!isFull) {
 		if ((0, _action.pickup)(creep, (0, _action.findInRange)(creep, creep.room.memory.dropped.energy, 4)[0])) return;
 		var container = (0, _action.findInRange)(creep.memory.target.withdraw, creep.room.memory.structures.container, 2)[0];
-		if ((0, _action.withdraw)(creep, container, container.store.energy > 0)) return;
+		if ((0, _action.withdraw)(creep, container, container && container.store.energy > 0)) return;
 	} else {
 		if ((0, _action.transfer)(creep, link, link.energy < link.energyCapacity)) return;
 	}
