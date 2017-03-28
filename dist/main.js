@@ -1851,10 +1851,10 @@ exports.default = function (creep, array, opt) {
 	try {
 		if (!array.length || array[0] == null) return false;
 		var found = creep.pos.findClosestByRange(array);
-		if (opt) found.filter(opt);
+		if (opt) found = _.filter(found, opt);
 		return found;
 	} catch (e) {
-		(0, _util.debug)(e, 'findClosestByRange', creep, array);
+		(0, _util.debug)(e, 'findClosestByRange', creep, array, opt);
 		return false;
 	}
 };
@@ -1870,7 +1870,7 @@ Object.defineProperty(exports, "__esModule", {
 	value: true
 });
 
-var _ = __webpack_require__(1);
+var _2 = __webpack_require__(1);
 
 var _util = __webpack_require__(0);
 
@@ -1880,12 +1880,12 @@ exports.default = function (creep, array) {
 
 	try {
 		if (!array.length || array[0] == null) return false;
-		var found = (0, _.findInRange)(creep, array, range);
-		if (opt) found.filter(opt);
-		found = (0, _.findClosestByRange)(creep, found);
+		var found = (0, _2.findInRange)(creep, array, range);
+		if (opt) found = _.filter(found, opt);
+		found = (0, _2.findClosestByRange)(creep, found);
 		return found;
 	} catch (e) {
-		(0, _util.debug)(e, 'findClosestInRange', creep, array);
+		(0, _util.debug)(e, 'findClosestInRange', creep, array, opt);
 		return false;
 	}
 };
@@ -1909,10 +1909,10 @@ exports.default = function (creep, array) {
 
 	try {
 		var found = creep.pos.findInRange(array, range);
-		if (opt) found.filter(opt);
+		if (opt) found = _.filter(found, opt);
 		return found;
 	} catch (e) {
-		(0, _util.debug)(e, 'findInRange', creep, array);
+		(0, _util.debug)(e, 'findInRange', creep, array, opt);
 		return false;
 	}
 };
@@ -1943,7 +1943,7 @@ exports.default = function (creep) {
 		}
 		return found && found.length > 0 ? found[0] : false;
 	} catch (e) {
-		(0, _util.debug)(e, 'lookFor', creep, array);
+		(0, _util.debug)(e, 'lookFor', creep, type, opt);
 		return false;
 	}
 };

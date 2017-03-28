@@ -1,4 +1,4 @@
-import {debug} from '../../_util'
+import { debug } from '../../_util'
 export default (creep, type = LOOK_STRUCTURES, opt) => {
 	try {
 		let found = creep.pos.lookFor(type)
@@ -9,7 +9,7 @@ export default (creep, type = LOOK_STRUCTURES, opt) => {
 		}
 		return (found && found.length > 0) ? found[0] : false
 	} catch (e) {
-		debug(e,'lookFor',creep, array)
+		debug(e, 'lookFor', creep, type, opt)
 		return false
 	}
 }
