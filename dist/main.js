@@ -179,7 +179,7 @@ Object.defineProperty(exports, 'targetMaker', {
 
 var _targetChanger = __webpack_require__(18);
 
-Object.defineProperty(exports, 'targetChange', {
+Object.defineProperty(exports, 'targetChanger', {
   enumerable: true,
   get: function get() {
     return _interopRequireDefault(_targetChanger).default;
@@ -996,9 +996,9 @@ exports.default = function (creep, target, fc) {
 		case ERR_NO_PATH:
 			creep.say(text + "PATH");
 			if (creep.memory.role.match('iner')) {
-				(0, _util.targetChange)(creep, creep.room.memory.sources[0], 'harvest');
+				(0, _util.targetChanger)(creep, creep.room.memory.sources[0], 'harvest');
 			} else {
-				(0, _util.targetChange)(creep, creep.room.memory.structures.container[0], 'withdraw');
+				(0, _util.targetChanger)(creep, creep.room.memory.structures.container[0], 'withdraw');
 			}
 			break;
 		case ERR_NAME_EXISTS:
@@ -1018,7 +1018,7 @@ exports.default = function (creep, target, fc) {
 				// targetChange(creep, creep.room.memory.sources[0].source, 'harvest')
 				(0, _action.moveTo)(creep, target, color);
 			} else {
-				(0, _util.targetChange)(creep, creep.room.memory.structures.container[0], 'withdraw');
+				(0, _util.targetChanger)(creep, creep.room.memory.structures.container[0], 'withdraw');
 			}
 			return true;
 			break;
@@ -1283,8 +1283,8 @@ var _util = __webpack_require__(0);
 exports.default = function (creep, target) {
 	var type = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 'default';
 
-	target = (0, _util.targetFormat)(target);
 	try {
+		target = (0, _util.targetFormat)(target);
 		if (creep.memory.target[type].id == target.id) return true;
 		creep.memory.target[type] = {
 			id: target.id,
@@ -1292,9 +1292,8 @@ exports.default = function (creep, target) {
 			time: Game.time
 		};
 		creep.say(_util.emoji.targetChange);
-		return true;
 	} catch (e) {
-		return false;
+		(0, _util.targetMaker)(creep, target, type);
 	}
 };
 
@@ -1646,16 +1645,14 @@ var _util = __webpack_require__(0);
 var _ = __webpack_require__(1);
 
 exports.default = function (creep, targetRaw) {
-	var opt = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : true;
-
-	if (!opt) return;
-	var target = void 0;
-	target = (0, _util.targetFormat)(targetRaw);
-	if (!target) {
-		(0, _.moveTo)(creep, targetRaw);return false;
+	try {
+		var target = (0, _util.targetFormat)(targetRaw);
+		if (!target && (0, _.moveTo)(creep, targetRaw)) return true;
+		(0, _util.targetChanger)(creep, target, 'repair');
+		if ((0, _util.action)(creep, target, creep.repair(target), _util.emoji.repair, _util.colorType.blue)) return true;
+	} catch (e) {
+		return false;
 	}
-	(0, _util.targetMaker)(creep, target, 'repair');
-	if ((0, _util.action)(creep, target, creep.repair(target), _util.emoji.repair, _util.colorType.blue)) return true;
 };
 
 /***/ }),
@@ -2382,7 +2379,7 @@ exports.default = function (room) {
 			return b.ticksToLive - a.ticksToLive;
 		})[0].id);
 		console.log('log', targetCreep, sources[0].source);
-		(0, _util.targetChange)(targetCreep, sources[0].source, 'harvest');
+		(0, _util.targetChanger)(targetCreep, sources[0].source, 'harvest');
 	}
 	return sources;
 };
@@ -2815,7 +2812,7 @@ exports.default = function (creep, roomName) {
 			if ((0, _action.build)(creep, (0, _action.findClosestByRange)(creep, needBuild))) return;
 			if ((0, _action.repair)(creep, (0, _action.findClosestByRange)(creep, needFix))) return;
 		}
-		(0, _util.targetChange)(creep, Memory.rooms[roomName].structures.container[0], 'withdraw');
+		(0, _util.targetChanger)(creep, Memory.rooms[roomName].structures.container[0], 'withdraw');
 		if ((0, _action.transfer)(creep, storage)) return;
 	}
 };
@@ -2841,7 +2838,7 @@ exports.default = function (creep, roomName) {
 	(0, _util.isFull)(creep);
 	(0, _util.targetMaker)(creep, Memory.rooms[roomName].structures.container[0], 'withdraw');
 	if (creep.pos.roomName != creep.memory.target.withdraw.pos.roomName) {
-		(0, _util.targetChange)(creep, Memory.rooms[roomName].structures.container[0], 'withdraw');
+		(0, _util.targetChanger)(creep, Memory.rooms[roomName].structures.container[0], 'withdraw');
 	}
 
 	// run
@@ -2870,12 +2867,11 @@ var _util = __webpack_require__(0);
 
 exports.default = function (creep, roomName) {
 	var target = void 0;
-	(0, _util.isFull)(creep);
+	var ifFull = (0, _util.isFull)(creep);
 	//
-	(0, _util.targetMaker)(creep, Memory.rooms[roomName].sources[0].source, 'harvest');
+	(0, _util.targetChanger)(creep, Memory.rooms[roomName].sources[0].source, 'harvest');
 	//
-
-	if (creep.memory.full) {
+	if (ifFull) {
 		try {
 			target = (0, _action.findInRange)(Game.getObjectById(creep.memory.target.harvest.id), creep.room.memory.structures.container, 2)[0];
 			if (!creep.pos.isEqualTo(target.pos) && (0, _action.moveTo)(creep, target)) return;
@@ -2903,17 +2899,17 @@ var _util = __webpack_require__(0);
 var _action = __webpack_require__(1);
 
 exports.default = function (creep, roomName) {
-	var target = void 0;
-	// memory
+	// state
 	var ifFull = (0, _util.isFull)(creep);
+	// target
 	(0, _util.targetMaker)(creep, Memory.rooms[roomName].structures.container[0], 'withdraw');
 	// run
 	if (!ifFull) {
-		if ((0, _action.pickup)(creep, (0, _action.findClosestInRange)(creep, creep.room.memory.dropped.energy, 4))) return;
+		if ((0, _action.pickup)(creep, (0, _action.findInRange)(creep, creep.room.memory.dropped.energy, 2)[0])) return;
 		if ((0, _action.withdraw)(creep, Memory.rooms[roomName].structures.spawn)) return;
 		if ((0, _action.withdraw)(creep, creep.memory.target.withdraw)) return;
 	} else {
-		(0, _util.targetChange)(creep, Memory.rooms[roomName].structures.container[0], 'withdraw');
+		(0, _util.targetChanger)(creep, Memory.rooms[roomName].structures.container[0], 'withdraw');
 		if ((0, _action.upgradeController)(creep, creep.room.controller)) return;
 	}
 };

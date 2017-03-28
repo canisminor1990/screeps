@@ -1,5 +1,5 @@
 import {moveTo} from '../action'
-import {emoji, targetChange} from '../_util'
+import {emoji, targetChanger} from '../_util'
 export default (creep, target, fc, text = "", color = "#fff") => {
 	switch (fc) {
 		case OK:
@@ -12,9 +12,9 @@ export default (creep, target, fc, text = "", color = "#fff") => {
 		case ERR_NO_PATH               :
 			creep.say(text + "PATH");
 			if (creep.memory.role.match('iner')) {
-				targetChange(creep, creep.room.memory.sources[0], 'harvest');
+				targetChanger(creep, creep.room.memory.sources[0], 'harvest');
 			} else {
-				targetChange(creep, creep.room.memory.structures.container[0], 'withdraw')
+				targetChanger(creep, creep.room.memory.structures.container[0], 'withdraw')
 			}
 			break;
 		case ERR_NAME_EXISTS           :
@@ -34,7 +34,7 @@ export default (creep, target, fc, text = "", color = "#fff") => {
 				// targetChange(creep, creep.room.memory.sources[0].source, 'harvest')
 				moveTo(creep, target, color);
 			} else {
-				targetChange(creep, creep.room.memory.structures.container[0], 'withdraw')
+				targetChanger(creep, creep.room.memory.structures.container[0], 'withdraw')
 			}
 			return true;
 			break;

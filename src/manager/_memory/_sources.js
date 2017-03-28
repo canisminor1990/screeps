@@ -1,4 +1,4 @@
-import {targetChange} from  '../../_util'
+import {targetChanger} from  '../../_util'
 export default (room) => {
 	const rawSources = room.find(FIND_SOURCES);
 	let sources      = []
@@ -14,7 +14,7 @@ export default (room) => {
 		const targetSource = sources[sources.length - 1],
 		      targetCreep  = Game.getObjectById(targetSource.miner.sort((a, b) => b.ticksToLive - a.ticksToLive)[0].id);
 		console.log('log',targetCreep, sources[0].source)
-		targetChange(targetCreep, sources[0].source, 'harvest')
+		targetChanger(targetCreep, sources[0].source, 'harvest')
 	}
 	return sources
 }

@@ -1,4 +1,4 @@
-import {isFull, targetMaker, targetChange} from '../_util'
+import {isFull, targetMaker, targetChanger} from '../_util'
 import {findClosestInRange, transfer, pickup, withdraw} from '../action'
 export default (creep, roomName) => {
 	let target;
@@ -6,7 +6,7 @@ export default (creep, roomName) => {
 	isFull(creep);
 	targetMaker(creep, Memory.rooms[roomName].structures.container[0], 'withdraw')
 	if (creep.pos.roomName != creep.memory.target.withdraw.pos.roomName){
-		targetChange(creep, Memory.rooms[roomName].structures.container[0], 'withdraw')
+		targetChanger(creep, Memory.rooms[roomName].structures.container[0], 'withdraw')
 	}
 		
 	// run
