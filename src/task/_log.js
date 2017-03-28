@@ -29,9 +29,9 @@ export default (roomName, timeout) => {
 	const gclLog      = {
 		header: ['Type', 'Lvl', 'Progress', 'EnergyLeft', 'Speed(e/t)', 'TickLeft', 'HourLeft'],
 		body  : [
-			[color.blue('GCL'), gcl.level, `${gclProcess}%`, gclLeft, gclSpeed, gclTimeLeft,gclHourLeft],
-			[color.orange('RCL 1'), rcl.level, `${rclProcess}%`, rclLeft, rclSpeed, rclTimeLeft,rclHourLeft],
-			[color.orange('RCL 2'), rcl2.level, `${rcl2Process}%`, rcl2Left, rcl2Speed, rcl2TimeLeft,rcl2HourLeft],
+			[color.blue('GCL'), gcl.level, `${gclProcess}%`, gclLeft, gclSpeed, gclTimeLeft, gclHourLeft],
+			[color.orange('RCL 1'), rcl.level, `${rclProcess}%`, rclLeft, rclSpeed, rclTimeLeft, rclHourLeft],
+			[color.orange('RCL 2'), rcl2.level, `${rcl2Process}%`, rcl2Left, rcl2Speed, rcl2TimeLeft, rcl2HourLeft],
 		]
 	}
 	//
