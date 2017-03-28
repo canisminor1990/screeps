@@ -2787,7 +2787,8 @@ Object.defineProperty(exports, "__esModule", {
 var _action = __webpack_require__(1);
 
 exports.default = function (creep) {
-	(0, _action.attack)(creep, (0, _action.findClosestByRange)(creep.room.memory.creeps.enemy));
+
+	(0, _action.attack)(creep, (0, _action.findClosestByRange)(Memory.rooms['W81S66'].creeps.enemy));
 };
 
 /***/ }),

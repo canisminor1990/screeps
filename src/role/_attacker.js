@@ -1,4 +1,5 @@
 import {attack,findClosestByRange} from '../action'
 export default (creep) => {
-	attack(creep,findClosestByRange(creep.room.memory.creeps.enemy))
+	
+	attack(creep,findClosestByRange(Memory.rooms['W81S66'].creeps.enemy))
 }
