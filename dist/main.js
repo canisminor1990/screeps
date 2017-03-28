@@ -2954,7 +2954,7 @@ exports.default = function (creep, roomName) {
 			var spawn = Memory.rooms[roomName].structures.spawn;
 			if (spawn && (0, _action.transfer)(creep, spawn, spawn.energy < spawn.energyCapacity)) return;
 		} else {
-			// targetChanger(creep, Memory.rooms[roomName].structures.container[0], 'withdraw')
+			(0, _util.targetChanger)(creep, Memory.rooms[roomName].structures.container[0], 'withdraw');
 		}
 		if ((0, _action.transfer)(creep, Game.getObjectById('58d07b35bfeec6256575be5d'))) return;
 	}
@@ -2985,10 +2985,10 @@ exports.default = function (creep, roomName) {
 		try {
 			var container = (0, _action.findClosestInRange)(Game.getObjectById(creep.memory.target.harvest.id), creep.room.memory.structures.container, 2);
 			if (container && !creep.pos.isEqualTo(container.pos) && (0, _action.moveTo)(creep, container)) return;
-			var pos = creep.memory.target.harvest.pos;
-			if (!container && creep.isNearTo(pos.x, pos.y)) {
-				(0, _util.createConstructionSite)(pos.x, pos.y, STRUCTURE_CONTAINER);
-			}
+			// const pos = creep.memory.target.harvest.pos
+			// if (!container && creep.isNearTo(pos.x, pos.y)) {
+			// 	createConstructionSite(pos.x, pos.y, STRUCTURE_CONTAINER)
+			// }
 			if ((0, _action.repair)(creep, container, container.hits < container.hitsMax)) return;
 			if ((0, _action.build)(creep, (0, _action.findInRange)(creep, creep.room.memory.structures.needBuild, 3)[0])) return;
 		} catch (e) {}

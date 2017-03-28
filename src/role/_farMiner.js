@@ -10,10 +10,10 @@ export default (creep, roomName) => {
 		try {
 			const container = findClosestInRange(Game.getObjectById(creep.memory.target.harvest.id), creep.room.memory.structures.container, 2);
 			if (container && !creep.pos.isEqualTo(container.pos) && moveTo(creep, container)) return;
-			const pos = creep.memory.target.harvest.pos
-			if (!container && creep.isNearTo(pos.x, pos.y)) {
-				createConstructionSite(pos.x, pos.y, STRUCTURE_CONTAINER)
-			}
+			// const pos = creep.memory.target.harvest.pos
+			// if (!container && creep.isNearTo(pos.x, pos.y)) {
+			// 	createConstructionSite(pos.x, pos.y, STRUCTURE_CONTAINER)
+			// }
 			if (repair(creep, container, container.hits < container.hitsMax))return;
 			if (build(creep, findInRange(creep, creep.room.memory.structures.needBuild, 3)[0]))return;
 		} catch (e) {
