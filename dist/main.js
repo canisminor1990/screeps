@@ -3380,9 +3380,13 @@ exports.default = function (roomName, timeout) {
 	extension.forEach(function (ex) {
 		if (ex.energy == ex.energyCapacity) extensionFull++;
 	});
+	var configCreepNum = void 0;
+	room.memory.config.role.forEach(function (num) {
+		configCreepNum = configCreepNum + num.number;
+	});
 	var energyLog = {
 		header: ['Storage', 'Spawn', 'Extension', 'CanUse', 'Creeps', 'Cpu', 'Bucket'],
-		body: [[_util.color.yellow(room.memory.structures.storage.store.energy), room.memory.structures.spawn.energy, extensionFull + '/' + extension.length, extensionFull * 50 + room.memory.structures.spawn.energy, Object.keys(Memory.creeps).length, Math.floor(Game.cpu.getUsed()) + '/' + Game.cpu.limit, Game.cpu.bucket]]
+		body: [[_util.color.yellow(room.memory.structures.storage.store.energy), room.memory.structures.spawn.energy, extensionFull + '/' + extension.length, extensionFull * 50 + room.memory.structures.spawn.energy, Object.keys(Memory.creeps).length + '/' + configCreepNum, Math.floor(Game.cpu.getUsed()) + '/' + Game.cpu.limit, Game.cpu.bucket]]
 	};
 
 	console.log((0, _util.table)(gclLog), (0, _util.table)(energyLog));

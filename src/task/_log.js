@@ -1,4 +1,4 @@
-import {color, table} from '../_util'
+import { color, table } from '../_util'
 export default (roomName, timeout) => {
 	"use strict";
 	const room          = Game.rooms[roomName];
@@ -8,15 +8,14 @@ export default (roomName, timeout) => {
 	      gclProcess    = Math.round(gcl.progress / gcl.progressTotal * 100),
 	      gclTimeLeft   = Math.round(gclLeft / gclSpeed);
 	Memory.timer['gcl'] = gcl.progress;
-	
+
 	const rcl           = room.controller,
 	      rclProcess    = Math.round(rcl.progress / rcl.progressTotal * 100),
 	      rclSpeed      = Math.round((rcl.progress - Memory.timer['rcl']) / timeout),
 	      rclLeft       = rcl.progressTotal - rcl.progress,
 	      rclTimeLeft   = Math.round(rclLeft / rclSpeed);
 	Memory.timer['rcl'] = rcl.progress;
-	
-	
+
 	const gclLog      = {
 		header: ['Type', 'Lvl', 'Progress', 'EnergyLeft', 'Speed(e/t)', 'TickLeft'],
 		body  : [
@@ -28,23 +27,29 @@ export default (roomName, timeout) => {
 	const extension   = room.memory.structures.extension;
 	let extensionFull = 0;
 	extension.forEach(ex => {
-			if (ex.energy == ex.energyCapacity) extensionFull++
-		}
+		                  if (ex.energy == ex.energyCapacity) extensionFull++
+	                  }
 	);
+	let configCreepNum;
+	room.memory.config.role.forEach(num => {
+		configCreepNum = configCreepNum + num.number
+	})
 	const energyLog = {
 		header: ['Storage', 'Spawn', 'Extension', 'CanUse', 'Creeps', 'Cpu', 'Bucket'],
-		body  : [[
-			color.yellow(room.memory.structures.storage.store.energy),
-			room.memory.structures.spawn.energy,
-			extensionFull + '/' + extension.length,
-			extensionFull * 50 + room.memory.structures.spawn.energy,
-			Object.keys(Memory.creeps).length,
-			Math.floor(Game.cpu.getUsed()) + '/' + Game.cpu.limit,
-			Game.cpu.bucket
-		]]
+		body  : [
+			[
+				color.yellow(room.memory.structures.storage.store.energy),
+				room.memory.structures.spawn.energy,
+				extensionFull + '/' + extension.length,
+				extensionFull * 50 + room.memory.structures.spawn.energy,
+				Object.keys(Memory.creeps).length + '/' + configCreepNum,
+				Math.floor(Game.cpu.getUsed()) + '/' + Game.cpu.limit,
+				Game.cpu.bucket
+			]
+		]
 	}
-	
+
 	console.log(table(gclLog), table(energyLog));
-	
+
 }
 
