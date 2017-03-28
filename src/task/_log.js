@@ -18,7 +18,7 @@ export default (roomName, timeout) => {
 
 	const rcl2           = Game.rooms['W82S67'].controller,
 	      rcl2Process    = Math.round(rcl2.progress / rcl2.progressTotal * 100),
-	      rcl2Speed      = Math.round((rcl2.progress - Memory.timer['rcl']) / timeout),
+	      rcl2Speed      = Math.round((rcl2.progress - Memory.timer['rcl2']) / timeout),
 	      rcl2Left       = rcl2.progressTotal - rcl2.progress,
 	      rcl2TimeLeft   = Math.round(rcl2Left / rcl2Speed);
 	Memory.timer['rcl2'] = rcl2.progress;
