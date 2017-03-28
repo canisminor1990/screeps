@@ -1309,9 +1309,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 
 exports.default = function (targetRaw) {
-	if (targetRaw instanceof Array) {
-		targetRaw = targetRaw[0];
-	}
+	if (targetRaw instanceof Array) targetRaw = targetRaw[0];
 	try {
 		var target = Game.getObjectById(targetRaw.id);
 		return target ? target : false;
@@ -1574,6 +1572,7 @@ exports.default = function (creep, target) {
 	var actionName = 'moveTo';
 	if (creep.fatigue > 0) return false;
 	try {
+		if (target instanceof Array) target = target[0];
 		if (target.pos.roomName != creep.pos.roomName) {
 			target = new RoomPosition(target.pos.x, target.pos.y, target.pos.roomName);
 			noPathFinding = false;
