@@ -69,7 +69,7 @@ export default  (room) => {
 		},
 		{
 			role    : 'farUpgrader',
-			body    : {carry: 5, work: 1, move: 3},
+			body    : {carry: 6, work: 2, move: 4},
 			number  : (noEnemy['W82S67'].safe) ? 3 : 0,
 			priority: 3
 		},
