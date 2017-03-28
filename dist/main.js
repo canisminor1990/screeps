@@ -1334,6 +1334,7 @@ var _util = __webpack_require__(0);
 exports.default = function (creep, target) {
 	var type = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 'default';
 
+	if (!creep.memory.target) creep.memory.target = {};
 	try {
 		if (creep.memory.target[type] && creep.memory.target[type].id) return;
 	} catch (e) {
