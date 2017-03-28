@@ -4,7 +4,7 @@ export default (creep, roomName) => {
 	// state
 	const isFull = fullCheck(creep);
 	// target
-	targetMaker(creep, Memory.rooms[roomName].structures.container[0], 'withdraw')
+	if (!creep.memory.target.withdraw) targetMaker(creep, Memory.rooms[roomName].structures.container[0], 'withdraw')
 	if (creep.pos.roomName != creep.memory.target.withdraw.pos.roomName) targetChanger(creep, Memory.rooms[roomName].structures.container[0], 'withdraw')
 	// run
 	if (!isFull) {

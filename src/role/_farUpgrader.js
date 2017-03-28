@@ -4,8 +4,8 @@ export default (creep, roomName) => {
 	// state
 	const ifFull = fullCheck(creep);
 	// target
-	targetMaker(creep, Memory.rooms[roomName].structures.container[0], 'withdraw')
-	// run
+	if (!creep.memory.target.withdraw)targetMaker(creep, Memory.rooms[roomName].structures.container[0], 'withdraw')
+	// task
 	if (!ifFull) {
 		if (pickup(creep, findInRange(creep, creep.room.memory.dropped.energy, 2)[0])) return;
 		if (withdraw(creep, Memory.rooms[roomName].structures.spawn)) return;
