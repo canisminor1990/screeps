@@ -6,6 +6,7 @@ export default (creep) => {
 	// target
 	 targetMaker(creep, creep.room.memory.sources[0].source, 'harvest')
 	const harvestTarget = Game.getObjectById(creep.memory.target.harvest.id)
+	console.log(harvestTarget)
 	// task
 	if (isFull) {
 		try {

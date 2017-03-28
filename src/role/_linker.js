@@ -11,7 +11,6 @@ export default (creep) => {
 		const container = findInRange(link, creep.room.memory.structures.container, 2)[0]
 		if (withdraw(creep, container, container && container.store.energy > 0))return;
 	} else {
-		console.log(link)
 		if (link && transfer(creep, link, link.energy < link.energyCapacity)) return;
 	}
 }

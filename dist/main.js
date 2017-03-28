@@ -2987,7 +2987,6 @@ exports.default = function (creep) {
 		var container = (0, _action.findInRange)(link, creep.room.memory.structures.container, 2)[0];
 		if ((0, _action.withdraw)(creep, container, container && container.store.energy > 0)) return;
 	} else {
-		console.log(link);
 		if (link && (0, _action.transfer)(creep, link, link.energy < link.energyCapacity)) return;
 	}
 };
@@ -3013,6 +3012,7 @@ exports.default = function (creep) {
 	// target
 	(0, _util.targetMaker)(creep, creep.room.memory.sources[0].source, 'harvest');
 	var harvestTarget = Game.getObjectById(creep.memory.target.harvest.id);
+	console.log(harvestTarget);
 	// task
 	if (isFull) {
 		try {
