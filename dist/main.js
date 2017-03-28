@@ -1295,7 +1295,7 @@ exports.default = function (content) {
 	contentBody.forEach(function (row) {
 		var tableCol = "";
 		row.forEach(function (col) {
-			return tableCol += "<td style=\"border:1px solid #444;padding:4px 8px\">" + col + "</td>";
+			return tableCol += "<td style=\"border:1px solid #444;padding:4px 8px;word-break:break-all; word-wrap:break-word;\">" + col + "</td>";
 		});
 		tableBody += "<tr style=\"border:1px solid #444\" >" + tableCol + "</tr>";
 	});
