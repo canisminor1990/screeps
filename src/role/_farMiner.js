@@ -9,7 +9,7 @@ export default (creep, roomName) => {
 
 	if (creep.memory.full) {
 		try {
-			target = findInRange(creep, creep.room.memory.structures.container, 2)[0];
+			target = findInRange(Game.getObjectById(creep.memory.target.harvest.id), creep.room.memory.structures.container, 2)[0];
 			if (!creep.pos.isEqualTo(target.pos) && moveTo(creep, target)) return;
 			if (repair(creep, target, target.hits < target.hitsMax))return;
 			if (build(creep, findInRange(creep, creep.room.memory.structures.needBuild, 2)[0]))return;

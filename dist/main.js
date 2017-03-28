@@ -2876,7 +2876,7 @@ exports.default = function (creep, roomName) {
 
 	if (creep.memory.full) {
 		try {
-			target = (0, _action.findInRange)(creep, creep.room.memory.structures.container, 2)[0];
+			target = (0, _action.findInRange)(Game.getObjectById(creep.memory.target.harvest.id), creep.room.memory.structures.container, 2)[0];
 			if (!creep.pos.isEqualTo(target.pos) && (0, _action.moveTo)(creep, target)) return;
 			if ((0, _action.repair)(creep, target, target.hits < target.hitsMax)) return;
 			if ((0, _action.build)(creep, (0, _action.findInRange)(creep, creep.room.memory.structures.needBuild, 2)[0])) return;
