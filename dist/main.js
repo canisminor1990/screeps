@@ -2855,21 +2855,18 @@ var _util = __webpack_require__(0);
 var _action = __webpack_require__(1);
 
 exports.default = function (creep, roomName) {
-	var target = void 0;
-	// memory
-	(0, _util.isFull)(creep);
+	// state
+	var isFull = isFull(creep);
+	// target
 	(0, _util.targetMaker)(creep, Memory.rooms[roomName].structures.container[0], 'withdraw');
-	if (creep.pos.roomName != creep.memory.target.withdraw.pos.roomName) {
-		(0, _util.targetChanger)(creep, Memory.rooms[roomName].structures.container[0], 'withdraw');
-	}
-
+	if (creep.pos.roomName != creep.memory.target.withdraw.pos.roomName) (0, _util.targetChanger)(creep, Memory.rooms[roomName].structures.container[0], 'withdraw');
 	// run
-	if (!creep.memory.full) {
+	if (!isFull) {
 		if ((0, _action.pickup)(creep, (0, _action.findClosestInRange)(creep, creep.room.memory.dropped.energy, 4))) return;
 		if ((0, _action.withdraw)(creep, creep.memory.target.withdraw)) return;
 	} else {
-		target = Memory.rooms[roomName].structures.spawn;
-		if (target && (0, _action.transfer)(creep, target)) return;
+		var spawn = Memory.rooms[roomName].structures.spawn;
+		if (spawn && (0, _action.transfer)(creep, spawn)) return;
 		if ((0, _action.transfer)(creep, Game.getObjectById('58d07b35bfeec6256575be5d'))) return;
 	}
 };
