@@ -1288,7 +1288,7 @@ exports.default = function (content) {
 		contentHeadr = content.header;
 		contentBody = content.body;
 		contentHeadr.forEach(function (col) {
-			return tableHeader += "<th style=\"width:72px;border:1px solid #444;padding:4px 8px;word-break:break-all; word-wrap:break-word;\">" + col + "</th>";
+			return tableHeader += "<th style=\"width:88px;border:1px solid #444;padding:4px 8px;word-break:break-all; word-wrap:break-word;\">" + col + "</th>";
 		});
 		tableHeader = "<tr style=\"border:1px solid #444;background: #333;color:#888\" >" + tableHeader + "</tr>";
 	}
