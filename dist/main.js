@@ -3449,21 +3449,38 @@ var rooms = ['W81S67', 'W81S66', 'W82S67'];
 _screepsProfiler2.default.enable();
 console.log('# Coding Update!');
 _task.trigger.install();
-module.exports.loop = function () {
-	if (Game.cpuLimit > 100) {
-		_screepsProfiler2.default.wrap(function () {
-			(0, _task.trigger)();
-			Manager.root();
-			Manager.memory(rooms);
-			Manager.global(rooms);
-			Manager.role(rooms);
-			Manager.structure(rooms);
-			// Gui.creepBar(rooms[0])
-			Gui.room(rooms[0]);
-			Gui.role(rooms[0]);
-		});
+
+// switch
+var profilerEnabled = false;
+
+// main
+var main = function main() {
+	if (Game.cpu.bucket < 2 * Game.cpu.tickLimit) {
+		console.log('# Lack of CPU!');
+		return;
 	}
+	(0, _task.trigger)();
+	Manager.root();
+	Manager.memory(rooms);
+	Manager.global(rooms);
+	Manager.role(rooms);
+	Manager.structure(rooms);
+	// GUI
+	Gui.room(rooms[0]);
+	Gui.role(rooms[0]);
+	// Log
 	if ((0, _util.timer)(10)) (0, _task.log)(rooms[0], 10);
+};
+
+// loop
+module.exports.loop = function () {
+	if (profilerEnabled) {
+		_screepsProfiler2.default.wrap(function () {
+			main();
+		});
+	} else {
+		main();
+	}
 };
 
 /***/ })
