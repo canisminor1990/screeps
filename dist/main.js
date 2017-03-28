@@ -3243,7 +3243,8 @@ exports.default = function (spawn, configRole) {
 		spawn.room.visual.text(text, spawn.pos.x + 1, spawn.pos.y, {
 			align: 'left',
 			stroke: '#111111',
-			color: '#ffffff'
+			color: '#ffffff',
+			background: 'rgba(0,0,0,.5)'
 		});
 		return;
 	}
