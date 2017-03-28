@@ -34,17 +34,16 @@ export default (spawn, config) => {
 			if (roleMy.length - roleType.number >= 0 || priority) return;
 			const spawnName = `${roleName}#${Game.time}`;
 			spawn.createCreep(buildBody(roleType.body), spawnName, {
-				role  : roleName,
-				name  : spawnName,
-				target: {}
+				bornRoom: spawn.room.name,
+				role    : roleName,
+				name    : spawnName,
+				target  : {}
 			})
 			console.log(emoji.build, roleName, 'now:', roleMy.length, 'need:', roleType.number);
 			priority = true;
 		})
 	}
 }
-
-
 
 function buildBody(obj) {
 	let array = [];

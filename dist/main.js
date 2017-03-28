@@ -2688,7 +2688,7 @@ exports.default = function () {
 			delete Memory.creeps[name];
 		} else {
 			if (!Game.creeps[name].memory) Game.creeps[name].memory = { role: name.split('#')[0] };
-			if (!Game.creeps[name].memory.id) Game.creeps[name].id;
+			if (!Game.creeps[name].memory.id) Game.creeps[name].memory.id = Game.creeps[name].id;
 		}
 	}
 };
@@ -3252,6 +3252,7 @@ exports.default = function (spawn, config) {
 			if (roleMy.length - roleType.number >= 0 || priority) return;
 			var spawnName = roleName + '#' + Game.time;
 			spawn.createCreep(buildBody(roleType.body), spawnName, {
+				bornRoom: spawn.room.name,
 				role: roleName,
 				name: spawnName,
 				target: {}
