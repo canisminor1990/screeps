@@ -2825,15 +2825,15 @@ var _util = __webpack_require__(0);
 var _action = __webpack_require__(1);
 
 exports.default = function (creep, roomName) {
+	// state
+	var isFull = (0, _util.fullCheck)(creep);
 	var storage = Game.getObjectById('58d07b35bfeec6256575be5d');
-	(0, _util.fullCheck)(creep);
+	// target
 	(0, _util.targetMaker)(creep, Memory.rooms[roomName].structures.container[0], 'withdraw');
-	// run
-
-	var withdrawTarget = creep.memory.target.withdraw;
-	if (!creep.memory.full) {
-		if ((0, _action.pickup)(creep, (0, _action.findClosestInRange)(creep, creep.room.memory.dropped.energy, 3))) return;
-		if ((0, _action.withdraw)(creep, withdrawTarget)) return;
+	// task
+	if (!isFull) {
+		if ((0, _action.pickup)(creep, (0, _action.findInRange)(creep, creep.room.memory.dropped.energy, 3)[0])) return;
+		if ((0, _action.withdraw)(creep, creep.memory.target.withdraw)) return;
 	} else {
 		if (creep.pos.roomName == creep.memory.target.withdraw.pos.roomName) {
 			var needBuild = creep.room.memory.structures.needBuild,
@@ -2894,20 +2894,21 @@ var _action = __webpack_require__(1);
 var _util = __webpack_require__(0);
 
 exports.default = function (creep, roomName) {
-	var target = void 0;
+	// state
 	var ifFull = (0, _util.fullCheck)(creep);
-	//
+	// target
 	(0, _util.targetMaker)(creep, Memory.rooms[roomName].sources[0].source, 'harvest');
-	//
+	// task
 	if (ifFull) {
 		try {
-			target = (0, _action.findInRange)(Game.getObjectById(creep.memory.target.harvest.id), creep.room.memory.structures.container, 2)[0];
-			if (!creep.pos.isEqualTo(target.pos) && (0, _action.moveTo)(creep, target)) return;
-			if ((0, _action.repair)(creep, target, target.hits < target.hitsMax)) return;
+			var container = (0, _action.findInRange)(Game.getObjectById(creep.memory.target.harvest.id), creep.room.memory.structures.container, 2)[0];
+			if (container && !creep.pos.isEqualTo(container.pos) && (0, _action.moveTo)(creep, container)) return;
+			if ((0, _action.repair)(creep, container, target.hits < target.hitsMax)) return;
 			if ((0, _action.build)(creep, (0, _action.findInRange)(creep, creep.room.memory.structures.needBuild, 3)[0])) return;
 		} catch (e) {}
+	} else {
+		if ((0, _action.pickup)(creep, (0, _action.findInRange)(creep, creep.room.memory.dropped.energy, 1)[0])) return;
 	}
-	if ((0, _action.pickup)(creep, (0, _action.findInRange)(creep, creep.room.memory.dropped.energy, 1)[0])) return;
 	if ((0, _action.harvest)(creep, creep.memory.target.harvest)) return;
 };
 
