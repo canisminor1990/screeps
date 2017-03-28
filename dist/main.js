@@ -1288,18 +1288,18 @@ exports.default = function (content) {
 		contentHeadr = content.header;
 		contentBody = content.body;
 		contentHeadr.forEach(function (col) {
-			return tableHeader += "<th style=\"border:1px solid #444;padding:4px 8px\">" + col + "</th>";
+			return tableHeader += "<th style=\"width:72px;border:1px solid #444;padding:4px 8px\">" + col + "</th>";
 		});
 		tableHeader = "<tr style=\"border:1px solid #444;background: #333;color:#888\" >" + tableHeader + "</tr>";
 	}
 	contentBody.forEach(function (row) {
 		var tableCol = "";
 		row.forEach(function (col) {
-			return tableCol += "<td style=\"border:1px solid #444;padding:4px 8px;word-break:break-all; word-wrap:break-word;\">" + col + "</td>";
+			return tableCol += "<td style=\"width:72px;border:1px solid #444;padding:4px 8px;word-break:break-all; word-wrap:break-word;\">" + col + "</td>";
 		});
 		tableBody += "<tr style=\"border:1px solid #444\" >" + tableCol + "</tr>";
 	});
-	return "<table style=\"border:1px solid #444;width: 100%;word-break:break-all; word-wrap:break-word;\">" + tableHeader + tableBody + "</table>";
+	return "<table style=\"border:1px solid #444;max-width: 100%;word-break:break-all; word-wrap:break-word;\">" + tableHeader + tableBody + "</table>";
 };
 
 /***/ }),
