@@ -16,7 +16,6 @@ export default (creep, target, fc, text = "", color = "#fff") => {
 			} else {
 				targetChange(creep, creep.room.memory.structures.container[0], 'withdraw')
 			}
-			
 			break;
 		case ERR_NAME_EXISTS           :
 			creep.say(text + "NAME");
@@ -37,7 +36,6 @@ export default (creep, target, fc, text = "", color = "#fff") => {
 			} else {
 				targetChange(creep, creep.room.memory.structures.container[0], 'withdraw')
 			}
-			
 			return true;
 			break;
 		case ERR_NOT_ENOUGH_RESOURCES  :

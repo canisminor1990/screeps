@@ -29,5 +29,3 @@ export default (creep, target, color = '#ffffff', noPathFinding = true) => {
 		return true;
 	}
 }
-
-
