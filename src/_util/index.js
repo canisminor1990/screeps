@@ -4,6 +4,7 @@ export { default as color } from './_color'
 export { default as colorType } from './_colorType'
 export { default as table } from './_table'
 export { default as emoji } from './_emoji'
+export { default as debug } from './_debug'
 //
 export { default as build } from './_build'
 export { default as action } from './_action'

@@ -1,4 +1,4 @@
-import { emoji, action, colorType, targetFormat, targetChanger } from "../../_util"
+import { emoji, action, colorType, targetFormat, targetChanger,debug } from "../../_util"
 import { moveTo } from '../'
 export default (creep, targetRaw,check = true) => {
 	if (!check) return;
@@ -9,7 +9,7 @@ export default (creep, targetRaw,check = true) => {
 		targetChanger(creep, targetRaw, actionName)
 		if (action(creep, target, creep[actionName](target), emoji.build, colorType.blue)) return true
 	} catch (e) {
-		console.log("# Error", actionName, e)
+		debug(e,actionName,creep, targetRaw)
 		return false
 	}
 }

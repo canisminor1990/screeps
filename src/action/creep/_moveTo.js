@@ -1,4 +1,4 @@
-import { action, targetFormat, targetChanger } from "../../_util"
+import { action, targetFormat, targetChanger,debug  } from "../../_util"
 export default (creep, target, color = '#ffffff', noPathFinding = true) => {
 	const actionName = 'moveTo';
 	if (creep.fatigue > 0) return false;
@@ -31,7 +31,7 @@ export default (creep, target, color = '#ffffff', noPathFinding = true) => {
 			return true
 		}
 	} catch (e) {
-		console.log("# Error", actionName, e)
+		debug(e,actionName,creep, targetRaw)
 		return false
 	}
 }

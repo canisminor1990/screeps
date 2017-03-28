@@ -1,4 +1,5 @@
 import { findClosestByRange, findInRange } from '../'
+import {debug} from '../../_util'
 export default (creep, array, range = 0, opt) => {
 	try {
 		if (!array.length || array[0] == null) return false
@@ -7,7 +8,7 @@ export default (creep, array, range = 0, opt) => {
 		found = findClosestByRange(creep, found)
 		return found
 	} catch (e) {
-		console.log('# Error','findClosestInRange',e)
+		debug(e,'findClosestInRange',creep, array)
 		return false
 	}
 }
