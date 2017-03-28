@@ -5,6 +5,7 @@ export default (creep, array, opt) => {
 		if (opt) found.filter(opt);
 		return found
 	} catch (e) {
+		console.log('# Error', 'findClosestByRange', e)
 		return false
 	}
 }

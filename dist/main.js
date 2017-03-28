@@ -1813,6 +1813,7 @@ exports.default = function (creep, array, opt) {
 		if (opt) found.filter(opt);
 		return found;
 	} catch (e) {
+		console.log('# Error', 'findClosestByRange', e);
 		return false;
 	}
 };
@@ -1834,11 +1835,16 @@ exports.default = function (creep, array) {
 	var range = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 0;
 	var opt = arguments[3];
 
-	if (!array.length || array[0] == null) return false;
-	var found = (0, _.findInRange)(creep, array, range);
-	if (opt) found.filter(opt);
-	found = (0, _.findClosestByRange)(creep, found);
-	return found;
+	try {
+		if (!array.length || array[0] == null) return false;
+		var found = (0, _.findInRange)(creep, array, range);
+		if (opt) found.filter(opt);
+		found = (0, _.findClosestByRange)(creep, found);
+		return found;
+	} catch (e) {
+		console.log('# Error', 'findClosestInRange', e);
+		return false;
+	}
 };
 
 /***/ }),
@@ -1861,6 +1867,7 @@ exports.default = function (creep, array) {
 		if (opt) found.filter(opt);
 		return found;
 	} catch (e) {
+		console.log('# Error', 'findInRange', e);
 		return false;
 	}
 };
@@ -1880,14 +1887,18 @@ exports.default = function (creep) {
 	var type = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : LOOK_STRUCTURES;
 	var opt = arguments[2];
 
-	var found = creep.pos.lookFor(type);
-	if (opt) {
-		found.filter(function (opt) {
-			opt.structureType == opt;
-		});
+	try {
+		var found = creep.pos.lookFor(type);
+		if (opt) {
+			found.filter(function (opt) {
+				opt.structureType == opt;
+			});
+		}
+		return found && found.length > 0 ? found[0] : false;
+	} catch (e) {
+		console.log('# Error', 'lookFor', e);
+		return false;
 	}
-
-	return found && found.length > 0 ? found[0] : false;
 };
 
 /***/ }),

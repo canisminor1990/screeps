@@ -4,6 +4,7 @@ export default (creep, array, range = 0, opt) => {
 		if (opt) found.filter(opt);
 		return found
 	} catch (e) {
+		console.log('# Error','findInRange',e)
 		return false
 	}
 }
