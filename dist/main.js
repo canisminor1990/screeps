@@ -1334,18 +1334,18 @@ var _util = __webpack_require__(0);
 exports.default = function (creep, target) {
 	var type = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 'default';
 
-	if (!creep.memory.target) creep.memory.target = {};
-	if (!creep.memory.target[type]) creep.memory.target[type] = {};
 	try {
-		if (creep.memory.target[type] && creep.memory.target[type].id) return;
+		if (!creep.memory.target) creep.memory.target = {};
+		if (!creep.memory.target[type]) {
+			creep.memory.target[type] = {
+				id: target.id,
+				pos: target.pos,
+				time: Game.time
+			};
+		}
+		return false;
 	} catch (e) {
-		creep.memory.target[type] = {
-			id: target.id,
-			pos: target.pos,
-			time: Game.time
-		};
-		creep.say(_util.emoji.target);
-		return true;
+		return false;
 	}
 };
 
