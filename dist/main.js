@@ -3393,8 +3393,18 @@ exports.default = function (roomName, timeout) {
 		header: ['Storage', 'Spawn', 'Extension', 'CanUse', 'Creeps', 'Cpu', 'Bucket'],
 		body: [[_util.color.yellow(room.memory.structures.storage.store.energy), room.memory.structures.spawn.energy, extensionFull + '/' + extension.length, extensionFull * 50 + room.memory.structures.spawn.energy, Object.keys(Memory.creeps).length + '/' + configCreepNum, Math.floor(Game.cpu.getUsed()) + '/' + Game.cpu.limit, Game.cpu.bucket]]
 	};
+	//
+	var roleLog = {
+		header: [],
+		body: [[]]
+	};
 
-	console.log((0, _util.table)(gclLog), (0, _util.table)(energyLog));
+	room.memory.config.role.forEach(function (role) {
+		roleLog.header.push(role.role);
+		roleLog.body[0].push(Memory.global.creeps[role.role].length + '/' + role.number);
+	});
+
+	console.log((0, _util.table)(gclLog), (0, _util.table)(energyLog), (0, _util.table)(roleLog));
 };
 
 /***/ }),

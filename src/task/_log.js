@@ -48,8 +48,19 @@ export default (roomName, timeout) => {
 			]
 		]
 	}
+	//
+	let roleLog     = {
+		header: [],
+		body  : [[]]
+	}
 
-	console.log(table(gclLog), table(energyLog));
+	room.memory.config.role.forEach(role => {
+		roleLog.header.push(role.role);
+		roleLog.body[0].push(`${Memory.global.creeps[role.role].length}/${role.number}`)
+	})
+
+
+	console.log(table(gclLog), table(energyLog), table(roleLog));
 
 }
 
