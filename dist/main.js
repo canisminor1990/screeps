@@ -2908,7 +2908,7 @@ exports.default = function (creep, roomName) {
 	// task
 	if (!isFull) {
 		if ((0, _action.pickup)(creep, (0, _action.findInRange)(creep, creep.room.memory.dropped.energy, 3)[0])) return;
-		var store = creep.room.memory.flags.store[0];
+		var store = (0, _util.targetFormat)(creep.room.memory.flags.store);
 		if (store && (0, _action.withdraw)(creep, store, store.store.energy > 0)) return;
 		if ((0, _action.withdraw)(creep, creep.memory.target.withdraw)) return;
 	} else {
@@ -2949,7 +2949,7 @@ exports.default = function (creep, roomName) {
 		if ((0, _action.withdraw)(creep, creep.memory.target.withdraw)) return;
 	} else {
 		if (creep.pos.roomName == creep.memory.target.withdraw.pos.roomName) {
-			var store = creep.room.memory.flags.store[0];
+			var store = (0, _util.targetFormat)(creep.room.memory.flags.store);
 			if (store && (0, _action.transfer)(creep, store, store.store.energy < store.storeCapacity)) return;
 			var spawn = Memory.rooms[roomName].structures.spawn;
 			if (spawn && (0, _action.transfer)(creep, spawn, spawn.energy < spawn.energyCapacity)) return;
@@ -3021,7 +3021,7 @@ exports.default = function (creep, roomName) {
 	// task
 	if (!ifFull) {
 		if ((0, _action.pickup)(creep, (0, _action.findInRange)(creep, creep.room.memory.dropped.energy, 2)[0])) return;
-		var store = creep.room.memory.flags.store[0];
+		var store = (0, _util.targetFormat)(creep.room.memory.flags.store);
 		if (store && (0, _action.withdraw)(creep, store, store.store.energy > 0)) return;
 		if ((0, _action.withdraw)(creep, Memory.rooms[roomName].structures.spawn)) return;
 		if ((0, _action.withdraw)(creep, creep.memory.target.withdraw)) return;

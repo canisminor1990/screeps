@@ -1,4 +1,4 @@
-import { fullCheck, targetMaker, targetChanger } from '../_util'
+import { fullCheck, targetMaker, targetChanger ,targetFormat} from '../_util'
 import { withdraw, build, pickup, transfer, repair, findInRange, findClosestByRange } from '../action'
 export default (creep, roomName) => {
 	// state
@@ -9,7 +9,7 @@ export default (creep, roomName) => {
 	// task
 	if (!isFull) {
 		if (pickup(creep, findInRange(creep, creep.room.memory.dropped.energy, 3)[0])) return;
-		const store = creep.room.memory.flags.store[0];
+		const store = targetFormat(creep.room.memory.flags.store);
 		if (store && withdraw(creep, store, store.store.energy > 0))return;
 		if (withdraw(creep, creep.memory.target.withdraw))return;
 	} else {
