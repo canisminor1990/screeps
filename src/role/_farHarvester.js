@@ -11,7 +11,7 @@ export default (creep, roomName) => {
 		if (withdraw(creep, creep.memory.target.withdraw)) return
 	} else {
 		let spawn = Memory.rooms[roomName].structures.spawn
-		if (spawn && transfer(creep, spawn)) return;
+		if (spawn && transfer(creep, spawn,spawn.energy < spawn.energyCapacity)) return;
 		targetChanger(creep, Memory.rooms[roomName].structures.container[0], 'withdraw')
 		if (transfer(creep, Game.getObjectById('58d07b35bfeec6256575be5d'))) return;
 	}
