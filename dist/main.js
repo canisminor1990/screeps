@@ -2953,6 +2953,7 @@ exports.default = function (creep, roomName) {
 	// run
 	if (!isFull) {
 		if ((0, _action.pickup)(creep, (0, _action.findClosestInRange)(creep, creep.room.memory.dropped.energy, 4))) return;
+		console.log(creep.memory.target.withdraw.id);
 		if ((0, _action.withdraw)(creep, creep.memory.target.withdraw)) return;
 	} else {
 		if (creep.pos.roomName == creep.memory.target.withdraw.pos.roomName) {

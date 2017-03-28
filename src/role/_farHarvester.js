@@ -13,6 +13,7 @@ export default (creep, roomName) => {
 	// run
 	if (!isFull) {
 		if (pickup(creep, findClosestInRange(creep, creep.room.memory.dropped.energy, 4))) return;
+		console.log(creep.memory.target.withdraw.id)
 		if (withdraw(creep, creep.memory.target.withdraw)) return
 	} else {
 		if (creep.pos.roomName == creep.memory.target.withdraw.pos.roomName) {
