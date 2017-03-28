@@ -2970,7 +2970,7 @@ exports.default = function (creep, roomName) {
 		try {
 			var container = (0, _action.findInRange)(Game.getObjectById(creep.memory.target.harvest.id), creep.room.memory.structures.container, 2)[0];
 			if (container && !creep.pos.isEqualTo(container.pos) && (0, _action.moveTo)(creep, container)) return;
-			if ((0, _action.repair)(creep, container, target.hits < target.hitsMax)) return;
+			if ((0, _action.repair)(creep, container, container.hits < container.hitsMax)) return;
 			if ((0, _action.build)(creep, (0, _action.findInRange)(creep, creep.room.memory.structures.needBuild, 3)[0])) return;
 		} catch (e) {}
 	} else {
