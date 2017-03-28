@@ -1807,7 +1807,7 @@ Object.defineProperty(exports, "__esModule", {
 exports.default = function (creep, array, opt) {
 	if (!array.length || array[0] == null) return false;
 	var found = creep.pos.findClosestByRange(array);
-	if (opt) found.filter(opt);
+	if (opt && found && found.length > 0) found.filter(opt);
 	return found;
 };
 
