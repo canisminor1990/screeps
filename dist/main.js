@@ -2699,12 +2699,12 @@ var structure = _interopRequireWildcard(_structure);
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
 exports.default = function (roomArray) {
-	roomArray.forEach(function (room) {
-		room = Game.rooms[room];
+	roomArray.forEach(function (roomName) {
+		var room = Game.rooms[roomName];
 		if (room && room.memory) {
 			var structures = room.memory.structures;
 			var config = room.memory.config;
-			if (room == "W81S67" && structures.spawn) structure.spawn(structures.spawn, config);
+			if (roomName == "W81S67" && structures.spawn) structure.spawn(structures.spawn, config);
 			if (structures.link) structures.link.forEach(function (link) {
 				return structure.link(link);
 			});
@@ -3019,7 +3019,7 @@ exports.default = function (creep) {
 	// target
 	(0, _util.targetMaker)(creep, creep.room.memory.sources[0].source, 'harvest');
 	var harvestTarget = Game.getObjectById(creep.memory.target.harvest.id);
-	console.log(harvestTarget);
+
 	// task
 	if (isFull) {
 		try {
@@ -3029,9 +3029,7 @@ exports.default = function (creep) {
 			if ((0, _action.build)(creep, (0, _action.findInRange)(creep, creep.room.memory.structures.needBuild, 3)[0])) return;
 		} catch (e) {}
 	} else {
-		try {
-			if ((0, _action.pickup)(creep, (0, _action.findInRange)(creep, creep.room.memory.dropped.energy, 1)[0])) return;
-		} catch (e) {}
+		if ((0, _action.pickup)(creep, (0, _action.findInRange)(creep, creep.room.memory.dropped.energy, 1)[0])) return;
 	}
 	if ((0, _action.harvest)(creep, harvestTarget)) return;
 };

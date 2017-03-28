@@ -6,7 +6,7 @@ export default (creep) => {
 	// target
 	targetMaker(creep, creep.room.memory.sources[0].source, 'harvest')
 	const harvestTarget = Game.getObjectById(creep.memory.target.harvest.id)
-	console.log(harvestTarget)
+
 	// task
 	if (isFull) {
 		try {
@@ -16,9 +16,7 @@ export default (creep) => {
 			if (build(creep, findInRange(creep, creep.room.memory.structures.needBuild, 3)[0]))return;
 		} catch (e) {}
 	} else {
-		try {
 			if (pickup(creep, findInRange(creep, creep.room.memory.dropped.energy, 1)[0])) return;
-		} catch (e) {}
 	}
 	if (harvest(creep, harvestTarget)) return;
 }
