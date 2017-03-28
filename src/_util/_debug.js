@@ -1,6 +1,6 @@
 import { table } from './'
-export default (e, name, creep, target) => {
-	const error = {
+export default (e, name, creep, target,...other) => {
+	let  error = {
 		header: [`Error ${name} #${Game.time}`],
 		body  : [
 			[e],
@@ -8,5 +8,6 @@ export default (e, name, creep, target) => {
 			[`Target: ${target} Json:${JSON.stringify(target)}`]
 		]
 	}
+	error.body.push([...other])
 	console.log(table(error))
 }

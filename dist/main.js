@@ -1171,10 +1171,15 @@ Object.defineProperty(exports, "__esModule", {
 var _ = __webpack_require__(0);
 
 exports.default = function (e, name, creep, target) {
+	for (var _len = arguments.length, other = Array(_len > 4 ? _len - 4 : 0), _key = 4; _key < _len; _key++) {
+		other[_key - 4] = arguments[_key];
+	}
+
 	var error = {
 		header: ['Error ' + name + ' #' + Game.time],
 		body: [[e], ['Creep: ' + creep + ' Pos:' + JSON.stringify(creep.pos)], ['Target: ' + target + ' Json:' + JSON.stringify(target)]]
 	};
+	error.body.push([].concat(other));
 	console.log((0, _.table)(error));
 };
 
