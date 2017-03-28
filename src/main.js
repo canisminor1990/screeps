@@ -1,12 +1,12 @@
 import 'screeps-perf';
 import * as Manager from './manager'
 import * as Gui from './gui'
-import { timer } from  './_util'
+import { timer, color } from  './_util'
 import { log, trigger } from  './task'
 import profiler from 'screeps-profiler';
 const rooms = ['W81S67', 'W81S66', 'W82S67'];
 profiler.enable();
-console.log('# Coding Update!')
+console.log(color.grey('# Coding Update!'))
 trigger.install()
 
 // switch
