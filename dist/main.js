@@ -2988,8 +2988,8 @@ exports.default = function (creep) {
 	} else {
 		target = (0, _action.findClosestInRange)(creep, creep.room.memory.dropped.energy, 4);
 		if ((0, _action.pickup)(creep, target)) return;
-		target = Game.getObjectById('58d6a0f58f53422d7fea1d52');
-		// if (withdraw(creep, target, target.store.energy > 0))return;
+		target = (0, _action.findClosestInRange)(target, creep.room.memory.structures.container, 2);
+		if ((0, _action.withdraw)(creep, target, target.store.energy > 0)) return;
 	}
 };
 
@@ -3021,7 +3021,7 @@ exports.default = function (creep) {
 		if ((0, _action.repair)(creep, target, target.hits < target.hitsMax / 2)) return;
 		target = (0, _action.findInRange)(creep, creep.room.memory.structures.needBuild, 1)[1];
 		if ((0, _action.build)(creep, target)) return;
-	} else {}
+	}
 	if ((0, _action.harvest)(creep, harvestTarget)) return;
 };
 

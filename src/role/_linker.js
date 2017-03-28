@@ -11,7 +11,7 @@ export default (creep) => {
 	} else {
 		target = findClosestInRange(creep, creep.room.memory.dropped.energy, 4)
 		if (pickup(creep, target)) return;
-		target = Game.getObjectById('58d6a0f58f53422d7fea1d52')
-		// if (withdraw(creep, target, target.store.energy > 0))return;
+		target = findClosestInRange(target, creep.room.memory.structures.container, 2)
+		if (withdraw(creep, target, target.store.energy > 0))return;
 	}
 }

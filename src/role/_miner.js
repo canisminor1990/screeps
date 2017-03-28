@@ -13,8 +13,6 @@ export default (creep) => {
 		if (repair(creep, target, target.hits < target.hitsMax / 2)) return;
 		target = findInRange(creep, creep.room.memory.structures.needBuild, 1)[1];
 		if (build(creep, target))return;
-	} else {
-		
 	}
 	if (harvest(creep, harvestTarget)) return;
 }
