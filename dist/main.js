@@ -3385,16 +3385,20 @@ exports.default = function (roomName, timeout) {
 		if (ex.energy == ex.energyCapacity) extensionFull++;
 	});
 	var configCreepNum = 0,
-	    roleLog = {
+	    roleLog = [{
 		header: [],
 		body: [[]]
-	};
+	}, {
+		header: [],
+		body: [[]]
+	}];
 	room.memory.config.role.forEach(function (role) {
 		configCreepNum = configCreepNum + role.number;
 		var number = Memory.global.creeps[role.role];
+		var i = role.role.match('far') ? 1 : 0;
 		if (number) {
-			roleLog.header.push(role.role);
-			roleLog.body[0].push(number.length + '/' + role.number);
+			roleLog[i].header.push(role.role);
+			roleLog[i].body[0].push(number.length + '/' + role.number);
 		}
 	});
 	var energyLog = {
@@ -3402,7 +3406,7 @@ exports.default = function (roomName, timeout) {
 		body: [[_util.color.yellow(room.memory.structures.storage.store.energy), room.memory.structures.spawn.energy, extensionFull + '/' + extension.length, extensionFull * 50 + room.memory.structures.spawn.energy, Object.keys(Memory.creeps).length + '/' + configCreepNum, Math.floor(Game.cpu.getUsed()) + '/' + Game.cpu.limit, Game.cpu.bucket]]
 	};
 
-	console.log((0, _util.table)(gclLog), (0, _util.table)(energyLog), (0, _util.table)(roleLog));
+	console.log((0, _util.table)(gclLog), (0, _util.table)(energyLog), (0, _util.table)(roleLog[0]), (0, _util.table)(roleLog[1]));
 };
 
 /***/ }),

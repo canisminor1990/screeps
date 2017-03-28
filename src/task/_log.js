@@ -31,18 +31,25 @@ export default (roomName, timeout) => {
 	                  }
 	);
 	let configCreepNum = 0,
-	    roleLog        = {
-		    header: [],
-		    body  : [[]]
-	    };
+	    roleLog        = [
+		    {
+			    header: [],
+			    body  : [[]]
+		    }, {
+			    header: [],
+			    body  : [[]]
+		    }
+	    ];
 	room.memory.config.role.forEach(role => {
-		configCreepNum = configCreepNum + role.number;
-		let number = Memory.global.creeps[role.role]
-		if (number) {
-			roleLog.header.push(role.role);
-			roleLog.body[0].push(`${number.length}/${role.number}`)
-		}
-	})
+		                                configCreepNum = configCreepNum + role.number;
+		                                let number     = Memory.global.creeps[role.role]
+		                                let i          = (role.role.match('far')) ? 1 : 0
+		                                if (number) {
+			                                roleLog[i].header.push(role.role);
+			                                roleLog[i].body[0].push(`${number.length}/${role.number}`)
+		                                }
+	                                }
+	)
 	const energyLog = {
 		header: ['Storage', 'Spawn', 'Extension', 'CanUse', 'Creeps', 'Cpu', 'Bucket'],
 		body  : [
@@ -58,7 +65,7 @@ export default (roomName, timeout) => {
 		]
 	}
 
-	console.log(table(gclLog), table(energyLog), table(roleLog));
+	console.log(table(gclLog), table(energyLog), table(roleLog[0]), table(roleLog[1]));
 
 }
 
