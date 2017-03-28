@@ -4,8 +4,13 @@ export default (creep) => {
 	// memory
 	const isFull = fullCheck(creep)
 	// task
-	targetMaker(creep, creep.room.memory.structures.link.filter(link => link.id != creep.room.memory.config.linkMain)[0], 'transfer')
-	const link = Game.getObjectById(creep.memory.target.transfer.id)
+	let link;
+	try {
+		targetMaker(creep, creep.room.memory.structures.link.filter(link => link.id != creep.room.memory.config.linkMain)[0], 'transfer')
+		 link = Game.getObjectById(creep.memory.target.transfer.id)
+	} catch (e) {
+
+	}
 	// run
 	if (!isFull) {
 		if (pickup(creep, findInRange(creep, creep.room.memory.dropped.energy, 4)[0])) return;
