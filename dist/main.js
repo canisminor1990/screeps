@@ -1958,7 +1958,7 @@ exports.default = function (room) {
 	}, {
 		role: 'farBuilderSec',
 		body: { carry: 6, work: 2, move: 4 },
-		number: noEnemy['W82S67'].safe ? 2 : 0,
+		number: noEnemy['W82S67'].safe ? 1 : 0,
 		priority: 5
 	}, {
 		role: 'harvester',
