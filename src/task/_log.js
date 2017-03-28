@@ -30,7 +30,7 @@ export default (roomName, timeout) => {
 		                  if (ex.energy == ex.energyCapacity) extensionFull++
 	                  }
 	);
-	let configCreepNum;
+	let configCreepNum = 0;
 	room.memory.config.role.forEach(num => {
 		configCreepNum = configCreepNum + num.number
 	})

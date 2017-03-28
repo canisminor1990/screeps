@@ -3380,7 +3380,7 @@ exports.default = function (roomName, timeout) {
 	extension.forEach(function (ex) {
 		if (ex.energy == ex.energyCapacity) extensionFull++;
 	});
-	var configCreepNum = void 0;
+	var configCreepNum = 0;
 	room.memory.config.role.forEach(function (num) {
 		configCreepNum = configCreepNum + num.number;
 	});
