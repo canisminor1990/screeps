@@ -7,7 +7,7 @@ import profiler from 'screeps-profiler';
 const rooms = ['W81S67', 'W81S66', 'W82S67'];
 profiler.enable();
 console.log(color.grey('# Coding Update!'))
-trigger.install()
+// trigger.install()
 
 // switch
 const profilerEnabled = false;

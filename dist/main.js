@@ -3543,7 +3543,7 @@ function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj;
 var rooms = ['W81S67', 'W81S66', 'W82S67'];
 _screepsProfiler2.default.enable();
 console.log(_util.color.grey('# Coding Update!'));
-_task.trigger.install();
+// trigger.install()
 
 // switch
 var profilerEnabled = false;
