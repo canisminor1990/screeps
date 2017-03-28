@@ -2976,7 +2976,7 @@ exports.default = function (creep, roomName) {
 	// task
 	if (ifFull) {
 		try {
-			var container = (0, _action.findInRange)(Game.getObjectById(creep.memory.target.harvest.id), creep.room.memory.structures.container, 2)[0];
+			var container = (0, _action.findClosestInRange)(Game.getObjectById(creep.memory.target.harvest.id), creep.room.memory.structures.container, 2);
 			if (container && !creep.pos.isEqualTo(container.pos) && (0, _action.moveTo)(creep, container)) return;
 			var pos = creep.memory.target.harvest.pos;
 			if (!container && creep.isNearTo(pos.x, pos.y)) {
