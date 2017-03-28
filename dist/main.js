@@ -1335,6 +1335,7 @@ exports.default = function (creep, target) {
 	var type = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 'default';
 
 	if (!creep.memory.target) creep.memory.target = {};
+	if (!creep.memory.target[type]) creep.memory.target[type] = {};
 	try {
 		if (creep.memory.target[type] && creep.memory.target[type].id) return;
 	} catch (e) {
