@@ -35,7 +35,7 @@ export default  (room) => {
 		{
 			role    : 'farHarvesterSec',
 			body    : {carry: 8, move: 4},
-			number  : (noEnemy['W82S67'].safe) ? 5 : 0,
+			number  : (noEnemy['W82S67'].safe) ? 6 : 0,
 			priority: 5
 		},
 		{
@@ -46,7 +46,7 @@ export default  (room) => {
 		}, {
 			role    : 'farBuilderSec',
 			body    : {carry: 6, work: 2, move: 4},
-			number  : (noEnemy['W82S67'].safe) ? 1 : 0,
+			number  : (noEnemy['W82S67'].safe) ? 2 : 0,
 			priority: 5
 		},
 		{
