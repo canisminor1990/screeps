@@ -2978,17 +2978,13 @@ exports.default = function (creep) {
 	// memory
 	var isFull = (0, _util.fullCheck)(creep);
 	// task
-	var link = void 0;
-	try {
-		(0, _util.targetMaker)(creep, creep.room.memory.structures.link.filter(function (link) {
-			return link.id != creep.room.memory.config.linkMain;
-		})[0], 'transfer');
-		link = Game.getObjectById(creep.memory.target.transfer.id);
-	} catch (e) {}
+	var link = creep.room.memory.structures.link.filter(function (link) {
+		return link.id != creep.room.memory.config.linkMain;
+	})[0];
 	// run
 	if (!isFull) {
 		if ((0, _action.pickup)(creep, (0, _action.findInRange)(creep, creep.room.memory.dropped.energy, 4)[0])) return;
-		var container = (0, _action.findInRange)(creep.memory.target.withdraw, creep.room.memory.structures.container, 2)[0];
+		var container = (0, _action.findInRange)(link, creep.room.memory.structures.container, 2)[0];
 		if ((0, _action.withdraw)(creep, container, container && container.store.energy > 0)) return;
 	} else {
 		console.log(link);
@@ -3485,4 +3481,3 @@ module.exports.loop = function () {
 
 /***/ })
 /******/ ]);
-//# sourceMappingURL=main.js.map
