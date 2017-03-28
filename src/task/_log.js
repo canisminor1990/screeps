@@ -56,7 +56,7 @@ export default (roomName, timeout) => {
 
 	room.memory.config.role.forEach(role => {
 		roleLog.header.push(role.role);
-		roleLog.body[0].push(`${Memory.global.creeps[role.role].length}/${role.number}`)
+		roleLog.body[0].push(`${(Memory.global.creeps[role.role].length)?Memory.global.creeps[role.role].length:0}/${role.number}`)
 	})
 
 

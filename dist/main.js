@@ -3401,7 +3401,7 @@ exports.default = function (roomName, timeout) {
 
 	room.memory.config.role.forEach(function (role) {
 		roleLog.header.push(role.role);
-		roleLog.body[0].push(Memory.global.creeps[role.role].length + '/' + role.number);
+		roleLog.body[0].push((Memory.global.creeps[role.role].length ? Memory.global.creeps[role.role].length : 0) + '/' + role.number);
 	});
 
 	console.log((0, _util.table)(gclLog), (0, _util.table)(energyLog), (0, _util.table)(roleLog));
