@@ -7,7 +7,7 @@ export default (creep, roomName) => {
 	// target
 	let target;
 	if (store){
-		target =  _.first(_.filter(Memory.rooms[roomName].structures.container,container => container.id != store.id))
+		target =  _.first(_.filter(Memory.rooms[roomName].structures.container,container => container.id != '58da68e6b6335f86219c4717'))
 	} else{
 		target =  _.first(Memory.rooms[roomName].structures.container)
 	}

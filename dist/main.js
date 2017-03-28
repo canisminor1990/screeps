@@ -2946,7 +2946,7 @@ exports.default = function (creep, roomName) {
 	var target = void 0;
 	if (store) {
 		target = _.first(_.filter(Memory.rooms[roomName].structures.container, function (container) {
-			return container.id != store.id;
+			return container.id != '58da68e6b6335f86219c4717';
 		}));
 	} else {
 		target = _.first(Memory.rooms[roomName].structures.container);
