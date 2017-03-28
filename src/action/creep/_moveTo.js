@@ -4,12 +4,15 @@ export default (creep, target, color = '#ffffff', noPathFinding = true) => {
 	if (creep.fatigue > 0) return false;
 	try {
 		if (target instanceof Array) target = target[0];
-		if (target.pos.roomName != creep.pos.roomName) {
-			target        = new RoomPosition(target.pos.x, target.pos.y, target.pos.roomName);
-			noPathFinding = false;
-		}
-		else {
-			target = targetFormat(target);
+		try {
+			if (target.pos.roomName != creep.pos.roomName) {
+				target        = new RoomPosition(target.pos.x, target.pos.y, target.pos.roomName);
+				noPathFinding = false;
+			} else {
+				target = targetFormat(target);
+			}
+		} catch (e) {
+			return false
 		}
 		targetChanger(creep, target, actionName)
 		const opt = {

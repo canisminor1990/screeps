@@ -1573,11 +1573,15 @@ exports.default = function (creep, target) {
 	if (creep.fatigue > 0) return false;
 	try {
 		if (target instanceof Array) target = target[0];
-		if (target.pos.roomName != creep.pos.roomName) {
-			target = new RoomPosition(target.pos.x, target.pos.y, target.pos.roomName);
-			noPathFinding = false;
-		} else {
-			target = (0, _util.targetFormat)(target);
+		try {
+			if (target.pos.roomName != creep.pos.roomName) {
+				target = new RoomPosition(target.pos.x, target.pos.y, target.pos.roomName);
+				noPathFinding = false;
+			} else {
+				target = (0, _util.targetFormat)(target);
+			}
+		} catch (e) {
+			return false;
 		}
 		(0, _util.targetChanger)(creep, target, actionName);
 		var opt = {
