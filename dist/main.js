@@ -1228,6 +1228,7 @@ Object.defineProperty(exports, "__esModule", {
 exports.default = function (creep) {
 	if (!creep.memory.full && creep.carry.energy == creep.carryCapacity) creep.memory.full = true;
 	if (creep.memory.full && creep.carry.energy == 0) creep.memory.full = false;
+	return creep.memory.full;
 };
 
 /***/ }),
@@ -2904,18 +2905,17 @@ var _action = __webpack_require__(1);
 exports.default = function (creep, roomName) {
 	var target = void 0;
 	// memory
-	(0, _util.isFull)(creep);
-	(0, _util.targetMaker)(creep, Memory.rooms[roomName].structures.container[0], 'withdraw');
-
+	var ifFull = (0, _util.isFull)(creep);
+	(0, _util.targetMaker)(creep, Memory.rooms[roomName].structures.container[0], 'withdraw')
 	// run
-	if (!creep.memory.full) {
+	(!ifFull) ? function () {
 		if ((0, _action.pickup)(creep, (0, _action.findClosestInRange)(creep, creep.room.memory.dropped.energy, 4))) return;
 		if ((0, _action.withdraw)(creep, Memory.rooms[roomName].structures.spawn)) return;
 		if ((0, _action.withdraw)(creep, creep.memory.target.withdraw)) return;
-	} else {
+	} : function () {
 		(0, _util.targetChange)(creep, Memory.rooms[roomName].structures.container[0], 'withdraw');
 		if ((0, _action.upgradeController)(creep, creep.room.controller)) return;
-	}
+	};
 };
 
 /***/ }),

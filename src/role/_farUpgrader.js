@@ -3,16 +3,17 @@ import { findClosestInRange, findClosestByRange, build, pickup, withdraw, upgrad
 export default (creep, roomName) => {
 	let target;
 	// memory
-	isFull(creep);
+	const ifFull = isFull(creep);
 	targetMaker(creep, Memory.rooms[roomName].structures.container[0], 'withdraw')
-
 	// run
-	if (!creep.memory.full) {
-		if (pickup(creep, findClosestInRange(creep, creep.room.memory.dropped.energy, 4))) return;
-		if (withdraw(creep, Memory.rooms[roomName].structures.spawn)) return;
-		if (withdraw(creep, creep.memory.target.withdraw)) return;
-	} else {
-		targetChange(creep, Memory.rooms[roomName].structures.container[0], 'withdraw')
-		if (upgradeController(creep, creep.room.controller)) return;
-	}
+	(!ifFull)
+		? () => {
+			if (pickup(creep, findClosestInRange(creep, creep.room.memory.dropped.energy, 4))) return;
+			if (withdraw(creep, Memory.rooms[roomName].structures.spawn)) return;
+			if (withdraw(creep, creep.memory.target.withdraw)) return;
+		}
+		: () => {
+			targetChange(creep, Memory.rooms[roomName].structures.container[0], 'withdraw')
+			if (upgradeController(creep, creep.room.controller)) return;
+		}
 }
