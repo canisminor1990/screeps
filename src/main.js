@@ -11,9 +11,7 @@ trigger.install()
 
 // switch
 const profilerEnabled = false;
-Game.prototype.cmtest = () => {
-	console.log('test')
-}
+
 // main
 const main = () => {
 	if (Game.cpu.bucket < 2 * Game.cpu.tickLimit) {
