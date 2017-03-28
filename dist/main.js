@@ -2869,7 +2869,7 @@ exports.default = function (creep, roomName) {
 	var target = void 0;
 	var ifFull = (0, _util.isFull)(creep);
 	//
-	(0, _util.targetChanger)(creep, Memory.rooms[roomName].sources[0].source, 'harvest');
+	(0, _util.targetMaker)(creep, Memory.rooms[roomName].sources[0].source, 'harvest');
 	//
 	if (ifFull) {
 		try {

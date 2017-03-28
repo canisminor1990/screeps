@@ -1,10 +1,10 @@
 import { moveTo, harvest, repair, build, findInRange, pickup } from '../action'
-import { isFull, targetChanger } from '../_util'
+import { isFull, targetMaker } from '../_util'
 export default (creep, roomName) => {
 	let target;
 	const ifFull = isFull(creep);
 	//
-	targetChanger(creep, Memory.rooms[roomName].sources[0].source, 'harvest')
+	targetMaker(creep, Memory.rooms[roomName].sources[0].source, 'harvest')
 	//
 	if (ifFull) {
 		try {
