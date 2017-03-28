@@ -3244,6 +3244,7 @@ exports.default = function (spawn, configRole) {
 			align: 'left',
 			stroke: '#111111',
 			color: '#ffffff',
+			font: 0.5,
 			background: 'rgba(0,0,0,.5)'
 		});
 		return;
