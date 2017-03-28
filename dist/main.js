@@ -1948,7 +1948,7 @@ exports.default = function (room) {
 	}, {
 		role: 'farHarvesterSec',
 		body: { carry: 8, move: 4 },
-		number: noEnemy['W82S67'].safe ? 4 : 0,
+		number: noEnemy['W82S67'].safe ? 5 : 0,
 		priority: 5
 	}, {
 		role: 'farBuilder',
@@ -2720,7 +2720,7 @@ exports.default = function (roomArray) {
 		if (room && room.memory) {
 			var structures = room.memory.structures;
 			var config = room.memory.config;
-			if (roomName == "W81S67" && structures.spawn) structure.spawn(structures.spawn, config);
+			if (roomName == "W81S67" && structures.spawn) structure.spawn(structures.spawn, config.role);
 			if (structures.link) structures.link.forEach(function (link) {
 				return structure.link(link);
 			});
@@ -3231,7 +3231,7 @@ Object.defineProperty(exports, "__esModule", {
 
 var _util = __webpack_require__(0);
 
-exports.default = function (spawn, config) {
+exports.default = function (spawn, configRole) {
 	var target = spawn.pos.findInRange(spawn.room.memory.creeps.my.attacker, 1);
 	if (target && target.length > 0) {
 		console.log(spawn.recycleCreep(target[0]));
@@ -3248,7 +3248,7 @@ exports.default = function (spawn, config) {
 		return;
 	}
 	if ((0, _util.timer)(2)) {
-		var roleFactory = config.role;
+		var roleFactory = configRole;
 		var priority = false;
 		roleFactory.forEach(function (roleType) {
 			var roleName = roleType.role;

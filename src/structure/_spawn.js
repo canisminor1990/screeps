@@ -1,5 +1,5 @@
 import { emoji, timer } from '../_util'
-export default (spawn, config) => {
+export default (spawn, configRole) => {
 	let target = spawn.pos.findInRange(spawn.room.memory.creeps.my.attacker, 1)
 	if (target && target.length > 0) {
 		console.log(spawn.recycleCreep(target[0]))
@@ -25,7 +25,7 @@ export default (spawn, config) => {
 		return;
 	}
 	if (timer(2)) {
-		const roleFactory = config.role
+		const roleFactory = configRole
 		let priority      = false;
 		roleFactory.forEach(roleType => {
 			const roleName    = roleType.role;
