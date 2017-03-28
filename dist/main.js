@@ -1282,6 +1282,7 @@ var _util = __webpack_require__(0);
 exports.default = function (creep, target) {
 	var type = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 'default';
 
+	console.log(creep);
 	target = (0, _util.targetFormat)(target);
 	try {
 		if (creep.memory.target[type].id == target.id) return true;
@@ -2380,7 +2381,6 @@ exports.default = function (room) {
 		    targetCreep = Game.getObjectById(targetSource.miner.sort(function (a, b) {
 			return b.ticksToLive - a.ticksToLive;
 		})[0].id);
-		console.log(targetCreep);
 		(0, _util.targetChange)(targetCreep, sources[0].source, 'harvest');
 	}
 	return sources;
