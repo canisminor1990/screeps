@@ -2856,12 +2856,12 @@ var _action = __webpack_require__(1);
 
 exports.default = function (creep, roomName) {
 	// state
-	var isFull = isFull(creep);
+	var ifFull = (0, _util.isFull)(creep);
 	// target
 	(0, _util.targetMaker)(creep, Memory.rooms[roomName].structures.container[0], 'withdraw');
 	if (creep.pos.roomName != creep.memory.target.withdraw.pos.roomName) (0, _util.targetChanger)(creep, Memory.rooms[roomName].structures.container[0], 'withdraw');
 	// run
-	if (!isFull) {
+	if (!ifFull) {
 		if ((0, _action.pickup)(creep, (0, _action.findClosestInRange)(creep, creep.room.memory.dropped.energy, 4))) return;
 		if ((0, _action.withdraw)(creep, creep.memory.target.withdraw)) return;
 	} else {
