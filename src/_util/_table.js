@@ -15,5 +15,5 @@ export default (content) => {
 		row.forEach(col => tableCol += `<td style="border:1px solid #444;padding:4px 8px">${col}</td>`)
 		tableBody += `<tr style="border:1px solid #444" >${tableCol}</tr>`
 	})
-	return `<table style="border:1px solid #444">${tableHeader}${tableBody}</table>`
+	return `<table style="border:1px solid #444;width: 100%;">${tableHeader}${tableBody}</table>`
 }

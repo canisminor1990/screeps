@@ -1264,7 +1264,7 @@ exports.default = function (content) {
 		});
 		tableBody += "<tr style=\"border:1px solid #444\" >" + tableCol + "</tr>";
 	});
-	return "<table style=\"border:1px solid #444\">" + tableHeader + tableBody + "</table>";
+	return "<table style=\"border:1px solid #444;width: 100%;\">" + tableHeader + tableBody + "</table>";
 };
 
 /***/ }),
