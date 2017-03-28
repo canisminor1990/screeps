@@ -1285,6 +1285,7 @@ exports.default = function (creep, target) {
 
 	try {
 		target = (0, _util.targetFormat)(target);
+		if (!target.pos) return false;
 		if (creep.memory.target[type].id == target.id) return true;
 		creep.memory.target[type] = {
 			id: target.id,
@@ -1335,6 +1336,8 @@ exports.default = function (creep, target) {
 	var type = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 'default';
 
 	try {
+		target = (0, _util.targetFormat)(target);
+		if (!target.pos) return false;
 		if (!creep.memory.target) creep.memory.target = {};
 		if (!creep.memory.target[type] || !creep.memory.target[type].id) {
 			creep.memory.target[type] = {
@@ -1343,7 +1346,8 @@ exports.default = function (creep, target) {
 				time: Game.time
 			};
 		}
-		return false;
+		creep.say(_util.emoji.target);
+		return true;
 	} catch (e) {
 		return false;
 	}

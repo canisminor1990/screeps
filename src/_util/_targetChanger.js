@@ -3,6 +3,7 @@ import { targetFormat, targetMaker } from '../_util'
 export default (creep, target, type = 'default') => {
 	try {
 		target = targetFormat(target)
+		if (!target.pos) return false;
 		if (creep.memory.target[type].id == target.id) return true;
 		creep.memory.target[type] = {
 			id  : target.id,
