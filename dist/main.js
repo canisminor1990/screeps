@@ -2941,20 +2941,28 @@ var _action = __webpack_require__(1);
 exports.default = function (creep, roomName) {
 	// state
 	var isFull = (0, _util.fullCheck)(creep);
+	var store = (0, _util.targetFormat)(creep.room.memory.flags.store);
 	// target
-	(0, _util.targetMaker)(creep, _.first(Memory.rooms[roomName].structures.container), 'withdraw');
+	var target = void 0;
+	if (store) {
+		target = _.first(_.filter(Memory.rooms[roomName].structures.container, function (container) {
+			return container.id != store.id;
+		}));
+	} else {
+		target = _.first(Memory.rooms[roomName].structures.container);
+	}
+	(0, _util.targetMaker)(creep, target, 'withdraw');
 	// run
 	if (!isFull) {
 		if ((0, _action.pickup)(creep, (0, _action.findClosestInRange)(creep, creep.room.memory.dropped.energy, 4))) return;
 		if ((0, _action.withdraw)(creep, creep.memory.target.withdraw)) return;
 	} else {
 		if (creep.pos.roomName == creep.memory.target.withdraw.pos.roomName) {
-			var store = (0, _util.targetFormat)(creep.room.memory.flags.store);
 			if (store && (0, _action.transfer)(creep, store, store.store.energy < store.storeCapacity)) return;
 			var spawn = Memory.rooms[roomName].structures.spawn;
 			if (spawn && (0, _action.transfer)(creep, spawn, spawn.energy < spawn.energyCapacity)) return;
 		} else {
-			(0, _util.targetChanger)(creep, _.first(Memory.rooms[roomName].structures.container), 'withdraw');
+			(0, _util.targetChanger)(creep, target, 'withdraw');
 		}
 		if ((0, _action.transfer)(creep, Game.getObjectById('58d07b35bfeec6256575be5d'))) return;
 	}
