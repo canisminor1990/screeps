@@ -2981,7 +2981,7 @@ exports.default = function (creep) {
 	(0, _util.targetMaker)(creep, creep.room.memory.structures.link.filter(function (link) {
 		return link.id != creep.room.memory.config.linkMain;
 	})[0], 'withdraw');
-	var link = Game.getObjectById(creep.memory.target.withdraw);
+	var link = Game.getObjectById(creep.memory.target.withdraw.id);
 	// run
 	if (!isFull) {
 		if ((0, _action.pickup)(creep, (0, _action.findInRange)(creep, creep.room.memory.dropped.energy, 4)[0])) return;
