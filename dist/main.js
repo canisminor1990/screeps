@@ -2703,7 +2703,7 @@ exports.default = function (roomArrary) {
 					role.farUpgrader(creep, roomArrary[2]);
 					break;
 				case 'attacker':
-					role.attacker(creep, newRoom);
+					role.attacker(creep, roomArrary[1]);
 					break;
 			}
 		}
@@ -2786,9 +2786,12 @@ Object.defineProperty(exports, "__esModule", {
 
 var _action = __webpack_require__(1);
 
-exports.default = function (creep) {
-
-	(0, _action.attack)(creep, (0, _action.findClosestByRange)(Memory.rooms['W81S66'].creeps.enemy));
+exports.default = function (creep, roomName) {
+	if (creep.room.name != roomName) {
+		(0, _action.moveTo)(creep, Memory.rooms[roomName].creeps.enemy[0]);
+	} else {
+		(0, _action.attack)(creep, (0, _action.findClosestByRange)(creep.room.memory.creeps.enemy));
+	}
 };
 
 /***/ }),
@@ -3279,10 +3282,11 @@ Object.defineProperty(exports, "__esModule", {
 var _util = __webpack_require__(0);
 
 exports.default = function (spawn, configRole) {
-	var target = spawn.pos.findInRange(spawn.room.memory.creeps.my.attacker, 1);
-	if (target && target.length > 0) {
-		console.log(spawn.recycleCreep(target[0]));
-	}
+	// let target = spawn.pos.findInRange(spawn.room.memory.creeps.my.attacker, 1)
+	// if (target && target.length > 0) {
+	// 	console.log(spawn.recycleCreep(target[0]))
+	//
+	// }
 	if (spawn.spawning) {
 		var percent = Math.round((1 - spawn.spawning.remainingTime / spawn.spawning.needTime) * 100),
 		    text = [_util.emoji.build, spawn.spawning.name.split('#')[0], '(' + percent + '%)'].join(' ');

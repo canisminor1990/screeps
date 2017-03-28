@@ -1,10 +1,10 @@
 import { emoji, timer } from '../_util'
 export default (spawn, configRole) => {
-	let target = spawn.pos.findInRange(spawn.room.memory.creeps.my.attacker, 1)
-	if (target && target.length > 0) {
-		console.log(spawn.recycleCreep(target[0]))
-
-	}
+	// let target = spawn.pos.findInRange(spawn.room.memory.creeps.my.attacker, 1)
+	// if (target && target.length > 0) {
+	// 	console.log(spawn.recycleCreep(target[0]))
+	//
+	// }
 	if (spawn.spawning) {
 		const percent = Math.round((1 - spawn.spawning.remainingTime / spawn.spawning.needTime) * 100),
 		      text    = [

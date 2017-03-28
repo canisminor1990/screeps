@@ -54,7 +54,7 @@ export default (roomArrary) => {
 						role.farUpgrader(creep, roomArrary[2])
 						break;
 					case 'attacker':
-						role.attacker(creep, newRoom)
+						role.attacker(creep, roomArrary[1])
 						break;
 				}
 			}
