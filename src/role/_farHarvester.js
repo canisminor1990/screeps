@@ -7,14 +7,14 @@ export default (creep, roomName) => {
 	// target
 	let target;
 
-		target =  _.first(_.filter(Memory.rooms[roomName].structures.container,container => container.id != '58da68e6b6335f86219c4717'))
+		target =  _.filter(Memory.rooms[roomName].structures.container,container => container.id != '58da68e6b6335f86219c4717')[0]
 
 	targetMaker(creep,target, 'withdraw')
 	// run
 	if (!isFull) {
 		if (pickup(creep, findClosestInRange(creep, creep.room.memory.dropped.energy, 4))) return;
-		console.log(creep.memory.target.withdraw.id)
-		if (withdraw(creep, creep.memory.target.withdraw)) return
+		
+		if (withdraw(creep, target)) return
 	} else {
 		if (creep.pos.roomName == creep.memory.target.withdraw.pos.roomName) {
 			if (store && transfer(creep, store, store.store.energy < store.storeCapacity))return;

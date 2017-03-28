@@ -2945,16 +2945,16 @@ exports.default = function (creep, roomName) {
 	// target
 	var target = void 0;
 
-	target = _.first(_.filter(Memory.rooms[roomName].structures.container, function (container) {
+	target = _.filter(Memory.rooms[roomName].structures.container, function (container) {
 		return container.id != '58da68e6b6335f86219c4717';
-	}));
+	})[0];
 
 	(0, _util.targetMaker)(creep, target, 'withdraw');
 	// run
 	if (!isFull) {
 		if ((0, _action.pickup)(creep, (0, _action.findClosestInRange)(creep, creep.room.memory.dropped.energy, 4))) return;
-		console.log(creep.memory.target.withdraw.id);
-		if ((0, _action.withdraw)(creep, creep.memory.target.withdraw)) return;
+
+		if ((0, _action.withdraw)(creep, target)) return;
 	} else {
 		if (creep.pos.roomName == creep.memory.target.withdraw.pos.roomName) {
 			if (store && (0, _action.transfer)(creep, store, store.store.energy < store.storeCapacity)) return;
