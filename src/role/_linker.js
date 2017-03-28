@@ -12,6 +12,7 @@ export default (creep) => {
 		target = findClosestInRange(creep, creep.room.memory.dropped.energy, 4)
 		if (pickup(creep, target)) return;
 		target = findClosestInRange(target, creep.room.memory.structures.container, 2)
+		if(!target) return;
 		if (withdraw(creep, target, target.store.energy > 0))return;
 	}
 }

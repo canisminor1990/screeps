@@ -2989,6 +2989,7 @@ exports.default = function (creep) {
 		target = (0, _action.findClosestInRange)(creep, creep.room.memory.dropped.energy, 4);
 		if ((0, _action.pickup)(creep, target)) return;
 		target = (0, _action.findClosestInRange)(target, creep.room.memory.structures.container, 2);
+		if (!target) return;
 		if ((0, _action.withdraw)(creep, target, target.store.energy > 0)) return;
 	}
 };
