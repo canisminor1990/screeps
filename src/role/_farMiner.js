@@ -17,6 +17,6 @@ export default (creep, roomName) => {
 
 		}
 	}
-	if (pickup(creep, findInRange(creep, creep.room.memory.dropped.energy, 2)[0])) return;
+
 	if (harvest(creep, creep.memory.target.harvest)) return;
 }
