@@ -11,10 +11,9 @@ import {
 } from '../action'
 
 export default (creep) => {
-	let target;
-	// memory
+	// state
 	const isFull = fullCheck(creep)
-	// run
+	// task
 	if (isFull) {
 		if (build(creep, findClosestByRange(creep, creep.room.memory.structures.needBuild)))return;
 		if (repair(creep, findClosestByRange(creep, creep.room.memory.structures.needFix))) return;

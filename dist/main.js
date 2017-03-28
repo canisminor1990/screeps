@@ -1400,6 +1400,9 @@ var _util = __webpack_require__(0);
 var _ = __webpack_require__(1);
 
 exports.default = function (creep, targetRaw) {
+	var check = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : true;
+
+	if (!check) return;
 	var actionName = 'attack';
 	try {
 		var target = (0, _util.targetFormat)(targetRaw);
@@ -1428,6 +1431,9 @@ var _util = __webpack_require__(0);
 var _ = __webpack_require__(1);
 
 exports.default = function (creep, targetRaw) {
+	var check = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : true;
+
+	if (!check) return;
 	var actionName = 'build';
 	try {
 		var target = (0, _util.targetFormat)(targetRaw);
@@ -1456,6 +1462,9 @@ var _util = __webpack_require__(0);
 var _ = __webpack_require__(1);
 
 exports.default = function (creep, targetRaw) {
+	var check = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : true;
+
+	if (!check) return;
 	var actionName = 'reserveController';
 	try {
 		var target = (0, _util.targetFormat)(targetRaw);
@@ -1484,6 +1493,9 @@ var _util = __webpack_require__(0);
 var _ = __webpack_require__(1);
 
 exports.default = function (creep, targetRaw) {
+	var check = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : true;
+
+	if (!check) return;
 	var actionName = 'dismantle';
 	try {
 		var target = (0, _util.targetFormat)(targetRaw);
@@ -1512,6 +1524,9 @@ var _util = __webpack_require__(0);
 var _ = __webpack_require__(1);
 
 exports.default = function (creep, targetRaw) {
+	var check = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : true;
+
+	if (!check) return;
 	var actionName = 'harvest';
 	try {
 		var target = (0, _util.targetFormat)(targetRaw);
@@ -1540,6 +1555,9 @@ var _util = __webpack_require__(0);
 var _ = __webpack_require__(1);
 
 exports.default = function (creep, targetRaw) {
+	var check = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : true;
+
+	if (!check) return;
 	var actionName = 'heal';
 	try {
 		var target = (0, _util.targetFormat)(targetRaw);
@@ -1634,6 +1652,9 @@ var _util = __webpack_require__(0);
 var _ = __webpack_require__(1);
 
 exports.default = function (creep, targetRaw) {
+	var check = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : true;
+
+	if (!check) return;
 	var actionName = 'pickup';
 	try {
 		var target = (0, _util.targetFormat)(targetRaw);
@@ -1662,6 +1683,9 @@ var _util = __webpack_require__(0);
 var _ = __webpack_require__(1);
 
 exports.default = function (creep, targetRaw) {
+	var check = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : true;
+
+	if (!check) return;
 	var actionName = 'repair';
 	try {
 		var target = (0, _util.targetFormat)(targetRaw);
@@ -1690,9 +1714,10 @@ var _util = __webpack_require__(0);
 var _ = __webpack_require__(1);
 
 exports.default = function (creep, targetRaw) {
-	var opt = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : true;
+	var check = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : true;
 	var type = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : RESOURCE_ENERGY;
 
+	if (!check) return;
 	var actionName = 'transfer';
 	try {
 		var target = (0, _util.targetFormat)(targetRaw);
@@ -1721,6 +1746,9 @@ var _util = __webpack_require__(0);
 var _ = __webpack_require__(1);
 
 exports.default = function (creep, targetRaw) {
+	var check = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : true;
+
+	if (!check) return;
 	var actionName = 'upgradeController';
 	try {
 		var target = (0, _util.targetFormat)(targetRaw);
@@ -1749,9 +1777,10 @@ var _util = __webpack_require__(0);
 var _ = __webpack_require__(1);
 
 exports.default = function (creep, targetRaw) {
-	var opt = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : true;
+	var check = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : true;
 	var type = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : RESOURCE_ENERGY;
 
+	if (!check) return;
 	var actionName = 'withdraw';
 	try {
 		var target = (0, _util.targetFormat)(targetRaw);
@@ -2709,10 +2738,9 @@ var _util = __webpack_require__(0);
 var _action = __webpack_require__(1);
 
 exports.default = function (creep) {
-	var target = void 0;
-	// memory
+	// state
 	var isFull = (0, _util.fullCheck)(creep);
-	// run
+	// task
 	if (isFull) {
 		if ((0, _action.build)(creep, (0, _action.findClosestByRange)(creep, creep.room.memory.structures.needBuild))) return;
 		if ((0, _action.repair)(creep, (0, _action.findClosestByRange)(creep, creep.room.memory.structures.needFix))) return;
@@ -2740,8 +2768,9 @@ var _action = __webpack_require__(1);
 var _util = __webpack_require__(0);
 
 exports.default = function (creep, roomName) {
-	//
+	// target
 	(0, _util.targetMaker)(creep, Memory.rooms[roomName].structures.controller, 'claim');
+	// task
 	if ((0, _action.claimController)(creep, creep.memory.target.claim)) return;
 };
 
@@ -2761,36 +2790,22 @@ var _util = __webpack_require__(0);
 var _action = __webpack_require__(1);
 
 exports.default = function (creep) {
-	var target = void 0;
-	if (creep.room.name !== 'W81S67') {
-		(0, _action.moveTo)(creep, Game.spawns['Spawn1']);
-		return;
-	}
-	// memory
-	(0, _util.fullCheck)(creep);
-	// run
+	// state
+	var isFull = (0, _util.fullCheck)(creep);
 	var needFill = creep.room.memory.structures.needFill;
-	if (!creep.memory.full) {
-		target = Game.getObjectById(creep.room.memory.config.linkMain);
-		if ((0, _action.withdraw)(creep, target, target.energy > 0)) return;
-		if (!needFill || needFill.length == 0) {
-			target = (0, _action.findClosestByRange)(creep, creep.room.memory.dropped.energy);
-			if ((0, _action.pickup)(creep, target)) return;
-		}
-		target = creep.room.storage;
-		if ((0, _action.withdraw)(creep, target)) return;
+	// task
+	if (!isFull) {
+		var linkMain = Game.getObjectById(creep.room.memory.config.linkMain);
+		if ((0, _action.withdraw)(creep, linkMain, linkMain.energy > 0)) return;
+		if ((0, _action.pickup)(creep, (0, _action.findClosestByRange)(creep, creep.room.memory.dropped.energy, !needFill || needFill.length == 0))) return;
+		if ((0, _action.withdraw)(creep, creep.room.storage)) return;
 	} else {
-		target = creep.pos.findClosestByRange(needFill);
-		if ((0, _action.transfer)(creep, target)) return;
-		target = creep.room.memory.structures.tower.sort(function (a, b) {
+		if ((0, _action.transfer)(creep, creep.pos.findClosestByRange(needFill))) return;
+		var tower = creep.room.memory.structures.tower.sort(function (a, b) {
 			return a.energy - b.energy;
 		})[0];
-		if (target && target.energy == target.energyCapacity) {
-			target = creep.room.storage;
-			if ((0, _action.transfer)(creep, target)) return;
-		} else {
-			if ((0, _action.transfer)(creep, target)) return;
-		}
+		if ((0, _action.transfer)(creep, tower, tower.energy < tower.energyCapacity)) return;
+		if ((0, _action.transfer)(creep, creep.room.storage)) return;
 	}
 };
 
