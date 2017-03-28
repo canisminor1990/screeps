@@ -2380,6 +2380,7 @@ exports.default = function (room) {
 		    targetCreep = Game.getObjectById(targetSource.miner.sort(function (a, b) {
 			return b.ticksToLive - a.ticksToLive;
 		})[0].id);
+		console.log(targetCreep, sources[0].source);
 		(0, _util.targetChange)(targetCreep, sources[0].source, 'harvest');
 	}
 	return sources;
