@@ -1025,6 +1025,7 @@ exports.default = function (creep, target, fc) {
 			creep.say(text + "RESOURCES");
 			break;
 		case ERR_INVALID_TARGET:
+			if (creep.memory.role.match('iner')) (0, _action.moveTo)(creep, target, color);
 			creep.say(text + _util.emoji.move);
 			break;
 		case ERR_FULL:

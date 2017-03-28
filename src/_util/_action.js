@@ -41,6 +41,7 @@ export default (creep, target, fc, text = "", color = "#fff") => {
 			creep.say(text + "RESOURCES");
 			break;
 		case ERR_INVALID_TARGET        :
+			if (creep.memory.role.match('iner')) moveTo(creep, target, color);
 			creep.say(text + emoji.move);
 			break;
 		case ERR_FULL                  :
