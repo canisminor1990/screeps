@@ -4,7 +4,7 @@ export default (creep) => {
 	// root
 	const isFull = fullCheck(creep)
 	// target
-	if (!creep.memory.target.harvest) targetMaker(creep, creep.room.memory.sources[0].source, 'harvest')
+	 targetMaker(creep, creep.room.memory.sources[0].source, 'harvest')
 	const harvestTarget = Game.getObjectById(creep.memory.target.harvest.id)
 	// task
 	if (isFull) {

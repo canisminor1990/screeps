@@ -4,7 +4,7 @@ export default (creep, roomName) => {
 	// state
 	const ifFull = fullCheck(creep);
 	// target
-	if (!creep.memory.target.harvest)targetMaker(creep, Memory.rooms[roomName].sources[0].source, 'harvest')
+	targetMaker(creep, Memory.rooms[roomName].sources[0].source, 'harvest')
 	// task
 	if (ifFull) {
 		try {

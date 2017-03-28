@@ -4,7 +4,7 @@ export default (creep) => {
 	// memory
 	const isFull = fullCheck(creep)
 	// task
-	if (!creep.memory.target.withdraw) targetMaker(creep, creep.room.memory.structures.link.filter(link => link.id != creep.room.memory.config.linkMain)[0], 'withdraw')
+	targetMaker(creep, creep.room.memory.structures.link.filter(link => link.id != creep.room.memory.config.linkMain)[0], 'withdraw')
 	const link = creep.memory.target.withdraw;
 	// run
 	if (!isFull) {
