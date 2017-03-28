@@ -65,7 +65,7 @@ export default (roomName, timeout) => {
 		]
 	}
 
-	console.log(table(gclLog), table(energyLog), table(roleLog[0]), table(roleLog[1]));
+	console.log(`# ${Game.time}`, table(gclLog), table(energyLog), table(roleLog[0]), table(roleLog[1]));
 
 }
 
