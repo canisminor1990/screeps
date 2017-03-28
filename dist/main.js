@@ -2888,7 +2888,6 @@ exports.default = function (creep, roomName) {
 	var isFull = (0, _util.fullCheck)(creep);
 	// target
 	(0, _util.targetMaker)(creep, Memory.rooms[roomName].structures.container[0], 'withdraw');
-	//
 	// run
 	if (!isFull) {
 		if ((0, _action.pickup)(creep, (0, _action.findClosestInRange)(creep, creep.room.memory.dropped.energy, 4))) return;
