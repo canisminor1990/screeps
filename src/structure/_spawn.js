@@ -32,7 +32,7 @@ export default (spawn, config) => {
 			const roleTimeout = (roleType.timeout) ? roleType.timeout : 10;
 			const roleMy      = _.filter(Memory.global.creeps[roleName], roleCreep => roleCreep.ticksToLive >= roleTimeout)
 			if (roleMy.length - roleType.number >= 0 || priority) return;
-			const spawnName = buildName(roleName);
+			const spawnName = `${roleName}#${Game.time}`;
 			spawn.createCreep(buildBody(roleType.body), spawnName, {
 				role  : roleName,
 				name  : spawnName,
@@ -44,16 +44,7 @@ export default (spawn, config) => {
 	}
 }
 
-function buildName(role) {
-	const date = new Date();
-	return [
-		role,
-		"#",
-		date.getHours(),
-		date.getMinutes(),
-		date.getSeconds()
-	].join('')
-}
+
 
 function buildBody(obj) {
 	let array = [];

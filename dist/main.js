@@ -3286,7 +3286,7 @@ exports.default = function (spawn, config) {
 				return roleCreep.ticksToLive >= roleTimeout;
 			});
 			if (roleMy.length - roleType.number >= 0 || priority) return;
-			var spawnName = buildName(roleName);
+			var spawnName = roleName + '#' + Game.time;
 			spawn.createCreep(buildBody(roleType.body), spawnName, {
 				role: roleName,
 				name: spawnName,
@@ -3297,11 +3297,6 @@ exports.default = function (spawn, config) {
 		});
 	}
 };
-
-function buildName(role) {
-	var date = new Date();
-	return [role, "#", date.getHours(), date.getMinutes(), date.getSeconds()].join('');
-}
 
 function buildBody(obj) {
 	var array = [];
