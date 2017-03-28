@@ -16,3 +16,5 @@ screeps-multimeter.json
 /testDist
 
 yarn.lock
+
+*.map

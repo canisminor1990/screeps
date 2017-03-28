@@ -1,4 +1,5 @@
 import 'screeps-perf';
+import './visual';
 import * as Manager from './manager'
 import * as Gui from './gui'
 import {timer} from  './_util'
@@ -21,9 +22,8 @@ module.exports.loop = () => {
 			Gui.room(rooms[0])
 			Gui.role(rooms[0])
 		});
-		
 	}
-	
 	if (timer(10)) log(rooms[0], 10)
+	RawVisual.commit()
 }
 
