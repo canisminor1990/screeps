@@ -2790,7 +2790,7 @@ exports.default = function (creep, roomName) {
 	if (creep.room.name != roomName) {
 		(0, _action.moveTo)(creep, Memory.rooms[roomName].creeps.enemy[0]);
 	} else {
-		(0, _action.attack)(creep, (0, _action.findClosestByRange)(creep.room.memory.creeps.enemy));
+		(0, _action.attack)(creep, Memory.rooms[roomName].creeps.enemy[0]);
 	}
 };
 
