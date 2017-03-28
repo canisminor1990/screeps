@@ -2888,14 +2888,18 @@ exports.default = function (creep, roomName) {
 	var isFull = (0, _util.fullCheck)(creep);
 	// target
 	(0, _util.targetMaker)(creep, Memory.rooms[roomName].structures.container[0], 'withdraw');
+	//
 	// run
 	if (!isFull) {
 		if ((0, _action.pickup)(creep, (0, _action.findClosestInRange)(creep, creep.room.memory.dropped.energy, 4))) return;
 		if ((0, _action.withdraw)(creep, creep.memory.target.withdraw)) return;
 	} else {
-		var spawn = Memory.rooms[roomName].structures.spawn;
-		if (spawn && (0, _action.transfer)(creep, spawn, spawn.energy < spawn.energyCapacity)) return;
-		(0, _util.targetChanger)(creep, Memory.rooms[roomName].structures.container[0], 'withdraw');
+		if (creep.pos.roomName == creep.memory.target.withdraw.pos.roomName) {
+			var spawn = Memory.rooms[roomName].structures.spawn;
+			if (spawn && (0, _action.transfer)(creep, spawn, spawn.energy < spawn.energyCapacity)) return;
+		} else {
+			(0, _util.targetChanger)(creep, Memory.rooms[roomName].structures.container[0], 'withdraw');
+		}
 		if ((0, _action.transfer)(creep, Game.getObjectById('58d07b35bfeec6256575be5d'))) return;
 	}
 };
