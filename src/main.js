@@ -1,5 +1,5 @@
 import 'screeps-perf';
-import './visual';
+import Visual from './visual';
 import * as Manager from './manager'
 import * as Gui from './gui'
 import {timer} from  './_util'
@@ -24,6 +24,29 @@ module.exports.loop = () => {
 		});
 	}
 	if (timer(10)) log(rooms[0], 10)
+	visualizePaths()
 	RawVisual.commit()
 }
 
+
+function visualizePaths(){
+	let colors = []
+	let COLOR_BLACK = colors.push('#000000') - 1
+	let COLOR_PATH = colors.push('rgba(255,255,255,0.5)') - 1
+	_.each(Game.rooms,(room,name)=>{
+		let visual = new Visual(name)
+		visual.defineColors(colors)
+		visual.setLineWidth = 0.5
+		_.each(Game.creeps,creep=>{
+			if(creep.room != room) return
+			let mem = creep.memory
+			if(mem._move){
+				let path = Room.deserializePath(mem._move.path)
+				if(path.length){
+					visual.drawLine(path.map(p=>([p.x,p.y])),COLOR_PATH,{ lineWidth: 0.1 })
+				}
+			}
+		})
+		visual.commit()
+	})
+}

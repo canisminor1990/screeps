@@ -3743,7 +3743,9 @@ function isSafe(roomName) {
 
 __webpack_require__(4);
 
-__webpack_require__(9);
+var _visual = __webpack_require__(9);
+
+var _visual2 = _interopRequireDefault(_visual);
 
 var _manager = __webpack_require__(7);
 
@@ -3761,9 +3763,9 @@ var _screepsProfiler = __webpack_require__(5);
 
 var _screepsProfiler2 = _interopRequireDefault(_screepsProfiler);
 
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var rooms = ['W81S67', 'W81S66', 'W82S67'];
 _screepsProfiler2.default.enable();
@@ -3784,8 +3786,33 @@ module.exports.loop = function () {
 		});
 	}
 	if ((0, _util.timer)(10)) (0, _task.log)(rooms[0], 10);
+	visualizePaths();
 	RawVisual.commit();
 };
+
+function visualizePaths() {
+	var colors = [];
+	var COLOR_BLACK = colors.push('#000000') - 1;
+	var COLOR_PATH = colors.push('rgba(255,255,255,0.5)') - 1;
+	_.each(Game.rooms, function (room, name) {
+		var visual = new _visual2.default(name);
+		visual.defineColors(colors);
+		visual.setLineWidth = 0.5;
+		_.each(Game.creeps, function (creep) {
+			if (creep.room != room) return;
+			var mem = creep.memory;
+			if (mem._move) {
+				var path = Room.deserializePath(mem._move.path);
+				if (path.length) {
+					visual.drawLine(path.map(function (p) {
+						return [p.x, p.y];
+					}), COLOR_PATH, { lineWidth: 0.1 });
+				}
+			}
+		});
+		visual.commit();
+	});
+}
 
 /***/ })
 /******/ ]);
