@@ -2781,10 +2781,14 @@ exports.default = function (roomArray) {
 
 
 Object.defineProperty(exports, "__esModule", {
-  value: true
+	value: true
 });
 
-exports.default = function (creep) {};
+var _action = __webpack_require__(1);
+
+exports.default = function (creep) {
+	(0, _action.attack)(creep, (0, _action.findClosestByRange)(creep.room.memory.creeps.enemy));
+};
 
 /***/ }),
 /* 59 */
