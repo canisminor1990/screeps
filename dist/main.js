@@ -2910,6 +2910,7 @@ exports.default = function (creep, roomName) {
 	// run
 	if (!creep.memory.full) {
 		if ((0, _action.pickup)(creep, (0, _action.findClosestInRange)(creep, creep.room.memory.dropped.energy, 4))) return;
+		if ((0, _action.withdraw)(creep, Memory.rooms[roomName].structure.spawn)) return;
 		if ((0, _action.withdraw)(creep, creep.memory.target.withdraw)) return;
 	} else {
 		(0, _util.targetChange)(creep, Memory.rooms[roomName].structures.container[0], 'withdraw');
