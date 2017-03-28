@@ -38,8 +38,8 @@ export default (roomName, timeout) => {
 	room.memory.config.role.forEach(role => {
 		configCreepNum = configCreepNum + role.number;
 		roleLog.header.push(role.role);
-		let number = Memory.global.creeps[role.role].length
-		roleLog.body[0].push(`${(number) ? number : 0}/${role.number}`);
+		let number = Memory.global.creeps[role.role]
+		roleLog.body[0].push(`${(number.length) ? number.length : 0}/${role.number}`);
 	})
 	const energyLog = {
 		header: ['Storage', 'Spawn', 'Extension', 'CanUse', 'Creeps', 'Cpu', 'Bucket'],
