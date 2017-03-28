@@ -2981,14 +2981,13 @@ exports.default = function (creep) {
 	(0, _util.targetMaker)(creep, creep.room.memory.structures.link.filter(function (link) {
 		return link.id != creep.room.memory.config.linkMain;
 	})[0], 'withdraw');
-	var link = creep.memory.target.withdraw;
+	var link = Game.getObjectById(creep.memory.target.withdraw);
 	// run
 	if (!isFull) {
 		if ((0, _action.pickup)(creep, (0, _action.findInRange)(creep, creep.room.memory.dropped.energy, 4)[0])) return;
 		var container = (0, _action.findInRange)(creep.memory.target.withdraw, creep.room.memory.structures.container, 2)[0];
 		if ((0, _action.withdraw)(creep, container, container && container.store.energy > 0)) return;
 	} else {
-		console.log(link, link.energy < link.energyCapacity);
 		if ((0, _action.transfer)(creep, link, link.energy < link.energyCapacity)) return;
 	}
 };
