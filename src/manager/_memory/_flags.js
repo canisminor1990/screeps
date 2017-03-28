@@ -15,6 +15,9 @@ export default (room) => {
 		      command        = flag.command,
 		      commandContent = flag.commandContent;
 		switch (command) {
+			case "store":
+				flagsMemory.store.push = flagRaw.pos.lookFor(LOOK_STRUCTURES);
+				break;
 			case "gui":
 				flagsMemory.gui[commandContent] = flagRaw.pos;
 				break;

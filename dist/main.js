@@ -2440,6 +2440,9 @@ exports.default = function (room) {
 		    command = flag.command,
 		    commandContent = flag.commandContent;
 		switch (command) {
+			case "store":
+				flagsMemory.store.push = flagRaw.pos.lookFor(LOOK_STRUCTURES);
+				break;
 			case "gui":
 				flagsMemory.gui[commandContent] = flagRaw.pos;
 				break;
@@ -2944,6 +2947,7 @@ exports.default = function (creep, roomName) {
 		if ((0, _action.withdraw)(creep, creep.memory.target.withdraw)) return;
 	} else {
 		if (creep.pos.roomName == creep.memory.target.withdraw.pos.roomName) {
+
 			var spawn = Memory.rooms[roomName].structures.spawn;
 			if (spawn && (0, _action.transfer)(creep, spawn, spawn.energy < spawn.energyCapacity)) return;
 		} else {
