@@ -2979,7 +2979,7 @@ exports.default = function (creep) {
 	// memory
 	var isFull = (0, _util.fullCheck)(creep);
 	// task
-	if (!creep.memory.target.withdraw) targetMaker(creep, creep.room.memory.structures.link.filter(function (link) {
+	if (!creep.memory.target.withdraw) (0, _util.targetMaker)(creep, creep.room.memory.structures.link.filter(function (link) {
 		return link.id != creep.room.memory.config.linkMain;
 	})[0], 'withdraw');
 	var link = creep.memory.target.withdraw;

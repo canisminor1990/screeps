@@ -1,4 +1,4 @@
-import { fullCheck } from '../_util'
+import { fullCheck, targetMaker } from '../_util'
 import { transfer, pickup, withdraw, findInRange } from '../action'
 export default (creep) => {
 	// memory
