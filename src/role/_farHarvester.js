@@ -4,7 +4,7 @@ export default (creep, roomName) => {
 	// state
 	const isFull = fullCheck(creep);
 	// target
-	targetMaker(creep, Memory.rooms[roomName].structures.container[0], 'withdraw')
+	targetMaker(creep, _.first(Memory.rooms[roomName].structures.container), 'withdraw')
 	// run
 	if (!isFull) {
 		if (pickup(creep, findClosestInRange(creep, creep.room.memory.dropped.energy, 4))) return;
@@ -16,7 +16,7 @@ export default (creep, roomName) => {
 			const spawn = Memory.rooms[roomName].structures.spawn
 			if (spawn && transfer(creep, spawn, spawn.energy < spawn.energyCapacity)) return;
 		} else {
-			targetChanger(creep, Memory.rooms[roomName].structures.container[0], 'withdraw')
+			targetChanger(creep, _.first(Memory.rooms[roomName].structures.container), 'withdraw')
 		}
 		if (transfer(creep, Game.getObjectById('58d07b35bfeec6256575be5d'))) return;
 	}
