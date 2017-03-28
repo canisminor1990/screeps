@@ -30,7 +30,7 @@ function isSafe(roomName) {
 	}
 	if (!trigger.safe) {
 		const safeTimeout = Game.time - trigger.timeout
-		console.log('# [Warn]', roomName, 'Safe Timeout:', safeTimeout)
+		console.log('# [Warn]', roomName, 'Safe Timeout:', `${safeTimeout}/1400`)
 		if (safeTimeout > 1400) {
 			console.log(roomName + 'Safe now !')
 			Memory.trigger.noEnemy[roomName].safe = true;
