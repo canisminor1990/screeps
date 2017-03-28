@@ -1,9 +1,9 @@
-import { isFull, targetMaker } from '../_util'
+import { fullCheck, targetMaker } from '../_util'
 import { build, harvest, repair, findInRange, moveTo,pickup } from '../action'
 export default (creep) => {
 	let target;
 	// root
-	isFull(creep)
+	fullCheck(creep)
 	//run
 	targetMaker(creep, creep.room.memory.sources[0].source, 'harvest')
 	const harvestTarget = Game.getObjectById(creep.memory.target.harvest.id)

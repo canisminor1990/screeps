@@ -152,7 +152,7 @@ Object.defineProperty(exports, 'isFriend', {
 
 var _isFull = __webpack_require__(16);
 
-Object.defineProperty(exports, 'isFull', {
+Object.defineProperty(exports, 'fullCheck', {
   enumerable: true,
   get: function get() {
     return _interopRequireDefault(_isFull).default;
@@ -2711,24 +2711,16 @@ var _action = __webpack_require__(1);
 exports.default = function (creep) {
 	var target = void 0;
 	// memory
-	(0, _util.isFull)(creep);
+	var isFull = (0, _util.fullCheck)(creep);
 	// run
-	// target = creep.room.memory.flags.dismantle
-	// if (target.length > 0, target[0] != null) {
-	// 	if (dismantle(creep, target[0]))return
-	// }
-	if (creep.memory.full) {
-		target = (0, _action.findClosestByRange)(creep, creep.room.memory.structures.needBuild);
-		if ((0, _action.build)(creep, target)) return;
-		target = (0, _action.findClosestByRange)(creep, creep.room.memory.structures.needFix);
-		if ((0, _action.repair)(creep, target)) return;
-		target = creep.room.controller;
-		if ((0, _action.upgradeController)(creep, target)) return;
+	if (isFull) {
+		if ((0, _action.build)(creep, (0, _action.findClosestByRange)(creep, creep.room.memory.structures.needBuild))) return;
+		if ((0, _action.repair)(creep, (0, _action.findClosestByRange)(creep, creep.room.memory.structures.needFix))) return;
+		if ((0, _action.upgradeController)(creep, creep.room.controller)) return;
 	} else {
-		target = (0, _action.findClosestInRange)(creep, creep.room.memory.dropped.energy, 2);
-		if ((0, _action.pickup)(creep, target[0])) return;
-		target = creep.room.storage;
-		if ((0, _action.withdraw)(creep, target)) return;
+		if ((0, _action.dismantle)(creep, creep.room.memory.flags.dismantle[0])) return;
+		if ((0, _action.pickup)(creep, (0, _action.findClosestInRange)(creep, creep.room.memory.dropped.energy, 2)[0])) return;
+		if ((0, _action.withdraw)(creep, creep.room.storage)) return;
 	}
 };
 
@@ -2775,7 +2767,7 @@ exports.default = function (creep) {
 		return;
 	}
 	// memory
-	(0, _util.isFull)(creep);
+	(0, _util.fullCheck)(creep);
 	// run
 	var needFill = creep.room.memory.structures.needFill;
 	if (!creep.memory.full) {
@@ -2819,7 +2811,7 @@ var _action = __webpack_require__(1);
 
 exports.default = function (creep, roomName) {
 	var storage = Game.getObjectById('58d07b35bfeec6256575be5d');
-	(0, _util.isFull)(creep);
+	(0, _util.fullCheck)(creep);
 	(0, _util.targetMaker)(creep, Memory.rooms[roomName].structures.container[0], 'withdraw');
 	// run
 
@@ -2856,12 +2848,12 @@ var _action = __webpack_require__(1);
 
 exports.default = function (creep, roomName) {
 	// state
-	var ifFull = (0, _util.isFull)(creep);
+	var isFull = (0, _util.fullCheck)(creep);
 	// target
 	(0, _util.targetMaker)(creep, Memory.rooms[roomName].structures.container[0], 'withdraw');
 	if (creep.pos.roomName != creep.memory.target.withdraw.pos.roomName) (0, _util.targetChanger)(creep, Memory.rooms[roomName].structures.container[0], 'withdraw');
 	// run
-	if (!ifFull) {
+	if (!isFull) {
 		if ((0, _action.pickup)(creep, (0, _action.findClosestInRange)(creep, creep.room.memory.dropped.energy, 4))) return;
 		if ((0, _action.withdraw)(creep, creep.memory.target.withdraw)) return;
 	} else {
@@ -2888,7 +2880,7 @@ var _util = __webpack_require__(0);
 
 exports.default = function (creep, roomName) {
 	var target = void 0;
-	var ifFull = (0, _util.isFull)(creep);
+	var ifFull = (0, _util.fullCheck)(creep);
 	//
 	(0, _util.targetMaker)(creep, Memory.rooms[roomName].sources[0].source, 'harvest');
 	//
@@ -2921,7 +2913,7 @@ var _action = __webpack_require__(1);
 
 exports.default = function (creep, roomName) {
 	// state
-	var ifFull = (0, _util.isFull)(creep);
+	var ifFull = (0, _util.fullCheck)(creep);
 	// target
 	(0, _util.targetMaker)(creep, Memory.rooms[roomName].structures.container[0], 'withdraw');
 	// run
@@ -3036,7 +3028,7 @@ var _action = __webpack_require__(1);
 exports.default = function (creep) {
 	var target = void 0;
 	// memory
-	(0, _util.isFull)(creep);
+	(0, _util.fullCheck)(creep);
 	// run
 	if (creep.memory.full) {
 		target = creep.room.memory.structures.link.filter(function (link) {
@@ -3070,7 +3062,7 @@ var _action = __webpack_require__(1);
 exports.default = function (creep) {
 	var target = void 0;
 	// root
-	(0, _util.isFull)(creep);
+	(0, _util.fullCheck)(creep);
 	//run
 	(0, _util.targetMaker)(creep, creep.room.memory.sources[0].source, 'harvest');
 	var harvestTarget = Game.getObjectById(creep.memory.target.harvest.id);
@@ -3104,7 +3096,7 @@ var _action = __webpack_require__(1);
 exports.default = function (creep) {
 	var target = void 0;
 	// memory
-	(0, _util.isFull)(creep);
+	(0, _util.fullCheck)(creep);
 	// run
 	if (creep.memory.full) {
 		if ((0, _action.upgradeController)(creep, creep.room.controller)) return;

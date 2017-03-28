@@ -1,4 +1,4 @@
-import {isFull} from '../_util'
+import {fullCheck} from '../_util'
 import {transfer, pickup, withdraw} from '../action'
 export default (creep) => {
 	// let target;

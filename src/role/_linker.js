@@ -1,9 +1,9 @@
-import { isFull } from '../_util'
+import { fullCheck } from '../_util'
 import { transfer, pickup, withdraw, findInRange } from '../action'
 export default (creep) => {
 	let target;
 	// memory
-	isFull(creep)
+	fullCheck(creep)
 	// run
 	if (creep.memory.full) {
 		target = creep.room.memory.structures.link.filter(link => link.id != creep.room.memory.config.linkMain)[0];

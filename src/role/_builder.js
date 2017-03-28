@@ -1,26 +1,27 @@
-import { isFull } from '../_util'
-import { pickup, upgradeController, build, withdraw, repair, dismantle, findClosestByRange,findClosestInRange } from '../action'
+import { fullCheck } from '../_util'
+import {
+	pickup,
+	upgradeController,
+	build,
+	withdraw,
+	repair,
+	dismantle,
+	findClosestByRange,
+	findClosestInRange
+} from '../action'
 
 export default (creep) => {
 	let target;
 	// memory
-	isFull(creep)
+	const isFull = fullCheck(creep)
 	// run
-	// target = creep.room.memory.flags.dismantle
-	// if (target.length > 0, target[0] != null) {
-	// 	if (dismantle(creep, target[0]))return
-	// }
-	if (creep.memory.full) {
-		target = findClosestByRange(creep, creep.room.memory.structures.needBuild);
-		if (build(creep, target))return;
-		target = findClosestByRange(creep, creep.room.memory.structures.needFix);
-		if (repair(creep, target)) return;
-		target = creep.room.controller;
-		if (upgradeController(creep, target)) return;
+	if (isFull) {
+		if (build(creep, findClosestByRange(creep, creep.room.memory.structures.needBuild)))return;
+		if (repair(creep, findClosestByRange(creep, creep.room.memory.structures.needFix))) return;
+		if (upgradeController(creep, creep.room.controller)) return;
 	} else {
-		target = findClosestInRange(creep, creep.room.memory.dropped.energy, 2);
-		if (pickup(creep, target[0])) return;
-		target = creep.room.storage;
-		if (withdraw(creep, target))return;
+		if (dismantle(creep, creep.room.memory.flags.dismantle[0])) return
+		if (pickup(creep, findClosestInRange(creep, creep.room.memory.dropped.energy, 2)[0])) return;
+		if (withdraw(creep, creep.room.storage))return;
 	}
 }

@@ -1,4 +1,4 @@
-import { isFull } from '../_util'
+import { fullCheck } from '../_util'
 import { moveTo, pickup, transfer, withdraw, findClosestByRange } from '../action'
 export default (creep) => {
 	let target;
@@ -7,7 +7,7 @@ export default (creep) => {
 		return;
 	}
 	// memory
-	isFull(creep)
+	fullCheck(creep)
 	// run
 	const needFill = creep.room.memory.structures.needFill;
 	if (!creep.memory.full) {

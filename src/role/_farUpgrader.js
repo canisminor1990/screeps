@@ -1,8 +1,8 @@
-import { isFull, targetMaker, targetChanger } from '../_util'
+import { fullCheck, targetMaker, targetChanger } from '../_util'
 import { findInRange, pickup, withdraw, upgradeController } from '../action'
 export default (creep, roomName) => {
 	// state
-	const ifFull = isFull(creep);
+	const ifFull = fullCheck(creep);
 	// target
 	targetMaker(creep, Memory.rooms[roomName].structures.container[0], 'withdraw')
 	// run
