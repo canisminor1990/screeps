@@ -65,7 +65,7 @@ export default (roomName, timeout) => {
 		]
 	}
 
-	console.log(emoji.claim, color.grey(`GameTime:${Game.time}`),
+	console.log(color.grey(`# Gametime ${Game.time}`),
 	            table(gclLog),
 	            table(energyLog),
 	            table(roleLog[0]),
