@@ -35,6 +35,7 @@ export default (spawn, config) => {
 			const spawnName = `${roleName}#${Game.time}`;
 			spawn.createCreep(buildBody(roleType.body), spawnName, {
 				bornRoom: spawn.room.name,
+				bornTime: Game.time,
 				role    : roleName,
 				name    : spawnName,
 				target  : {}
