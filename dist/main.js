@@ -1177,7 +1177,7 @@ exports.default = function (e, name, creep, target) {
 
 	var error = {
 		header: ['Error ' + name + ' #' + Game.time],
-		body: [[e], ['Creep: ' + creep + ' Pos:' + JSON.stringify(creep.pos)], ['Target: ' + target + ' Json:' + JSON.stringify(target)]]
+		body: [[e], ['Creep: ' + creep + '<br />Pos:' + JSON.stringify(creep.pos, null, 2)], ['Target: ' + target + '<br />Json:' + JSON.stringify(target, null, 2)]]
 	};
 	error.body.push([].concat(other));
 	console.log((0, _.table)(error));

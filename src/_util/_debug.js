@@ -1,11 +1,11 @@
 import { table } from './'
-export default (e, name, creep, target,...other) => {
-	let  error = {
+export default (e, name, creep, target, ...other) => {
+	let error = {
 		header: [`Error ${name} #${Game.time}`],
 		body  : [
 			[e],
-			[`Creep: ${creep} Pos:${JSON.stringify(creep.pos)}`],
-			[`Target: ${target} Json:${JSON.stringify(target)}`]
+			[`Creep: ${creep}<br />Pos:${JSON.stringify(creep.pos, null, 2)}`],
+			[`Target: ${target}<br />Json:${JSON.stringify(target, null, 2)}`]
 		]
 	}
 	error.body.push([...other])
