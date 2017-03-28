@@ -3384,24 +3384,21 @@ exports.default = function (roomName, timeout) {
 	extension.forEach(function (ex) {
 		if (ex.energy == ex.energyCapacity) extensionFull++;
 	});
-	var configCreepNum = 0;
-	room.memory.config.role.forEach(function (num) {
-		configCreepNum = configCreepNum + num.number;
+	var configCreepNum = 0,
+	    roleLog = {
+		header: [],
+		body: [[]]
+	};
+	room.memory.config.role.forEach(function (role) {
+		configCreepNum = configCreepNum + role.number;
+		roleLog.header.push(role.role);
+		var number = Memory.global.creeps[role.role].length;
+		roleLog.body[0].push((number ? number : 0) + '/' + role.number);
 	});
 	var energyLog = {
 		header: ['Storage', 'Spawn', 'Extension', 'CanUse', 'Creeps', 'Cpu', 'Bucket'],
 		body: [[_util.color.yellow(room.memory.structures.storage.store.energy), room.memory.structures.spawn.energy, extensionFull + '/' + extension.length, extensionFull * 50 + room.memory.structures.spawn.energy, Object.keys(Memory.creeps).length + '/' + configCreepNum, Math.floor(Game.cpu.getUsed()) + '/' + Game.cpu.limit, Game.cpu.bucket]]
 	};
-	//
-	var roleLog = {
-		header: [],
-		body: [[]]
-	};
-
-	room.memory.config.role.forEach(function (role) {
-		roleLog.header.push(role.role);
-		roleLog.body[0].push((Memory.global.creeps[role.role].length ? Memory.global.creeps[role.role].length : 0) + '/' + role.number);
-	});
 
 	console.log((0, _util.table)(gclLog), (0, _util.table)(energyLog), (0, _util.table)(roleLog));
 };
