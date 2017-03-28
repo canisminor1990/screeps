@@ -6,7 +6,7 @@ export { default as table } from './_table'
 export { default as emoji } from './_emoji'
 export { default as debug } from './_debug'
 //
-export { default as build } from './_build'
+export { default as createConstructionSite } from './_createConstructionSite'
 export { default as action } from './_action'
 export { default as isFriend } from './_isFriend'
 export { default as fullCheck } from './_isFull'

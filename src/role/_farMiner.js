@@ -1,5 +1,5 @@
-import { moveTo, harvest, repair, build, findInRange, pickup } from '../action'
-import { fullCheck, targetMaker } from '../_util'
+import {moveTo, harvest, repair, build, findInRange, pickup} from '../action'
+import {fullCheck, targetMaker, createConstructionSite} from '../_util'
 export default (creep, roomName) => {
 	// state
 	const ifFull = fullCheck(creep);
@@ -10,9 +10,14 @@ export default (creep, roomName) => {
 		try {
 			const container = findInRange(Game.getObjectById(creep.memory.target.harvest.id), creep.room.memory.structures.container, 2)[0];
 			if (container && !creep.pos.isEqualTo(container.pos) && moveTo(creep, container)) return;
+			const pos = creep.memory.target.harvest.pos
+			if (!container && creep.isNearTo(pos.x, pos.y)) {
+				createConstructionSite(pos.x, pos.y, STRUCTURE_CONTAINER)
+			}
 			if (repair(creep, container, container.hits < container.hitsMax))return;
 			if (build(creep, findInRange(creep, creep.room.memory.structures.needBuild, 3)[0]))return;
-		} catch (e) {}
+		} catch (e) {
+		}
 	} else {
 		if (pickup(creep, findInRange(creep, creep.room.memory.dropped.energy, 1)[0])) return;
 	}

@@ -87,7 +87,7 @@ Object.defineProperty(exports, 'timer', {
   }
 });
 
-var _color = __webpack_require__(11);
+var _color = __webpack_require__(10);
 
 Object.defineProperty(exports, 'color', {
   enumerable: true,
@@ -96,7 +96,7 @@ Object.defineProperty(exports, 'color', {
   }
 });
 
-var _colorType = __webpack_require__(12);
+var _colorType = __webpack_require__(11);
 
 Object.defineProperty(exports, 'colorType', {
   enumerable: true,
@@ -132,12 +132,12 @@ Object.defineProperty(exports, 'debug', {
   }
 });
 
-var _build = __webpack_require__(10);
+var _createConstructionSite = __webpack_require__(12);
 
-Object.defineProperty(exports, 'build', {
+Object.defineProperty(exports, 'createConstructionSite', {
   enumerable: true,
   get: function get() {
-    return _interopRequireDefault(_build).default;
+    return _interopRequireDefault(_createConstructionSite).default;
   }
 });
 
@@ -1076,25 +1076,6 @@ Object.defineProperty(exports, "__esModule", {
 	value: true
 });
 
-exports.default = function (x, y, type) {
-	if (x && y && type) {
-		console.log('[Build] ' + type + ' in x:' + x + ' y:' + y, Game.spawns['Spawn1'].room.createConstructionSite(x, y, type));
-	} else {
-		console.log('You can build: ' + ['spawn', 'extension', 'road', 'constructedWall', 'rampart', 'keeperLair', 'portal', 'controller', 'link', 'storage', 'tower', 'observer', 'powerBank', 'powerSpawn', 'extractor', 'lab', 'terminal', 'container', 'nuker'].join('|'));
-	}
-};
-
-/***/ }),
-/* 11 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-	value: true
-});
-
 var _ = __webpack_require__(0);
 
 var color = function color(_color, content) {
@@ -1138,7 +1119,7 @@ color.green = function (content) {
 exports.default = color;
 
 /***/ }),
-/* 12 */
+/* 11 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1155,6 +1136,25 @@ exports.default = {
 	grey: '#75715E',
 	orange: '#FD971F',
 	green: '#A6E22E'
+};
+
+/***/ }),
+/* 12 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+	value: true
+});
+
+exports.default = function (x, y, type) {
+	if (x && y && type) {
+		console.log('[Build] ' + type + ' in x:' + x + ' y:' + y, Game.spawns['Spawn1'].room.createConstructionSite(x, y, type));
+	} else {
+		console.log('You can build: ' + ['spawn', 'extension', 'road', 'constructedWall', 'rampart', 'keeperLair', 'portal', 'controller', 'link', 'storage', 'tower', 'observer', 'powerBank', 'powerSpawn', 'extractor', 'lab', 'terminal', 'container', 'nuker'].join('|'));
+	}
 };
 
 /***/ }),
@@ -2978,6 +2978,10 @@ exports.default = function (creep, roomName) {
 		try {
 			var container = (0, _action.findInRange)(Game.getObjectById(creep.memory.target.harvest.id), creep.room.memory.structures.container, 2)[0];
 			if (container && !creep.pos.isEqualTo(container.pos) && (0, _action.moveTo)(creep, container)) return;
+			var pos = creep.memory.target.harvest.pos;
+			if (!container && creep.isNearTo(pos.x, pos.y)) {
+				(0, _util.createConstructionSite)(pos.x, pos.y, STRUCTURE_CONTAINER);
+			}
 			if ((0, _action.repair)(creep, container, container.hits < container.hitsMax)) return;
 			if ((0, _action.build)(creep, (0, _action.findInRange)(creep, creep.room.memory.structures.needBuild, 3)[0])) return;
 		} catch (e) {}
