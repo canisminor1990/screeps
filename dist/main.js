@@ -2986,9 +2986,9 @@ exports.default = function (creep) {
 		})[0];
 		if ((0, _action.transfer)(creep, target, target.energy < target.energyCapacity)) return;
 	} else {
-		target = (0, _action.findClosestInRange)(creep, creep.room.memory.dropped.energy, 4);
+		target = (0, _action.findInRange)(creep, creep.room.memory.dropped.energy, 4)[0];
 		if ((0, _action.pickup)(creep, target)) return;
-		target = (0, _action.findClosestInRange)(target, creep.room.memory.structures.container, 2);
+		target = (0, _action.findInRange)(target, creep.room.memory.structures.container, 2)[0];
 		if (!target) return;
 		if ((0, _action.withdraw)(creep, target, target.store.energy > 0)) return;
 	}
@@ -3019,7 +3019,7 @@ exports.default = function (creep) {
 	if (creep.memory.full) {
 		target = (0, _action.findInRange)(harvestTarget, creep.room.memory.structures.container, 2);
 		if (!creep.pos.isEqualTo(target.pos) && (0, _action.moveTo)(creep, target)) return;
-		if ((0, _action.repair)(creep, target, target.hits < target.hitsMax / 2)) return;
+		if ((0, _action.repair)(creep, target, target.hits < target.hitsMax)) return;
 		target = (0, _action.findInRange)(creep, creep.room.memory.structures.needBuild, 1)[1];
 		if ((0, _action.build)(creep, target)) return;
 	}
