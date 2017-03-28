@@ -2868,6 +2868,8 @@ exports.default = function (creep, roomName) {
 		if ((0, _action.pickup)(creep, (0, _action.findClosestInRange)(creep, creep.room.memory.dropped.energy, 4))) return;
 		if ((0, _action.withdraw)(creep, creep.memory.target.withdraw)) return;
 	} else {
+		target = Memory.rooms[roomName].structures.spawn;
+		if (target && (0, _action.transfer)(creep, target)) return;
 		if ((0, _action.transfer)(creep, Game.getObjectById('58d07b35bfeec6256575be5d'))) return;
 	}
 };
