@@ -3429,26 +3429,29 @@ exports.default = function (roomName, timeout) {
 	    gclLeft = Math.floor(gcl.progressTotal - gcl.progress),
 	    gclSpeed = Math.round((gcl.progress - Memory.timer['gcl']) / timeout),
 	    gclProcess = Math.round(gcl.progress / gcl.progressTotal * 100),
-	    gclTimeLeft = Math.round(gclLeft / gclSpeed);
+	    gclTimeLeft = Math.round(gclLeft / gclSpeed),
+	    gclHourLeft = Math.floor(gclTimeLeft * 5 / 3600 * 100) / 100;
 	Memory.timer['gcl'] = gcl.progress;
 
 	var rcl = room.controller,
 	    rclProcess = Math.round(rcl.progress / rcl.progressTotal * 100),
 	    rclSpeed = Math.round((rcl.progress - Memory.timer['rcl']) / timeout),
 	    rclLeft = rcl.progressTotal - rcl.progress,
-	    rclTimeLeft = Math.round(rclLeft / rclSpeed);
+	    rclTimeLeft = Math.round(rclLeft / rclSpeed),
+	    rclHourLeft = Math.floor(rclTimeLeft * 5 / 3600 * 100) / 100;
 	Memory.timer['rcl'] = rcl.progress;
 
 	var rcl2 = Game.rooms['W82S67'].controller,
 	    rcl2Process = Math.round(rcl2.progress / rcl2.progressTotal * 100),
 	    rcl2Speed = Math.round((rcl2.progress - Memory.timer['rcl2']) / timeout),
 	    rcl2Left = rcl2.progressTotal - rcl2.progress,
-	    rcl2TimeLeft = Math.round(rcl2Left / rcl2Speed);
+	    rcl2TimeLeft = Math.round(rcl2Left / rcl2Speed),
+	    rcl2HourLeft = Math.floor(rcl2TimeLeft * 5 / 3600 * 100) / 100;
 	Memory.timer['rcl2'] = rcl2.progress;
 
 	var gclLog = {
-		header: ['Type', 'Lvl', 'Progress', 'EnergyLeft', 'Speed(e/t)', 'TickLeft'],
-		body: [[_util.color.blue('GCL'), gcl.level, gclProcess + '%', gclLeft, gclSpeed, gclTimeLeft], [_util.color.orange('RCL 1'), rcl.level, rclProcess + '%', rclLeft, rclSpeed, rclTimeLeft], [_util.color.orange('RCL 2'), rcl2.level, rcl2Process + '%', rcl2Left, rcl2Speed, rcl2TimeLeft]]
+		header: ['Type', 'Lvl', 'Progress', 'EnergyLeft', 'Speed(e/t)', 'TickLeft', 'HourLeft'],
+		body: [[_util.color.blue('GCL'), gcl.level, gclProcess + '%', gclLeft, gclSpeed, gclTimeLeft, gclHourLeft], [_util.color.orange('RCL 1'), rcl.level, rclProcess + '%', rclLeft, rclSpeed, rclTimeLeft, rclHourLeft], [_util.color.orange('RCL 2'), rcl2.level, rcl2Process + '%', rcl2Left, rcl2Speed, rcl2TimeLeft, rcl2HourLeft]]
 	};
 	//
 	var extension = room.memory.structures.extension;
