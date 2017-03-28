@@ -1015,7 +1015,6 @@ exports.default = function (creep, target, fc) {
 		case ERR_NOT_ENOUGH_ENERGY:
 			creep.say(text + "ENERGY");
 			if (creep.memory.role.match('iner')) {
-				// targetChange(creep, creep.room.memory.sources[0].source, 'harvest')
 				(0, _action.moveTo)(creep, target, color);
 			} else {
 				(0, _util.targetChanger)(creep, creep.room.memory.structures.container[0], 'withdraw');
@@ -1026,7 +1025,7 @@ exports.default = function (creep, target, fc) {
 			creep.say(text + "RESOURCES");
 			break;
 		case ERR_INVALID_TARGET:
-			creep.say(text + "TARGET");
+			creep.say(text + _util.emoji.move);
 			break;
 		case ERR_FULL:
 			creep.say(text + "FULL");
