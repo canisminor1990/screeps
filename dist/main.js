@@ -1797,7 +1797,7 @@ exports.default = function (creep, array) {
 	var range = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 0;
 	var opt = arguments[3];
 
-	if (!creep.pos || !array.length || array[0] == null) return false;
+	if (!creep || !creep.pos || !array.length || array[0] == null) return false;
 	var found = creep.pos.findInRange(array, range);
 	if (opt) found.filter(opt);
 	return found;
