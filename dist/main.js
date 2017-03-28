@@ -2983,6 +2983,7 @@ exports.default = function (creep, roomName) {
 	// task
 	if (ifFull) {
 		try {
+			if ((0, _action.build)(creep, (0, _action.findInRange)(creep, creep.room.memory.structures.needBuild, 3)[0])) return;
 			var container = (0, _action.findClosestInRange)(Game.getObjectById(creep.memory.target.harvest.id), creep.room.memory.structures.container, 2);
 			if (container && !creep.pos.isEqualTo(container.pos) && (0, _action.moveTo)(creep, container)) return;
 			// const pos = creep.memory.target.harvest.pos
@@ -2990,7 +2991,6 @@ exports.default = function (creep, roomName) {
 			// 	createConstructionSite(pos.x, pos.y, STRUCTURE_CONTAINER)
 			// }
 			if ((0, _action.repair)(creep, container, container.hits < container.hitsMax)) return;
-			if ((0, _action.build)(creep, (0, _action.findInRange)(creep, creep.room.memory.structures.needBuild, 3)[0])) return;
 		} catch (e) {}
 	} else {
 		if ((0, _action.pickup)(creep, (0, _action.findInRange)(creep, creep.room.memory.dropped.energy, 1)[0])) return;
