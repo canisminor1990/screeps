@@ -2879,10 +2879,10 @@ exports.default = function (creep, roomName) {
 			target = (0, _action.findInRange)(Game.getObjectById(creep.memory.target.harvest.id), creep.room.memory.structures.container, 2)[0];
 			if (!creep.pos.isEqualTo(target.pos) && (0, _action.moveTo)(creep, target)) return;
 			if ((0, _action.repair)(creep, target, target.hits < target.hitsMax)) return;
-			if ((0, _action.build)(creep, (0, _action.findInRange)(creep, creep.room.memory.structures.needBuild, 2)[0])) return;
+			if ((0, _action.build)(creep, (0, _action.findInRange)(creep, creep.room.memory.structures.needBuild, 3)[0])) return;
 		} catch (e) {}
 	}
-	if ((0, _action.pickup)(creep, (0, _action.findInRange)(creep, creep.room.memory.dropped.energy, 2)[0])) return;
+	if ((0, _action.pickup)(creep, (0, _action.findInRange)(creep, creep.room.memory.dropped.energy, 1)[0])) return;
 	if ((0, _action.harvest)(creep, creep.memory.target.harvest)) return;
 };
 
@@ -3061,14 +3061,14 @@ exports.default = function (creep) {
 	(0, _util.targetMaker)(creep, creep.room.memory.sources[0].source, 'harvest');
 	var harvestTarget = Game.getObjectById(creep.memory.target.harvest.id);
 	if (creep.memory.full) {
-		target = (0, _action.findInRange)(harvestTarget, creep.room.memory.structures.container, 2)[0];
 		try {
+			target = (0, _action.findInRange)(harvestTarget, creep.room.memory.structures.container, 2)[0];
 			if (!creep.pos.isEqualTo(target.pos) && (0, _action.moveTo)(creep, target)) return;
 			if ((0, _action.repair)(creep, target, target.hits < target.hitsMax)) return;
+			if ((0, _action.build)(creep, (0, _action.findInRange)(creep, creep.room.memory.structures.needBuild, 3)[0])) return;
 		} catch (e) {}
-		target = (0, _action.findInRange)(creep, creep.room.memory.structures.needBuild, 1)[0];
-		if ((0, _action.build)(creep, target)) return;
 	}
+	if (pickup(creep, (0, _action.findInRange)(creep, creep.room.memory.dropped.energy, 1)[0])) return;
 	if ((0, _action.harvest)(creep, harvestTarget)) return;
 };
 
