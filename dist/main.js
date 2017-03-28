@@ -1284,7 +1284,7 @@ exports.default = function (creep, target) {
 
 	target = (0, _util.targetFormat)(target);
 	try {
-
+		if (creep.memory.target[type].id == target.id) return true;
 		creep.memory.target[type] = {
 			id: target.id,
 			pos: target.pos,
@@ -2875,16 +2875,12 @@ exports.default = function (creep, roomName) {
 	//
 
 	if (creep.memory.full) {
-		target = (0, _action.findInRange)(creep, creep.room.memory.structures.container, 2)[0];
-		if (target) {
+		try {
+			target = (0, _action.findInRange)(creep, creep.room.memory.structures.container, 2)[0];
 			if (!creep.pos.isEqualTo(target.pos) && (0, _action.moveTo)(creep, target)) return;
 			if ((0, _action.repair)(creep, target, target.hits < target.hitsMax)) return;
-		} else {
-			// if (creep.pos.isNearTo(creep.memory.target.harvest.pos)) {
-			// 	creep.room.createConstructionSite(creep.pos.x, creep.pos.y, STRUCTURE_CONTAINER)
-			// }
-		}
-		if ((0, _action.build)(creep, (0, _action.findInRange)(creep, creep.room.memory.structures.needBuild, 2)[0])) return;
+			if ((0, _action.build)(creep, (0, _action.findInRange)(creep, creep.room.memory.structures.needBuild, 2)[0])) return;
+		} catch (e) {}
 	}
 	if ((0, _action.pickup)(creep, (0, _action.findInRange)(creep, creep.room.memory.dropped.energy, 2)[0])) return;
 	if ((0, _action.harvest)(creep, creep.memory.target.harvest)) return;
