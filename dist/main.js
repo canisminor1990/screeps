@@ -1299,7 +1299,7 @@ exports.default = function (content) {
 		});
 		tableBody += "<tr style=\"border:1px solid #444\" >" + tableCol + "</tr>";
 	});
-	return "<table style=\"border:1px solid #444;width: 100%;\">" + tableHeader + tableBody + "</table>";
+	return "<table style=\"border:1px solid #444;width: 100%;word-break:break-all; word-wrap:break-word;\">" + tableHeader + tableBody + "</table>";
 };
 
 /***/ }),
