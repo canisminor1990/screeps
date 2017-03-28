@@ -3452,7 +3452,9 @@ _task.trigger.install();
 
 // switch
 var profilerEnabled = false;
-
+Game.prototype.cmtest = function () {
+	console.log('test');
+};
 // main
 var main = function main() {
 	if (Game.cpu.bucket < 2 * Game.cpu.tickLimit) {
