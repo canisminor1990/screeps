@@ -1288,14 +1288,17 @@ exports.default = function (creep, target) {
 		return true;
 	}
 	if (creep.memory.target[type].id == target.id) return true;
-	if (!target) return false;
-	creep.memory.target[type] = {
-		id: target.id,
-		pos: target.pos,
-		time: Game.time
-	};
-	creep.say(_util.emoji.targetChange);
-	return true;
+	try {
+		creep.memory.target[type] = {
+			id: target.id,
+			pos: target.pos,
+			time: Game.time
+		};
+		creep.say(_util.emoji.targetChange);
+		return true;
+	} catch (e) {
+		return false;
+	}
 };
 
 /***/ }),
