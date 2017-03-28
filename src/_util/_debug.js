@@ -1,7 +1,7 @@
 import { table } from './'
 export default (e, name, creep, target) => {
 	const error = {
-		header: `Error ${name} #${Game.time}`,
+		header: [`Error ${name} #${Game.time}`],
 		body  : [
 			[e],
 			[`Creep: ${creep} Pos:${JSON.stringify(creep.pos)}`],

@@ -1172,7 +1172,7 @@ var _ = __webpack_require__(0);
 
 exports.default = function (e, name, creep, target) {
 	var error = {
-		header: 'Error ' + name + ' #' + Game.time,
+		header: ['Error ' + name + ' #' + Game.time],
 		body: [[e], ['Creep: ' + creep + ' Pos:' + JSON.stringify(creep.pos)], ['Target: ' + target + ' Json:' + JSON.stringify(target)]]
 	};
 	console.log((0, _.table)(error));
