@@ -2,7 +2,7 @@ export default (content) => {
 	let tableHeader                    = "",
 	    tableBody                      = "",
 	    contentHeadr = "", contentBody = "";
-	if (content instanceof Array) {
+	if (_.isArray(content)) {
 		contentBody = content
 	} else {
 		contentHeadr = content.header;

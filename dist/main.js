@@ -1282,7 +1282,7 @@ exports.default = function (content) {
 	    tableBody = "",
 	    contentHeadr = "",
 	    contentBody = "";
-	if (content instanceof Array) {
+	if (_.isArray(content)) {
 		contentBody = content;
 	} else {
 		contentHeadr = content.header;
@@ -1631,7 +1631,7 @@ exports.default = function (creep, target) {
 	var actionName = 'moveTo';
 	if (creep.fatigue > 0) return false;
 	try {
-		if (target instanceof Array) target = target[0];
+		if (_.isArray(target)) target = _.first(target);
 		try {
 			if (target.pos.roomName != creep.pos.roomName) {
 				target = new RoomPosition(target.pos.x, target.pos.y, target.pos.roomName);

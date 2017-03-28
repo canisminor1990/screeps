@@ -3,7 +3,7 @@ export default (creep, target, color = '#ffffff', noPathFinding = true) => {
 	const actionName = 'moveTo';
 	if (creep.fatigue > 0) return false;
 	try {
-		if (target instanceof Array) target = target[0];
+		if (_.isArray(target)) target = _.first(target);
 		try {
 			if (target.pos.roomName != creep.pos.roomName) {
 				target        = new RoomPosition(target.pos.x, target.pos.y, target.pos.roomName);
