@@ -548,7 +548,7 @@ exports.default = function () {
 		}),
 		repair: {
 			percent: 0.5,
-			maxHits: 30000
+			maxHits: 50000
 		},
 		linkMain: '58d505eb204ecd9e507951f0'
 	};
