@@ -3,6 +3,7 @@ import * as Manager from './manager'
 import * as Gui from './gui'
 import { timer, color } from  './_util'
 import { log, trigger } from  './task'
+import Setting from  './setting'
 import profiler from 'screeps-profiler';
 const rooms = ['W81S67', 'W81S66', 'W82S67'];
 profiler.enable();
@@ -18,6 +19,9 @@ const main = () => {
 		console.log(`# Lack of CPU!`);
 		return;
 	}
+	// Setting
+	Setting()
+	// Manager
 	trigger()
 	Manager.root()
 	Manager.memory(rooms)
