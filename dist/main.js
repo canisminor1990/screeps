@@ -2288,7 +2288,7 @@ exports.default = function (room) {
 		role: 'farHarvester',
 		body: { carry: 8, move: 4 },
 		number: noEnemy['W81S66'].safe ? 3 : 0,
-		priority: 0
+		priority: 2
 	}, {
 		role: 'farHarvesterSec',
 		body: { carry: 8, move: 4 },
