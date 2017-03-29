@@ -19,7 +19,7 @@ export default (creep, roomName) => {
 			if (withdraw(creep, creep.memory.target.withdraw)) return;
 		}catch (e){}
 	} else {
-		targetChanger(creep, Memory.rooms[roomName].structures.container[0], 'withdraw')
+		// targetChanger(creep, Memory.rooms[roomName].structures.container[0], 'withdraw')
 		if (upgradeController(creep, creep.room.controller)) return;
 	}
 }

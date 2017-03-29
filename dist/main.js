@@ -3567,7 +3567,7 @@ exports.default = function (creep, roomName) {
 			if ((0, _action.withdraw)(creep, creep.memory.target.withdraw)) return;
 		} catch (e) {}
 	} else {
-		(0, _util.targetChanger)(creep, Memory.rooms[roomName].structures.container[0], 'withdraw');
+		// targetChanger(creep, Memory.rooms[roomName].structures.container[0], 'withdraw')
 		if ((0, _action.upgradeController)(creep, creep.room.controller)) return;
 	}
 };
