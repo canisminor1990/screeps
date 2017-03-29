@@ -3416,6 +3416,7 @@ function buildBodyFormat() {
 	});
 	bodyArray.unshift(tough);
 	bodyArray = _.compact(_.flatten(_.zip(bodyArray)));
+	console.log(bodyArray);
 	bodyArray = _.chunk(bodyArray, 2);
 	for (var i = move; i > 0; i--) {
 		bodyArray[i] = _.flatten([bodyArray[i], 'move']);
