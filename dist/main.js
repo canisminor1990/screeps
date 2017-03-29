@@ -3293,9 +3293,9 @@ exports.default = function () {
 		// [name , body , num[main,extra], time]
 		filler: [{ carry: 6 }, [2, 0], 10],
 		cleaner: [{ carry: 4 }, [1, 0], 10],
-		miner: [{ work: 8, carry: 1, move: 4 }, [0, 1], 10],
-		transer: [{ carry: 8 }, [0, 1], 10],
-		linker: [{ carry: 1 }, [0, 1], 10],
+		miner: [{ work: 8, carry: 1, move: 4 }, [1, 1], 10],
+		transer: [{ carry: 8 }, [1, 1], 10],
+		linker: [{ carry: 1 }, [1, 0], 10],
 		builder: [{ work: 2, carry: 6 }, [1, 1], 10],
 		repairer: [{ work: 2, carry: 6 }, [0, 1], 10],
 		upgrader: [{ work: 4, carry: 2 }, [3, 0], 10],
