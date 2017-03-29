@@ -1,4 +1,4 @@
-
+import _ from "lodash"
 
 export default  (roomArray = []) => {
 	const roleConfig = {
@@ -117,7 +117,7 @@ function buildBodyFormat(obj = {}) {
 		bodyArray.push(_.fill(Array(n), key))
 	});
 
-	if (obj.tough) bodyArray.unshift(tough)
+	// if (obj.tough) bodyArray.unshift(tough)
 	bodyArray = _.compact(_.flattenDeep(_.zip(concat(Array, bodyArray))))
 
 	bodyArray = _.chunk(bodyArray, 2);
