@@ -4539,7 +4539,7 @@ function buildBodyFormat() {
 		return bodyArray.push(_.fill(Array(n), key));
 	});
 	_.sortBy(bodyArray, function (n) {
-		return partProprity[n[0]];
+		return -partProprity[n[0]];
 	});
 	if (obj.tough) bodyArray.unshift(tough);
 	bodyArray = _.compact(_.flattenDeep(_.zip((0, _concat3.default)(Array, bodyArray))));
