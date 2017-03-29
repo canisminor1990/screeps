@@ -1,6 +1,6 @@
 const trigger = () => {
 	isSafe('W81S66')
-	isSafe('W82S67')
+	// isSafe('W82S67')
 }
 
 trigger.install = () => {

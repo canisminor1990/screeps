@@ -3500,7 +3500,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 var trigger = function trigger() {
 	isSafe('W81S66');
-	isSafe('W82S67');
+	// isSafe('W82S67')
 };
 
 trigger.install = function () {
