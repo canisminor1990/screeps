@@ -1,10 +1,10 @@
-import { fullCheck, targetMaker, targetChanger,targetFormat } from '../_util'
-import { findClosestInRange, transfer, pickup, withdraw } from '../action'
+import {fullCheck, targetMaker, targetChanger, targetFormat} from '../_util'
+import {findClosestInRange, transfer, pickup, withdraw} from '../action'
 export default (creep, roomName) => {
 	// state
-	const isFull = fullCheck(creep);
+	const isFull         = fullCheck(creep);
 	// target
-	const targetWithdraw = _.filter(Memory.rooms[roomName].structures.container,container => container.id != '58da68e6b6335f86219c4717')[0]
+	const targetWithdraw = _.filter(Memory.rooms[roomName].structures.container, container => container.id != '58da68e6b6335f86219c4717')[0]
 	targetMaker(creep, targetWithdraw, 'withdraw')
 	// run
 	if (!isFull) {
@@ -12,14 +12,14 @@ export default (creep, roomName) => {
 		if (withdraw(creep, targetWithdraw)) return
 	} else {
 		if (creep.pos.roomName == creep.memory.target.withdraw.pos.roomName) {
-			try{
-			const needFill = creep.room.memory.structures.needFill;
-			if (transfer(creep, creep.pos.findClosestByRange(needFill))) return;
-			const store = targetFormat(creep.room.memory.flags.store);
-			if (store && transfer(creep, store, store.store.energy < store.storeCapacity))return;
-			const tower = creep.room.memory.structures.tower.sort((a, b) => a.energy - b.energy)[0];
-			if (transfer(creep, tower, tower.energy < tower.energyCapacity)) return;
-			} catch (e){
+			try {
+				const needFill = creep.room.memory.structures.needFill;
+				if (transfer(creep, creep.pos.findClosestByRange(needFill))) return;
+				const store = targetFormat(creep.room.memory.flags.store.filter(target => target.structureType != STRUCTURE_ROAD));
+				if (store && transfer(creep, store, store.store.energy < store.storeCapacity))return;
+				const tower = creep.room.memory.structures.tower.sort((a, b) => a.energy - b.energy)[0];
+				if (transfer(creep, tower, tower.energy < tower.energyCapacity)) return;
+			} catch (e) {
 				console.log(e)
 			}
 		} else {
