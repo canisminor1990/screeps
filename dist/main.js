@@ -3972,7 +3972,7 @@ function buildBodyFormat() {
 		return partProprity[n[0]];
 	});
 	if (obj.tough) bodyArray.unshift(tough);
-	bodyArray = _.compact(_.flatten(bodyArray));
+	bodyArray = _.compact(_.flattenDeep(bodyArray));
 	bodyArray = _.chunk(bodyArray, 2);
 	for (var i = move; i > 0; i--) {
 		bodyArray[i] = _.flatten([bodyArray[i], 'move']);
