@@ -14,6 +14,9 @@ export default (roomArrary) => {
 					case 'cleaner':
 						role.cleaner(creep)
 						break;
+					case 'cleanerSec':
+						role.cleaner(creep)
+						break;
 					case 'linker':
 						role.linker(creep)
 						break;
