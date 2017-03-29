@@ -519,6 +519,8 @@ exports.default = function () {
 	};
 };
 
+module.exports = exports['default'];
+
 /***/ }),
 /* 7 */
 /***/ (function(module, exports, __webpack_require__) {
@@ -1077,6 +1079,8 @@ exports.default = function () {
 	return setting;
 };
 
+module.exports = exports['default'];
+
 /***/ }),
 /* 13 */
 /***/ (function(module, exports, __webpack_require__) {
@@ -1612,6 +1616,8 @@ exports.default = function (creep, target, fc) {
 	}
 };
 
+module.exports = exports['default'];
+
 /***/ }),
 /* 27 */
 /***/ (function(module, exports, __webpack_require__) {
@@ -1664,6 +1670,7 @@ color.green = function (content) {
 	return "<font color=" + _.colorType.green + ">" + content + "</font>";
 };
 exports.default = color;
+module.exports = exports["default"];
 
 /***/ }),
 /* 28 */
@@ -1684,6 +1691,7 @@ exports.default = {
 	orange: '#FD971F',
 	green: '#A6E22E'
 };
+module.exports = exports['default'];
 
 /***/ }),
 /* 29 */
@@ -1703,6 +1711,8 @@ exports.default = function (x, y, type) {
 		console.log('You can build: ' + ['spawn', 'extension', 'road', 'constructedWall', 'rampart', 'keeperLair', 'portal', 'controller', 'link', 'storage', 'tower', 'observer', 'powerBank', 'powerSpawn', 'extractor', 'lab', 'terminal', 'container', 'nuker'].join('|'));
 	}
 };
+
+module.exports = exports['default'];
 
 /***/ }),
 /* 30 */
@@ -1729,6 +1739,8 @@ exports.default = function (e, name, creep, target) {
 	error.body.push([].concat(other));
 	console.log((0, _.table)(error));
 };
+
+module.exports = exports['default'];
 
 /***/ }),
 /* 31 */
@@ -1758,6 +1770,7 @@ exports.default = {
 	target: unescape("%uD83D%uDC41%uFE0F"),
 	targetChange: unescape("%u267B%uFE0F%uD83D%uDC41%uFE0F")
 };
+module.exports = exports["default"];
 
 /***/ }),
 /* 32 */
@@ -1779,6 +1792,8 @@ exports.default = function (flag) {
 	};
 };
 
+module.exports = exports['default'];
+
 /***/ }),
 /* 33 */
 /***/ (function(module, exports, __webpack_require__) {
@@ -1796,6 +1811,8 @@ exports.default = function (owner) {
 	return friends.toString().match(owner) ? true : false;
 };
 
+module.exports = exports["default"];
+
 /***/ }),
 /* 34 */
 /***/ (function(module, exports, __webpack_require__) {
@@ -1812,6 +1829,8 @@ exports.default = function (creep) {
 	if (creep.memory.full && creep.carry.energy == 0) creep.memory.full = false;
 	return creep.memory.full;
 };
+
+module.exports = exports["default"];
 
 /***/ }),
 /* 35 */
@@ -1849,6 +1868,8 @@ exports.default = function (content) {
 	return "<table style=\"border:1px solid #444;max-width: 100%;word-break:break-all; word-wrap:break-word;\">" + tableHeader + tableBody + "</table>";
 };
 
+module.exports = exports["default"];
+
 /***/ }),
 /* 36 */
 /***/ (function(module, exports, __webpack_require__) {
@@ -1880,6 +1901,8 @@ exports.default = function (creep, target) {
 	}
 };
 
+module.exports = exports['default'];
+
 /***/ }),
 /* 37 */
 /***/ (function(module, exports, __webpack_require__) {
@@ -1900,6 +1923,8 @@ exports.default = function (targetRaw) {
 		return false;
 	}
 };
+
+module.exports = exports["default"];
 
 /***/ }),
 /* 38 */
@@ -1935,6 +1960,8 @@ exports.default = function (creep, target) {
 	}
 };
 
+module.exports = exports['default'];
+
 /***/ }),
 /* 39 */
 /***/ (function(module, exports, __webpack_require__) {
@@ -1954,6 +1981,8 @@ exports.default = function (targetRaw) {
 	}
 };
 
+module.exports = exports["default"];
+
 /***/ }),
 /* 40 */
 /***/ (function(module, exports, __webpack_require__) {
@@ -1971,6 +2000,8 @@ exports.default = function (tick) {
     Memory.timer[tick] = Game.time;
     return true;
 };
+
+module.exports = exports["default"];
 
 /***/ }),
 /* 41 */
@@ -2003,6 +2034,8 @@ exports.default = function (creep, targetRaw) {
 	}
 };
 
+module.exports = exports['default'];
+
 /***/ }),
 /* 42 */
 /***/ (function(module, exports, __webpack_require__) {
@@ -2033,6 +2066,8 @@ exports.default = function (creep, targetRaw) {
 		return false;
 	}
 };
+
+module.exports = exports['default'];
 
 /***/ }),
 /* 43 */
@@ -2065,6 +2100,8 @@ exports.default = function (creep, targetRaw) {
 	}
 };
 
+module.exports = exports['default'];
+
 /***/ }),
 /* 44 */
 /***/ (function(module, exports, __webpack_require__) {
@@ -2095,6 +2132,8 @@ exports.default = function (creep, targetRaw) {
 		return false;
 	}
 };
+
+module.exports = exports['default'];
 
 /***/ }),
 /* 45 */
@@ -2127,6 +2166,8 @@ exports.default = function (creep, targetRaw) {
 	}
 };
 
+module.exports = exports['default'];
+
 /***/ }),
 /* 46 */
 /***/ (function(module, exports, __webpack_require__) {
@@ -2157,6 +2198,8 @@ exports.default = function (creep, targetRaw) {
 		return false;
 	}
 };
+
+module.exports = exports['default'];
 
 /***/ }),
 /* 47 */
@@ -2223,6 +2266,7 @@ function visual(target, creep, color) {
 		}
 	} catch (e) {}
 }
+module.exports = exports['default'];
 
 /***/ }),
 /* 48 */
@@ -2255,6 +2299,8 @@ exports.default = function (creep, targetRaw) {
 	}
 };
 
+module.exports = exports['default'];
+
 /***/ }),
 /* 49 */
 /***/ (function(module, exports, __webpack_require__) {
@@ -2285,6 +2331,8 @@ exports.default = function (creep, targetRaw) {
 		return false;
 	}
 };
+
+module.exports = exports['default'];
 
 /***/ }),
 /* 50 */
@@ -2318,6 +2366,8 @@ exports.default = function (creep, targetRaw) {
 	}
 };
 
+module.exports = exports['default'];
+
 /***/ }),
 /* 51 */
 /***/ (function(module, exports, __webpack_require__) {
@@ -2348,6 +2398,8 @@ exports.default = function (creep, targetRaw) {
 		return false;
 	}
 };
+
+module.exports = exports['default'];
 
 /***/ }),
 /* 52 */
@@ -2381,6 +2433,8 @@ exports.default = function (creep, targetRaw) {
 	}
 };
 
+module.exports = exports['default'];
+
 /***/ }),
 /* 53 */
 /***/ (function(module, exports, __webpack_require__) {
@@ -2405,6 +2459,8 @@ exports.default = function (creep, array, opt) {
 		return false;
 	}
 };
+
+module.exports = exports['default'];
 
 /***/ }),
 /* 54 */
@@ -2437,6 +2493,8 @@ exports.default = function (creep, array) {
 	}
 };
 
+module.exports = exports['default'];
+
 /***/ }),
 /* 55 */
 /***/ (function(module, exports, __webpack_require__) {
@@ -2463,6 +2521,8 @@ exports.default = function (creep, array) {
 		return false;
 	}
 };
+
+module.exports = exports['default'];
 
 /***/ }),
 /* 56 */
@@ -2494,6 +2554,8 @@ exports.default = function (creep) {
 		return false;
 	}
 };
+
+module.exports = exports['default'];
 
 /***/ }),
 /* 57 */
@@ -2598,6 +2660,8 @@ exports.default = function (room) {
 	}];
 };
 
+module.exports = exports["default"];
+
 /***/ }),
 /* 58 */
 /***/ (function(module, exports, __webpack_require__) {
@@ -2629,6 +2693,8 @@ exports.default = function (command, flag) {
 	return target;
 };
 
+module.exports = exports["default"];
+
 /***/ }),
 /* 59 */
 /***/ (function(module, exports, __webpack_require__) {
@@ -2655,6 +2721,8 @@ exports.default = function (command, flag) {
 	return target;
 };
 
+module.exports = exports["default"];
+
 /***/ }),
 /* 60 */
 /***/ (function(module, exports, __webpack_require__) {
@@ -2678,6 +2746,8 @@ exports.default = function (command, flag) {
 
 	return target;
 };
+
+module.exports = exports["default"];
 
 /***/ }),
 /* 61 */
@@ -2703,6 +2773,8 @@ exports.default = function (roomName) {
 		});
 	});
 };
+
+module.exports = exports['default'];
 
 /***/ }),
 /* 62 */
@@ -2765,6 +2837,7 @@ function guiCreep(room, x, y, name, number) {
 		strokeWidth: 0.1
 	});
 };
+module.exports = exports['default'];
 
 /***/ }),
 /* 63 */
@@ -2830,6 +2903,7 @@ function gui(room, x, y, color, content) {
 		strokeWidth: 0.1
 	});
 };
+module.exports = exports['default'];
 
 /***/ }),
 /* 64 */
@@ -2861,6 +2935,8 @@ exports.default = function (roomArray) {
 		sources: sources
 	};
 };
+
+module.exports = exports["default"];
 
 /***/ }),
 /* 65 */
@@ -2907,6 +2983,7 @@ function creepRole(creepsMyRaw, configRole) {
 	});
 	return creepsMy;
 }
+module.exports = exports['default'];
 
 /***/ }),
 /* 66 */
@@ -2928,6 +3005,8 @@ exports.default = function (room) {
 		})
 	};
 };
+
+module.exports = exports["default"];
 
 /***/ }),
 /* 67 */
@@ -2987,6 +3066,8 @@ exports.default = function (room) {
 	return flagsMemory;
 };
 
+module.exports = exports['default'];
+
 /***/ }),
 /* 68 */
 /***/ (function(module, exports, __webpack_require__) {
@@ -3027,6 +3108,8 @@ exports.default = function (room) {
 	}
 	return sources;
 };
+
+module.exports = exports['default'];
 
 /***/ }),
 /* 69 */
@@ -3103,6 +3186,8 @@ exports.default = function (room, config) {
 	};
 };
 
+module.exports = exports["default"];
+
 /***/ }),
 /* 70 */
 /***/ (function(module, exports, __webpack_require__) {
@@ -3160,6 +3245,8 @@ exports.default = function (roomArrary) {
 		// Memory.game  = Game;
 	});
 };
+
+module.exports = exports["default"];
 
 /***/ }),
 /* 71 */
@@ -3246,6 +3333,7 @@ function newRoomMaker(roomName) {
 		memory: Memory.rooms[roomName] ? Memory.rooms[roomName] : {}
 	};
 }
+module.exports = exports['default'];
 
 /***/ }),
 /* 72 */
@@ -3268,6 +3356,8 @@ exports.default = function () {
 		}
 	}
 };
+
+module.exports = exports['default'];
 
 /***/ }),
 /* 73 */
@@ -3303,6 +3393,8 @@ exports.default = function (roomArray) {
 	});
 };
 
+module.exports = exports["default"];
+
 /***/ }),
 /* 74 */
 /***/ (function(module, exports, __webpack_require__) {
@@ -3323,6 +3415,8 @@ exports.default = function (creep, roomName) {
 		(0, _action.attack)(creep, Memory.rooms[roomName].creeps.enemy[0]);
 	}
 };
+
+module.exports = exports['default'];
 
 /***/ }),
 /* 75 */
@@ -3354,6 +3448,8 @@ exports.default = function (creep) {
 	}
 };
 
+module.exports = exports['default'];
+
 /***/ }),
 /* 76 */
 /***/ (function(module, exports, __webpack_require__) {
@@ -3375,6 +3471,8 @@ exports.default = function (creep, roomName) {
 	// task
 	if ((0, _action.claimController)(creep, creep.memory.target.claim)) return;
 };
+
+module.exports = exports['default'];
 
 /***/ }),
 /* 77 */
@@ -3410,6 +3508,8 @@ exports.default = function (creep) {
 		if ((0, _action.transfer)(creep, creep.room.storage)) return;
 	}
 };
+
+module.exports = exports['default'];
 
 /***/ }),
 /* 78 */
@@ -3449,6 +3549,8 @@ exports.default = function (creep, roomName) {
 		if ((0, _action.transfer)(creep, storage)) return;
 	}
 };
+
+module.exports = exports['default'];
 
 /***/ }),
 /* 79 */
@@ -3492,6 +3594,8 @@ exports.default = function (creep, roomName) {
 	}
 };
 
+module.exports = exports['default'];
+
 /***/ }),
 /* 80 */
 /***/ (function(module, exports, __webpack_require__) {
@@ -3530,6 +3634,8 @@ exports.default = function (creep, roomName) {
 	if ((0, _action.harvest)(creep, creep.memory.target.harvest)) return;
 };
 
+module.exports = exports['default'];
+
 /***/ }),
 /* 81 */
 /***/ (function(module, exports, __webpack_require__) {
@@ -3563,6 +3669,8 @@ exports.default = function (creep, roomName) {
 	}
 };
 
+module.exports = exports['default'];
+
 /***/ }),
 /* 82 */
 /***/ (function(module, exports, __webpack_require__) {
@@ -3579,6 +3687,8 @@ var _util = __webpack_require__(0);
 var _action = __webpack_require__(1);
 
 exports.default = function (creep) {};
+
+module.exports = exports['default'];
 
 /***/ }),
 /* 83 */
@@ -3611,6 +3721,8 @@ exports.default = function (creep) {
 		if (link && (0, _action.transfer)(creep, link, link.energy < link.energyCapacity)) return;
 	}
 };
+
+module.exports = exports['default'];
 
 /***/ }),
 /* 84 */
@@ -3648,6 +3760,8 @@ exports.default = function (creep) {
 	if ((0, _action.harvest)(creep, harvestTarget)) return;
 };
 
+module.exports = exports['default'];
+
 /***/ }),
 /* 85 */
 /***/ (function(module, exports, __webpack_require__) {
@@ -3673,6 +3787,8 @@ exports.default = function (creep) {
 		if ((0, _action.upgradeController)(creep, creep.room.controller)) return;
 	}
 };
+
+module.exports = exports['default'];
 
 /***/ }),
 /* 86 */
@@ -3806,9 +3922,9 @@ Object.defineProperty(exports, "__esModule", {
 	value: true
 });
 
-var _concat = __webpack_require__(23);
+var _concat2 = __webpack_require__(23);
 
-var _concat2 = _interopRequireDefault(_concat);
+var _concat3 = _interopRequireDefault(_concat2);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -3942,7 +4058,7 @@ function buildBodyFormat() {
 	});
 
 	// if (obj.tough) bodyArray.unshift(tough)
-	bodyArray = _.compact(_.flattenDeep(_.zip((0, _concat2.default)(Array, bodyArray))));
+	bodyArray = _.compact(_.flattenDeep(_.zip((0, _concat3.default)(Array, bodyArray))));
 
 	bodyArray = _.chunk(bodyArray, 2);
 	for (var i = move; i > 0; i--) {
@@ -3950,6 +4066,7 @@ function buildBodyFormat() {
 	}
 	return _.compact(_.flattenDeep(bodyArray));
 }
+module.exports = exports["default"];
 
 /***/ }),
 /* 88 */
@@ -3962,6 +4079,7 @@ Object.defineProperty(exports, "__esModule", {
 	value: true
 });
 exports.default = [['W81S67', 'W81S66'], ['W82S67']];
+module.exports = exports['default'];
 
 /***/ }),
 /* 89 */
@@ -3980,6 +4098,8 @@ exports.default = function (link) {
 	var target = Game.getObjectById(linkMain);
 	if (target.energy == 0) link.transferEnergy(target);
 };
+
+module.exports = exports["default"];
 
 /***/ }),
 /* 90 */
@@ -4056,6 +4176,7 @@ function buildBody(obj) {
 	}
 	return _.compact(_.flattenDeep(bodyArray));
 }
+module.exports = exports['default'];
 
 /***/ }),
 /* 91 */
@@ -4077,6 +4198,8 @@ exports.default = function (tower) {
 		tower.repair(needFix[0]);
 	}
 };
+
+module.exports = exports["default"];
 
 /***/ }),
 /* 92 */
@@ -4193,6 +4316,8 @@ exports.default = function (roomName, timeout) {
 	console.log(_util.color.grey('# Gametime ' + Game.time), (0, _util.table)(gclLog), (0, _util.table)(energyLog), (0, _util.table)(roleLog[0]), (0, _util.table)(roleLog[1]));
 };
 
+module.exports = exports['default'];
+
 /***/ }),
 /* 94 */
 /***/ (function(module, exports, __webpack_require__) {
@@ -4249,6 +4374,7 @@ function isSafe(roomName) {
 		Memory.rooms[roomName].creeps.enemy = [];
 	}
 }
+module.exports = exports['default'];
 
 /***/ }),
 /* 95 */

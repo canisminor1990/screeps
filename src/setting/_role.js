@@ -1,4 +1,4 @@
-import concat from "lodash/concat"
+import _concat from "lodash/concat"
 
 export default  (roomArray = []) => {
 	const roleConfig = {
@@ -118,7 +118,7 @@ function buildBodyFormat(obj = {}) {
 	});
 
 	// if (obj.tough) bodyArray.unshift(tough)
-	bodyArray = _.compact(_.flattenDeep(_.zip(concat(Array, bodyArray))))
+	bodyArray = _.compact(_.flattenDeep(_.zip(_concat(Array, bodyArray))))
 
 	bodyArray = _.chunk(bodyArray, 2);
 	for (let i = move; i > 0; i--) {

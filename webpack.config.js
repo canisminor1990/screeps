@@ -1,6 +1,6 @@
 const LodashModuleReplacementPlugin = require('lodash-webpack-plugin');
-const path     = require('path');
-module.exports = {
+const path                          = require('path');
+module.exports                      = {
 	entry : './src/main.js',
 	output: {
 		path         : path.join(__dirname, "dist"),
@@ -21,14 +21,11 @@ module.exports = {
 						require.resolve('screeps-regenerator-preset'), // https://github.com/screepers/screeps-regenerator
 					],
 					plugins: [
-						// require.resolve("babel-plugin-lodash"),
+						require.resolve('babel-plugin-add-module-exports'),
 						require.resolve("babel-plugin-dynamic-import-webpack")
 					]
 				},
 			},
 		],
 	},
-	plugins:[
-		// new LodashModuleReplacementPlugin,
-	]
 };
