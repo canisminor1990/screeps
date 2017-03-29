@@ -1504,7 +1504,9 @@ Object.defineProperty(exports, "__esModule", {
 	value: true
 });
 
-exports.default = function (targetRaw) {
+exports.default = function (targetRaw, opt) {
+	if (!targetRaw) return false;
+	if (opt) _.filter(targetRaw, opt);
 	if (_.isArray(targetRaw)) targetRaw = _.first(targetRaw);
 	try {
 		var target = Game.getObjectById(targetRaw.id);
@@ -3464,9 +3466,9 @@ exports.default = function (creep, roomName) {
 			try {
 				var needFill = creep.room.memory.structures.needFill;
 				if ((0, _action.transfer)(creep, creep.pos.findClosestByRange(needFill))) return;
-				var store = (0, _util.targetFormat)(creep.room.memory.flags.store.filter(function (target) {
+				var store = (0, _util.targetFormat)(creep.room.memory.flags.store, function (target) {
 					return target.structureType != STRUCTURE_ROAD;
-				}));
+				});
 				if (store && (0, _action.transfer)(creep, store, store.store.energy < store.storeCapacity)) return;
 				var tower = creep.room.memory.structures.tower.sort(function (a, b) {
 					return a.energy - b.energy;
