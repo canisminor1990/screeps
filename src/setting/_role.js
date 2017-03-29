@@ -18,12 +18,13 @@ export default  (roomArray = []) => {
 
 function buildRole(config = {}, roomArray = []) {
 	let i = 0, proprity = 0;
+	let newConfig = {}
 	_.forEach(roomArray, (roomName) => {
 		_.forEach(config, (array, key) => {
 			let name   = key + '#',
 			    number = array[1]
 			if (i > 0) name = name + roomName + '#';
-			config[name] = {
+			newConfig[name] = {
 				role    : key,
 				roomName: roomName,
 				roomType: (i == 0) ? "main" : "extra",
@@ -36,7 +37,7 @@ function buildRole(config = {}, roomArray = []) {
 		})
 		i++;
 	})
-	return config;
+	return newConfig;
 }
 
 function buildBody(obj = {}) {

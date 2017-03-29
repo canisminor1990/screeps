@@ -3312,12 +3312,13 @@ function buildRole() {
 
 	var i = 0,
 	    proprity = 0;
+	var newConfig = {};
 	_.forEach(roomArray, function (roomName) {
 		_.forEach(config, function (array, key) {
 			var name = key + '#',
 			    number = array[1];
 			if (i > 0) name = name + roomName + '#';
-			config[name] = {
+			newConfig[name] = {
 				role: key,
 				roomName: roomName,
 				roomType: i == 0 ? "main" : "extra",
@@ -3330,7 +3331,7 @@ function buildRole() {
 		});
 		i++;
 	});
-	return config;
+	return newConfig;
 }
 
 function buildBody() {
