@@ -2369,12 +2369,12 @@ module.exports = exports["default"];
 Object.defineProperty(exports, "__esModule", {
 	value: true
 });
-exports.default = {
+exports.default = [{
 	role: 'cleanerSec',
 	body: { carry: 6, move: 3 },
 	number: 2,
 	priority: 0
-};
+}];
 module.exports = exports['default'];
 
 /***/ }),
