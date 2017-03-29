@@ -4513,7 +4513,7 @@ function buildBody() {
 	var obj = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
 
 	var cost = 0,
-	    body = buildBodyFormat(obj);
+	    body = _.compact(buildBodyFormat(obj));
 	_.forEach(body, function (part) {
 		cost = cost + partCost[part];
 	});
@@ -4546,7 +4546,7 @@ function buildBodyFormat() {
 	bodyArray = _.chunk(bodyArray, 2);
 	for (var i = move; i > 0; i--) {
 		bodyArray[i] = _.flattenDeep([bodyArray[i], 'move']);
-	}return _.compact(_.compact(_.flattenDeep(bodyArray)));
+	}return _.compact(_.flattenDeep(bodyArray));
 }
 module.exports = exports["default"];
 
