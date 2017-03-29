@@ -27,7 +27,7 @@ function buildRole(config = {}, roomArray = []) {
 				roomName: roomName,
 				roomType: (i == 0) ? "main" : "extra",
 				body    : buildBody(array[0]),
-
+				// number  : (i == 0) ? array[1][0] : array[1][1],
 				timeout : array[2],
 				proprity: proprity
 			}
@@ -35,6 +35,7 @@ function buildRole(config = {}, roomArray = []) {
 		})
 		i++;
 	})
+	return config;
 }
 
 function buildBody(obj = {}) {
