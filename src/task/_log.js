@@ -55,7 +55,7 @@ export default (roomName, timeout) => {
 		                                configCreepNum = configCreepNum + role.number;
 		                                let number     = Memory.global.creeps[role.role]
 		                                let i          = (role.role.match('far')) ? 1 : 0
-		                                number         = (number) ? number : 0
+		                                number         = (number != undefined) ? number : 0
 		                                roleLog[i].header.push(role.role);
 		                                roleLog[i].body[0].push(`${number.length}/${role.number}`)
 
