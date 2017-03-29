@@ -54,7 +54,7 @@ export default (roomName, timeout) => {
 	room.memory.config.role.forEach(role => {
 		                                configCreepNum = configCreepNum + role.number;
 		                                let NowCreeps  = Memory.global.creeps[role.role]
-		                                let NowNum     = (NowCreeps.length) ? NowCreeps.length : 0
+		                                let NowNum     = (NowCreeps) ? NowCreeps.length : 0
 		                                let i          = (role.role.match('far')) ? 1 : 0
 		                                roleLog[i].header.push(role.role);
 		                                roleLog[i].body[0].push(`${NowNum}/${role.number}`)
