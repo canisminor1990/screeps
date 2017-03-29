@@ -49,11 +49,21 @@ export default (spawn, configRole) => {
 }
 
 function buildBody(obj) {
-	let array = [];
-	for (let key in obj) {
-		for (let num = 0; num < obj[key]; num++) {
-			array.push(key)
-		}
+	let bodyArray = [];
+	let move;
+	if (!obj.move) {
+		move = Math.ceil(_.sum(obj) / 2);
+	} else {
+		move = obj.move;
+		delete (obj.move)
 	}
-	return array;
+	_.forEach(obj, (n, key) => {
+		bodyArray = bodyArray.concat(_.fill(Array(n), key))
+	});
+	bodyArray = _.chunk(bodyArray, 2);
+
+	for (let i = move; i > 0; i--) {
+		bodyArray[i] = _.flatten([bodyArray[i], 'move'])
+	}
+	return _.compact(_.flattenDeep(bodyArray))
 }

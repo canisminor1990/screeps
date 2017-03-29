@@ -3343,13 +3343,23 @@ exports.default = function (spawn, configRole) {
 };
 
 function buildBody(obj) {
-	var array = [];
-	for (var key in obj) {
-		for (var num = 0; num < obj[key]; num++) {
-			array.push(key);
-		}
+	var bodyArray = [];
+	var move = void 0;
+	if (!obj.move) {
+		move = Math.ceil(_.sum(obj) / 2);
+	} else {
+		move = obj.move;
+		delete obj.move;
 	}
-	return array;
+	_.forEach(obj, function (n, key) {
+		bodyArray = bodyArray.concat(_.fill(Array(n), key));
+	});
+	bodyArray = _.chunk(bodyArray, 2);
+
+	for (var i = move; i > 0; i--) {
+		bodyArray[i] = _.flatten([bodyArray[i], 'move']);
+	}
+	return _.compact(_.flattenDeep(bodyArray));
 }
 
 /***/ }),

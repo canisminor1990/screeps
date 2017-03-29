@@ -21,16 +21,22 @@ export default  (room) => {
 
 function buildBody(obj) {
 	let bodyArray = [];
-	let move      = Math.ceil(_.sum(obj) / 2);
+	let move;
+	if (!obj.move) {
+		move = Math.ceil(_.sum(obj) / 2);
+	} else {
+		move = obj.move;
+		delete (obj.move)
+	}
 	_.forEach(obj, (n, key) => {
 		bodyArray = bodyArray.concat(_.fill(Array(n), key))
 	});
 	bodyArray = _.chunk(bodyArray, 2);
-	let newArray = [];
-	for (let i = 0; i < move; i++) {
-		newArray = newArray.concat(bodyArray[i],['move'])
-	};
-	return newArray
+
+	for (let i = move; i > 0; i--) {
+		bodyArray[i] = _.flatten([bodyArray[i], 'move'])
+	}
+	return _.compact(_.flattenDeep(bodyArray))
 }
-buildBody({work: 2, carry: 3})
+
 
