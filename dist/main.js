@@ -3560,7 +3560,10 @@ exports.default = function (creep, roomName) {
 			if ((0, _action.pickup)(creep, (0, _action.findInRange)(creep, creep.room.memory.dropped.energy, 2)[0])) return;
 			// const store = targetFormat(creep.room.memory.flags.store);
 			// if (store && withdraw(creep, store, store.store.energy > 0))return;
+
+
 			if ((0, _action.withdraw)(creep, Memory.rooms[roomName].structures.spawn)) return;
+			if ((0, _action.withdraw)(creep, Memory.rooms[roomName].structures.container[0])) return;
 			if ((0, _action.withdraw)(creep, creep.memory.target.withdraw)) return;
 		} catch (e) {}
 	} else {
