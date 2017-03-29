@@ -58,7 +58,6 @@ export default (roomName, timeout) => {
 		                                let i          = (role.role.match('far')) ? 1 : 0
 		                                roleLog[i].header.push(role.role);
 		                                roleLog[i].body[0].push(`${NowNum}/${role.number}`)
-
 	                                }
 	)
 	const energyLog = {
