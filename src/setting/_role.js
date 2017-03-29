@@ -93,7 +93,7 @@ const partProprity = {
 
 function buildBody(obj = {}) {
 	let cost = 0,
-	    body = _.compact(buildBodyFormat(obj))
+	    body = buildBodyFormat(obj)
 	_.forEach(body, part => {
 		cost = cost + partCost[part]
 	})
@@ -117,5 +117,7 @@ function buildBodyFormat(obj = {}) {
 	bodyArray = _.compact(_.flattenDeep(_.zip(_concat(Array, bodyArray))))
 	bodyArray = _.chunk(bodyArray, 2);
 	for (let i = move; i > 0; i--) bodyArray[i] = _.flattenDeep([bodyArray[i], 'move'])
-	return _.compact(_.flattenDeep(bodyArray))
+	bodyArray = _.compact(_.flattenDeep(bodyArray))
+	console.log(JSON.stringify(bodyArray))
+	return bodyArray
 }
