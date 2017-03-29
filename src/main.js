@@ -19,8 +19,7 @@ const main = () => {
 		console.log(`# Lack of CPU!`);
 		return;
 	}
-	// Setting
-	Setting()
+
 	// Manager
 	trigger()
 	Manager.root()
@@ -33,6 +32,8 @@ const main = () => {
 	Gui.role(rooms[0])
 	// Log
 	if (timer(10)) log(rooms[0], 10)
+	// Setting
+	Setting()
 }
 
 // loop

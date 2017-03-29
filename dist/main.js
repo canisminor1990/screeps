@@ -3700,8 +3700,7 @@ var main = function main() {
 		console.log('# Lack of CPU!');
 		return;
 	}
-	// Setting
-	(0, _setting2.default)();
+
 	// Manager
 	(0, _task.trigger)();
 	Manager.root();
@@ -3714,6 +3713,8 @@ var main = function main() {
 	Gui.role(rooms[0]);
 	// Log
 	if ((0, _util.timer)(10)) (0, _task.log)(rooms[0], 10);
+	// Setting
+	(0, _setting2.default)();
 };
 
 // loop
