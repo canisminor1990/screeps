@@ -116,7 +116,7 @@ function buildBodyFormat(obj = {}) {
 	});
 
 	bodyArray.unshift(tough)
-	bodyArray = _.compact(_.flatten(_.zip(_.concat(Array,bodyArray))))
+	bodyArray = _.compact(_.flatten(_.zip(bodyArray)))
 
 	bodyArray = _.chunk(bodyArray, 2);
 	for (let i = move; i > 0; i--) {
