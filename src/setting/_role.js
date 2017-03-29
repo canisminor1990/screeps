@@ -23,6 +23,7 @@ function buildRole(config = {}, roomArray = []) {
 		_.forEach(config, (array, key) => {
 			let name   = key,
 			    number = (i == 0) ? array[1][0] : array[1][1];
+			number     = buildNumber(key, number, roomName);
 			if (number == 0) return;
 			if (i > 0) name = name + '#' + roomName;
 			newConfig[name] = {
@@ -39,6 +40,26 @@ function buildRole(config = {}, roomArray = []) {
 		i++;
 	})
 	return newConfig;
+}
+
+function buildNumber(role, number, roomName) {
+	try {
+		const room = Memory.rooms['roomName']
+		switch (role) {
+			case 'miner':
+				number = room.sources.length * number
+				break
+			case 'transer':
+				number = room.sources.length * number - room.structures.link.length + 1
+				break
+			case 'builder':
+				number = Math.ceil(room.structures.needBuild.length / 4)
+		}
+		return number
+	} catch (e) {
+		console.log(`# Error BuildNumber ${role}-${roomName} ${e}`)
+		return 0
+	}
 }
 
 function buildBody(obj = {}) {
