@@ -3322,7 +3322,7 @@ function buildRole() {
 				roomName: roomName,
 				roomType: i == 0 ? "main" : "extra",
 				body: buildBody(array[0]),
-				number: roomType == 'main' ? array[1][0] : array[1][1],
+				number: i == 0 ? array[1][0] : array[1][1],
 				timeout: array[2],
 				proprity: proprity
 			};
