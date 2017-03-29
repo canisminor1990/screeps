@@ -2370,7 +2370,7 @@ Object.defineProperty(exports, "__esModule", {
 	value: true
 });
 exports.default = {
-	role: 'cleaner',
+	role: 'cleanerSec',
 	body: { carry: 6, move: 3 },
 	number: 2,
 	priority: 0
