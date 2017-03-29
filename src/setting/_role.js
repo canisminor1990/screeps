@@ -21,7 +21,7 @@ function buildRole(config = {}, roomArray = []) {
 	_.forEach(roomArray, (roomName) => {
 		_.forEach(config, (array, key) => {
 			let name   = key + '#',
-			    number = (i == 0) ? array[1][0] : array[1][1]
+			    number = array[1]
 			if (i > 0) name = name + roomName + '#';
 			config[name] = {
 				role    : key,
