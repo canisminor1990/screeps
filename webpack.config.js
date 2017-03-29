@@ -21,14 +21,14 @@ module.exports = {
 						require.resolve('screeps-regenerator-preset'), // https://github.com/screepers/screeps-regenerator
 					],
 					plugins: [
-						require.resolve("babel-plugin-lodash"),
-						// require.resolve("babel-plugin-dynamic-import-webpack")
+						// require.resolve("babel-plugin-lodash"),
+						require.resolve("babel-plugin-dynamic-import-webpack")
 					]
 				},
 			},
 		],
 	},
 	plugins:[
-		new LodashModuleReplacementPlugin,
+		// new LodashModuleReplacementPlugin,
 	]
 };
