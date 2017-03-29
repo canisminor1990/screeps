@@ -65,7 +65,7 @@ function buildNumber(role, number, roomName) {
 	}
 }
 
-const costSpend = {
+const partCost = {
 	"move"         : 50,
 	"work"         : 100,
 	"attack"       : 80,
@@ -76,27 +76,47 @@ const costSpend = {
 	"claim"        : 600
 }
 
+const partProprity = {
+	"tough"        : 1,
+	"carry"        : 2,
+	"work"         : 3,
+	"move"         : 4,
+	"attack"       : 5,
+	"ranged_attack": 6,
+	"claim"        : 7,
+	"heal"         : 8,
+}
+
+_.sortBy(['work', 'heal', 'tough'], n => {
+	return partProprity[n]
+})
+
 function buildBody(obj = {}) {
 	let cost = 0,
 	    body = buildBodyFormat(obj)
 	_.forEach(body, part => {
-		cost = cost + costSpend[part]
+		cost = cost + partCost[part]
 	})
 	return [body, cost]
 }
 
 function buildBodyFormat(obj = {}) {
-	let move, bodyArray = [];
-	move                = Math.ceil(_.sum(obj) / 2);
+	let move, tough = [], bodyArray = [];
+	move            = Math.ceil(_.sum(obj) / 2);
+	if (obj.tough) {
+		tough = _.fill(Array(obj.tough), 'tough')
+		delete (obj.tough)
+	}
 	if (obj.move) {
 		move = (move > obj.move) ? obj.move : move;
 		delete (obj.move)
 	}
 	_.forEach(obj, (n, key) => {
-		bodyArray = bodyArray.concat(_.fill(Array(n), key))
+		bodyArray.push(_.fill(Array(n), key))
 	});
+	bodyArray.unshift(tough)
+	bodyArray = _.compact(_.flatten(_.zip(bodyArray)))
 	bodyArray = _.chunk(bodyArray, 2);
-
 	for (let i = move; i > 0; i--) {
 		bodyArray[i] = _.flatten([bodyArray[i], 'move'])
 	}

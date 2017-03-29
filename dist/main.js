@@ -3359,7 +3359,7 @@ function buildNumber(role, number, roomName) {
 	}
 }
 
-var costSpend = {
+var partCost = {
 	"move": 50,
 	"work": 100,
 	"attack": 80,
@@ -3370,13 +3370,28 @@ var costSpend = {
 	"claim": 600
 };
 
+var partProprity = {
+	"tough": 1,
+	"carry": 2,
+	"work": 3,
+	"move": 4,
+	"attack": 5,
+	"ranged_attack": 6,
+	"claim": 7,
+	"heal": 8
+};
+
+_.sortBy(['work', 'heal', 'tough'], function (n) {
+	return partProprity[n];
+});
+
 function buildBody() {
 	var obj = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
 
 	var cost = 0,
 	    body = buildBodyFormat(obj);
 	_.forEach(body, function (part) {
-		cost = cost + costSpend[part];
+		cost = cost + partCost[part];
 	});
 	return [body, cost];
 }
@@ -3385,17 +3400,23 @@ function buildBodyFormat() {
 	var obj = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
 
 	var move = void 0,
+	    tough = [],
 	    bodyArray = [];
 	move = Math.ceil(_.sum(obj) / 2);
+	if (obj.tough) {
+		tough = _.fill(Array(obj.tough), 'tough');
+		delete obj.tough;
+	}
 	if (obj.move) {
 		move = move > obj.move ? obj.move : move;
 		delete obj.move;
 	}
 	_.forEach(obj, function (n, key) {
-		bodyArray = bodyArray.concat(_.fill(Array(n), key));
+		bodyArray.push(_.fill(Array(n), key));
 	});
+	bodyArray.unshift(tough);
+	bodyArray = _.compact(_.flatten(_.zip(bodyArray)));
 	bodyArray = _.chunk(bodyArray, 2);
-
 	for (var i = move; i > 0; i--) {
 		bodyArray[i] = _.flatten([bodyArray[i], 'move']);
 	}
