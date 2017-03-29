@@ -20,6 +20,7 @@ trigger.install = () => {
 export default trigger;
 
 function isSafe(roomName) {
+	try{
 	const trigger = Memory.trigger.noEnemy[roomName];
 	if (trigger.safe && Memory.rooms[roomName].creeps.enemy.length > 0) {
 		Memory.trigger.noEnemy[roomName] = {
@@ -36,5 +37,9 @@ function isSafe(roomName) {
 			Memory.trigger.noEnemy[roomName].safe = true;
 			Memory.rooms[roomName].creeps.enemy   = [];
 		}
+	}
+	}catch (e){
+		Memory.trigger.noEnemy[roomName].safe = true;
+		Memory.rooms[roomName].creeps.enemy   = [];
 	}
 }
