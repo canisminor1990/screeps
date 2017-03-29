@@ -44,7 +44,7 @@ function buildRole(config = {}, roomArray = []) {
 
 function buildNumber(role, number, roomName) {
 	try {
-		const room = Memory.rooms['roomName']
+		const room = Memory.rooms[roomName]
 		switch (role) {
 			case 'miner':
 				number = room.sources.length * number

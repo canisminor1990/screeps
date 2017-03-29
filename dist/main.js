@@ -3338,7 +3338,7 @@ function buildRole() {
 
 function buildNumber(role, number, roomName) {
 	try {
-		var room = Memory.rooms['roomName'];
+		var room = Memory.rooms[roomName];
 		switch (role) {
 			case 'miner':
 				number = room.sources.length * number;
