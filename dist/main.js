@@ -4029,8 +4029,10 @@ exports.default = function (creep, roomName) {
 			if ((0, _action.transfer)(creep, creep.pos.findClosestByRange(needFill))) return;
 			var store = (0, _util.targetFormat)(creep.room.memory.flags.store);
 			if (store && (0, _action.transfer)(creep, store, store.store.energy < store.storeCapacity)) return;
-			var spawn = Memory.rooms[roomName].structures.spawn;
-			if (spawn && (0, _action.transfer)(creep, spawn, spawn.energy < spawn.energyCapacity)) return;
+			var tower = creep.room.memory.structures.tower.sort(function (a, b) {
+				return a.energy - b.energy;
+			})[0];
+			if ((0, _action.transfer)(creep, tower, tower.energy < tower.energyCapacity)) return;
 		} else {
 			(0, _util.targetChanger)(creep, targetWithdraw, 'withdraw');
 		}
