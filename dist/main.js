@@ -3474,11 +3474,11 @@ exports.default = function (roomName, timeout) {
 	}];
 	room.memory.config.role.forEach(function (role) {
 		configCreepNum = configCreepNum + role.number;
-		var number = Memory.global.creeps[role.role];
+		var NowCreeps = Memory.global.creeps[role.role];
+		var NowNum = NowCreeps.length ? NowCreeps.length : 0;
 		var i = role.role.match('far') ? 1 : 0;
-		number = number != undefined ? number : 0;
 		roleLog[i].header.push(role.role);
-		roleLog[i].body[0].push(number.length + '/' + role.number);
+		roleLog[i].body[0].push(NowNum + '/' + role.number);
 	});
 	var energyLog = {
 		header: ['Storage', 'Spawn', 'Extension', 'CanUse', 'Creeps', 'Cpu', 'Bucket'],
