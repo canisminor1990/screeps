@@ -4538,15 +4538,15 @@ function buildBodyFormat() {
 	_.forEach(obj, function (n, key) {
 		return bodyArray.push(_.fill(Array(n), key));
 	});
-	_.sortBy(bodyArray, function (n) {
-		return -partProprity[n[0]];
+	bodyArray = _.sortBy(bodyArray, function (n) {
+		return partProprity[n[0]];
 	});
 	if (obj.tough) bodyArray.unshift(tough);
 	bodyArray = _.compact(_.flattenDeep(_.zip((0, _concat3.default)(Array, bodyArray))));
 	bodyArray = _.chunk(bodyArray, 2);
 	for (var i = move; i > 0; i--) {
 		bodyArray[i] = _.flattenDeep([bodyArray[i], 'move']);
-	}return _.compact(_.flattenDeep(bodyArray));
+	}return _.compact(_.compact(_.flattenDeep(bodyArray)));
 }
 module.exports = exports["default"];
 

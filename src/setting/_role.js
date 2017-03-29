@@ -112,10 +112,10 @@ function buildBodyFormat(obj = {}) {
 		delete (obj.move)
 	}
 	_.forEach(obj, (n, key) => bodyArray.push(_.fill(Array(n), key)));
-	_.sortBy(bodyArray, n => -partProprity[n[0]])
+	bodyArray = _.sortBy(bodyArray, n => partProprity[n[0]])
 	if (obj.tough) bodyArray.unshift(tough)
 	bodyArray = _.compact(_.flattenDeep(_.zip(_concat(Array, bodyArray))))
 	bodyArray = _.chunk(bodyArray, 2);
 	for (let i = move; i > 0; i--) bodyArray[i] = _.flattenDeep([bodyArray[i], 'move'])
-	return _.compact(_.flattenDeep(bodyArray))
+	return _.compact(_.compact(_.flattenDeep(bodyArray)))
 }
