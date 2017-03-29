@@ -115,8 +115,7 @@ function buildBodyFormat(obj = {}) {
 		bodyArray.push(_.fill(Array(n), key))
 	});
 	bodyArray.unshift(tough)
-	console.log(JSON.stringify(_.zip(bodyArray)))
-	bodyArray = _.compact(_.flatten(_.zip(bodyArray)))
+	bodyArray = _.compact(_.flatten(_.zip(bodyArray[0])))
 
 	bodyArray = _.chunk(bodyArray, 2);
 	for (let i = move; i > 0; i--) {
