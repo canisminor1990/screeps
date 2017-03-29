@@ -116,6 +116,5 @@ function buildBodyFormat(obj = {}) {
 	bodyArray = _.chunk(bodyArray, 2);
 	for (let i = move; i > 0; i--) bodyArray[i] = _.flatten([bodyArray[i], 'move'])
 	bodyArray = _.compact(_.flattenDeep(bodyArray))
-	bodyArray.shift()
 	return bodyArray
 }

@@ -3977,7 +3977,6 @@ function buildBodyFormat() {
 	for (var i = move; i > 0; i--) {
 		bodyArray[i] = _.flatten([bodyArray[i], 'move']);
 	}bodyArray = _.compact(_.flattenDeep(bodyArray));
-	bodyArray.shift();
 	return bodyArray;
 }
 module.exports = exports["default"];
