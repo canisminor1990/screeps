@@ -3407,7 +3407,7 @@ exports.default = function (creep) {
 			var linkMain = Game.getObjectById(creep.room.memory.config.linkMain);
 			if ((0, _action.withdraw)(creep, linkMain, linkMain.energy > 0)) return;
 		} else {
-			if (creep.pos.roomName !== 'W82S67') (0, _action.moveTo)(creep, Game.spawns['Spawn2']);
+			if (creep.pos.roomName !== 'W82S67' && (0, _action.moveTo)(creep, Game.spawns['Spawn2'])) return;
 		}
 		if (!needFill || needFill.length == 0) {
 			if ((0, _action.pickup)(creep, (0, _action.findClosestByRange)(creep, creep.room.memory.dropped.energy))) return;
