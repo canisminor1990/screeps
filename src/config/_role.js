@@ -30,13 +30,13 @@ export default  (room) => {
 			role    : 'farHarvester',
 			body    : {carry: 8, move: 4},
 			number  : (noEnemy['W81S66'].safe) ? 3 : 0,
-			priority: 5
+			priority: 0
 		},
 		{
 			role    : 'farHarvesterSec',
 			body    : {carry: 8, move: 4},
 			number  : (noEnemy['W82S67'].safe) ? 5 : 0,
-			priority: 5
+			priority: 0
 		},
 		{
 			role    : 'farBuilder',
@@ -59,7 +59,7 @@ export default  (room) => {
 			role    : 'linker',
 			body    : {carry: 1, move: 1},
 			number  : 1,
-			priority: 2
+			priority: 0
 		},
 		{
 			role    : 'upgrader',
