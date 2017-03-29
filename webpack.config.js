@@ -5,9 +5,20 @@ module.exports                      = {
 	output: {
 		path         : path.join(__dirname, "dist"),
 		filename     : '[name].js',
+		pathinfo: true,
 		libraryTarget: 'commonjs2',
+		sourceMapFilename: '[file].map.js', // normally this is [file].map, but we need a js file, or it will be rejected by screeps server.
+		devtoolModuleFilenameTemplate: '[resource-path]',
 	},
-	// devtool: 'source-map',
+	target: 'node',
+	node: {
+		console: true,
+		global: true,
+		process: false,
+		Buffer: false,
+		__filename: false,
+		__dirname: false,
+	},
 	module: {
 		loaders: [
 			{
