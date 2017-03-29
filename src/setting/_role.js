@@ -116,8 +116,8 @@ function buildBodyFormat(obj = {}) {
 	if (obj.tough) bodyArray.unshift(tough)
 	bodyArray = _.compact(_.flattenDeep(_.zip(_concat(Array, bodyArray))))
 	bodyArray = _.chunk(bodyArray, 2);
-	for (let i = move; i > 0; i--) bodyArray[i] = _.flattenDeep([bodyArray[i], 'move'])
+	for (let i = move; i > 0; i--) bodyArray[i] = _.flatten([bodyArray[i], 'move'])
 	bodyArray = _.compact(_.flattenDeep(bodyArray))
-	console.log(JSON.stringify(bodyArray))
+	bodyArray.shift()
 	return bodyArray
 }

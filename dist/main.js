@@ -4545,9 +4545,9 @@ function buildBodyFormat() {
 	bodyArray = _.compact(_.flattenDeep(_.zip((0, _concat3.default)(Array, bodyArray))));
 	bodyArray = _.chunk(bodyArray, 2);
 	for (var i = move; i > 0; i--) {
-		bodyArray[i] = _.flattenDeep([bodyArray[i], 'move']);
+		bodyArray[i] = _.flatten([bodyArray[i], 'move']);
 	}bodyArray = _.compact(_.flattenDeep(bodyArray));
-	console.log(JSON.stringify(bodyArray));
+	bodyArray.shift();
 	return bodyArray;
 }
 module.exports = exports["default"];
