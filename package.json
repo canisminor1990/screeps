@@ -27,7 +27,9 @@
     "eslint-config-airbnb": "^6.0.0",
     "eslint-plugin-flowtype": "^2.1.0",
     "eslint-plugin-react": "^4.0.0",
-    "lodash": "^4.17.4"
+    "lodash": "^4.17.4",
+    "screeps-regenerator-preset": "^0.9.6",
+    "screeps-regenerator-runtime": "^0.10.1"
   },
   "scripts": {
     "test": "webpack --config webpack.test.config.js",
