@@ -1,30 +1,33 @@
-const LodashModuleReplacementPlugin = require('lodash-webpack-plugin');
-const path                          = require('path');
-module.exports                      = {
-	entry : './src/main.js',
-	output: {
-		path         : path.join(__dirname, "dist"),
-		filename     : '[name].js',
-		pathinfo: true,
-		libraryTarget: 'commonjs2',
-		sourceMapFilename: '[file].map.js', // normally this is [file].map, but we need a js file, or it will be rejected by screeps server.
+const path     = require('path');
+module.exports = {
+	devtool: 'source-map',
+	entry    : './src/main.js',
+	output   : {
+		path                         : path.join(__dirname, "dist"),
+		filename                     : '[name].js',
+		pathinfo                     : true,
+		libraryTarget                : 'commonjs2',
+		sourceMapFilename            : '[file].map.js', // normally this is [file].map, but we need a js file, or it will be rejected by screeps server.
 		devtoolModuleFilenameTemplate: '[resource-path]',
 	},
-	target: 'node',
-	node: {
-		console: true,
-		global: true,
-		process: false,
-		Buffer: false,
+	target   : 'node',
+	node     : {
+		console   : true,
+		global    : true,
+		process   : false,
+		Buffer    : false,
 		__filename: false,
-		__dirname: false,
+		__dirname : false,
 	},
-	module: {
+	resolve  : {extensions: ['.js']},// Add '.ts' and '.tsx' as resolvable extensions.
+	externals: [{'main.js.map': './main.js.map',},],
+	module   : {
 		loaders: [
 			{
-				test  : /\.js$/,
-				loader: 'babel-loader',
-				query : {
+				test   : /\.js$/,
+				loader : 'babel-loader?source-map-loader',
+				enforce: 'pre',
+				query  : {
 					presets: [
 						require.resolve('babel-preset-react'), // React preset is needed only for flow support.
 						require.resolve('babel-preset-es2015'),

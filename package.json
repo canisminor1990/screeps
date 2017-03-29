@@ -21,6 +21,7 @@
     "screeps-perf": "0.0.1",
     "screeps-profiler": "^1.2.2",
     "screeps-webpack-plugin": "^1.1.0",
+    "source-map-loader": "^0.2.0",
     "webpack": "^2.2.1"
   },
   "devDependencies": {
@@ -35,7 +36,7 @@
     "screeps-regenerator-runtime": "^0.10.1"
   },
   "scripts": {
-    "test": "webpack --config webpack.test.config.js",
+    "test": "webpack --config webpack.config.js",
     "build": "webpack --config webpack.config.js && git add -A && git commit -m 'updata' && git push",
     "console": "multimeter"
   }

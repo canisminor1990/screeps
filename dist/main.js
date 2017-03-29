@@ -64,11 +64,16 @@ module.exports =
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 95);
+/******/ 	return __webpack_require__(__webpack_require__.s = 63);
 /******/ })
 /************************************************************************/
 /******/ ([
 /* 0 */
+/* unknown exports provided */
+/* all exports used */
+/*!****************************!*\
+  !*** ./src/_util/index.js ***!
+  \****************************/
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -78,7 +83,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _timer = __webpack_require__(40);
+var _timer = __webpack_require__(/*! ./_timer */ 39);
 
 Object.defineProperty(exports, 'timer', {
   enumerable: true,
@@ -87,7 +92,7 @@ Object.defineProperty(exports, 'timer', {
   }
 });
 
-var _color = __webpack_require__(27);
+var _color = __webpack_require__(/*! ./_color */ 26);
 
 Object.defineProperty(exports, 'color', {
   enumerable: true,
@@ -96,7 +101,7 @@ Object.defineProperty(exports, 'color', {
   }
 });
 
-var _colorType = __webpack_require__(28);
+var _colorType = __webpack_require__(/*! ./_colorType */ 27);
 
 Object.defineProperty(exports, 'colorType', {
   enumerable: true,
@@ -105,7 +110,7 @@ Object.defineProperty(exports, 'colorType', {
   }
 });
 
-var _table = __webpack_require__(35);
+var _table = __webpack_require__(/*! ./_table */ 34);
 
 Object.defineProperty(exports, 'table', {
   enumerable: true,
@@ -114,7 +119,7 @@ Object.defineProperty(exports, 'table', {
   }
 });
 
-var _emoji = __webpack_require__(31);
+var _emoji = __webpack_require__(/*! ./_emoji */ 30);
 
 Object.defineProperty(exports, 'emoji', {
   enumerable: true,
@@ -123,7 +128,7 @@ Object.defineProperty(exports, 'emoji', {
   }
 });
 
-var _debug = __webpack_require__(30);
+var _debug = __webpack_require__(/*! ./_debug */ 29);
 
 Object.defineProperty(exports, 'debug', {
   enumerable: true,
@@ -132,7 +137,7 @@ Object.defineProperty(exports, 'debug', {
   }
 });
 
-var _createConstructionSite = __webpack_require__(29);
+var _createConstructionSite = __webpack_require__(/*! ./_createConstructionSite */ 28);
 
 Object.defineProperty(exports, 'createConstructionSite', {
   enumerable: true,
@@ -141,7 +146,7 @@ Object.defineProperty(exports, 'createConstructionSite', {
   }
 });
 
-var _action = __webpack_require__(26);
+var _action = __webpack_require__(/*! ./_action */ 25);
 
 Object.defineProperty(exports, 'action', {
   enumerable: true,
@@ -150,7 +155,7 @@ Object.defineProperty(exports, 'action', {
   }
 });
 
-var _isFriend = __webpack_require__(33);
+var _isFriend = __webpack_require__(/*! ./_isFriend */ 32);
 
 Object.defineProperty(exports, 'isFriend', {
   enumerable: true,
@@ -159,7 +164,7 @@ Object.defineProperty(exports, 'isFriend', {
   }
 });
 
-var _isFull = __webpack_require__(34);
+var _isFull = __webpack_require__(/*! ./_isFull */ 33);
 
 Object.defineProperty(exports, 'fullCheck', {
   enumerable: true,
@@ -168,7 +173,7 @@ Object.defineProperty(exports, 'fullCheck', {
   }
 });
 
-var _flagCommand = __webpack_require__(32);
+var _flagCommand = __webpack_require__(/*! ./_flagCommand */ 31);
 
 Object.defineProperty(exports, 'flagCommand', {
   enumerable: true,
@@ -177,7 +182,7 @@ Object.defineProperty(exports, 'flagCommand', {
   }
 });
 
-var _targetMaker = __webpack_require__(38);
+var _targetMaker = __webpack_require__(/*! ./_targetMaker */ 37);
 
 Object.defineProperty(exports, 'targetMaker', {
   enumerable: true,
@@ -186,7 +191,7 @@ Object.defineProperty(exports, 'targetMaker', {
   }
 });
 
-var _targetChanger = __webpack_require__(36);
+var _targetChanger = __webpack_require__(/*! ./_targetChanger */ 35);
 
 Object.defineProperty(exports, 'targetChanger', {
   enumerable: true,
@@ -195,7 +200,7 @@ Object.defineProperty(exports, 'targetChanger', {
   }
 });
 
-var _targetFormat = __webpack_require__(37);
+var _targetFormat = __webpack_require__(/*! ./_targetFormat */ 36);
 
 Object.defineProperty(exports, 'targetFormat', {
   enumerable: true,
@@ -204,7 +209,7 @@ Object.defineProperty(exports, 'targetFormat', {
   }
 });
 
-var _targetPos = __webpack_require__(39);
+var _targetPos = __webpack_require__(/*! ./_targetPos */ 38);
 
 Object.defineProperty(exports, 'targetPos', {
   enumerable: true,
@@ -217,6 +222,11 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 /***/ }),
 /* 1 */
+/* unknown exports provided */
+/* all exports used */
+/*!*****************************!*\
+  !*** ./src/action/index.js ***!
+  \*****************************/
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -226,7 +236,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _moveTo = __webpack_require__(47);
+var _moveTo = __webpack_require__(/*! ./creep/_moveTo */ 46);
 
 Object.defineProperty(exports, "moveTo", {
   enumerable: true,
@@ -235,7 +245,7 @@ Object.defineProperty(exports, "moveTo", {
   }
 });
 
-var _attack = __webpack_require__(41);
+var _attack = __webpack_require__(/*! ./creep/_attack */ 40);
 
 Object.defineProperty(exports, "attack", {
   enumerable: true,
@@ -244,7 +254,7 @@ Object.defineProperty(exports, "attack", {
   }
 });
 
-var _heal = __webpack_require__(46);
+var _heal = __webpack_require__(/*! ./creep/_heal */ 45);
 
 Object.defineProperty(exports, "heal", {
   enumerable: true,
@@ -253,7 +263,7 @@ Object.defineProperty(exports, "heal", {
   }
 });
 
-var _build = __webpack_require__(42);
+var _build = __webpack_require__(/*! ./creep/_build */ 41);
 
 Object.defineProperty(exports, "build", {
   enumerable: true,
@@ -262,7 +272,7 @@ Object.defineProperty(exports, "build", {
   }
 });
 
-var _repair = __webpack_require__(49);
+var _repair = __webpack_require__(/*! ./creep/_repair */ 48);
 
 Object.defineProperty(exports, "repair", {
   enumerable: true,
@@ -271,7 +281,7 @@ Object.defineProperty(exports, "repair", {
   }
 });
 
-var _dismantle = __webpack_require__(44);
+var _dismantle = __webpack_require__(/*! ./creep/_dismantle */ 43);
 
 Object.defineProperty(exports, "dismantle", {
   enumerable: true,
@@ -280,7 +290,7 @@ Object.defineProperty(exports, "dismantle", {
   }
 });
 
-var _harvest = __webpack_require__(45);
+var _harvest = __webpack_require__(/*! ./creep/_harvest */ 44);
 
 Object.defineProperty(exports, "harvest", {
   enumerable: true,
@@ -289,7 +299,7 @@ Object.defineProperty(exports, "harvest", {
   }
 });
 
-var _pickup = __webpack_require__(48);
+var _pickup = __webpack_require__(/*! ./creep/_pickup */ 47);
 
 Object.defineProperty(exports, "pickup", {
   enumerable: true,
@@ -298,7 +308,7 @@ Object.defineProperty(exports, "pickup", {
   }
 });
 
-var _transfer = __webpack_require__(50);
+var _transfer = __webpack_require__(/*! ./creep/_transfer */ 49);
 
 Object.defineProperty(exports, "transfer", {
   enumerable: true,
@@ -307,7 +317,7 @@ Object.defineProperty(exports, "transfer", {
   }
 });
 
-var _withdraw = __webpack_require__(52);
+var _withdraw = __webpack_require__(/*! ./creep/_withdraw */ 51);
 
 Object.defineProperty(exports, "withdraw", {
   enumerable: true,
@@ -316,7 +326,7 @@ Object.defineProperty(exports, "withdraw", {
   }
 });
 
-var _upgradeController = __webpack_require__(51);
+var _upgradeController = __webpack_require__(/*! ./creep/_upgradeController */ 50);
 
 Object.defineProperty(exports, "upgradeController", {
   enumerable: true,
@@ -325,7 +335,7 @@ Object.defineProperty(exports, "upgradeController", {
   }
 });
 
-var _claimController = __webpack_require__(43);
+var _claimController = __webpack_require__(/*! ./creep/_claimController */ 42);
 
 Object.defineProperty(exports, "claimController", {
   enumerable: true,
@@ -334,7 +344,7 @@ Object.defineProperty(exports, "claimController", {
   }
 });
 
-var _findInRange = __webpack_require__(55);
+var _findInRange = __webpack_require__(/*! ./find/_findInRange */ 54);
 
 Object.defineProperty(exports, "findInRange", {
   enumerable: true,
@@ -343,7 +353,7 @@ Object.defineProperty(exports, "findInRange", {
   }
 });
 
-var _findClosestInRange = __webpack_require__(54);
+var _findClosestInRange = __webpack_require__(/*! ./find/_findClosestInRange */ 53);
 
 Object.defineProperty(exports, "findClosestInRange", {
   enumerable: true,
@@ -352,7 +362,7 @@ Object.defineProperty(exports, "findClosestInRange", {
   }
 });
 
-var _findClosestByRange = __webpack_require__(53);
+var _findClosestByRange = __webpack_require__(/*! ./find/_findClosestByRange */ 52);
 
 Object.defineProperty(exports, "findClosestByRange", {
   enumerable: true,
@@ -361,7 +371,7 @@ Object.defineProperty(exports, "findClosestByRange", {
   }
 });
 
-var _lookFor = __webpack_require__(56);
+var _lookFor = __webpack_require__(/*! ./find/_lookFor */ 55);
 
 Object.defineProperty(exports, "lookFor", {
   enumerable: true,
@@ -374,12 +384,17 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 /***/ }),
 /* 2 */
+/* unknown exports provided */
+/* all exports used */
+/*!*****************************!*\
+  !*** ./~/lodash/_Symbol.js ***!
+  \*****************************/
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var root = __webpack_require__(22);
+var root = __webpack_require__(/*! ./_root */ 22);
 
 /** Built-in value references. */
 var _Symbol = root.Symbol;
@@ -388,6 +403,11 @@ module.exports = _Symbol;
 
 /***/ }),
 /* 3 */
+/* unknown exports provided */
+/* all exports used */
+/*!********************************!*\
+  !*** ./~/lodash/_arrayPush.js ***!
+  \********************************/
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -416,6 +436,11 @@ module.exports = arrayPush;
 
 /***/ }),
 /* 4 */
+/* unknown exports provided */
+/* all exports used */
+/*!*****************************!*\
+  !*** ./~/lodash/isArray.js ***!
+  \*****************************/
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -450,6 +475,11 @@ module.exports = isArray;
 
 /***/ }),
 /* 5 */
+/* unknown exports provided */
+/* all exports used */
+/*!**********************************!*\
+  !*** ./~/lodash/isObjectLike.js ***!
+  \**********************************/
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -489,6 +519,11 @@ module.exports = isObjectLike;
 
 /***/ }),
 /* 6 */
+/* unknown exports provided */
+/* all exports used */
+/*!*****************************!*\
+  !*** ./src/config/index.js ***!
+  \*****************************/
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -498,7 +533,7 @@ Object.defineProperty(exports, "__esModule", {
 	value: true
 });
 
-var _role = __webpack_require__(57);
+var _role = __webpack_require__(/*! ./_role */ 56);
 
 var _role2 = _interopRequireDefault(_role);
 
@@ -523,6 +558,11 @@ module.exports = exports['default'];
 
 /***/ }),
 /* 7 */
+/* unknown exports provided */
+/* all exports used */
+/*!****************************!*\
+  !*** ./src/flags/index.js ***!
+  \****************************/
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -532,7 +572,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _attack = __webpack_require__(58);
+var _attack = __webpack_require__(/*! ./_attack */ 57);
 
 Object.defineProperty(exports, 'attack', {
   enumerable: true,
@@ -541,7 +581,7 @@ Object.defineProperty(exports, 'attack', {
   }
 });
 
-var _moveTo = __webpack_require__(60);
+var _moveTo = __webpack_require__(/*! ./_moveTo */ 59);
 
 Object.defineProperty(exports, 'moveTo', {
   enumerable: true,
@@ -550,7 +590,7 @@ Object.defineProperty(exports, 'moveTo', {
   }
 });
 
-var _dismantle = __webpack_require__(59);
+var _dismantle = __webpack_require__(/*! ./_dismantle */ 58);
 
 Object.defineProperty(exports, 'dismantle', {
   enumerable: true,
@@ -563,6 +603,11 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 /***/ }),
 /* 8 */
+/* unknown exports provided */
+/* all exports used */
+/*!****************************************!*\
+  !*** ./~/screeps-perf/screeps-perf.js ***!
+  \****************************************/
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -685,6 +730,11 @@ module.exports = function (options) {
 
 /***/ }),
 /* 9 */
+/* unknown exports provided */
+/* all exports used */
+/*!************************************************!*\
+  !*** ./~/screeps-profiler/screeps-profiler.js ***!
+  \************************************************/
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -951,6 +1001,11 @@ module.exports = {
 
 /***/ }),
 /* 10 */
+/* unknown exports provided */
+/* all exports used */
+/*!**************************!*\
+  !*** ./src/gui/index.js ***!
+  \**************************/
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -960,7 +1015,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _creepBar = __webpack_require__(61);
+var _creepBar = __webpack_require__(/*! ./_creepBar */ 60);
 
 Object.defineProperty(exports, 'creepBar', {
   enumerable: true,
@@ -969,7 +1024,7 @@ Object.defineProperty(exports, 'creepBar', {
   }
 });
 
-var _room = __webpack_require__(63);
+var _room = __webpack_require__(/*! ./_room */ 62);
 
 Object.defineProperty(exports, 'room', {
   enumerable: true,
@@ -978,7 +1033,7 @@ Object.defineProperty(exports, 'room', {
   }
 });
 
-var _role = __webpack_require__(62);
+var _role = __webpack_require__(/*! ./_role */ 61);
 
 Object.defineProperty(exports, 'role', {
   enumerable: true,
@@ -991,6 +1046,11 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 /***/ }),
 /* 11 */
+/* unknown exports provided */
+/* all exports used */
+/*!******************************!*\
+  !*** ./src/manager/index.js ***!
+  \******************************/
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1000,7 +1060,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _root = __webpack_require__(72);
+var _root = __webpack_require__(/*! ./_root */ 72);
 
 Object.defineProperty(exports, 'root', {
   enumerable: true,
@@ -1009,7 +1069,7 @@ Object.defineProperty(exports, 'root', {
   }
 });
 
-var _memory = __webpack_require__(70);
+var _memory = __webpack_require__(/*! ./_memory */ 70);
 
 Object.defineProperty(exports, 'memory', {
   enumerable: true,
@@ -1018,7 +1078,7 @@ Object.defineProperty(exports, 'memory', {
   }
 });
 
-var _global = __webpack_require__(64);
+var _global = __webpack_require__(/*! ./_global */ 64);
 
 Object.defineProperty(exports, 'global', {
   enumerable: true,
@@ -1027,7 +1087,7 @@ Object.defineProperty(exports, 'global', {
   }
 });
 
-var _structure = __webpack_require__(73);
+var _structure = __webpack_require__(/*! ./_structure */ 73);
 
 Object.defineProperty(exports, 'structure', {
   enumerable: true,
@@ -1036,7 +1096,7 @@ Object.defineProperty(exports, 'structure', {
   }
 });
 
-var _role = __webpack_require__(71);
+var _role = __webpack_require__(/*! ./_role */ 71);
 
 Object.defineProperty(exports, 'role', {
   enumerable: true,
@@ -1049,6 +1109,11 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 /***/ }),
 /* 12 */
+/* unknown exports provided */
+/* all exports used */
+/*!******************************!*\
+  !*** ./src/setting/index.js ***!
+  \******************************/
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1058,11 +1123,11 @@ Object.defineProperty(exports, "__esModule", {
 	value: true
 });
 
-var _role = __webpack_require__(87);
+var _role = __webpack_require__(/*! ./_role */ 87);
 
 var _role2 = _interopRequireDefault(_role);
 
-var _room = __webpack_require__(88);
+var _room = __webpack_require__(/*! ./_room */ 88);
 
 var _room2 = _interopRequireDefault(_room);
 
@@ -1083,6 +1148,11 @@ module.exports = exports['default'];
 
 /***/ }),
 /* 13 */
+/* unknown exports provided */
+/* all exports used */
+/*!***************************!*\
+  !*** ./src/task/index.js ***!
+  \***************************/
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1092,7 +1162,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _flags = __webpack_require__(7);
+var _flags = __webpack_require__(/*! ../flags */ 7);
 
 Object.defineProperty(exports, 'flags', {
   enumerable: true,
@@ -1101,7 +1171,7 @@ Object.defineProperty(exports, 'flags', {
   }
 });
 
-var _log = __webpack_require__(93);
+var _log = __webpack_require__(/*! ./_log */ 93);
 
 Object.defineProperty(exports, 'log', {
   enumerable: true,
@@ -1110,7 +1180,7 @@ Object.defineProperty(exports, 'log', {
   }
 });
 
-var _trigger = __webpack_require__(94);
+var _trigger = __webpack_require__(/*! ./_trigger */ 94);
 
 Object.defineProperty(exports, 'trigger', {
   enumerable: true,
@@ -1123,13 +1193,18 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 /***/ }),
 /* 14 */
+/* unknown exports provided */
+/* all exports used */
+/*!**********************************!*\
+  !*** ./~/lodash/_baseFlatten.js ***!
+  \**********************************/
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var arrayPush = __webpack_require__(3),
-    isFlattenable = __webpack_require__(20);
+var arrayPush = __webpack_require__(/*! ./_arrayPush */ 3),
+    isFlattenable = __webpack_require__(/*! ./_isFlattenable */ 20);
 
 /**
  * The base implementation of `_.flatten` with support for restricting flattening.
@@ -1169,14 +1244,19 @@ module.exports = baseFlatten;
 
 /***/ }),
 /* 15 */
+/* unknown exports provided */
+/* all exports used */
+/*!*********************************!*\
+  !*** ./~/lodash/_baseGetTag.js ***!
+  \*********************************/
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var _Symbol = __webpack_require__(2),
-    getRawTag = __webpack_require__(19),
-    objectToString = __webpack_require__(21);
+var _Symbol = __webpack_require__(/*! ./_Symbol */ 2),
+    getRawTag = __webpack_require__(/*! ./_getRawTag */ 19),
+    objectToString = __webpack_require__(/*! ./_objectToString */ 21);
 
 /** `Object#toString` result references. */
 var nullTag = '[object Null]',
@@ -1203,13 +1283,18 @@ module.exports = baseGetTag;
 
 /***/ }),
 /* 16 */
+/* unknown exports provided */
+/* all exports used */
+/*!**************************************!*\
+  !*** ./~/lodash/_baseIsArguments.js ***!
+  \**************************************/
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var baseGetTag = __webpack_require__(15),
-    isObjectLike = __webpack_require__(5);
+var baseGetTag = __webpack_require__(/*! ./_baseGetTag */ 15),
+    isObjectLike = __webpack_require__(/*! ./isObjectLike */ 5);
 
 /** `Object#toString` result references. */
 var argsTag = '[object Arguments]';
@@ -1229,6 +1314,11 @@ module.exports = baseIsArguments;
 
 /***/ }),
 /* 17 */
+/* unknown exports provided */
+/* all exports used */
+/*!********************************!*\
+  !*** ./~/lodash/_copyArray.js ***!
+  \********************************/
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1257,10 +1347,15 @@ module.exports = copyArray;
 
 /***/ }),
 /* 18 */
+/* unknown exports provided */
+/* all exports used */
+/*!*********************************!*\
+  !*** ./~/lodash/_freeGlobal.js ***!
+  \*********************************/
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(global) {
+
 
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 
@@ -1268,16 +1363,20 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 var freeGlobal = (typeof global === 'undefined' ? 'undefined' : _typeof(global)) == 'object' && global && global.Object === Object && global;
 
 module.exports = freeGlobal;
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(25)))
 
 /***/ }),
 /* 19 */
+/* unknown exports provided */
+/* all exports used */
+/*!********************************!*\
+  !*** ./~/lodash/_getRawTag.js ***!
+  \********************************/
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var _Symbol = __webpack_require__(2);
+var _Symbol = __webpack_require__(/*! ./_Symbol */ 2);
 
 /** Used for built-in method references. */
 var objectProto = Object.prototype;
@@ -1326,14 +1425,19 @@ module.exports = getRawTag;
 
 /***/ }),
 /* 20 */
+/* unknown exports provided */
+/* all exports used */
+/*!************************************!*\
+  !*** ./~/lodash/_isFlattenable.js ***!
+  \************************************/
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var _Symbol = __webpack_require__(2),
-    isArguments = __webpack_require__(24),
-    isArray = __webpack_require__(4);
+var _Symbol = __webpack_require__(/*! ./_Symbol */ 2),
+    isArguments = __webpack_require__(/*! ./isArguments */ 24),
+    isArray = __webpack_require__(/*! ./isArray */ 4);
 
 /** Built-in value references. */
 var spreadableSymbol = _Symbol ? _Symbol.isConcatSpreadable : undefined;
@@ -1353,6 +1457,11 @@ module.exports = isFlattenable;
 
 /***/ }),
 /* 21 */
+/* unknown exports provided */
+/* all exports used */
+/*!*************************************!*\
+  !*** ./~/lodash/_objectToString.js ***!
+  \*************************************/
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1383,6 +1492,11 @@ module.exports = objectToString;
 
 /***/ }),
 /* 22 */
+/* unknown exports provided */
+/* all exports used */
+/*!***************************!*\
+  !*** ./~/lodash/_root.js ***!
+  \***************************/
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1390,7 +1504,7 @@ module.exports = objectToString;
 
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 
-var freeGlobal = __webpack_require__(18);
+var freeGlobal = __webpack_require__(/*! ./_freeGlobal */ 18);
 
 /** Detect free variable `self`. */
 var freeSelf = (typeof self === 'undefined' ? 'undefined' : _typeof(self)) == 'object' && self && self.Object === Object && self;
@@ -1402,15 +1516,20 @@ module.exports = root;
 
 /***/ }),
 /* 23 */
+/* unknown exports provided */
+/* all exports used */
+/*!****************************!*\
+  !*** ./~/lodash/concat.js ***!
+  \****************************/
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var arrayPush = __webpack_require__(3),
-    baseFlatten = __webpack_require__(14),
-    copyArray = __webpack_require__(17),
-    isArray = __webpack_require__(4);
+var arrayPush = __webpack_require__(/*! ./_arrayPush */ 3),
+    baseFlatten = __webpack_require__(/*! ./_baseFlatten */ 14),
+    copyArray = __webpack_require__(/*! ./_copyArray */ 17),
+    isArray = __webpack_require__(/*! ./isArray */ 4);
 
 /**
  * Creates a new array concatenating `array` with any additional arrays
@@ -1453,13 +1572,18 @@ module.exports = concat;
 
 /***/ }),
 /* 24 */
+/* unknown exports provided */
+/* all exports used */
+/*!*********************************!*\
+  !*** ./~/lodash/isArguments.js ***!
+  \*********************************/
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var baseIsArguments = __webpack_require__(16),
-    isObjectLike = __webpack_require__(5);
+var baseIsArguments = __webpack_require__(/*! ./_baseIsArguments */ 16),
+    isObjectLike = __webpack_require__(/*! ./isObjectLike */ 5);
 
 /** Used for built-in method references. */
 var objectProto = Object.prototype;
@@ -1498,36 +1622,11 @@ module.exports = isArguments;
 
 /***/ }),
 /* 25 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
-
-var g;
-
-// This works in non-strict mode
-g = function () {
-	return this;
-}();
-
-try {
-	// This works if eval is allowed (see CSP)
-	g = g || Function("return this")() || (1, eval)("this");
-} catch (e) {
-	// This works if the window reference is available
-	if ((typeof window === "undefined" ? "undefined" : _typeof(window)) === "object") g = window;
-}
-
-// g can still be undefined, but nothing to do about it...
-// We return undefined, instead of nothing here, so it's
-// easier to handle this case. if(!global) { ...}
-
-module.exports = g;
-
-/***/ }),
-/* 26 */
+/* unknown exports provided */
+/* all exports used */
+/*!******************************!*\
+  !*** ./src/_util/_action.js ***!
+  \******************************/
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1537,9 +1636,9 @@ Object.defineProperty(exports, "__esModule", {
 	value: true
 });
 
-var _action = __webpack_require__(1);
+var _action = __webpack_require__(/*! ../action */ 1);
 
-var _util = __webpack_require__(0);
+var _util = __webpack_require__(/*! ../_util */ 0);
 
 exports.default = function (creep, target, fc) {
 	var text = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : "";
@@ -1619,7 +1718,12 @@ exports.default = function (creep, target, fc) {
 module.exports = exports['default'];
 
 /***/ }),
-/* 27 */
+/* 26 */
+/* unknown exports provided */
+/* all exports used */
+/*!*****************************!*\
+  !*** ./src/_util/_color.js ***!
+  \*****************************/
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1629,7 +1733,7 @@ Object.defineProperty(exports, "__esModule", {
 	value: true
 });
 
-var _ = __webpack_require__(0);
+var _ = __webpack_require__(/*! ./ */ 0);
 
 var color = function color(_color, content) {
 	return "<font color=" + _color + ">" + content + "</font>";
@@ -1673,7 +1777,12 @@ exports.default = color;
 module.exports = exports["default"];
 
 /***/ }),
-/* 28 */
+/* 27 */
+/* unknown exports provided */
+/* all exports used */
+/*!*********************************!*\
+  !*** ./src/_util/_colorType.js ***!
+  \*********************************/
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1694,7 +1803,12 @@ exports.default = {
 module.exports = exports['default'];
 
 /***/ }),
-/* 29 */
+/* 28 */
+/* unknown exports provided */
+/* all exports used */
+/*!**********************************************!*\
+  !*** ./src/_util/_createConstructionSite.js ***!
+  \**********************************************/
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1715,7 +1829,12 @@ exports.default = function (x, y, type) {
 module.exports = exports['default'];
 
 /***/ }),
-/* 30 */
+/* 29 */
+/* unknown exports provided */
+/* all exports used */
+/*!*****************************!*\
+  !*** ./src/_util/_debug.js ***!
+  \*****************************/
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1725,7 +1844,7 @@ Object.defineProperty(exports, "__esModule", {
 	value: true
 });
 
-var _ = __webpack_require__(0);
+var _ = __webpack_require__(/*! ./ */ 0);
 
 exports.default = function (e, name, creep, target) {
 	for (var _len = arguments.length, other = Array(_len > 4 ? _len - 4 : 0), _key = 4; _key < _len; _key++) {
@@ -1743,7 +1862,12 @@ exports.default = function (e, name, creep, target) {
 module.exports = exports['default'];
 
 /***/ }),
-/* 31 */
+/* 30 */
+/* unknown exports provided */
+/* all exports used */
+/*!*****************************!*\
+  !*** ./src/_util/_emoji.js ***!
+  \*****************************/
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1773,7 +1897,12 @@ exports.default = {
 module.exports = exports["default"];
 
 /***/ }),
-/* 32 */
+/* 31 */
+/* unknown exports provided */
+/* all exports used */
+/*!***********************************!*\
+  !*** ./src/_util/_flagCommand.js ***!
+  \***********************************/
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1795,7 +1924,12 @@ exports.default = function (flag) {
 module.exports = exports['default'];
 
 /***/ }),
-/* 33 */
+/* 32 */
+/* unknown exports provided */
+/* all exports used */
+/*!********************************!*\
+  !*** ./src/_util/_isFriend.js ***!
+  \********************************/
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1814,7 +1948,12 @@ exports.default = function (owner) {
 module.exports = exports["default"];
 
 /***/ }),
-/* 34 */
+/* 33 */
+/* unknown exports provided */
+/* all exports used */
+/*!******************************!*\
+  !*** ./src/_util/_isFull.js ***!
+  \******************************/
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1833,7 +1972,12 @@ exports.default = function (creep) {
 module.exports = exports["default"];
 
 /***/ }),
-/* 35 */
+/* 34 */
+/* unknown exports provided */
+/* all exports used */
+/*!*****************************!*\
+  !*** ./src/_util/_table.js ***!
+  \*****************************/
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1871,7 +2015,12 @@ exports.default = function (content) {
 module.exports = exports["default"];
 
 /***/ }),
-/* 36 */
+/* 35 */
+/* unknown exports provided */
+/* all exports used */
+/*!*************************************!*\
+  !*** ./src/_util/_targetChanger.js ***!
+  \*************************************/
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1881,7 +2030,7 @@ Object.defineProperty(exports, "__esModule", {
 	value: true
 });
 
-var _util = __webpack_require__(0);
+var _util = __webpack_require__(/*! ../_util */ 0);
 
 exports.default = function (creep, target) {
 	var type = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 'default';
@@ -1904,7 +2053,12 @@ exports.default = function (creep, target) {
 module.exports = exports['default'];
 
 /***/ }),
-/* 37 */
+/* 36 */
+/* unknown exports provided */
+/* all exports used */
+/*!************************************!*\
+  !*** ./src/_util/_targetFormat.js ***!
+  \************************************/
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1927,7 +2081,12 @@ exports.default = function (targetRaw) {
 module.exports = exports["default"];
 
 /***/ }),
-/* 38 */
+/* 37 */
+/* unknown exports provided */
+/* all exports used */
+/*!***********************************!*\
+  !*** ./src/_util/_targetMaker.js ***!
+  \***********************************/
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1937,7 +2096,7 @@ Object.defineProperty(exports, "__esModule", {
 	value: true
 });
 
-var _util = __webpack_require__(0);
+var _util = __webpack_require__(/*! ../_util */ 0);
 
 exports.default = function (creep, target) {
 	var type = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 'default';
@@ -1963,7 +2122,12 @@ exports.default = function (creep, target) {
 module.exports = exports['default'];
 
 /***/ }),
-/* 39 */
+/* 38 */
+/* unknown exports provided */
+/* all exports used */
+/*!*********************************!*\
+  !*** ./src/_util/_targetPos.js ***!
+  \*********************************/
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1984,7 +2148,12 @@ exports.default = function (targetRaw) {
 module.exports = exports["default"];
 
 /***/ }),
-/* 40 */
+/* 39 */
+/* unknown exports provided */
+/* all exports used */
+/*!*****************************!*\
+  !*** ./src/_util/_timer.js ***!
+  \*****************************/
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2004,7 +2173,12 @@ exports.default = function (tick) {
 module.exports = exports["default"];
 
 /***/ }),
-/* 41 */
+/* 40 */
+/* unknown exports provided */
+/* all exports used */
+/*!*************************************!*\
+  !*** ./src/action/creep/_attack.js ***!
+  \*************************************/
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2014,9 +2188,9 @@ Object.defineProperty(exports, "__esModule", {
 	value: true
 });
 
-var _util = __webpack_require__(0);
+var _util = __webpack_require__(/*! ../../_util */ 0);
 
-var _ = __webpack_require__(1);
+var _ = __webpack_require__(/*! ../ */ 1);
 
 exports.default = function (creep, targetRaw) {
 	var check = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : true;
@@ -2037,7 +2211,12 @@ exports.default = function (creep, targetRaw) {
 module.exports = exports['default'];
 
 /***/ }),
-/* 42 */
+/* 41 */
+/* unknown exports provided */
+/* all exports used */
+/*!************************************!*\
+  !*** ./src/action/creep/_build.js ***!
+  \************************************/
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2047,9 +2226,9 @@ Object.defineProperty(exports, "__esModule", {
 	value: true
 });
 
-var _util = __webpack_require__(0);
+var _util = __webpack_require__(/*! ../../_util */ 0);
 
-var _ = __webpack_require__(1);
+var _ = __webpack_require__(/*! ../ */ 1);
 
 exports.default = function (creep, targetRaw) {
 	var check = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : true;
@@ -2070,7 +2249,12 @@ exports.default = function (creep, targetRaw) {
 module.exports = exports['default'];
 
 /***/ }),
-/* 43 */
+/* 42 */
+/* unknown exports provided */
+/* all exports used */
+/*!**********************************************!*\
+  !*** ./src/action/creep/_claimController.js ***!
+  \**********************************************/
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2080,9 +2264,9 @@ Object.defineProperty(exports, "__esModule", {
 	value: true
 });
 
-var _util = __webpack_require__(0);
+var _util = __webpack_require__(/*! ../../_util */ 0);
 
-var _ = __webpack_require__(1);
+var _ = __webpack_require__(/*! ../ */ 1);
 
 exports.default = function (creep, targetRaw) {
 	var check = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : true;
@@ -2103,7 +2287,12 @@ exports.default = function (creep, targetRaw) {
 module.exports = exports['default'];
 
 /***/ }),
-/* 44 */
+/* 43 */
+/* unknown exports provided */
+/* all exports used */
+/*!****************************************!*\
+  !*** ./src/action/creep/_dismantle.js ***!
+  \****************************************/
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2113,9 +2302,9 @@ Object.defineProperty(exports, "__esModule", {
 	value: true
 });
 
-var _util = __webpack_require__(0);
+var _util = __webpack_require__(/*! ../../_util */ 0);
 
-var _ = __webpack_require__(1);
+var _ = __webpack_require__(/*! ../ */ 1);
 
 exports.default = function (creep, targetRaw) {
 	var check = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : true;
@@ -2136,7 +2325,12 @@ exports.default = function (creep, targetRaw) {
 module.exports = exports['default'];
 
 /***/ }),
-/* 45 */
+/* 44 */
+/* unknown exports provided */
+/* all exports used */
+/*!**************************************!*\
+  !*** ./src/action/creep/_harvest.js ***!
+  \**************************************/
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2146,9 +2340,9 @@ Object.defineProperty(exports, "__esModule", {
 	value: true
 });
 
-var _util = __webpack_require__(0);
+var _util = __webpack_require__(/*! ../../_util */ 0);
 
-var _ = __webpack_require__(1);
+var _ = __webpack_require__(/*! ../ */ 1);
 
 exports.default = function (creep, targetRaw) {
 	var check = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : true;
@@ -2169,7 +2363,12 @@ exports.default = function (creep, targetRaw) {
 module.exports = exports['default'];
 
 /***/ }),
-/* 46 */
+/* 45 */
+/* unknown exports provided */
+/* all exports used */
+/*!***********************************!*\
+  !*** ./src/action/creep/_heal.js ***!
+  \***********************************/
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2179,9 +2378,9 @@ Object.defineProperty(exports, "__esModule", {
 	value: true
 });
 
-var _util = __webpack_require__(0);
+var _util = __webpack_require__(/*! ../../_util */ 0);
 
-var _ = __webpack_require__(1);
+var _ = __webpack_require__(/*! ../ */ 1);
 
 exports.default = function (creep, targetRaw) {
 	var check = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : true;
@@ -2202,7 +2401,12 @@ exports.default = function (creep, targetRaw) {
 module.exports = exports['default'];
 
 /***/ }),
-/* 47 */
+/* 46 */
+/* unknown exports provided */
+/* all exports used */
+/*!*************************************!*\
+  !*** ./src/action/creep/_moveTo.js ***!
+  \*************************************/
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2212,7 +2416,7 @@ Object.defineProperty(exports, "__esModule", {
 	value: true
 });
 
-var _util = __webpack_require__(0);
+var _util = __webpack_require__(/*! ../../_util */ 0);
 
 exports.default = function (creep, target) {
 	var color = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : '#ffffff';
@@ -2269,7 +2473,12 @@ function visual(target, creep, color) {
 module.exports = exports['default'];
 
 /***/ }),
-/* 48 */
+/* 47 */
+/* unknown exports provided */
+/* all exports used */
+/*!*************************************!*\
+  !*** ./src/action/creep/_pickup.js ***!
+  \*************************************/
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2279,9 +2488,9 @@ Object.defineProperty(exports, "__esModule", {
 	value: true
 });
 
-var _util = __webpack_require__(0);
+var _util = __webpack_require__(/*! ../../_util */ 0);
 
-var _ = __webpack_require__(1);
+var _ = __webpack_require__(/*! ../ */ 1);
 
 exports.default = function (creep, targetRaw) {
 	var check = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : true;
@@ -2302,7 +2511,12 @@ exports.default = function (creep, targetRaw) {
 module.exports = exports['default'];
 
 /***/ }),
-/* 49 */
+/* 48 */
+/* unknown exports provided */
+/* all exports used */
+/*!*************************************!*\
+  !*** ./src/action/creep/_repair.js ***!
+  \*************************************/
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2312,9 +2526,9 @@ Object.defineProperty(exports, "__esModule", {
 	value: true
 });
 
-var _util = __webpack_require__(0);
+var _util = __webpack_require__(/*! ../../_util */ 0);
 
-var _ = __webpack_require__(1);
+var _ = __webpack_require__(/*! ../ */ 1);
 
 exports.default = function (creep, targetRaw) {
 	var check = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : true;
@@ -2335,7 +2549,12 @@ exports.default = function (creep, targetRaw) {
 module.exports = exports['default'];
 
 /***/ }),
-/* 50 */
+/* 49 */
+/* unknown exports provided */
+/* all exports used */
+/*!***************************************!*\
+  !*** ./src/action/creep/_transfer.js ***!
+  \***************************************/
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2345,9 +2564,9 @@ Object.defineProperty(exports, "__esModule", {
 	value: true
 });
 
-var _util = __webpack_require__(0);
+var _util = __webpack_require__(/*! ../../_util */ 0);
 
-var _ = __webpack_require__(1);
+var _ = __webpack_require__(/*! ../ */ 1);
 
 exports.default = function (creep, targetRaw) {
 	var check = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : true;
@@ -2369,7 +2588,12 @@ exports.default = function (creep, targetRaw) {
 module.exports = exports['default'];
 
 /***/ }),
-/* 51 */
+/* 50 */
+/* unknown exports provided */
+/* all exports used */
+/*!************************************************!*\
+  !*** ./src/action/creep/_upgradeController.js ***!
+  \************************************************/
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2379,9 +2603,9 @@ Object.defineProperty(exports, "__esModule", {
 	value: true
 });
 
-var _util = __webpack_require__(0);
+var _util = __webpack_require__(/*! ../../_util */ 0);
 
-var _ = __webpack_require__(1);
+var _ = __webpack_require__(/*! ../ */ 1);
 
 exports.default = function (creep, targetRaw) {
 	var check = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : true;
@@ -2402,7 +2626,12 @@ exports.default = function (creep, targetRaw) {
 module.exports = exports['default'];
 
 /***/ }),
-/* 52 */
+/* 51 */
+/* unknown exports provided */
+/* all exports used */
+/*!***************************************!*\
+  !*** ./src/action/creep/_withdraw.js ***!
+  \***************************************/
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2412,9 +2641,9 @@ Object.defineProperty(exports, "__esModule", {
 	value: true
 });
 
-var _util = __webpack_require__(0);
+var _util = __webpack_require__(/*! ../../_util */ 0);
 
-var _ = __webpack_require__(1);
+var _ = __webpack_require__(/*! ../ */ 1);
 
 exports.default = function (creep, targetRaw) {
 	var check = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : true;
@@ -2436,7 +2665,12 @@ exports.default = function (creep, targetRaw) {
 module.exports = exports['default'];
 
 /***/ }),
-/* 53 */
+/* 52 */
+/* unknown exports provided */
+/* all exports used */
+/*!************************************************!*\
+  !*** ./src/action/find/_findClosestByRange.js ***!
+  \************************************************/
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2446,7 +2680,7 @@ Object.defineProperty(exports, "__esModule", {
 	value: true
 });
 
-var _util = __webpack_require__(0);
+var _util = __webpack_require__(/*! ../../_util */ 0);
 
 exports.default = function (creep, array, opt) {
 	try {
@@ -2463,7 +2697,12 @@ exports.default = function (creep, array, opt) {
 module.exports = exports['default'];
 
 /***/ }),
-/* 54 */
+/* 53 */
+/* unknown exports provided */
+/* all exports used */
+/*!************************************************!*\
+  !*** ./src/action/find/_findClosestInRange.js ***!
+  \************************************************/
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2473,9 +2712,9 @@ Object.defineProperty(exports, "__esModule", {
 	value: true
 });
 
-var _2 = __webpack_require__(1);
+var _2 = __webpack_require__(/*! ../ */ 1);
 
-var _util = __webpack_require__(0);
+var _util = __webpack_require__(/*! ../../_util */ 0);
 
 exports.default = function (creep, array) {
 	var range = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 0;
@@ -2496,7 +2735,12 @@ exports.default = function (creep, array) {
 module.exports = exports['default'];
 
 /***/ }),
-/* 55 */
+/* 54 */
+/* unknown exports provided */
+/* all exports used */
+/*!*****************************************!*\
+  !*** ./src/action/find/_findInRange.js ***!
+  \*****************************************/
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2506,7 +2750,7 @@ Object.defineProperty(exports, "__esModule", {
 	value: true
 });
 
-var _util = __webpack_require__(0);
+var _util = __webpack_require__(/*! ../../_util */ 0);
 
 exports.default = function (creep, array) {
 	var range = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 0;
@@ -2525,7 +2769,12 @@ exports.default = function (creep, array) {
 module.exports = exports['default'];
 
 /***/ }),
-/* 56 */
+/* 55 */
+/* unknown exports provided */
+/* all exports used */
+/*!*************************************!*\
+  !*** ./src/action/find/_lookFor.js ***!
+  \*************************************/
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2535,7 +2784,7 @@ Object.defineProperty(exports, "__esModule", {
 	value: true
 });
 
-var _util = __webpack_require__(0);
+var _util = __webpack_require__(/*! ../../_util */ 0);
 
 exports.default = function (creep) {
 	var type = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : LOOK_STRUCTURES;
@@ -2558,7 +2807,12 @@ exports.default = function (creep) {
 module.exports = exports['default'];
 
 /***/ }),
-/* 57 */
+/* 56 */
+/* unknown exports provided */
+/* all exports used */
+/*!*****************************!*\
+  !*** ./src/config/_role.js ***!
+  \*****************************/
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2663,7 +2917,12 @@ exports.default = function (room) {
 module.exports = exports["default"];
 
 /***/ }),
-/* 58 */
+/* 57 */
+/* unknown exports provided */
+/* all exports used */
+/*!******************************!*\
+  !*** ./src/flags/_attack.js ***!
+  \******************************/
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2696,7 +2955,12 @@ exports.default = function (command, flag) {
 module.exports = exports["default"];
 
 /***/ }),
-/* 59 */
+/* 58 */
+/* unknown exports provided */
+/* all exports used */
+/*!*********************************!*\
+  !*** ./src/flags/_dismantle.js ***!
+  \*********************************/
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2724,7 +2988,12 @@ exports.default = function (command, flag) {
 module.exports = exports["default"];
 
 /***/ }),
-/* 60 */
+/* 59 */
+/* unknown exports provided */
+/* all exports used */
+/*!******************************!*\
+  !*** ./src/flags/_moveTo.js ***!
+  \******************************/
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2750,7 +3019,12 @@ exports.default = function (command, flag) {
 module.exports = exports["default"];
 
 /***/ }),
-/* 61 */
+/* 60 */
+/* unknown exports provided */
+/* all exports used */
+/*!******************************!*\
+  !*** ./src/gui/_creepBar.js ***!
+  \******************************/
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2777,7 +3051,12 @@ exports.default = function (roomName) {
 module.exports = exports['default'];
 
 /***/ }),
-/* 62 */
+/* 61 */
+/* unknown exports provided */
+/* all exports used */
+/*!**************************!*\
+  !*** ./src/gui/_role.js ***!
+  \**************************/
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2787,9 +3066,9 @@ Object.defineProperty(exports, "__esModule", {
 	value: true
 });
 
-var _util = __webpack_require__(0);
+var _util = __webpack_require__(/*! ../_util */ 0);
 
-var _config = __webpack_require__(6);
+var _config = __webpack_require__(/*! ../config */ 6);
 
 var _config2 = _interopRequireDefault(_config);
 
@@ -2840,7 +3119,12 @@ function guiCreep(room, x, y, name, number) {
 module.exports = exports['default'];
 
 /***/ }),
-/* 63 */
+/* 62 */
+/* unknown exports provided */
+/* all exports used */
+/*!**************************!*\
+  !*** ./src/gui/_room.js ***!
+  \**************************/
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2850,7 +3134,7 @@ Object.defineProperty(exports, "__esModule", {
 	value: true
 });
 
-var _util = __webpack_require__(0);
+var _util = __webpack_require__(/*! ../_util */ 0);
 
 var rowMargin = 0.3,
     guiWidth = 4.8,
@@ -2906,7 +3190,92 @@ function gui(room, x, y, color, content) {
 module.exports = exports['default'];
 
 /***/ }),
+/* 63 */
+/* unknown exports provided */
+/* all exports used */
+/*!*********************!*\
+  !*** ./src/main.js ***!
+  \*********************/
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+__webpack_require__(/*! screeps-perf */ 8);
+
+var _manager = __webpack_require__(/*! ./manager */ 11);
+
+var Manager = _interopRequireWildcard(_manager);
+
+var _gui = __webpack_require__(/*! ./gui */ 10);
+
+var Gui = _interopRequireWildcard(_gui);
+
+var _util = __webpack_require__(/*! ./_util */ 0);
+
+var _task = __webpack_require__(/*! ./task */ 13);
+
+var _setting = __webpack_require__(/*! ./setting */ 12);
+
+var _setting2 = _interopRequireDefault(_setting);
+
+var _screepsProfiler = __webpack_require__(/*! screeps-profiler */ 9);
+
+var _screepsProfiler2 = _interopRequireDefault(_screepsProfiler);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+
+var rooms = ['W81S67', 'W81S66', 'W82S67'];
+_screepsProfiler2.default.enable();
+console.log(_util.color.grey('# Coding Update!'));
+// trigger.install()
+
+// switch
+var profilerEnabled = false;
+
+// main
+var main = function main() {
+	if (Game.cpu.bucket < 2 * Game.cpu.tickLimit) {
+		console.log('# Lack of CPU!');
+		return;
+	}
+
+	// Manager
+	(0, _task.trigger)();
+	Manager.root();
+	Manager.memory(rooms);
+	Manager.global(rooms);
+	Manager.role(rooms);
+	Manager.structure(rooms);
+	// GUI
+	Gui.room(rooms[0]);
+	Gui.role(rooms[0]);
+	// Log
+	if ((0, _util.timer)(10)) (0, _task.log)(rooms[0], 10);
+	// Setting
+	(0, _setting2.default)();
+};
+
+// loop
+module.exports.loop = function () {
+	if (profilerEnabled) {
+		_screepsProfiler2.default.wrap(function () {
+			main();
+		});
+	} else {
+		main();
+	}
+};
+
+/***/ }),
 /* 64 */
+/* unknown exports provided */
+/* all exports used */
+/*!********************************!*\
+  !*** ./src/manager/_global.js ***!
+  \********************************/
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2940,6 +3309,11 @@ module.exports = exports["default"];
 
 /***/ }),
 /* 65 */
+/* unknown exports provided */
+/* all exports used */
+/*!****************************************!*\
+  !*** ./src/manager/_memory/_creeps.js ***!
+  \****************************************/
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2949,7 +3323,7 @@ Object.defineProperty(exports, "__esModule", {
 	value: true
 });
 
-var _util = __webpack_require__(0);
+var _util = __webpack_require__(/*! ../../_util */ 0);
 
 exports.default = function (room, config) {
 	var creeps = room.find(FIND_CREEPS),
@@ -2987,6 +3361,11 @@ module.exports = exports['default'];
 
 /***/ }),
 /* 66 */
+/* unknown exports provided */
+/* all exports used */
+/*!*****************************************!*\
+  !*** ./src/manager/_memory/_dropped.js ***!
+  \*****************************************/
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3010,6 +3389,11 @@ module.exports = exports["default"];
 
 /***/ }),
 /* 67 */
+/* unknown exports provided */
+/* all exports used */
+/*!***************************************!*\
+  !*** ./src/manager/_memory/_flags.js ***!
+  \***************************************/
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3019,9 +3403,9 @@ Object.defineProperty(exports, "__esModule", {
 	value: true
 });
 
-var _util = __webpack_require__(0);
+var _util = __webpack_require__(/*! ../../_util */ 0);
 
-var _flags = __webpack_require__(7);
+var _flags = __webpack_require__(/*! ../../flags */ 7);
 
 var flags = _interopRequireWildcard(_flags);
 
@@ -3070,6 +3454,11 @@ module.exports = exports['default'];
 
 /***/ }),
 /* 68 */
+/* unknown exports provided */
+/* all exports used */
+/*!*****************************************!*\
+  !*** ./src/manager/_memory/_sources.js ***!
+  \*****************************************/
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3079,7 +3468,7 @@ Object.defineProperty(exports, "__esModule", {
 	value: true
 });
 
-var _util = __webpack_require__(0);
+var _util = __webpack_require__(/*! ../../_util */ 0);
 
 exports.default = function (room) {
 	var rawSources = room.find(FIND_SOURCES);
@@ -3113,6 +3502,11 @@ module.exports = exports['default'];
 
 /***/ }),
 /* 69 */
+/* unknown exports provided */
+/* all exports used */
+/*!********************************************!*\
+  !*** ./src/manager/_memory/_structures.js ***!
+  \********************************************/
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3190,6 +3584,11 @@ module.exports = exports["default"];
 
 /***/ }),
 /* 70 */
+/* unknown exports provided */
+/* all exports used */
+/*!**************************************!*\
+  !*** ./src/manager/_memory/index.js ***!
+  \**************************************/
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3199,27 +3598,27 @@ Object.defineProperty(exports, "__esModule", {
 	value: true
 });
 
-var _config = __webpack_require__(6);
+var _config = __webpack_require__(/*! ../../config */ 6);
 
 var _config2 = _interopRequireDefault(_config);
 
-var _creeps = __webpack_require__(65);
+var _creeps = __webpack_require__(/*! ./_creeps */ 65);
 
 var _creeps2 = _interopRequireDefault(_creeps);
 
-var _structures = __webpack_require__(69);
+var _structures = __webpack_require__(/*! ./_structures */ 69);
 
 var _structures2 = _interopRequireDefault(_structures);
 
-var _sources = __webpack_require__(68);
+var _sources = __webpack_require__(/*! ./_sources */ 68);
 
 var _sources2 = _interopRequireDefault(_sources);
 
-var _dropped = __webpack_require__(66);
+var _dropped = __webpack_require__(/*! ./_dropped */ 66);
 
 var _dropped2 = _interopRequireDefault(_dropped);
 
-var _flags = __webpack_require__(67);
+var _flags = __webpack_require__(/*! ./_flags */ 67);
 
 var _flags2 = _interopRequireDefault(_flags);
 
@@ -3250,6 +3649,11 @@ module.exports = exports["default"];
 
 /***/ }),
 /* 71 */
+/* unknown exports provided */
+/* all exports used */
+/*!******************************!*\
+  !*** ./src/manager/_role.js ***!
+  \******************************/
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3259,7 +3663,7 @@ Object.defineProperty(exports, "__esModule", {
 	value: true
 });
 
-var _role = __webpack_require__(86);
+var _role = __webpack_require__(/*! ../role */ 86);
 
 var role = _interopRequireWildcard(_role);
 
@@ -3337,6 +3741,11 @@ module.exports = exports['default'];
 
 /***/ }),
 /* 72 */
+/* unknown exports provided */
+/* all exports used */
+/*!******************************!*\
+  !*** ./src/manager/_root.js ***!
+  \******************************/
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3361,6 +3770,11 @@ module.exports = exports['default'];
 
 /***/ }),
 /* 73 */
+/* unknown exports provided */
+/* all exports used */
+/*!***********************************!*\
+  !*** ./src/manager/_structure.js ***!
+  \***********************************/
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3370,7 +3784,7 @@ Object.defineProperty(exports, "__esModule", {
 	value: true
 });
 
-var _structure = __webpack_require__(92);
+var _structure = __webpack_require__(/*! ../structure */ 92);
 
 var structure = _interopRequireWildcard(_structure);
 
@@ -3397,6 +3811,11 @@ module.exports = exports["default"];
 
 /***/ }),
 /* 74 */
+/* unknown exports provided */
+/* all exports used */
+/*!*******************************!*\
+  !*** ./src/role/_attacker.js ***!
+  \*******************************/
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3406,7 +3825,7 @@ Object.defineProperty(exports, "__esModule", {
 	value: true
 });
 
-var _action = __webpack_require__(1);
+var _action = __webpack_require__(/*! ../action */ 1);
 
 exports.default = function (creep, roomName) {
 	if (creep.room.name != roomName) {
@@ -3420,6 +3839,11 @@ module.exports = exports['default'];
 
 /***/ }),
 /* 75 */
+/* unknown exports provided */
+/* all exports used */
+/*!******************************!*\
+  !*** ./src/role/_builder.js ***!
+  \******************************/
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3429,9 +3853,9 @@ Object.defineProperty(exports, "__esModule", {
 	value: true
 });
 
-var _util = __webpack_require__(0);
+var _util = __webpack_require__(/*! ../_util */ 0);
 
-var _action = __webpack_require__(1);
+var _action = __webpack_require__(/*! ../action */ 1);
 
 exports.default = function (creep) {
 	// state
@@ -3452,6 +3876,11 @@ module.exports = exports['default'];
 
 /***/ }),
 /* 76 */
+/* unknown exports provided */
+/* all exports used */
+/*!****************************!*\
+  !*** ./src/role/_claim.js ***!
+  \****************************/
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3461,9 +3890,9 @@ Object.defineProperty(exports, "__esModule", {
 	value: true
 });
 
-var _action = __webpack_require__(1);
+var _action = __webpack_require__(/*! ../action */ 1);
 
-var _util = __webpack_require__(0);
+var _util = __webpack_require__(/*! ../_util */ 0);
 
 exports.default = function (creep, roomName) {
 	// target
@@ -3476,6 +3905,11 @@ module.exports = exports['default'];
 
 /***/ }),
 /* 77 */
+/* unknown exports provided */
+/* all exports used */
+/*!******************************!*\
+  !*** ./src/role/_cleaner.js ***!
+  \******************************/
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3485,9 +3919,9 @@ Object.defineProperty(exports, "__esModule", {
 	value: true
 });
 
-var _util = __webpack_require__(0);
+var _util = __webpack_require__(/*! ../_util */ 0);
 
-var _action = __webpack_require__(1);
+var _action = __webpack_require__(/*! ../action */ 1);
 
 exports.default = function (creep) {
 	// state
@@ -3513,6 +3947,11 @@ module.exports = exports['default'];
 
 /***/ }),
 /* 78 */
+/* unknown exports provided */
+/* all exports used */
+/*!*********************************!*\
+  !*** ./src/role/_farBuilder.js ***!
+  \*********************************/
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3522,9 +3961,9 @@ Object.defineProperty(exports, "__esModule", {
 	value: true
 });
 
-var _util = __webpack_require__(0);
+var _util = __webpack_require__(/*! ../_util */ 0);
 
-var _action = __webpack_require__(1);
+var _action = __webpack_require__(/*! ../action */ 1);
 
 exports.default = function (creep, roomName) {
 	// state
@@ -3554,6 +3993,11 @@ module.exports = exports['default'];
 
 /***/ }),
 /* 79 */
+/* unknown exports provided */
+/* all exports used */
+/*!***********************************!*\
+  !*** ./src/role/_farHarvester.js ***!
+  \***********************************/
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3563,9 +4007,9 @@ Object.defineProperty(exports, "__esModule", {
 	value: true
 });
 
-var _util = __webpack_require__(0);
+var _util = __webpack_require__(/*! ../_util */ 0);
 
-var _action = __webpack_require__(1);
+var _action = __webpack_require__(/*! ../action */ 1);
 
 exports.default = function (creep, roomName) {
 	// state
@@ -3598,6 +4042,11 @@ module.exports = exports['default'];
 
 /***/ }),
 /* 80 */
+/* unknown exports provided */
+/* all exports used */
+/*!*******************************!*\
+  !*** ./src/role/_farMiner.js ***!
+  \*******************************/
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3607,9 +4056,9 @@ Object.defineProperty(exports, "__esModule", {
 	value: true
 });
 
-var _action = __webpack_require__(1);
+var _action = __webpack_require__(/*! ../action */ 1);
 
-var _util = __webpack_require__(0);
+var _util = __webpack_require__(/*! ../_util */ 0);
 
 exports.default = function (creep, roomName) {
 	// state
@@ -3638,6 +4087,11 @@ module.exports = exports['default'];
 
 /***/ }),
 /* 81 */
+/* unknown exports provided */
+/* all exports used */
+/*!**********************************!*\
+  !*** ./src/role/_farUpgrader.js ***!
+  \**********************************/
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3647,9 +4101,9 @@ Object.defineProperty(exports, "__esModule", {
 	value: true
 });
 
-var _util = __webpack_require__(0);
+var _util = __webpack_require__(/*! ../_util */ 0);
 
-var _action = __webpack_require__(1);
+var _action = __webpack_require__(/*! ../action */ 1);
 
 exports.default = function (creep, roomName) {
 	// state
@@ -3673,6 +4127,11 @@ module.exports = exports['default'];
 
 /***/ }),
 /* 82 */
+/* unknown exports provided */
+/* all exports used */
+/*!********************************!*\
+  !*** ./src/role/_harvester.js ***!
+  \********************************/
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3682,9 +4141,9 @@ Object.defineProperty(exports, "__esModule", {
 	value: true
 });
 
-var _util = __webpack_require__(0);
+var _util = __webpack_require__(/*! ../_util */ 0);
 
-var _action = __webpack_require__(1);
+var _action = __webpack_require__(/*! ../action */ 1);
 
 exports.default = function (creep) {};
 
@@ -3692,6 +4151,11 @@ module.exports = exports['default'];
 
 /***/ }),
 /* 83 */
+/* unknown exports provided */
+/* all exports used */
+/*!*****************************!*\
+  !*** ./src/role/_linker.js ***!
+  \*****************************/
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3701,9 +4165,9 @@ Object.defineProperty(exports, "__esModule", {
 	value: true
 });
 
-var _util = __webpack_require__(0);
+var _util = __webpack_require__(/*! ../_util */ 0);
 
-var _action = __webpack_require__(1);
+var _action = __webpack_require__(/*! ../action */ 1);
 
 exports.default = function (creep) {
 	// memory
@@ -3726,6 +4190,11 @@ module.exports = exports['default'];
 
 /***/ }),
 /* 84 */
+/* unknown exports provided */
+/* all exports used */
+/*!****************************!*\
+  !*** ./src/role/_miner.js ***!
+  \****************************/
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3735,9 +4204,9 @@ Object.defineProperty(exports, "__esModule", {
 	value: true
 });
 
-var _util = __webpack_require__(0);
+var _util = __webpack_require__(/*! ../_util */ 0);
 
-var _action = __webpack_require__(1);
+var _action = __webpack_require__(/*! ../action */ 1);
 
 exports.default = function (creep) {
 	// root
@@ -3764,6 +4233,11 @@ module.exports = exports['default'];
 
 /***/ }),
 /* 85 */
+/* unknown exports provided */
+/* all exports used */
+/*!*******************************!*\
+  !*** ./src/role/_upgrader.js ***!
+  \*******************************/
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3773,9 +4247,9 @@ Object.defineProperty(exports, "__esModule", {
 	value: true
 });
 
-var _util = __webpack_require__(0);
+var _util = __webpack_require__(/*! ../_util */ 0);
 
-var _action = __webpack_require__(1);
+var _action = __webpack_require__(/*! ../action */ 1);
 
 exports.default = function (creep) {
 	// state
@@ -3792,6 +4266,11 @@ module.exports = exports['default'];
 
 /***/ }),
 /* 86 */
+/* unknown exports provided */
+/* all exports used */
+/*!***************************!*\
+  !*** ./src/role/index.js ***!
+  \***************************/
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3801,7 +4280,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _harvester = __webpack_require__(82);
+var _harvester = __webpack_require__(/*! ./_harvester */ 82);
 
 Object.defineProperty(exports, 'harvester', {
   enumerable: true,
@@ -3810,7 +4289,7 @@ Object.defineProperty(exports, 'harvester', {
   }
 });
 
-var _linker = __webpack_require__(83);
+var _linker = __webpack_require__(/*! ./_linker */ 83);
 
 Object.defineProperty(exports, 'linker', {
   enumerable: true,
@@ -3819,7 +4298,7 @@ Object.defineProperty(exports, 'linker', {
   }
 });
 
-var _upgrader = __webpack_require__(85);
+var _upgrader = __webpack_require__(/*! ./_upgrader */ 85);
 
 Object.defineProperty(exports, 'upgrader', {
   enumerable: true,
@@ -3828,7 +4307,7 @@ Object.defineProperty(exports, 'upgrader', {
   }
 });
 
-var _builder = __webpack_require__(75);
+var _builder = __webpack_require__(/*! ./_builder */ 75);
 
 Object.defineProperty(exports, 'builder', {
   enumerable: true,
@@ -3837,7 +4316,7 @@ Object.defineProperty(exports, 'builder', {
   }
 });
 
-var _miner = __webpack_require__(84);
+var _miner = __webpack_require__(/*! ./_miner */ 84);
 
 Object.defineProperty(exports, 'miner', {
   enumerable: true,
@@ -3846,7 +4325,7 @@ Object.defineProperty(exports, 'miner', {
   }
 });
 
-var _cleaner = __webpack_require__(77);
+var _cleaner = __webpack_require__(/*! ./_cleaner */ 77);
 
 Object.defineProperty(exports, 'cleaner', {
   enumerable: true,
@@ -3855,7 +4334,7 @@ Object.defineProperty(exports, 'cleaner', {
   }
 });
 
-var _farBuilder = __webpack_require__(78);
+var _farBuilder = __webpack_require__(/*! ./_farBuilder */ 78);
 
 Object.defineProperty(exports, 'farBuilder', {
   enumerable: true,
@@ -3864,7 +4343,7 @@ Object.defineProperty(exports, 'farBuilder', {
   }
 });
 
-var _farHarvester = __webpack_require__(79);
+var _farHarvester = __webpack_require__(/*! ./_farHarvester */ 79);
 
 Object.defineProperty(exports, 'farHarvester', {
   enumerable: true,
@@ -3873,7 +4352,7 @@ Object.defineProperty(exports, 'farHarvester', {
   }
 });
 
-var _farMiner = __webpack_require__(80);
+var _farMiner = __webpack_require__(/*! ./_farMiner */ 80);
 
 Object.defineProperty(exports, 'farMiner', {
   enumerable: true,
@@ -3882,7 +4361,7 @@ Object.defineProperty(exports, 'farMiner', {
   }
 });
 
-var _farUpgrader = __webpack_require__(81);
+var _farUpgrader = __webpack_require__(/*! ./_farUpgrader */ 81);
 
 Object.defineProperty(exports, 'farUpgrader', {
   enumerable: true,
@@ -3891,7 +4370,7 @@ Object.defineProperty(exports, 'farUpgrader', {
   }
 });
 
-var _claim = __webpack_require__(76);
+var _claim = __webpack_require__(/*! ./_claim */ 76);
 
 Object.defineProperty(exports, 'claim', {
   enumerable: true,
@@ -3900,7 +4379,7 @@ Object.defineProperty(exports, 'claim', {
   }
 });
 
-var _attacker = __webpack_require__(74);
+var _attacker = __webpack_require__(/*! ./_attacker */ 74);
 
 Object.defineProperty(exports, 'attacker', {
   enumerable: true,
@@ -3913,6 +4392,11 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 /***/ }),
 /* 87 */
+/* unknown exports provided */
+/* all exports used */
+/*!******************************!*\
+  !*** ./src/setting/_role.js ***!
+  \******************************/
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3922,7 +4406,7 @@ Object.defineProperty(exports, "__esModule", {
 	value: true
 });
 
-var _concat2 = __webpack_require__(23);
+var _concat2 = __webpack_require__(/*! lodash/concat */ 23);
 
 var _concat3 = _interopRequireDefault(_concat2);
 
@@ -4070,6 +4554,11 @@ module.exports = exports["default"];
 
 /***/ }),
 /* 88 */
+/* unknown exports provided */
+/* all exports used */
+/*!******************************!*\
+  !*** ./src/setting/_room.js ***!
+  \******************************/
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4083,6 +4572,11 @@ module.exports = exports['default'];
 
 /***/ }),
 /* 89 */
+/* unknown exports provided */
+/* all exports used */
+/*!********************************!*\
+  !*** ./src/structure/_link.js ***!
+  \********************************/
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4103,6 +4597,11 @@ module.exports = exports["default"];
 
 /***/ }),
 /* 90 */
+/* unknown exports provided */
+/* all exports used */
+/*!*********************************!*\
+  !*** ./src/structure/_spawn.js ***!
+  \*********************************/
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4112,7 +4611,7 @@ Object.defineProperty(exports, "__esModule", {
 	value: true
 });
 
-var _util = __webpack_require__(0);
+var _util = __webpack_require__(/*! ../_util */ 0);
 
 exports.default = function (spawn, configRole) {
 	// let target = spawn.pos.findInRange(spawn.room.memory.creeps.my.attacker, 1)
@@ -4180,6 +4679,11 @@ module.exports = exports['default'];
 
 /***/ }),
 /* 91 */
+/* unknown exports provided */
+/* all exports used */
+/*!*********************************!*\
+  !*** ./src/structure/_tower.js ***!
+  \*********************************/
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4203,6 +4707,11 @@ module.exports = exports["default"];
 
 /***/ }),
 /* 92 */
+/* unknown exports provided */
+/* all exports used */
+/*!********************************!*\
+  !*** ./src/structure/index.js ***!
+  \********************************/
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4212,7 +4721,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _tower = __webpack_require__(91);
+var _tower = __webpack_require__(/*! ./_tower */ 91);
 
 Object.defineProperty(exports, "tower", {
   enumerable: true,
@@ -4221,7 +4730,7 @@ Object.defineProperty(exports, "tower", {
   }
 });
 
-var _spawn = __webpack_require__(90);
+var _spawn = __webpack_require__(/*! ./_spawn */ 90);
 
 Object.defineProperty(exports, "spawn", {
   enumerable: true,
@@ -4230,7 +4739,7 @@ Object.defineProperty(exports, "spawn", {
   }
 });
 
-var _link = __webpack_require__(89);
+var _link = __webpack_require__(/*! ./_link */ 89);
 
 Object.defineProperty(exports, "link", {
   enumerable: true,
@@ -4243,6 +4752,11 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 /***/ }),
 /* 93 */
+/* unknown exports provided */
+/* all exports used */
+/*!**************************!*\
+  !*** ./src/task/_log.js ***!
+  \**************************/
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4252,7 +4766,7 @@ Object.defineProperty(exports, "__esModule", {
 	value: true
 });
 
-var _util = __webpack_require__(0);
+var _util = __webpack_require__(/*! ../_util */ 0);
 
 exports.default = function (roomName, timeout) {
 	"use strict";
@@ -4320,6 +4834,11 @@ module.exports = exports['default'];
 
 /***/ }),
 /* 94 */
+/* unknown exports provided */
+/* all exports used */
+/*!******************************!*\
+  !*** ./src/task/_trigger.js ***!
+  \******************************/
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4376,80 +4895,6 @@ function isSafe(roomName) {
 }
 module.exports = exports['default'];
 
-/***/ }),
-/* 95 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-__webpack_require__(8);
-
-var _manager = __webpack_require__(11);
-
-var Manager = _interopRequireWildcard(_manager);
-
-var _gui = __webpack_require__(10);
-
-var Gui = _interopRequireWildcard(_gui);
-
-var _util = __webpack_require__(0);
-
-var _task = __webpack_require__(13);
-
-var _setting = __webpack_require__(12);
-
-var _setting2 = _interopRequireDefault(_setting);
-
-var _screepsProfiler = __webpack_require__(9);
-
-var _screepsProfiler2 = _interopRequireDefault(_screepsProfiler);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
-
-var rooms = ['W81S67', 'W81S66', 'W82S67'];
-_screepsProfiler2.default.enable();
-console.log(_util.color.grey('# Coding Update!'));
-// trigger.install()
-
-// switch
-var profilerEnabled = false;
-
-// main
-var main = function main() {
-	if (Game.cpu.bucket < 2 * Game.cpu.tickLimit) {
-		console.log('# Lack of CPU!');
-		return;
-	}
-
-	// Manager
-	(0, _task.trigger)();
-	Manager.root();
-	Manager.memory(rooms);
-	Manager.global(rooms);
-	Manager.role(rooms);
-	Manager.structure(rooms);
-	// GUI
-	Gui.room(rooms[0]);
-	Gui.role(rooms[0]);
-	// Log
-	if ((0, _util.timer)(10)) (0, _task.log)(rooms[0], 10);
-	// Setting
-	(0, _setting2.default)();
-};
-
-// loop
-module.exports.loop = function () {
-	if (profilerEnabled) {
-		_screepsProfiler2.default.wrap(function () {
-			main();
-		});
-	} else {
-		main();
-	}
-};
-
 /***/ })
 /******/ ]);
+//# sourceMappingURL=main.js.map.js
