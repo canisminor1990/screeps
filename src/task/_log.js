@@ -1,4 +1,4 @@
-import {color, table, emoji} from '../_util'
+import { color, table, emoji } from '../_util'
 export default (roomName, timeout) => {
 	"use strict";
 	const room          = Game.rooms[roomName];
@@ -9,7 +9,7 @@ export default (roomName, timeout) => {
 	      gclTimeLeft   = Math.round(gclLeft / gclSpeed),
 	      gclHourLeft   = Math.floor(gclTimeLeft * 5 / 3600 * 100) / 100;
 	Memory.timer['gcl'] = gcl.progress;
-	
+
 	const rcl           = room.controller,
 	      rclProcess    = Math.round(rcl.progress / rcl.progressTotal * 100),
 	      rclSpeed      = Math.round((rcl.progress - Memory.timer['rcl']) / timeout),
@@ -17,7 +17,7 @@ export default (roomName, timeout) => {
 	      rclTimeLeft   = Math.round(rclLeft / rclSpeed),
 	      rclHourLeft   = Math.floor(rclTimeLeft * 5 / 3600 * 100) / 100;
 	Memory.timer['rcl'] = rcl.progress;
-	
+
 	const rcl2           = Game.rooms['W82S67'].controller,
 	      rcl2Process    = Math.round(rcl2.progress / rcl2.progressTotal * 100),
 	      rcl2Speed      = Math.round((rcl2.progress - Memory.timer['rcl2']) / timeout),
@@ -25,7 +25,7 @@ export default (roomName, timeout) => {
 	      rcl2TimeLeft   = Math.round(rcl2Left / rcl2Speed),
 	      rcl2HourLeft   = Math.floor(rcl2TimeLeft * 5 / 3600 * 100) / 100;
 	Memory.timer['rcl2'] = rcl2.progress;
-	
+
 	const gclLog      = {
 		header: ['Type', 'Lvl', 'Progress', 'EnergyLeft', 'Speed(e/t)', 'TickLeft', 'HourLeft'],
 		body  : [
@@ -38,8 +38,8 @@ export default (roomName, timeout) => {
 	const extension   = room.memory.structures.extension;
 	let extensionFull = 0;
 	extension.forEach(ex => {
-			if (ex.energy == ex.energyCapacity) extensionFull++
-		}
+		                  if (ex.energy == ex.energyCapacity) extensionFull++
+	                  }
 	);
 	let configCreepNum = 0,
 	    roleLog        = [
@@ -52,14 +52,14 @@ export default (roomName, timeout) => {
 		    }
 	    ];
 	room.memory.config.role.forEach(role => {
-			configCreepNum = configCreepNum + role.number;
-			let number     = Memory.global.creeps[role.role]
-			let i          = (role.role.match('far')) ? 1 : 0
-			if (number) {
-				roleLog[i].header.push(role.role);
-				roleLog[i].body[0].push(`${number.length}/${role.number}`)
-			}
-		}
+		                                configCreepNum = configCreepNum + role.number;
+		                                let number     = Memory.global.creeps[role.role]
+		                                let i          = (role.role.match('far')) ? 1 : 0
+		                                number         = (number) ? number : 0
+		                                roleLog[i].header.push(role.role);
+		                                roleLog[i].body[0].push(`${number.length}/${role.number}`)
+
+	                                }
 	)
 	const energyLog = {
 		header: ['Storage', 'Spawn', 'Extension', 'CanUse', 'Creeps', 'Cpu', 'Bucket'],
@@ -75,13 +75,12 @@ export default (roomName, timeout) => {
 			]
 		]
 	}
-	
+
 	console.log(color.grey(`# Gametime ${Game.time}`),
-		table(gclLog),
-		table(energyLog),
-		table(roleLog[0]),
-		table(roleLog[1])
+	            table(gclLog),
+	            table(energyLog),
+	            table(roleLog[0]),
+	            table(roleLog[1])
 	);
-	
 }
 
