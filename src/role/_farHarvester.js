@@ -17,8 +17,8 @@ export default (creep, roomName) => {
 				if (transfer(creep, creep.pos.findClosestByRange(needFill))) return;
 				const store = targetFormat(creep.room.memory.flags.store,target => target.structureType != STRUCTURE_ROAD);
 				if (store && transfer(creep, store, store.store.energy < store.storeCapacity))return;
-				const tower = creep.room.memory.structures.tower.sort((a, b) => a.energy - b.energy)[0];
-				if (transfer(creep, tower, tower.energy < tower.energyCapacity)) return;
+				const tower = targetFormat(creep.room.memory.structures.tower.sort((a, b) => a.energy - b.energy));
+				if (tower && transfer(creep, tower, tower.energy < tower.energyCapacity)) return;
 			} catch (e) {
 				console.log(e)
 			}

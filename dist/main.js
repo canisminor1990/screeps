@@ -3470,10 +3470,10 @@ exports.default = function (creep, roomName) {
 					return target.structureType != STRUCTURE_ROAD;
 				});
 				if (store && (0, _action.transfer)(creep, store, store.store.energy < store.storeCapacity)) return;
-				var tower = creep.room.memory.structures.tower.sort(function (a, b) {
+				var tower = (0, _util.targetFormat)(creep.room.memory.structures.tower.sort(function (a, b) {
 					return a.energy - b.energy;
-				})[0];
-				if ((0, _action.transfer)(creep, tower, tower.energy < tower.energyCapacity)) return;
+				}));
+				if (tower && (0, _action.transfer)(creep, tower, tower.energy < tower.energyCapacity)) return;
 			} catch (e) {
 				console.log(e);
 			}
