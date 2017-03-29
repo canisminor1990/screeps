@@ -20,14 +20,15 @@ function buildRole(config = {}, roomArray = []) {
 	let i = 0, proprity = 0;
 	_.forEach(roomArray, (roomName) => {
 		_.forEach(config, (array, key) => {
-			let name = key + '#';
+			let name   = key + '#',
+			    number = (i == 0) ? array[1][0] : array[1][1]
 			if (i > 0) name = name + roomName + '#';
 			config[name] = {
 				role    : key,
 				roomName: roomName,
 				roomType: (i == 0) ? "main" : "extra",
 				body    : buildBody(array[0]),
-				// number  : (i == 0) ? array[1][0] : array[1][1],
+				number  : number,
 				timeout : array[2],
 				proprity: proprity
 			}

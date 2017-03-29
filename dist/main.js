@@ -3314,14 +3314,15 @@ function buildRole() {
 	    proprity = 0;
 	_.forEach(roomArray, function (roomName) {
 		_.forEach(config, function (array, key) {
-			var name = key + '#';
+			var name = key + '#',
+			    number = i == 0 ? array[1][0] : array[1][1];
 			if (i > 0) name = name + roomName + '#';
 			config[name] = {
 				role: key,
 				roomName: roomName,
 				roomType: i == 0 ? "main" : "extra",
 				body: buildBody(array[0]),
-				// number  : (i == 0) ? array[1][0] : array[1][1],
+				number: number,
 				timeout: array[2],
 				proprity: proprity
 			};
