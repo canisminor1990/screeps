@@ -6,25 +6,14 @@ module.exports = {
 		filename                     : '[name].js',
 		pathinfo                     : true,
 		libraryTarget                : 'commonjs2',
-		sourceMapFilename            : '[file].map.js', // normally this is [file].map, but we need a js file, or it will be rejected by screeps server.
+		sourceMapFilename            : '[file].map.js',
 		devtoolModuleFilenameTemplate: '[resource-path]',
 	},
-	target   : 'node',
-	node     : {
-		console   : true,
-		global    : true,
-		process   : false,
-		Buffer    : false,
-		__filename: false,
-		__dirname : false,
-	},
-	resolve  : {extensions: ['.js']},// Add '.ts' and '.tsx' as resolvable extensions.
-	externals: [{'main.js.map': './main.js.map',},],
 	module   : {
 		loaders: [
 			{
 				test   : /\.js$/,
-				loader : 'babel-loader?source-map-loader',
+				loader : 'babel-loader',
 				enforce: 'pre',
 				query  : {
 					presets: [
