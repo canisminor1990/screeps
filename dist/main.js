@@ -3316,8 +3316,8 @@ function buildRole() {
 	_.forEach(roomArray, function (roomName) {
 		_.forEach(config, function (array, key) {
 			var name = key,
-			    body = buildBody(array[0]);
-			number = i == 0 ? array[1][0] : array[1][1];
+			    body = buildBody(array[0]),
+			    number = i == 0 ? array[1][0] : array[1][1];
 			number = buildNumber(key, number, roomName);
 			if (number == 0) return;
 			if (i > 0) name = name + '#' + roomName;
