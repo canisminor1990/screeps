@@ -1,13 +1,13 @@
 const path     = require('path');
 module.exports = {
-	entry  : './src/main.js',
-	output : {
+	entry : './src/main.js',
+	output: {
 		path         : path.join(__dirname, "dist"),
 		filename     : '[name].js',
 		libraryTarget: 'commonjs2',
 	},
 	// devtool: 'source-map',
-	module : {
+	module: {
 		loaders: [
 			{
 				test  : /\.js$/,
@@ -20,7 +20,8 @@ module.exports = {
 						require.resolve('screeps-regenerator-preset'), // https://github.com/screepers/screeps-regenerator
 					],
 					plugins: [
-						"dynamic-import-webpack"
+						require.resolve("babel-plugin-dynamic-import-webpack")
+
 					]
 				},
 			},
