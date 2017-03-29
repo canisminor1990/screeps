@@ -3315,10 +3315,10 @@ function buildRole() {
 	var newConfig = {};
 	_.forEach(roomArray, function (roomName) {
 		_.forEach(config, function (array, key) {
-			var name = key + '#',
+			var name = key,
 			    number = i == 0 ? array[1][0] : array[1][1];
 			if (number == 0) return;
-			if (i > 0) name = name + roomName + '#';
+			if (i > 0) name = name + '#' + roomName;
 			newConfig[name] = {
 				role: key,
 				roomName: roomName,
