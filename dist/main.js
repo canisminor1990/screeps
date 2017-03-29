@@ -3558,11 +3558,13 @@ exports.default = function (creep, roomName) {
 	(0, _util.targetMaker)(creep, Memory.rooms[roomName].structures.container[0], 'withdraw');
 	// task
 	if (!ifFull) {
-		if ((0, _action.pickup)(creep, (0, _action.findInRange)(creep, creep.room.memory.dropped.energy, 2)[0])) return;
-		var store = (0, _util.targetFormat)(creep.room.memory.flags.store);
-		if (store && (0, _action.withdraw)(creep, store, store.store.energy > 0)) return;
-		if ((0, _action.withdraw)(creep, Memory.rooms[roomName].structures.spawn)) return;
-		if ((0, _action.withdraw)(creep, creep.memory.target.withdraw)) return;
+		try {
+			if ((0, _action.pickup)(creep, (0, _action.findInRange)(creep, creep.room.memory.dropped.energy, 2)[0])) return;
+			var store = (0, _util.targetFormat)(creep.room.memory.flags.store);
+			if (store && (0, _action.withdraw)(creep, store, store.store.energy > 0)) return;
+			if ((0, _action.withdraw)(creep, Memory.rooms[roomName].structures.spawn)) return;
+			if ((0, _action.withdraw)(creep, creep.memory.target.withdraw)) return;
+		} catch (e) {}
 	} else {
 		(0, _util.targetChanger)(creep, Memory.rooms[roomName].structures.container[0], 'withdraw');
 		if ((0, _action.upgradeController)(creep, creep.room.controller)) return;
