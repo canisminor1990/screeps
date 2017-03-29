@@ -12,6 +12,8 @@ export default (creep, roomName) => {
 		if (withdraw(creep, targetWithdraw)) return
 	} else {
 		if (creep.pos.roomName == creep.memory.target.withdraw.pos.roomName) {
+			const needFill = creep.room.memory.structures.needFill;
+			if (transfer(creep, creep.pos.findClosestByRange(needFill))) return;
 			const store = targetFormat(creep.room.memory.flags.store);
 			if (store && transfer(creep, store, store.store.energy < store.storeCapacity))return;
 			const spawn = Memory.rooms[roomName].structures.spawn

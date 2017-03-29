@@ -64,7 +64,7 @@ module.exports =
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 48);
+/******/ 	return __webpack_require__(__webpack_require__.s = 77);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -888,7 +888,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _root = __webpack_require__(57);
+var _root = __webpack_require__(56);
 
 Object.defineProperty(exports, 'root', {
   enumerable: true,
@@ -897,7 +897,7 @@ Object.defineProperty(exports, 'root', {
   }
 });
 
-var _memory = __webpack_require__(55);
+var _memory = __webpack_require__(54);
 
 Object.defineProperty(exports, 'memory', {
   enumerable: true,
@@ -906,7 +906,7 @@ Object.defineProperty(exports, 'memory', {
   }
 });
 
-var _global = __webpack_require__(49);
+var _global = __webpack_require__(48);
 
 Object.defineProperty(exports, 'global', {
   enumerable: true,
@@ -915,7 +915,7 @@ Object.defineProperty(exports, 'global', {
   }
 });
 
-var _structure = __webpack_require__(58);
+var _structure = __webpack_require__(57);
 
 Object.defineProperty(exports, 'structure', {
   enumerable: true,
@@ -924,7 +924,7 @@ Object.defineProperty(exports, 'structure', {
   }
 });
 
-var _role = __webpack_require__(56);
+var _role = __webpack_require__(55);
 
 Object.defineProperty(exports, 'role', {
   enumerable: true,
@@ -955,7 +955,7 @@ Object.defineProperty(exports, 'flags', {
   }
 });
 
-var _log = __webpack_require__(76);
+var _log = __webpack_require__(75);
 
 Object.defineProperty(exports, 'log', {
   enumerable: true,
@@ -964,7 +964,7 @@ Object.defineProperty(exports, 'log', {
   }
 });
 
-var _trigger = __webpack_require__(77);
+var _trigger = __webpack_require__(76);
 
 Object.defineProperty(exports, 'trigger', {
   enumerable: true,
@@ -2311,73 +2311,6 @@ function gui(room, x, y, color, content) {
 "use strict";
 
 
-__webpack_require__(4);
-
-var _manager = __webpack_require__(7);
-
-var Manager = _interopRequireWildcard(_manager);
-
-var _gui = __webpack_require__(6);
-
-var Gui = _interopRequireWildcard(_gui);
-
-var _util = __webpack_require__(0);
-
-var _task = __webpack_require__(8);
-
-var _screepsProfiler = __webpack_require__(5);
-
-var _screepsProfiler2 = _interopRequireDefault(_screepsProfiler);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
-
-var rooms = ['W81S67', 'W81S66', 'W82S67'];
-_screepsProfiler2.default.enable();
-console.log(_util.color.grey('# Coding Update!'));
-// trigger.install()
-
-// switch
-var profilerEnabled = false;
-
-// main
-var main = function main() {
-	if (Game.cpu.bucket < 2 * Game.cpu.tickLimit) {
-		console.log('# Lack of CPU!');
-		return;
-	}
-	(0, _task.trigger)();
-	Manager.root();
-	Manager.memory(rooms);
-	Manager.global(rooms);
-	Manager.role(rooms);
-	Manager.structure(rooms);
-	// GUI
-	Gui.room(rooms[0]);
-	Gui.role(rooms[0]);
-	// Log
-	if ((0, _util.timer)(10)) (0, _task.log)(rooms[0], 10);
-};
-
-// loop
-module.exports.loop = function () {
-	if (profilerEnabled) {
-		_screepsProfiler2.default.wrap(function () {
-			main();
-		});
-	} else {
-		main();
-	}
-};
-
-/***/ }),
-/* 49 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
 Object.defineProperty(exports, "__esModule", {
 	value: true
 });
@@ -2403,7 +2336,7 @@ exports.default = function (roomArray) {
 };
 
 /***/ }),
-/* 50 */
+/* 49 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2449,7 +2382,7 @@ function creepRole(creepsMyRaw, configRole) {
 }
 
 /***/ }),
-/* 51 */
+/* 50 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2470,7 +2403,7 @@ exports.default = function (room) {
 };
 
 /***/ }),
-/* 52 */
+/* 51 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2528,7 +2461,7 @@ exports.default = function (room) {
 };
 
 /***/ }),
-/* 53 */
+/* 52 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2569,7 +2502,7 @@ exports.default = function (room) {
 };
 
 /***/ }),
-/* 54 */
+/* 53 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2644,7 +2577,7 @@ exports.default = function (room, config) {
 };
 
 /***/ }),
-/* 55 */
+/* 54 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2658,23 +2591,23 @@ var _config = __webpack_require__(2);
 
 var _config2 = _interopRequireDefault(_config);
 
-var _creeps = __webpack_require__(50);
+var _creeps = __webpack_require__(49);
 
 var _creeps2 = _interopRequireDefault(_creeps);
 
-var _structures = __webpack_require__(54);
+var _structures = __webpack_require__(53);
 
 var _structures2 = _interopRequireDefault(_structures);
 
-var _sources = __webpack_require__(53);
+var _sources = __webpack_require__(52);
 
 var _sources2 = _interopRequireDefault(_sources);
 
-var _dropped = __webpack_require__(51);
+var _dropped = __webpack_require__(50);
 
 var _dropped2 = _interopRequireDefault(_dropped);
 
-var _flags = __webpack_require__(52);
+var _flags = __webpack_require__(51);
 
 var _flags2 = _interopRequireDefault(_flags);
 
@@ -2702,7 +2635,7 @@ exports.default = function (roomArrary) {
 };
 
 /***/ }),
-/* 56 */
+/* 55 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2712,7 +2645,7 @@ Object.defineProperty(exports, "__esModule", {
 	value: true
 });
 
-var _role = __webpack_require__(71);
+var _role = __webpack_require__(70);
 
 var role = _interopRequireWildcard(_role);
 
@@ -2788,7 +2721,7 @@ function newRoomMaker(roomName) {
 }
 
 /***/ }),
-/* 57 */
+/* 56 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2810,7 +2743,7 @@ exports.default = function () {
 };
 
 /***/ }),
-/* 58 */
+/* 57 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2820,7 +2753,7 @@ Object.defineProperty(exports, "__esModule", {
 	value: true
 });
 
-var _structure = __webpack_require__(75);
+var _structure = __webpack_require__(74);
 
 var structure = _interopRequireWildcard(_structure);
 
@@ -2844,7 +2777,7 @@ exports.default = function (roomArray) {
 };
 
 /***/ }),
-/* 59 */
+/* 58 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2865,7 +2798,7 @@ exports.default = function (creep, roomName) {
 };
 
 /***/ }),
-/* 60 */
+/* 59 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2895,7 +2828,7 @@ exports.default = function (creep) {
 };
 
 /***/ }),
-/* 61 */
+/* 60 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2917,7 +2850,7 @@ exports.default = function (creep, roomName) {
 };
 
 /***/ }),
-/* 62 */
+/* 61 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2952,7 +2885,7 @@ exports.default = function (creep) {
 };
 
 /***/ }),
-/* 63 */
+/* 62 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2991,7 +2924,7 @@ exports.default = function (creep, roomName) {
 };
 
 /***/ }),
-/* 64 */
+/* 63 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3019,6 +2952,8 @@ exports.default = function (creep, roomName) {
 		if ((0, _action.withdraw)(creep, targetWithdraw)) return;
 	} else {
 		if (creep.pos.roomName == creep.memory.target.withdraw.pos.roomName) {
+			var needFill = creep.room.memory.structures.needFill;
+			if ((0, _action.transfer)(creep, creep.pos.findClosestByRange(needFill))) return;
 			var store = (0, _util.targetFormat)(creep.room.memory.flags.store);
 			if (store && (0, _action.transfer)(creep, store, store.store.energy < store.storeCapacity)) return;
 			var spawn = Memory.rooms[roomName].structures.spawn;
@@ -3031,7 +2966,7 @@ exports.default = function (creep, roomName) {
 };
 
 /***/ }),
-/* 65 */
+/* 64 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3069,7 +3004,7 @@ exports.default = function (creep, roomName) {
 };
 
 /***/ }),
-/* 66 */
+/* 65 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3102,7 +3037,7 @@ exports.default = function (creep, roomName) {
 };
 
 /***/ }),
-/* 67 */
+/* 66 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3119,7 +3054,7 @@ var _action = __webpack_require__(1);
 exports.default = function (creep) {};
 
 /***/ }),
-/* 68 */
+/* 67 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3151,7 +3086,7 @@ exports.default = function (creep) {
 };
 
 /***/ }),
-/* 69 */
+/* 68 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3187,7 +3122,7 @@ exports.default = function (creep) {
 };
 
 /***/ }),
-/* 70 */
+/* 69 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3213,7 +3148,7 @@ exports.default = function (creep) {
 };
 
 /***/ }),
-/* 71 */
+/* 70 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3223,7 +3158,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _harvester = __webpack_require__(67);
+var _harvester = __webpack_require__(66);
 
 Object.defineProperty(exports, 'harvester', {
   enumerable: true,
@@ -3232,7 +3167,7 @@ Object.defineProperty(exports, 'harvester', {
   }
 });
 
-var _linker = __webpack_require__(68);
+var _linker = __webpack_require__(67);
 
 Object.defineProperty(exports, 'linker', {
   enumerable: true,
@@ -3241,7 +3176,7 @@ Object.defineProperty(exports, 'linker', {
   }
 });
 
-var _upgrader = __webpack_require__(70);
+var _upgrader = __webpack_require__(69);
 
 Object.defineProperty(exports, 'upgrader', {
   enumerable: true,
@@ -3250,7 +3185,7 @@ Object.defineProperty(exports, 'upgrader', {
   }
 });
 
-var _builder = __webpack_require__(60);
+var _builder = __webpack_require__(59);
 
 Object.defineProperty(exports, 'builder', {
   enumerable: true,
@@ -3259,7 +3194,7 @@ Object.defineProperty(exports, 'builder', {
   }
 });
 
-var _miner = __webpack_require__(69);
+var _miner = __webpack_require__(68);
 
 Object.defineProperty(exports, 'miner', {
   enumerable: true,
@@ -3268,7 +3203,7 @@ Object.defineProperty(exports, 'miner', {
   }
 });
 
-var _cleaner = __webpack_require__(62);
+var _cleaner = __webpack_require__(61);
 
 Object.defineProperty(exports, 'cleaner', {
   enumerable: true,
@@ -3277,7 +3212,7 @@ Object.defineProperty(exports, 'cleaner', {
   }
 });
 
-var _farBuilder = __webpack_require__(63);
+var _farBuilder = __webpack_require__(62);
 
 Object.defineProperty(exports, 'farBuilder', {
   enumerable: true,
@@ -3286,7 +3221,7 @@ Object.defineProperty(exports, 'farBuilder', {
   }
 });
 
-var _farHarvester = __webpack_require__(64);
+var _farHarvester = __webpack_require__(63);
 
 Object.defineProperty(exports, 'farHarvester', {
   enumerable: true,
@@ -3295,7 +3230,7 @@ Object.defineProperty(exports, 'farHarvester', {
   }
 });
 
-var _farMiner = __webpack_require__(65);
+var _farMiner = __webpack_require__(64);
 
 Object.defineProperty(exports, 'farMiner', {
   enumerable: true,
@@ -3304,7 +3239,7 @@ Object.defineProperty(exports, 'farMiner', {
   }
 });
 
-var _farUpgrader = __webpack_require__(66);
+var _farUpgrader = __webpack_require__(65);
 
 Object.defineProperty(exports, 'farUpgrader', {
   enumerable: true,
@@ -3313,7 +3248,7 @@ Object.defineProperty(exports, 'farUpgrader', {
   }
 });
 
-var _claim = __webpack_require__(61);
+var _claim = __webpack_require__(60);
 
 Object.defineProperty(exports, 'claim', {
   enumerable: true,
@@ -3322,7 +3257,7 @@ Object.defineProperty(exports, 'claim', {
   }
 });
 
-var _attacker = __webpack_require__(59);
+var _attacker = __webpack_require__(58);
 
 Object.defineProperty(exports, 'attacker', {
   enumerable: true,
@@ -3334,7 +3269,7 @@ Object.defineProperty(exports, 'attacker', {
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 /***/ }),
-/* 72 */
+/* 71 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3352,7 +3287,7 @@ exports.default = function (link) {
 };
 
 /***/ }),
-/* 73 */
+/* 72 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3418,7 +3353,7 @@ function buildBody(obj) {
 }
 
 /***/ }),
-/* 74 */
+/* 73 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3439,7 +3374,7 @@ exports.default = function (tower) {
 };
 
 /***/ }),
-/* 75 */
+/* 74 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3449,7 +3384,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _tower = __webpack_require__(74);
+var _tower = __webpack_require__(73);
 
 Object.defineProperty(exports, "tower", {
   enumerable: true,
@@ -3458,7 +3393,7 @@ Object.defineProperty(exports, "tower", {
   }
 });
 
-var _spawn = __webpack_require__(73);
+var _spawn = __webpack_require__(72);
 
 Object.defineProperty(exports, "spawn", {
   enumerable: true,
@@ -3467,7 +3402,7 @@ Object.defineProperty(exports, "spawn", {
   }
 });
 
-var _link = __webpack_require__(72);
+var _link = __webpack_require__(71);
 
 Object.defineProperty(exports, "link", {
   enumerable: true,
@@ -3479,7 +3414,7 @@ Object.defineProperty(exports, "link", {
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 /***/ }),
-/* 76 */
+/* 75 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3555,7 +3490,7 @@ exports.default = function (roomName, timeout) {
 };
 
 /***/ }),
-/* 77 */
+/* 76 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3610,6 +3545,73 @@ function isSafe(roomName) {
 		Memory.rooms[roomName].creeps.enemy = [];
 	}
 }
+
+/***/ }),
+/* 77 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+__webpack_require__(4);
+
+var _manager = __webpack_require__(7);
+
+var Manager = _interopRequireWildcard(_manager);
+
+var _gui = __webpack_require__(6);
+
+var Gui = _interopRequireWildcard(_gui);
+
+var _util = __webpack_require__(0);
+
+var _task = __webpack_require__(8);
+
+var _screepsProfiler = __webpack_require__(5);
+
+var _screepsProfiler2 = _interopRequireDefault(_screepsProfiler);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+
+var rooms = ['W81S67', 'W81S66', 'W82S67'];
+_screepsProfiler2.default.enable();
+console.log(_util.color.grey('# Coding Update!'));
+// trigger.install()
+
+// switch
+var profilerEnabled = false;
+
+// main
+var main = function main() {
+	if (Game.cpu.bucket < 2 * Game.cpu.tickLimit) {
+		console.log('# Lack of CPU!');
+		return;
+	}
+	(0, _task.trigger)();
+	Manager.root();
+	Manager.memory(rooms);
+	Manager.global(rooms);
+	Manager.role(rooms);
+	Manager.structure(rooms);
+	// GUI
+	Gui.room(rooms[0]);
+	Gui.role(rooms[0]);
+	// Log
+	if ((0, _util.timer)(10)) (0, _task.log)(rooms[0], 10);
+};
+
+// loop
+module.exports.loop = function () {
+	if (profilerEnabled) {
+		_screepsProfiler2.default.wrap(function () {
+			main();
+		});
+	} else {
+		main();
+	}
+};
 
 /***/ })
 /******/ ]);
