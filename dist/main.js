@@ -953,7 +953,6 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 exports.default = function () {
 	var setting = {};
-	console.log(_room2.default);
 	_.forEach(_room2.default, function (room) {
 		setting[room[0]] = {
 			role: (0, _role2.default)(room)
@@ -3322,7 +3321,7 @@ function buildRole() {
 				roomName: roomName,
 				roomType: i == 0 ? "main" : "extra",
 				body: buildBody(array[0]),
-				number: i == 0 ? array[1][0] : array[1][1],
+
 				timeout: array[2],
 				proprity: proprity
 			};
