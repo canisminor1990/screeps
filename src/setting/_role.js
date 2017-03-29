@@ -21,16 +21,19 @@ function buildRole(config = {}, roomArray = []) {
 	let newConfig = {}
 	_.forEach(roomArray, (roomName) => {
 		_.forEach(config, (array, key) => {
-			let name   = key,
-			    number = (i == 0) ? array[1][0] : array[1][1];
-			number     = buildNumber(key, number, roomName);
+			let name = key,
+			    body = buildBody(array[0])
+			number   = (i == 0) ? array[1][0] : array[1][1];
+			number   = buildNumber(key, number, roomName);
 			if (number == 0) return;
 			if (i > 0) name = name + '#' + roomName;
+
 			newConfig[name] = {
 				role    : key,
 				roomName: roomName,
 				roomType: (i == 0) ? "main" : "extra",
-				body    : buildBody(array[0]),
+				body    : body[0],
+				cost    : body[1],
 				number  : number,
 				timeout : array[2],
 				proprity: proprity
@@ -62,13 +65,31 @@ function buildNumber(role, number, roomName) {
 	}
 }
 
+const costSpend = {
+	"move"         : 50,
+	"work"         : 100,
+	"attack"       : 80,
+	"carry"        : 50,
+	"heal"         : 250,
+	"ranged_attack": 150,
+	"tough"        : 10,
+	"claim"        : 600
+}
+
 function buildBody(obj = {}) {
-	let bodyArray = [];
-	let move;
-	if (!obj.move) {
-		move = Math.ceil(_.sum(obj) / 2);
-	} else {
-		move = obj.move;
+	let cost = 0,
+	    body = buildBodyFormat(obj)
+	_.forEach(body, part => {
+		cost = cost + costSpend[part]
+	})
+	return [body, cost]
+}
+
+function buildBodyFormat(obj = {}) {
+	let move, bodyArray = [];
+	move                = Math.ceil(_.sum(obj) / 2);
+	if (obj.move) {
+		move = (move > obj.move) ? obj.move : move;
 		delete (obj.move)
 	}
 	_.forEach(obj, (n, key) => {
@@ -81,5 +102,3 @@ function buildBody(obj = {}) {
 	}
 	return _.compact(_.flattenDeep(bodyArray))
 }
-
-

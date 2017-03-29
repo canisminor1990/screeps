@@ -3316,15 +3316,18 @@ function buildRole() {
 	_.forEach(roomArray, function (roomName) {
 		_.forEach(config, function (array, key) {
 			var name = key,
-			    number = i == 0 ? array[1][0] : array[1][1];
+			    body = buildBody(array[0]);
+			number = i == 0 ? array[1][0] : array[1][1];
 			number = buildNumber(key, number, roomName);
 			if (number == 0) return;
 			if (i > 0) name = name + '#' + roomName;
+
 			newConfig[name] = {
 				role: key,
 				roomName: roomName,
 				roomType: i == 0 ? "main" : "extra",
-				body: buildBody(array[0]),
+				body: body[0],
+				cost: body[1],
 				number: number,
 				timeout: array[2],
 				proprity: proprity
@@ -3356,15 +3359,36 @@ function buildNumber(role, number, roomName) {
 	}
 }
 
+var costSpend = {
+	"move": 50,
+	"work": 100,
+	"attack": 80,
+	"carry": 50,
+	"heal": 250,
+	"ranged_attack": 150,
+	"tough": 10,
+	"claim": 600
+};
+
 function buildBody() {
 	var obj = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
 
-	var bodyArray = [];
-	var move = void 0;
-	if (!obj.move) {
-		move = Math.ceil(_.sum(obj) / 2);
-	} else {
-		move = obj.move;
+	var cost = 0,
+	    body = buildBodyFormat(obj);
+	_.forEach(body, function (part) {
+		cost = cost + costSpend[part];
+	});
+	return [body, cost];
+}
+
+function buildBodyFormat() {
+	var obj = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+
+	var move = void 0,
+	    bodyArray = [];
+	move = Math.ceil(_.sum(obj) / 2);
+	if (obj.move) {
+		move = move > obj.move ? obj.move : move;
 		delete obj.move;
 	}
 	_.forEach(obj, function (n, key) {
