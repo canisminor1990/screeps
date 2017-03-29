@@ -3364,10 +3364,7 @@ function buildBody() {
 Object.defineProperty(exports, "__esModule", {
 	value: true
 });
-
-exports.default = function () {
-	return [['W81S67', 'W81S66'], ['W82S67']];
-};
+exports.default = [['W81S67', 'W81S66'], ['W82S67']];
 
 /***/ }),
 /* 73 */
