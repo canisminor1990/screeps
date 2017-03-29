@@ -3369,7 +3369,9 @@ exports.default = function (creep) {
 	if (!isFull) {
 		var linkMain = Game.getObjectById(creep.room.memory.config.linkMain);
 		if ((0, _action.withdraw)(creep, linkMain, linkMain.energy > 0)) return;
-		if ((0, _action.pickup)(creep, (0, _action.findClosestByRange)(creep, creep.room.memory.dropped.energy, !needFill || needFill.length == 0))) return;
+		if (!needFill || needFill.length == 0) {
+			if ((0, _action.pickup)(creep, (0, _action.findClosestByRange)(creep, creep.room.memory.dropped.energy))) return;
+		}
 		if ((0, _action.withdraw)(creep, creep.room.storage)) return;
 	} else {
 		if ((0, _action.transfer)(creep, creep.pos.findClosestByRange(needFill))) return;
