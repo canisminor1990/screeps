@@ -3348,7 +3348,7 @@ exports.default = function (creep, roomName) {
 	// run
 	if (!isFull) {
 		if ((0, _action.withdraw)(creep, targetWithdraw)) return;
-		if ((0, _action.pickup)(creep, (0, _action.findClosestInRange)(creep, creep.room.memory.dropped.energy, 4))) return;
+		// if (pickup(creep, findClosestInRange(creep, creep.room.memory.dropped.energy, 4))) return;
 	} else {
 		if (creep.pos.roomName == creep.memory.target.withdraw.pos.roomName) {
 			var needFill = creep.room.memory.structures.needFill;
