@@ -17,6 +17,7 @@ export default (creep, roomName) => {
 				console.log(e)
 			}
 		}
+		if (withdraw(creep, Memory.rooms[roomName].structures.spawn)) return;
 		if (withdraw(creep, creep.memory.target.withdraw))return;
 	} else {
 		if (creep.pos.roomName == creep.memory.target.withdraw.pos.roomName) {
