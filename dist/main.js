@@ -2245,7 +2245,7 @@ exports.default = function (room) {
 	}, {
 		role: 'upgrader',
 		body: { carry: 2, work: 4, move: 2 },
-		number: builderNumber > 1 ? 1 : 3,
+		number: 3,
 		priority: 3
 	}, {
 		role: 'builder',
