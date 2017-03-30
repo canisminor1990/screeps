@@ -8,9 +8,9 @@ export default (creep, roomName) => {
 	targetMaker(creep, Memory.rooms[roomName].structures.container[0], 'withdraw')
 	// task
 	if (!isFull) {
-		// if (pickup(creep, findInRange(creep, creep.room.memory.dropped.energy, 3)[0])) return;
-		// const store = targetFormat(creep.room.memory.flags.store);
-		// if (store && withdraw(creep, store, store.store.energy > 0))return;
+		if (pickup(creep, findInRange(creep, creep.room.memory.dropped.energy, 3)[0])) return;
+		const store = targetFormat(creep.room.memory.flags.store);
+		if (store && withdraw(creep, store, store.store.energy > 0))return;
 		// if (withdraw(creep, Memory.rooms[roomName].structures.spawn)) return;
 		if (withdraw(creep, creep.memory.target.withdraw))return;
 	} else {
