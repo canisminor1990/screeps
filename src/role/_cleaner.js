@@ -1,9 +1,14 @@
-import {fullCheck} from '../_util'
-import {pickup, transfer, withdraw, findClosestByRange,moveTo} from '../action'
+import { fullCheck } from '../_util'
+import { pickup, transfer, withdraw, findClosestByRange, moveTo } from '../action'
 export default (creep) => {
 	// state
-	const isFull   = fullCheck(creep)
-	const needFill = _.compact(creep.room.memory.structures.needFill);
+	const isFull = fullCheck(creep)
+	let needFill;
+	try {
+		needFill = creep.room.memory.structures.needFill;
+	} catch (e) {
+		needFill = [];
+	}
 	// task
 	if (!isFull) {
 		if (!creep.memory.name.match('Sec')) {
@@ -13,10 +18,10 @@ export default (creep) => {
 				if (pickup(creep, findClosestByRange(creep, creep.room.memory.dropped.energy))) return;
 			}
 		} else {
-			if (creep.pos.roomName !== 'W82S67' && moveTo(creep,Game.spawns['Spawn2']))  return
+			if (creep.pos.roomName !== 'W82S67' && moveTo(creep, Game.spawns['Spawn2']))  return
 			if (pickup(creep, findClosestByRange(creep, creep.room.memory.dropped.energy))) return;
 		}
-		
+
 		if (withdraw(creep, creep.room.storage)) return;
 	} else {
 		if (transfer(creep, creep.pos.findClosestByRange(needFill))) return;

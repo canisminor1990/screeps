@@ -3341,7 +3341,12 @@ var _action = __webpack_require__(/*! ../action */ 1);
 exports.default = function (creep) {
 	// state
 	var isFull = (0, _util.fullCheck)(creep);
-	var needFill = _.compact(creep.room.memory.structures.needFill);
+	var needFill = void 0;
+	try {
+		needFill = creep.room.memory.structures.needFill;
+	} catch (e) {
+		needFill = [];
+	}
 	// task
 	if (!isFull) {
 		if (!creep.memory.name.match('Sec')) {
