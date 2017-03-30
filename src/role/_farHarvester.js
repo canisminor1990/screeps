@@ -8,8 +8,8 @@ export default (creep, roomName) => {
 	targetMaker(creep, targetWithdraw, 'withdraw')
 	// run
 	if (!isFull) {
-		if (pickup(creep, findClosestInRange(creep, creep.room.memory.dropped.energy, 4))) return;
 		if (withdraw(creep, targetWithdraw)) return
+		if (pickup(creep, findClosestInRange(creep, creep.room.memory.dropped.energy, 4))) return;
 	} else {
 		if (creep.pos.roomName == creep.memory.target.withdraw.pos.roomName) {
 			const needFill = creep.room.memory.structures.needFill;
@@ -18,7 +18,6 @@ export default (creep, roomName) => {
 			if (store && transfer(creep, store, store.store.energy < store.storeCapacity))return;
 			const tower = targetFormat(creep.room.memory.structures.tower.sort((a, b) => a.energy - b.energy));
 			if (tower && transfer(creep, tower, tower.energy < tower.energyCapacity)) return;
-			
 		} else {
 			targetChanger(creep, targetWithdraw, 'withdraw')
 		}

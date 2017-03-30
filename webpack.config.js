@@ -23,7 +23,7 @@ module.exports = {
 						require.resolve('screeps-regenerator-preset'), // https://github.com/screepers/screeps-regenerator
 					],
 					plugins: [
-						require.resolve('babel-plugin-add-module-exports'),
+						// require.resolve('babel-plugin-add-module-exports'),
 						require.resolve("babel-plugin-dynamic-import-webpack")
 					]
 				},

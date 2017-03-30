@@ -1,0 +1,71 @@
+Arguments: 
+  C:\Program Files\nodejs\node.exe C:\Users\Administrator\AppData\Roaming\npm\node_modules\yarn\bin\yarn.js
+
+PATH: 
+  C:\ProgramData\Oracle\Java\javapath;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\Program Files (x86)\NVIDIA Corporation\PhysX\Common;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;D:\Program Files\Git\cmd;D:\Program Files\Git\mingw64\bin;D:\Program Files\Git\usr\bin;C:\Program Files\nodejs;C:\Program Files (x86)\MacType;C:\Program Files\TortoiseSVN\bin;C:\Ruby200-x64\bin;C:\Ruby23\bin;C:\Users\Administrator\AppData\Local\Microsoft\WindowsApps;C:\Users\Administrator\AppData\Local\atom\bin;C:\Program Files\nodejs;C:\Users\Administrator\AppData\Roaming\npm
+
+Yarn version: 
+  0.21.3
+
+Node version: 
+  6.2.0
+
+Platform: 
+  win32 x64
+
+npm manifest: 
+  {
+    "name": "cm-screeps",
+    "version": "1.0.0",
+    "main": "dist/main.js",
+    "license": "MIT",
+    "keywords": [
+      "webpack"
+    ],
+    "dependencies": {
+      "babel-core": "^6.5.2",
+      "babel-loader": "^6.2.3",
+      "babel-plugin-add-module-exports": "^0.2.1",
+      "babel-plugin-dynamic-import-webpack": "^1.0.1",
+      "babel-plugin-lodash": "^3.2.11",
+      "babel-preset-es2015": "^6.5.0",
+      "babel-preset-react": "^6.5.0",
+      "babel-preset-stage-2": "^6.5.0",
+      "lodash-webpack-plugin": "^0.11.2",
+      "screeps-globals": "^0.0.1",
+      "screeps-multimeter": "^1.3.0",
+      "screeps-perf": "0.0.1",
+      "screeps-profiler": "^1.2.2",
+      "screeps-webpack-plugin": "^1.1.0",
+      "source-map-loader": "^0.2.0",
+      "webpack": "^2.2.1"
+    },
+    "devDependencies": {
+      "ScreepsAutocomplete": "https://github.com/Garethp/ScreepsAutocomplete.git",
+      "babel-eslint": "^6.0.2",
+      "eslint": "^2.2.0",
+      "eslint-config-airbnb": "^6.0.0",
+      "eslint-plugin-flowtype": "^2.1.0",
+      "eslint-plugin-react": "^4.0.0",
+      "lodash": "^4.17.4",
+      "screeps-regenerator-preset": "^0.9.6",
+      "screeps-regenerator-runtime": "^0.10.1"
+    },
+    "scripts": {
+      "test": "webpack --config webpack.config.js",
+      "build": "webpack --config webpack.config.js && git add -A && git commit -m 'updata' && git push",
+      "console": "multimeter"
+    }
+  }
+
+yarn manifest: 
+  No manifest
+
+Lockfile: 
+  No lockfile
+
+Trace: 
+  Error: connect ETIMEDOUT 47.88.240.14:80
+      at Object.exports._errnoException (util.js:953:11)
+      at exports._exceptionWithHostPort (util.js:976:20)
+      at TCPConnectWrap.afterConnect [as oncomplete] (net.js:1080:14)

@@ -419,8 +419,6 @@ exports.default = function () {
 	};
 };
 
-module.exports = exports['default'];
-
 /***/ }),
 /* 3 */
 /* unknown exports provided */
@@ -1009,8 +1007,6 @@ exports.default = function () {
 	return setting;
 };
 
-module.exports = exports['default'];
-
 /***/ }),
 /* 9 */
 /* unknown exports provided */
@@ -1151,8 +1147,6 @@ exports.default = function (creep, target, fc) {
 	}
 };
 
-module.exports = exports['default'];
-
 /***/ }),
 /* 11 */
 /* unknown exports provided */
@@ -1210,7 +1204,6 @@ color.green = function (content) {
 	return "<font color=" + _.colorType.green + ">" + content + "</font>";
 };
 exports.default = color;
-module.exports = exports["default"];
 
 /***/ }),
 /* 12 */
@@ -1236,7 +1229,6 @@ exports.default = {
 	orange: '#FD971F',
 	green: '#A6E22E'
 };
-module.exports = exports['default'];
 
 /***/ }),
 /* 13 */
@@ -1261,8 +1253,6 @@ exports.default = function (x, y, type) {
 		console.log('You can build: ' + ['spawn', 'extension', 'road', 'constructedWall', 'rampart', 'keeperLair', 'portal', 'controller', 'link', 'storage', 'tower', 'observer', 'powerBank', 'powerSpawn', 'extractor', 'lab', 'terminal', 'container', 'nuker'].join('|'));
 	}
 };
-
-module.exports = exports['default'];
 
 /***/ }),
 /* 14 */
@@ -1294,8 +1284,6 @@ exports.default = function (e, name, creep, target) {
 	error.body.push([].concat(other));
 	console.log((0, _.table)(error));
 };
-
-module.exports = exports['default'];
 
 /***/ }),
 /* 15 */
@@ -1330,7 +1318,6 @@ exports.default = {
 	target: unescape("%uD83D%uDC41%uFE0F"),
 	targetChange: unescape("%u267B%uFE0F%uD83D%uDC41%uFE0F")
 };
-module.exports = exports["default"];
 
 /***/ }),
 /* 16 */
@@ -1357,8 +1344,6 @@ exports.default = function (flag) {
 	};
 };
 
-module.exports = exports['default'];
-
 /***/ }),
 /* 17 */
 /* unknown exports provided */
@@ -1381,8 +1366,6 @@ exports.default = function (owner) {
 	return friends.toString().match(owner) ? true : false;
 };
 
-module.exports = exports["default"];
-
 /***/ }),
 /* 18 */
 /* unknown exports provided */
@@ -1404,8 +1387,6 @@ exports.default = function (creep) {
 	if (creep.memory.full && creep.carry.energy == 0) creep.memory.full = false;
 	return creep.memory.full;
 };
-
-module.exports = exports["default"];
 
 /***/ }),
 /* 19 */
@@ -1448,8 +1429,6 @@ exports.default = function (content) {
 	return "<table style=\"border:1px solid #444;max-width: 100%;word-break:break-all; word-wrap:break-word;\">" + tableHeader + tableBody + "</table>";
 };
 
-module.exports = exports["default"];
-
 /***/ }),
 /* 20 */
 /* unknown exports provided */
@@ -1486,8 +1465,6 @@ exports.default = function (creep, target) {
 	}
 };
 
-module.exports = exports['default'];
-
 /***/ }),
 /* 21 */
 /* unknown exports provided */
@@ -1515,8 +1492,6 @@ exports.default = function (targetRaw, opt) {
 		return false;
 	}
 };
-
-module.exports = exports["default"];
 
 /***/ }),
 /* 22 */
@@ -1557,8 +1532,6 @@ exports.default = function (creep, target) {
 	}
 };
 
-module.exports = exports['default'];
-
 /***/ }),
 /* 23 */
 /* unknown exports provided */
@@ -1583,8 +1556,6 @@ exports.default = function (targetRaw) {
 	}
 };
 
-module.exports = exports["default"];
-
 /***/ }),
 /* 24 */
 /* unknown exports provided */
@@ -1607,8 +1578,6 @@ exports.default = function (tick) {
     Memory.timer[tick] = Game.time;
     return true;
 };
-
-module.exports = exports["default"];
 
 /***/ }),
 /* 25 */
@@ -1646,8 +1615,6 @@ exports.default = function (creep, targetRaw) {
 	}
 };
 
-module.exports = exports['default'];
-
 /***/ }),
 /* 26 */
 /* unknown exports provided */
@@ -1683,8 +1650,6 @@ exports.default = function (creep, targetRaw) {
 		return false;
 	}
 };
-
-module.exports = exports['default'];
 
 /***/ }),
 /* 27 */
@@ -1722,8 +1687,6 @@ exports.default = function (creep, targetRaw) {
 	}
 };
 
-module.exports = exports['default'];
-
 /***/ }),
 /* 28 */
 /* unknown exports provided */
@@ -1759,8 +1722,6 @@ exports.default = function (creep, targetRaw) {
 		return false;
 	}
 };
-
-module.exports = exports['default'];
 
 /***/ }),
 /* 29 */
@@ -1798,8 +1759,6 @@ exports.default = function (creep, targetRaw) {
 	}
 };
 
-module.exports = exports['default'];
-
 /***/ }),
 /* 30 */
 /* unknown exports provided */
@@ -1835,8 +1794,6 @@ exports.default = function (creep, targetRaw) {
 		return false;
 	}
 };
-
-module.exports = exports['default'];
 
 /***/ }),
 /* 31 */
@@ -1908,7 +1865,6 @@ function visual(target, creep, color) {
 		}
 	} catch (e) {}
 }
-module.exports = exports['default'];
 
 /***/ }),
 /* 32 */
@@ -1946,8 +1902,6 @@ exports.default = function (creep, targetRaw) {
 	}
 };
 
-module.exports = exports['default'];
-
 /***/ }),
 /* 33 */
 /* unknown exports provided */
@@ -1983,8 +1937,6 @@ exports.default = function (creep, targetRaw) {
 		return false;
 	}
 };
-
-module.exports = exports['default'];
 
 /***/ }),
 /* 34 */
@@ -2023,8 +1975,6 @@ exports.default = function (creep, targetRaw) {
 	}
 };
 
-module.exports = exports['default'];
-
 /***/ }),
 /* 35 */
 /* unknown exports provided */
@@ -2060,8 +2010,6 @@ exports.default = function (creep, targetRaw) {
 		return false;
 	}
 };
-
-module.exports = exports['default'];
 
 /***/ }),
 /* 36 */
@@ -2100,8 +2048,6 @@ exports.default = function (creep, targetRaw) {
 	}
 };
 
-module.exports = exports['default'];
-
 /***/ }),
 /* 37 */
 /* unknown exports provided */
@@ -2131,8 +2077,6 @@ exports.default = function (creep, array, opt) {
 		return false;
 	}
 };
-
-module.exports = exports['default'];
 
 /***/ }),
 /* 38 */
@@ -2170,8 +2114,6 @@ exports.default = function (creep, array) {
 	}
 };
 
-module.exports = exports['default'];
-
 /***/ }),
 /* 39 */
 /* unknown exports provided */
@@ -2203,8 +2145,6 @@ exports.default = function (creep, array) {
 		return false;
 	}
 };
-
-module.exports = exports['default'];
 
 /***/ }),
 /* 40 */
@@ -2241,8 +2181,6 @@ exports.default = function (creep) {
 		return false;
 	}
 };
-
-module.exports = exports['default'];
 
 /***/ }),
 /* 41 */
@@ -2357,8 +2295,6 @@ exports.default = function (room) {
 	}];
 };
 
-module.exports = exports["default"];
-
 /***/ }),
 /* 42 */
 /* unknown exports provided */
@@ -2395,7 +2331,6 @@ exports.default = [{
 	number: 4,
 	priority: 3
 }];
-module.exports = exports['default'];
 
 /***/ }),
 /* 43 */
@@ -2433,8 +2368,6 @@ exports.default = function (command, flag) {
 	return target;
 };
 
-module.exports = exports["default"];
-
 /***/ }),
 /* 44 */
 /* unknown exports provided */
@@ -2466,8 +2399,6 @@ exports.default = function (command, flag) {
 	return target;
 };
 
-module.exports = exports["default"];
-
 /***/ }),
 /* 45 */
 /* unknown exports provided */
@@ -2496,8 +2427,6 @@ exports.default = function (command, flag) {
 
 	return target;
 };
-
-module.exports = exports["default"];
 
 /***/ }),
 /* 46 */
@@ -2528,8 +2457,6 @@ exports.default = function (roomName) {
 		});
 	});
 };
-
-module.exports = exports['default'];
 
 /***/ }),
 /* 47 */
@@ -2597,7 +2524,6 @@ function guiCreep(room, x, y, name, number) {
 		strokeWidth: 0.1
 	});
 };
-module.exports = exports['default'];
 
 /***/ }),
 /* 48 */
@@ -2668,7 +2594,6 @@ function gui(room, x, y, color, content) {
 		strokeWidth: 0.1
 	});
 };
-module.exports = exports['default'];
 
 /***/ }),
 /* 49 */
@@ -2705,8 +2630,6 @@ exports.default = function (roomArray) {
 		sources: sources
 	};
 };
-
-module.exports = exports["default"];
 
 /***/ }),
 /* 50 */
@@ -2758,7 +2681,6 @@ function creepRole(creepsMyRaw, configRole) {
 	});
 	return creepsMy;
 }
-module.exports = exports['default'];
 
 /***/ }),
 /* 51 */
@@ -2785,8 +2707,6 @@ exports.default = function (room) {
 		})
 	};
 };
-
-module.exports = exports["default"];
 
 /***/ }),
 /* 52 */
@@ -2853,8 +2773,6 @@ exports.default = function (room) {
 	return flagsMemory;
 };
 
-module.exports = exports['default'];
-
 /***/ }),
 /* 53 */
 /* unknown exports provided */
@@ -2900,8 +2818,6 @@ exports.default = function (room) {
 	}
 	return sources;
 };
-
-module.exports = exports['default'];
 
 /***/ }),
 /* 54 */
@@ -2983,8 +2899,6 @@ exports.default = function (room, config) {
 	};
 };
 
-module.exports = exports["default"];
-
 /***/ }),
 /* 55 */
 /* unknown exports provided */
@@ -3047,8 +2961,6 @@ exports.default = function (roomArrary) {
 		// Memory.game  = Game;
 	});
 };
-
-module.exports = exports["default"];
 
 /***/ }),
 /* 56 */
@@ -3143,7 +3055,6 @@ function newRoomMaker(roomName) {
 		memory: Memory.rooms[roomName] ? Memory.rooms[roomName] : {}
 	};
 }
-module.exports = exports['default'];
 
 /***/ }),
 /* 57 */
@@ -3171,8 +3082,6 @@ exports.default = function () {
 		}
 	}
 };
-
-module.exports = exports['default'];
 
 /***/ }),
 /* 58 */
@@ -3222,8 +3131,6 @@ exports.default = function (roomArray) {
 	structure.spawn(Game.spawns['Spawn2'], _role2.default);
 };
 
-module.exports = exports['default'];
-
 /***/ }),
 /* 59 */
 /* unknown exports provided */
@@ -3249,8 +3156,6 @@ exports.default = function (creep, roomName) {
 		(0, _action.attack)(creep, Memory.rooms[roomName].creeps.enemy[0]);
 	}
 };
-
-module.exports = exports['default'];
 
 /***/ }),
 /* 60 */
@@ -3287,8 +3192,6 @@ exports.default = function (creep) {
 	}
 };
 
-module.exports = exports['default'];
-
 /***/ }),
 /* 61 */
 /* unknown exports provided */
@@ -3315,8 +3218,6 @@ exports.default = function (creep, roomName) {
 	// task
 	if ((0, _action.claimController)(creep, creep.memory.target.claim)) return;
 };
-
-module.exports = exports['default'];
 
 /***/ }),
 /* 62 */
@@ -3371,8 +3272,6 @@ exports.default = function (creep) {
 	}
 };
 
-module.exports = exports['default'];
-
 /***/ }),
 /* 63 */
 /* unknown exports provided */
@@ -3418,8 +3317,6 @@ exports.default = function (creep, roomName) {
 	}
 };
 
-module.exports = exports['default'];
-
 /***/ }),
 /* 64 */
 /* unknown exports provided */
@@ -3450,8 +3347,8 @@ exports.default = function (creep, roomName) {
 	(0, _util.targetMaker)(creep, targetWithdraw, 'withdraw');
 	// run
 	if (!isFull) {
-		if ((0, _action.pickup)(creep, (0, _action.findClosestInRange)(creep, creep.room.memory.dropped.energy, 4))) return;
 		if ((0, _action.withdraw)(creep, targetWithdraw)) return;
+		if ((0, _action.pickup)(creep, (0, _action.findClosestInRange)(creep, creep.room.memory.dropped.energy, 4))) return;
 	} else {
 		if (creep.pos.roomName == creep.memory.target.withdraw.pos.roomName) {
 			var needFill = creep.room.memory.structures.needFill;
@@ -3468,8 +3365,6 @@ exports.default = function (creep, roomName) {
 		if ((0, _action.transfer)(creep, Game.getObjectById('58d07b35bfeec6256575be5d'))) return;
 	}
 };
-
-module.exports = exports['default'];
 
 /***/ }),
 /* 65 */
@@ -3514,8 +3409,6 @@ exports.default = function (creep, roomName) {
 	if ((0, _action.harvest)(creep, creep.memory.target.harvest)) return;
 };
 
-module.exports = exports['default'];
-
 /***/ }),
 /* 66 */
 /* unknown exports provided */
@@ -3557,8 +3450,6 @@ exports.default = function (creep, roomName) {
 	}
 };
 
-module.exports = exports['default'];
-
 /***/ }),
 /* 67 */
 /* unknown exports provided */
@@ -3580,8 +3471,6 @@ var _util = __webpack_require__(/*! ../_util */ 0);
 var _action = __webpack_require__(/*! ../action */ 1);
 
 exports.default = function (creep) {};
-
-module.exports = exports['default'];
 
 /***/ }),
 /* 68 */
@@ -3619,8 +3508,6 @@ exports.default = function (creep) {
 		if (link && (0, _action.transfer)(creep, link, link.energy < link.energyCapacity)) return;
 	}
 };
-
-module.exports = exports['default'];
 
 /***/ }),
 /* 69 */
@@ -3663,8 +3550,6 @@ exports.default = function (creep) {
 	if ((0, _action.harvest)(creep, harvestTarget)) return;
 };
 
-module.exports = exports['default'];
-
 /***/ }),
 /* 70 */
 /* unknown exports provided */
@@ -3695,8 +3580,6 @@ exports.default = function (creep) {
 		if ((0, _action.upgradeController)(creep, creep.room.controller)) return;
 	}
 };
-
-module.exports = exports['default'];
 
 /***/ }),
 /* 71 */
@@ -3975,7 +3858,6 @@ function buildBodyFormat() {
 	}bodyArray = _.compact(_.flattenDeep(bodyArray));
 	return bodyArray;
 }
-module.exports = exports["default"];
 
 /***/ }),
 /* 73 */
@@ -3993,7 +3875,6 @@ Object.defineProperty(exports, "__esModule", {
 	value: true
 });
 exports.default = [['W81S67', 'W81S66'], ['W82S67']];
-module.exports = exports['default'];
 
 /***/ }),
 /* 74 */
@@ -4017,8 +3898,6 @@ exports.default = function (link) {
 	var target = Game.getObjectById(linkMain);
 	if (target.energy == 0) link.transferEnergy(target);
 };
-
-module.exports = exports["default"];
 
 /***/ }),
 /* 75 */
@@ -4100,7 +3979,6 @@ function buildBody(obj) {
 	}
 	return _.compact(_.flattenDeep(bodyArray));
 }
-module.exports = exports['default'];
 
 /***/ }),
 /* 76 */
@@ -4127,8 +4005,6 @@ exports.default = function (tower) {
 		tower.repair(needFix[0]);
 	}
 };
-
-module.exports = exports["default"];
 
 /***/ }),
 /* 77 */
@@ -4255,8 +4131,6 @@ exports.default = function (roomName, timeout) {
 	console.log(_util.color.grey('# Gametime ' + Game.time), (0, _util.table)(gclLog), (0, _util.table)(energyLog), (0, _util.table)(roleLog[0]), (0, _util.table)(roleLog[1]));
 };
 
-module.exports = exports['default'];
-
 /***/ }),
 /* 79 */
 /* unknown exports provided */
@@ -4318,7 +4192,6 @@ function isSafe(roomName) {
 		Memory.rooms[roomName].creeps.enemy = [];
 	}
 }
-module.exports = exports['default'];
 
 /***/ }),
 /* 80 */
