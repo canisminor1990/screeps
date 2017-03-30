@@ -9,8 +9,14 @@ export default (creep, roomName) => {
 	// task
 	if (!isFull) {
 		if (pickup(creep, findInRange(creep, creep.room.memory.dropped.energy, 3)[0])) return;
-		// const store = targetFormat(creep.room.memory.flags.store);
-		// if (store && withdraw(creep, store, store.store.energy > 0))return;
+		const store = targetFormat(creep.room.memory.flags.store, target => target.structureType != STRUCTURE_ROAD);
+		if (store) {
+			try {
+				if (store && withdraw(creep, store, store.store.energy > 0))return;
+			} catch (e) {
+				console.log(e)
+			}
+		}
 		if (withdraw(creep, creep.memory.target.withdraw))return;
 	} else {
 		if (creep.pos.roomName == creep.memory.target.withdraw.pos.roomName) {
