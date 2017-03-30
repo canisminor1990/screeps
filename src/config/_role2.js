@@ -19,8 +19,8 @@ export default [
 	},
 	{
 		role    : 'farUpgrader',
-		body    : {carry: 6, work: 2, move: 4},
-		number  : 3,
+		body    : {carry: 8, work: 2, move: 4},
+		number  : 4,
 		priority: 3
 	}
 ]
