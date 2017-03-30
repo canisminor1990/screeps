@@ -95,7 +95,7 @@ export default  (room) => {
 		{
 			role    : 'farBuilderSec',
 			body    : {carry: 4, work: 2, move: 4},
-			number  : 2,
+			number  : 1,
 			priority: 5
 		},
 		{
