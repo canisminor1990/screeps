@@ -5,7 +5,7 @@ export default (spawn, configRole) => {
 	// 	console.log(spawn.recycleCreep(target[0]))
 	//
 	// }
-	if (spawn && spawn.spawning) {
+	if (spawn.spawning) {
 		const percent = Math.round((1 - spawn.spawning.remainingTime / spawn.spawning.needTime) * 100),
 		      text    = [
 			      emoji.build,

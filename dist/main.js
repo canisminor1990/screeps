@@ -3265,11 +3265,8 @@ exports.default = function (roomArray) {
 		var room = Game.rooms[roomName];
 		if (room && room.memory) {
 			var structures = room.memory.structures;
-			var config = room.memory.config;
 			if (roomName == "W81S67" && structures.spawn) {
-				structure.spawn(structures.spawn, config.role);
-			} else {
-				structure.spawn(structures.spawn, _role2.default);
+				structure.spawn(structures.spawn, room.memory.config.role);
 			}
 			if (structures.link) structures.link.forEach(function (link) {
 				return structure.link(link);
@@ -3279,6 +3276,8 @@ exports.default = function (roomArray) {
 			});
 		}
 	});
+
+	structure.spawn(Game.spawns['Spawn2'], _role2.default);
 };
 
 module.exports = exports['default'];
@@ -4120,7 +4119,7 @@ exports.default = function (spawn, configRole) {
 	// 	console.log(spawn.recycleCreep(target[0]))
 	//
 	// }
-	if (spawn && spawn.spawning) {
+	if (spawn.spawning) {
 		var percent = Math.round((1 - spawn.spawning.remainingTime / spawn.spawning.needTime) * 100),
 		    text = [_util.emoji.build, spawn.spawning.name.split('#')[0], '(' + percent + '%)'].join(' ');
 		console.log(text);
