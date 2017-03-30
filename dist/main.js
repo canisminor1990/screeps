@@ -4120,7 +4120,7 @@ exports.default = function (spawn, configRole) {
 	// 	console.log(spawn.recycleCreep(target[0]))
 	//
 	// }
-	if (spawn.spawning) {
+	if (spawn && spawn.spawning) {
 		var percent = Math.round((1 - spawn.spawning.remainingTime / spawn.spawning.needTime) * 100),
 		    text = [_util.emoji.build, spawn.spawning.name.split('#')[0], '(' + percent + '%)'].join(' ');
 		console.log(text);
