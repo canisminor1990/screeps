@@ -3,7 +3,7 @@ import {pickup, transfer, withdraw, findClosestByRange,moveTo} from '../action'
 export default (creep) => {
 	// state
 	const isFull   = fullCheck(creep)
-	const needFill = creep.room.memory.structures.needFill;
+	const needFill = _.compact(creep.room.memory.structures.needFill);
 	// task
 	if (!isFull) {
 		if (!creep.memory.name.match('Sec')) {
