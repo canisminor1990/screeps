@@ -7,7 +7,7 @@ export default [
 	},
 	{
 		role    : 'farBuilderSec',
-		body    : {carry: 6, work: 2, move: 4},
+		body    : {carry: 4, work: 2, move: 4},
 		number  : 2,
 		priority: 5
 	},
@@ -19,7 +19,7 @@ export default [
 	},
 	{
 		role    : 'farUpgrader',
-		body    : {carry: 8, work: 2, move: 4},
+		body    : {carry: 6, work: 2, move: 4},
 		number  : 4,
 		priority: 3
 	}
