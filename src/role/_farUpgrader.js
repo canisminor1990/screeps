@@ -10,7 +10,7 @@ export default (creep, roomName) => {
 		try {
 			if (pickup(creep, findInRange(creep, creep.room.memory.dropped.energy, 2)[0])) return;
 			const store = targetFormat(creep.room.memory.flags.store, target => target.structureType != STRUCTURE_ROAD);
-			if (store && transfer(creep, store, store.store.energy > 0))return;
+			if (store && withdraw(creep, store, store.store.energy > 0))return;
 			if (withdraw(creep, Memory.rooms[roomName].structures.spawn)) return;
 			if (withdraw(creep, Memory.rooms[roomName].structures.container[0])) return;
 			if (withdraw(creep, creep.memory.target.withdraw)) return;

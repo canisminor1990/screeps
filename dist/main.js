@@ -3400,7 +3400,7 @@ exports.default = function (creep, roomName) {
 		var store = (0, _util.targetFormat)(creep.room.memory.flags.store, function (target) {
 			return target.structureType != STRUCTURE_ROAD;
 		});
-		if (store && (0, _action.transfer)(creep, store, store.store.energy > 0)) return;
+		if (store && (0, _action.withdraw)(creep, store, store.store.energy > 0)) return;
 		if ((0, _action.withdraw)(creep, Memory.rooms[roomName].structures.spawn)) return;
 		if ((0, _action.withdraw)(creep, creep.memory.target.withdraw)) return;
 	} else {
@@ -3545,7 +3545,7 @@ exports.default = function (creep, roomName) {
 			var store = (0, _util.targetFormat)(creep.room.memory.flags.store, function (target) {
 				return target.structureType != STRUCTURE_ROAD;
 			});
-			if (store && transfer(creep, store, store.store.energy > 0)) return;
+			if (store && (0, _action.withdraw)(creep, store, store.store.energy > 0)) return;
 			if ((0, _action.withdraw)(creep, Memory.rooms[roomName].structures.spawn)) return;
 			if ((0, _action.withdraw)(creep, Memory.rooms[roomName].structures.container[0])) return;
 			if ((0, _action.withdraw)(creep, creep.memory.target.withdraw)) return;
