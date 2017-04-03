@@ -8,6 +8,10 @@ export default (creep) => {
 	// run
 	const storage = Game.rooms[creep.memory.bornRoom].storage
 	if (isFull) {
+		let link = findInRange(creep, Memory.rooms[roonName].structures.my.link, 3)
+		if (link.length > 0) {
+			if (transfer(creep, link))return
+		}
 		if (creep.memory.roomType == 'extra') {
 			if (moveTo(creep, storage) && transfer(creep, storage))return
 		}
