@@ -2050,9 +2050,7 @@ exports.default = function (creep) {
 		}
 		if ((0, _Action.pickup)(creep, (0, _Action.findInRange)(creep, Memory.tasks[roonName].pickup, 4))) return;
 
-		if ((0, _Action.withdraw)(creep, _.filter(withdrawTarget, function (t) {
-			return t.energy > 0 || t.store.energy > 0;
-		}))) return;
+		if ((0, _Action.withdraw)(creep, withdrawTarget)) return;
 	}
 };
 
