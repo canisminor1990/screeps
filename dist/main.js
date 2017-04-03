@@ -417,7 +417,7 @@ exports.default = {
 		cleaner: [{ carry: 4 }, [1, 0], 10],
 		builder: [{ work: 2, carry: 6 }, [1, 1], 10],
 		upgrader: [{ work: 6, carry: 12 }, [2, 0], 10],
-		claimer: [{ claim: 2 }, [0, 1], 100],
+		claimer: [{ claim: 2 }, [0, 1], 50],
 		traveller: [{ move: 1 }, [0, 0], 10]
 
 	},
@@ -2511,7 +2511,7 @@ exports.default = function () {
 				body: body.body,
 				cost: body.cost,
 				number: number,
-				timeout: array[2],
+				timeout: i > 0 ? array[2] + 100 : array[2],
 				prioprity: prioprity
 			};
 			prioprity++;
