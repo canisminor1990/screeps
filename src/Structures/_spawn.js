@@ -32,10 +32,10 @@ export default (spawn) => {
 		      c.ticksToLive >= roleTimeout).length
 		
 		if (roleNumberNow - roleNumber >= 0 || priority) return;
+		Console.note(roleName,
+			'Now:' + roleNumberNow, 'Need:' + roleNumber,
+			'Cost:' + role.cost, 'Availabl:' + energy);
 		if (role.cost > energy) {
-			Console.note(roleName,
-				'Now:' + roleNumberNow, 'Need:' + roleNumber,
-				'Cost:' + role.cost, 'Availabl:' + energy);
 			priority = true;
 			return;
 		}

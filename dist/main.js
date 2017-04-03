@@ -3199,8 +3199,8 @@ exports.default = function (spawn) {
 		}).length;
 
 		if (roleNumberNow - roleNumber >= 0 || priority) return;
+		_util.Console.note(roleName, 'Now:' + roleNumberNow, 'Need:' + roleNumber, 'Cost:' + role.cost, 'Availabl:' + energy);
 		if (role.cost > energy) {
-			_util.Console.note(roleName, 'Now:' + roleNumberNow, 'Need:' + roleNumber, 'Cost:' + role.cost, 'Availabl:' + energy);
 			priority = true;
 			return;
 		}
