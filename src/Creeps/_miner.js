@@ -25,7 +25,7 @@ export default (creep) => {
 			if (transfer(creep, link))return
 		}
 		let buildContainer = findInRange(creep, Memory.tasks[roonName].build, 0)[0]
-		if (buildContainer && build(creep, buildContainer && creep.carry.energy > 0))return;
+		if (buildContainer && build(creep, buildContainer) && creep.carry.energy > 0)return;
 		let container = findInRange(creep, Memory.rooms[roonName].structures.my.container, 2)[0]
 		if (!isNearTo(creep, harvestTarget)) {
 			moveTo(creep, harvestTarget)
