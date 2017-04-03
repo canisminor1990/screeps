@@ -17,8 +17,7 @@ const spawnUi = (spawn) => {
 export default (spawn) => {
 	const roomName = spawn.room.name;
 	if (spawn.spawning && spawnUi(spawn)) return;
-	console.log(roomName)
-	if (!Timer(4))return;
+	
 	const energy   = Memory.rooms[roomName].energyAvailable;
 	const roleData = Memory.roles[roomName]
 	
