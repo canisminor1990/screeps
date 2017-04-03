@@ -19,7 +19,7 @@ export default (creep, target, check = true) => {
 			if (moveTo(creep, target)) return true
 		}
 	} catch (e) {
-		Console.error(actionName, creep, JSON.stringify(target))
+		// Console.error(actionName, creep, JSON.stringify(target))
 		return false
 	}
 }

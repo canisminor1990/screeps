@@ -989,7 +989,7 @@ exports.default = function (creep, target) {
 			if ((0, _Action.moveTo)(creep, target)) return true;
 		}
 	} catch (e) {
-		_util.Console.error(actionName, creep, JSON.stringify(target));
+		// Console.error(actionName, creep, JSON.stringify(target))
 		return false;
 	}
 };
