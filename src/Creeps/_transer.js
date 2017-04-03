@@ -28,7 +28,6 @@ export default (creep) => {
 			if (moveTo(creep, withdrawTarget))return
 		}
 		if (pickup(creep, findInRange(creep, Memory.tasks[roonName].pickup, 4))) return
-		
-		if (withdraw(creep, withdrawTarget))return
+		if (withdraw(creep, _.filter(withdrawTarget,t => t.id !== '58e269c771190d4029847ab7')))return
 	}
 }

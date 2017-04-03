@@ -2049,8 +2049,9 @@ exports.default = function (creep) {
 			if ((0, _Action.moveTo)(creep, withdrawTarget)) return;
 		}
 		if ((0, _Action.pickup)(creep, (0, _Action.findInRange)(creep, Memory.tasks[roonName].pickup, 4))) return;
-
-		if ((0, _Action.withdraw)(creep, withdrawTarget)) return;
+		if ((0, _Action.withdraw)(creep, _.filter(withdrawTarget, function (t) {
+			return t.id !== '58e269c771190d4029847ab7';
+		}))) return;
 	}
 };
 
