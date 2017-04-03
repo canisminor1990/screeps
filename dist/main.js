@@ -3192,7 +3192,7 @@ var spawnUi = function spawnUi(spawn) {
 exports.default = function (spawn) {
 	var roomName = spawn.room.name;
 	if (spawn.spawning && spawnUi(spawn)) return;
-	if (!(0, _util.Timer)(4)) return;
+	if (!(0, _util.Timer)(2)) return;
 	var energy = Memory.rooms[roomName].energyAvailable;
 	var roleData = Memory.roles[roomName];
 
@@ -3304,7 +3304,6 @@ exports.default = function () {
 	var roomGroup = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : [];
 
 	var structures = Memory.rooms[roomGroup[0]].structures.my;
-	console.log(roomGroup[0]);
 	_.forEach(structures.spawn, function (s) {
 		return (0, _spawn2.default)(s);
 	});
