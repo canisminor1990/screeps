@@ -3617,11 +3617,12 @@ exports.default = function (room) {
 	transers = _.filter(transers, function (c) {
 		return !c.memory.full;
 	});
+	transers = _.sortByOrder(transers, ['energy'], ['asc']);
 
 	var _loop = function _loop(t) {
-		if (tasklist.length < 1 || transers.length < 1) return "break";
+		if (tasklist.length < 1 || transers.length < 1) return 'break';
 		var transer = (0, _Action.findClosestByRange)(tasklist[t], transers);
-		if (!transer) return "break";
+		if (!transer) return 'break';
 		_.remove(transers, function (c) {
 			return c.id == transer.id;
 		});
@@ -3632,13 +3633,13 @@ exports.default = function (room) {
 	for (var t in tasklist) {
 		var _ret = _loop(t);
 
-		if (_ret === "break") break;
+		if (_ret === 'break') break;
 	}
 
 	return tasklist;
 };
 
-module.exports = exports["default"];
+module.exports = exports['default'];
 
 /***/ }),
 /* 69 */
