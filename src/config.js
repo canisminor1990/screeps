@@ -8,7 +8,7 @@ export default {
 		attacker : [{tough: 10, attack: 6}, [0, 1], 100],
 		filler   : [{carry: 4}, [2, 0], 10],
 		miner    : [{work: 8, carry: 1}, [1, 1], 10],
-		transer  : [{carry: 12}, [1, 2], 10],
+		transer  : [{carry: 12}, [1, 1], 10],
 		cleaner  : [{carry: 4}, [1, 0], 10],
 		builder  : [{work: 2, carry: 6}, [1, 1], 10],
 		upgrader : [{work: 6, carry: 12}, [2, 0], 10],
