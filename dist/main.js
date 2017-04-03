@@ -1797,10 +1797,12 @@ exports.default = function (creep) {
 	var builderTarget = Memory.tasks[roonName].build;
 	if (isFull) {
 		if (creep.carry.energy == 0) (0, _Action.transfer)(creep, creep.room.storage);
-		if (creep.room.name !== creep.memory.roomName) {
-			var target = Memory.tasks[creep.memory.roomName].build[0];
-			if (!target) target = Memory.tasks[creep.memory.roomName].repair[0];
-			if ((0, _Action.moveTo)(creep, target)) return;
+		if (!Game.rooms[creep.memory.roomName]) {
+			if (creep.room.name !== creep.memory.roomName) {
+				var target = Memory.tasks[creep.memory.roomName].build[0];
+				if (!target) target = Memory.tasks[creep.memory.roomName].repair[0];
+				if ((0, _Action.moveTo)(creep, target)) return;
+			}
 		}
 		if ((0, _Action.build)(creep, builderTarget)) return;
 		if (creep.room.memory.structures.my.tower.length > 0) {
