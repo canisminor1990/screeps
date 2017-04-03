@@ -9,7 +9,7 @@ export default (creep) => {
 		if (upgradeController(creep, Memory.tasks[roonName].upgrade))return
 	} else {
 		if (pickup(creep, findInRange(creep, Memory.tasks[roonName].pickup, 4))) return
-		const withdrawTarget = [].concat(Memory.tasks[roonName].withdraw, [creep.room.storage]);
+		const withdrawTarget = _.filter([].concat(Memory.tasks[roonName].withdraw, [creep.room.storage]), t => t.store.energy > 0);
 		if (withdraw(creep, findClosestByRange(creep, withdrawTarget), false))return
 	}
 	if (upgradeController(creep, Memory.tasks[roonName].upgrade))return
