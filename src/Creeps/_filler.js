@@ -10,7 +10,7 @@ export default (creep) => {
 	if (isFull) {
 		if (creep.carry.energy == 0) transfer(creep, storage);
 		let terminal = creep.room.memory.structures.terminal[0];
-		if (terminal && _.sum(terminal.store < 10000)) {
+		if (terminal && _.sum(terminal.store) < 10000) {
 			if (transfer(creep, terminal, false))return
 		}
 		if (transferTarget && transferTarget.energy < transferTarget.energyCapacity) {
