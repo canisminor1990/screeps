@@ -1,11 +1,12 @@
 const path                          = require('path'),
-      LodashModuleReplacementPlugin = require('lodash-webpack-plugin');
+      LodashModuleReplacementPlugin = require('lodash-webpack-plugin'),
+      ScreepsWebpackPlugin          = require('screeps-webpack-plugin');
 module.exports                      = {
-	target : 'node',
+	target: 'node',
 	entry  : './src/main.js',
 	output : {
-		path                         : path.join(__dirname, 'dist'),
-		filename                     : 'main.js',
+		path                         : path.join(__dirname),
+		filename                     : 'main',
 		pathinfo                     : true,
 		libraryTarget                : 'commonjs2',
 		sourceMapFilename            : '[file].map.js',
@@ -34,5 +35,12 @@ module.exports                      = {
 	},
 	plugins: [
 		new LodashModuleReplacementPlugin,
+		new ScreepsWebpackPlugin({
+			branch: 'coding',
+			email: 'canisminor@foxmail.com',
+			password: 'yyfYYF6212',
+			serverUrl: 'https://screeps.com',
+			gzip: false
+		})
 	]
 };

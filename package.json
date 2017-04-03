@@ -27,7 +27,7 @@
 	},
 	"scripts": {
 		"backup": "webpack --config webpack_backup.config.js ",
-		"build": "webpack --config webpack.config.js && git add -A && git commit -m 'updata' && git push",
+		"build": "webpack",
 		"start": "webpack --progress --watch"
 	}
 }
