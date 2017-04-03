@@ -1844,8 +1844,10 @@ var _Action = __webpack_require__(/*! ../Action */ 1);
 
 exports.default = function (creep) {
 	// target
-	if (!Memory.rooms[creep.memory.roomName] || creep.room.name !== creep.memory.roomName) {
-		if (creep.moveTo(new RoomPosition(25, 25, creep.memory.roomName)) == OK) return;
+	if (!Game.rooms[creep.memory.roomName]) {
+		if (!Memory.rooms[creep.memory.roomName] || creep.room.name !== creep.memory.roomName) {
+			if (creep.moveTo(new RoomPosition(25, 25, creep.memory.roomName)) == OK) return;
+		}
 	}
 	if ((0, _Action.reserveController)(creep, creep.room.controller)) return;
 };
