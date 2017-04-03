@@ -11,7 +11,7 @@ export default {
 		transer  : [{carry: 12}, [1, 2], 10],
 		cleaner  : [{carry: 4}, [1, 0], 10],
 		builder  : [{work: 2, carry: 6}, [1, 1], 10],
-		upgrader : [{work: 6, carry: 12}, [1, 0], 10],
+		upgrader : [{work: 6, carry: 12}, [2, 0], 10],
 		claimer  : [{claim: 2}, [0, 1], 10],
 		traveller: [{move: 1}, [0, 0], 10],
 		
