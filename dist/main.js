@@ -3192,7 +3192,8 @@ var spawnUi = function spawnUi(spawn) {
 exports.default = function (spawn) {
 	var roomName = spawn.room.name;
 	if (spawn.spawning && spawnUi(spawn)) return;
-	if (!(0, _util.Timer)(2)) return;
+	console.log(roomName);
+	if (!(0, _util.Timer)(4)) return;
 	var energy = Memory.rooms[roomName].energyAvailable;
 	var roleData = Memory.roles[roomName];
 
