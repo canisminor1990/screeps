@@ -2039,7 +2039,10 @@ exports.default = function (creep) {
 			if ((0, _Action.moveTo)(creep, storage) && (0, _Action.transfer)(creep, storage)) return;
 		}
 		if (!storage) {
-			if ((0, _Action.transfer)(creep, Memory.tasks[roonName].transfer)) return;
+			var target = _.filter(Memory.tasks[roonName].transfer, function (t) {
+				return t.store.energy > 0;
+			});
+			if ((0, _Action.transfer)(creep, target)) return;
 		} else {
 			if ((0, _Action.transfer)(creep, storage)) return;
 		}

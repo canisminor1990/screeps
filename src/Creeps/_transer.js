@@ -18,7 +18,8 @@ export default (creep) => {
 			if (moveTo(creep, storage) && transfer(creep, storage))return
 		}
 		if (!storage) {
-			if (transfer(creep, Memory.tasks[roonName].transfer))return
+			let target = _.filter(Memory.tasks[roonName].transfer, t => t.store.energy > 0)
+			if (transfer(creep, target))return
 		} else {
 			if (transfer(creep, storage))return
 		}
