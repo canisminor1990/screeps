@@ -2144,9 +2144,15 @@ exports.default = function () {
 		_.forEach(creep.transer, function (c) {
 			return (0, _transer2.default)(c);
 		});
-		_.forEach(creep.cleaner, function (c) {
-			return (0, _cleaner2.default)(c);
-		});
+		if (Memory.tasks[roomName].pickup.length > 0) {
+			_.forEach(creep.cleaner, function (c) {
+				return (0, _cleaner2.default)(c);
+			});
+		} else {
+			_.forEach(creep.cleaner, function (c) {
+				return (0, _filler2.default)(c);
+			});
+		}
 		_.forEach(creep.upgrader, function (c) {
 			return (0, _upgrader2.default)(c);
 		});
