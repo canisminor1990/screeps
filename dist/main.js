@@ -2025,9 +2025,11 @@ exports.default = function (creep) {
 	// run
 	var storage = Game.rooms[creep.memory.bornRoom].storage;
 	if (isFull) {
-		var link = (0, _Action.findInRange)(creep, Memory.rooms[roonName].structures.my.link, 3);
-		if (link.length > 0) {
-			if ((0, _Action.transfer)(creep, link)) return;
+		if (creep.room.name == creep.memory.roomName) {
+			var link = (0, _Action.findInRange)(creep, creep.room.memory.structures.my.link, 3);
+			if (link.length > 0) {
+				if ((0, _Action.transfer)(creep, link)) return;
+			}
 		}
 		if (creep.memory.roomType == 'extra') {
 			if ((0, _Action.moveTo)(creep, storage) && (0, _Action.transfer)(creep, storage)) return;
