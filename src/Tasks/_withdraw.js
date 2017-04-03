@@ -6,7 +6,6 @@ export default (room) => {
 	
 	let transers = [].concat(room.creeps.my.transer);
 	transers     = _.filter(transers, c => !c.memory.full);
-	transers     = _.sortByOrder(transers, ['energy'], ['asc']);
 	for (let t in tasklist) {
 		if (tasklist.length < 1 || transers.length < 1) break;
 		let transer = findClosestByRange(tasklist[t], transers)
