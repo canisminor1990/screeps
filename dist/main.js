@@ -3199,16 +3199,15 @@ exports.default = function (spawn) {
 		    roleNumberNow = _.filter(Game.creeps, function (c) {
 			return c.memory.role == roleData[i].role && c.memory.roomName == roleData[i].roomName && c.memory.roomType == roleData[i].roomType && c.ticksToLive >= roleTimeout;
 		}).length;
-		console.log(roleName);
 		if (roleNumberNow - roleNumber >= 0) return 'continue';
 		if (roleData[i].cost > energy) {
-			_util.Console.note(roleName, 'Now:' + roleNumberNow, 'Need:' + roleNumber, 'Cost:' + roleData[i].cost, 'Availabl:' + energy);
+			_util.Console.note(i, 'Now:' + roleNumberNow, 'Need:' + roleNumber, 'Cost:' + roleData[i].cost, 'Availabl:' + energy);
 			return {
 				v: void 0
 			};
 		}
 		var spawnTime = Game.time,
-		    spawnName = roleName + '-' + spawnTime.toString().substr(spawnTime.toString().length - 3, 3);
+		    spawnName = i + '-' + spawnTime.toString().substr(spawnTime.toString().length - 3, 3);
 		if (spawn.createCreep(roleData[i].body, spawnName, {
 			bornRoom: spawn.room.name,
 			bornTime: spawnTime,
