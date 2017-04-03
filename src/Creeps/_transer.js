@@ -18,8 +18,7 @@ export default (creep) => {
 			if (moveTo(creep, storage) && transfer(creep, storage))return
 		}
 		if (!storage) {
-			let target = _.filter(Memory.tasks[roonName].transfer, t => t.store.energy > 0)
-			if (transfer(creep, target))return
+			if (transfer(creep, Memory.tasks[roonName].transfer))return
 		} else {
 			if (transfer(creep, storage))return
 		}
@@ -29,6 +28,7 @@ export default (creep) => {
 			if (moveTo(creep, withdrawTarget))return
 		}
 		if (pickup(creep, findInRange(creep, Memory.tasks[roonName].pickup, 4))) return
-		if (withdraw(creep, withdrawTarget))return
+		
+		if (withdraw(creep, _.filter(withdrawTarget, t => t.store.energy > 0)))return
 	}
 }
