@@ -1,7 +1,7 @@
 export default {
 	room    : [
 		['W81S67', 'W81S66'],
-		['W82S67']
+		['W82S67','W82S68']
 	],
 	role    : {
 		// name: [body , num[main,extra], timeout]

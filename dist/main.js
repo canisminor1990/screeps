@@ -407,7 +407,7 @@ Object.defineProperty(exports, "__esModule", {
 	value: true
 });
 exports.default = {
-	room: [['W81S67', 'W81S66'], ['W82S67']],
+	room: [['W81S67', 'W81S66'], ['W82S67', 'W82S68']],
 	role: {
 		// name: [body , num[main,extra], timeout]
 		attacker: [{ tough: 10, attack: 6 }, [0, 1], 100],
