@@ -1800,7 +1800,7 @@ exports.default = function (creep) {
 		if (creep.room.name !== creep.memory.roomName) {
 			var target = Memory.tasks[creep.memory.roomName].build[0];
 			if (!target) target = Memory.tasks[creep.memory.roomName].repair[0];
-			(0, _Action.moveTo)(creep, target);
+			if ((0, _Action.moveTo)(creep, target)) return;
 		}
 		if ((0, _Action.build)(creep, builderTarget)) return;
 		if (creep.room.memory.structures.my.tower.length > 0) {

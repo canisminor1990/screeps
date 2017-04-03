@@ -10,7 +10,7 @@ export default (creep) => {
 		if (creep.room.name !== creep.memory.roomName) {
 			let target = Memory.tasks[creep.memory.roomName].build[0];
 			if (!target) target = Memory.tasks[creep.memory.roomName].repair[0];
-			moveTo(creep, target)
+			if(moveTo(creep, target))return
 		}
 		if (build(creep, builderTarget))return
 		if (creep.room.memory.structures.my.tower.length > 0) {
