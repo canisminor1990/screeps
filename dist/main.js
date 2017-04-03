@@ -1986,7 +1986,7 @@ exports.default = function (creep) {
 			(0, _Action.moveTo)(creep, harvestTarget);
 		} else {
 			if (container && !(0, _Action.isEqualTo)(creep, container) && (0, _Action.moveTo)(creep, container)) return;
-			if (container.hits < container.maxHits && creep.carry.energy > 0) {
+			if (creep.carry.energy > 0) {
 				(0, _Action.repair)(creep, container);
 			}
 		}

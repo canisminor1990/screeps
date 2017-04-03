@@ -29,7 +29,7 @@ export default (creep) => {
 			moveTo(creep, harvestTarget)
 		} else {
 			if (container && !isEqualTo(creep, container) && moveTo(creep, container)) return;
-			if (container.hits < container.maxHits && creep.carry.energy > 0) {
+			if (creep.carry.energy > 0) {
 				repair(creep, container)
 			}
 		}
