@@ -1934,9 +1934,9 @@ exports.default = function (creep) {
 	// run
 	if (isFull) {
 		if (creep.carry.energy == 0) (0, _Action.transfer)(creep, storage);
-		var terminal = creep.room.memory.structures.terminal[0];
-		if (terminal && _.sum(terminal.store) < 10000) {
-			if ((0, _Action.transfer)(creep, terminal, false)) return;
+		var terminal = creep.room.memory.structures.terminal;
+		if (terminal.length > 0 && _.sum(terminal[0].store) < 10000) {
+			if ((0, _Action.transfer)(creep, terminal[0], false)) return;
 		}
 		if (transferTarget && transferTarget.energy < transferTarget.energyCapacity) {
 			if ((0, _Action.transfer)(creep, transferTarget, false)) return;
