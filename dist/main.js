@@ -1892,8 +1892,9 @@ exports.default = function (creep) {
 	} else {
 		if (creep.room.name !== creep.memory.roomName) {
 			pickTarget = Memory.tasks[creep.memory.roomName].pickup[0];
-			if (moveTo(creep, pickTarget)) return;
+			if ((0, _Action.moveTo)(creep, pickTarget)) return;
 		}
+		if ((0, _Action.withdraw)(creep, (0, _Action.findInRange)(Memory.tasks[creep.memory.roomName].withdraw, 2))) return;
 		if ((0, _Action.pickup)(creep, pickTarget)) return;
 	}
 	if (_.sum(creep.carry) > 0 && (0, _Action.transfer)(creep, storage)) return;

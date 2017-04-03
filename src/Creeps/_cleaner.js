@@ -1,4 +1,4 @@
-import {pickup, transfer, withdraw} from  '../Action'
+import {pickup, transfer, withdraw,moveTo,findInRange} from  '../Action'
 import {Is} from  '../_util'
 export default (creep) => {
 	const roonName = creep.memory.roomName;
@@ -18,6 +18,7 @@ export default (creep) => {
 			pickTarget = Memory.tasks[creep.memory.roomName].pickup[0];
 			if (moveTo(creep, pickTarget))return
 		}
+		if (withdraw(creep,findInRange(Memory.tasks[creep.memory.roomName].withdraw,2)))return
 		if (pickup(creep, pickTarget))return
 	}
 	if (_.sum(creep.carry) > 0 && transfer(creep, storage))return
