@@ -28,7 +28,7 @@ export default (creep) => {
 			if (moveTo(creep, withdrawTarget))return
 		}
 		if (pickup(creep, findInRange(creep, Memory.tasks[roonName].pickup, 4))) return
-		let target = _.filter(Memory.tasks[creep.memory.roomName].withdraw,t => t.store.energy = 0)
+		let target = _.filter(Memory.tasks[creep.memory.roomName].withdraw,t => t.store.energy == 0)
 		if (withdraw(creep, target))return
 		if (withdraw(creep, withdrawTarget))return
 	}

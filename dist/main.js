@@ -2052,7 +2052,7 @@ exports.default = function (creep) {
 		}
 		if ((0, _Action.pickup)(creep, (0, _Action.findInRange)(creep, Memory.tasks[roonName].pickup, 4))) return;
 		var target = _.filter(Memory.tasks[creep.memory.roomName].withdraw, function (t) {
-			return t.store.energy = 0;
+			return t.store.energy == 0;
 		});
 		if ((0, _Action.withdraw)(creep, target)) return;
 		if ((0, _Action.withdraw)(creep, withdrawTarget)) return;
