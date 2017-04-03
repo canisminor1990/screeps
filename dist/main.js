@@ -1851,7 +1851,7 @@ exports.default = function (creep) {
 			if (creep.moveTo(new RoomPosition(25, 25, creep.memory.roomName)) == OK) return;
 		}
 	}
-	if ((0, _Action.reserveController)(creep, Game.rooms[creep.memory.roomName].controller)) return;
+	if ((0, _Action.reserveController)(creep, creep.room.controller)) return;
 };
 
 module.exports = exports['default'];

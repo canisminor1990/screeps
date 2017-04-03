@@ -6,5 +6,5 @@ export default (creep) => {
 			if (creep.moveTo(new RoomPosition(25, 25, creep.memory.roomName)) == OK)return
 		}
 	}
-	if (reserveController(creep, Game.rooms[creep.memory.roomName].controller))return;
+	if (reserveController(creep, creep.room.controller))return;
 }
