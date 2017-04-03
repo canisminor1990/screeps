@@ -1986,9 +1986,9 @@ exports.default = function (creep) {
 			(0, _Action.moveTo)(creep, harvestTarget);
 		} else {
 			if (container && !(0, _Action.isEqualTo)(creep, container) && (0, _Action.moveTo)(creep, container)) return;
-			// if (creep.carry.energy > 0) {
-			// 	repair(creep, container)
-			// }
+			if (container && container.hits < container.hitsMax && creep.carry.energy > 0) {
+				(0, _Action.repair)(creep, container);
+			}
 		}
 		var buildContainer = (0, _Action.findInRange)(creep, Memory.tasks[roonName].build, 0)[0];
 		if (buildContainer && (0, _Action.build)(creep, buildContainer && creep.carry.energy > 0)) return;

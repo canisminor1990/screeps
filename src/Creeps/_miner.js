@@ -29,9 +29,9 @@ export default (creep) => {
 			moveTo(creep, harvestTarget)
 		} else {
 			if (container && !isEqualTo(creep, container) && moveTo(creep, container)) return;
-			// if (creep.carry.energy > 0) {
-			// 	repair(creep, container)
-			// }
+			if (container && container.hits < container.hitsMax && creep.carry.energy > 0) {
+				repair(creep, container)
+			}
 		}
 		let buildContainer = findInRange(creep, Memory.tasks[roonName].build, 0)[0]
 		if (buildContainer && build(creep, buildContainer && creep.carry.energy > 0))return;
