@@ -18,9 +18,6 @@ export default (creep) => {
 			pickTarget = Memory.tasks[creep.memory.roomName].pickup[0];
 			if (moveTo(creep, pickTarget))return
 		}
-		let target = _.filter(Memory.tasks[creep.memory.roomName].withdraw,t => t.store.energy = 0)
-		console.log(target)
-		if (withdraw(creep,target))return
 		if (pickup(creep, pickTarget))return
 	}
 	if (_.sum(creep.carry) > 0 && transfer(creep, storage))return
