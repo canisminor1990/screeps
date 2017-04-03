@@ -20,6 +20,7 @@ export default (spawn) => {
 	if (!Timer(4))return;
 	const energy   = Memory.rooms[roomName].energyAvailable;
 	const roleData = Memory.roles[roomName]
+	
 	for (let i in roleData) {
 		const roleName      = roleData[i].role,
 		      roleTimeout   = (roleData[i].timeout) ? roleData[i].timeout : 10,
@@ -29,9 +30,7 @@ export default (spawn) => {
 		      c.memory.roomName == roleData[i].roomName &&
 		      c.memory.roomType == roleData[i].roomType &&
 		      c.ticksToLive >= roleTimeout).length;
-		Console.note(roleName,
-			'Now:' + roleNumberNow, 'Need:' + roleNumber,
-			'Cost:' + roleData[i].cost, 'Availabl:' + energy);
+		console.log(roleName)
 		if (roleNumberNow - roleNumber >= 0) continue;
 		if (roleData[i].cost > energy) {
 			Console.note(roleName,
