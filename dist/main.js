@@ -3614,7 +3614,7 @@ exports.default = function (room) {
 	var structures = room.structures.my;
 	var tasklist = structures.container;
 	tasklist = _.filter(tasklist, function (s) {
-		return _.sum(s.store) > 50;
+		return _.sum(s.store) > 300;
 	});
 
 	var transers = [].concat(room.creeps.my.transer);
