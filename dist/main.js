@@ -3203,7 +3203,7 @@ exports.default = function (spawn) {
 		    roleNumberNow = _.filter(Game.creeps, function (c) {
 			return c.memory.role == roleData[i].role && c.memory.roomName == roleData[i].roomName && c.memory.roomType == roleData[i].roomType && c.ticksToLive >= roleTimeout;
 		}).length;
-		_util.Console.note(i, 'Now:' + roleNumberNow, 'Need:' + roleNumber, 'Cost:' + roleData[i].cost, 'Availabl:' + energy);
+
 		if (roleNumberNow - roleNumber >= 0) return 'continue';
 		if (roleData[i].cost > energy) {
 			_util.Console.note(i, 'Now:' + roleNumberNow, 'Need:' + roleNumber, 'Cost:' + roleData[i].cost, 'Availabl:' + energy);
