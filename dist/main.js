@@ -3304,10 +3304,10 @@ exports.default = function () {
 	var roomGroup = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : [];
 
 	var structures = Memory.rooms[roomGroup[0]].structures.my;
+	console.log(roomGroup[0]);
 	_.forEach(structures.spawn, function (s) {
 		return (0, _spawn2.default)(s);
 	});
-	// spawn(structures.spawn[0])
 	_.forEach(structures.tower, function (s) {
 		return (0, _tower2.default)(s);
 	});
