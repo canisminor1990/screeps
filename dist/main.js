@@ -1897,6 +1897,7 @@ exports.default = function (creep) {
 		var target = _.filter(Memory.tasks[creep.memory.roomName].withdraw, function (t) {
 			return t.store.energy = 0;
 		});
+		console.log(target);
 		if ((0, _Action.withdraw)(creep, target)) return;
 		if ((0, _Action.pickup)(creep, pickTarget)) return;
 	}
