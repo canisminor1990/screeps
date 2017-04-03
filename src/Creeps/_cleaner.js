@@ -19,7 +19,7 @@ export default (creep) => {
 			if (moveTo(creep, pickTarget))return
 		}
 		
-		if (withdraw(creep,findInRange(creep.Memory.tasks[creep.memory.roomName].withdraw,2)))return
+		if (withdraw(creep,findInRange(creep,Memory.tasks[creep.memory.roomName].withdraw,2)))return
 		if (pickup(creep, pickTarget))return
 	}
 	if (_.sum(creep.carry) > 0 && transfer(creep, storage))return
