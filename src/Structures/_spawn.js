@@ -19,34 +19,38 @@ export default (spawn) => {
 	if (spawn.spawning && spawnUi(spawn)) return;
 	if (!Timer(4))return;
 	const energy   = Memory.rooms[roomName].energyAvailable;
-	const roleData = Memory.roles[roomName]
-	for (let i in roleData) {
-		const roleName      = roleData[i].role,
-		      roleTimeout   = (roleData[i].timeout) ? roleData[i].timeout : 10,
-		      roleNumber    = roleData[i].number,
+	const roleData = Memory.roles[roomName];
+	let priority = false;
+	_.forEach(roleData, role => {
+		const roleName      = role.role,
+		      roleTimeout   = (role.timeout) ? role.timeout : 10,
+		      roleNumber    = role.number,
 		      roleNumberNow = _.filter(Game.creeps, c =>
-		      c.memory.role == roleData[i].role &&
-		      c.memory.roomName == roleData[i].roomName &&
-		      c.memory.roomType == roleData[i].roomType &&
+		      c.memory.role == role.role &&
+		      c.memory.roomName == role.roomName &&
+		      c.memory.roomType == role.roomType &&
 		      c.ticksToLive >= roleTimeout).length
 		
-		if (roleNumberNow - roleNumber >= 0) continue;
-		if (roleData[i].cost > energy) {
+		if (roleNumberNow - roleNumber >= 0 || priority) return;
+		if (role.cost > energy) {
 			Console.note(roleName,
 				'Now:' + roleNumberNow, 'Need:' + roleNumber,
-				'Cost:' + roleData[i].cost, 'Availabl:' + energy);
+				'Cost:' + role.cost, 'Availabl:' + energy);
+			priority = true;
 			return;
 		}
 		const spawnTime = Game.time,
 		      spawnName = `${roleName}-${spawnTime.toString().substr(spawnTime.toString().length - 3, 3)}`;
-		if (spawn.createCreep(roleData[i].body, spawnName, {
-				bornRoom: spawn.room.name,
-				bornTime: spawnTime,
-				roomName: roleData[i].roomName,
-				roomType: roleData[i].roomType,
-				role    : roleName,
-				name    : spawnName,
-				target  : {}
-			}) == OK) return
-	}
+		spawn.createCreep(role.body, spawnName, {
+			bornRoom: spawn.room.name,
+			bornTime: spawnTime,
+			roomName: role.roomName,
+			roomType: role.roomType,
+			role    : roleName,
+			name    : spawnName,
+			target  : {}
+		})
+		priority = true;
+	})
+	
 }
