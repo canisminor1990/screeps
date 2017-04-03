@@ -7,13 +7,13 @@ export default (creep) => {
 	let builderTarget = Memory.tasks[roonName].build
 	if (isFull) {
 		if (creep.carry.energy == 0) transfer(creep, creep.room.storage);
-		if (!Game.rooms[creep.memory.roomName]) {
+		
 			if (creep.room.name !== creep.memory.roomName) {
 				let target = Memory.tasks[creep.memory.roomName].build[0];
 				if (!target) target = Memory.tasks[creep.memory.roomName].repair[0];
 				if (moveTo(creep, target))return
 			}
-		}
+		
 		if (build(creep, builderTarget))return
 		if (creep.room.memory.structures.my.tower.length > 0) {
 			if (repair(creep, findInRange(creep, Memory.tasks[roonName].repair, 4)))return
