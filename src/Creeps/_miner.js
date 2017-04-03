@@ -13,7 +13,6 @@ import {Is} from  '../_util'
 export default (creep) => {
 	const roonName    = creep.memory.roomName;
 	const isFull      = Is.full(creep);
-	const isEnergy    = Is.energy(creep);
 	let harvestTarget = creep.memory.target.harvest
 	// run
 	if (creep.room.name !== creep.memory.roomName) {
@@ -30,9 +29,12 @@ export default (creep) => {
 			moveTo(creep, harvestTarget)
 		} else {
 			if (container && !isEqualTo(creep, container) && moveTo(creep, container)) return;
+			if (container.hits < container.maxHits && creep.carry.energy > 0) {
+				repair(creep, container)
+			}
 		}
-		
-		
+		let buildContainer = findInRange(creep, Memory.tasks[roonName].build, 0)[0]
+		if (buildContainer && build(creep, buildContainer && creep.carry.energy > 0))return;
 	}
 	if (harvest(creep, harvestTarget))return
 }

@@ -1970,7 +1970,6 @@ var _util = __webpack_require__(/*! ../_util */ 0);
 exports.default = function (creep) {
 	var roonName = creep.memory.roomName;
 	var isFull = _util.Is.full(creep);
-	var isEnergy = _util.Is.energy(creep);
 	var harvestTarget = creep.memory.target.harvest;
 	// run
 	if (creep.room.name !== creep.memory.roomName) {
@@ -1987,7 +1986,12 @@ exports.default = function (creep) {
 			(0, _Action.moveTo)(creep, harvestTarget);
 		} else {
 			if (container && !(0, _Action.isEqualTo)(creep, container) && (0, _Action.moveTo)(creep, container)) return;
+			if (container.hits < container.maxHits && creep.carry.energy > 0) {
+				(0, _Action.repair)(creep, container);
+			}
 		}
+		var buildContainer = (0, _Action.findInRange)(creep, Memory.tasks[roonName].build, 0)[0];
+		if (buildContainer && (0, _Action.build)(creep, buildContainer && creep.carry.energy > 0)) return;
 	}
 	if ((0, _Action.harvest)(creep, harvestTarget)) return;
 };
