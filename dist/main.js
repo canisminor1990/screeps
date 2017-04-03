@@ -3168,6 +3168,8 @@ Object.defineProperty(exports, "__esModule", {
 	value: true
 });
 
+var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+
 var _util = __webpack_require__(/*! ../_util */ 0);
 
 var spawnUi = function spawnUi(spawn) {
@@ -3189,34 +3191,48 @@ exports.default = function (spawn) {
 	if (!(0, _util.Timer)(4)) return;
 	var energy = Memory.rooms[roomName].energyAvailable;
 	var roleData = Memory.roles[roomName];
-	var priority = false;
-	_.forEach(roleData, function (role) {
-		var roleName = role.role,
-		    roleTimeout = role.timeout ? role.timeout : 10,
-		    roleNumber = role.number,
+
+	var _loop = function _loop(i) {
+		var roleName = roleData[i].role,
+		    roleTimeout = roleData[i].timeout ? roleData[i].timeout : 10,
+		    roleNumber = roleData[i].number,
 		    roleNumberNow = _.filter(Game.creeps, function (c) {
-			return c.memory.role == role.role && c.memory.roomName == role.roomName && c.memory.roomType == role.roomType && c.ticksToLive >= roleTimeout;
+			return c.memory.role == roleData[i].role && c.memory.roomName == roleData[i].roomName && c.memory.roomType == roleData[i].roomType && c.ticksToLive >= roleTimeout;
 		}).length;
 
-		if (roleNumberNow - roleNumber >= 0 || priority) return;
-		_util.Console.note(roleName, 'Now:' + roleNumberNow, 'Need:' + roleNumber, 'Cost:' + role.cost, 'Availabl:' + energy);
-		if (role.cost > energy) {
-			priority = true;
-			return;
+		if (roleNumberNow - roleNumber >= 0) return 'continue';
+		if (roleData[i].cost > energy) {
+			_util.Console.note(roleName, 'Now:' + roleNumberNow, 'Need:' + roleNumber, 'Cost:' + roleData[i].cost, 'Availabl:' + energy);
+			return {
+				v: void 0
+			};
 		}
 		var spawnTime = Game.time,
 		    spawnName = roleName + '-' + spawnTime.toString().substr(spawnTime.toString().length - 3, 3);
-		spawn.createCreep(role.body, spawnName, {
+		if (spawn.createCreep(roleData[i].body, spawnName, {
 			bornRoom: spawn.room.name,
 			bornTime: spawnTime,
-			roomName: role.roomName,
-			roomType: role.roomType,
+			roomName: roleData[i].roomName,
+			roomType: roleData[i].roomType,
 			role: roleName,
 			name: spawnName,
 			target: {}
-		});
-		priority = true;
-	});
+		}) == OK) return {
+				v: void 0
+			};
+	};
+
+	for (var i in roleData) {
+		var _ret = _loop(i);
+
+		switch (_ret) {
+			case 'continue':
+				continue;
+
+			default:
+				if ((typeof _ret === 'undefined' ? 'undefined' : _typeof(_ret)) === "object") return _ret.v;
+		}
+	}
 };
 
 module.exports = exports['default'];
