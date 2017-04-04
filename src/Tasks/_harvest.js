@@ -6,10 +6,10 @@ export default (room) => {
 	} else {
 		tasklist = room.resources.source
 	}
-	_.filter(tasklist, r =>
-		r.energy > 0 ||
-		 r.mineralAmount > 0
-	)
+	// _.filter(tasklist, r =>
+	// 	r.energy > 0 ||
+	// 	 r.mineralAmount > 0
+	// )
 	
 	let miners = [].concat(room.creeps.my.miner)
 	// miners     = _.filter(miners, c => !c.memory.target.harvest);

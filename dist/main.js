@@ -2755,7 +2755,9 @@ exports.default = function (source, mineral) {
 	return {
 		all: source.concat(mineral),
 		source: source,
-		mineral: mineral
+		mineral: _.filter(mineral, function (m) {
+			return m.mineralAmount > 0;
+		})
 	};
 };
 
@@ -3547,9 +3549,10 @@ exports.default = function (room) {
 	} else {
 		tasklist = room.resources.source;
 	}
-	_.filter(tasklist, function (r) {
-		return r.energy > 0 || r.mineralAmount > 0;
-	});
+	// _.filter(tasklist, r =>
+	// 	r.energy > 0 ||
+	// 	 r.mineralAmount > 0
+	// )
 
 	var miners = [].concat(room.creeps.my.miner);
 	// miners     = _.filter(miners, c => !c.memory.target.harvest);
