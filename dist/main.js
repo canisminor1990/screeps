@@ -3283,14 +3283,21 @@ exports.default = function (terminal) {
 	    amount = _config2.default.terminal.amount;
 	if (terminal.store.energy < amount * (1 + _config2.default.terminal.fee)) return;
 	var orders = Game.market.getAllOrders({ type: ORDER_BUY, resourceType: RESOURCE_ENERGY });
+	var list = [];
 	_.forEach(orders, function (order) {
 		var pay = order.price * amount,
 		    fee = Game.market.calcTransactionCost(amount, room, order.roomName);
 
-		var trade = 1500 / 0.02,
-		    orderTrade = fee / order.price,
+		var trade = amount * (1 + _config2.default.terminal.fee) / _config2.default.terminal.price,
+		    orderTrade = (fee + amount) / order.price,
 		    ifTrade = orderTrade < trade ? true : false;
 		if (ifTrade) {
+			list.push({
+				id: order.id,
+				price: order.price,
+				fee: fee,
+				sort: orderTrade
+			});
 			console.log(ifTrade, orderTrade, trade, fee, 1500, order.price, 0.02);
 		}
 		if (fee < amount * _config2.default.terminal.fee && order.price >= _config2.default.terminal.price) {
