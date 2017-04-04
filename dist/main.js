@@ -2048,7 +2048,7 @@ exports.default = function (creep) {
 		if (storage.store.energy > _config2.default.terminal.storage && (0, _Action.withdraw)(creep, storage)) return;
 	} else {
 		if (creep.room.name !== terminal.room.name) {
-			if ((0, _Action.moveTo)(creep, storage)) return;
+			if ((0, _Action.moveTo)(creep, terminal)) return;
 		}
 		if (terminal.store.energy < terminal.storeCapacity && (0, _Action.transfer)(creep, terminal)) return;
 	}
