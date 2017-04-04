@@ -11,9 +11,10 @@ export default (terminal) => {
 		
 		let trade      = 1500 / 0.02,
 		    orderTrade = fee / order.price,
-		    ifTrade    = (orderTrade > trade) ? true : false;
-		console.log(ifTrade, orderTrade, trade, fee, 1500, order.price, 0.02);
-		
+		    ifTrade    = (orderTrade < trade) ? true : false;
+		if (ifTrade) {
+			console.log(ifTrade, orderTrade, trade, fee, 1500, order.price, 0.02);
+		}
 		if (fee < amount * Config.terminal.fee && order.price >= Config.terminal.price) {
 			Console.succeed('Market',
 				`Pay: ${pay}(${order.price})`,
