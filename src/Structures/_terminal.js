@@ -2,7 +2,7 @@ import {Console} from '../_util'
 export default (terminal) => {
 	// let price  = 0.03,
 	//     amount = 10000;
-	// if (terminal.store.energy < 10000) return
+	if (terminal.store.energy < 10000) return
 	// if (_.isEmpty(Game.market.orders)) {
 	// 	console.log(amount*pirce)
 	// 	console.log(Game.market.createOrder(ORDER_SELL, RESOURCE_ENERGY, price, amount))
