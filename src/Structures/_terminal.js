@@ -7,7 +7,7 @@ export default (terminal) => {
 	// 	console.log(Game.market.createOrder(ORDER_SELL, RESOURCE_ENERGY, price, amount))
 	// }
 	const room   = "W81S67"
-	const orders = Game.market.getAllOrders({type: ORDER_BUY, resourceType: RESOURCE_ZYNTHIUM});
+	const orders = Game.market.getAllOrders({type: ORDER_BUY, resourceType: RESOURCE_ENERGY});
 	let orderFee = []
 	_.forEach(orders, order => {
 		let pay = order.price * 1000
