@@ -13,10 +13,10 @@ export default (creep) => {
 			if (moveTo(creep, storage))return
 		}
 		if (creep.memory.roomType == 'extra') {
-			let link = Memory.flags[bornRoom].translink;
-			if (link) {
-				link = Game.getObjectById(link.id)
-				if (transfer(creep, link))return
+			try {
+				let link = Game.getObjectById(Memory.flags[bornRoom].translink.id)
+				if (link.energy < link.energyCapacity && transfer(creep, link))return
+			} catch (e) {
 			}
 		}
 		if (transfer(creep, storage))return

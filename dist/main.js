@@ -2101,11 +2101,10 @@ exports.default = function (creep) {
 			if ((0, _Action.moveTo)(creep, storage)) return;
 		}
 		if (creep.memory.roomType == 'extra') {
-			var link = Memory.flags[bornRoom].translink;
-			if (link) {
-				link = Game.getObjectById(link.id);
-				if ((0, _Action.transfer)(creep, link)) return;
-			}
+			try {
+				var link = Game.getObjectById(Memory.flags[bornRoom].translink.id);
+				if (link.energy < link.energyCapacity && (0, _Action.transfer)(creep, link)) return;
+			} catch (e) {}
 		}
 		if ((0, _Action.transfer)(creep, storage)) return;
 		if ((0, _Action.transfer)(creep, Memory.tasks[roonName].transfer)) return;
