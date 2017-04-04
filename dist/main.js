@@ -1947,6 +1947,7 @@ exports.default = function (creep) {
 		if (transferTarget && transferTarget.energy < transferTarget.energyCapacity) {
 			if ((0, _Action.transfer)(creep, transferTarget, false)) return;
 		}
+		if ((0, _Action.transfer)(creep, (0, _Action.findClosestByRange)(creep, Memory.tasks[roonName].transfer), false)) return;
 		if ((0, _Action.transfer)(creep, storage)) return;
 	} else {
 		try {

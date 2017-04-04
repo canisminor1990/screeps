@@ -1,4 +1,4 @@
-import {pickup, transfer, withdraw, findInRange} from  '../Action'
+import {pickup, transfer, withdraw, findClosestByRange} from  '../Action'
 import {Is} from  '../_util'
 export default (creep) => {
 	const roonName       = creep.memory.roomName;
@@ -12,6 +12,7 @@ export default (creep) => {
 		if (transferTarget && transferTarget.energy < transferTarget.energyCapacity) {
 			if (transfer(creep, transferTarget, false))return
 		}
+		if (transfer(creep, findClosestByRange(creep,Memory.tasks[roonName].transfer), false))return
 		if (transfer(creep, storage))return
 	} else {
 		try {
