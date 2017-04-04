@@ -5,7 +5,7 @@ export default {
 	],
 	terminal:{
 		amount:1000,
-		price:0.02,
+		price:0.025,
 		fee:1.5,
 		storage:300000
 	},

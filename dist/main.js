@@ -410,7 +410,7 @@ exports.default = {
 	room: [['W81S67', 'W81S66'], ['W82S67', 'W82S68']],
 	terminal: {
 		amount: 1000,
-		price: 0.02,
+		price: 0.025,
 		fee: 1.5,
 		storage: 300000
 	},
