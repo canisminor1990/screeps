@@ -2526,7 +2526,7 @@ exports.default = function () {
 	bodyArray = _.compact(_.flattenDeep(bodyArray));
 	bodyArray = [].concat(tough, bodyArray);
 	bodyArray = _.chunk(bodyArray, 2);
-	for (var i = move; i > 0; i--) {
+	for (var i = move - 1; i >= 0; i--) {
 		bodyArray[i] = _.flatten([bodyArray[i], 'move']);
 	}
 	bodyArray = _.compact(_.flattenDeep(bodyArray));

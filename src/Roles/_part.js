@@ -11,7 +11,7 @@ const partProprity = {
 
 export default (partData = {}) => {
 	let move, tough = [], bodyArray = [];
-	const moveRaw = partData.move;
+	const moveRaw   = partData.move;
 	delete (partData.move)
 	move = Math.floor(_.sum(partData) / 2);
 	move = (move > moveRaw) ? moveRaw : move;
@@ -26,7 +26,7 @@ export default (partData = {}) => {
 	bodyArray = _.compact(_.flattenDeep(bodyArray))
 	bodyArray = [].concat(tough, bodyArray)
 	bodyArray = _.chunk(bodyArray, 2);
-	for (let i = move; i > 0; i--) {
+	for (let i = move - 1; i >= 0; i--) {
 		bodyArray[i] = _.flatten([bodyArray[i],
 		                          'move'])
 	}
