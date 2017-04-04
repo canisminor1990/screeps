@@ -3285,8 +3285,7 @@ exports.default = function (terminal) {
 	var orders = Game.market.getAllOrders({ type: ORDER_BUY, resourceType: RESOURCE_ENERGY });
 	var list = [];
 	_.forEach(orders, function (order) {
-		var pay = order.price * amount,
-		    fee = Game.market.calcTransactionCost(amount, room, order.roomName);
+		var fee = Game.market.calcTransactionCost(amount, room, order.roomName);
 
 		var trade = amount * (1 + _config2.default.terminal.fee) / _config2.default.terminal.price,
 		    orderTrade = (fee + amount) / order.price,
@@ -3299,16 +3298,10 @@ exports.default = function (terminal) {
 				sort: orderTrade
 			});
 		}
-		// if (fee < amount * Config.terminal.fee && order.price >= Config.terminal.price) {
-		// 	Console.succeed('Market',
-		// 		`Pay: ${pay}(${order.price})`,
-		// 		`Fee: ${fee}`, `Amount: ${amount}/${order.amount}`,
-		// 		Game.market.deal(order.id, amount, room))
-		// }
 	});
 	if (list.length > 0) {
 		list = _.sortBy(list, 'sort');
-		console.log(JOSN.stringify(list, null, 2));
+		console.log(JSON.stringify(list, null, 2));
 		list = list[0];
 		_util.Console.succeed('Market', 'Pay: ' + list.price * _config2.default.terminal.amount + '(' + list.price + ')', 'Fee: ' + list.fee, 'Amount: ' + amount + '/' + order.amount);
 	}

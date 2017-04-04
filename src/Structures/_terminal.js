@@ -7,8 +7,7 @@ export default (terminal) => {
 	const orders = Game.market.getAllOrders({type: ORDER_BUY, resourceType: RESOURCE_ENERGY});
 	let list     = []
 	_.forEach(orders, order => {
-		const pay = order.price * amount,
-		      fee = Game.market.calcTransactionCost(amount, room, order.roomName);
+		const fee = Game.market.calcTransactionCost(amount, room, order.roomName);
 		
 		let trade      = amount * (1 + Config.terminal.fee) / Config.terminal.price,
 		    orderTrade = (fee + amount) / order.price,
@@ -21,16 +20,10 @@ export default (terminal) => {
 				sort : orderTrade
 			})
 		}
-		// if (fee < amount * Config.terminal.fee && order.price >= Config.terminal.price) {
-		// 	Console.succeed('Market',
-		// 		`Pay: ${pay}(${order.price})`,
-		// 		`Fee: ${fee}`, `Amount: ${amount}/${order.amount}`,
-		// 		Game.market.deal(order.id, amount, room))
-		// }
 	})
 	if (list.length > 0) {
 		list = _.sortBy(list, 'sort')
-		console.log(JOSN.stringify(list, null, 2))
+		console.log(JSON.stringify(list, null, 2))
 		list = list[0]
 		Console.succeed('Market',
 			`Pay: ${list.price * Config.terminal.amount}(${list.price})`,
