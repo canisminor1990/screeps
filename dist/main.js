@@ -1772,6 +1772,10 @@ exports.default = function (creep) {
 		attackTarget = (0, _Action.findClosestByRange)(creep, Memory.tasks[creep.memory.roomName].attack);
 	}
 	if ((0, _Action.attack)(creep, attackTarget)) return;
+	if (!attackTarget) {
+		var spawn = Memory.rooms[creep.memory.bornRoom].constructors.my.spawn[0];
+		(0, _Action.moveTo)(spawn);
+	}
 };
 
 module.exports = exports['default'];
