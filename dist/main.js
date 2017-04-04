@@ -3286,7 +3286,7 @@ exports.default = function (terminal) {
 	_.forEach(orders, function (order) {
 		var pay = order.price * amount,
 		    fee = Game.market.calcTransactionCost(amount, room, order.roomName);
-		console.log(fee, amount * _config2.default.terminal.fee);
+		console.log(fee, amount * _config2.default.terminal.fee, order.price);
 		if (fee < amount * _config2.default.terminal.fee && order.price >= _config2.default.terminal.price) {
 			_util.Console.succeed('Market', 'Pay: ' + pay + '(' + order.price + ')', 'Fee: ' + fee, 'Amount: ' + amount + '/' + order.amount, Game.market.deal(order.id, amount, room));
 		}

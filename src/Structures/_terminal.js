@@ -8,7 +8,7 @@ export default (terminal) => {
 	_.forEach(orders, order => {
 		const pay = order.price * amount,
 		      fee = Game.market.calcTransactionCost(amount, room, order.roomName);
-		console.log(fee,amount * Config.terminal.fee)
+		console.log(fee, amount * Config.terminal.fee, order.price)
 		if (fee < amount * Config.terminal.fee && order.price >= Config.terminal.price) {
 			Console.succeed('Market',
 				`Pay: ${pay}(${order.price})`,
