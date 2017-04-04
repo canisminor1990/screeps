@@ -3279,10 +3279,12 @@ exports.default = function (terminal) {
 	// }
 	var room = "W81S67";
 	var orders = Game.market.getAllOrders({ type: ORDER_BUY, resourceType: RESOURCE_ENERGY });
+	var orderFee = [];
 	_.forEach(orders, function (order) {
 		var fee = Game.market.calcTransactionCost(10000, room, order.roomName);
-		console.log(fee);
+		orderFee.push(fee);
 	});
+	console.log(orderFee.sort());
 	console.log('--------');
 };
 
