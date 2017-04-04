@@ -1,7 +1,8 @@
 export default (source, mineral) => {
+	mineral = _.filter(mineral, m => m.mineralAmount > 0)
 	return {
-		all    : source.concat(mineral),
+		all    : [].concat(source, mineral),
 		source : source,
-		mineral: _.filter(mineral,m => m.mineralAmount > 0)
+		mineral: mineral
 	}
 }

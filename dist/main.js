@@ -2752,12 +2752,13 @@ Object.defineProperty(exports, "__esModule", {
 });
 
 exports.default = function (source, mineral) {
+	mineral = _.filter(mineral, function (m) {
+		return m.mineralAmount > 0;
+	});
 	return {
-		all: source.concat(mineral),
+		all: [].concat(source, mineral),
 		source: source,
-		mineral: _.filter(mineral, function (m) {
-			return m.mineralAmount > 0;
-		})
+		mineral: mineral
 	};
 };
 
