@@ -3283,7 +3283,7 @@ exports.default = function (terminal) {
 	_.forEach(orders, function (order) {
 		var pay = order.price * 10000;
 		var fee = Game.market.calcTransactionCost(10000, room, order.roomName);
-		orderFee.push(pay - fee);
+		orderFee.push([order.price, pay, fee, pay - fee]);
 	});
 	console.log(orderFee.sort());
 	console.log('--------');

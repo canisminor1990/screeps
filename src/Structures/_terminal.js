@@ -12,7 +12,10 @@ export default (terminal) => {
 	_.forEach(orders, order => {
 		let pay = order.price * 10000
 		let fee = Game.market.calcTransactionCost(10000, room, order.roomName)
-		orderFee.push(pay - fee)
+		orderFee.push([order.price,
+		               pay,
+		               fee,
+		               pay - fee])
 	})
 	console.log(orderFee.sort())
 	console.log('--------')
