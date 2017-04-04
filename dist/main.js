@@ -2096,8 +2096,9 @@ exports.default = function (creep) {
 	var storage = Game.rooms[creep.memory.bornRoom].storage;
 	if (isFull) {
 		if (creep.memory.roomType == 'extra' && creep.room.name == creep.memory.bornRoom) {
-			var link = (0, _Action.findInRange)(creep, creep.room.memory.structures.my.link, 3);
-			if (link.length > 0) {
+			var link = Memory.flags[creep.memory.bornRoom].translink;
+			if (link) {
+				link = Game.getObjectById(link.id);
 				if ((0, _Action.transfer)(creep, link)) return;
 			}
 		}
