@@ -3,7 +3,7 @@ import Config from '../config'
 export default (terminal) => {
 	const room   = "W81S67",
 	      amount = Config.terminal.amount;
-	if (terminal.store.energy < amount * (1 + Config.terminal.fee)) return
+	if (terminal.store.energy < amount * 2 * (1 + Config.terminal.fee)) return
 	const orders = Game.market.getAllOrders({type: ORDER_BUY, resourceType: RESOURCE_ENERGY});
 	let list     = []
 	_.forEach(orders, order => {

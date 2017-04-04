@@ -3341,7 +3341,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 exports.default = function (terminal) {
 	var room = "W81S67",
 	    amount = _config2.default.terminal.amount;
-	if (terminal.store.energy < amount * (1 + _config2.default.terminal.fee)) return;
+	if (terminal.store.energy < amount * 2 * (1 + _config2.default.terminal.fee)) return;
 	var orders = Game.market.getAllOrders({ type: ORDER_BUY, resourceType: RESOURCE_ENERGY });
 	var list = [];
 	_.forEach(orders, function (order) {
