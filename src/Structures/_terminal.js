@@ -4,6 +4,7 @@ export default (terminal) => {
 	const room   = "W81S67",
 	      amount = Config.terminal.amount;
 	if (terminal.store.energy < amount * (1 + Config.terminal.fee)) return
+	console.log(amount * (1 + Config.terminal.fee))
 	const orders = Game.market.getAllOrders({type: ORDER_BUY, resourceType: RESOURCE_ENERGY});
 	_.forEach(orders, order => {
 		const pay = order.price * amount,

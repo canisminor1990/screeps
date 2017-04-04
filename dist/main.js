@@ -3282,6 +3282,7 @@ exports.default = function (terminal) {
 	var room = "W81S67",
 	    amount = _config2.default.terminal.amount;
 	if (terminal.store.energy < amount * (1 + _config2.default.terminal.fee)) return;
+	console.log(amount * (1 + _config2.default.terminal.fee));
 	var orders = Game.market.getAllOrders({ type: ORDER_BUY, resourceType: RESOURCE_ENERGY });
 	_.forEach(orders, function (order) {
 		var pay = order.price * amount,
