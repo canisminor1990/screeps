@@ -1,4 +1,5 @@
 import {transfer, withdraw, moveTo} from '../Action';
+import transer from './_transer'
 import {Is} from  '../_util';
 import Config from '../config'
 export default (creep) => {
@@ -17,4 +18,5 @@ export default (creep) => {
 		}
 		if (terminal.store.energy < terminal.storeCapacity && transfer(creep, terminal)) return
 	}
+	transer(creep);
 }
