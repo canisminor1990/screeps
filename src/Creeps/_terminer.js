@@ -1,4 +1,4 @@
-import {transfer, withdraw} from '../Action';
+import {transfer, withdraw, moveTo} from '../Action';
 import {Is} from  '../_util';
 import Config from '../config'
 export default (creep) => {
@@ -7,8 +7,14 @@ export default (creep) => {
 	const storage = Game.rooms[creep.memory.bornRoom].storage
 	const isFull  = Is.full(creep);
 	if (!isFull) {
+		if (creep.room.name !== storage.room.name) {
+			if (moveTo(creep, storage))return
+		}
 		if (storage.store.energy > Config.terminal.storage && withdraw(creep, storage)) return
 	} else {
+		if (creep.room.name !== terminal.room.name) {
+			if (moveTo(creep, storage))return
+		}
 		if (terminal.store.energy < terminal.storeCapacity && transfer(creep, terminal)) return
 	}
 }
