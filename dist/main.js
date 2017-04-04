@@ -3548,7 +3548,7 @@ exports.default = function (room) {
 		tasklist = room.resources.source;
 	}
 	_.filter(tasklist, function (r) {
-		return r.energy && r.energy > 0 || r.mineralAmount && r.mineralAmount > 0;
+		return r.energy > 0 || r.mineralAmount > 0;
 	});
 
 	var miners = [].concat(room.creeps.my.miner);

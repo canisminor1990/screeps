@@ -7,8 +7,8 @@ export default (room) => {
 		tasklist = room.resources.source
 	}
 	_.filter(tasklist, r =>
-		(r.energy && r.energy > 0) ||
-		(r.mineralAmount && r.mineralAmount > 0)
+		r.energy > 0 ||
+		 r.mineralAmount > 0
 	)
 	
 	let miners = [].concat(room.creeps.my.miner)
