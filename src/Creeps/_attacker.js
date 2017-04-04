@@ -1,4 +1,4 @@
-import {attack, findClosestByRange, moveTo} from  '../Action'
+import {attack, findClosestByRange, moveTo, isNearTo} from  '../Action'
 export default (creep) => {
 	// target
 	let attackTarget;
@@ -11,6 +11,9 @@ export default (creep) => {
 	if (attack(creep, attackTarget))return;
 	if (!attackTarget) {
 		let spawn = Memory.rooms[creep.memory.bornRoom].structures.my.spawn[0];
-		moveTo(creep,spawn)
+		if (!isNearTo(creep, spawn)) {
+			if (moveTo(creep, spawn))return
+		}
+		
 	}
 }
