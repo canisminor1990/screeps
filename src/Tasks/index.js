@@ -8,7 +8,7 @@ import attack    from'./_attack';
 import heal      from'./_heal';
 import upgrade   from'./_upgrade';
 import dismantle from'./_dismantle';
-
+import market from'./_market';
 export default (roomGroup) => {
 	if (!Memory.tasks) Memory.tasks = {}
 	
@@ -26,6 +26,6 @@ export default (roomGroup) => {
 			upgrade  : upgrade(room) || [],
 			dismantle: dismantle(room) || []
 		}
-		
+		Memory.tasks.market    = market()
 	})
 }

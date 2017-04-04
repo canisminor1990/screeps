@@ -64,7 +64,7 @@ module.exports =
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 84);
+/******/ 	return __webpack_require__(__webpack_require__.s = 85);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -83,7 +83,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _Ui = __webpack_require__(/*! ./Ui */ 83);
+var _Ui = __webpack_require__(/*! ./Ui */ 84);
 
 Object.defineProperty(exports, 'Ui', {
   enumerable: true,
@@ -92,7 +92,7 @@ Object.defineProperty(exports, 'Ui', {
   }
 });
 
-var _Console = __webpack_require__(/*! ./Console */ 72);
+var _Console = __webpack_require__(/*! ./Console */ 73);
 
 Object.defineProperty(exports, 'Console', {
   enumerable: true,
@@ -101,7 +101,7 @@ Object.defineProperty(exports, 'Console', {
   }
 });
 
-var _Target = __webpack_require__(/*! ./Target */ 78);
+var _Target = __webpack_require__(/*! ./Target */ 79);
 
 Object.defineProperty(exports, 'Target', {
   enumerable: true,
@@ -110,7 +110,7 @@ Object.defineProperty(exports, 'Target', {
   }
 });
 
-var _Is = __webpack_require__(/*! ./Is */ 76);
+var _Is = __webpack_require__(/*! ./Is */ 77);
 
 Object.defineProperty(exports, 'Is', {
   enumerable: true,
@@ -119,7 +119,7 @@ Object.defineProperty(exports, 'Is', {
   }
 });
 
-var _Timer = __webpack_require__(/*! ./Timer */ 79);
+var _Timer = __webpack_require__(/*! ./Timer */ 80);
 
 Object.defineProperty(exports, 'Timer', {
   enumerable: true,
@@ -817,7 +817,7 @@ var _Flags = __webpack_require__(/*! ./Flags */ 38);
 
 var _Flags2 = _interopRequireDefault(_Flags);
 
-var _Tasks = __webpack_require__(/*! ./Tasks */ 71);
+var _Tasks = __webpack_require__(/*! ./Tasks */ 72);
 
 var _Tasks2 = _interopRequireDefault(_Tasks);
 
@@ -2056,7 +2056,6 @@ exports.default = function (creep) {
 		}
 		if (terminal.store.energy < terminal.storeCapacity && (0, _Action.transfer)(creep, terminal)) return;
 	}
-	(0, _filler2.default)(creep);
 };
 
 module.exports = exports['default'];
@@ -3603,6 +3602,40 @@ module.exports = exports["default"];
 /* unknown exports provided */
 /* all exports used */
 /*!******************************!*\
+  !*** ./src/Tasks/_market.js ***!
+  \******************************/
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+	value: true
+});
+
+var _config = __webpack_require__(/*! ../config */ 3);
+
+var _config2 = _interopRequireDefault(_config);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+exports.default = function () {
+	var rooms = _config2.default.room;
+	var tasklist = [];
+	_.forEach(rooms, function (roomGroup) {
+		var storage = Game.rooms[roomGroup[0]].storage;
+		if (storage.store.energy > _config2.default.terminal.storage) tasklist.push(storage);
+	});
+	return tasklist;
+};
+
+module.exports = exports['default'];
+
+/***/ }),
+/* 67 */
+/* unknown exports provided */
+/* all exports used */
+/*!******************************!*\
   !*** ./src/Tasks/_pickup.js ***!
   \******************************/
 /***/ (function(module, exports, __webpack_require__) {
@@ -3622,7 +3655,7 @@ exports.default = function (room) {
 module.exports = exports["default"];
 
 /***/ }),
-/* 67 */
+/* 68 */
 /* unknown exports provided */
 /* all exports used */
 /*!******************************!*\
@@ -3653,7 +3686,7 @@ exports.default = function (room) {
 module.exports = exports['default'];
 
 /***/ }),
-/* 68 */
+/* 69 */
 /* unknown exports provided */
 /* all exports used */
 /*!********************************!*\
@@ -3704,7 +3737,7 @@ exports.default = function (room) {
 module.exports = exports["default"];
 
 /***/ }),
-/* 69 */
+/* 70 */
 /* unknown exports provided */
 /* all exports used */
 /*!*******************************!*\
@@ -3727,7 +3760,7 @@ exports.default = function (room) {
 module.exports = exports["default"];
 
 /***/ }),
-/* 70 */
+/* 71 */
 /* unknown exports provided */
 /* all exports used */
 /*!********************************!*\
@@ -3779,7 +3812,7 @@ exports.default = function (room) {
 module.exports = exports["default"];
 
 /***/ }),
-/* 71 */
+/* 72 */
 /* unknown exports provided */
 /* all exports used */
 /*!****************************!*\
@@ -3798,7 +3831,7 @@ var _build = __webpack_require__(/*! ./_build */ 62);
 
 var _build2 = _interopRequireDefault(_build);
 
-var _repair = __webpack_require__(/*! ./_repair */ 67);
+var _repair = __webpack_require__(/*! ./_repair */ 68);
 
 var _repair2 = _interopRequireDefault(_repair);
 
@@ -3806,15 +3839,15 @@ var _harvest = __webpack_require__(/*! ./_harvest */ 64);
 
 var _harvest2 = _interopRequireDefault(_harvest);
 
-var _pickup = __webpack_require__(/*! ./_pickup */ 66);
+var _pickup = __webpack_require__(/*! ./_pickup */ 67);
 
 var _pickup2 = _interopRequireDefault(_pickup);
 
-var _transfer = __webpack_require__(/*! ./_transfer */ 68);
+var _transfer = __webpack_require__(/*! ./_transfer */ 69);
 
 var _transfer2 = _interopRequireDefault(_transfer);
 
-var _withdraw = __webpack_require__(/*! ./_withdraw */ 70);
+var _withdraw = __webpack_require__(/*! ./_withdraw */ 71);
 
 var _withdraw2 = _interopRequireDefault(_withdraw);
 
@@ -3826,13 +3859,17 @@ var _heal = __webpack_require__(/*! ./_heal */ 65);
 
 var _heal2 = _interopRequireDefault(_heal);
 
-var _upgrade = __webpack_require__(/*! ./_upgrade */ 69);
+var _upgrade = __webpack_require__(/*! ./_upgrade */ 70);
 
 var _upgrade2 = _interopRequireDefault(_upgrade);
 
 var _dismantle = __webpack_require__(/*! ./_dismantle */ 63);
 
 var _dismantle2 = _interopRequireDefault(_dismantle);
+
+var _market = __webpack_require__(/*! ./_market */ 66);
+
+var _market2 = _interopRequireDefault(_market);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -3853,13 +3890,14 @@ exports.default = function (roomGroup) {
 			upgrade: (0, _upgrade2.default)(room) || [],
 			dismantle: (0, _dismantle2.default)(room) || []
 		};
+		Memory.tasks.market = (0, _market2.default)();
 	});
 };
 
 module.exports = exports['default'];
 
 /***/ }),
-/* 72 */
+/* 73 */
 /* unknown exports provided */
 /* all exports used */
 /*!************************************!*\
@@ -3926,7 +3964,7 @@ exports.default = {
 module.exports = exports['default'];
 
 /***/ }),
-/* 73 */
+/* 74 */
 /* unknown exports provided */
 /* all exports used */
 /*!*********************************!*\
@@ -3950,7 +3988,7 @@ exports.default = function (creep) {
 module.exports = exports["default"];
 
 /***/ }),
-/* 74 */
+/* 75 */
 /* unknown exports provided */
 /* all exports used */
 /*!***********************************!*\
@@ -3980,7 +4018,7 @@ exports.default = function (owner) {
 module.exports = exports['default'];
 
 /***/ }),
-/* 75 */
+/* 76 */
 /* unknown exports provided */
 /* all exports used */
 /*!*******************************!*\
@@ -4011,7 +4049,7 @@ exports.default = function (creep) {
 module.exports = exports["default"];
 
 /***/ }),
-/* 76 */
+/* 77 */
 /* unknown exports provided */
 /* all exports used */
 /*!*******************************!*\
@@ -4026,15 +4064,15 @@ Object.defineProperty(exports, "__esModule", {
 	value: true
 });
 
-var _full = __webpack_require__(/*! ./_full */ 75);
+var _full = __webpack_require__(/*! ./_full */ 76);
 
 var _full2 = _interopRequireDefault(_full);
 
-var _firendly = __webpack_require__(/*! ./_firendly */ 74);
+var _firendly = __webpack_require__(/*! ./_firendly */ 75);
 
 var _firendly2 = _interopRequireDefault(_firendly);
 
-var _energy = __webpack_require__(/*! ./_energy */ 73);
+var _energy = __webpack_require__(/*! ./_energy */ 74);
 
 var _energy2 = _interopRequireDefault(_energy);
 
@@ -4048,7 +4086,7 @@ exports.default = {
 module.exports = exports['default'];
 
 /***/ }),
-/* 77 */
+/* 78 */
 /* unknown exports provided */
 /* all exports used */
 /*!*************************************!*\
@@ -4095,7 +4133,7 @@ exports.default = function (creep, target) {
 module.exports = exports['default'];
 
 /***/ }),
-/* 78 */
+/* 79 */
 /* unknown exports provided */
 /* all exports used */
 /*!***********************************!*\
@@ -4110,7 +4148,7 @@ Object.defineProperty(exports, "__esModule", {
 	value: true
 });
 
-var _format = __webpack_require__(/*! ./_format */ 77);
+var _format = __webpack_require__(/*! ./_format */ 78);
 
 var _format2 = _interopRequireDefault(_format);
 
@@ -4122,7 +4160,7 @@ exports.default = {
 module.exports = exports['default'];
 
 /***/ }),
-/* 79 */
+/* 80 */
 /* unknown exports provided */
 /* all exports used */
 /*!**********************************!*\
@@ -4147,7 +4185,7 @@ exports.default = function (tick) {
 module.exports = exports["default"];
 
 /***/ }),
-/* 80 */
+/* 81 */
 /* unknown exports provided */
 /* all exports used */
 /*!********************************!*\
@@ -4228,7 +4266,7 @@ exports.default = color;
 module.exports = exports['default'];
 
 /***/ }),
-/* 81 */
+/* 82 */
 /* unknown exports provided */
 /* all exports used */
 /*!********************************!*\
@@ -4264,7 +4302,7 @@ exports.default = {
 module.exports = exports["default"];
 
 /***/ }),
-/* 82 */
+/* 83 */
 /* unknown exports provided */
 /* all exports used */
 /*!********************************!*\
@@ -4307,7 +4345,7 @@ exports.default = function (content) {
 module.exports = exports["default"];
 
 /***/ }),
-/* 83 */
+/* 84 */
 /* unknown exports provided */
 /* all exports used */
 /*!*******************************!*\
@@ -4323,14 +4361,14 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = {
 	c: __webpack_require__(/*! ./_c */ 5),
-	color: __webpack_require__(/*! ./_color */ 80),
-	table: __webpack_require__(/*! ./_table */ 82),
-	emoji: __webpack_require__(/*! ./_emoji */ 81)
+	color: __webpack_require__(/*! ./_color */ 81),
+	table: __webpack_require__(/*! ./_table */ 83),
+	emoji: __webpack_require__(/*! ./_emoji */ 82)
 };
 module.exports = exports['default'];
 
 /***/ }),
-/* 84 */
+/* 85 */
 /* unknown exports provided */
 /* all exports used */
 /*!*********************!*\

@@ -18,5 +18,4 @@ export default (creep) => {
 		}
 		if (terminal.store.energy < terminal.storeCapacity && transfer(creep, terminal)) return
 	}
-	filler(creep);
 }
