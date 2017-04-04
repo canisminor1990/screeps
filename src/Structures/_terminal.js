@@ -20,7 +20,6 @@ export default (terminal) => {
 				fee  : fee,
 				sort : orderTrade
 			})
-			console.log(ifTrade, orderTrade, trade, fee, 1500, order.price, 0.02);
 		}
 		// if (fee < amount * Config.terminal.fee && order.price >= Config.terminal.price) {
 		// 	Console.succeed('Market',
@@ -29,4 +28,14 @@ export default (terminal) => {
 		// 		Game.market.deal(order.id, amount, room))
 		// }
 	})
+	if (list.length > 0) {
+		list = _.sortBy(list, 'sort')
+		console.log(JOSN.stringify(list, null, 2))
+		list = list[0]
+		Console.succeed('Market',
+			`Pay: ${list.price * Config.terminal.amount}(${list.price})`,
+			`Fee: ${list.fee}`, `Amount: ${amount}/${order.amount}`,
+			// Game.market.deal(order.id, amount, room)
+		)
+	}
 }
