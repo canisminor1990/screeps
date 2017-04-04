@@ -2105,15 +2105,10 @@ exports.default = function (creep) {
 			if (link) {
 				link = Game.getObjectById(link.id);
 				if ((0, _Action.transfer)(creep, link)) return;
-			} else {
-				if ((0, _Action.transfer)(creep, storage)) return;
 			}
 		}
-		if (!storage) {
-			if ((0, _Action.transfer)(creep, Memory.tasks[roonName].transfer)) return;
-		} else {
-			if ((0, _Action.transfer)(creep, storage)) return;
-		}
+		if ((0, _Action.transfer)(creep, storage)) return;
+		if ((0, _Action.transfer)(creep, Memory.tasks[roonName].transfer)) return;
 	} else {
 		if (creep.room.name !== roonName) {
 			withdrawTarget = Memory.tasks[roonName].withdraw[0];
