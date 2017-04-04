@@ -22,7 +22,7 @@ export default (partData = {}) => {
 	}
 	_.forEach(partData, (n, key) => bodyArray.push(_.fill(Array(n), key)));
 	bodyArray = _.sortBy(bodyArray, n => partProprity[n[0]])
-	if (partData.tough) bodyArray.unshift(tough)
+	if (tough.length > 0) bodyArray.unshift(tough)
 	bodyArray = _.compact(_.flattenDeep(bodyArray))
 	bodyArray = [].concat(tough, bodyArray)
 	bodyArray = _.chunk(bodyArray, 2);
