@@ -3287,7 +3287,7 @@ exports.default = function (terminal) {
 		    fee = Game.market.calcTransactionCost(1000, room, order.roomName),
 		    cost = pay - fee;
 		if (fee < 1500 && order.price >= 0.02) {
-			_util.Console.succeed('Market', 'Pay: ' + pay + '(' + order.price + ')', 'Fee: ' + fee);
+			_util.Console.succeed('Market', 'Pay: ' + pay + '(' + order.price + ')', 'Fee: ' + fee, 'Amount: ' + order.amount);
 		}
 	});
 };
