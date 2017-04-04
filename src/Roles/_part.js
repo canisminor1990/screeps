@@ -11,15 +11,15 @@ const partProprity = {
 
 export default (partData = {}) => {
 	let move, tough = [], bodyArray = [];
-	if (partData.tough) {
-		tough = _.fill(Array(partData.tough), 'tough')
-		delete (partData.tough)
-	}
 	const moveRaw = partData.move;
 	delete (partData.move)
 	move = Math.floor(_.sum(partData) / 2);
 	move = (move > moveRaw) ? moveRaw : move;
 	move = (move > 0) ? move : 1;
+	if (partData.tough) {
+		tough = _.fill(Array(partData.tough), 'tough')
+		delete (partData.tough)
+	}
 	_.forEach(partData, (n, key) => bodyArray.push(_.fill(Array(n), key)));
 	bodyArray = _.sortBy(bodyArray, n => partProprity[n[0]])
 	if (partData.tough) bodyArray.unshift(tough)
