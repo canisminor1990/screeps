@@ -1,4 +1,5 @@
-import {transfer, withdraw} from '../Action'
+import {transfer, withdraw} from '../Action';
+import {Is} from  '../_util';
 import Config from '../config'
 export default (creep) => {
 	"use strict";

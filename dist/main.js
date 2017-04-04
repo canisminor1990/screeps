@@ -2027,6 +2027,8 @@ Object.defineProperty(exports, "__esModule", {
 
 var _Action = __webpack_require__(/*! ../Action */ 1);
 
+var _util = __webpack_require__(/*! ../_util */ 0);
+
 var _config = __webpack_require__(/*! ../config */ 3);
 
 var _config2 = _interopRequireDefault(_config);
@@ -2038,7 +2040,7 @@ exports.default = function (creep) {
 
 	var terminal = Game.getObjectById('58dd5bacde932923491d37d8');
 	var storage = Game.rooms[creep.memory.bornRoom].storage;
-	var isFull = Is.full(creep);
+	var isFull = _util.Is.full(creep);
 	if (!isFull) {
 		if (storage.store.energy > _config2.default.terminal.storage && (0, _Action.withdraw)(creep, storage)) return;
 	} else {
