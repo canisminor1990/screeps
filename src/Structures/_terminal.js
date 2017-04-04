@@ -14,22 +14,23 @@ export default (terminal) => {
 		    ifTrade    = (orderTrade < trade) ? true : false;
 		if (ifTrade) {
 			list.push({
-				id   : order.id,
-				price: order.price,
-				fee  : fee,
-				amount:order.amount,
-				sort : orderTrade
+				id    : order.id,
+				price : order.price,
+				fee   : fee,
+				amount: order.amount,
+				sort  : orderTrade
 			})
 		}
 	})
 	if (list.length > 0) {
-		list = _.sortBy(list, 'sort')
+		list              = _.sortBy(list, 'sort')
 		// console.log(JSON.stringify(list, null, 2))
-		list = list[0]
+		list              = list[0]
+		const finalAmount = (amount < list.amount) ? amount : list.amount;
 		Console.succeed('Market',
 			`Pay: ${list.price * Config.terminal.amount}(${list.price})`,
-			`Fee: ${list.fee}`, `Amount: ${amount}/${list.amount}`,
-			Game.market.deal(order.id, amount, room)
+			`Fee: ${list.fee}`, `Amount: ${finalAmount}/${list.amount}`,
+			Game.market.deal(amount.id, finalAmount, room)
 		)
 	}
 }
