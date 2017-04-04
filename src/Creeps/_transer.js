@@ -15,7 +15,7 @@ export default (creep) => {
 		if (creep.memory.roomType == 'extra') {
 			try {
 				let link = Game.getObjectById(Memory.flags[bornRoom].translink.id)
-				if (link.energy < link.energyCapacity && transfer(creep, link))return
+				if (link.energy < link.energyCapacity && transfer(creep, link, false))return
 			} catch (e) {
 			}
 		}
