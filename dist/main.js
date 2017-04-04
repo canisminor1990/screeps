@@ -1953,7 +1953,7 @@ exports.default = function (creep) {
 			var link = Game.getObjectById(Memory.flags[creep.room.name].link.id);
 			if (link.energy > 0 && (0, _Action.withdraw)(creep, link, false)) return;
 		} catch (e) {}
-		if ((0, _Action.pickup)(creep, (0, _Action.findInRange)(creep, Memory.tasks[roonName].pickup, 4))) return;
+		// if (pickup(creep, findInRange(creep, Memory.tasks[roonName].pickup, 4))) return
 		if (transferTarget && storage && storage.store.energy > 0) {
 			if ((0, _Action.withdraw)(creep, storage, false)) return;
 		} else {
