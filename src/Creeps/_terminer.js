@@ -15,6 +15,6 @@ export default (creep) => {
 		if (creep.room.name !== terminal.room.name) {
 			if (moveTo(creep, terminal))return
 		}
-		if (terminal.store.energy < terminal.storeCapacity && transfer(creep, terminal, false)) return
+		if (terminal.store.energy < terminal.storeCapacity && transfer(creep, terminal)) return
 	}
 }

@@ -2050,7 +2050,7 @@ exports.default = function (creep) {
 		if (creep.room.name !== terminal.room.name) {
 			if ((0, _Action.moveTo)(creep, terminal)) return;
 		}
-		if (terminal.store.energy < terminal.storeCapacity && (0, _Action.transfer)(creep, terminal, false)) return;
+		if (terminal.store.energy < terminal.storeCapacity && (0, _Action.transfer)(creep, terminal)) return;
 	}
 };
 
