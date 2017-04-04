@@ -1,3 +1,4 @@
+import {Console} from '../_util'
 export default (terminal) => {
 	// let price  = 0.03,
 	//     amount = 10000;
@@ -10,10 +11,11 @@ export default (terminal) => {
 	const orders = Game.market.getAllOrders({type: ORDER_BUY, resourceType: RESOURCE_ENERGY});
 	let orderFee = []
 	_.forEach(orders, order => {
-		let pay = order.price * 1000
-		let fee = Game.market.calcTransactionCost(1000, room, order.roomName)
-		orderFee.push(pay - fee)
+		const pay  = order.price * 1000,
+		      fee  = Game.market.calcTransactionCost(1000, room, order.roomName),
+		      cost = pay - fee;
+		if (fee > -1500) {
+			Console.succeed('Market', `Pay: ${pay}(${order.price})`, `Fee: ${fee}`)
+		}
 	})
-	console.log(orderFee.sort())
-	console.log('--------')
 }

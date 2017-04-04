@@ -3269,6 +3269,8 @@ Object.defineProperty(exports, "__esModule", {
 	value: true
 });
 
+var _util = __webpack_require__(/*! ../_util */ 0);
+
 exports.default = function (terminal) {
 	// let price  = 0.03,
 	//     amount = 10000;
@@ -3281,15 +3283,16 @@ exports.default = function (terminal) {
 	var orders = Game.market.getAllOrders({ type: ORDER_BUY, resourceType: RESOURCE_ENERGY });
 	var orderFee = [];
 	_.forEach(orders, function (order) {
-		var pay = order.price * 1000;
-		var fee = Game.market.calcTransactionCost(1000, room, order.roomName);
-		orderFee.push(pay - fee);
+		var pay = order.price * 1000,
+		    fee = Game.market.calcTransactionCost(1000, room, order.roomName),
+		    cost = pay - fee;
+		if (fee > -1500) {
+			_util.Console.succeed('Market', 'Pay: ' + pay + '(' + order.price + ')', 'Fee: ' + fee);
+		}
 	});
-	console.log(orderFee.sort());
-	console.log('--------');
 };
 
-module.exports = exports["default"];
+module.exports = exports['default'];
 
 /***/ }),
 /* 58 */
