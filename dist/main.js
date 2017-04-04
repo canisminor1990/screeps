@@ -2089,18 +2089,19 @@ var _Action = __webpack_require__(/*! ../Action */ 1);
 var _util = __webpack_require__(/*! ../_util */ 0);
 
 exports.default = function (creep) {
-	var roonName = creep.memory.roomName;
+	var roonName = creep.memory.roomName,
+	    bornRoom = creep.memory.bornRoom;
 	var isFull = _util.Is.full(creep);
 	// target
 	var withdrawTarget = creep.memory.target.withdraw;
 	// run
-	var storage = Game.rooms[creep.memory.bornRoom].storage;
+	var storage = Game.rooms[bornRoom].storage;
 	if (isFull) {
-		if (creep.room.name != creep.memory.bornRoom) {
+		if (creep.room.name != bornRoom) {
 			if ((0, _Action.moveTo)(creep, storage)) return;
 		}
 		if (creep.memory.roomType == 'extra') {
-			var link = Memory.flags[creep.memory.bornRoom].translink;
+			var link = Memory.flags[bornRoom].translink;
 			if (link) {
 				link = Game.getObjectById(link.id);
 				if ((0, _Action.transfer)(creep, link)) return;
@@ -2114,8 +2115,8 @@ exports.default = function (creep) {
 			if ((0, _Action.transfer)(creep, storage)) return;
 		}
 	} else {
-		if (creep.room.name !== creep.memory.roomName) {
-			withdrawTarget = Memory.tasks[creep.memory.roomName].withdraw[0];
+		if (creep.room.name !== roonName) {
+			withdrawTarget = Memory.tasks[roonName].withdraw[0];
 			if ((0, _Action.moveTo)(creep, withdrawTarget)) return;
 		}
 		if ((0, _Action.pickup)(creep, (0, _Action.findInRange)(creep, Memory.tasks[roonName].pickup, 4))) return;
