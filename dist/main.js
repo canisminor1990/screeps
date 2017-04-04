@@ -3287,11 +3287,11 @@ exports.default = function (terminal) {
 		var pay = order.price * amount,
 		    fee = Game.market.calcTransactionCost(amount, room, order.roomName);
 
-		var trade = _config2.default.terminal.price / (_config2.default.terminal.fee + 1),
-		    orderTrade = order.price * amount / (amount + fee);
-		console.log(orderTrade - trade, fee, order.price);
-		if (orderTrade - trade > 0) {
-			console.log(fee, order.price);
+		var trade = 1500 / 0.02,
+		    orderTrade = fee / order.price;
+
+		if (orderTrade > trade) {
+			console.log(orderTrade - trade, fee, order.price);
 		}
 		if (fee < amount * _config2.default.terminal.fee && order.price >= _config2.default.terminal.price) {
 			_util.Console.succeed('Market', 'Pay: ' + pay + '(' + order.price + ')', 'Fee: ' + fee, 'Amount: ' + amount + '/' + order.amount, Game.market.deal(order.id, amount, room));
