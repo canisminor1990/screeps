@@ -3281,8 +3281,9 @@ exports.default = function (terminal) {
 	var orders = Game.market.getAllOrders({ type: ORDER_BUY, resourceType: RESOURCE_ENERGY });
 	var orderFee = [];
 	_.forEach(orders, function (order) {
+		var pay = order.price * 10000;
 		var fee = Game.market.calcTransactionCost(10000, room, order.roomName);
-		orderFee.push(fee);
+		orderFee.push(pay - fee);
 	});
 	console.log(orderFee.sort());
 	console.log('--------');

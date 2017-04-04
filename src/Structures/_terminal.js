@@ -10,8 +10,9 @@ export default (terminal) => {
 	const orders = Game.market.getAllOrders({type: ORDER_BUY, resourceType: RESOURCE_ENERGY});
 	let orderFee = []
 	_.forEach(orders, order => {
+		let pay = order.price * 10000
 		let fee = Game.market.calcTransactionCost(10000, room, order.roomName)
-		orderFee.push(fee)
+		orderFee.push(pay - fee)
 	})
 	console.log(orderFee.sort())
 	console.log('--------')
