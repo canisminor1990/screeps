@@ -5,7 +5,7 @@ export default (room) => {
 	tasklist         = _.filter(tasklist, s => _.sum(s.store) > 300)
 	
 	let transers = [].concat(room.creeps.my.transer);
-	transers     = _.filter(transers, c => !c.memory.full);
+	transers     = _.filter(transers, c => !c.memory.full && c.memory.roomName == room.name);
 	for (let t in tasklist) {
 		if (tasklist.length < 1 || transers.length < 1) break;
 		let transer = findClosestByRange(tasklist[t], transers)

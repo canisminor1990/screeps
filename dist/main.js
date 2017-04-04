@@ -3784,7 +3784,7 @@ exports.default = function (room) {
 
 	var transers = [].concat(room.creeps.my.transer);
 	transers = _.filter(transers, function (c) {
-		return !c.memory.full;
+		return !c.memory.full && c.memory.roomName == room.name;
 	});
 
 	var _loop = function _loop(t) {
