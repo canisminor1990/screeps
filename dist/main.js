@@ -3287,10 +3287,7 @@ exports.default = function (terminal) {
 		var pay = order.price * amount,
 		    fee = Game.market.calcTransactionCost(amount, room, order.roomName);
 		if (fee < amount * _config2.default.terminal.fee && order.price >= _config2.default.terminal.price) {
-			console.log(Game.market.deal(order.id, amount));
-			if (Game.market.deal(order.id, amount) == OK) {
-				_util.Console.succeed('Market', 'Pay: ' + pay + '(' + order.price + ')', 'Fee: ' + fee, 'Amount: ' + amount + '/' + order.amount);
-			}
+			_util.Console.succeed('Market', 'Pay: ' + pay + '(' + order.price + ')', 'Fee: ' + fee, 'Amount: ' + amount + '/' + order.amount, Game.market.deal(order.id, amount));
 		}
 	});
 };
