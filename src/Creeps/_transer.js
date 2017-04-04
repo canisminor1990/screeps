@@ -8,13 +8,16 @@ export default (creep) => {
 	// run
 	const storage      = Game.rooms[creep.memory.bornRoom].storage
 	if (isFull) {
+		if (creep.room.name != creep.memory.bornRoom) {
+			if (moveTo(creep, storage))return
+		}
 		if (creep.memory.roomType == 'extra') {
 			let link = Memory.flags[creep.memory.bornRoom].translink;
 			if (link) {
 				link = Game.getObjectById(link.id)
 				if (transfer(creep, link))return
 			} else {
-				if (moveTo(creep, storage) && transfer(creep, storage))return
+				if (transfer(creep, storage))return
 			}
 		}
 		if (!storage) {

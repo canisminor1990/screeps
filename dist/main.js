@@ -1954,7 +1954,7 @@ exports.default = function (creep) {
 			var link = Game.getObjectById(Memory.flags[creep.room.name].link.id);
 			if (link.energy > 0 && (0, _Action.withdraw)(creep, link, false)) return;
 		} catch (e) {}
-		// if (pickup(creep, findInRange(creep, Memory.tasks[roonName].pickup, 4))) return
+		if ((0, _Action.pickup)(creep, (0, _Action.findInRange)(creep, Memory.tasks[roonName].pickup, 4))) return;
 		if (storage && storage.store.energy > 0) {
 			if ((0, _Action.withdraw)(creep, storage, false)) return;
 		} else {
@@ -2096,13 +2096,16 @@ exports.default = function (creep) {
 	// run
 	var storage = Game.rooms[creep.memory.bornRoom].storage;
 	if (isFull) {
+		if (creep.room.name != creep.memory.bornRoom) {
+			if ((0, _Action.moveTo)(creep, storage)) return;
+		}
 		if (creep.memory.roomType == 'extra') {
 			var link = Memory.flags[creep.memory.bornRoom].translink;
 			if (link) {
 				link = Game.getObjectById(link.id);
 				if ((0, _Action.transfer)(creep, link)) return;
 			} else {
-				if ((0, _Action.moveTo)(creep, storage) && (0, _Action.transfer)(creep, storage)) return;
+				if ((0, _Action.transfer)(creep, storage)) return;
 			}
 		}
 		if (!storage) {
