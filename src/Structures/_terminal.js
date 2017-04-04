@@ -24,12 +24,12 @@ export default (terminal) => {
 	})
 	if (list.length > 0) {
 		list = _.sortBy(list, 'sort')
-		console.log(JSON.stringify(list, null, 2))
+		// console.log(JSON.stringify(list, null, 2))
 		list = list[0]
 		Console.succeed('Market',
 			`Pay: ${list.price * Config.terminal.amount}(${list.price})`,
 			`Fee: ${list.fee}`, `Amount: ${amount}/${list.amount}`,
-			// Game.market.deal(order.id, amount, room)
+			Game.market.deal(order.id, amount, room)
 		)
 	}
 }

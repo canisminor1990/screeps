@@ -3302,9 +3302,9 @@ exports.default = function (terminal) {
 	});
 	if (list.length > 0) {
 		list = _.sortBy(list, 'sort');
-		console.log(JSON.stringify(list, null, 2));
+		// console.log(JSON.stringify(list, null, 2))
 		list = list[0];
-		_util.Console.succeed('Market', 'Pay: ' + list.price * _config2.default.terminal.amount + '(' + list.price + ')', 'Fee: ' + list.fee, 'Amount: ' + amount + '/' + list.amount);
+		_util.Console.succeed('Market', 'Pay: ' + list.price * _config2.default.terminal.amount + '(' + list.price + ')', 'Fee: ' + list.fee, 'Amount: ' + amount + '/' + list.amount, Game.market.deal(order.id, amount, room));
 	}
 };
 
