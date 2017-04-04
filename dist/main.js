@@ -2110,6 +2110,7 @@ exports.default = function (creep) {
 		if ((0, _Action.transfer)(creep, Memory.tasks[roonName].transfer)) return;
 	} else {
 		if (creep.room.name !== roonName) {
+			withdrawTarget = {};
 			if ((0, _Action.moveTo)(creep, Game.rooms[roonName].controller)) return;
 		}
 		if ((0, _Action.pickup)(creep, (0, _Action.findInRange)(creep, Memory.tasks[roonName].pickup, 4))) return;

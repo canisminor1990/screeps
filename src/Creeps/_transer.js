@@ -23,6 +23,7 @@ export default (creep) => {
 		if (transfer(creep, Memory.tasks[roonName].transfer))return
 	} else {
 		if (creep.room.name !== roonName) {
+			withdrawTarget = {}
 			if (moveTo(creep, Game.rooms[roonName].controller))return
 		}
 		if (pickup(creep, findInRange(creep, Memory.tasks[roonName].pickup, 4))) return
