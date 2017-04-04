@@ -3295,6 +3295,7 @@ exports.default = function (terminal) {
 				id: order.id,
 				price: order.price,
 				fee: fee,
+				amount: order.amount,
 				sort: orderTrade
 			});
 		}
@@ -3303,7 +3304,7 @@ exports.default = function (terminal) {
 		list = _.sortBy(list, 'sort');
 		console.log(JSON.stringify(list, null, 2));
 		list = list[0];
-		_util.Console.succeed('Market', 'Pay: ' + list.price * _config2.default.terminal.amount + '(' + list.price + ')', 'Fee: ' + list.fee, 'Amount: ' + amount + '/' + order.amount);
+		_util.Console.succeed('Market', 'Pay: ' + list.price * _config2.default.terminal.amount + '(' + list.price + ')', 'Fee: ' + list.fee, 'Amount: ' + amount + '/' + list.amount);
 	}
 };
 
