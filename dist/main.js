@@ -3271,7 +3271,7 @@ Object.defineProperty(exports, "__esModule", {
 
 exports.default = function (terminal) {
 	if (terminal.store.energy < 10000) return;
-	Game.market.createOrder(ORDER_SELL, RESOURCE_ENERGY, 0.04, 10000);
+	console.log(Game.market.createOrder(ORDER_SELL, RESOURCE_ENERGY, 0.04, 10000));
 };
 
 module.exports = exports["default"];
