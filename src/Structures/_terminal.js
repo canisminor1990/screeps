@@ -11,7 +11,7 @@ export default (terminal) => {
 		
 		let trade      = Config.terminal.price / (Config.terminal.fee + 1),
 		    orderTrade = order.price * amount / (amount + fee)
-
+		console.log(orderTrade - trade);
 		if (orderTrade - trade > 0) {
 			console.log(fee, order.price)
 		}
