@@ -3272,29 +3272,22 @@ Object.defineProperty(exports, "__esModule", {
 var _util = __webpack_require__(/*! ../_util */ 0);
 
 exports.default = function (terminal) {
-	// let price  = 0.03,
-	//     amount = 10000;
 	if (terminal.store.energy < 10000) return;
-	// if (_.isEmpty(Game.market.orders)) {
-	// 	console.log(amount*pirce)
-	// 	console.log(Game.market.createOrder(ORDER_SELL, RESOURCE_ENERGY, price, amount))
-	// }
-	var room = "W81S67";
-	var orders = Game.market.getAllOrders({ type: ORDER_BUY, resourceType: RESOURCE_ENERGY });
-	var orderFee = [];
+	var room = "W81S67",
+	    amount = 1000,
+	    orders = Game.market.getAllOrders({ type: ORDER_BUY, resourceType: RESOURCE_ENERGY });
 	_.forEach(orders, function (order) {
-		var pay = order.price * 1000,
-		    fee = Game.market.calcTransactionCost(1000, room, order.roomName);
-		if (fee < 1500 && order.price >= 0.02) {
-			console.log(Game.market.deal(order.id, 1000, room));
-			// if (Game.market.deal(order.id, 1000) == OK) {
-			// 	Console.succeed('Market', `Pay: ${pay}(${order.price})`, `Fee: ${fee}`, `Amount: ${order.amount}`)
-			// }
+		var pay = order.price * amount,
+		    fee = Game.market.calcTransactionCost(amount, room, order.roomName);
+		if (fee < amount * 1.5 && order.price >= 0.02) {
+			if (Game.market.deal(order.id, amount) == OK) {
+				_util.Console.succeed('Market', 'Pay: ' + pay + '(' + order.price + ')', 'Fee: ' + fee, 'Amount: ' + amount + '/' + order.amount);
+			}
 		}
 	});
 };
 
-module.exports = exports["default"];
+module.exports = exports['default'];
 
 /***/ }),
 /* 58 */
