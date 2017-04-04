@@ -3305,7 +3305,7 @@ exports.default = function (terminal) {
 		// console.log(JSON.stringify(list, null, 2))
 		list = list[0];
 		var finalAmount = amount < list.amount ? amount : list.amount;
-		_util.Console.succeed('Market', 'Pay: ' + list.price * _config2.default.terminal.amount + '(' + list.price + ')', 'Fee: ' + list.fee, 'Amount: ' + finalAmount + '/' + list.amount, Game.market.deal(amount.id, finalAmount, room));
+		_util.Console.succeed('Market', 'Pay: ' + list.price * _config2.default.terminal.amount + '(' + list.price + ')', 'Fee: ' + list.fee, 'Amount: ' + finalAmount + '/' + list.amount, Game.market.deal(list.id, finalAmount, room));
 	}
 };
 

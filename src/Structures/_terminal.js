@@ -30,7 +30,7 @@ export default (terminal) => {
 		Console.succeed('Market',
 			`Pay: ${list.price * Config.terminal.amount}(${list.price})`,
 			`Fee: ${list.fee}`, `Amount: ${finalAmount}/${list.amount}`,
-			Game.market.deal(amount.id, finalAmount, room)
+			Game.market.deal(list.id, finalAmount, room)
 		)
 	}
 }
