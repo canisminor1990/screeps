@@ -3278,12 +3278,12 @@ exports.default = function (terminal) {
 	// 	console.log(Game.market.createOrder(ORDER_SELL, RESOURCE_ENERGY, price, amount))
 	// }
 	var room = "W81S67";
-	var orders = Game.market.getAllOrders({ type: ORDER_BUY, resourceType: RESOURCE_ENERGY });
+	var orders = Game.market.getAllOrders({ type: ORDER_BUY, resourceType: RESOURCE_ZYNTHIUM });
 	var orderFee = [];
 	_.forEach(orders, function (order) {
-		var pay = order.price * 10000;
-		var fee = Game.market.calcTransactionCost(10000, room, order.roomName);
-		orderFee.push([order.price, pay, fee, pay - fee]);
+		var pay = order.price * 1000;
+		var fee = Game.market.calcTransactionCost(1000, room, order.roomName);
+		orderFee.push(pay - fee);
 	});
 	console.log(orderFee.sort());
 	console.log('--------');
