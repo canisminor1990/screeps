@@ -11,7 +11,7 @@ export default {
 	},
 	role    : {
 		// name: [body , num[main,extra], timeout]
-		attacker : [{tough: 10, attack: 6}, [0, 1], 100],
+		attacker : [{tough: 10, attack: 6}, [0, 2], 100],
 		filler   : [{carry: 6}, [2, 0], 10],
 		miner    : [{work: 8, carry: 1}, [1, 1], 10],
 		transer  : [{carry: 16}, [1, 2], 10],

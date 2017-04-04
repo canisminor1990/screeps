@@ -416,7 +416,7 @@ exports.default = {
 	},
 	role: {
 		// name: [body , num[main,extra], timeout]
-		attacker: [{ tough: 10, attack: 6 }, [0, 1], 100],
+		attacker: [{ tough: 10, attack: 6 }, [0, 2], 100],
 		filler: [{ carry: 6 }, [2, 0], 10],
 		miner: [{ work: 8, carry: 1 }, [1, 1], 10],
 		transer: [{ carry: 16 }, [1, 2], 10],
@@ -2036,14 +2036,14 @@ var _config2 = _interopRequireDefault(_config);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 exports.default = function (creep) {
-	"use strict";
-
+	// state
+	var isFull = _util.Is.full(creep);
+	// target
 	var terminal = Game.getObjectById('58dd5bacde932923491d37d8');
 	var storage = Game.rooms[creep.memory.bornRoom].storage;
 	if (storage.store.energy < _config2.default.terminal.storage && Memory.tasks.market.length > 0) {
 		storage = Memory.tasks.market[0];
 	}
-	var isFull = _util.Is.full(creep);
 	if (!isFull) {
 		if (creep.room.name !== storage.room.name) {
 			if ((0, _Action.moveTo)(creep, storage)) return;
