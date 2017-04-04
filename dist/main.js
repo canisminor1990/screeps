@@ -3551,14 +3551,15 @@ exports.default = function (room) {
 		tasklist = room.resources.source;
 	}
 
-	tasklist = _.sortByOrder(tasklist, ['energy'], ['desc']);
-
 	var miners = [].concat(room.creeps.my.miner);
+	miners = _.filter(miners, function (c) {
+		return !c.memory.target.harvest;
+	});
 
 	var _loop = function _loop(t) {
-		if (tasklist.length < 1 || miners.length < 1) return 'break';
+		if (tasklist.length < 1 || miners.length < 1) return "break";
 		var miner = (0, _Action.findClosestByRange)(tasklist[t], miners);
-		if (!miner) return 'break';
+		if (!miner) return "break";
 		_.remove(miners, function (c) {
 			return c.id == miner.id;
 		});
@@ -3569,13 +3570,13 @@ exports.default = function (room) {
 	for (var t in tasklist) {
 		var _ret = _loop(t);
 
-		if (_ret === 'break') break;
+		if (_ret === "break") break;
 	}
 
 	return tasklist;
 };
 
-module.exports = exports['default'];
+module.exports = exports["default"];
 
 /***/ }),
 /* 65 */
