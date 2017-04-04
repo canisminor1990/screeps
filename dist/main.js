@@ -3270,10 +3270,20 @@ Object.defineProperty(exports, "__esModule", {
 });
 
 exports.default = function (terminal) {
-	if (terminal.store.energy < 10000) return;
-	if (_.isEmpty(Game.market.orders)) {
-		console.log(Game.market.createOrder(ORDER_SELL, RESOURCE_ENERGY, 0.03, 8888));
-	}
+	// let price  = 0.03,
+	//     amount = 10000;
+	// if (terminal.store.energy < 10000) return
+	// if (_.isEmpty(Game.market.orders)) {
+	// 	console.log(amount*pirce)
+	// 	console.log(Game.market.createOrder(ORDER_SELL, RESOURCE_ENERGY, price, amount))
+	// }
+	var room = "W81S67";
+	var orders = Game.market.getAllOrders({ type: ORDER_BUY, resourceType: RESOURCE_ENERGY });
+	_.forEach(orders, function (order) {
+		var fee = Game.market.calcTransactionCost(10000, room, order.roomName);
+		console.log(fee);
+	});
+	console.log('--------');
 };
 
 module.exports = exports["default"];
