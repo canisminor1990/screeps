@@ -10,7 +10,7 @@ export default (creep) => {
 	}
 	if (attack(creep, attackTarget))return;
 	if (!attackTarget) {
-		let spawn = Memory.rooms[creep.memory.bornRoom].constructors.my.spawn[0];
+		let spawn = Memory.rooms[creep.memory.bornRoom].structures.my.spawn[0];
 		moveTo(spawn)
 	}
 }

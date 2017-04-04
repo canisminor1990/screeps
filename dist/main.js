@@ -1773,7 +1773,7 @@ exports.default = function (creep) {
 	}
 	if ((0, _Action.attack)(creep, attackTarget)) return;
 	if (!attackTarget) {
-		var spawn = Memory.rooms[creep.memory.bornRoom].constructors.my.spawn[0];
+		var spawn = Memory.rooms[creep.memory.bornRoom].structures.my.spawn[0];
 		(0, _Action.moveTo)(spawn);
 	}
 };
