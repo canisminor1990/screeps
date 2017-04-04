@@ -410,7 +410,7 @@ exports.default = {
 	room: [['W81S67', 'W81S66'], ['W82S67', 'W82S68']],
 	terminal: {
 		amount: 1000,
-		price: 0.2,
+		price: 0.02,
 		fee: 1.5
 	},
 	role: {
@@ -3300,9 +3300,12 @@ exports.default = function (terminal) {
 			});
 			console.log(ifTrade, orderTrade, trade, fee, 1500, order.price, 0.02);
 		}
-		if (fee < amount * _config2.default.terminal.fee && order.price >= _config2.default.terminal.price) {
-			_util.Console.succeed('Market', 'Pay: ' + pay + '(' + order.price + ')', 'Fee: ' + fee, 'Amount: ' + amount + '/' + order.amount, Game.market.deal(order.id, amount, room));
-		}
+		// if (fee < amount * Config.terminal.fee && order.price >= Config.terminal.price) {
+		// 	Console.succeed('Market',
+		// 		`Pay: ${pay}(${order.price})`,
+		// 		`Fee: ${fee}`, `Amount: ${amount}/${order.amount}`,
+		// 		Game.market.deal(order.id, amount, room))
+		// }
 	});
 };
 

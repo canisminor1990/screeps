@@ -5,7 +5,7 @@ export default {
 	],
 	terminal:{
 		amount:1000,
-		price:0.2,
+		price:0.02,
 		fee:1.5
 	},
 	role    : {

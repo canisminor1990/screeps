@@ -22,12 +22,11 @@ export default (terminal) => {
 			})
 			console.log(ifTrade, orderTrade, trade, fee, 1500, order.price, 0.02);
 		}
-		if (fee < amount * Config.terminal.fee && order.price >= Config.terminal.price) {
-			Console.succeed('Market',
-				`Pay: ${pay}(${order.price})`,
-				`Fee: ${fee}`, `Amount: ${amount}/${order.amount}`,
-				Game.market.deal(order.id, amount, room))
-			
-		}
+		// if (fee < amount * Config.terminal.fee && order.price >= Config.terminal.price) {
+		// 	Console.succeed('Market',
+		// 		`Pay: ${pay}(${order.price})`,
+		// 		`Fee: ${fee}`, `Amount: ${amount}/${order.amount}`,
+		// 		Game.market.deal(order.id, amount, room))
+		// }
 	})
 }
