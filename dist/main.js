@@ -2409,7 +2409,7 @@ exports.default = function () {
 		if (roomType == "main") {
 			switch (role) {
 				case 'terminer':
-					number = Game.rooms[roomName].storage.store.energy > _config2.default.terminal.storage ? number : 0;
+					number = Game.rooms[roomName].storage.store.energy > _config2.default.terminal.storage * 1.2 ? number : 0;
 					break;
 				case 'filler':
 					number = room.structures.my.storage.length > 0 ? number : 0;
