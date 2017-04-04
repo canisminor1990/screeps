@@ -3289,8 +3289,8 @@ exports.default = function (terminal) {
 
 		var trade = _config2.default.terminal.price / (_config2.default.terminal.fee + 1),
 		    orderTrade = order.price * amount / (amount + fee);
-		console.log('###', trade, orderTrade, order.price);
-		if (orderTrade > trade) {
+
+		if (orderTrade - trade > 0) {
 			console.log(fee, order.price);
 		}
 		if (fee < amount * _config2.default.terminal.fee && order.price >= _config2.default.terminal.price) {
