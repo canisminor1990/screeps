@@ -13,6 +13,8 @@ export default (creep) => {
 		let spawn = Memory.rooms[creep.memory.bornRoom].structures.my.spawn[0];
 		if (!isNearTo(creep, spawn)) {
 			if (moveTo(creep, spawn))return
+		} else {
+			spawn.recycleCreep(creep)
 		}
 		
 	}

@@ -1776,6 +1776,8 @@ exports.default = function (creep) {
 		var spawn = Memory.rooms[creep.memory.bornRoom].structures.my.spawn[0];
 		if (!(0, _Action.isNearTo)(creep, spawn)) {
 			if ((0, _Action.moveTo)(creep, spawn)) return;
+		} else {
+			spawn.recycleCreep(creep);
 		}
 	}
 };
