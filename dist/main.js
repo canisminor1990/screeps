@@ -408,6 +408,11 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = {
 	room: [['W81S67', 'W81S66'], ['W82S67', 'W82S68']],
+	terminal: {
+		amount: 1000,
+		price: 0.2,
+		fee: 1.5
+	},
 	role: {
 		// name: [body , num[main,extra], timeout]
 		attacker: [{ tough: 10, attack: 6 }, [0, 1], 100],
@@ -1934,10 +1939,6 @@ exports.default = function (creep) {
 	// run
 	if (isFull) {
 		if (creep.carry.energy == 0) (0, _Action.transfer)(creep, storage);
-		var terminal = creep.room.memory.structures.my.terminal;
-		if (terminal.length > 0 && _.sum(terminal[0].store) < 10000) {
-			if ((0, _Action.transfer)(creep, terminal[0], false)) return;
-		}
 		if (transferTarget && transferTarget.energy < transferTarget.energyCapacity) {
 			if ((0, _Action.transfer)(creep, transferTarget, false)) return;
 		}
@@ -3271,15 +3272,22 @@ Object.defineProperty(exports, "__esModule", {
 
 var _util = __webpack_require__(/*! ../_util */ 0);
 
+var _config = __webpack_require__(/*! ../config */ 3);
+
+var _config2 = _interopRequireDefault(_config);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
 exports.default = function (terminal) {
-	if (terminal.store.energy < 10000) return;
 	var room = "W81S67",
-	    amount = 1000,
-	    orders = Game.market.getAllOrders({ type: ORDER_BUY, resourceType: RESOURCE_ENERGY });
+	    amount = _config2.default.terminal.amount;
+	if (terminal.store.energy < amount * (1 + _config2.default.terminal.fee)) return;
+	var orders = Game.market.getAllOrders({ type: ORDER_BUY, resourceType: RESOURCE_ENERGY });
 	_.forEach(orders, function (order) {
 		var pay = order.price * amount,
 		    fee = Game.market.calcTransactionCost(amount, room, order.roomName);
-		if (fee < amount * 1.5 && order.price >= 0.02) {
+		if (fee < amount * _config2.default.terminal.fee && order.price >= _config2.default.terminal.price) {
+			console.log(Game.market.deal(order.id, amount));
 			if (Game.market.deal(order.id, amount) == OK) {
 				_util.Console.succeed('Market', 'Pay: ' + pay + '(' + order.price + ')', 'Fee: ' + fee, 'Amount: ' + amount + '/' + order.amount);
 			}

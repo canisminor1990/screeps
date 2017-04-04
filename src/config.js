@@ -3,6 +3,11 @@ export default {
 		['W81S67', 'W81S66'],
 		['W82S67','W82S68']
 	],
+	terminal:{
+		amount:1000,
+		price:0.2,
+		fee:1.5
+	},
 	role    : {
 		// name: [body , num[main,extra], timeout]
 		attacker : [{tough: 10, attack: 6}, [0, 1], 100],
