@@ -14,9 +14,10 @@ export default (terminal) => {
 		const pay = order.price * 1000,
 		      fee = Game.market.calcTransactionCost(1000, room, order.roomName);
 		if (fee < 1500 && order.price >= 0.02) {
-			if (Game.market.deal(order.id, 1000) == OK) {
-				Console.succeed('Market', `Pay: ${pay}(${order.price})`, `Fee: ${fee}`, `Amount: ${order.amount}`)
-			}
+			console.log(Game.market.deal(order.id, 1000))
+			// if (Game.market.deal(order.id, 1000) == OK) {
+			// 	Console.succeed('Market', `Pay: ${pay}(${order.price})`, `Fee: ${fee}`, `Amount: ${order.amount}`)
+			// }
 		}
 	})
 }
