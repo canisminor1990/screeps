@@ -3284,10 +3284,11 @@ exports.default = function (terminal) {
 	var orderFee = [];
 	_.forEach(orders, function (order) {
 		var pay = order.price * 1000,
-		    fee = Game.market.calcTransactionCost(1000, room, order.roomName),
-		    cost = pay - fee;
+		    fee = Game.market.calcTransactionCost(1000, room, order.roomName);
 		if (fee < 1500 && order.price >= 0.02) {
-			_util.Console.succeed('Market', 'Pay: ' + pay + '(' + order.price + ')', 'Fee: ' + fee, 'Amount: ' + order.amount);
+			if (Game.market.deal(order.id, 1000) == OK) {
+				_util.Console.succeed('Market', 'Pay: ' + pay + '(' + order.price + ')', 'Fee: ' + fee, 'Amount: ' + order.amount);
+			}
 		}
 	});
 };

@@ -11,11 +11,12 @@ export default (terminal) => {
 	const orders = Game.market.getAllOrders({type: ORDER_BUY, resourceType: RESOURCE_ENERGY});
 	let orderFee = []
 	_.forEach(orders, order => {
-		const pay  = order.price * 1000,
-		      fee  = Game.market.calcTransactionCost(1000, room, order.roomName),
-		      cost = pay - fee;
+		const pay = order.price * 1000,
+		      fee = Game.market.calcTransactionCost(1000, room, order.roomName);
 		if (fee < 1500 && order.price >= 0.02) {
-			Console.succeed('Market', `Pay: ${pay}(${order.price})`, `Fee: ${fee}`,`Amount: ${order.amount}`)
+			if (Game.market.deal(order.id, 1000) == OK) {
+				Console.succeed('Market', `Pay: ${pay}(${order.price})`, `Fee: ${fee}`, `Amount: ${order.amount}`)
+			}
 		}
 	})
 }
