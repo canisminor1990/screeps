@@ -1940,14 +1940,14 @@ exports.default = function (creep) {
 	var isFull = _util.Is.full(creep);
 	// target
 	var transferTarget = creep.memory.target.transfer;
+	if (!transferTarget) {
+		transferTarget = (0, _Action.findClosestByRange)(creep, Memory.tasks[roonName].transfer);
+	}
 	var storage = creep.room.storage;
 	// run
 	if (isFull) {
 		if (creep.carry.energy == 0) (0, _Action.transfer)(creep, storage);
-		if (transferTarget && transferTarget.energy < transferTarget.energyCapacity) {
-			if ((0, _Action.transfer)(creep, transferTarget, false)) return;
-		}
-		if ((0, _Action.transfer)(creep, (0, _Action.findClosestByRange)(creep, Memory.tasks[roonName].transfer), false)) return;
+		if ((0, _Action.transfer)(creep, transferTarget, false)) return;
 		if ((0, _Action.transfer)(creep, storage)) return;
 	} else {
 		try {
@@ -1955,7 +1955,7 @@ exports.default = function (creep) {
 			if (link.energy > 0 && (0, _Action.withdraw)(creep, link, false)) return;
 		} catch (e) {}
 		if ((0, _Action.pickup)(creep, (0, _Action.findInRange)(creep, Memory.tasks[roonName].pickup, 4))) return;
-		if (storage && storage.store.energy > 0) {
+		if (transferTarget && storage && storage.store.energy > 0) {
 			if ((0, _Action.withdraw)(creep, storage, false)) return;
 		} else {
 			if ((0, _Action.withdraw)(creep, _.filter(Memory.tasks[roonName].withdraw, function (t) {
