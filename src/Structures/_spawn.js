@@ -36,7 +36,7 @@ export default (spawn) => {
 			Console.note(i,
 				'Now:' + roleNumberNow, 'Need:' + roleNumber,
 				'Cost:' + roleData[i].cost, 'Availabl:' + energy);
-			return;
+			break;
 		}
 		const spawnTime = Game.time,
 		      spawnName = `${i}-${spawnTime.toString().substr(spawnTime.toString().length - 3, 3)}`;
@@ -48,6 +48,6 @@ export default (spawn) => {
 				role    : roleName,
 				name    : spawnName,
 				target  : {}
-			}) == OK) return
+			}) == OK) break
 	}
 }

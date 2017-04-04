@@ -3256,8 +3256,6 @@ Object.defineProperty(exports, "__esModule", {
 	value: true
 });
 
-var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
-
 var _util = __webpack_require__(/*! ../_util */ 0);
 
 var spawnUi = function spawnUi(spawn) {
@@ -3291,9 +3289,7 @@ exports.default = function (spawn) {
 		if (roleNumberNow - roleNumber >= 0) return 'continue';
 		if (roleData[i].cost > energy) {
 			_util.Console.note(i, 'Now:' + roleNumberNow, 'Need:' + roleNumber, 'Cost:' + roleData[i].cost, 'Availabl:' + energy);
-			return {
-				v: void 0
-			};
+			return 'break';
 		}
 		var spawnTime = Game.time,
 		    spawnName = i + '-' + spawnTime.toString().substr(spawnTime.toString().length - 3, 3);
@@ -3305,21 +3301,18 @@ exports.default = function (spawn) {
 			role: roleName,
 			name: spawnName,
 			target: {}
-		}) == OK) return {
-				v: void 0
-			};
+		}) == OK) return 'break';
 	};
 
-	for (var i in roleData) {
+	_loop2: for (var i in roleData) {
 		var _ret = _loop(i);
 
 		switch (_ret) {
 			case 'continue':
 				continue;
 
-			default:
-				if ((typeof _ret === 'undefined' ? 'undefined' : _typeof(_ret)) === "object") return _ret.v;
-		}
+			case 'break':
+				break _loop2;}
 	}
 };
 
