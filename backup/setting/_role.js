@@ -1,6 +1,7 @@
 export default  (roomArray = []) => {
 	const roleConfig = {
 		// [name , body , num[main,extra], time]
+		attacker : [{tough: 10, attack: 4}, [0, 0], 100],
 		filler   : [{carry: 6}, [2, 0], 10],
 		cleaner  : [{carry: 4}, [1, 0], 10],
 		miner    : [{work: 8, carry: 1, move: 4}, [1, 1], 10],
@@ -11,7 +12,7 @@ export default  (roomArray = []) => {
 		upgrader : [{work: 4, carry: 2}, [3, 0], 10],
 		claimer  : [{claim: 2}, [0, 1], 10],
 		traveller: [{move: 1}, [0, 0], 10],
-		attacker : [{tough: 10, attack: 4}, [0, 0], 100],
+		terminer:[{carry: 8}, [1, 1], 10]
 	}
 	return buildRole(roleConfig, roomArray)
 }

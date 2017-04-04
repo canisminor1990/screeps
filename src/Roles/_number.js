@@ -1,9 +1,13 @@
+import Config from '../config'
 export default (role = "", number = 0, roomName = "", roomType) => {
 	try {
 		const room = Memory.rooms[roomName],
 		      task = Memory.tasks[roomName];
 		if (roomType == "main") {
 			switch (role) {
+				case  'terminer':
+					number = (Game.rooms[roomName].storage.store.energy > Config.terminal.storage) ? number : 0;
+					break
 				case 'filler':
 					number = (room.structures.my.storage.length > 0)
 						? number

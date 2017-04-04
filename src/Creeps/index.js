@@ -6,6 +6,7 @@ import {default as builder} from './_builder';
 import {default as filler} from './_filler';
 import {default as claimer} from './_claimer';
 import {default as attacker} from './_attacker';
+import {default as terminer} from './_terminer';
 export default (roomGroup = []) => {
 	_.forEach(roomGroup, roomName => {
 		const creep = Memory.rooms[roomName].creeps.my;
@@ -21,5 +22,6 @@ export default (roomGroup = []) => {
 		_.forEach(creep.filler, c => filler(c));
 		_.forEach(creep.claimer, c => claimer(c));
 		_.forEach(creep.attacker, c => attacker(c));
+		_.forEach(creep.terminer, c => terminer(c));
 	})
 }

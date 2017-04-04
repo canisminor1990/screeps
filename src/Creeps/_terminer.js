@@ -1,8 +1,13 @@
-import Config from '../config';
-export default () => {
+import {transfer, withdraw} from '../Action'
+import Config from '../config'
+export default (creep) => {
 	"use strict";
-	let terminal = creep.room.memory.structures.my.terminal;
-	if (terminal.length > 0 && _.sum(terminal[0].store) < 10000) {
-		if (transfer(creep, terminal[0], false))return
+	let terminal  = Game.getObjectById('58dd5bacde932923491d37d8');
+	const storage = Game.rooms[creep.memory.bornRoom].storage
+	const isFull  = Is.full(creep);
+	if (!isFull) {
+		if (storage.store.energy > Config.terminal.storage && withdraw(creep, storage)) return
+	} else {
+		if (terminal.store.energy < terminal.storeCapacity && transfer(creep, terminal)) return
 	}
 }
