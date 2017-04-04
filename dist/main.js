@@ -2095,15 +2095,14 @@ exports.default = function (creep) {
 	// run
 	var storage = Game.rooms[creep.memory.bornRoom].storage;
 	if (isFull) {
-		if (creep.memory.roomType == 'extra' && creep.room.name == creep.memory.bornRoom) {
+		if (creep.memory.roomType == 'extra') {
 			var link = Memory.flags[creep.memory.bornRoom].translink;
 			if (link) {
 				link = Game.getObjectById(link.id);
 				if ((0, _Action.transfer)(creep, link)) return;
+			} else {
+				if ((0, _Action.moveTo)(creep, storage) && (0, _Action.transfer)(creep, storage)) return;
 			}
-		}
-		if (creep.memory.roomType == 'extra') {
-			if ((0, _Action.moveTo)(creep, storage) && (0, _Action.transfer)(creep, storage)) return;
 		}
 		if (!storage) {
 			if ((0, _Action.transfer)(creep, Memory.tasks[roonName].transfer)) return;
