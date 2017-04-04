@@ -3271,7 +3271,7 @@ Object.defineProperty(exports, "__esModule", {
 
 exports.default = function (terminal) {
 	if (terminal.store.energy < 10000) return;
-	if (Game.market.orders) {
+	if (_.isEmpty(Game.market.orders)) {
 		console.log(1);
 	}
 	console.log(2);
