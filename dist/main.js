@@ -2287,16 +2287,9 @@ exports.default = function () {
 		_.forEach(creep.builder, function (c) {
 			return (0, _builder2.default)(c);
 		});
-
-		if (Memory.tasks[roomName].pickup.length > 0 && Memory.rooms[roomName].creeps.my.filler.length > 0) {
-			_.forEach(creep.upfiller, function (c) {
-				return (0, _upfiller2.default)(c);
-			});
-		} else {
-			_.forEach(creep.upfiller, function (c) {
-				return (0, _filler2.default)(c);
-			});
-		}
+		_.forEach(creep.upfiller, function (c) {
+			return (0, _upfiller2.default)(c);
+		});
 		_.forEach(creep.filler, function (c) {
 			return (0, _filler2.default)(c);
 		});

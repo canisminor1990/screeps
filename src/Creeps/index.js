@@ -20,12 +20,7 @@ export default (roomGroup = []) => {
 		}
 		_.forEach(creep.upgrader, c => upgrader(c));
 		_.forEach(creep.builder, c => builder(c));
-
-		if (Memory.tasks[roomName].pickup.length > 0 && Memory.rooms[roomName].creeps.my.filler.length > 0) {
-			_.forEach(creep.upfiller, c => upfiller(c));
-		} else {
-			_.forEach(creep.upfiller, c => filler(c));
-		}
+		_.forEach(creep.upfiller, c => upfiller(c));
 		_.forEach(creep.filler, c => filler(c));
 		_.forEach(creep.claimer, c => claimer(c));
 		_.forEach(creep.attacker, c => attacker(c));
