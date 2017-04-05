@@ -1,9 +1,8 @@
 import {attack, findClosestByRange, moveTo, isNearTo} from  '../Action'
 export default (creep) => {
 	// target
-	let attackTarget;
+	let attackTarget = Memory.tasks[creep.memory.roomName].attack[0];
 	if (creep.room.name !== creep.memory.roomName) {
-		attackTarget = Memory.tasks[creep.memory.roomName].attack[0]
 		if (moveTo(creep, attackTarget))return;
 	} else {
 		attackTarget = findClosestByRange(creep, Memory.tasks[creep.memory.roomName].attack)

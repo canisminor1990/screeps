@@ -1764,9 +1764,8 @@ var _Action = __webpack_require__(/*! ../Action */ 1);
 
 exports.default = function (creep) {
 	// target
-	var attackTarget = void 0;
+	var attackTarget = Memory.tasks[creep.memory.roomName].attack[0];
 	if (creep.room.name !== creep.memory.roomName) {
-		attackTarget = Memory.tasks[creep.memory.roomName].attack[0];
 		if ((0, _Action.moveTo)(creep, attackTarget)) return;
 	} else {
 		attackTarget = (0, _Action.findClosestByRange)(creep, Memory.tasks[creep.memory.roomName].attack);
