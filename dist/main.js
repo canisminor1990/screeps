@@ -2147,12 +2147,10 @@ exports.default = function (creep) {
 	var storage = creep.room.storage;
 	// run
 	if (isFull) {
-		try {
-			var target = Game.getObjectById(Memory.flags[roonName].up.id);
-			if (target.store.energy < target.storeCapacity) {
-				if ((0, _Action.transfer)(creep, target)) return;
-			}
-		} catch (e) {}
+		var target = Game.getObjectById(Memory.flags[roonName].target.id);
+		if (target.store.energy < target.storeCapacity) {
+			if ((0, _Action.transfer)(creep, target)) return;
+		}
 	} else {
 		if ((0, _Action.withdraw)(creep, storage, false)) return;
 	}
