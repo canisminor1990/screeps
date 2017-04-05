@@ -20,7 +20,8 @@ export default (role = "", number = 0, roomName = "", roomType) => {
 					const miner = task.harvest.length,
 					      link  = room.structures.my.link.length;
 					if (link > 0) {
-						number = number * (miner - link + 1)
+						number = number * (miner - link + 1);
+						number=(number>0)?number:1
 					} else {
 						number = number * miner
 					}

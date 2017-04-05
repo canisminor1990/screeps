@@ -2432,6 +2432,7 @@ exports.default = function () {
 					    link = room.structures.my.link.length;
 					if (link > 0) {
 						number = number * (miner - link + 1);
+						number = number > 0 ? number : 1;
 					} else {
 						number = number * miner;
 					}
