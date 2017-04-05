@@ -13,8 +13,7 @@ export default (room) => {
 		[container],
 		structures.storage,
 	);
-	tasklist     = _.compact(tasklist)
-	tasklist     = _.filter(tasklist, s => s.energy < s.energyCapacity)
+	tasklist     = _.filter(_.compact(tasklist), s => s.energy < s.energyCapacity)
 	let fillers  = [].concat(room.creeps.my.filler);
 	fillers      = _.filter(fillers, c => c && c.memory && c.memory.full);
 	

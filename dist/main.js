@@ -3761,8 +3761,7 @@ exports.default = function (room) {
 		container = Game.getObjectById(Memory.flags[room.name].up.id);
 	} catch (e) {}
 	var tasklist = [].concat(structures.spawn, structures.extension, structures.tower, [container], structures.storage);
-	tasklist = _.compact(tasklist);
-	tasklist = _.filter(tasklist, function (s) {
+	tasklist = _.filter(_.compact(tasklist), function (s) {
 		return s.energy < s.energyCapacity;
 	});
 	var fillers = [].concat(room.creeps.my.filler);
