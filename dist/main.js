@@ -2187,15 +2187,15 @@ exports.default = function (creep) {
 		if ((0, _Action.upgradeController)(creep, Memory.tasks[roonName].upgrade)) return;
 	} else {
 		if ((0, _Action.pickup)(creep, (0, _Action.findInRange)(creep, Memory.tasks[roonName].pickup, 4))) return;
-		var withdrawTarget = _.filter([].concat(Memory.tasks[roonName].withdraw, [creep.room.storage]), function (t) {
-			return t.store.energy > 0;
-		});
 		try {
 			var up = Game.getObjectById(Memory.flags[roonName].up.id);
 			if (up.store.energy > 0) {
 				if ((0, _Action.withdraw)(creep, up)) return;
 			}
 		} catch (e) {}
+		var withdrawTarget = _.filter([].concat(Memory.tasks[roonName].withdraw, [creep.room.storage]), function (t) {
+			return t.store.energy > 0;
+		});
 		if ((0, _Action.withdraw)(creep, (0, _Action.findClosestByRange)(creep, withdrawTarget), false)) return;
 	}
 	if ((0, _Action.upgradeController)(creep, Memory.tasks[roonName].upgrade)) return;
