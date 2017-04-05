@@ -11,12 +11,7 @@ export default (roomGroup = []) => {
 	_.forEach(roomGroup, roomName => {
 		const creep = Memory.rooms[roomName].creeps.my;
 		_.forEach(creep.miner, c => miner(c));
-
-		if (Memory.rooms[roomName].creeps.my.filler > 0) {
-			_.forEach(creep.transer, c => transer(c));
-		} else {
-			_.forEach(creep.transer, c => filler(c));
-		}
+		_.forEach(creep.transer, c => transer(c));
 		if (Memory.tasks[roomName].pickup.length > 0 && Memory.rooms[roomName].creeps.my.filler > 0) {
 			_.forEach(creep.cleaner, c => cleaner(c));
 		} else {
