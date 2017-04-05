@@ -1948,6 +1948,10 @@ exports.default = function (creep) {
 	if (isFull) {
 		if (creep.carry.energy == 0) (0, _Action.transfer)(creep, storage);
 		if ((0, _Action.transfer)(creep, transferTarget, false)) return;
+		try {
+			var up = Game.getObjectById(Memory.flags[roonName].up.id);
+			if (up.store.energy < up.storeCapacity && (0, _Action.transfer)(creep, up)) return;
+		} catch (e) {}
 		if ((0, _Action.transfer)(creep, storage)) return;
 	} else {
 		try {

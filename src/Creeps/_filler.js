@@ -13,6 +13,11 @@ export default (creep) => {
 	if (isFull) {
 		if (creep.carry.energy == 0) transfer(creep, storage);
 		if (transfer(creep, transferTarget, false))return
+		try {
+			let up = Game.getObjectById(Memory.flags[roonName].up.id)
+			if (up.store.energy < up.storeCapacity && transfer(creep, up))return;
+		} catch (e) {
+		}
 		if (transfer(creep, storage))return
 	} else {
 		try {
