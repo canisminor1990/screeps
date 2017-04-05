@@ -15,13 +15,11 @@ export default (creep) => {
 		if (transfer(creep, transferTarget, false))return
 		try {
 			let up = Game.getObjectById(Memory.flags[roonName].up.id)
-			if (up.store.energy < up.storeCapacity){
+			if (up.store.energy < up.storeCapacity) {
 				if (transfer(creep, up))return
-			};
+			}
 		} catch (e) {
-			console.log(e)
 		}
-		
 	} else {
 		try {
 			const link = Game.getObjectById(Memory.flags[roonName].link.id);

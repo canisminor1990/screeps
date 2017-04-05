@@ -1952,10 +1952,8 @@ exports.default = function (creep) {
 			var up = Game.getObjectById(Memory.flags[roonName].up.id);
 			if (up.store.energy < up.storeCapacity) {
 				if ((0, _Action.transfer)(creep, up)) return;
-			};
-		} catch (e) {
-			console.log(e);
-		}
+			}
+		} catch (e) {}
 	} else {
 		try {
 			var link = Game.getObjectById(Memory.flags[roonName].link.id);
@@ -2157,6 +2155,12 @@ exports.default = function (creep) {
 		var withdrawTarget = _.filter([].concat(Memory.tasks[roonName].withdraw, [creep.room.storage]), function (t) {
 			return t.store.energy > 0;
 		});
+		try {
+			var up = Game.getObjectById(Memory.flags[roonName].up.id);
+			if (up.store.energy > 0) {
+				if ((0, _Action.withdraw)(creep, up)) return;
+			}
+		} catch (e) {}
 		if ((0, _Action.withdraw)(creep, (0, _Action.findClosestByRange)(creep, withdrawTarget), false)) return;
 	}
 	if ((0, _Action.upgradeController)(creep, Memory.tasks[roonName].upgrade)) return;
