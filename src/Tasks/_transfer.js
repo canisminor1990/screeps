@@ -1,7 +1,7 @@
 import {findClosestByRange}from "../Action"
 export default (room) => {
 	const structures = room.structures.my
-	let container    = ""
+	let container    = null
 	try {
 		container = Game.getObjectById(Memory.flags[room.name].up.id);
 	} catch (e) {
@@ -13,6 +13,7 @@ export default (room) => {
 		[container],
 		structures.storage,
 	);
+	tasklist     = _.compact(tasklist)
 	tasklist     = _.filter(tasklist, s => s.energy < s.energyCapacity)
 	let fillers  = [].concat(room.creeps.my.filler);
 	fillers      = _.filter(fillers, c => c && c.memory && c.memory.full);

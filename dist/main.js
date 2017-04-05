@@ -3756,11 +3756,12 @@ var _Action = __webpack_require__(/*! ../Action */ 1);
 
 exports.default = function (room) {
 	var structures = room.structures.my;
-	var container = "";
+	var container = null;
 	try {
 		container = Game.getObjectById(Memory.flags[room.name].up.id);
 	} catch (e) {}
 	var tasklist = [].concat(structures.spawn, structures.extension, structures.tower, [container], structures.storage);
+	tasklist = _.compact(tasklist);
 	tasklist = _.filter(tasklist, function (s) {
 		return s.energy < s.energyCapacity;
 	});
