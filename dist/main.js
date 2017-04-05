@@ -424,7 +424,7 @@ exports.default = {
 		builder: [{ work: 2, carry: 6 }, [1, 1], 10],
 		upfiller: [{ carry: 16 }, [1, 0], 20],
 		upgrader: [{ work: 12, carry: 2 }, [2, 0], 10],
-		claimer: [{ claim: 2 }, [0, 1], 50],
+		claimer: [{ claim: 2 }, [0, 1], 25],
 		traveller: [{ move: 1 }, [0, 0], 10],
 		terminer: [{ carry: 16 }, [2, 0], 10]
 	},
