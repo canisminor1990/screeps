@@ -21,7 +21,7 @@ export default (creep) => {
 		if (transfer(creep, storage))return
 	} else {
 		try {
-			const link = Game.getObjectById(Memory.flags[creep.room.name].link.id);
+			const link = Game.getObjectById(Memory.flags[roonName].link.id);
 			if (link.energy > 0 && withdraw(creep, link, false))return
 		} catch (e) {
 		}
