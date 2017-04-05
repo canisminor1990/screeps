@@ -13,13 +13,7 @@ export default (creep) => {
 	if (isFull) {
 		if (creep.carry.energy == 0) transfer(creep, storage);
 		if (transfer(creep, transferTarget, false))return
-		try {
-			let up = Game.getObjectById(Memory.flags[roonName].up.id)
-			if (up.store.energy < up.storeCapacity) {
-				if (transfer(creep, up))return
-			}
-		} catch (e) {
-		}
+		if (transfer(creep, storage, false))return
 	} else {
 		try {
 			const link = Game.getObjectById(Memory.flags[roonName].link.id);
@@ -27,7 +21,7 @@ export default (creep) => {
 		} catch (e) {
 		}
 		if (pickup(creep, findInRange(creep, Memory.tasks[roonName].pickup, 4))) return
-		if (storage && storage.store.energy > 0) {
+		if (transferTarget && storage && storage.store.energy > 0) {
 			if (withdraw(creep, storage, false))return
 		} else {
 			if (withdraw(creep, _.filter(Memory.tasks[roonName].withdraw), false))return

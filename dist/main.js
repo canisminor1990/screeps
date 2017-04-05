@@ -417,7 +417,8 @@ exports.default = {
 	role: {
 		// name: [body , num[main,extra], timeout]
 		attacker: [{ tough: 10, attack: 6 }, [0, 2], 100],
-		filler: [{ carry: 16 }, [2, 0], 20],
+		filler: [{ carry: 8 }, [2, 0], 20],
+		upfiller: [{ carry: 16 }, [1, 0], 20],
 		miner: [{ work: 8, carry: 1 }, [1, 1], 20],
 		transer: [{ carry: 16 }, [1, 2], 10],
 		cleaner: [{ carry: 6 }, [1, 0], 10],
@@ -427,7 +428,7 @@ exports.default = {
 		traveller: [{ move: 1 }, [0, 0], 10],
 		terminer: [{ carry: 16 }, [2, 0], 10]
 	},
-	friend: ["Ruo", "FanHua"],
+	friend: ['Ruo', 'FanHua'],
 	profiler: false,
 	repair: {
 		percent: 0.5,
@@ -1947,19 +1948,14 @@ exports.default = function (creep) {
 	if (isFull) {
 		if (creep.carry.energy == 0) (0, _Action.transfer)(creep, storage);
 		if ((0, _Action.transfer)(creep, transferTarget, false)) return;
-		try {
-			var up = Game.getObjectById(Memory.flags[roonName].up.id);
-			if (up.store.energy < up.storeCapacity) {
-				if ((0, _Action.transfer)(creep, up)) return;
-			}
-		} catch (e) {}
+		if ((0, _Action.transfer)(creep, storage, false)) return;
 	} else {
 		try {
 			var link = Game.getObjectById(Memory.flags[roonName].link.id);
 			if (link.energy > 0 && (0, _Action.withdraw)(creep, link, false)) return;
 		} catch (e) {}
 		if ((0, _Action.pickup)(creep, (0, _Action.findInRange)(creep, Memory.tasks[roonName].pickup, 4))) return;
-		if (storage && storage.store.energy > 0) {
+		if (transferTarget && storage && storage.store.energy > 0) {
 			if ((0, _Action.withdraw)(creep, storage, false)) return;
 		} else {
 			if ((0, _Action.withdraw)(creep, _.filter(Memory.tasks[roonName].withdraw), false)) return;
@@ -2418,20 +2414,23 @@ var _config2 = _interopRequireDefault(_config);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 exports.default = function () {
-	var role = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : "";
+	var role = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : '';
 	var number = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 0;
-	var roomName = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "";
+	var roomName = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : '';
 	var roomType = arguments[3];
 
 	try {
 		var room = Memory.rooms[roomName],
 		    task = Memory.tasks[roomName];
-		if (roomType == "main") {
+		if (roomType == 'main') {
 			switch (role) {
 				case 'terminer':
 					number = Game.rooms[roomName].storage.store.energy > _config2.default.terminal.storage * 1.2 ? number : 0;
 					break;
 				case 'filler':
+					number = task.up ? number : 0;
+					break;
+				case 'upfiller':
 					number = room.structures.my.storage.length > 0 ? number : 0;
 					break;
 				case 'cleaner':
@@ -2484,7 +2483,7 @@ exports.default = function () {
 	return number > 0 ? number : 0;
 };
 
-module.exports = exports["default"];
+module.exports = exports['default'];
 
 /***/ }),
 /* 41 */
@@ -3787,11 +3786,16 @@ var _Action = __webpack_require__(/*! ../Action */ 1);
 exports.default = function (room) {
 	var structures = room.structures.my;
 	var tasklist = structures.container;
+	try {
+		container = Memory.flags[room.name].up.id;
+	} catch (e) {}
 	tasklist = _.filter(tasklist, function (s) {
-		return _.sum(s.store) > 300;
+		return _.sum(s.store) > 300 && s.id != container;
 	});
 
 	var transers = [].concat(room.creeps.my.transer);
+	var container = "";
+
 	transers = _.filter(transers, function (c) {
 		return !c.memory.full && c.memory.roomName == room.name;
 	});
