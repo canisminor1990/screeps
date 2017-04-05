@@ -2231,10 +2231,17 @@ exports.default = function () {
 		_.forEach(creep.miner, function (c) {
 			return (0, _miner2.default)(c);
 		});
-		_.forEach(creep.transer, function (c) {
-			return (0, _transer2.default)(c);
-		});
-		if (Memory.tasks[roomName].pickup.length > 0) {
+
+		if (Memory.rooms[roomName].creeps.my.filler > 0) {
+			_.forEach(creep.transer, function (c) {
+				return (0, _transer2.default)(c);
+			});
+		} else {
+			_.forEach(creep.transer, function (c) {
+				return (0, _filler2.default)(c);
+			});
+		}
+		if (Memory.tasks[roomName].pickup.length > 0 && Memory.rooms[roomName].creeps.my.filler > 0) {
 			_.forEach(creep.cleaner, function (c) {
 				return (0, _cleaner2.default)(c);
 			});

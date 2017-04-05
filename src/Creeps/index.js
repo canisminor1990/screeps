@@ -1,18 +1,23 @@
-import {default as miner} from './_miner';
-import {default as transer} from './_transer';
-import {default as upgrader} from './_upgrader';
-import {default as cleaner} from './_cleaner';
-import {default as builder} from './_builder';
-import {default as filler} from './_filler';
-import {default as claimer} from './_claimer';
-import {default as attacker} from './_attacker';
-import {default as terminer} from './_terminer';
+import { default as miner } from './_miner';
+import { default as transer } from './_transer';
+import { default as upgrader } from './_upgrader';
+import { default as cleaner } from './_cleaner';
+import { default as builder } from './_builder';
+import { default as filler } from './_filler';
+import { default as claimer } from './_claimer';
+import { default as attacker } from './_attacker';
+import { default as terminer } from './_terminer';
 export default (roomGroup = []) => {
 	_.forEach(roomGroup, roomName => {
 		const creep = Memory.rooms[roomName].creeps.my;
 		_.forEach(creep.miner, c => miner(c));
-		_.forEach(creep.transer, c => transer(c));
-		if (Memory.tasks[roomName].pickup.length > 0) {
+
+		if (Memory.rooms[roomName].creeps.my.filler > 0) {
+			_.forEach(creep.transer, c => transer(c));
+		} else {
+			_.forEach(creep.transer, c => filler(c));
+		}
+		if (Memory.tasks[roomName].pickup.length > 0 && Memory.rooms[roomName].creeps.my.filler > 0) {
 			_.forEach(creep.cleaner, c => cleaner(c));
 		} else {
 			_.forEach(creep.cleaner, c => filler(c));
@@ -23,5 +28,5 @@ export default (roomGroup = []) => {
 		_.forEach(creep.claimer, c => claimer(c));
 		_.forEach(creep.attacker, c => attacker(c));
 		_.forEach(creep.terminer, c => terminer(c));
-	})
-}
+	});
+};
