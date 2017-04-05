@@ -2112,10 +2112,12 @@ exports.default = function (creep) {
 		if ((0, _Action.transfer)(creep, storage)) return;
 		if ((0, _Action.transfer)(creep, Memory.tasks[roonName].transfer)) return;
 	} else {
-		if (creep.room.name !== roonName) {
-			withdrawTarget = Memory.tasks[roonName].withdraw[0];
-			if ((0, _Action.moveTo)(creep, Game.rooms[roonName].controller)) return;
-		}
+		try {
+			if (creep.room.name !== roonName) {
+				withdrawTarget = Memory.tasks[roonName].withdraw[0];
+				if ((0, _Action.moveTo)(creep, Game.rooms[roonName].controller)) return;
+			}
+		} catch (e) {}
 		if ((0, _Action.pickup)(creep, (0, _Action.findInRange)(creep, Memory.tasks[roonName].pickup, 4))) return;
 		if ((0, _Action.withdraw)(creep, withdrawTarget)) return;
 	}
