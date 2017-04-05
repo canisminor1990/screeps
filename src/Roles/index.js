@@ -27,7 +27,7 @@ export default (roomGroup = []) => {
 				cost     : body.cost,
 				number   : number,
 				timeout  : (i > 0) ? array[2] + 100 : array[2],
-				prioprity: (key.match('attacker')) ? 0 : prioprity
+				prioprity: prioprity
 			};
 			prioprity++;
 		});
