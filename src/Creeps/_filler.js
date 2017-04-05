@@ -26,7 +26,7 @@ export default (creep) => {
 		} catch (e) {
 		}
 		if (pickup(creep, findInRange(creep, Memory.tasks[roonName].pickup, 4))) return
-		if (transferTarget && storage && storage.store.energy > 0) {
+		if (storage && storage.store.energy > 0) {
 			if (withdraw(creep, storage, false))return
 		} else {
 			if (withdraw(creep, _.filter(Memory.tasks[roonName].withdraw), false))return
