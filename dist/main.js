@@ -2414,24 +2414,24 @@ var _config2 = _interopRequireDefault(_config);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 exports.default = function () {
-	var role = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : '';
+	var role = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : "";
 	var number = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 0;
-	var roomName = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : '';
+	var roomName = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "";
 	var roomType = arguments[3];
 
 	try {
 		var room = Memory.rooms[roomName],
 		    task = Memory.tasks[roomName];
-		if (roomType == 'main') {
+		if (roomType == "main") {
 			switch (role) {
 				case 'terminer':
 					number = Game.rooms[roomName].storage.store.energy > _config2.default.terminal.storage * 1.2 ? number : 0;
 					break;
 				case 'filler':
-					number = task.up ? number : 0;
+					number = room.structures.my.storage.length > 0 ? number : 0;
 					break;
 				case 'upfiller':
-					number = room.structures.my.storage.length > 0 ? number : 0;
+					number = Memory.flags[roomName].up ? number : 0;
 					break;
 				case 'cleaner':
 					number = task.pickup.length > 0 ? number : 0;
@@ -2483,7 +2483,7 @@ exports.default = function () {
 	return number > 0 ? number : 0;
 };
 
-module.exports = exports['default'];
+module.exports = exports["default"];
 
 /***/ }),
 /* 41 */
