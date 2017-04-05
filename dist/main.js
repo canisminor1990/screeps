@@ -2516,26 +2516,19 @@ exports.default = function () {
 	var partData = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
 
 	var move = void 0,
-	    tough = [],
 	    bodyArray = [];
 	var moveRaw = partData.move;
 	delete partData.move;
 	move = Math.floor(_.sum(partData) / 2);
 	move = move > moveRaw ? moveRaw : move;
 	move = move > 0 ? move : 1;
-	if (partData.tough) {
-		tough = _.fill(Array(partData.tough), 'tough');
-		delete partData.tough;
-	}
 	_.forEach(partData, function (n, key) {
 		return bodyArray.push(_.fill(Array(n), key));
 	});
 	bodyArray = _.sortBy(bodyArray, function (n) {
 		return partProprity[n[0]];
 	});
-	if (tough.length > 0) bodyArray.unshift(tough);
 	bodyArray = _.compact(_.flattenDeep(bodyArray));
-	bodyArray = [].concat(tough, bodyArray);
 	bodyArray = _.chunk(bodyArray, 2);
 	for (var i = move - 1; i >= 0; i--) {
 		bodyArray[i] = _.flatten([bodyArray[i], 'move']);
