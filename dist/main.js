@@ -2581,7 +2581,9 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 exports.default = function () {
 	var roomGroup = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : [];
 
-	if (!Memory.roles) Memory.roles = {};
+	if (!Memory.roles) {
+		Memory.roles = {};
+	}
 
 	var energy = Game.rooms[roomGroup[0]].energyCapacityAvailable;
 	var i = 0,
@@ -2589,9 +2591,11 @@ exports.default = function () {
 	    roomRoles = {};
 	_.forEach(roomGroup, function (roomName) {
 		_.forEach(_config2.default.role, function (array, key) {
-			var roomType = i == 0 ? "main" : "extra";
+			var roomType = i == 0 ? 'main' : 'extra';
 			var number = (0, _number2.default)(key, i > 0 ? array[1][1] : array[1][0], roomName, roomType);
-			if (number == 0) return;
+			if (number == 0) {
+				return;
+			}
 			var body = (0, _body2.default)(array[0], energy),
 			    name = i > 0 ? key + '-' + roomName : key;
 			roomRoles[name] = {
@@ -2602,13 +2606,13 @@ exports.default = function () {
 				cost: body.cost,
 				number: number,
 				timeout: i > 0 ? array[2] + 100 : array[2],
-				prioprity: prioprity
+				prioprity: key.match('attacker') ? 0 : prioprity
 			};
 			prioprity++;
 		});
 		i++;
 	});
-	Memory.roles[roomGroup[0]] = roomRoles;
+	Memory.roles[roomGroup[0]] = _.sortBy(roomRoles, 'prioprity');
 };
 
 module.exports = exports['default'];
