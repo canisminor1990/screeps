@@ -418,11 +418,11 @@ exports.default = {
 		// name: [body , num[main,extra], timeout]
 		attacker: [{ tough: 10, attack: 6 }, [0, 2], 100],
 		filler: [{ carry: 8 }, [2, 0], 20],
-		upfiller: [{ carry: 16 }, [1, 0], 20],
 		miner: [{ work: 8, carry: 1 }, [1, 1], 20],
 		transer: [{ carry: 16 }, [1, 2], 10],
 		cleaner: [{ carry: 6 }, [1, 0], 10],
 		builder: [{ work: 2, carry: 6 }, [1, 1], 10],
+		upfiller: [{ carry: 16 }, [1, 0], 20],
 		upgrader: [{ work: 12, carry: 2 }, [2, 0], 10],
 		claimer: [{ claim: 2 }, [0, 1], 50],
 		traveller: [{ move: 1 }, [0, 0], 10],
