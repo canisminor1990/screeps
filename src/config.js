@@ -21,7 +21,7 @@ export default {
 		upgrader : [{work: 13, carry: 1}, [2, 0], 10],
 		claimer  : [{claim: 2}, [0, 1], 25],
 		traveller: [{move: 1}, [0, 0], 10],
-		terminer : [{carry: 16}, [2, 0], 10]
+		terminer : [{carry: 16}, [1, 0], 10]
 	},
 	friend  : [
 		'Ruo',
