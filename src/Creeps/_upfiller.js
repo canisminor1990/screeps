@@ -7,7 +7,7 @@ export default (creep) => {
 	const storage  = creep.room.storage;
 	// run
 	if (isFull) {
-		let target = Game.getObjectById(Memory.flags[roonName].target.id)
+		let target = Game.getObjectById(Memory.flags[roonName].up.id)
 		if (target.store.energy < target.storeCapacity) {
 			if (transfer(creep, target))return
 		}

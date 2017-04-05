@@ -2147,7 +2147,7 @@ exports.default = function (creep) {
 	var storage = creep.room.storage;
 	// run
 	if (isFull) {
-		var target = Game.getObjectById(Memory.flags[roonName].target.id);
+		var target = Game.getObjectById(Memory.flags[roonName].up.id);
 		if (target.store.energy < target.storeCapacity) {
 			if ((0, _Action.transfer)(creep, target)) return;
 		}
