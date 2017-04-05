@@ -2612,7 +2612,7 @@ exports.default = function () {
 		});
 		i++;
 	});
-	Memory.roles[roomGroup[0]] = _.sortBy(roomRoles, 'prioprity');
+	Memory.roles[roomGroup[0]] = roomRoles;
 };
 
 module.exports = exports['default'];

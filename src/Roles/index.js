@@ -33,5 +33,5 @@ export default (roomGroup = []) => {
 		});
 		i++;
 	});
-	Memory.roles[roomGroup[0]] = _.sortBy(roomRoles, 'prioprity');
+	Memory.roles[roomGroup[0]] = roomRoles;
 };
