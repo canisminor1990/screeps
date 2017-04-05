@@ -21,7 +21,7 @@ export default (creep) => {
 		} catch (e) {
 			console.log(e)
 		}
-		if (transfer(creep, storage))return
+		
 	} else {
 		try {
 			const link = Game.getObjectById(Memory.flags[roonName].link.id);

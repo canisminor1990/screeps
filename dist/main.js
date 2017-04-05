@@ -1956,7 +1956,6 @@ exports.default = function (creep) {
 		} catch (e) {
 			console.log(e);
 		}
-		if ((0, _Action.transfer)(creep, storage)) return;
 	} else {
 		try {
 			var link = Game.getObjectById(Memory.flags[roonName].link.id);
