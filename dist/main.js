@@ -2198,7 +2198,6 @@ exports.default = function (creep) {
 			if ((0, _Action.withdraw)(creep, (0, _Action.findClosestByRange)(creep, withdrawTarget), false)) return;
 		}
 	}
-	if ((0, _Action.upgradeController)(creep, Memory.tasks[roonName].upgrade)) return;
 };
 
 module.exports = exports['default'];

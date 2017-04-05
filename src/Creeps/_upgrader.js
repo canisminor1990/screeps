@@ -18,5 +18,4 @@ export default (creep) => {
 			if (withdraw(creep, findClosestByRange(creep, withdrawTarget), false))return
 		}
 	}
-	if (upgradeController(creep, Memory.tasks[roonName].upgrade))return
 }
