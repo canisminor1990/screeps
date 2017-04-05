@@ -3756,7 +3756,11 @@ var _Action = __webpack_require__(/*! ../Action */ 1);
 
 exports.default = function (room) {
 	var structures = room.structures.my;
-	var tasklist = [].concat(structures.spawn, structures.extension, structures.tower, structures.storage);
+	var container = "";
+	try {
+		container = Game.getObjectById(Memory.flags[room.name].up.id);
+	} catch (e) {}
+	var tasklist = [].concat(structures.spawn, structures.extension, structures.tower, [container], structures.storage);
 	tasklist = _.filter(tasklist, function (s) {
 		return s.energy < s.energyCapacity;
 	});
@@ -3831,6 +3835,7 @@ var _Action = __webpack_require__(/*! ../Action */ 1);
 exports.default = function (room) {
 	var structures = room.structures.my;
 	var tasklist = structures.container;
+	var container = "";
 	try {
 		container = Memory.flags[room.name].up.id;
 	} catch (e) {}
@@ -3839,7 +3844,6 @@ exports.default = function (room) {
 	});
 
 	var transers = [].concat(room.creeps.my.transer);
-	var container = "";
 
 	transers = _.filter(transers, function (c) {
 		return !c.memory.full && c.memory.roomName == room.name;

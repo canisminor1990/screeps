@@ -2,13 +2,13 @@ import {findClosestByRange}from "../Action"
 export default (room) => {
 	const structures = room.structures.my;
 	let tasklist     = structures.container
+	let container = ""
 	try{
 		container = Memory.flags[room.name].up.id
 	} catch (e){}
 	tasklist         = _.filter(tasklist, s => _.sum(s.store) > 300 && s.id != container)
 
 	let transers = [].concat(room.creeps.my.transer);
-	let container = ""
 
 	transers     = _.filter(transers, c => !c.memory.full && c.memory.roomName == room.name);
 	for (let t in tasklist) {

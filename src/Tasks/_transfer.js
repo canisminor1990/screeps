@@ -1,15 +1,21 @@
 import {findClosestByRange}from "../Action"
 export default (room) => {
 	const structures = room.structures.my
-	let tasklist     = [].concat(
+	let container    = ""
+	try {
+		container = Game.getObjectById(Memory.flags[room.name].up.id);
+	} catch (e) {
+	}
+	let tasklist = [].concat(
 		structures.spawn,
 		structures.extension,
 		structures.tower,
+		[container],
 		structures.storage,
 	);
-	tasklist         = _.filter(tasklist, s => s.energy < s.energyCapacity)
-	let fillers     = [].concat(room.creeps.my.filler);
-	fillers         = _.filter(fillers, c => c && c.memory && c.memory.full);
+	tasklist     = _.filter(tasklist, s => s.energy < s.energyCapacity)
+	let fillers  = [].concat(room.creeps.my.filler);
+	fillers      = _.filter(fillers, c => c && c.memory && c.memory.full);
 	
 	for (let t in tasklist) {
 		if (tasklist.length < 1 || fillers.length < 1) break;
