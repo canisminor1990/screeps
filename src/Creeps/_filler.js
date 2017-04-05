@@ -29,7 +29,7 @@ export default (creep) => {
 		if (transferTarget && storage && storage.store.energy > 0) {
 			if (withdraw(creep, storage, false))return
 		} else {
-			if (withdraw(creep, _.filter(Memory.tasks[roonName].withdraw, t => t.id !== '58e269c771190d4029847ab7'), false))return
+			if (withdraw(creep, _.filter(Memory.tasks[roonName].withdraw), false))return
 		}
 	}
 }
