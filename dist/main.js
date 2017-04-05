@@ -417,8 +417,8 @@ exports.default = {
 	role: {
 		// name: [body , num[main,extra], timeout]
 		attacker: [{ tough: 10, attack: 6 }, [0, 2], 100],
-		filler: [{ carry: 16 }, [2, 0], 10],
-		miner: [{ work: 8, carry: 1 }, [1, 1], 10],
+		filler: [{ carry: 16 }, [2, 0], 20],
+		miner: [{ work: 8, carry: 1 }, [1, 1], 20],
 		transer: [{ carry: 16 }, [1, 2], 10],
 		cleaner: [{ carry: 6 }, [1, 0], 10],
 		builder: [{ work: 2, carry: 6 }, [1, 1], 10],
