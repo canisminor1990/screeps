@@ -30,6 +30,6 @@ export default {
 	profiler: false,
 	repair  : {
 		percent: 0.5,
-		maxHits: 100000
+		maxHits: 80000
 	}
 };
