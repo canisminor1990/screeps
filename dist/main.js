@@ -4442,10 +4442,24 @@ module.exports = exports['default'];
 "use strict";
 
 
-module.exports = function () {
-	if (Memory.stats == undefined) {
-		Memory.stats = {};
-	}
+Object.defineProperty(exports, "__esModule", {
+	value: true
+});
+
+exports.default = function () {
+	var stats = {};
+	// time
+	stats['time'] = Game.time;
+	// gcl
+	stats['gcl.progress'] = Game.gcl.progress;
+	stats['gcl.progressTotal'] = Game.gcl.progressTotal;
+	stats['gcl.level'] = Game.gcl.level;
+	// cpu
+	stats['cpu.bucket'] = Game.cpu.bucket;
+	stats['cpu.limit'] = Game.cpu.limit;
+	stats['cpu.getUsed'] = Game.cpu.getUsed();
+	// market
+	stats['market.credits'] = Game.market.credits;
 
 	var rooms = Game.rooms;
 	var spawns = Game.spawns;
@@ -4453,11 +4467,11 @@ module.exports = function () {
 		var room = Game.rooms[roomKey];
 		var isMyRoom = room.controller ? room.controller.my : 0;
 		if (isMyRoom) {
-			Memory.stats['room.' + room.name + '.myRoom'] = 1;
-			Memory.stats['room.' + room.name + '.energyAvailable'] = room.energyAvailable;
-			Memory.stats['room.' + room.name + '.energyCapacityAvailable'] = room.energyCapacityAvailable;
-			Memory.stats['room.' + room.name + '.controllerProgress'] = room.controller.progress;
-			Memory.stats['room.' + room.name + '.controllerProgressTotal'] = room.controller.progressTotal;
+			stats['room.' + room.name + '.myRoom'] = 1;
+			stats['room.' + room.name + '.energyAvailable'] = room.energyAvailable;
+			stats['room.' + room.name + '.energyCapacityAvailable'] = room.energyCapacityAvailable;
+			stats['room.' + room.name + '.controllerProgress'] = room.controller.progress;
+			stats['room.' + room.name + '.controllerProgressTotal'] = room.controller.progressTotal;
 			var stored = 0;
 			var storedTotal = 0;
 
@@ -4466,19 +4480,16 @@ module.exports = function () {
 				storedTotal = room.storage.storeCapacity[RESOURCE_ENERGY];
 			}
 
-			Memory.stats['room.' + room.name + '.storedEnergy'] = stored;
+			stats['room.' + room.name + '.storedEnergy'] = stored;
 		} else {
-			Memory.stats['room.' + room.name + '.myRoom'] = undefined;
+			stats['room.' + room.name + '.myRoom'] = undefined;
 		}
 	}
-	Memory.stats['gcl.progress'] = Game.gcl.progress;
-	Memory.stats['gcl.progressTotal'] = Game.gcl.progressTotal;
-	Memory.stats['gcl.level'] = Game.gcl.level;
 
-	Memory.stats['cpu.bucket'] = Game.cpu.bucket;
-	Memory.stats['cpu.limit'] = Game.cpu.limit;
-	Memory.stats['cpu.getUsed'] = Game.cpu.getUsed();
+	Memory.stats = stats;
 };
+
+module.exports = exports['default'];
 
 /***/ }),
 /* 87 */
