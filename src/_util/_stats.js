@@ -13,7 +13,7 @@ export default (room) => {
 		// market
 		'market.credits'   : Game.market.credits,
 		// creeps
-		'creeps'           : _.size(Memory.creeps)
+		'creeps'           : _.size(Game.creeps)
 	}
 	// rooms
 	_.forEach(room, roomGroup => {
