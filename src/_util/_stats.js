@@ -12,6 +12,8 @@ export default (room) => {
 		'cpu.getUsed'      : Game.cpu.getUsed(),
 		// market
 		'market.credits'   : Game.market.credits,
+		// creeps
+		'creeps'           : _.size(Memory.creeps)
 	}
 	// rooms
 	_.forEach(room, roomGroup => {

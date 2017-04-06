@@ -4459,7 +4459,9 @@ exports.default = function (room) {
 		'cpu.limit': Game.cpu.limit,
 		'cpu.getUsed': Game.cpu.getUsed(),
 		// market
-		'market.credits': Game.market.credits
+		'market.credits': Game.market.credits,
+		// creeps
+		'creeps': _.size(Memory.creeps)
 	};
 	// rooms
 	_.forEach(room, function (roomGroup) {
