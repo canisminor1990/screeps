@@ -4442,11 +4442,7 @@ module.exports = exports['default'];
 "use strict";
 
 
-Object.defineProperty(exports, "__esModule", {
-	value: true
-});
-
-exports.default = function () {
+module.exports = function () {
 	if (Memory.stats == undefined) {
 		Memory.stats = {};
 	}
@@ -4468,9 +4464,6 @@ exports.default = function () {
 			if (room.storage) {
 				stored = room.storage.store[RESOURCE_ENERGY];
 				storedTotal = room.storage.storeCapacity[RESOURCE_ENERGY];
-			} else {
-				stored = 0;
-				storedTotal = 0;
 			}
 
 			Memory.stats['room.' + room.name + '.storedEnergy'] = stored;
@@ -4481,13 +4474,11 @@ exports.default = function () {
 	Memory.stats['gcl.progress'] = Game.gcl.progress;
 	Memory.stats['gcl.progressTotal'] = Game.gcl.progressTotal;
 	Memory.stats['gcl.level'] = Game.gcl.level;
-	for (var spawnKey in spawns) {
-		var spawn = Game.spawns[spawnKey];
-		Memory.stats['spawn.' + spawn.name + '.defenderIndex'] = spawn.memory['defenderIndex'];
-	}
-};
 
-module.exports = exports['default'];
+	Memory.stats['cpu.bucket'] = Game.cpu.bucket;
+	Memory.stats['cpu.limit'] = Game.cpu.limit;
+	Memory.stats['cpu.getUsed'] = Game.cpu.getUsed();
+};
 
 /***/ }),
 /* 87 */
