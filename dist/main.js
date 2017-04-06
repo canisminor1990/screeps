@@ -427,7 +427,7 @@ exports.default = {
 		builder: [{ work: 2, carry: 6 }, [1, 1], 10],
 		terminer: [{ carry: 16 }, [1, 0], 10]
 	},
-	friend: ['Ruo', 'FanHua'],
+	friend: ['Ruo', 'FanHua', 'kikooo'],
 	profiler: false,
 	repair: {
 		percent: 0.5,

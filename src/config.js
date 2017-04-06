@@ -24,7 +24,8 @@ export default {
 	},
 	friend  : [
 		'Ruo',
-		'FanHua'
+		'FanHua',
+	  'kikooo'
 	],
 	profiler: false,
 	repair  : {
