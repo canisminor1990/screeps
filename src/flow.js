@@ -6,22 +6,24 @@ import  Tasks from './Tasks';
 import  Roles from './Roles';
 import  Creeps from './Creeps';
 import  Structures from './Structures';
-import Config from './config'
+import Config from './config';
+import Stats from './_util/_stats';
 const init = () => {
-	Setup()
-}
+	Setup();
+};
 const body = () => {
-	Root()
-	const room = Root.room(Config.room)
+	Root();
+	const room = Root.room(Config.room);
 	_.forEach(room, roomGroup => {
-		Rooms(roomGroup)
-		Flags(roomGroup)
-		Tasks(roomGroup)
-		Roles(roomGroup)
-		Creeps(roomGroup)
-		Structures(roomGroup)
-	})
-}
+		Rooms(roomGroup);
+		Flags(roomGroup);
+		Tasks(roomGroup);
+		Roles(roomGroup);
+		Creeps(roomGroup);
+		Structures(roomGroup);
+	});
+	Stats();
+};
 
-export {init as init}
-export {body as body}
+export { init as init };
+export { body as body };

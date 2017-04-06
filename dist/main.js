@@ -64,7 +64,7 @@ module.exports =
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 86);
+/******/ 	return __webpack_require__(__webpack_require__.s = 87);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -786,6 +786,10 @@ var _config = __webpack_require__(/*! ./config */ 3);
 
 var _config2 = _interopRequireDefault(_config);
 
+var _stats = __webpack_require__(/*! ./_util/_stats */ 86);
+
+var _stats2 = _interopRequireDefault(_stats);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var init = function init() {
@@ -802,6 +806,7 @@ var body = function body() {
 		(0, _Creeps2.default)(roomGroup);
 		(0, _Structures2.default)(roomGroup);
 	});
+	(0, _stats2.default)();
 };
 
 exports.init = init;
@@ -4427,6 +4432,77 @@ module.exports = exports['default'];
 
 /***/ }),
 /* 86 */
+/* unknown exports provided */
+/* all exports used */
+/*!*****************************!*\
+  !*** ./src/_util/_stats.js ***!
+  \*****************************/
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+	value: true
+});
+
+exports.default = function () {
+	if (Memory.stats == undefined) {
+		Memory.stats = {};
+	}
+
+	var rooms = Game.rooms;
+	var spawns = Game.spawns;
+	for (var roomKey in rooms) {
+		var room = Game.rooms[roomKey];
+		var isMyRoom = room.controller ? room.controller.my : 0;
+		if (isMyRoom) {
+			Memory.stats['room.' + room.name + '.myRoom'] = 1;
+			Memory.stats['room.' + room.name + '.energyAvailable'] = room.energyAvailable;
+			Memory.stats['room.' + room.name + '.energyCapacityAvailable'] = room.energyCapacityAvailable;
+			Memory.stats['room.' + room.name + '.controllerProgress'] = room.controller.progress;
+			Memory.stats['room.' + room.name + '.controllerProgressTotal'] = room.controller.progressTotal;
+			var stored = 0;
+			var storedTotal = 0;
+
+			if (room.storage) {
+				stored = room.storage.store[RESOURCE_ENERGY];
+				storedTotal = room.storage.storeCapacity[RESOURCE_ENERGY];
+			} else {
+				stored = 0;
+				storedTotal = 0;
+			}
+
+			Memory.stats['room.' + room.name + '.storedEnergy'] = stored;
+		} else {
+			Memory.stats['room.' + room.name + '.myRoom'] = undefined;
+		}
+	}
+	Memory.stats['gcl.progress'] = Game.gcl.progress;
+	Memory.stats['gcl.progressTotal'] = Game.gcl.progressTotal;
+	Memory.stats['gcl.level'] = Game.gcl.level;
+	for (var spawnKey in spawns) {
+		var spawn = Game.spawns[spawnKey];
+		Memory.stats['spawn.' + spawn.name + '.defenderIndex'] = spawn.memory['defenderIndex'];
+	}
+
+	Memory.stats['cpu.CreepManagers'] = creepManagement;
+	Memory.stats['cpu.Towers'] = towersRunning;
+	Memory.stats['cpu.Links'] = linksRunning;
+	Memory.stats['cpu.SetupRoles'] = roleSetup;
+	Memory.stats['cpu.Creeps'] = functionsExecutedFromCreeps;
+	Memory.stats['cpu.SumProfiling'] = sumOfProfiller;
+	Memory.stats['cpu.Start'] = startOfMain;
+	Memory.stats['cpu.bucket'] = Game.cpu.bucket;
+	Memory.stats['cpu.limit'] = Game.cpu.limit;
+	Memory.stats['cpu.stats'] = Game.cpu.getUsed() - lastTick;
+	Memory.stats['cpu.getUsed'] = Game.cpu.getUsed();
+};
+
+module.exports = exports['default'];
+
+/***/ }),
+/* 87 */
 /* unknown exports provided */
 /* all exports used */
 /*!*********************!*\
