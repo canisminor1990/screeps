@@ -1,42 +1,29 @@
-export default () => {
-	let stats                  = {}
-	// time
-	stats['time']              = Game.time;
-	// gcl
-	stats['gcl.progress']      = Game.gcl.progress;
-	stats['gcl.progressTotal'] = Game.gcl.progressTotal;
-	stats['gcl.level']         = Game.gcl.level;
-	// cpu
-	stats['cpu.bucket']        = Game.cpu.bucket;
-	stats['cpu.limit']         = Game.cpu.limit;
-	stats['cpu.getUsed']       = Game.cpu.getUsed();
-	// market
-	stats['market.credits']       = Game.market.credits;
-	
-	var rooms  = Game.rooms;
-	var spawns = Game.spawns;
-	for (let roomKey in rooms) {
-		let room     = Game.rooms[roomKey];
-		var isMyRoom = (room.controller ? room.controller.my : 0);
-		if (isMyRoom) {
-			stats['room.' + room.name + '.myRoom']                  = 1;
-			stats['room.' + room.name + '.energyAvailable']         = room.energyAvailable;
-			stats['room.' + room.name + '.energyCapacityAvailable'] = room.energyCapacityAvailable;
-			stats['room.' + room.name + '.controllerProgress']      = room.controller.progress;
-			stats['room.' + room.name + '.controllerProgressTotal'] = room.controller.progressTotal;
-			var stored                                              = 0;
-			var storedTotal                                         = 0;
-			
-			if (room.storage) {
-				stored      = room.storage.store[RESOURCE_ENERGY];
-				storedTotal = room.storage.storeCapacity[RESOURCE_ENERGY]
-			}
-			
-			stats['room.' + room.name + '.storedEnergy'] = stored
-		} else {
-			stats['room.' + room.name + '.myRoom'] = undefined
-		}
+export default (room) => {
+	let stats = {
+		// time
+		'time'             : Game.time,
+		// gcl
+		'gcl.progress'     : Game.gcl.progress,
+		'gcl.progressTotal': Game.gcl.progressTotal,
+		'gcl.level'        : Game.gcl.level,
+		// cpu
+		'cpu.bucket'       : Game.cpu.bucket,
+		'cpu.limit'        : Game.cpu.limit,
+		'cpu.getUsed'      : Game.cpu.getUsed(),
+		// market
+		'market.credits'   : Game.market.credits,
 	}
+	// rooms
+	_.forEach(room, roomGroup => {
+		const roomName                                    = roomGroup[0],
+		      roomMain                                    = Game.rooms[roomName];
+		stats[`room.${roomName}.myRoom`]                  = 1;
+		stats[`room.${roomName}.energyAvailable`]         = roomMain.energyAvailable;
+		stats[`room.${roomName}.energyCapacityAvailable`] = roomMain.energyCapacityAvailable;
+		stats[`room.${roomName}.controllerProgress`]      = roomMain.controller.progress;
+		stats[`room.${roomName}.controllerProgressTotal`] = roomMain.controller.progressTotal;
+		stats[`room.${roomName}.storedEnergy`]            = roomMain.storage.store[RESOURCE_ENERGY]
+	})
 	
 	Memory.stats = stats
 };

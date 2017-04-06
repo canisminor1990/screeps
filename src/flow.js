@@ -22,7 +22,7 @@ const body = () => {
 		Creeps(roomGroup);
 		Structures(roomGroup);
 	});
-	Stats();
+	Stats(room);
 };
 
 export { init as init };
