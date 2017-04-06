@@ -4468,6 +4468,7 @@ exports.default = function (room) {
 		stats['room.' + roomName + '.myRoom'] = 1;
 		stats['room.' + roomName + '.energyAvailable'] = roomMain.energyAvailable;
 		stats['room.' + roomName + '.energyCapacityAvailable'] = roomMain.energyCapacityAvailable;
+		stats['room.' + roomName + '.rcl'] = roomMain.controller.level;
 		stats['room.' + roomName + '.controllerProgress'] = roomMain.controller.progress;
 		stats['room.' + roomName + '.controllerProgressTotal'] = roomMain.controller.progressTotal;
 		stats['room.' + roomName + '.storedEnergy'] = roomMain.storage.store[RESOURCE_ENERGY];
