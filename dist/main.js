@@ -4443,10 +4443,14 @@ module.exports = exports['default'];
 
 
 Object.defineProperty(exports, "__esModule", {
-  value: true
+	value: true
 });
 
-exports.default = function () {};
+exports.default = function () {
+	Memory.stats["room." + room.name + ".energyAvailable"] = room.energyAvailable;
+	Memory.stats["room." + room.name + ".energyCapacityAvailable"] = room.energyCapacityAvailable;
+	Memory.stats["room." + room.name + ".controllerProgress"] = room.controller.progress;
+};
 
 module.exports = exports["default"];
 
