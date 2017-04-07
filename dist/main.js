@@ -424,7 +424,7 @@ exports.default = {
 		upfiller: [{ carry: 16 }, [1, 0], 80],
 		upgrader: [{ work: 10, carry: 1 }, [2, 0], 10],
 		claimer: [{ claim: 2 }, [0, 1], 10],
-		builder: [{ work: 2, carry: 6 }, [1, 1], 10],
+		builder: [{ work: 1, carry: 6 }, [1, 1], 10],
 		terminer: [{ carry: 16 }, [1, 0], 10]
 	},
 	friend: ['Ruo', 'FanHua', 'kikooo'],
