@@ -2511,7 +2511,7 @@ exports.default = function () {
 					number = task.attack.length * number;
 					break;
 				case 'miner':
-					number = claimer > 0 ? room.resources.all.length * number : 0;
+					number = claimer > 0 ? room.resources.source.length * number : 0;
 					break;
 				case 'transer':
 					if (task.withdraw.length > 0) {
