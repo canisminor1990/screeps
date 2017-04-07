@@ -3608,9 +3608,7 @@ exports.default = function (room) {
 	}
 
 	var miners = [].concat(room.creeps.my.miner);
-	miners = _.filter(miners, function (c) {
-		return !c.memory.target.harvest;
-	});
+	//miners     = _.filter(miners, c => !c.memory.target.harvest);
 
 	var _loop = function _loop(t) {
 		if (tasklist.length < 1 || miners.length < 1) return "break";

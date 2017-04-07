@@ -9,7 +9,7 @@ export default (room) => {
 
 	
 	let miners = [].concat(room.creeps.my.miner)
-	 miners     = _.filter(miners, c => !c.memory.target.harvest);
+	 //miners     = _.filter(miners, c => !c.memory.target.harvest);
 	
 	for (let t in tasklist) {
 		if (tasklist.length < 1 || miners.length < 1) break;
