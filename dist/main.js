@@ -3624,7 +3624,7 @@ exports.default = function (room) {
 	//miners = _.filter(miners, c => !c.pos.isNearTo(c.memory.target.harvest.pos.x, c.memory.target.harvest.pos.y));
 
 	var _loop = function _loop(t) {
-		if (tasklist.length < 1 || miners.length < 1) return 'continue';
+		if (tasklist.length < 1 || miners.length < 1 || !tasklist[t] || !tasklist[t].pos) return 'continue';
 		var miner = (0, _Action.findClosestByRange)(tasklist[t], miners);
 		if (!miner) return 'continue';
 		_.remove(miners, function (c) {
