@@ -1,4 +1,4 @@
-import { findClosestByRange }from '../Action';
+import { findClosestByRange, findInRange }from '../Action';
 export default (room) => {
 	let tasklist = [];
 	if (room.structures.my.extractor.length > 0) {
@@ -9,7 +9,17 @@ export default (room) => {
 
 	let miners = [].concat(room.creeps.my.miner);
 
-	miners = _.filter(miners, c => !c.pos.isNearTo(c.memory.target.harvest.pos.x, c.memory.target.harvest.pos.y));
+	_.forEach(tasklist, t => {
+		let miner = findInRange(t, miners, 1)[0];
+		if (miner) {
+			_.remove(miners, c => c.id == miner.id);
+			_.remove(tasklist, c => c.id == t.id);
+		}
+	});
+
+
+
+	//miners = _.filter(miners, c => !c.pos.isNearTo(c.memory.target.harvest.pos.x, c.memory.target.harvest.pos.y));
 
 	for (let t in tasklist) {
 		if (tasklist.length < 1 || miners.length < 1) {
