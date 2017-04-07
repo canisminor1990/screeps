@@ -20,10 +20,10 @@ export default (creep) => {
 		if (moveTo(creep, harvestTarget))return
 	}
 	if (isFull) {
-		let link = findInRange(creep, Memory.rooms[roonName].structures.my.link, 3)
-		if (link.length > 0) {
-			if (transfer(creep, link))return
-		}
+		//let link = findInRange(creep, Memory.rooms[roonName].structures.my.link, 3)
+		//if (link.length > 0) {
+		//	if (transfer(creep, link))return
+		//}
 		let buildContainer = findInRange(creep, Memory.tasks[roonName].build, 0)[0]
 		if (buildContainer && build(creep, buildContainer) && creep.carry.energy > 0)return;
 		let container = findInRange(creep, Memory.rooms[roonName].structures.my.container, 2)[0]

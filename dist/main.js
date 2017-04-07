@@ -1999,10 +1999,10 @@ exports.default = function (creep) {
 		if ((0, _Action.moveTo)(creep, harvestTarget)) return;
 	}
 	if (isFull) {
-		var link = (0, _Action.findInRange)(creep, Memory.rooms[roonName].structures.my.link, 3);
-		if (link.length > 0) {
-			if ((0, _Action.transfer)(creep, link)) return;
-		}
+		//let link = findInRange(creep, Memory.rooms[roonName].structures.my.link, 3)
+		//if (link.length > 0) {
+		//	if (transfer(creep, link))return
+		//}
 		var buildContainer = (0, _Action.findInRange)(creep, Memory.tasks[roonName].build, 0)[0];
 		if (buildContainer && (0, _Action.build)(creep, buildContainer) && creep.carry.energy > 0) return;
 		var container = (0, _Action.findInRange)(creep, Memory.rooms[roonName].structures.my.container, 2)[0];
