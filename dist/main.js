@@ -3609,17 +3609,14 @@ exports.default = function (room) {
 
 	var miners = [].concat(room.creeps.my.miner);
 
-	_.forEach(tasklist, function (t) {
-		var miner = (0, _Action.findInRange)(t, miners, 1)[0];
-		if (miner) {
-			_.remove(miners, function (c) {
-				return c.id == miner.id;
-			});
-			_.remove(tasklist, function (c) {
-				return c.id == t.id;
-			});
-		}
-	});
+	// _.forEach(tasklist, t => {
+	// 	let miner = findInRange(t, miners, 1)[0];
+	// 	if (miner) {
+	// 		_.remove(miners, c => c.id == miner.id);
+	// 		_.remove(tasklist, c => c.id == t.id);
+	// 	}
+	// });
+
 
 	//miners = _.filter(miners, c => !c.pos.isNearTo(c.memory.target.harvest.pos.x, c.memory.target.harvest.pos.y));
 

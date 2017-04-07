@@ -9,13 +9,13 @@ export default (room) => {
 
 	let miners = [].concat(room.creeps.my.miner);
 
-	_.forEach(tasklist, t => {
-		let miner = findInRange(t, miners, 1)[0];
-		if (miner) {
-			_.remove(miners, c => c.id == miner.id);
-			_.remove(tasklist, c => c.id == t.id);
-		}
-	});
+	// _.forEach(tasklist, t => {
+	// 	let miner = findInRange(t, miners, 1)[0];
+	// 	if (miner) {
+	// 		_.remove(miners, c => c.id == miner.id);
+	// 		_.remove(tasklist, c => c.id == t.id);
+	// 	}
+	// });
 
 
 
