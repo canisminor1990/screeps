@@ -2,9 +2,9 @@ import { findClosestByRange, findInRange }from '../Action';
 export default (room) => {
 	let tasklist = [];
 	if (room.structures.my.extractor.length > 0) {
-		tasklist = room.resources.all;
+		tasklist = [].concat(room.resources.all);
 	} else {
-		tasklist = room.resources.source;
+		tasklist = [].concat(room.resources.source);
 	}
 
 	let miners = [].concat(room.creeps.my.miner);

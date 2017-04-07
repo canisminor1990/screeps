@@ -2496,7 +2496,7 @@ exports.default = function () {
 					}
 					break;
 				case 'miner':
-					number = task.harvest.length * number + 1;
+					number = task.harvest.length * number;
 					break;
 				case 'builder':
 					number = Math.ceil(task.build.length / 4);
@@ -2511,11 +2511,11 @@ exports.default = function () {
 					number = task.attack.length * number;
 					break;
 				case 'miner':
-					number = claimer > 0 ? task.harvest.length * number + 1 : 0;
+					number = claimer > 0 ? task.harvest.length * number : 0;
 					break;
 				case 'transer':
 					if (task.withdraw.length > 0) {
-						var _miner = task.harvest.length + 1;
+						var _miner = task.harvest.length;
 						number = claimer > 0 ? number * _miner : 0;
 					} else {
 						number = 0;
@@ -3602,9 +3602,9 @@ var _Action = __webpack_require__(/*! ../Action */ 1);
 exports.default = function (room) {
 	var tasklist = [];
 	if (room.structures.my.extractor.length > 0) {
-		tasklist = room.resources.all;
+		tasklist = [].concat(room.resources.all);
 	} else {
-		tasklist = room.resources.source;
+		tasklist = [].concat(room.resources.source);
 	}
 
 	var miners = [].concat(room.creeps.my.miner);
