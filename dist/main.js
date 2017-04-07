@@ -2515,7 +2515,7 @@ exports.default = function () {
 					break;
 				case 'transer':
 					if (task.withdraw.length > 0) {
-						var _miner = room.resources.all.length;
+						var _miner = room.resources.source.length;
 						number = claimer > 0 ? number * _miner : 0;
 					} else {
 						number = 0;
