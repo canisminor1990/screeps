@@ -1994,27 +1994,27 @@ exports.default = function (creep) {
 	var isFull = _util.Is.full(creep);
 	var harvestTarget = creep.memory.target.harvest;
 	// run
-	//if (creep.room.name !== creep.memory.roomName) {
-	//	harvestTarget = Memory.tasks[creep.memory.roomName].harvest[0];
-	//	if (moveTo(creep, harvestTarget))return
-	//}
-	//if (isFull) {
-	//	let link = findInRange(creep, Memory.rooms[roonName].structures.my.link, 3)
-	//	if (link.length > 0) {
-	//		if (transfer(creep, link))return
-	//	}
-	//	let buildContainer = findInRange(creep, Memory.tasks[roonName].build, 0)[0]
-	//	if (buildContainer && build(creep, buildContainer) && creep.carry.energy > 0)return;
-	//	let container = findInRange(creep, Memory.rooms[roonName].structures.my.container, 2)[0]
-	//	if (!isNearTo(creep, harvestTarget)) {
-	//		moveTo(creep, harvestTarget)
-	//	} else {
-	//		if (container && !isEqualTo(creep, container) && moveTo(creep, container)) return;
-	//		if (container && container.hits < container.hitsMax && creep.carry.energy > 0) {
-	//			repair(creep, container)
-	//		}
-	//	}
-	//}
+	if (creep.room.name !== creep.memory.roomName) {
+		harvestTarget = Memory.tasks[creep.memory.roomName].harvest[0];
+		if ((0, _Action.moveTo)(creep, harvestTarget)) return;
+	}
+	if (isFull) {
+		var link = (0, _Action.findInRange)(creep, Memory.rooms[roonName].structures.my.link, 3);
+		if (link.length > 0) {
+			if ((0, _Action.transfer)(creep, link)) return;
+		}
+		var buildContainer = (0, _Action.findInRange)(creep, Memory.tasks[roonName].build, 0)[0];
+		if (buildContainer && (0, _Action.build)(creep, buildContainer) && creep.carry.energy > 0) return;
+		var container = (0, _Action.findInRange)(creep, Memory.rooms[roonName].structures.my.container, 2)[0];
+		if (!(0, _Action.isNearTo)(creep, harvestTarget)) {
+			(0, _Action.moveTo)(creep, harvestTarget);
+		} else {
+			if (container && !(0, _Action.isEqualTo)(creep, container) && (0, _Action.moveTo)(creep, container)) return;
+			if (container && container.hits < container.hitsMax && creep.carry.energy > 0) {
+				(0, _Action.repair)(creep, container);
+			}
+		}
+	}
 	if ((0, _Action.harvest)(creep, harvestTarget)) return;
 };
 
@@ -3608,7 +3608,9 @@ exports.default = function (room) {
 	}
 
 	var miners = [].concat(room.creeps.my.miner);
-	// miners     = _.filter(miners, c => !c.memory.target.harvest);
+	miners = _.filter(miners, function (c) {
+		return !c.memory.target.harvest || c.memory.bornRoom != c.memory.roomName;
+	});
 
 	var _loop = function _loop(t) {
 		if (tasklist.length < 1 || miners.length < 1) return "break";

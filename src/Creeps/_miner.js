@@ -15,26 +15,26 @@ export default (creep) => {
 	const isFull      = Is.full(creep);
 	let harvestTarget = creep.memory.target.harvest
 	// run
-	//if (creep.room.name !== creep.memory.roomName) {
-	//	harvestTarget = Memory.tasks[creep.memory.roomName].harvest[0];
-	//	if (moveTo(creep, harvestTarget))return
-	//}
-	//if (isFull) {
-	//	let link = findInRange(creep, Memory.rooms[roonName].structures.my.link, 3)
-	//	if (link.length > 0) {
-	//		if (transfer(creep, link))return
-	//	}
-	//	let buildContainer = findInRange(creep, Memory.tasks[roonName].build, 0)[0]
-	//	if (buildContainer && build(creep, buildContainer) && creep.carry.energy > 0)return;
-	//	let container = findInRange(creep, Memory.rooms[roonName].structures.my.container, 2)[0]
-	//	if (!isNearTo(creep, harvestTarget)) {
-	//		moveTo(creep, harvestTarget)
-	//	} else {
-	//		if (container && !isEqualTo(creep, container) && moveTo(creep, container)) return;
-	//		if (container && container.hits < container.hitsMax && creep.carry.energy > 0) {
-	//			repair(creep, container)
-	//		}
-	//	}
-	//}
+	if (creep.room.name !== creep.memory.roomName) {
+		harvestTarget = Memory.tasks[creep.memory.roomName].harvest[0];
+		if (moveTo(creep, harvestTarget))return
+	}
+	if (isFull) {
+		let link = findInRange(creep, Memory.rooms[roonName].structures.my.link, 3)
+		if (link.length > 0) {
+			if (transfer(creep, link))return
+		}
+		let buildContainer = findInRange(creep, Memory.tasks[roonName].build, 0)[0]
+		if (buildContainer && build(creep, buildContainer) && creep.carry.energy > 0)return;
+		let container = findInRange(creep, Memory.rooms[roonName].structures.my.container, 2)[0]
+		if (!isNearTo(creep, harvestTarget)) {
+			moveTo(creep, harvestTarget)
+		} else {
+			if (container && !isEqualTo(creep, container) && moveTo(creep, container)) return;
+			if (container && container.hits < container.hitsMax && creep.carry.energy > 0) {
+				repair(creep, container)
+			}
+		}
+	}
 	if (harvest(creep, harvestTarget))return
 }
