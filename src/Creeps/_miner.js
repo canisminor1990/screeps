@@ -15,10 +15,10 @@ export default (creep) => {
 	const isFull      = Is.full(creep);
 	let harvestTarget = creep.memory.target.harvest
 	// run
-	if (creep.room.name !== creep.memory.roomName) {
-		harvestTarget = Memory.tasks[creep.memory.roomName].harvest[0];
-		if (moveTo(creep, harvestTarget))return
-	}
+	//if (creep.room.name !== creep.memory.roomName) {
+	//	harvestTarget = Memory.tasks[creep.memory.roomName].harvest[0];
+	//	if (moveTo(creep, harvestTarget))return
+	//}
 	if (isFull) {
 		//let link = findInRange(creep, Memory.rooms[roonName].structures.my.link, 3)
 		//if (link.length > 0) {
