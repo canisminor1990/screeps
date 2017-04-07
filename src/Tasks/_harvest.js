@@ -1,24 +1,28 @@
-import {findClosestByRange}from "../Action"
+import { findClosestByRange }from '../Action';
 export default (room) => {
 	let tasklist = [];
 	if (room.structures.my.extractor.length > 0) {
-		tasklist = room.resources.all
+		tasklist = room.resources.all;
 	} else {
-		tasklist = room.resources.source
+		tasklist = room.resources.source;
 	}
 
-	
-	let miners = [].concat(room.creeps.my.miner)
-	 //miners     = _.filter(miners, c => !c.memory.target.harvest);
-	
+	let miners = [].concat(room.creeps.my.miner);
+
+	miners = _.filter(miners, c => !c.pos.isNearTo(c.memory.target.harvest.pos.x, c.memory.target.harvest.pos.y));
+
 	for (let t in tasklist) {
-		if (tasklist.length < 1 || miners.length < 1) break;
-		let miner = findClosestByRange(tasklist[t], miners)
-		if (!miner)  break
-		_.remove(miners, c => c.id == miner.id)
-		miner.memory.target.harvest = tasklist[t]
-		tasklist[t].target          = miner
+		if (tasklist.length < 1 || miners.length < 1) {
+			break;
+		}
+		let miner = findClosestByRange(tasklist[t], miners);
+		if (!miner) {
+			break;
+		}
+		_.remove(miners, c => c.id == miner.id);
+		miner.memory.target.harvest = tasklist[t];
+		tasklist[t].target          = miner;
 	}
-	
-	return tasklist
-}
+
+	return tasklist;
+};

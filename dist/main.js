@@ -3608,12 +3608,19 @@ exports.default = function (room) {
 	}
 
 	var miners = [].concat(room.creeps.my.miner);
-	//miners     = _.filter(miners, c => !c.memory.target.harvest);
+
+	miners = _.filter(miners, function (c) {
+		return !c.pos.isNearTo(c.memory.target.harvest.pos.x, c.memory.target.harvest.pos.y);
+	});
 
 	var _loop = function _loop(t) {
-		if (tasklist.length < 1 || miners.length < 1) return "break";
+		if (tasklist.length < 1 || miners.length < 1) {
+			return 'break';
+		}
 		var miner = (0, _Action.findClosestByRange)(tasklist[t], miners);
-		if (!miner) return "break";
+		if (!miner) {
+			return 'break';
+		}
 		_.remove(miners, function (c) {
 			return c.id == miner.id;
 		});
@@ -3624,13 +3631,13 @@ exports.default = function (room) {
 	for (var t in tasklist) {
 		var _ret = _loop(t);
 
-		if (_ret === "break") break;
+		if (_ret === 'break') break;
 	}
 
 	return tasklist;
 };
 
-module.exports = exports["default"];
+module.exports = exports['default'];
 
 /***/ }),
 /* 66 */
