@@ -423,7 +423,7 @@ exports.default = {
 		cleaner: [{ carry: 6 }, [1, 0], 10],
 		upfiller: [{ carry: 20 }, [1, 0], 80],
 		upgrader: [{ work: 13, carry: 1 }, [2, 0], 10],
-		claimer: [{ claim: 2 }, [0, 1], 25],
+		claimer: [{ claim: 2 }, [0, 1], 10],
 		builder: [{ work: 2, carry: 6 }, [1, 1], 10],
 		terminer: [{ carry: 16 }, [1, 0], 10]
 	},
