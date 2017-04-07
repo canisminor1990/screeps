@@ -3610,6 +3610,7 @@ exports.default = function (room) {
 	var miners = [].concat(room.creeps.my.miner);
 
 	_.forEach(tasklist, function (t) {
+		if (!t || !t.pos) return;
 		var miner = (0, _Action.findInRange)(t, miners, 1)[0];
 		if (miner) {
 			_.remove(miners, function (c) {
@@ -3624,7 +3625,7 @@ exports.default = function (room) {
 	//miners = _.filter(miners, c => !c.pos.isNearTo(c.memory.target.harvest.pos.x, c.memory.target.harvest.pos.y));
 
 	var _loop = function _loop(t) {
-		if (tasklist.length < 1 || miners.length < 1 || !tasklist[t] || !tasklist[t].pos) return 'continue';
+		if (tasklist.length < 1 || miners.length < 1) return 'continue';
 		var miner = (0, _Action.findClosestByRange)(tasklist[t], miners);
 		if (!miner) return 'continue';
 		_.remove(miners, function (c) {
