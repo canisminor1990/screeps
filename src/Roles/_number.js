@@ -51,7 +51,7 @@ export default (role = '', number = 0, roomName = '', roomType) => {
 					break;
 				case 'transer':
 					if (task.withdraw.length > 0) {
-						const miner = task.harvest.length;
+						const miner = task.harvest.length + 1;
 						number      = (claimer > 0) ? number * miner : 0;
 					} else {
 						number = 0;
