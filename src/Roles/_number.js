@@ -32,7 +32,7 @@ export default (role = '', number = 0, roomName = '', roomType) => {
 					}
 					break;
 				case 'miner':
-					number = task.harvest.length * number;
+					number = task.harvest.length * number + 1;
 					break;
 				case 'builder':
 					number = Math.ceil(task.build.length / 4);
@@ -47,7 +47,7 @@ export default (role = '', number = 0, roomName = '', roomType) => {
 					number = task.attack.length * number;
 					break;
 				case 'miner':
-					number = (claimer > 0) ? task.harvest.length * number : 0;
+					number = (claimer > 0) ? task.harvest.length * number + 1: 0;
 					break;
 				case 'transer':
 					if (task.withdraw.length > 0) {
