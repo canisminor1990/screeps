@@ -3609,7 +3609,7 @@ exports.default = function (room) {
 
 	var miners = [].concat(room.creeps.my.miner);
 	miners = _.filter(miners, function (c) {
-		return !c.memory.target.harvest || c.memory.bornRoom != c.memory.roomName;
+		return !c.memory.target.harvest;
 	});
 
 	var _loop = function _loop(t) {
