@@ -26,7 +26,7 @@ export default (roomGroup = []) => {
 				body     : body.body,
 				cost     : body.cost,
 				number   : number,
-				timeout  : (i > 0) ? array[2] + 100 : array[2],
+				timeout  : (i > 0) ? array[2] + 80 : array[2],
 				prioprity: prioprity
 			};
 			prioprity++;

@@ -418,7 +418,7 @@ exports.default = {
 		// name: [body , num[main,extra], timeout]
 		attacker: [{ tough: 10, attack: 6 }, [0, 2], 100],
 		filler: [{ carry: 8 }, [2, 0], 20],
-		miner: [{ work: 7, carry: 1 }, [1, 1], 20],
+		miner: [{ work: 7, carry: 1 }, [1, 1], 30],
 		transer: [{ carry: 16 }, [1, 2], 10],
 		cleaner: [{ carry: 6 }, [1, 0], 10],
 		upfiller: [{ carry: 16 }, [1, 0], 80],
@@ -2646,7 +2646,7 @@ exports.default = function () {
 				body: body.body,
 				cost: body.cost,
 				number: number,
-				timeout: i > 0 ? array[2] + 100 : array[2],
+				timeout: i > 0 ? array[2] + 80 : array[2],
 				prioprity: prioprity
 			};
 			prioprity++;
