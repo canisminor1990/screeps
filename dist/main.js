@@ -3624,13 +3624,9 @@ exports.default = function (room) {
 	//miners = _.filter(miners, c => !c.pos.isNearTo(c.memory.target.harvest.pos.x, c.memory.target.harvest.pos.y));
 
 	var _loop = function _loop(t) {
-		if (tasklist.length < 1 || miners.length < 1) {
-			return 'break';
-		}
+		if (tasklist.length < 1 || miners.length < 1) return 'continue';
 		var miner = (0, _Action.findClosestByRange)(tasklist[t], miners);
-		if (!miner) {
-			return 'break';
-		}
+		if (!miner) return 'continue';
 		_.remove(miners, function (c) {
 			return c.id == miner.id;
 		});
@@ -3641,7 +3637,7 @@ exports.default = function (room) {
 	for (var t in tasklist) {
 		var _ret = _loop(t);
 
-		if (_ret === 'break') break;
+		if (_ret === 'continue') continue;
 	}
 
 	return tasklist;

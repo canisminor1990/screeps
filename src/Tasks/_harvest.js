@@ -22,13 +22,9 @@ export default (room) => {
 	//miners = _.filter(miners, c => !c.pos.isNearTo(c.memory.target.harvest.pos.x, c.memory.target.harvest.pos.y));
 
 	for (let t in tasklist) {
-		if (tasklist.length < 1 || miners.length < 1) {
-			break;
-		}
+		if (tasklist.length < 1 || miners.length < 1) continue
 		let miner = findClosestByRange(tasklist[t], miners);
-		if (!miner) {
-			break;
-		}
+		if (!miner) continue
 		_.remove(miners, c => c.id == miner.id);
 		miner.memory.target.harvest = tasklist[t];
 		tasklist[t].target          = miner;
