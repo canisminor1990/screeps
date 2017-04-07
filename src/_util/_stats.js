@@ -14,7 +14,7 @@ export default (room) => {
 		'market.credits'   : Game.market.credits,
 		// creeps
 		'creeps'           : _.size(Game.creeps)
-	}
+	};
 	// rooms
 	_.forEach(room, roomGroup => {
 		const roomName                                    = roomGroup[0],
@@ -25,8 +25,9 @@ export default (room) => {
 		stats[`room.${roomName}.rcl`]                     = roomMain.controller.level;
 		stats[`room.${roomName}.controllerProgress`]      = roomMain.controller.progress;
 		stats[`room.${roomName}.controllerProgressTotal`] = roomMain.controller.progressTotal;
-		stats[`room.${roomName}.storedEnergy`]            = roomMain.storage.store[RESOURCE_ENERGY]
-	})
-	
-	Memory.stats = stats
+		stats[`room.${roomName}.storedEnergy`]            = roomMain.storage.store[RESOURCE_ENERGY];
+		stats[`room.${roomName}.storedMineral`]           = _.sum(roomMain.storage.store) - roomMain.storage.store[RESOURCE_ENERGY];
+	});
+
+	Memory.stats = stats;
 };
