@@ -2496,7 +2496,7 @@ exports.default = function () {
 					}
 					break;
 				case 'miner':
-					number = task.harvest.length * number;
+					number = task.harvest.length * number + 1;
 					break;
 				case 'builder':
 					number = Math.ceil(task.build.length / 4);
@@ -2511,11 +2511,11 @@ exports.default = function () {
 					number = task.attack.length * number;
 					break;
 				case 'miner':
-					number = claimer > 0 ? task.harvest.length * number : 0;
+					number = claimer > 0 ? task.harvest.length * number + 1 : 0;
 					break;
 				case 'transer':
 					if (task.withdraw.length > 0) {
-						var _miner = task.harvest.length;
+						var _miner = task.harvest.length + 1;
 						number = claimer > 0 ? number * _miner : 0;
 					} else {
 						number = 0;
