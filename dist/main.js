@@ -2496,7 +2496,7 @@ exports.default = function () {
 					}
 					break;
 				case 'miner':
-					number = room.resources.all.length * number + 1;
+					number = room.resources.all.length * number;
 					break;
 				case 'builder':
 					number = Math.ceil(task.build.length / 4);
@@ -2511,7 +2511,7 @@ exports.default = function () {
 					number = task.attack.length * number;
 					break;
 				case 'miner':
-					number = claimer > 0 ? room.resources.all.length * number + 1 : 0;
+					number = claimer > 0 ? room.resources.all.length * number : 0;
 					break;
 				case 'transer':
 					if (task.withdraw.length > 0) {
