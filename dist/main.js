@@ -4476,7 +4476,7 @@ exports.default = function (room) {
 		stats['room.' + roomName + '.controllerProgressTotal'] = roomMain.controller.progressTotal;
 		stats['room.' + roomName + '.storedEnergy'] = roomMain.storage.store[RESOURCE_ENERGY];
 		stats['room.' + roomName + '.storedMineral'] = _.sum(roomMain.storage.store) - roomMain.storage.store[RESOURCE_ENERGY];
-		_.forEach(Memory.rooms(roomName).creeps.my, function () {
+		_.forEach(Memory.rooms[roomName].creeps.my, function () {
 			var c = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : [];
 			var role = arguments[1];
 

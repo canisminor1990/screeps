@@ -27,7 +27,7 @@ export default (room) => {
 		stats[`room.${roomName}.controllerProgressTotal`] = roomMain.controller.progressTotal;
 		stats[`room.${roomName}.storedEnergy`]            = roomMain.storage.store[RESOURCE_ENERGY];
 		stats[`room.${roomName}.storedMineral`]           = _.sum(roomMain.storage.store) - roomMain.storage.store[RESOURCE_ENERGY];
-		_.forEach(Memory.rooms(roomName).creeps.my, (c = [], role) => {
+		_.forEach(Memory.rooms[roomName].creeps.my, (c = [], role) => {
 			stats[`room.${roomName}.roles.${role}`] = c.length;
 		});
 	});
