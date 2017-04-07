@@ -22,7 +22,7 @@ export default (role = '', number = 0, roomName = '', roomType) => {
 					number = (task.pickup.length > 0) ? number : 0;
 					break;
 				case 'transer':
-					const miner = task.harvest.length,
+					const miner = room.resources.all.length,
 					      link  = room.structures.my.link.length;
 					if (link > 0) {
 						number = number * (miner - link + 1);
@@ -32,7 +32,7 @@ export default (role = '', number = 0, roomName = '', roomType) => {
 					}
 					break;
 				case 'miner':
-					number = task.harvest.length * number + 1;
+					number = room.resources.all.length * number + 1;
 					break;
 				case 'builder':
 					number = Math.ceil(task.build.length / 4);
@@ -47,11 +47,11 @@ export default (role = '', number = 0, roomName = '', roomType) => {
 					number = task.attack.length * number;
 					break;
 				case 'miner':
-					number = (claimer > 0) ? task.harvest.length * number + 1: 0;
+					number = (claimer > 0) ? room.resources.all.length * number + 1: 0;
 					break;
 				case 'transer':
 					if (task.withdraw.length > 0) {
-						const miner = task.harvest.length + 1;
+						const miner = room.resources.all.length ;
 						number      = (claimer > 0) ? number * miner : 0;
 					} else {
 						number = 0;
