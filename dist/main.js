@@ -426,7 +426,7 @@ exports.default = {
 		claimer: [{ claim: 2 }, [0, 1], 10],
 		builder: [{ work: 1, carry: 6 }, [1, 1], 10],
 		terminer: [{ carry: 16 }, [1, 0], 10],
-		team: [{ attack: 2 }, [0, 0], 10]
+		team: [{ attack: 1 }, [0, 0], 10]
 	},
 	friend: ['Ruo', 'FanHua', 'kikooo', 'canisminor1990'],
 	profiler: false,
