@@ -2048,6 +2048,7 @@ exports.default = function (creep) {
 	} else {
 		var attackTarget = Game.getObjectById('58d17513bc53f3be7a81e407');
 		if ((0, _Action.attack)(creep, attackTarget)) return;
+		if (creep.moveTo(new RoomPosition(25, 48, roomName)) == OK) return;
 	}
 };
 
