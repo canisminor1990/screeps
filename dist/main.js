@@ -2044,10 +2044,10 @@ exports.default = function (creep) {
 	var roomName = 'W81S65';
 
 	try {
-		var attackTarget = Game.getObjectById('58d17513bc53f3be7a81e407');
+		var attackTarget = Game.getObjectById('58d175038851a6135b3c2751');
 		if ((0, _Action.attack)(creep, attackTarget)) return;
 	} catch (e) {
-		if (creep.moveTo(new RoomPosition(30, 48, roomName)) == OK) return;
+		if (creep.moveTo(new RoomPosition(25, 48, roomName)) == OK) return;
 	}
 };
 
