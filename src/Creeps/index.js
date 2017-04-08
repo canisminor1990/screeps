@@ -8,7 +8,7 @@ import {default as upfiller} from './_upfiller';
 import {default as claimer} from './_claimer';
 import {default as attacker} from './_attacker';
 import {default as terminer} from './_terminer';
-import {default as team} from './_team';
+// import {default as team} from './_team';
 export default (roomGroup = []) => {
 	
 	// _.forEach(_.filter(Game.creeps, (creep => creep.role == 'team')), c => team(c));
@@ -28,6 +28,6 @@ export default (roomGroup = []) => {
 		_.forEach(creep.claimer, c => claimer(c));
 		_.forEach(creep.attacker, c => attacker(c));
 		_.forEach(creep.terminer, c => terminer(c));
-		_.forEach(creep.team, c => team(c));
+		// _.forEach(creep.team, c => team(c));
 	});
 };
