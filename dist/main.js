@@ -2043,12 +2043,12 @@ exports.default = function (creep) {
 	// target
 	var roomName = 'W81S65';
 	creep.move(TOP);
-	// try {
-	// 	const attackTarget = Game.getObjectById('58d175038851a6135b3c2751')
-	// 	if (attack(creep, attackTarget))return;
-	// } catch (e) {
-	// 	if (creep.move(TOP) == OK)return;
-	// }
+	try {
+		var attackTarget = Game.getObjectById('58d175038851a6135b3c2751');
+		if ((0, _Action.attack)(creep, attackTarget)) return;
+	} catch (e) {
+		if (creep.move(TOP) == OK) return;
+	}
 };
 
 module.exports = exports['default'];
@@ -2305,6 +2305,12 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 exports.default = function () {
 	var roomGroup = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : [];
 
+
+	_.forEach(Game.creeps.filter(function (creep) {
+		return creep.role = 'team';
+	}), function (c) {
+		return (0, _team2.default)(c);
+	});
 	_.forEach(roomGroup, function (roomName) {
 		var creep = Memory.rooms[roomName].creeps.my;
 		_.forEach(creep.miner, function (c) {
@@ -2342,9 +2348,6 @@ exports.default = function () {
 		});
 		_.forEach(creep.terminer, function (c) {
 			return (0, _terminer2.default)(c);
-		});
-		_.forEach(creep.team, function (c) {
-			return (0, _team2.default)(c);
 		});
 	});
 };
