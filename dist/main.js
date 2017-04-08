@@ -2049,7 +2049,7 @@ exports.default = function (creep) {
 	// } catch (e) {
 	// 	if (creep.move(TOP) == OK)return;
 	// }
-	var attackTarget = Game.getObjectById('58d1752aaa49fef274605b28');
+	var attackTarget = Game.getObjectById('58d1754e6dc0fb7f03e88991');
 	(0, _Action.attack)(creep, attackTarget);
 };
 

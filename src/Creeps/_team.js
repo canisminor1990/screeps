@@ -9,6 +9,6 @@ export default (creep) => {
 	// } catch (e) {
 	// 	if (creep.move(TOP) == OK)return;
 	// }
-	const attackTarget = Game.getObjectById('58d1752aaa49fef274605b28')
+	const attackTarget = Game.getObjectById('58d1754e6dc0fb7f03e88991')
 	attack(creep, attackTarget)
 }
