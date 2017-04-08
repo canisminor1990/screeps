@@ -5,7 +5,7 @@ export default (roomGroup = []) => {
 	if (!Memory.roles) {
 		Memory.roles = {};
 	}
-
+	
 	const energy    = Game.rooms[roomGroup[0]].energyCapacityAvailable;
 	let i           = 0,
 	      prioprity = 0,
