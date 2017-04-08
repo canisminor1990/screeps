@@ -1,6 +1,6 @@
 export default {
 	room    : [
-		['W81S67', 'W81S66'],
+		['W81S67', 'W81S66','W81S65'],
 		['W82S67', 'W82S68']
 	],
 	terminal: {
