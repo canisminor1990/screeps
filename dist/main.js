@@ -2043,13 +2043,12 @@ exports.default = function (creep) {
 	// target
 	var roomName = 'W81S65';
 
-	(0, _Action.attack)(creep, Game.getObjectById('58d175754f14963961e911d0'));
-	// try {
-	// 	const attackTarget = Game.getObjectById('58d175038851a6135b3c2751')
-	// 	if (attack(creep, attackTarget))return;
-	// } catch (e) {
-	// 	if (creep.moveTo(new RoomPosition(25, 48, roomName)) == OK)return;
-	// }
+	try {
+		var attackTarget = Game.getObjectById('58d175038851a6135b3c2751');
+		if ((0, _Action.attack)(creep, attackTarget)) return;
+	} catch (e) {
+		if (creep.moveTo(new RoomPosition(25, 48, roomName)) == OK) return;
+	}
 };
 
 module.exports = exports['default'];
