@@ -2045,13 +2045,15 @@ exports.default = function (creep) {
 
 	if (creep.room.name == roomName) {
 		creep.moveTo(25, 48);
+	} else {
+		creep.moveTo(new RoomPosition(25, 48, roomName));
 	}
-	try {
-		var attackTarget = Game.getObjectById('58d175038851a6135b3c2751');
-		if ((0, _Action.attack)(creep, attackTarget)) return;
-	} catch (e) {
-		if (creep.moveTo(new RoomPosition(25, 48, roomName)) == OK) return;
-	}
+	// try {
+	// 	const attackTarget = Game.getObjectById('58d175038851a6135b3c2751')
+	// 	if (attack(creep, attackTarget))return;
+	// } catch (e) {
+	// 	if (creep.moveTo(new RoomPosition(25, 48, roomName)) == OK)return;
+	// }
 };
 
 module.exports = exports['default'];
