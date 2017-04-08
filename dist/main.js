@@ -2044,7 +2044,7 @@ exports.default = function (creep) {
 	var roomName = 'W81S65';
 	var attackTarget = '58d17513bc53f3be7a81e407';
 	if (creep.room.name !== roomName) {
-		if ((0, _Action.moveTo)(creep, new RoomPosition(24, 48, roomName))) return;
+		if (creep.moveTo(new RoomPosition(24, 48, roomName)) == OK) return;
 	} else {
 		if ((0, _Action.attack)(creep, attackTarget)) return;
 	}

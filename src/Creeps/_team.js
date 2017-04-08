@@ -4,7 +4,7 @@ export default (creep) => {
 	const roomName     = 'W81S65'
 	const attackTarget = '58d17513bc53f3be7a81e407'
 	if (creep.room.name !== roomName) {
-		if (moveTo(creep, new RoomPosition(24, 48, roomName)))return;
+		if (creep.moveTo(new RoomPosition(24, 48, roomName)) == OK)return;
 	} else {
 		if (attack(creep, attackTarget))return;
 	}
