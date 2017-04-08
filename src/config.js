@@ -16,7 +16,7 @@ export default {
 		miner    : [{work: 7, carry: 1}, [1, 1], 30],
 		transer  : [{carry: 16}, [1, 2], 10],
 		cleaner  : [{carry: 6}, [1, 0], 10],
-		upfiller : [{carry: 8}, [1, 0], 80],
+		upfiller : [{carry: 12}, [1, 0], 80],
 		upgrader : [{work: 10, carry: 1}, [2, 0], 10],
 		claimer  : [{claim: 2}, [0, 1], 10],
 		builder  : [{work: 1, carry: 6}, [1, 1], 10],
