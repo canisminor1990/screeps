@@ -2306,7 +2306,7 @@ exports.default = function () {
 	var roomGroup = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : [];
 
 
-	_.forEach(Game.creeps.filter(function (creep) {
+	_.forEach(_.filter(Game.creeps, function (creep) {
 		return creep.role = 'team';
 	}), function (c) {
 		return (0, _team2.default)(c);
