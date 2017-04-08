@@ -2043,7 +2043,7 @@ exports.default = function (creep) {
 	// target
 	var roomName = 'W81S65';
 
-	(0, _Action.moveTo)(creep, Game.flags['pos']);
+	creep.moveTo(Game.flags['pos']);
 	// try {
 	// 	const attackTarget = Game.getObjectById('58d175038851a6135b3c2751')
 	// 	if (attack(creep, attackTarget))return;
