@@ -39,7 +39,7 @@ export default (role = '', number = 0, roomName = '', roomType) => {
 					number = (number > 4) ? 4 : number;
 			}
 		} else {
-			const claimer = room.creeps.my.claimer.length;
+			// const claimer = room.creeps.my.claimer.length;
 			switch (role) {
 				// case 'claimer':
 				// 	break
@@ -47,18 +47,18 @@ export default (role = '', number = 0, roomName = '', roomType) => {
 					number = task.attack.length * number;
 					break;
 				case 'miner':
-					number = (claimer > 0) ? room.resources.source.length * number: 0;
+					number = room.resources.source.length * number;
 					break;
 				case 'transer':
 					if (task.withdraw.length > 0) {
 						const miner = room.resources.source.length ;
-						number      = (claimer > 0) ? number * miner : 0;
+						number      = number * miner;
 					} else {
 						number = 0;
 					}
 					break;
 				case 'builder':
-					number = (claimer > 0 && (task.build.length > 0 || task.repair.length > 0)) ? number : 0;
+					number = (task.build.length > 0 || task.repair.length > 0) ? number : 0;
 					break;
 			}
 		}

@@ -2547,7 +2547,7 @@ exports.default = function () {
 					number = number > 4 ? 4 : number;
 			}
 		} else {
-			var claimer = room.creeps.my.claimer.length;
+			// const claimer = room.creeps.my.claimer.length;
 			switch (role) {
 				// case 'claimer':
 				// 	break
@@ -2555,18 +2555,18 @@ exports.default = function () {
 					number = task.attack.length * number;
 					break;
 				case 'miner':
-					number = claimer > 0 ? room.resources.source.length * number : 0;
+					number = room.resources.source.length * number;
 					break;
 				case 'transer':
 					if (task.withdraw.length > 0) {
 						var _miner = room.resources.source.length;
-						number = claimer > 0 ? number * _miner : 0;
+						number = number * _miner;
 					} else {
 						number = 0;
 					}
 					break;
 				case 'builder':
-					number = claimer > 0 && (task.build.length > 0 || task.repair.length > 0) ? number : 0;
+					number = task.build.length > 0 || task.repair.length > 0 ? number : 0;
 					break;
 			}
 		}
