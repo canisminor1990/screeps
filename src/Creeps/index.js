@@ -11,7 +11,7 @@ import {default as terminer} from './_terminer';
 import {default as team} from './_team';
 export default (roomGroup = []) => {
 	
-	_.forEach(_.filter(Game.creeps, (creep => creep.role = 'team')), c => team(c));
+	_.forEach(_.filter(Game.creeps, (creep => creep.role == 'team')), c => team(c));
 	_.forEach(roomGroup, roomName => {
 		const creep = Memory.rooms[roomName].creeps.my;
 		_.forEach(creep.miner, c => miner(c));
