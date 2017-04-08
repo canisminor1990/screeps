@@ -2042,10 +2042,11 @@ var _Action = __webpack_require__(/*! ../Action */ 1);
 exports.default = function (creep) {
 	// target
 	var roomName = 'W81S65';
-	var attackTarget = '58d17513bc53f3be7a81e407';
+
 	if (creep.room.name !== roomName) {
-		if (creep.moveTo(new RoomPosition(24, 48, roomName)) == OK) return;
+		if (creep.moveTo(new RoomPosition(25, 48, roomName)) == OK) return;
 	} else {
+		var attackTarget = Game.getObjectById('58d17513bc53f3be7a81e407');
 		if ((0, _Action.attack)(creep, attackTarget)) return;
 	}
 };
