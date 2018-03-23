@@ -1,15 +1,39 @@
-import { emoji, action, colorType, targetFormat, targetChanger,debug  } from "../../_util"
-import { moveTo } from '../'
-export default (creep, targetRaw, check = true, type = RESOURCE_ENERGY) => {
-	if (!check) return;
+import {Console, Ui, Target} from "../../_util"
+import {moveTo} from '../../Action'
+import action from "../_action"
+export default (creep, target, all = true, resType = RESOURCE_ENERGY) => {
+	if (!target) return;
 	const actionName = 'transfer';
 	try {
-		const target = targetFormat(targetRaw)
-		if (!target && moveTo(creep, targetRaw)) return true
-		targetChanger(creep, targetRaw, actionName)
-		if (action(creep, target, creep[actionName](target, type), emoji.transfer, colorType.purple)) return true
+		target = Target.format(creep, target);
+		if (!target) return false;
+		let opt = {
+			creep     : creep,
+			target    : target,
+			actionName: actionName,
+			color     : Ui.c.purple
+		}
+		if (all) {
+			_.forEach(creep.carry, (n, type) => {
+				opt.fn = creep[actionName](target, type)
+				if (target && action(opt)) {
+					return true
+				} else {
+					if (moveTo(creep, target)) return true
+				}
+			})
+		} else {
+			opt.fn = creep[actionName](target, resType)
+			if (target && action(opt)) {
+				return true
+			} else {
+				if (moveTo(creep, target)) return true
+			}
+		}
 	} catch (e) {
-		debug(e,actionName,creep, targetRaw)
+		Console.error(actionName, creep, JSON.stringify(target))
 		return false
 	}
 }
+
+

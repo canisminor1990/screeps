@@ -1,37 +1,38 @@
-import { action, targetFormat, targetChanger,debug  } from "../../_util"
+import { Console } from "../../_util"
+import action from "../_action"
+import _ from "lodash"
 export default (creep, target, color = '#ffffff', noPathFinding = true) => {
+	if (!target) return false;
 	const actionName = 'moveTo';
 	if (creep.fatigue > 0) return false;
+	let opt = {
+		reusePath         : 15,
+		serializeMemory   : true,
+		noPathFinding     : noPathFinding,
+		visualizePathStyle: {
+			stroke     : color,
+			lineStyle  : 'dotted',
+			opacity    : 0.5,
+			strokeWidth: 0.1
+		}
+	}
 	try {
 		if (_.isArray(target)) target = _.first(target);
-		try {
-			if (target.pos.roomName != creep.pos.roomName) {
-				target        = new RoomPosition(target.pos.x, target.pos.y, target.pos.roomName);
-				noPathFinding = false;
-			} else {
-				target = targetFormat(target);
-			}
-		} catch (e) {
-			return false
+		if (target.pos.roomName != creep.pos.roomName) {
+			target            = new RoomPosition(target.pos.x, target.pos.y, target.pos.roomName);
+			opt.noPathFinding = false;
 		}
-		targetChanger(creep, target, actionName)
-		const opt = {
-			reusePath         : 15,
-			serializeMemory   : true,
-			noPathFinding     : noPathFinding,
-			visualizePathStyle: {
-				stroke     : color,
-				lineStyle  : 'dotted',
-				opacity    : 0.5,
-				strokeWidth: 0.1
-			}
-		}
-		if (action(creep, target, creep[actionName](target, opt))) {
+		if (!target) return false;
+		if (action({
+			           creep     : creep,
+			           target    : target,
+			           fn        : creep[actionName](target, opt),
+		           })) {
 			visual(target, creep)
 			return true
 		}
 	} catch (e) {
-		debug(e,actionName,creep, targetRaw)
+		Console.error(actionName, creep, JSON.stringify(target))
 		return false
 	}
 }

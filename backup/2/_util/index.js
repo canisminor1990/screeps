@@ -1,5 +1,0 @@
-export { default as Ui } from './Ui'
-export { default as Console } from './Console'
-export { default as Target } from './Target'
-export { default as Is } from './Is'
-export { default as Timer } from './Timer'

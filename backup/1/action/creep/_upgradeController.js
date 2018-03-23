@@ -1,15 +1,25 @@
-import { emoji, action, colorType, targetFormat, targetChanger,debug  } from "../../_util"
-import { moveTo } from '../'
-export default (creep, targetRaw,check = true) => {
-	if (!check) return;
+import { Console, Ui, Target } from "../../_util"
+import { moveTo } from '../../Action'
+import action from "../_action"
+export default (creep, target, check = true) => {
+	if (!check || !target) return;
 	const actionName = 'upgradeController';
 	try {
-		const target = targetFormat(targetRaw)
-		if (!target && moveTo(creep, targetRaw)) return true
-		targetChanger(creep, targetRaw, actionName)
-		if (action(creep, target, creep[actionName](target), emoji.upgrade, colorType.orange)) return true
+		target = Target.format(creep, target);
+		if (!target) return false;
+		if (target && action({
+			                     creep     : creep,
+			                     target    : target,
+			                     actionName: actionName,
+			                     fn        : creep[actionName](target),
+			                     color     : Ui.c.blue
+		                     })) {
+			return true
+		} else {
+			if (moveTo(creep, target)) return true
+		}
 	} catch (e) {
-		debug(e,actionName,creep, targetRaw)
+		Console.error(actionName, creep, JSON.stringify(target))
 		return false
 	}
 }

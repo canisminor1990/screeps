@@ -14,10 +14,11 @@ export { default as transfer } from "./creep/_transfer"
 export { default as withdraw } from "./creep/_withdraw"
 //
 export { default as upgradeController } from "./creep/_upgradeController"
-export { default as claimController } from "./creep/_claimController"
+export { default as reserveController } from "./creep/_reserveController"
 
 // ------------ find ------------
-export { default as findInRange } from "./find/_findInRange"
-export { default as findClosestInRange } from "./find/_findClosestInRange"
-export { default as findClosestByRange } from "./find/_findClosestByRange"
-export { default as lookFor } from "./find/_lookFor"
+export { default as findInRange } from "./room/_findInRange"
+export { default as findClosestByRange } from "./room/_findClosestByRange"
+export { default as createConstructionSite } from "./room/_createConstructionSite"
+export { default as isEqualTo } from "./room/_isEqualTo"
+export { default as isNearTo } from "./room/_isNearTo"
