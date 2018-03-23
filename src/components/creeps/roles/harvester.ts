@@ -1,4 +1,4 @@
-import * as creepActions from "../creepActions";
+import * as creepActions from '../creepActions';
 
 /**
  * Runs all creep actions.

@@ -1,6 +1,5 @@
-import * as Config from "../../config";
-import * as harvester from "./roles/harvester";
-
+import * as Config from '../../config';
+import * as harvester from './roles/harvester';
 
 /**
  * Initialization scripts for CreepManager module.
@@ -12,12 +11,10 @@ export function run(room: Room): void {
   const creeps: Creep[] = room.find(FIND_MY_CREEPS);
   const creepCount = _.size(creeps);
 
-
-
   _buildMissingCreeps(room, creeps);
 
   _.each(creeps, (creep: Creep) => {
-    if (creep.memory.role === "harvester") {
+    if (creep.memory.role === 'harvester') {
       harvester.run(creep);
     }
   });
@@ -32,12 +29,12 @@ function _buildMissingCreeps(room: Room, creeps: Creep[]) {
   let bodyParts: BodyPartConstant[];
 
   // Iterate through each creep and push them into the role array.
-  const harvesters = _.filter(creeps, (creep) => creep.memory.role === "harvester");
+  const harvesters = _.filter(creeps, creep => creep.memory.role === 'harvester');
 
   const spawns: StructureSpawn[] = room.find(FIND_MY_SPAWNS, {
     filter: (spawn: StructureSpawn) => {
       return spawn.spawning === null;
-    },
+    }
   });
 
   if (harvesters.length < 2) {
@@ -48,7 +45,7 @@ function _buildMissingCreeps(room: Room, creeps: Creep[]) {
     }
 
     _.each(spawns, (spawn: StructureSpawn) => {
-      _spawnCreep(spawn, bodyParts, "harvester");
+      _spawnCreep(spawn, bodyParts, 'harvester');
     });
   }
 }
@@ -74,7 +71,7 @@ function _spawnCreep(spawn: StructureSpawn, bodyParts: BodyPartConstant[], role:
   status = _.isString(status) ? OK : status;
   if (status === OK) {
     Memory.uuid = uuid + 1;
-    const creepName: string = spawn.room.name + " - " + role + uuid;
+    const creepName: string = spawn.room.name + ' - ' + role + uuid;
 
     status = spawn.createCreep(bodyParts, creepName, properties);
 

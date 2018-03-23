@@ -1,4 +1,4 @@
-import Config from "../../config";
+import Config from '../../config';
 
 /**
  * Shorthand method for `Creep.moveTo()`.
@@ -21,7 +21,7 @@ export function moveTo(creep: Creep, target: Structure | RoomPosition): number {
  * @returns {boolean}
  */
 export function needsRenew(creep: Creep): boolean {
-  return (creep.ticksToLive < Config.DEFAULT_MIN_LIFE_BEFORE_NEEDS_REFILL);
+  return creep.ticksToLive < Config.DEFAULT_MIN_LIFE_BEFORE_NEEDS_REFILL;
 }
 
 /**
