@@ -1,0 +1,4 @@
+**/node_modules/**
+dist/**
+../backup/config
+**/backup2/**

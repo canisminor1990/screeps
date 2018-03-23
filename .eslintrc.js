@@ -1,52 +1,27 @@
 module.exports = {
-	parser: 'babel-eslint',
+	parser : 'typescript-eslint-parser',
 	extends: [
 		'standard',
-		'plugin:flowtype/recommended',
-		'plugin:react/recommended',
 		'prettier',
-		'prettier/flowtype',
-		'prettier/react',
 		'prettier/standard'
 	],
 	plugins: [
-		'flowtype',
-		'react',
 		'prettier',
-		'standard'
+		'standard',
+		'typescript'
 	],
-	parserOptions: {
-		'ecmaFeatures': {
-			'experimentalObjectRestSpread': true,
-			'jsx': true
-		}
-	},
-	globals: {
-		'window': true,
-		'document': true,
-		'navigator': true,
-		'Game': true,
-		'Memory': true,
-		'creep': true,
-		'regeneratorRuntime': true,
-	},
-	env: {
-		'es6': true,
+	env    : {
+		'es6' : true,
 		'node': true
 	},
-	rules: {
+	rules  : {
 		'prettier/prettier': [
 			2, {
-				'printWidth': 100,
-				'singleQuote': true,
-				'trailingComma': 'es5',
-				'parser': 'flow',
+				'printWidth' : 100,
+				'singleQuote': true
 			}
 		],
-		'react/react-in-jsx-scope': [0],
-		'react/prop-types': [0],
-		'react/display-name': [0],
-		'react/no-children-prop': [0],
-		'no-unused-vars': [1],
+		'no-undef'         : [0],
+		'no-unused-vars'   : [1]
 	}
 };

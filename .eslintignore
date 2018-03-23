@@ -1,4 +1,4 @@
 **/node_modules/**
-**/dist/**
-**/backup/**
-**/backup2/**
+dist/**
+backup/**
+

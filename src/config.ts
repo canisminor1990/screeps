@@ -1,0 +1,5 @@
+export default {
+	ENABLE_DEBUG_MODE : true,
+	USE_PROFILER: true,
+	DEFAULT_MIN_LIFE_BEFORE_NEEDS_REFILL: 700
+}
