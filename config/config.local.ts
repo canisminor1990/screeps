@@ -1,21 +1,19 @@
-import * as Config from 'webpack-chain';
-import * as CommonConfig from './config.common';
-import { EnvOptions } from './types';
+import CommonConfig from './config.common';
+import { EnvOptions } from './';
+import { Configuration } from 'webpack';
+import { merge } from 'lodash';
 
-export default (options: EnvOptions = {}): Config => {
-  // get the common configuration to start with
-  const config = CommonConfig.init(options);
-  const localPath = '/Users/yangyufan/Library/Application Support/Screeps/scripts/127_0_0_1___21025/default/';
-  config.output.path(localPath);
+export default (options: EnvOptions): Configuration => {
+  const config: Configuration = CommonConfig(options);
 
-  // modify the args of "define" plugin
-  config.plugin('define').tap((args: any[]) => {
-    args[0].PRODUCTION = JSON.stringify(false);
-    return args;
+  const macPath =
+    '/Users/yangyufan/Library/Application Support/Screeps/scripts/127_0_0_1___21025/default/';
+  const winPath = 'C:\\Users\\i\\AppData\\Local\\Screeps\\scripts\\127_0_0_1___21025\\default';
+
+  return merge(config, {
+    output: {
+      path: process.platform === 'win32' ? winPath : macPath,
+      sourceMapFilename: '[file].map.js'
+    }
   });
-
-  // HACK to add .js extension for local server
-  config.output.sourceMapFilename('[file].map.js');
-
-  return config;
-}
+};

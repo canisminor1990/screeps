@@ -1,3 +1,4 @@
+// @ts-ignore
 import { SourceMapConsumer } from 'source-map';
 
 export class ErrorMapper {

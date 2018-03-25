@@ -11,6 +11,12 @@
     "allowSyntheticDefaultImports": true,
     "allowUnreachableCode": false
   },
+  "include": [
+    "webpack.config.ts",
+    "config/*.ts",
+    "src/**/*.ts",
+    "src/**/*.d.ts"
+  ],
   "exclude": [
     "node_modules"
   ]

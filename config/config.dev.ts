@@ -1,22 +1,14 @@
-import * as Config from 'webpack-chain';
-import * as CommonConfig from './config.common';
-import { Credentials, EnvOptions } from './types';
+import CommonConfig from './config.common';
+import { Credentials, EnvOptions } from './';
+import { Configuration } from 'webpack';
 
-const ScreepsWebpackPlugin = require('screeps-webpack-plugin');
-
-export default (options: EnvOptions): Config => {
-  const config = CommonConfig.init(options);
-
+export default (options: EnvOptions): Configuration => {
+  const config: Configuration = CommonConfig(options);
+  const ScreepsWebpackPlugin = require('screeps-webpack-plugin');
   const credentials: Credentials = require('./credentials.json');
   credentials.branch = 'dev';
 
-  config.plugin('screeps').use(ScreepsWebpackPlugin, [credentials]);
-
-  // modify the args of "define" plugin
-  config.plugin('define').tap((args: any[]) => {
-    args[0].PRODUCTION = JSON.stringify(false);
-    return args;
+  return _.merge(config, {
+    plugins: [new ScreepsWebpackPlugin(credentials)]
   });
-
-  return config;
-}
+};

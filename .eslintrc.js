@@ -22,6 +22,7 @@ module.exports = {
 			}
 		],
 		'no-undef'         : [0],
-		'no-unused-vars'   : [1]
+		'no-unused-vars'   : [1],
+		'no-unused-expressions': [0],
 	}
 };

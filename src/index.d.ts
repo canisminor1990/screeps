@@ -1,7 +1,3 @@
-interface Memory {
-  uuid: number;
-}
-
 // memory extension samples
 interface CreepMemory {
   role: string;
@@ -10,12 +6,7 @@ interface CreepMemory {
 }
 
 interface RoomMemory {
-  RCL: number;
-  spawns: string[];
-  sources: string[];
-  extensions: string[];
-  myTotalSites: number;
-  myTotalStructures: number;
+  lastViewed: number;
 }
 
 interface PopulationMemory {
@@ -42,6 +33,8 @@ interface PopulationMemory {
 // add objects to `global` here
 declare namespace NodeJS {
   interface Global {
+    install: any;
+    Util: any;
     log: any;
   }
 }
