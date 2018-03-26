@@ -1,6 +1,7 @@
 import CommonConfig from './config.common';
 import { Credentials, EnvOptions } from './';
 import { Configuration } from 'webpack';
+import { merge } from 'lodash';
 
 export default (options: EnvOptions): Configuration => {
   const config: Configuration = CommonConfig(options);
@@ -8,7 +9,7 @@ export default (options: EnvOptions): Configuration => {
   const credentials: Credentials = require('./credentials.json');
   credentials.branch = 'dev';
 
-  return _.merge(config, {
+  return merge(config, {
     plugins: [new ScreepsWebpackPlugin(credentials)]
   });
 };

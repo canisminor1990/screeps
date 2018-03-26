@@ -1,4 +1,5 @@
 import { RoomClass } from './';
+import { MemoryClass } from '../memory';
 
 class RoomsMemoryClass extends MemoryClass {
   constructor() {
@@ -11,9 +12,11 @@ class RoomsMemoryClass extends MemoryClass {
     this.pull();
 
     _.forEach(Game.rooms, (item: Room) => {
-      const room = new RoomClass(item);
+      const room = new RoomClass(item, this.memory[item.name] || {});
       this.setKey(room, 'RCL');
-      this.setKey(room, 'sources', true);
+      this.setKey(room, 'sources');
+      this.setKey(room, 'spawns');
+      this.setKey(room, 'containers');
     });
 
     this.push();
@@ -26,4 +29,4 @@ class RoomsMemoryClass extends MemoryClass {
   };
 }
 
-export const Rooms = new RoomsMemoryClass();
+export const RoomsMemory = new RoomsMemoryClass();
