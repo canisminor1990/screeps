@@ -30,6 +30,12 @@ interface PopulationMemory {
   flee: boolean; // 逃跑
 }
 
+declare namespace String {
+  interface StringConstructor {
+    fromCodePoint: Function;
+  }
+}
+
 // add objects to `global` here
 declare namespace NodeJS {
   interface Global {

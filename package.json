@@ -46,7 +46,7 @@
     "source-map": "^0.5.6"
   },
   "devDependencies": {
-    "@types/immutable": "^3.8.7",
+    "@types/es6-shim": "^0.31.36",
     "@types/lodash": "^3.10.1",
     "@types/node": "^9.6.0",
     "@types/source-map": "^0.5.7",
