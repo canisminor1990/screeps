@@ -1,4 +1,4 @@
-import { RoomClass } from './';
+import { RoomClass } from './room';
 import { MemoryClass } from '../memory';
 
 class RoomsMemoryClass extends MemoryClass {
@@ -11,20 +11,21 @@ class RoomsMemoryClass extends MemoryClass {
   init = () => {
     this.pull();
 
-    _.forEach(Game.rooms, (item: Room) => {
-      const room = new RoomClass(item, this.memory[item.name] || {});
-      this.setKey(room, 'RCL');
-      this.setKey(room, 'sources');
-      this.setKey(room, 'spawns');
-      this.setKey(room, 'containers');
+    _.forEach(Game.rooms, (r: Room) => {
+      if (!r.memory) r.memory = {};
+      const room = new RoomClass(r);
+      this.assign(room, 'RCL');
+      this.assign(room, 'sources', true);
+      this.assign(room, 'spawns');
+      this.assign(room, 'containers');
     });
 
     this.push();
   };
 
-  setKey = (room: any, key: string, onlyFirstLoop: boolean = false) => {
+  assign = (room: any, key: string, setOnce: boolean = false) => {
     const path = [room.name, key].join('.');
-    if (onlyFirstLoop && _.has(this.memory, path)) return;
+    if (setOnce && _.has(this.memory, path)) return;
     this.memory = _.set(this.memory, path, room[key]);
   };
 }
