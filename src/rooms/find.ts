@@ -9,27 +9,27 @@ export class FindClass {
 
   // cache-get
 
-  get exitTop(): Array {
+  get exitTop(): any[] {
     if (!this.state.exitTop) this.state.exitTop = this.room.find(FIND_EXIT_TOP);
     return this.state.exitTop;
   }
 
-  get exitRight(): Array {
+  get exitRight(): any[] {
     if (!this.state.exitRight) this.state.exitRight = this.room.find(FIND_EXIT_RIGHT);
     return this.state.exitRight;
   }
 
-  get exitBottom(): Array {
+  get exitBottom(): any[] {
     if (!this.state.exitBottom) this.state.exitBottom = this.room.find(FIND_EXIT_BOTTOM);
     return this.state.exitBottom;
   }
 
-  get exitLeft(): Array {
+  get exitLeft(): any[] {
     if (!this.state.exitLeft) this.state.exitLeft = this.room.find(FIND_EXIT_LEFT);
     return this.state.exitLeft;
   }
 
-  get exit(): Array {
+  get exit(): any[] {
     if (!this.state.exit) this.state.exit = this.room.find(FIND_EXIT);
     return this.state.exit;
   }
@@ -66,12 +66,12 @@ export class FindClass {
     return this.state.minerals;
   }
 
-  get droppedEnergy(): Array {
+  get droppedEnergy(): any[] {
     if (!this.state.droppedEnergy) this.state.droppedEnergy = this.room.find(FIND_DROPPED_ENERGY);
     return this.state.droppedEnergy;
   }
 
-  get droppedResources(): Array {
+  get droppedResources(): any[] {
     if (!this.state.droppedResources)
       this.state.droppedResources = this.room.find(FIND_DROPPED_RESOURCES);
     return this.state.droppedResources;
