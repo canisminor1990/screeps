@@ -1,46 +1,27 @@
-// memory extension samples
-interface CreepMemory {
-  role: string;
-  room: string;
-  working: boolean;
+interface Pos {
+  x: number;
+  y: number;
+  roomName: string;
 }
 
-interface RoomMemory {
-  lastViewed: number;
+interface Memory {
+  sources: any;
+  minerals: any;
+  stats: any;
+  empire: any;
+  settings: any;
+  takenBanks: any;
+  marketBuy: any;
+  marketSell: any;
+  commandOrders: any;
+  temp: any;
+  friendly: string[];
+  operations: any;
+  manager: any;
+  portals: { [roomName: string]: { firstSeen: number; decay: number | undefined; dest: string } };
+  playerthreat: { [name: string]: number };
 }
 
-interface PopulationMemory {
-  spawned: boolean;
-  creepName: string;
-  creepType: string;
-  weight: number;
-  body: any[];
-  carryCapacityLeft: number;
-  //
-  room: string;
-  homeRoom: string;
-  motherSpawn: string;
-  //
-  flagName: string | null;
-  target: string;
-  lastTarget: string;
-  action: string;
-  lastAction: string;
-  //
-  flee: boolean; // 逃跑
-}
-
-declare namespace String {
-  interface StringConstructor {
-    fromCodePoint: Function;
-  }
-}
-
-// add objects to `global` here
-declare namespace NodeJS {
-  interface Global {
-    install: any;
-    Util: any;
-    log: any;
-  }
+interface global {
+  intel: { [roomName: string]: any };
 }

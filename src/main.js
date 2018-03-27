@@ -1,4 +1,4 @@
-import loop from './index.ts';
+import loop from './loop.ts';
 
 function* main() {
   console.log('--------- Code Update! ---------');

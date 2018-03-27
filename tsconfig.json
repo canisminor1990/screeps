@@ -1,14 +1,14 @@
 {
   "compilerOptions": {
     "module": "commonjs",
-    "target": "es5",
-    "outDir": "dist",
-    "baseUrl": "src/",
-    "sourceMap": true,
-    "strict": true,
+    "target": "es6",
+    "removeComments": true,
+    "noResolve": false,
+    "noImplicitAny": true,
     "experimentalDecorators": true,
-    "noImplicitReturns": true,
-    "allowSyntheticDefaultImports": true,
+    "strictNullChecks": true,
+    "noUnusedParameters": true,
+    "noUnusedLocals": true,
     "allowUnreachableCode": false
   },
   "include": [
@@ -18,6 +18,8 @@
     "src/**/*.d.ts"
   ],
   "exclude": [
+    "dist",
+    "backup",
     "node_modules"
   ]
 }
