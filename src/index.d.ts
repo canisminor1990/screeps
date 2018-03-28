@@ -21,7 +21,3 @@ interface Memory {
   portals: { [roomName: string]: { firstSeen: number; decay: number | undefined; dest: string } };
   playerthreat: { [name: string]: number };
 }
-
-interface global {
-  intel: { [roomName: string]: any };
-}

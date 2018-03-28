@@ -1,9 +1,20 @@
-import loop from './loop.ts';
+// Prototype Extends
+import './prototypes/controller';
+import './prototypes/creep';
+import './prototypes/mineral';
+import './prototypes/room';
+import './prototypes/roomposition';
+import './prototypes/source';
+// Loop
+import { Root, Loop } from './loop';
 
 function* main() {
-  console.log('--------- Code Update! ---------');
+  console.log('* * * * * * * * * * * * * * * * * * * * *');
+  console.log('* * * * * * * Code Update ! * * * * * * *');
+  console.log('* * * * * * * * * * * * * * * * * * * * *');
+  Root();
   while (true) {
-    loop();
+    Loop();
     yield null;
   }
 }
@@ -25,6 +36,6 @@ exports.loop = function() {
       Memory.thread = regeneratorRuntime.serializeGenerator(thread);
     }
   } catch (e) {
-    console.log('--------- Code Changing ---------');
+    console.log('Code Changing ... ... ...');
   }
 };
