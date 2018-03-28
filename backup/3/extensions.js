@@ -379,6 +379,7 @@ mod.extend = function(){
         if (!this.room.memory.resources) return 0;
         let loadTarget = 0;
         let unloadTarget = 0;
+        let reaction = this.room.memory.resources.reactions;
 
         // look up resource and calculate needs
         let containerData = this.room.memory.resources.lab.find( (s) => s.id == this.id );
@@ -405,6 +406,14 @@ mod.extend = function(){
             space = this.mineralCapacity-this.mineralAmount;
             cap = this.mineralCapacity;
         }
+
+        if (containerData && reaction && reaction.orders.length > 0
+            && (this.id === reaction.seed_a || this.id === reaction.seed_b)
+            && (resourceType !== LAB_REACTIONS[reaction.orders[0].type][0] || resourceType !== LAB_REACTIONS[reaction.orders[0].type][1])) {
+            if (store > unloadTarget)
+                return unloadTarget - store;
+        }
+
         if( store < Math.min(loadTarget,cap) / 2 ) return Math.min( loadTarget-store,space );
         if( containerData && containerData.reactionType === this.mineralType ) {
             if( store > unloadTarget + ( cap - Math.min(unloadTarget,cap) ) / 2 ) return unloadTarget-store;

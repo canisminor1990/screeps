@@ -23,7 +23,7 @@ const getResourceColour = (resourceType) => {
         [RESOURCE_LEMERGIUM]: '#89F4A5',
         [RESOURCE_OXYGEN]: '#CCCCCC',
         [RESOURCE_UTRIUM]: '#88D6F7',
-        [RESOURCE_ZYNTHIUM]: '#F2D28B',
+        [RESOURCE_ZYNTHIUM]: '#F2D28B'
     };
 
     let colour = BASE[resourceType];
@@ -38,7 +38,310 @@ const storageObject = (vis, store, x, startY) => {
     Object.keys(store).forEach(resource => vis.text(`${resource}: ${Util.formatNumber(store[resource])}`, x, startY += 0.6, Object.assign({color: getResourceColour(resource)}, {align: 'left', font: 0.5})));
 };
 
+
+
 const Visuals = class {
+
+    extend () {
+
+        RoomVisual.prototype.structure = function (x, y, type, opts = {}) {
+
+            opts = Object.assign({
+                opacity: 1
+            }, opts);
+
+            let colors = {
+                gray: '#555555',
+                light: '#AAAAAA',
+                road: '#666', // >:D
+                energy: '#FFE87B',
+                power: '#F53547',
+                dark: '#181818',
+                outline: '#8FBB93'
+            };
+
+            function relPoly(x, y, poly) {
+                return poly.map(p => {
+                    p[0] += x;
+                    p[1] += y;
+                    return p
+                })
+            }
+
+
+            switch (type) {
+                case STRUCTURE_EXTENSION:
+                    this.circle(x, y, {
+                        radius: 0.5,
+                        fill: colors.dark,
+                        stroke: colors.outline,
+                        strokeWidth: 0.05,
+                        opacity: opts.opacity
+                    });
+                    this.circle(x, y, {
+                        radius: 0.35,
+                        fill: colors.gray,
+                        opacity: opts.opacity
+                    });
+                    break;
+                case STRUCTURE_SPAWN:
+                    //this.circle(x, y, {
+                    //    radius: 0.65,
+                    //    fill: colors.dark,
+                    //    stroke: '#CCCCCC',
+                    //    strokeWidth: 0.10,
+                    //    opacity: opts.opacity
+                    //});
+                    this.circle(x, y, {
+                        radius: 0.40,
+                        fill: colors.energy,
+                        opacity: opts.opacity
+                    });
+                    break;
+                case STRUCTURE_POWER_SPAWN:
+                    this.circle(x, y, {
+                        radius: 0.65,
+                        fill: colors.dark,
+                        stroke: colors.power,
+                        strokeWidth: 0.10,
+                        opacity: opts.opacity
+                    });
+                    this.circle(x, y, {
+                        radius: 0.40,
+                        fill: colors.energy,
+                        opacity: opts.opacity
+                    });
+                    break;
+                case STRUCTURE_LINK: {
+                    let osize = 0.3;
+                    let isize = 0.2;
+                    let outer = [
+                        [0.0, -0.5],
+                        [0.4, 0.0],
+                        [0.0, 0.5],
+                        [-0.4, 0.0]
+                    ];
+                    let inner = [
+                        [0.0, -0.3],
+                        [0.25, 0.0],
+                        [0.0, 0.3],
+                        [-0.25, 0.0]
+                    ];
+                    outer = relPoly(x, y, outer);
+                    inner = relPoly(x, y, inner);
+                    outer.push(outer[0]);
+                    inner.push(inner[0]);
+                    this.poly(outer, {
+                        fill: colors.dark,
+                        stroke: colors.outline,
+                        strokeWidth: 0.05,
+                        opacity: opts.opacity
+                    });
+                    this.poly(inner, {
+                        fill: colors.gray,
+                        stroke: false,
+                        opacity: opts.opacity
+                    });
+                    break;
+                }
+                case STRUCTURE_TERMINAL: {
+                    let outer = [
+                        [0.0, -0.8],
+                        [0.55, -0.55],
+                        [0.8, 0.0],
+                        [0.55, 0.55],
+                        [0.0, 0.8],
+                        [-0.55, 0.55],
+                        [-0.8, 0.0],
+                        [-0.55, -0.55]
+                    ];
+                    let inner = [
+                        [0.0, -0.65],
+                        [0.45, -0.45],
+                        [0.65, 0.0],
+                        [0.45, 0.45],
+                        [0.0, 0.65],
+                        [-0.45, 0.45],
+                        [-0.65, 0.0],
+                        [-0.45, -0.45]
+                    ];
+                    outer = relPoly(x, y, outer);
+                    inner = relPoly(x, y, inner);
+                    outer.push(outer[0]);
+                    inner.push(inner[0]);
+                    this.poly(outer, {
+                        fill: colors.dark,
+                        stroke: colors.outline,
+                        strokeWidth: 0.05,
+                        opacity: opts.opacity
+                    });
+                    this.poly(inner, {
+                        fill: colors.light,
+                        stroke: false,
+                        opacity: opts.opacity
+                    });
+                    this.rect(x - 0.45, y - 0.45, 0.9, 0.9, {
+                        fill: colors.gray,
+                        stroke: colors.dark,
+                        strokeWidth: 0.1,
+                        opacity: opts.opacity
+                    });
+                    break;
+                }
+                case STRUCTURE_LAB:
+
+                    this.circle(x, y - 0.025, {
+                        radius: 0.55,
+                        fill: colors.dark,
+                        stroke: colors.outline,
+                        strokeWidth: 0.05,
+                        opacity: opts.opacity
+                    });
+                    this.circle(x, y - 0.025, {
+                        radius: 0.40,
+                        fill: colors.gray,
+                        opacity: opts.opacity
+                    });
+                    this.rect(x - 0.45, y + 0.3, 0.9, 0.25, {
+                        fill: colors.dark,
+                        stroke: false,
+                        opacity: opts.opacity
+                    }); {
+                        let box = [
+                            [-0.45, 0.3],
+                            [-0.45, 0.55],
+                            [0.45, 0.55],
+                            [0.45, 0.3]
+                        ];
+                        box = relPoly(x, y, box);
+                        this.poly(box, {
+                            stroke: colors.outline,
+                            strokeWidth: 0.05,
+                            opacity: opts.opacity
+                        })
+                    }
+                    break;
+                case STRUCTURE_TOWER:
+                    this.circle(x, y, {
+                        radius: 0.6,
+                        fill: colors.dark,
+                        stroke: colors.outline,
+                        strokeWidth: 0.05,
+                        opacity: opts.opacity
+                    });
+                    this.rect(x - 0.4, y - 0.3, 0.8, 0.6, {
+                        fill: colors.gray,
+                        opacity: opts.opacity
+                    });
+                    this.rect(x - 0.2, y - 0.9, 0.4, 0.5, {
+                        fill: colors.light,
+                        stroke: colors.dark,
+                        strokeWidth: 0.07,
+                        opacity: opts.opacity
+                    });
+                    break;
+                case STRUCTURE_ROAD:
+                    this.circle(x, y, {
+                        radius: 0.175,
+                        fill: colors.road,
+                        stroke: false,
+                        opacity: opts.opacity
+                    });
+                    if (!this.roads) this.roads = [];
+                    this.roads.push([x, y]);
+                    break;
+                case STRUCTURE_RAMPART:
+                    this.circle(x, y, {
+                        radius: 0.65,
+                        fill: '#434C43',
+                        stroke: '#5D735F',
+                        strokeWidth: 0.10,
+                        opacity: opts.opacity
+                    });
+                    break;
+                case STRUCTURE_WALL:
+                    this.circle(x, y, {
+                        radius: 0.40,
+                        fill: colors.dark,
+                        stroke: colors.light,
+                        strokeWidth: 0.05,
+                        opacity: opts.opacity
+                    });
+                    break;
+                case STRUCTURE_STORAGE:
+                    this.circle(x, y, {
+                        fill: colors.energy,
+                        radius: 0.35,
+                        stroke: colors.dark,
+                        strokeWidth: 0.20,
+                        opacity: opts.opacity
+                    });
+                    break;
+                case STRUCTURE_OBSERVER:
+                    this.circle(x, y, {
+                        fill: colors.dark,
+                        radius: 0.45,
+                        stroke: colors.outline,
+                        strokeWidth: 0.05,
+                        opacity: opts.opacity
+                    });
+                    this.circle(x + 0.225, y, {
+                        fill: colors.outline,
+                        radius: 0.20,
+                        opacity: opts.opacity
+                    });
+                    break;
+                case STRUCTURE_NUKER:
+                    let outline = [
+                        [0, -1],
+                        [-0.47, 0.2],
+                        [-0.5, 0.5],
+                        [0.5, 0.5],
+                        [0.47, 0.2],
+                        [0, -1]
+                    ];
+                    outline = relPoly(x, y, outline);
+                    this.poly(outline, {
+                        stroke: colors.outline,
+                        strokeWidth: 0.05,
+                        fill: colors.dark,
+                        opacity: opts.opacity
+                    });
+                    let inline = [
+                        [0, -.80],
+                        [-0.40, 0.2],
+                        [0.40, 0.2],
+                        [0, -.80]
+                    ];
+                    inline = relPoly(x, y, inline);
+                    this.poly(inline, {
+                        stroke: colors.outline,
+                        strokeWidth: 0.01,
+                        fill: colors.gray,
+                        opacity: opts.opacity
+                    });
+                    break;
+                case STRUCTURE_CONTAINER:
+                    this.rect(x - 0.225, y - 0.3, 0.45, 0.6, {
+                        fill: "yellow",
+                        opacity: opts.opacity,
+                        stroke: colors.dark,
+                        strokeWidth: 0.10
+                    });
+                    break;
+                default:
+                    this.circle(x, y, {
+                        fill: colors.light,
+                        radius: 0.35,
+                        stroke: colors.dark,
+                        strokeWidth: 0.20,
+                        opacity: opts.opacity
+                    });
+                    break;
+            }
+        }
+
+    };
 
     // VISUAL UTIL METHODS
     drawBar(vis, val, x, y, width, height, inner, fillStyle={}) {
@@ -50,7 +353,7 @@ const Visuals = class {
     }
 
     drawPie(vis, val, max, title, colour, center, inner) {
-       if (!inner) inner = val;
+        if (!inner) inner = val;
 
         let p = 1;
         if (max !== 0) p = val / max;
@@ -59,7 +362,7 @@ const Visuals = class {
         vis.circle(center, {
             radius: r + 0.1,
             fill: BLACK,
-            stroke: 'rgba(255, 255, 255, 0.8)',
+            stroke: 'rgba(255, 255, 255, 0.8)'
         });
         const poly = [center];
         const tau = 2 * Math.PI;
@@ -69,7 +372,7 @@ const Visuals = class {
         for (let i = 0; i <= surf; i += step) {
             poly.push({
                 x: center.x + Math.cos(i + offs),
-                y: center.y - Math.cos(i),
+                y: center.y - Math.cos(i)
             });
         }
         poly.push(center);
@@ -77,27 +380,27 @@ const Visuals = class {
             fill: colour,
             opacity: 1,
             stroke: colour,
-            strokeWidth: 0.05,
+            strokeWidth: 0.05
         });
         vis.text(Number.isFinite(inner) ? Util.formatNumber(inner) : inner, center.x, center.y + 0.33, {
             color: WHITE,
             font: '1 monospace',
             align: 'center',
             stroke: 'rgba(0, 0, 0, 0.8)',
-            strokeWidth: 0.08,
+            strokeWidth: 0.08
         });
         let yoff = 0.7;
         if (0.35 < p && p < 0.65) yoff += 0.3;
         vis.text(title, center.x, center.y + r + yoff, {
             color: WHITE,
             font: '0.6 monospace',
-            align: 'center',
+            align: 'center'
         });
         const lastpol = poly[poly.length - 2];
         vis.text('' + Math.floor(p * 100) + '%', lastpol.x + (lastpol.x - center.x) * 0.7, lastpol.y + (lastpol.y - center.y) * 0.4 + 0.1, {
             color: WHITE,
             font: '0.4 monospace',
-            align: 'center',
+            align: 'center'
         });
     }
 
@@ -113,26 +416,49 @@ const Visuals = class {
         vis.line(from, to, style);
     }
 
-    drawArrow(from, to, style) {
+    drawArrow (from, to, style) {
+
         if (from instanceof RoomObject) from = from.pos;
         if (to instanceof RoomObject) to = to.pos;
         if (!(from instanceof RoomPosition || to instanceof RoomPosition)) throw new Error('Visuals: Point not a RoomPosition');
         if (from.roomName !== to.roomName) return; // cannot draw lines to another room
         const vis = new RoomVisual(from.roomName);
-        this.drawLine(from, to, style);
 
-        const delta_x = from.x - to.x;
-        const delta_y = from.y - to.y;
-        const theta_radians = Math.atan2(delta_y, delta_x);
-        const base_angle = 0.610865;
-        const new_angle = theta_radians + base_angle;
-        const length = Math.log1p(Util.getDistance(from, to)) * 0.5;
-        style = style instanceof Creep
-            ? this.creepPathStyle(style)
-            : (style || {});
+        if (VISUALS.DRAW_ARROW && ROOM_VISUALS) {
 
-        vis.line(to.x, to.y, to.x + length * Math.cos(theta_radians + base_angle), to.y + length * Math.sin(theta_radians + base_angle), style);
-        vis.line(to.x, to.y, to.x + length * Math.cos(theta_radians - base_angle), to.y + length * Math.sin(theta_radians - base_angle), style);
+            this.drawLine(from, to, style);
+
+            const delta_x = from.x - to.x;
+            const delta_y = from.y - to.y;
+            const theta_radians = Math.atan2(delta_y, delta_x);
+            const base_angle = 0.610865;
+            const length = Math.log1p(Util.getDistance(from, to)) * 0.5;
+            style = style instanceof Creep
+                ? this.creepPathStyle(style)
+                : (style || {});
+
+            vis.line(to.x, to.y, to.x + length * Math.cos(theta_radians + base_angle), to.y + length * Math.sin(theta_radians + base_angle), style);
+            vis.line(to.x, to.y, to.x + length * Math.cos(theta_radians - base_angle), to.y + length * Math.sin(theta_radians - base_angle), style);
+        }
+
+        function getStructure(to) {
+            let structures = to.lookFor(LOOK_STRUCTURES);
+            if (!_.isUndefined(structures[0]))
+                return structures[0];
+            else
+                return null;
+        }
+
+        if (VISUALS.HIGHLIGHT_STRUCTURE && ROOM_VISUALS) {
+
+            let targetStructure = getStructure(to);
+
+            if (targetStructure !== null)
+                vis.structure(targetStructure.pos.x, targetStructure.pos.y, targetStructure.structureType);
+            else
+                vis.structure(to.x, to.y, null);
+
+        }
     }
 
     constructor() {
@@ -143,20 +469,20 @@ const Visuals = class {
                 min: Game.cpu.limit * 0.5,
                 max: Game.cpu.limit * 1.5,
                 stroke: '#808080',
-                opacity: 0.25,
+                opacity: 0.25
             }, {
                 key: 'cpu',
                 min: Game.cpu.limit * 0.5,
                 max: Game.cpu.limit * 1.5,
                 stroke: YELLOW,
-                opacity: 0.5,
+                opacity: 0.5
             }, {
                 key: 'bucket',
                 min: 0,
                 max: 10000,
                 stroke: CYAN,
-                opacity: 0.5,
-            },
+                opacity: 0.5
+            }
         ];
         this.toolTipStyle = {align: 'left', font: 0.4};
         this.weakestStyle = {radius: 0.4, fill: RED, opacity: 0.3, strokeWidth: 0};
@@ -168,11 +494,14 @@ const Visuals = class {
         const visibleChecked = VISUALS.VISIBLE_ONLY;
         const VISUAL_ROOMS = visibleChecked ? Util.getVisibleRooms() : Object.keys(Game.rooms);
         _.forEach(VISUAL_ROOMS, roomName => {
-            const room = Game.rooms[roomName];
+
+            let room = Game.rooms[roomName],
+                p2 = Util.startProfiling('Visuals: ' + room.name, {enabled: PROFILING.VISUALS});
+
             if (!room) return;
             if (!ROOM_VISUALS_ALL && !room.my) return;
             if (!visibleChecked && !room.controller) return;
-            const p2 = Util.startProfiling('Visuals: ' + room.name, {enabled: PROFILING.VISUALS});
+
 
             Util.set(Memory, 'heatmap', false);
 
@@ -256,6 +585,10 @@ const Visuals = class {
                 room.structures.towers.forEach(tower => this.drawTowerInfo(tower));
                 p2.checkCPU('Towers', PROFILING.VISUALS_LIMIT);
             }
+            if (VISUALS.CONTAINER) {
+                room.structures.container.all.forEach(container => this.drawContainerInfo(container));
+                p2.checkCPU('Containers', PROFILING.VISUALS_LIMIT);
+            }
         });
         p.checkCPU('Total for all rooms', PROFILING.VISUALS_LIMIT);
         if (VISUALS.ROOM_GLOBAL) {
@@ -284,7 +617,7 @@ const Visuals = class {
                 const GCL_PERCENTAGE = Game.gcl.progress / Game.gcl.progressTotal;
                 this.drawBar(vis, GCL_PERCENTAGE, x, BAR_Y, sectionWidth, 1, `GCL: ${Game.gcl.level} (${(GCL_PERCENTAGE * 100).toFixed(2)}%)`, {
                     fill: getColourByPercentage(GCL_PERCENTAGE, true),
-                    opacity: BAR_STYLE.opacity,
+                    opacity: BAR_STYLE.opacity
                 });
 
                 // CPU
@@ -293,7 +626,7 @@ const Visuals = class {
                 const FUNCTIONAL_CPU_PERCENTAGE = Math.min(1, CPU_PERCENTAGE);
                 this.drawBar(vis, FUNCTIONAL_CPU_PERCENTAGE, x, BAR_Y, sectionWidth, 1, `CPU: ${(CPU_PERCENTAGE * 100).toFixed(2)}%`, {
                     fill: getColourByPercentage(FUNCTIONAL_CPU_PERCENTAGE),
-                    opacity: BAR_STYLE.opacity,
+                    opacity: BAR_STYLE.opacity
                 });
 
                 // BUCKET
@@ -301,14 +634,14 @@ const Visuals = class {
                 const BUCKET_PERCENTAGE = Math.min(1, Game.cpu.bucket / 10000);
                 this.drawBar(vis, BUCKET_PERCENTAGE, x, BAR_Y, sectionWidth, 1, `Bucket: ${Game.cpu.bucket}`, {
                     fill: getColourByPercentage(BUCKET_PERCENTAGE, true),
-                    opacity: BAR_STYLE.opacity,
+                    opacity: BAR_STYLE.opacity
                 });
 
                 // TICK
                 x += sectionWidth + bufferWidth;
                 vis.text(`Tick: ${Game.time}`, x, y, {align: 'left'});
 
-               //  Second Row
+                //  Second Row
                 x = bufferWidth * 2 + sectionWidth;
                 y += 1.5;
 
@@ -319,7 +652,7 @@ const Visuals = class {
                 const SCU_PERCENTAGE = count / spawnCount;
                 this.drawBar(vis, Math.min(1, SCU_PERCENTAGE), x, y - 0.75, sectionWidth, 1, `SCU: ${(SCU_PERCENTAGE * 100).toFixed(2)}%`, {
                     fill: getColourByPercentage(Math.min(1, SCU_PERCENTAGE)),
-                    opacity: BAR_STYLE.opacity,
+                    opacity: BAR_STYLE.opacity
                 });
             }
         } else {
@@ -347,11 +680,11 @@ const Visuals = class {
             y += 15;
             vis.text('Tick', x, y++, {
                 color: WHITE,
-                align: 'center',
+                align: 'center'
             });
             vis.text(Game.time, x, y++, {
                 color: WHITE,
-                align: 'center',
+                align: 'center'
             });
         }
         if (VISUALS.CPU) {
@@ -364,7 +697,7 @@ const Visuals = class {
         Memory.visualStats.cpu.push({
             limit: Game.cpu.limit,
             bucket: Game.cpu.bucket,
-            cpu: Game.cpu.getUsed(),
+            cpu: Game.cpu.getUsed()
         });
         if (Memory.visualStats.cpu.length >= 100) {
             Memory.visualStats.cpu.shift();
@@ -410,7 +743,7 @@ const Visuals = class {
             }
             this.drawBar(vis, RCL_PERCENTAGE, x, y - 0.75, sectionWidth, 1, text, {
                 fill: getColourByPercentage(RCL_PERCENTAGE, true),
-                opacity: BAR_STYLE.opacity,
+                opacity: BAR_STYLE.opacity
             });
 
             if (VISUALS.ROOM_GLOBAL) {
@@ -427,7 +760,7 @@ const Visuals = class {
                 const ENERGY_PERCENTAGE = room.energyAvailable / room.energyCapacityAvailable || 0;
                 this.drawBar(vis, ENERGY_PERCENTAGE, x, y - 0.75, sectionWidth, 1, `Energy: ${room.energyAvailable}/${room.energyCapacityAvailable} (${(ENERGY_PERCENTAGE * 100).toFixed(2)}%)`, {
                     fill: getColourByPercentage(ENERGY_PERCENTAGE, true),
-                    opacity: BAR_STYLE.opacity,
+                    opacity: BAR_STYLE.opacity
                 });
             }
         } else {
@@ -694,7 +1027,7 @@ const Visuals = class {
             return {
                 n: room.memory.heatmap[k],
                 x: k.charCodeAt(0) - 32,
-                y: k.charCodeAt(1) - 32,
+                y: k.charCodeAt(1) - 32
             };
         });
 
@@ -725,7 +1058,7 @@ const Visuals = class {
         return {
             width: 0.15,
             color: creep.data.pathColour,
-            lineStyle: 'dashed',
+            lineStyle: 'dashed'
         };
     }
 
@@ -747,7 +1080,7 @@ const Visuals = class {
             [BOTTOM]: {x: 0, y: 1},
             [BOTTOM_LEFT]: {x: -1, y: 1},
             [LEFT]: {x: -1, y: 0},
-            [TOP_LEFT]: {x: -1, y: -1},
+            [TOP_LEFT]: {x: -1, y: -1}
         };
         if (creep.fatigue === 0) {
             const initDir = +creep.memory._travel.path[0]; // get initial so we know where to set the start (x, y)
@@ -759,6 +1092,11 @@ const Visuals = class {
             vis.line(x, y, x += maths[dir].x, y += maths[dir].y, style);
 
         }
+    }
+
+    drawContainerInfo(container) {
+        const vis = new RoomVisual(container.room.name);
+        vis.text(`${_.sum(container.store)}/2000`, container.pos.x + 1, container.pos.y - 1, this.toolTipStyle);
     }
 
 };

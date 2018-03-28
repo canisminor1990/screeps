@@ -127,10 +127,13 @@ action.newTargetLab = function(creep) {
                         creep.data.reallocating = lab.mineralType;
                         return ret.structure;
                     }
-                    if (ROOM_TRADING && !(lab.mineralType == RESOURCE_ENERGY || lab.mineralType == room.mineralType)) {
+
+
+                    if (ROOM_TRADING && ((Memory.boostTiming && Memory.boostTiming.compoundAllocationEnabled) || !Memory.boostTiming) && !(lab.mineralType == RESOURCE_ENERGY || lab.mineralType == room.mineralType)) {
                         const orderCreated = _.some(room.memory.resources.orders, {'type':lab.mineralType});
                         if(!orderCreated) room.placeRoomOrder(lab.id,lab.mineralType,amount);
                     }
+
                 }
             } else {
                 // lab is empty so check and fill order
@@ -157,10 +160,12 @@ action.newTargetLab = function(creep) {
                         creep.data.reallocating = resourceType;
                         return ret.structure;
                     }
-                    if (ROOM_TRADING && !(resourceType == RESOURCE_ENERGY || resourceType == room.mineralType)) {
+
+                    if (ROOM_TRADING && ((Memory.boostTiming && Memory.boostTiming.compoundAllocationEnabled) || !Memory.boostTiming) && !(resourceType === RESOURCE_ENERGY || resourceType === room.mineralType)) {
                         const orderCreated = _.some(room.memory.resources.orders, {'type':lab.mineralType});
                         if(!orderCreated) room.placeRoomOrder(lab.id,resourceType,order.orderRemaining);
                     }
+
                 }
             }
             amount = lab.getNeeds(RESOURCE_ENERGY);

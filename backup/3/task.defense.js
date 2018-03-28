@@ -90,7 +90,8 @@ mod.creep = {
             [TOUGH]: 1,
         },
         name: "defender",
-        behaviour: "ranger"
+        behaviour: "ranger",
+        queue:'High'
     },
 };
 // spawn defenses against an invader creep
@@ -111,7 +112,7 @@ mod.orderDefenses = invaderCreep => {
     // analyze invader threat and create something bigger
     while( remainingThreat > 0 ){
         let orderId = global.guid();
-        Task.defense.creep.defender.queue = invaderCreep.room.my ? 'High' : 'Medium';
+        Task.defense.creep.defender.queue = 'High';
         Task.defense.creep.defender.minThreat = (remainingThreat * 1.1);
 
         let queued = Task.spawn(
@@ -133,7 +134,7 @@ mod.orderDefenses = invaderCreep => {
                     spawnRoom: creepSetup.queueRoom,
                     order: creepSetup.destiny.order
                 });
-                if( DEBUG ) global.logSystem(creepSetup.queueRoom, `Defender queued for hostile creep ${creepSetup.destiny.order} in ${creepSetup.destiny.spottedIn}`);
+                global.logSystem(creepSetup.queueRoom, `Defender queued for hostile creep ${creepSetup.destiny.order} in ${creepSetup.destiny.spottedIn}`);
             }
         );
 
@@ -142,7 +143,7 @@ mod.orderDefenses = invaderCreep => {
             remainingThreat -= bodyThreat;
         } else {
             // Can't spawn. Invader will not get handled!
-            if( TRACE || DEBUG ) trace('Task', {task: 'defense', invaderId: invaderId, targetRoom: invaderCreep.pos.roomName}, 'Unable to spawn. Invader will not get handled!');
+            trace('Task', {task: 'defense', invaderId: invaderId, targetRoom: invaderCreep.pos.roomName}, 'Unable to spawn. Invader will not get handled!');
             return;
         }
     }

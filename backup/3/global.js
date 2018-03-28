@@ -131,10 +131,6 @@ mod.FLAG_COLOR = {
             color: COLOR_GREEN,
             secondaryColor: COLOR_BROWN,
         },
-        delivery: { // rob energy from friendly rooms and deliver here
-            color: COLOR_GREEN,
-            secondaryColor: COLOR_YELLOW,
-        },
     },
     //COLOR_YELLOW
     defense: { // point to gather troops
@@ -436,6 +432,100 @@ mod.guid = function() {
     return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
         var r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);
         return v.toString(16);
+    });
+};
+mod.countPrices = function(orderType, mineral, roomName) {
+
+    let prices = function (orderType, mineral, amount, roomName) {
+
+            return Game.market.getAllOrders(o => {
+
+                let transactionCost,
+                    credits;
+
+                if (o.type !== orderType || o.resourceType !== mineral || o.amount < amount)
+                    return false;
+                else {
+                    transactionCost = Game.market.calcTransactionCost(amount, o.roomName, roomName);
+                    if (transactionCost > Game.rooms[roomName].terminal.store[RESOURCE_ENERGY])
+                        return false;
+                    credits = amount * o.price;
+                    o.transactionAmount = Math.min(o.amount, amount);
+                    o.ratio = (credits - (transactionCost * global.ENERGY_VALUE_CREDITS)) / o.transactionAmount;
+                    return true;
+                }
+            });
+        };
+
+    Array.prototype.sum = function () {
+        return this.reduce(function (sum, a) {
+            return sum + Number(a)
+        }, 0);
+    };
+
+    Array.prototype.average = function () {
+        return this.sum() / (this.length || 1);
+    };
+
+    switch (orderType) {
+
+        case 'buy':
+
+            let allBuyOrders = prices('buy', mineral, global.MIN_MINERAL_SELL_AMOUNT, roomName),
+                minBuyOrder = _.min(allBuyOrders, 'ratio'),
+                buyOrders = _.filter(allBuyOrders, order => {
+                    return order.id !== minBuyOrder.id;
+                }),
+                buyRatios = [],
+                buyRatio;
+
+            for (let order of buyOrders)
+                buyRatios.push(order.ratio);
+
+            buyRatio = global.roundUp(buyRatios.average(), 4);
+            return buyRatio;
+
+        case 'sell':
+
+            let allSellOrders = prices('sell', mineral, global.TRADE_THRESHOLD, roomName),
+                maxSellOrder = _.max(allSellOrders, 'ratio'),
+                sellOrders = _.filter(allSellOrders, order => {
+                    return order.id !== maxSellOrder.id;
+                }),
+                sellRatios = [],
+                sellRatio;
+
+            for (let order of sellOrders)
+                sellRatios.push(order.ratio);
+
+            sellRatio = global.roundUp(sellRatios.average(), 4);
+            return sellRatio;
+
+    }
+};
+mod.BB = function (x) {
+    console.log(JSON.stringify(x, null, 2));
+};
+mod.sumCompoundType = function (object, property = 'amount') {
+    return _(object).flatten().groupBy('type').transform((result, val, key) => (result[key] = _.sum(val, property))).value();
+};
+// TODO there is a lodash for it
+mod.roundUp = function (num, precision = 0) {
+    precision = Math.pow(10, precision);
+    return Math.ceil(num * precision) / precision;
+};
+mod.divisibleByFive = function (number) {
+    if (number % LAB_REACTION_AMOUNT !== 0)
+        number = number + LAB_REACTION_AMOUNT - number % LAB_REACTION_AMOUNT;
+    return number;
+};
+mod.orderingRoom = function () {
+    let myRooms = _.filter(Game.rooms, {'my': true});
+        return _.filter(myRooms, room => {
+            let data = room.memory.resources;
+            if (!data.boostTiming)
+                data.boostTiming = {};
+            return data.orders.length > 0 && _.sum(data.orders, 'amount') > 0;
     });
 };
 Object.defineProperty(global, 'observerRequests', {

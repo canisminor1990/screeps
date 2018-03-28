@@ -3,11 +3,15 @@ module.exports = mod;
 mod.analyzeRoom = function(room, needMemoryResync) {
     if (Game.time % global.PROCESS_ORDERS_INTERVAL === 0 || room.name === 'sim') {
         room.updateResourceOrders();
-        room.updateRoomOrders();
-        room.terminalBroker();
+        let orderingRoom = global.orderingRoom();
+        if (orderingRoom.length === 1 && room.name !== orderingRoom[0].name) {
+            room.updateRoomOrders();
+            room.terminalBroker();
+        }
     }
 };
 mod.extend = function() {
+
     Room.prototype.updateResourceOrders = function () {
         let data = this.memory.resources;
         if (!this.my || !data) return;
@@ -67,32 +71,34 @@ mod.extend = function() {
 
     Room.prototype.updateRoomOrders = function() {
         if (!this.memory.resources || !this.memory.resources.orders) return;
-        let rooms = _.filter(Game.rooms, (room) => { return room.my && room.storage && room.terminal && room.name !== this.name; });
+        let rooms = _.filter(Game.rooms, (room) => {
+            return room.my && room.storage && room.terminal && room.name !== this.name;
+        });
         let orders = this.memory.resources.orders;
-        for (let i=0;i<orders.length;i++) {
+        for (let i = 0; i < orders.length; i++) {
             let order = orders[i];
             let amountRemaining = order.amount;
-            for (let j=0;j<order.offers.length;j++) {
+            for (let j = 0; j < order.offers.length; j++) {
                 let offer = order.offers[j];
-                //if (amountRemaining > 0) {
-                //    amountRemaining -= offer.amount;
-                //} else {
-                    if (Memory.rooms[offer.room] && Memory.rooms[offer.room].resources && Memory.rooms[offer.room].resources.offers) {
-                        let remoteOffers = Memory.rooms[offer.room].resources.offers;
-                        let idx = remoteOffers.indexOf((o)=>{ return o.room==this.name && o.id==order.id && o.type==order.type; });
-                        if (idx !== -1) remoteOffers.splice(idx,1);
-                    }
-                //    order.offers.splice[j--,1];
-                //}
+                if (Memory.rooms[offer.room] && Memory.rooms[offer.room].resources && Memory.rooms[offer.room].resources.offers) {
+                    let remoteOffers = Memory.rooms[offer.room].resources.offers;
+                    let idx = remoteOffers.indexOf(o => {
+                        return o.room === this.name && o.id === order.id && o.type === order.type;
+                    });
+                    if (idx !== -1) remoteOffers.splice(idx, 1);
+                }
             }
             order.offers = [];
             if (amountRemaining <= 0) {
+                //orders.splice(i, 1);
+                //i--;
                 delete orders[i];
-                orders.splice(i--,1);
-                continue;
+                orders.splice(i--, 1);
             } else {
-                rooms.sort((a,b)=>{ return Game.map.getRoomLinearDistance(this.name,a.name,true) - Game.map.getRoomLinearDistance(this.name,b.name,true); });
-                for (let j=0;j<rooms.length;j++) {
+                rooms.sort((a, b) => {
+                    return Game.map.getRoomLinearDistance(this.name, a.name, true) - Game.map.getRoomLinearDistance(this.name, b.name, true);
+                });
+                for (let j = 0; j < rooms.length; j++) {
                     let room = rooms[j];
                     if (room.memory.resources === undefined) {
                         room.memory.resources = {
@@ -103,22 +109,44 @@ mod.extend = function() {
                             powerSpawn: [],
                         };
                     }
-					
-					let offered = _(room.memory.resources.offers).flatten().groupBy('type').transform((result, val, key) => (result[key] = _.sum(val, 'amount'))).value();
-					let available = (room.storage.store[order.type] || 0) + (room.terminal.store[order.type] || 0) - (offered[order.type] || 0);
-                    if (available < 100) continue;
-                    available = Math.min(available,amountRemaining);
-                    if (!room.memory.resources.offers) room.memory.resources.offers = [];
-                    let existingOffer = order.offers.find((o)=>o.room==room.name);
+                    if (!room.memory.resources.offers)
+                        room.memory.resources.offers = [];
                     let remoteOffers = room.memory.resources.offers;
-                    let existingRemoteOffer = remoteOffers.find((o)=>{ return o.room==this.name && o.id==order.id && o.type==order.type; });
+                    let offered = global.sumCompoundType(remoteOffers);
+                    let available = (room.resourcesStorage[order.type] || 0) + (room.resourcesTerminal[order.type] || 0) - (room.name === this.name ? 0 : (room.resourcesReactions[order.type] || 0)) - (offered[order.type] || 0);
+                    if (available < global.MIN_OFFER_AMOUNT)
+                        continue;
+
+                    // for COMPOUNDS_TO_ALLOCATE
+                    if (!_.isUndefined(global.COMPOUNDS_TO_ALLOCATE[order.type])) {
+                        let reservedAmount = global.COMPOUNDS_TO_ALLOCATE[order.type].amount + global.COMPOUNDS_TO_ALLOCATE[order.type].threshold;
+                        if (available < reservedAmount + global.MIN_OFFER_AMOUNT)
+                            continue;
+                        else
+                            available = available - reservedAmount;
+                    }
+
+                    if (amountRemaining < global.MIN_OFFER_AMOUNT && amountRemaining > 0)
+                        amountRemaining = global.MIN_OFFER_AMOUNT;
+
+                    available = Math.min(available, amountRemaining);
+
+                    let existingOffer = order.offers.find(o => {
+                        return o.room === room.name;
+                    });
+                    let existingRemoteOffer = remoteOffers.find(o => {
+                        return o.room === this.name && o.id === order.id && o.type === order.type;
+                    });
                     if (existingOffer) {
-                        if (global.DEBUG && global.TRACE) trace("Room", { roomName: this.name, remoteRoom: room.name, actionName: 'updateRoomOrders', subAction: 'update', orderId: order.id, resourceType: order.type, amount: available })
+                        if (global.DEBUG && global.TRACE)
+                            global.trace("Room", { roomName: this.name, remoteRoom: room.name, actionName: 'updateRoomOrders', subAction: 'update', orderId: order.id, resourceType: order.type, amount: available });
                         amountRemaining -= (available - existingOffer.amount);
                         existingOffer.amount = available;
                     } else {
-                        if (global.DEBUG && global.TRACE) trace("Room", { roomName: this.name, remoteRoom: room.name, actionName: 'updateRoomOrders', subAction: 'new', orderId: order.id, resourceType: order.type, amount: available })
-                        if (global.DEBUG) logSystem(this.name, `Room offer from ${room.name} with id ${order.id} placed for ${available} ${order.type}.`);
+                        if (global.DEBUG && global.TRACE)
+                            global.trace("Room", { roomName: this.name, remoteRoom: room.name, actionName: 'updateRoomOrders', subAction: 'new', orderId: order.id, resourceType: order.type, amount: available });
+                        if (global.DEBUG)
+                            global.logSystem(this.name, `Room offer from ${room.name} with id ${order.id} placed for ${available} ${order.type}.`);
                         amountRemaining -= available;
                         order.offers.push({
                             room: room.name,
@@ -135,7 +163,8 @@ mod.extend = function() {
                             amount: available
                         });
                     }
-                    if (amountRemaining <= 0) break;
+                    if (amountRemaining <= 0)
+                        break;
                 }
             }
         }
@@ -143,7 +172,8 @@ mod.extend = function() {
 
     Room.prototype.fillARoomOrder = function() {
         if (!(this.terminal && this.memory && this.memory.resources && this.memory.resources.offers)) return false;
-        let offers = this.memory.resources.offers;
+        let offers = this.memory.resources.offers,
+            ret = false;
         for (let i=0;i<offers.length;i++) {
             let offer = offers[i];
             let targetRoom = Game.rooms[offer.room];
@@ -162,7 +192,7 @@ mod.extend = function() {
             let terminalOrder = null;
             if (this.memory.resources.terminal[0]) terminalOrder = this.memory.resources.terminal[0].orders.find((o)=>{ return o.type==offer.type; });
             if (terminalOrder) onOrder = terminalOrder.orderRemaining;
-            let amount = Math.max(offer.amount,100);
+            let amount = Math.max(offer.amount,global.MIN_OFFER_AMOUNT);
             if (amount > (store + onOrder)) {
                 let amt = amount - (store + onOrder);
                 if (global.DEBUG && global.TRACE) trace("Room", { actionName: 'fillARoomOrder', subAction: 'terminalOrder', roomName: this.name, targetRoomName: targetRoom.name, resourceType: offer.type, amount: amt });
@@ -177,10 +207,13 @@ mod.extend = function() {
                 amount -= cost;
                 cost += amount;
             }
+            console.log(`${this.name} amount: ${amount}`);
             if (cost > (this.terminal.store.energy||0)) continue;
-            if (amount < 100) continue;
+            if (amount < global.MIN_OFFER_AMOUNT) continue;
 
-            let ret = this.terminal.send(offer.type,amount,targetRoom.name,order.id);
+            console.log(`${offer.type} ${amount} ${targetRoom.name} ${order.id}`);
+
+            ret = this.terminal.send(offer.type,amount,targetRoom.name,order.id);
             if (ret == OK) {
                 if (global.DEBUG && global.TRACE) trace("Room", { actionName: 'fillARoomOrder', roomName: this.name, targetRoomName: targetRoom.name, resourceType: offer.type, amount: amount });
                 if (global.DEBUG) logSystem(this.name, `Room order filled to ${targetRoom.name} for ${amount} ${offer.type}.`);
@@ -198,7 +231,7 @@ mod.extend = function() {
             }
         }
 
-        return false;
+        return ret;
     };
 
     Room.prototype.prepareResourceOrder = function(containerId, resourceType, amount) {
@@ -289,6 +322,21 @@ mod.extend = function() {
             } else {
                 let obj = {id: labId, orders:[], reactionState:'Storage'};
                 this.memory.resources.lab.push(obj);
+            }
+        }
+    };
+
+    Room.prototype.unRegisterBoostLab = function (labId) {
+        let lab = Game.getObjectById(labId),
+            data = this.memory.resources;
+
+        if (lab && data) {
+            let dataIndex = this.memory.resources.lab.findIndex(x => x.id === labId);
+            if (dataIndex > -1) {
+                if (data.reactions.orders.length > 0)
+                    this.memory.resources.lab[dataIndex].reactionType = this.memory.resources.reactions.orders[0].type;
+                this.memory.resources.lab[dataIndex].reactionState = 'idle';
+                this.memory.resources.lab[dataIndex].orders = _.filter(this.memory.resources.lab[dataIndex].orders, 'type', 'energy');
             }
         }
     };
@@ -420,7 +468,6 @@ mod.extend = function() {
                 offers: []
             });
         }
-
         return OK;
     };
 
@@ -433,15 +480,30 @@ mod.extend = function() {
         for (const mineral in this.terminal.store) {
             if (mineral === RESOURCE_ENERGY || mineral === RESOURCE_POWER) continue;
             let terminalFull = (this.terminal.sum / this.terminal.storeCapacity) > 0.8;
+
             if( this.terminal.store[mineral] >= MIN_MINERAL_SELL_AMOUNT ) {
+
+                let buyRatio;
+                if (global.AUTOMATED_RATIO_COUNT) {
+                    buyRatio = global.countPrices('buy', mineral, that.name);
+                    if (global.DEBUG) {
+                        if (buyRatio === 0)
+                            console.log(`there is no buy order for ${mineral}`);
+                        else
+                            console.log(`average buyRatio: ${that.name} ${mineral} ${buyRatio}`);
+                    }
+                } else
+                    buyRatio = MIN_SELL_RATIO[mineral];
+
                 let orders = Game.market.getAllOrders( o => {
+
                     if( !o.roomName ||
                         o.resourceType != mineral ||
                         o.type != 'buy' ||
                         o.amount < MIN_MINERAL_SELL_AMOUNT ) return false;
 
                     o.range = Game.map.getRoomLinearDistance(o.roomName, that.name, true);
-                    o.transactionAmount = Math.min(o.amount, that.terminal.store[mineral]);
+                    o.transactionAmount = Math.min(o.amount, that.terminal.store[mineral] - that.resourcesOffers[mineral] - that.resourcesReactions[mineral]);
                     o.transactionCost = Game.market.calcTransactionCost(
                         o.transactionAmount,
                         that.name,
@@ -462,15 +524,19 @@ mod.extend = function() {
                     o.ratio = (o.credits - (o.transactionCost*ENERGY_VALUE_CREDITS)) / o.transactionAmount; // best offer assuming 1e == ENERGY_VALUE_CREDITS credits
 
                     return (
-                        (terminalFull || o.ratio >= MIN_SELL_RATIO[mineral]) &&
-                        //o.range <= MAX_SELL_RANGE &&
-                        o.transactionCost <= that.terminal.store.energy);
+                        (terminalFull || o.ratio >= buyRatio &&
+                            //o.range <= MAX_SELL_RANGE &&
+                            o.transactionCost <= that.terminal.store.energy));
                 });
 
                 if( orders.length > 0 ){
                     let order = _.max(orders, 'ratio');
+                    if (global.DEBUG) {
+                        console.log('selected order: ');
+                        global.BB(order);
+                    }
                     let result = Game.market.deal(order.id, order.transactionAmount, that.name);
-                    if( global.DEBUG || SELL_NOTIFICATION ) logSystem(that.name, `Selling ${order.transactionAmount} ${mineral} for ${order.credits} (${order.price} ¢/${mineral}, ${order.transactionCost} e): ${translateErrorCode(result)}`);
+                    if( global.DEBUG || SELL_NOTIFICATION ) logSystem(that.name, `Selling ${order.transactionAmount} ${mineral} for ${global.roundUp(order.credits)} (${order.price} ¢/${mineral}, ${order.transactionCost} e): ${translateErrorCode(result)}`);
                     if( SELL_NOTIFICATION ) Game.notify( `<h2>Room ${that.name} executed an order!</h2><br/>Result: ${translateErrorCode(result)}<br/>Details:<br/>${JSON.stringify(order).replace(',',',<br/>')}` );
                     transacting = result == OK;
                     break;
@@ -496,7 +562,7 @@ mod.extend = function() {
                 transacting = response == OK;
             }
         }
-        if ( !transacting ) {
+        if ( !transacting && Memory.boostTiming && Memory.boostTiming.compoundAllocationEnabled) {
             transacting = this.fillARoomOrder();
         }
     };

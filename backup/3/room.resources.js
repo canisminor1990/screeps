@@ -6,7 +6,173 @@ mod.analyzeRoom = function(room, needMemoryResync) {
     }
 };
 mod.extend = function() {
+
     Object.defineProperties(Room.prototype, {
+        'resourcesStorage': {
+            configurable: true,
+            get() {
+                if (_.isUndefined(this._resourcesStorage)) {
+
+                    this._resourcesStorage = {};
+
+                    if (!_.isUndefined(this.storage)) {
+                        Object.keys(this.storage.store).forEach(content => {
+                            if (_.isUndefined(this._resourcesStorage[content]))
+                                this._resourcesStorage[content] = this.storage.store[content];
+                        });
+                    }
+                }
+                return this._resourcesStorage;
+            }
+        },
+        'resourcesTerminal': {
+            configurable: true,
+            get() {
+                if (_.isUndefined(this._resourcesTerminal)) {
+
+                    this._resourcesTerminal = {};
+
+                    if (!_.isUndefined(this.terminal)) {
+                        Object.keys(this.terminal.store).forEach(content => {
+                            if (_.isUndefined(this._resourcesTerminal[content]))
+                                this._resourcesTerminal[content] = this.terminal.store[content];
+                        });
+                    }
+
+                }
+                return this._resourcesTerminal;
+            }
+        },
+        'resourcesLabs': {
+            configurable: true,
+            get() {
+                if (_.isUndefined(this._resourcesLabs)) {
+
+                    this._resourcesLabs = {};
+                    let data = this.memory.resources;
+
+                    if (!_.isUndefined(data) && !_.isUndefined(data.lab)) {
+
+                        for (let lab of data.lab) {
+                            if (lab.reactionState !== 'Storage') {
+                                let labStructure = Game.getObjectById(lab.id),
+                                    mineralType = labStructure.mineralType,
+                                    mineralAmount = labStructure.mineralAmount;
+
+                                if (!_.isUndefined(mineralType)) {
+                                    if (_.isUndefined(this._resourcesLabs[mineralType]))
+                                        this._resourcesLabs[mineralType] = mineralAmount;
+                                    else
+                                        this._resourcesLabs[mineralType] += mineralAmount;
+                                }
+                            }
+                        }
+                    }
+                }
+                return this._resourcesLabs;
+            }
+        },
+        'resourcesCreeps': {
+            configurable: true,
+            get() {
+                if (_.isUndefined(this._resourcesCreeps)) {
+
+                    this._resourcesCreeps = {};
+
+                    for (let creep of this.creeps) {
+                        Object.keys(creep.carries).forEach(content => {
+                            if (_.isUndefined(this._resourcesCreeps[content]))
+                                this._resourcesCreeps[content] = creep.carry[content];
+                            else
+                                this._resourcesCreeps[content] += creep.carry[content];
+                        });
+                    }
+                }
+                return this._resourcesCreeps;
+            }
+        },
+        'resourcesOffers': {
+            configurable: true,
+            get() {
+                if (_.isUndefined(this._resourcesOffers)) {
+
+                    this._resourcesOffers = {};
+                    let data = this.memory.resources;
+
+                    if (!_.isUndefined(data) && !_.isUndefined(data.offers))
+                        this._resourcesOffers = global.sumCompoundType(data.offers);
+                }
+                return this._resourcesOffers;
+            }
+        },
+        'resourcesOrders': {
+            configurable: true,
+            get() {
+                if (_.isUndefined(this._resourcesOrders)) {
+
+                    this._resourcesOrders = {};
+                    let data = this.memory.resources;
+
+                    if (!_.isUndefined(data) && !_.isUndefined(data.orders))
+                        this._resourcesOrders = global.sumCompoundType(data.orders);
+                }
+                return this._resourcesOrders;
+            }
+        },
+        'resourcesReactions': {
+            configurable: true,
+            get() {
+                if (_.isUndefined(this._resourcesReactions)) {
+
+                    this._resourcesReactions = {};
+                    let data = this.memory.resources;
+
+                    if (!_.isUndefined(data) && !_.isUndefined(data.reactions) && !_.isUndefined(data.reactions.orders) && data.reactions.orders.length === 1) {
+
+                        let reaction = data.reactions,
+                            reactionOrders = reaction.orders[0];
+
+                        let compound = reactionOrders.type,
+                            amount = reactionOrders.amount,
+                            reactionMakingLabs = data.lab.length - 2,
+                            ingredientA = (global.LAB_REACTIONS[compound][0]),
+                            ingredientB = (global.LAB_REACTIONS[compound][1]),
+                            labSeedA = Game.getObjectById(reaction.seed_a),
+                            labSeedB = Game.getObjectById(reaction.seed_b),
+                            mineralAmountA = labSeedA.mineralAmount,
+                            mineralAmountB = labSeedB.mineralAmount;
+
+                        this._resourcesReactions[ingredientA] = amount - mineralAmountA;
+                        this._resourcesReactions[ingredientB] = amount - mineralAmountB;
+
+                    }
+                }
+                return this._resourcesReactions;
+            }
+        },
+        'resourcesAll': {
+            configurable: true,
+            get() {
+                if (_.isUndefined(this._resourcesAll)) {
+
+                    this._resourcesAll = {};
+
+                    if (!_.isUndefined(this.storage)) {
+                        Object.keys(this.storage.store).forEach(content => {
+                            if (_.isUndefined(this._resourcesAll[content]))
+                                this._resourcesAll[content] = this.storedMinerals(content);
+                        });
+                    }
+                    if (!_.isUndefined(this.terminal)) {
+                        Object.keys(this.terminal.store).forEach(content => {
+                            if (_.isUndefined(this._resourcesAll[content]))
+                                this._resourcesAll[content] = this.storedMinerals(content);
+                        });
+                    }
+                }
+                return this._resourcesAll;
+            }
+        },
         'droppedResources': {
             configurable: true,
             get: function() {

@@ -157,7 +157,6 @@ global.install = () => {
         attackController: load("task.attackController"),
         robbing: load("task.robbing"),
         reputation: load("task.reputation"),
-        delivery: load("task.delivery"),
         labTech: load("task.labTech"),
         safeGen: load("task.safeGen"),
         scheduler: load("task.scheduler"),
@@ -213,7 +212,6 @@ global.install = () => {
             remoteWorker: load("creep.behaviour.remoteWorker"),
             pioneer: load("creep.behaviour.pioneer"),
             privateer: load("creep.behaviour.privateer"),
-            recycler: load("creep.behaviour.recycler"),
             ranger: load("creep.behaviour.ranger"),
             upgrader: load("creep.behaviour.upgrader"),
             worker: load("creep.behaviour.worker"),
@@ -246,6 +244,8 @@ global.install = () => {
             resources: load("room.resources"),
             spawns: load("room.spawn"),
             towers: load("room.tower"),
+            boostProduction: load('room.boostProduction'),
+            fillRoomOrders: load("room.fillRoomOrders"),
         },
     });
     global.inject(Spawn, load("spawn"));
@@ -258,6 +258,7 @@ global.install = () => {
     Spawn.extend();
     FlagDir.extend();
     Task.populate();
+    Visuals.extend();
     // custom extend
     if( global.mainInjection.extend ) global.mainInjection.extend();
     OCSMemory.activateSegment(MEM_SEGMENTS.COSTMATRIX_CACHE, true);
