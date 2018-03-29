@@ -12,12 +12,12 @@ export class LogClass {
     [COLOR_WHITE]: '#F8F8F0',
 
     black: { color: 'black', fontWeight: 'bold' },
-    system: { color: '#999', fontSize: '10px' },
-    error: { color: '#F92672', fontSize: '10px' },
-    warn: { color: '#FD971F', fontSize: '10px' },
-    info: { color: '#66D9EF', fontSize: '10px' },
-    room: { color: '#AE81FF', fontSize: '10px' },
-    success: { color: '#A6E22E', fontSize: '10px' }
+    system: { color: '#999', fontSize: '9px' },
+    error: { color: '#F92672', fontSize: '9px' },
+    warn: { color: '#FD971F', fontSize: '9px' },
+    info: { color: '#66D9EF', fontSize: '9px' },
+    room: { color: '#AE81FF', fontSize: '9px' },
+    success: { color: '#A6E22E', fontSize: '9px' }
   };
 
   public dye = (style: any, ...text: string[]): string => {
@@ -35,7 +35,7 @@ export class LogClass {
 
   public success = (...content: string[]): void => {
     console.log(
-      this.dye(this.style.success, '[INFO]'),
+      this.dye(this.style.success, '[SUCCESS]'),
       this.dye(this.style[COLOR_GREEN], ...content)
     );
   };

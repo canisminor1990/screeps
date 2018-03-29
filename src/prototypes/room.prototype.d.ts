@@ -4,52 +4,71 @@ interface MemoryCache {
   value: any;
 }
 
+// @ts-ignore
 interface Room {
-  cacheFind(): any[];
+  cacheFind(findType: number, timeout: number): any[];
 
-  findMyStructures(): Structure[];
+  cacheFilter(namespace: string, objs: any[], filter: Function, timeout: number): any[];
 
-  getHostileCreeps(): Creep[];
+  constructionSite(): any[];
 
-  getHostileCreepsNotAtBorder(): Creep[];
+  allStructuresFilter(type: string): Structure[];
+
+  myStructuresFilter(type: string): Structure[];
+
+  hostileStructuresFilter(type: string): Structure[];
+
+  allStructures(): Structure[];
+
+  myStructures(): Structure[];
+
+  hostileStructures(): Structure[];
+
+  containers(): StructureContainer[];
+
+  extensions(): StructureExtension[];
+
+  extractor(): StructureExtractor | undefined;
+
+  labs(): StructureLab[];
+
+  links(): StructureLink[];
+
+  nuker(): StructureNuker | undefined;
+
+  observer(): StructureObserver | undefined;
+
+  powerSpawn(): StructurePowerSpawn | undefined;
+
+  spawns(): StructureSpawn[];
+
+  storage(): StructureStorage | undefined;
+
+  terminal(): StructureTerminal | undefined;
+
+  roads(): StructureRoad[];
+
+  ramparts(): StructureRampart[];
+
+  walls(): StructureWall[];
+
+  // Creeps
+
+  allCreeps(): Creep[];
+
+  myCreeps(): Creep[];
+
+  hostileCreeps(): Creep[];
 
   hasHostileCreeps(): boolean;
 
-  getSpawns(): StructureSpawn[];
+  // Resources
 
-  getSpawn(): StructureSpawn | undefined;
+  sources(): Source[];
 
-  getSources(): Source[];
+  mineral(): Mineral | undefined;
 
-  getFreeSpawn(): StructureSpawn | undefined;
+  // Get
 
-  getMineral(): Mineral | undefined;
-
-  getBaseContainer(): StructureContainer | undefined;
-
-  getBaseLink(): StructureLink | undefined;
-
-  getBoostLab(): StructureLab | undefined;
-
-  getPowerSpawn(): StructurePowerSpawn | undefined;
-
-  getNuker(): StructureNuker | undefined;
-
-  hasFreeSpawnCapacity(): boolean;
-
-  hasLabArea(): boolean;
-
-  getProcessingLabs(): StructureLab[];
-
-  getSupplyingLabs(): StructureLab[];
-
-  getObserver(): StructureObserver | undefined;
-
-  isExpansion(): boolean;
-
-  hasExpansion(): boolean;
-
-  isAbandoned(): boolean;
-
-  isUnderSiege(): boolean;
+  getFreeSpawn(): StructureSpawn[];
 }

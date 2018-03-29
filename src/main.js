@@ -8,11 +8,14 @@ import './prototypes/source';
 // Loop
 import { Root, Loop } from './loop';
 
+Root();
+
 function* main() {
-  console.log('* * * * * * * * * * * * * * * * * * * * *');
-  console.log('* * * * * * * Code Update ! * * * * * * *');
-  console.log('* * * * * * * * * * * * * * * * * * * * *');
-  Root();
+  console.log();
+  Log.success('* * * * * * * * * * * * * * * * * * * * *');
+  Log.success('* * * * * * * Code Update ! * * * * * * *');
+  Log.success('* * * * * * * * * * * * * * * * * * * * *');
+  console.log();
   while (true) {
     Loop();
     yield null;
@@ -36,6 +39,6 @@ exports.loop = function() {
       Memory.thread = regeneratorRuntime.serializeGenerator(thread);
     }
   } catch (e) {
-    console.log('Code Changing ... ... ...');
+    Log.warn(`Code Changing at ${Game.time}... ... ...`);
   }
 };

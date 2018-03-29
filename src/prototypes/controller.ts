@@ -1,4 +1,4 @@
-import * as PathfindingUtilities from '../utils/Pathfinding';
+// import * as PathfindingUtilities from '../utils/Pathfinding';
 
 StructureController.prototype.memoryCheck = function(): void {
   if (this.room.memory === undefined) {
@@ -56,7 +56,8 @@ StructureController.prototype.getContainerPosition = function(): RoomPosition | 
   const distanceToStorage: number[] = [];
   for (let positionId in positions) {
     let position = positions[positionId];
-    distanceToStorage[positionId] = PathfindingUtilities.getDistanseBetween(position, storagePos);
+    // TODO: replace method
+    // distanceToStorage[positionId] = PathfindingUtilities.getDistanseBetween(position, storagePos);
   }
 
   let minDistanseId: string | undefined;

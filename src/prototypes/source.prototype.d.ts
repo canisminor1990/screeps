@@ -11,8 +11,6 @@ interface SourceMemory {
 interface Source {
   memory: SourceMemory;
 
-  memoryCheck(): void;
-
   hasMiningContainer(): boolean;
 
   setMiningContainerId(id: string): void;

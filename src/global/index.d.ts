@@ -12,11 +12,21 @@ declare namespace NodeJS {
 // CMemory
 
 interface CMemoryClass {
+  state(): any;
+
+  pull(): void;
+
+  push(): void;
+
   check(key: string, value: any): void;
 
-  get(key: string): void;
+  get(key: string): any;
 
   set(key: string, value: any): void;
+
+  assign(key: string, value: any): void;
+
+  delete(key: string): void;
 }
 
 declare var CMemory: CMemoryClass;

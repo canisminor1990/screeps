@@ -1,19 +1,11 @@
-Source.prototype.memoryCheck = function(): void {
-  if (Memory.sources === undefined) {
-    Memory.sources = {};
-  }
-  if (Memory.sources[this.id] === undefined) {
-    Memory.sources[this.id] = {};
-  }
-};
-
 // 扩展 memory
 Object.defineProperty(Source.prototype, 'memory', {
-  get: function() {
-    this.memoryCheck();
+  get: function(): any {
+    CMemory.check(`sources.${this.id}`);
     return Memory.sources[this.id];
   },
-  set: function(value) {
+  set: function(value: any): void {
+    CMemory.check(`sources.${this.id}`);
     this.memoryCheck();
     Memory.sources[this.id] = value;
   }

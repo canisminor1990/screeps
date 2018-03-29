@@ -1,4 +1,4 @@
-import { traveler } from '../utilities/Traveler';
+// import { traveler } from '../utilities/Traveler';
 
 Creep.prototype.hasState = function() {
   return this.memory.state !== undefined;
@@ -35,32 +35,32 @@ Creep.prototype.setNotPrioritized = function(): void {
   this.memory.prioritized = false;
 };
 
-Creep.prototype.travelTo = function(
-  destination: { pos: RoomPosition },
-  options?: any,
-  enemyCheck?: boolean
-) {
-  if (options) {
-    if (options.allowHostile !== false) {
-      options.allowHostile = true;
-    }
-    if (options.maxOps === undefined) {
-      options.maxOps = 10000;
-    }
-  } else {
-    options = { allowHostile: true, maxOps: 10000 };
-  }
-  return traveler.travelTo(this, destination, options, enemyCheck);
-};
+// Creep.prototype.travelTo = function(
+//   destination: { pos: RoomPosition },
+//   options?: any,
+//   enemyCheck?: boolean
+// ) {
+//   if (options) {
+//     if (options.allowHostile !== false) {
+//       options.allowHostile = true;
+//     }
+//     if (options.maxOps === undefined) {
+//       options.maxOps = 10000;
+//     }
+//   } else {
+//     options = { allowHostile: true, maxOps: 10000 };
+//   }
+//   return traveler.travelTo(this, destination, options, enemyCheck);
+// };
 
-Creep.prototype.travelToRoom = function(roomName: string, options?: any, enemyCheck?: boolean) {
-  if (options) {
-    options.range = 20;
-  } else {
-    options = { range: 20 };
-  }
-  return this.travelTo({ pos: new RoomPosition(25, 25, roomName) }, options, enemyCheck);
-};
+// Creep.prototype.travelToRoom = function(roomName: string, options?: any, enemyCheck?: boolean) {
+//   if (options) {
+//     options.range = 20;
+//   } else {
+//     options = { range: 20 };
+//   }
+//   return this.travelTo({ pos: new RoomPosition(25, 25, roomName) }, options, enemyCheck);
+// };
 
 // 获取不满的血量
 Creep.prototype.missingHits = function(): number {
