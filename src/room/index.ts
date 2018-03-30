@@ -1,3 +1,3 @@
-class Room {
-  pathfinderCache = {};
-}
+// class Room {
+//   pathfinderCache = {};
+// }

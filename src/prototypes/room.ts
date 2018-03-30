@@ -1,7 +1,7 @@
 import { GameObject } from '../utils/index';
 
 Room.prototype.cacheFind = function(findType: number, timeout: number = 1): any[] {
-  if (this.memory.cache === undefined) this.memory.cache = {};
+  if (_.isUndefined(this.memory.cache)) this.memory.cache = {};
 
   // 从缓存中提取
   const gameTime = Game.time;
@@ -176,10 +176,21 @@ Room.prototype.mineral = function(): Mineral | undefined {
   return undefined;
 };
 
-// Get
+// Func
 
 Room.prototype.getFreeSpawn = function(): StructureSpawn[] {
   const spawns = this.spawns() as StructureSpawn[];
   if (spawns.length < 1) return [];
   return _.filter(spawns, spawn => !spawn.spawning);
+};
+
+Room.prototype.typeCount = function(type: string): number {
+  if (_.isUndefined(this.memory.typeCount)) this.memory.typeCount = {};
+  const num = this.memory.typeCount[type];
+  return _.isUndefined(num) ? 0 : num;
+};
+
+Room.prototype.rcl = function(): number {
+  if (_.isUndefined(this.controller)) return 0;
+  return this.controller.level;
 };

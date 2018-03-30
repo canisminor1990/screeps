@@ -4,8 +4,11 @@ interface MemoryCache {
   value: any;
 }
 
-// @ts-ignore
 interface Room {
+  memory: any;
+
+  rcl(): number;
+
   cacheFind(findType: number, timeout: number): any[];
 
   cacheFilter(namespace: string, objs: any[], filter: Function, timeout: number): any[];
@@ -68,7 +71,9 @@ interface Room {
 
   mineral(): Mineral | undefined;
 
-  // Get
+  // Func
 
   getFreeSpawn(): StructureSpawn[];
+
+  typeCount(type: string): number;
 }

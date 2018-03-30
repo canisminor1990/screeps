@@ -101,7 +101,7 @@ export class RoomService {
         for (let roomName in Game.rooms) {
 
             let room = Game.rooms[roomName];
-            if (room.controller === undefined || !room.controller.my || room.controller.level < 1) {
+            if (room.controller === undefined || !D || room.controller.level < 1) {
                 continue;
             }
             if (room.memory.t === undefined) {
