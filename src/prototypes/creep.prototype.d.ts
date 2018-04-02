@@ -1,39 +1,67 @@
+interface CreepMemory {
+  state: number | undefined;
+  actionName: string | null;
+  targetId: string | null;
+  homeRoom: string;
+  path: string;
+  prioritized: false;
+}
+
 interface Creep {
+  memory: CreepMemory;
+
+  // state
   hasState(): boolean;
-  getState(): number | undefined;
-  setState(state: number): void;
 
-  getHomeroom(): string;
-  isInHomeroom(): boolean;
+  state: number | undefined;
 
-  isPrioritized(): boolean;
-  setPrioritized(): void;
-  setNotPrioritized(): void;
+  // role
+  role(): string;
 
-  travelTo(destination: { pos: RoomPosition }, options?: any, enemyCheck?: boolean): any;
-  travelToRoom(roomName: string, options?: any, enemyCheck?: boolean): any;
+  // path
+  path(): string;
 
+  // homeRoom
+  homeRoom(): string;
+
+  isInHomeRoom(): boolean;
+
+  // target
+  targetId(): string | null;
+
+  target(): RoomObject | null;
+
+  hasTarget(): boolean;
+
+  setTarget(obg: RoomObject): void;
+
+  // action
+  action(): string | null;
+
+  // priority
+  isPriority(): boolean;
+
+  onPriority(): void;
+
+  offPriority(): void;
+
+  // 容量
+  isEmpty(): boolean;
+
+  isFull(): boolean;
+
+  // 血量
   missingHits(): number;
 
   isHurt(): boolean;
-  isRenewing(): boolean;
-  startRenewing(): void;
-  stopRenewing(): void;
-  isEmpty(): boolean;
-  isFull(): boolean;
-  isDumping(): boolean;
-  isFinishedDumping(): boolean;
-  isFinishedMining(): boolean;
-  startDumping(): void;
-  stopDumping(): void;
-  isTanking(): boolean;
-  isFinishedTanking(): boolean;
-  isInNeedOfTanking(): boolean;
-  startTanking(): void;
-  stopTanking(): void;
-  getWorkerParts(): number;
-  isDisabled(): boolean;
-  disable(): void;
-  enable(): void;
+
+  // 位置
   isAtBorder(): boolean;
+
+  // BodyPart
+  getBodyparts(partTypes: BodyPartConstant): number;
+
+  hasBodyparts(partTypes: BodyPartConstant | BodyPartConstant[], start: number): boolean;
+
+  hasActiveBodyparts(partTypes: BodyPartConstant | BodyPartConstant[]): boolean;
 }

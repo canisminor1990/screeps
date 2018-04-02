@@ -1,36 +1,7 @@
-import { SetupUtils } from '../../utils/SetupUtils';
 import { RoleType } from '../../enums/role';
 import { CreepSetup } from '../setup';
 
 export default class extends CreepSetup {
-  get default() {
-    return {
-      fixedBody: [],
-      multiBody: {
-        [CARRY]: 1,
-        [WORK]: 1,
-        [MOVE]: 1
-      },
-      minMulti: 1,
-      maxMulti: this.maxMulti(this.default.fixedBody, this.default.multiBody),
-      maxCount: this.maxCount()
-    };
-  }
-
-  get low() {
-    return {
-      fixedBody: [],
-      multiBody: {
-        [CARRY]: 1,
-        [WORK]: 1,
-        [MOVE]: 2
-      },
-      minMulti: 1,
-      maxMulti: 8,
-      maxCount: this.maxCount()
-    };
-  }
-
   get RCL() {
     return {
       1: this.low,
@@ -44,7 +15,35 @@ export default class extends CreepSetup {
     };
   }
 
-  private maxCount = (): number => {
+  get default(): any {
+    return {
+      fixedBody: [],
+      multiBody: {
+        [CARRY]: 1,
+        [WORK]: 1,
+        [MOVE]: 1
+      },
+      minMulti: 1,
+      maxMulti: this.maxMulti(this.default.fixedBody, this.default.multiBody),
+      maxCount: this.maxCount()
+    };
+  }
+
+  get low(): any {
+    return {
+      fixedBody: [],
+      multiBody: {
+        [CARRY]: 1,
+        [WORK]: 1,
+        [MOVE]: 2
+      },
+      minMulti: 1,
+      maxMulti: 8,
+      maxCount: this.maxCount()
+    };
+  }
+
+  private maxCount(): number {
     let count: number = 0;
 
     if (this.room.rcl() <= 2) {
@@ -54,8 +53,9 @@ export default class extends CreepSetup {
     if (!this.hasMinerOrHauler) count++;
     count += Math.floor(this.room.constructionSite().length / 10);
     return _.min([1, count]);
-  };
+  }
 
-  private hasMinerOrHauler = () =>
-    this.room.typeCount(RoleType.miner) > 0 || this.room.typeCount(RoleType.hauler) > 0;
+  private hasMinerOrHauler(): boolean {
+    return this.room.roleCount(RoleType.miner) > 0 || this.room.roleCount(RoleType.hauler) > 0;
+  }
 }

@@ -1,57 +1,56 @@
-export class ActionHarvest {
-  creep: Creep;
+import { CreepAction } from '../action';
 
-  // constructor(creep: Creep) {
-  //   super('harvest');
-  //   this.creep = creep;
-  // }
-
+export class ActionHarvest extends CreepAction {
+  name: 'harvest';
   renewTarget = false;
 
-  isValidAction = (): boolean => {
-    return this.creep.sum < this.creep.carryCapacity && this.creep.room.sourceEnergyAvailable > 0;
-  };
+  isValidAction(): boolean {
+    return !this.creep.isFull() && this.creep.room.sourcesEnergyAvailable() > 0;
+  }
 
-  isValidTarget = (target: Source): boolean => {
-    if (target === null || target.energy === null || target.energy > 0) return false;
-    if (_.isUndefined(target.targetOf)) return true;
+  isValidTarget(target?: Source): boolean {
+    const Target = target || (this.creep.target() as Source | null);
+    if (Target === null || Target.energy === null || Target.energy > 0) return false;
+    if (Target.targetOf() === 0) return true;
 
     return (
-      target.targetOf.length <= target.accessibleFields &&
+      Target.targetOf() <= Target.accessibleFields() &&
       !_.some(
-        target.targetOf,
+        Target.getTargetOfCreeps(),
         (c: Creep) =>
-          (c.memory.role === 'miner' || c.memory.role === 'remoteMiner') &&
-          c.body.work >= 5 &&
-          (c.ticksToLive || CREEP_LIFE_TIME) >= ((c.data && c.data.predictedRenewal) || 0)
+          (c.role() === 'miner' || c.role() === 'remoteMiner') && c.getBodyparts(WORK) >= 5
       )
     );
-  };
+  }
 
-  isAddableTarget = (target: Source): boolean => {
+  isAddableTarget(target?: Source): boolean {
+    const Target = target || (this.creep.target() as Source | null);
+    const controller = this.creep.room.controller;
+    if (_.isUndefined(controller)) return true;
     const AddableRoom =
-      _.isUndefined(this.creep.room.controller) ||
-      // my room or not owned
-      ((!this.creep.room.controller.owner || this.creep.room.controller.my) &&
-        // my reservation or none
-        (!this.creep.room.controller.reservation ||
-          this.creep.room.controller.reservation.username === this.creep.owner.username));
-    const AddableTarget =
-      _.isUndefined(target.targetOf) || target.targetOf.length <= target.accessibleFields;
-    return AddableRoom && AddableTarget;
-  };
+      controller &&
+      (!controller.owner || controller.my) &&
+      (!controller.reservation || controller.reservation.username === this.creep.owner.username);
+    if (AddableRoom && Target !== null && Target.targetOf() <= Target.accessibleFields())
+      return true;
+    return false;
+  }
 
-  newTarget = (): Source | null => {
-    const roomSources = _.sortBy(this.creep.room.sources, s => this.creep.pos.getRangeTo(s));
+  newTarget(): Source | null {
+    const roomSources = _.sortBy(this.creep.room.sources(), (s: Source) =>
+      this.creep.pos.getRangeTo(s)
+    );
     for (let source of roomSources) {
       if (this.isValidTarget(source) && this.isAddableTarget(source)) {
         return source;
       }
     }
     return null;
-  };
+  }
 
-  work = (): number => {
-    return this.creep.harvest(this.creep.target);
-  };
+  work(): number {
+    const Target = this.creep.target() as Source;
+    if (Target === null) return ERR_INVALID_TARGET;
+    return this.creep.harvest(Target);
+  }
 }

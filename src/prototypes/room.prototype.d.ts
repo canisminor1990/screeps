@@ -5,15 +5,33 @@ interface MemoryCache {
 }
 
 interface Room {
-  memory: any;
+  memory: RoomMemory;
+
+  // Func
+
+  getFreeSpawn(): StructureSpawn[];
+
+  checkCreeps(): void;
+
+  creeps(): Creep[];
+
+  roleCount(type: string): number;
+
+  roleCreeps(type: string): Creep[];
+
+  sourcesEnergyAvailable(): number;
 
   rcl(): number;
+
+  // find
 
   cacheFind(findType: number, timeout: number): any[];
 
   cacheFilter(namespace: string, objs: any[], filter: Function, timeout: number): any[];
 
   constructionSite(): any[];
+
+  // structures
 
   allStructuresFilter(type: string): Structure[];
 
@@ -70,10 +88,4 @@ interface Room {
   sources(): Source[];
 
   mineral(): Mineral | undefined;
-
-  // Func
-
-  getFreeSpawn(): StructureSpawn[];
-
-  typeCount(type: string): number;
 }

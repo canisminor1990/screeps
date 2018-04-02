@@ -1,5 +1,64 @@
 import { GameObject } from '../utils/index';
+import { RoleType } from '../enums/role';
 
+// rcl
+Room.prototype.rcl = function(): number {
+  if (_.isUndefined(this.controller)) return 0;
+  return this.controller.level;
+};
+
+// 获取空闲spawn
+Room.prototype.getFreeSpawn = function(): StructureSpawn[] {
+  const spawns = this.spawns() as StructureSpawn[];
+  if (spawns.length < 1) return [];
+  return _.filter(spawns, spawn => !spawn.spawning);
+};
+
+// 可以挖的energy
+Room.prototype.sourcesEnergyAvailable = function(): number {
+  let energy = 0;
+  _.forEach(this.sources(), (s: Source) => (energy += s.energy));
+  return energy;
+};
+
+// creeps缓存
+Room.prototype.checkCreeps = function(): void {
+  if (_.isUndefined(this.memory.creeps)) this.memory.creeps = { all: [], role: {}, time: 0 };
+  const creeps = this.memory.creeps;
+  if (creeps.time !== Game.time || creeps.all.length === 0) {
+    const List = _.filter(Game.creeps, (creep: Creep) => creep.homeRoom() === this.roomName);
+    const RoleList: { [type: string]: string[] } = {};
+    _.forEach(List, (creep: Creep) => {
+      if (!RoleList[creep.role()]) RoleList[creep.role()] = [];
+      RoleList[creep.role()].push(creep.id);
+    });
+    this.memory.creeps.role = RoleList;
+    this.memory.creeps.all = GameObject.getIdArray(List);
+    this.memory.creeps.time = Game.time;
+  }
+};
+
+// 所属房间的creeps
+Room.prototype.creeps = function(): Creep[] {
+  this.checkCreeps();
+  return GameObject.getByArray(this.memory.creeps.all);
+};
+
+// creeps角色数量
+Room.prototype.roleCount = function(roleType: RoleType): number {
+  this.checkCreeps();
+  const role = this.memory.creeps.role[roleType] as string[];
+  return _.isUndefined(role) ? 0 : role.length;
+};
+
+// creeps角色数组
+Room.prototype.roleCreeps = function(roleType: RoleType): Creep[] {
+  this.checkCreeps();
+  const role = this.memory.creeps.role[roleType] as string[];
+  return _.isUndefined(role) ? [] : GameObject.getByArray(role);
+};
+
+// find 缓存
 Room.prototype.cacheFind = function(findType: number, timeout: number = 1): any[] {
   if (_.isUndefined(this.memory.cache)) this.memory.cache = {};
 
@@ -24,6 +83,8 @@ Room.prototype.cacheFind = function(findType: number, timeout: number = 1): any[
   };
   return values;
 };
+
+// filter 缓存
 
 Room.prototype.cacheFilter = function(
   namespace: string,
@@ -53,26 +114,6 @@ Room.prototype.cacheFilter = function(
   return values;
 };
 
-// ConstructionSite
-
-Room.prototype.constructionSite = function(): any[] {
-  return this.cacheFind(FIND_MY_CONSTRUCTION_SITES);
-};
-
-// Structures
-
-Room.prototype.allStructures = function(): Structure[] {
-  return this.cacheFind(FIND_STRUCTURES);
-};
-
-Room.prototype.myStructures = function(): Structure[] {
-  return this.cacheFind(FIND_MY_STRUCTURES);
-};
-
-Room.prototype.hostileStructures = function(): Structure[] {
-  return this.cacheFind(FIND_HOSTILE_STRUCTURES);
-};
-
 Room.prototype.allStructuresFilter = function(type: string): Structure[] {
   return this.cacheFilter(type, this.allStructures(), (s: Structure) => s.structureType === type);
 };
@@ -89,108 +130,109 @@ Room.prototype.hostileStructuresFilter = function(type: string): Structure[] {
   );
 };
 
-Room.prototype.containers = function(): StructureContainer[] {
-  return this.myStructuresFilter(STRUCTURE_CONTAINER);
-};
+// shorthand
+Object.assign(Room.prototype, {
+  // ConstructionSite
+  constructionSite: function(): any[] {
+    return this.cacheFind(FIND_MY_CONSTRUCTION_SITES);
+  },
 
-Room.prototype.extensions = function(): StructureExtension[] {
-  return this.myStructuresFilter(STRUCTURE_EXTENSION);
-};
+  // Structures
+  allStructures: function(): Structure[] {
+    return this.cacheFind(FIND_STRUCTURES);
+  },
 
-Room.prototype.extractor = function(): StructureExtractor | undefined {
-  return this.myStructuresFilter(STRUCTURE_EXTRACTOR)[0];
-};
+  myStructures: function(): Structure[] {
+    return this.cacheFind(FIND_MY_STRUCTURES);
+  },
 
-Room.prototype.labs = function(): StructureLab[] {
-  return this.myStructuresFilter(STRUCTURE_LAB);
-};
+  hostileStructures: function(): Structure[] {
+    return this.cacheFind(FIND_HOSTILE_STRUCTURES);
+  },
 
-Room.prototype.links = function(): StructureLink[] {
-  return this.myStructuresFilter(STRUCTURE_LINK);
-};
+  containers: function(): StructureContainer[] {
+    return this.myStructuresFilter(STRUCTURE_CONTAINER);
+  },
 
-Room.prototype.nuker = function(): StructureNuker | undefined {
-  return this.myStructuresFilter(STRUCTURE_NUKER)[0];
-};
+  extensions: function(): StructureExtension[] {
+    return this.myStructuresFilter(STRUCTURE_EXTENSION);
+  },
 
-Room.prototype.observer = function(): StructureObserver | undefined {
-  return this.myStructuresFilter(STRUCTURE_OBSERVER)[0];
-};
+  extractor: function(): StructureExtractor | undefined {
+    return this.myStructuresFilter(STRUCTURE_EXTRACTOR)[0];
+  },
 
-Room.prototype.powerSpawn = function(): StructurePowerSpawn | undefined {
-  return this.myStructuresFilter(STRUCTURE_POWER_SPAWN)[0];
-};
+  labs: function(): StructureLab[] {
+    return this.myStructuresFilter(STRUCTURE_LAB);
+  },
 
-Room.prototype.spawns = function(): StructureSpawn[] {
-  return this.myStructuresFilter(STRUCTURE_SPAWN);
-};
+  links: function(): StructureLink[] {
+    return this.myStructuresFilter(STRUCTURE_LINK);
+  },
 
-Room.prototype.storage = function(): StructureStorage | undefined {
-  return this.myStructuresFilter(STRUCTURE_STORAGE)[0];
-};
+  nuker: function(): StructureNuker | undefined {
+    return this.myStructuresFilter(STRUCTURE_NUKER)[0];
+  },
 
-Room.prototype.terminal = function(): StructureTerminal | undefined {
-  return this.myStructuresFilter(STRUCTURE_TERMINAL)[0];
-};
+  observer: function(): StructureObserver | undefined {
+    return this.myStructuresFilter(STRUCTURE_OBSERVER)[0];
+  },
 
-Room.prototype.roads = function(): StructureRoad[] {
-  return this.allStructuresFilter(STRUCTURE_ROAD);
-};
+  powerSpawn: function(): StructurePowerSpawn | undefined {
+    return this.myStructuresFilter(STRUCTURE_POWER_SPAWN)[0];
+  },
 
-Room.prototype.ramparts = function(): StructureRampart[] {
-  return this.allStructuresFilter(STRUCTURE_RAMPART);
-};
+  spawns: function(): StructureSpawn[] {
+    return this.myStructuresFilter(STRUCTURE_SPAWN);
+  },
 
-Room.prototype.walls = function(): StructureWall[] {
-  return this.allStructuresFilter(STRUCTURE_WALL);
-};
+  storage: function(): StructureStorage | undefined {
+    return this.myStructuresFilter(STRUCTURE_STORAGE)[0];
+  },
 
-// Creep
-Room.prototype.allCreeps = function(): Creep[] {
-  return this.cacheFind(FIND_CREEPS);
-};
+  terminal: function(): StructureTerminal | undefined {
+    return this.myStructuresFilter(STRUCTURE_TERMINAL)[0];
+  },
 
-Room.prototype.myCreeps = function(): Creep[] {
-  return this.cacheFind(FIND_MY_CREEPS);
-};
+  roads: function(): StructureRoad[] {
+    return this.allStructuresFilter(STRUCTURE_ROAD);
+  },
 
-Room.prototype.hostileCreeps = function(): Creep[] {
-  return this.cacheFind(FIND_HOSTILE_CREEPS);
-};
+  ramparts: function(): StructureRampart[] {
+    return this.allStructuresFilter(STRUCTURE_RAMPART);
+  },
 
-Room.prototype.hasHostileCreeps = function(): boolean {
-  return this.hostileCreeps().length > 0;
-};
+  walls: function(): StructureWall[] {
+    return this.allStructuresFilter(STRUCTURE_WALL);
+  },
 
-// Resources
+  // Creep
+  allCreeps: function(): Creep[] {
+    return this.cacheFind(FIND_CREEPS);
+  },
 
-Room.prototype.sources = function(): Source[] {
-  return this.cacheFind(FIND_SOURCES, Infinity) as Source[];
-};
+  myCreeps: function(): Creep[] {
+    return this.cacheFind(FIND_MY_CREEPS);
+  },
 
-Room.prototype.mineral = function(): Mineral | undefined {
-  let minerals = this.cacheFind(FIND_MINERALS, Infinity) as Mineral[];
-  if (minerals.length > 0) {
-    return minerals[0];
+  hostileCreeps: function(): Creep[] {
+    return this.cacheFind(FIND_HOSTILE_CREEPS);
+  },
+
+  hasHostileCreeps: function(): boolean {
+    return this.hostileCreeps().length > 0;
+  },
+
+  // Resources
+  sources: function(): Source[] {
+    return this.cacheFind(FIND_SOURCES, Infinity) as Source[];
+  },
+
+  mineral: function(): Mineral | undefined {
+    let minerals = this.cacheFind(FIND_MINERALS, Infinity) as Mineral[];
+    if (minerals.length > 0) {
+      return minerals[0];
+    }
+    return undefined;
   }
-  return undefined;
-};
-
-// Func
-
-Room.prototype.getFreeSpawn = function(): StructureSpawn[] {
-  const spawns = this.spawns() as StructureSpawn[];
-  if (spawns.length < 1) return [];
-  return _.filter(spawns, spawn => !spawn.spawning);
-};
-
-Room.prototype.typeCount = function(type: string): number {
-  if (_.isUndefined(this.memory.typeCount)) this.memory.typeCount = {};
-  const num = this.memory.typeCount[type];
-  return _.isUndefined(num) ? 0 : num;
-};
-
-Room.prototype.rcl = function(): number {
-  if (_.isUndefined(this.controller)) return 0;
-  return this.controller.level;
-};
+});

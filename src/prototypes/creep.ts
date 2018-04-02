@@ -1,66 +1,70 @@
 // import { traveler } from '../utilities/Traveler';
 
+// state
 Creep.prototype.hasState = function() {
-  return this.memory.state !== undefined;
+  return !_.isUndefined(this.memory.state);
 };
 
-Creep.prototype.getState = function() {
-  return this.memory.state;
+Object.defineProperty(Creep.prototype, 'state', {
+  get: function(): number | undefined {
+    return this.memory.state;
+  },
+  set: function(state: number): void {
+    this.memory.state = state;
+  }
+});
+
+// role
+Creep.prototype.role = function(): string {
+  return this.memory.role;
 };
 
-Creep.prototype.setState = function(state: number) {
-  this.memory.state = state;
+// path
+Creep.prototype.path = function(): string {
+  return this.memory.path;
 };
 
-Creep.prototype.getHomeroom = function(): string {
-  return this.memory.homeroom;
+// homeRoom
+Creep.prototype.homeRoom = function(): string {
+  return this.memory.homeRoom;
+};
+Creep.prototype.isInHomeRoom = function(): boolean {
+  return this.memory.homeRoom === this.room.name;
 };
 
-Creep.prototype.isInHomeroom = function(): boolean {
-  return this.memory.homeroom === this.room.name;
+// target
+Creep.prototype.targetId = function(): string | null {
+  return this.memory.targetId;
+};
+Creep.prototype.target = function(): RoomObject | null {
+  return Game.getObjectById(this.memory.targetId);
+};
+Creep.prototype.hasTarget = function(): boolean {
+  return this.memory.targetId !== null;
+};
+Creep.prototype.setTarget = function(obj: RoomObject): void {
+  this.memory.targetId = obj.id ? obj.id : null;
+};
+
+// action
+Creep.prototype.action = function(): string | null {
+  return this.memory.actionName;
 };
 
 // 是否高优先级
-Creep.prototype.isPrioritized = function(): boolean {
+Creep.prototype.isPriority = function(): boolean {
   return this.memory.prioritized === true;
 };
 
 // 设置为高优先级
-Creep.prototype.setPrioritized = function(): void {
+Creep.prototype.onPriority = function(): void {
   this.memory.prioritized = true;
 };
 
 // 设置为低优先级
-Creep.prototype.setNotPrioritized = function(): void {
+Creep.prototype.offPriority = function(): void {
   this.memory.prioritized = false;
 };
-
-// Creep.prototype.travelTo = function(
-//   destination: { pos: RoomPosition },
-//   options?: any,
-//   enemyCheck?: boolean
-// ) {
-//   if (options) {
-//     if (options.allowHostile !== false) {
-//       options.allowHostile = true;
-//     }
-//     if (options.maxOps === undefined) {
-//       options.maxOps = 10000;
-//     }
-//   } else {
-//     options = { allowHostile: true, maxOps: 10000 };
-//   }
-//   return traveler.travelTo(this, destination, options, enemyCheck);
-// };
-
-// Creep.prototype.travelToRoom = function(roomName: string, options?: any, enemyCheck?: boolean) {
-//   if (options) {
-//     options.range = 20;
-//   } else {
-//     options = { range: 20 };
-//   }
-//   return this.travelTo({ pos: new RoomPosition(25, 25, roomName) }, options, enemyCheck);
-// };
 
 // 获取不满的血量
 Creep.prototype.missingHits = function(): number {
@@ -71,18 +75,6 @@ Creep.prototype.isHurt = function(): boolean {
   return this.hits < this.hitsMax;
 };
 
-Creep.prototype.isRenewing = function(): boolean {
-  return this.memory.renewing === true;
-};
-
-Creep.prototype.startRenewing = function(): void {
-  this.memory.renewing = true;
-};
-
-Creep.prototype.stopRenewing = function(): void {
-  this.memory.renewing = false;
-};
-
 Creep.prototype.isEmpty = function(): boolean {
   return this.carry.energy === 0;
 };
@@ -91,63 +83,38 @@ Creep.prototype.isFull = function(): boolean {
   return _.sum(this.carry) === this.carryCapacity;
 };
 
-Creep.prototype.isDumping = function(): boolean {
-  return this.memory.dumping === true;
-};
-
-Creep.prototype.isFinishedDumping = function(): boolean {
-  return this.isDumping() && this.isEmpty();
-};
-
-Creep.prototype.isFinishedMining = function(): boolean {
-  return !this.isDumping() && this.isFull();
-};
-
-Creep.prototype.startDumping = function(): void {
-  this.memory.dumping = true;
-};
-
-Creep.prototype.stopDumping = function(): void {
-  this.memory.dumping = false;
-};
-
-Creep.prototype.isTanking = function(): boolean {
-  return this.memory.tanking === true;
-};
-
-Creep.prototype.isFinishedTanking = function(): boolean {
-  return this.isTanking() && this.isFull();
-};
-
-Creep.prototype.isInNeedOfTanking = function(): boolean {
-  return !this.isTanking() && this.isEmpty();
-};
-
-Creep.prototype.startTanking = function(): void {
-  this.memory.tanking = true;
-};
-
-Creep.prototype.stopTanking = function(): void {
-  this.memory.tanking = false;
-};
-
-Creep.prototype.getWorkerParts = function(): number {
-  return this.getActiveBodyparts(WORK);
-};
-
-Creep.prototype.isDisabled = function(): boolean {
-  return this.memory.disabled;
-};
-
-Creep.prototype.disable = function(): void {
-  this.memory.disabled = true;
-};
-
-Creep.prototype.enable = function(): void {
-  this.memory.disabled = undefined;
-};
-
 // 是否在边缘
 Creep.prototype.isAtBorder = function(): boolean {
   return this.pos.x === 0 || this.pos.x === 49 || this.pos.y === 0 || this.pos.y === 49;
+};
+
+// Bodypart
+
+Creep.prototype.getBodyparts = function(partTypes: BodyPartConstant): number {
+  return _(this.body)
+    .filter({ partTypes })
+    .value().length;
+};
+
+Creep.prototype.hasBodyparts = function(
+  partTypes: BodyPartConstant | BodyPartConstant[],
+  start: number = 0
+): boolean {
+  const body = this.body;
+  const limit = body.length;
+  if (!_.isArray(partTypes)) partTypes = [partTypes];
+  for (let i = start; i < limit; i++) {
+    if (_.includes(partTypes, body[i].type)) return true;
+  }
+  return false;
+};
+
+// Check if a creep has body parts of a certain type anf if it is still active.
+// Accepts a single part type (like RANGED_ATTACK) or an array of part types.
+// Returns true, if there is at least any one part with a matching type present and active.
+
+Creep.prototype.hasActiveBodyparts = function(
+  partTypes: BodyPartConstant | BodyPartConstant[]
+): boolean {
+  return this.hasBodyparts(partTypes, this.body.length - Math.ceil(this.hits * 0.01));
 };

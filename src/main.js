@@ -3,7 +3,7 @@ import './prototypes/controller';
 import './prototypes/creep';
 import './prototypes/mineral';
 import './prototypes/room';
-import './prototypes/roomposition';
+import './prototypes/roomPosition';
 import './prototypes/source';
 // Loop
 import { Root, Loop } from './loop';

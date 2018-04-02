@@ -14,16 +14,16 @@ class GameObjectClass {
   getById = (id: string): any => Game.getObjectById(id);
 
   getByArray = (idArray: string[]): any[] => {
-    let GameObjects = [];
+    let GameObjects = [] as RoomObject[];
     _.forEach(idArray, (id: string) => {
-      const v = Game.getObjectById(id);
-      if (v != null) GameObjects.push(v);
+      const obj = Game.getObjectById(id) as RoomObject | null;
+      if (obj != null) GameObjects.push(obj);
     });
     return GameObjects;
   };
 
   getIdArray = (objArray: any[]): string[] => {
-    let IdArray = [];
+    let IdArray = [] as string[];
     _.forEach(objArray, (obj: any) => {
       const id = obj.id;
       if (id) IdArray.push(id);

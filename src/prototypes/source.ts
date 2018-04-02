@@ -1,11 +1,11 @@
 // 扩展 memory
 Object.defineProperty(Source.prototype, 'memory', {
   get: function(): any {
-    CMemory.check(`sources.${this.id}`);
+    CMemory.check(`sources.${this.id}`, {});
     return Memory.sources[this.id];
   },
   set: function(value: any): void {
-    CMemory.check(`sources.${this.id}`);
+    CMemory.check(`sources.${this.id}`, {});
     this.memoryCheck();
     Memory.sources[this.id] = value;
   }

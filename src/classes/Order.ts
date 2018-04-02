@@ -11,7 +11,7 @@ export class Order {
     targets?: string[];
     route?: string[];
     boost?: string[];
-    homeroom?: string;
+    homeRoom?: string;
     token?: string;
   };
   public twinOrder?: Order;

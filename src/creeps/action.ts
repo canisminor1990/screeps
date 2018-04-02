@@ -1,187 +1,136 @@
-// base class for every action
-class Action {
+import { ErrorType } from '../enums/error';
+
+export class CreepAction {
   name: string;
   creep: Creep;
 
-  constructor(actionName: string) {
-    this.name = actionName;
+  constructor(creep: Creep) {
+    this.creep = creep;
   }
+
   // max allowed creeps per target
-  maxPerTarget = Infinity;
+  maxPerTarget: number = Infinity;
   // max allowed creeps per action (and room)
-  maxPerAction = Infinity;
+  maxPerAction: number = Infinity;
   // range within which the action can be executed (e.g. upgrade controller = 3)
-  targetRange = 1;
+  targetRange: number = 1;
   // range until which the target has been reached. (e.g. can be less than targetRange)
-  reachedRange = 1;
+  reachedRange: number = 1;
   // if true, will try to find new target if a target has become invalid
   // if false, an invalid target wil invalidate the action as well (causing to get a new action)
-  renewTarget = true;
-  // get unique identifier of any object (id or name)
-  getTargetId = (target: any): string => {
-    return target.id || target.name;
-  };
-  // get an object by its unique identifier (id or name)
-  getTargetById = (id: string): any => {
-    return Game.getObjectById(id) || Game.spawns[id] || Game.flags[id];
-  };
+  renewTarget: boolean = true;
   // determines, if an action is (still) valid. Gets validated each tick.
   // check possible override in derived action
-  abstract isValidAction = (): boolean => {
+  isValidAction(): boolean {
     return true;
-  };
+  }
+
   // determines, if a target is (still) valid. Gets validated each tick.
   // check possible override in derived action
-  abstract isValidTarget = (target: any): boolean => {
-    return target !== null;
-  };
-  // determines, if an action is valid. Gets validated only once upon assignment.
-  // check possible override in derived action
-  abstract isAddableAction = () => {
-    return (
-      this.maxPerAction === Infinity ||
-      !this.creep.room.population ||
-      !creep.room.population.actionCount[this.name] ||
-      creep.room.population.actionCount[this.name] < this.maxPerAction
-    );
-  };
+  isValidTarget(target?: Source): boolean {
+    const Target = target || (this.creep.target() as RoomObject | null);
+    return Target !== null;
+  }
+
   // determines, if a target is valid. Gets validated only once upon assignment.
   // check possible override in derived action
-  isAddableTarget = (target, creep) => {
-    // target is valid to be given to an additional creep
+  isAddableTarget(target?: Source): boolean {
+    const Target = target || (this.creep.target() as RoomObject | null);
     return (
-      !target.targetOf ||
-      this.maxPerTarget === Infinity ||
-      _.filter(target.targetOf, { actionName: this.name }).length < this.maxPerTarget
+      (Target !== null && Target.targetOf() < this.maxPerTarget) || this.maxPerTarget === Infinity
     );
-  };
+  }
+
   // find a new target for that action
   // needs implementation in derived action
-  newTarget = creep => {
+  newTarget(): RoomObject | null {
     return null;
-  };
-  unassign = creep => {
-    delete creep.data.actionName;
-    delete creep.data.targetId;
-    delete creep.action;
-    delete creep.target;
-  };
-  // order for the creep to execute each tick, when assigned to that action
-  step = creep => {
-    if (global.CHATTY) creep.say(this.name, global.SAY_PUBLIC);
-    let range = creep.pos.getRangeTo(creep.target);
-    if (range <= this.targetRange) {
-      var workResult = this.work(creep);
-      if (workResult !== OK) {
-        creep.handleError({
-          errorCode: workResult,
-          action: this,
-          target: creep.target,
-          range,
-          creep
-        });
-        return this.unassign(creep);
-      }
-      range = creep.pos.getRangeTo(creep.target); // target may have changed (eg. hauler feed+move/tick)
-    }
-    if (creep.target && creep.hasActiveBodyparts(MOVE)) {
-      if (range > this.targetRange) creep.travelTo(creep.target, { range: this.targetRange });
-      else if (range > this.reachedRange) {
-        // low CPU pathfinding for last few steps.
-        const direction = creep.pos.getDirectionTo(creep.target);
-        const targetPos = Traveler.positionAtDirection(creep.pos, direction);
-        if (creep.room.isWalkable(targetPos.x, targetPos.y)) {
-          // low cost last steps if possible
-          creep.move(direction);
-        } else if (!creep.pos.isNearTo(creep.target)) {
-          // travel there if we're not already adjacent
-          creep.travelTo(creep.target, { range: this.reachedRange });
-        }
-      }
-    }
-  };
-  // order for the creep to execute when at target
-  work = creep => {
-    return ERR_INVALID_ARGS;
-  };
-  // validate, if this action is still valid for a certain creep and target
-  // returns the target (could be a ne one) if valid or null
-  validateActionTarget = (creep, target) => {
-    if (this.isValidAction(creep)) {
-      // validate target or new
-      if (!this.isValidTarget(target, creep)) {
-        if (this.renewTarget) {
-          // invalid. try to find a new one...
-          delete creep.data.path;
-          return this.newTarget(creep);
-        }
-      } else return target;
-    }
-    return null;
-  };
+  }
+
   // assign the action to a creep
   // optionally predefine a fixed target
-  assign = (creep, target) => {
-    if (target === undefined) target = this.newTarget(creep);
-    if (target && this.isAddableTarget(target, creep)) {
-      if (global.DEBUG && global.TRACE)
-        trace('Action', {
-          creepName: creep.name,
-          assign: this.name,
-          target: !target || target.name || target.id,
-          Action: 'assign'
-        });
-      if (
-        !creep.action ||
-        creep.action.name !== this.name ||
-        !creep.target ||
-        creep.target.id !== target.id ||
-        creep.target.name !== target.name
-      ) {
-        Population.registerAction(creep, this, target);
-        this.onAssignment(creep, target);
-      }
+  assign(): boolean {
+    let ifNewTarget = false;
+    if (this.creep.target() === null) {
+      const newTarget = this.newTarget();
+      if (newTarget === null) return false;
+      this.creep.setTarget(newTarget);
+      ifNewTarget = true;
+    }
+    if (this.isAddableTarget()) {
+      if (this.creep.action() !== this.name || ifNewTarget) this.onAssignment();
       return true;
     }
     return false;
-  };
-  showAssignment = (creep, target) => {
-    if (global.SAY_ASSIGNMENT && ACTION_SAY[this.name.toUpperCase()])
-      creep.say(ACTION_SAY[this.name.toUpperCase()], global.SAY_PUBLIC);
-    if (
-      target instanceof RoomObject ||
-      (target instanceof RoomPosition && VISUALS.ACTION_ASSIGNMENT)
-    ) {
-      Visuals.drawArrow(creep, target);
+  }
+
+  unAssign(): void {
+    this.creep.memory.actionName = null;
+    this.creep.memory.targetId = null;
+  }
+
+  showAssignment(): void {
+    this.creep.say(this.name);
+  }
+
+  onAssignment(): void {
+    this.showAssignment();
+  }
+
+  // order for the creep to execute each tick, when assigned to that action
+  step(): any {
+    const Target = this.creep.target();
+    if (Target === null) return;
+    // if (global.CHATTY) creep.say(this.name, global.SAY_PUBLIC);
+    let range = this.creep.pos.getRangeTo(Target);
+    if (range <= this.targetRange) {
+      const workResult = this.work();
+      if (workResult !== OK) {
+        Log.error(
+          `[${this.name}]`,
+          ErrorType[workResult],
+          `${this.creep.name}: ${this.creep.targetId()}`
+        );
+        return this.unAssign();
+      }
     }
-  };
-  // assignment postprocessing
-  onAssignment = (creep, target) => {
-    this.showAssignment(creep, target);
-  };
-  // empty default strategy
-  defaultStrategy = {
-    name: `default-${actionName}`,
-    moveOptions: options => {
-      return options || {};
+    if (this.creep.hasActiveBodyparts(MOVE)) {
+      if (range > this.targetRange) {
+        this.creep.travelTo(Target, { range: this.targetRange });
+      } else if (range > this.reachedRange) {
+        // low CPU pathfinding for last few steps.
+        const direction = this.creep.pos.getDirectionTo(Target);
+        // TODO: Traveler
+        const targetPos = Traveler.positionAtDirection(this.creep.pos, direction);
+        if (this.creep.room.isWalkable(targetPos.x, targetPos.y)) {
+          // low cost last steps if possible
+          this.creep.move(direction);
+        } else if (!this.creep.pos.isNearTo(Target)) {
+          // travel there if we're not already adjacent
+          this.creep.travelTo(Target, { range: this.reachedRange });
+        }
+      }
     }
-  };
-  // strategy accessor
-  selectStrategies = () => {
-    return [this.defaultStrategy];
-  };
-  // get member with this action's name
-  isMember = collection => {
-    return _.find(
-      collection,
-      function(a) {
-        return a.name === this.name;
-      },
-      this
-    );
-  };
-  getStrategy = (strategyName, creep, ...args) => {
-    if (_.isUndefined(args)) return creep.getStrategyHandler([this.name], strategyName);
-    else return creep.getStrategyHandler([this.name], strategyName, ...args);
-  };
+  }
+
+  // order for the creep to execute when at target
+  work(): number {
+    return ERR_INVALID_ARGS;
+  }
+
+  // validate, if this action is still valid for a certain creep and target
+  // returns the target (could be a ne one) if valid or null
+  validateActionTarget(): any {
+    if (this.isValidAction()) {
+      // validate target or new
+      if (!this.isValidTarget()) {
+        if (this.renewTarget) {
+          // invalid. try to find a new one...
+          delete this.creep.memory.path;
+          return this.newTarget();
+        }
+      } else return this.creep.target();
+    }
+    return null;
+  }
 }
