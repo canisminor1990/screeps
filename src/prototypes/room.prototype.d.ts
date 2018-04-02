@@ -23,6 +23,8 @@ interface Room {
 
   rcl(): number;
 
+  isWalkable(): boolean;
+
   // find
 
   cacheFind(findType: number, timeout: number): any[];

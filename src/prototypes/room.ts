@@ -58,6 +58,15 @@ Room.prototype.roleCreeps = function(roleType: RoleType): Creep[] {
   return _.isUndefined(role) ? [] : GameObject.getByArray(role);
 };
 
+// 检查是否可以通过
+Room.prototype.isWalkable = function(x: number, y: number, look?: any): boolean {
+  const Look = look ? look[y][x] : this.lookAt(x, y);
+  let invalidObject = (o: any) =>
+    (o.type === LOOK_TERRAIN && o.terrain === 'wall') ||
+    _.includes(OBSTACLE_OBJECT_TYPES, o[o.type].structureType);
+  return Look.filter(invalidObject).length === 0;
+};
+
 // find 缓存
 Room.prototype.cacheFind = function(findType: number, timeout: number = 1): any[] {
   if (_.isUndefined(this.memory.cache)) this.memory.cache = {};

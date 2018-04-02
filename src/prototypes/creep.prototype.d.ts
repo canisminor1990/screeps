@@ -5,6 +5,7 @@ interface CreepMemory {
   homeRoom: string;
   path: string;
   prioritized: false;
+  _travel: any;
 }
 
 interface Creep {
