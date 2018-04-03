@@ -52,3 +52,11 @@ interface LogClass {
 }
 
 declare var Log: LogClass;
+
+// Traveler
+
+interface TravelerClass {
+  travelTo(creep: Creep, destination: any, options: any): number;
+}
+
+declare var Traveler: TravelerClass;

@@ -65,4 +65,7 @@ interface Creep {
   hasBodyparts(partTypes: BodyPartConstant | BodyPartConstant[], start: number): boolean;
 
   hasActiveBodyparts(partTypes: BodyPartConstant | BodyPartConstant[]): boolean;
+
+  // Travel
+  travelTo(destination: any, options: any): number;
 }

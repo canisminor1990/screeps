@@ -21,6 +21,18 @@ Room.prototype.sourcesEnergyAvailable = function(): number {
   return energy;
 };
 
+// 检查是否是敌人的房间
+// TODO:Whitelist
+Room.prototype.registerIsHostile = function(): void {
+  if (this.controller) {
+    if (this.controller.owner && !this.controller.my) {
+      this.memory.hostile = this.controller.level;
+    } else {
+      delete this.memory.hostile;
+    }
+  }
+};
+
 // creeps缓存
 Room.prototype.checkCreeps = function(): void {
   if (_.isUndefined(this.memory.creeps)) this.memory.creeps = { all: [], role: {}, time: 0 };

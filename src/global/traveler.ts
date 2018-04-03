@@ -1,16 +1,16 @@
-const gOpts = {
-  exportTraveler: true,
-  installTraveler: false,
-  installPrototype: true,
+const Options = {
   maxOps: 20000,
   defaultStuckValue: 3,
   reportThreshold: 50,
   roomRange: 22
 };
 
-class Traveler {
+export class Traveler {
   getHostileRoom: any;
   registerHostileRoom: any;
+  structureMatrixCache: any;
+  creepMatrixCache: any;
+  currentTick: number;
 
   constructor() {
     this.getHostileRoom = (roomName: string) => _.get(Memory, ['rooms', roomName, 'hostile']);
@@ -23,10 +23,6 @@ class Traveler {
     let allowedRooms: any = { [origin]: true, [destination]: true };
     let ret = Game.map.findRoute(origin, destination, {
       routeCallback: roomName => {
-        if (options.routeCallback) {
-          let outcome = options.routeCallback(roomName);
-          if (outcome !== undefined) return outcome;
-        }
         if (Game.map.getRoomLinearDistance(origin, roomName) > options.restrictDistance)
           return false;
         let parsed: any;
@@ -67,15 +63,15 @@ class Traveler {
     }
   }
 
-  findTravelPath(origin: RoomObject, destination: RoomObject, options: any = {}) {
+  findTravelPath(origin: any, destination: any, options: any = {}) {
     _.defaults(options, {
       ignoreCreeps: true,
       range: 1,
-      maxOps: gOpts.maxOps,
+      maxOps: Options.maxOps,
       obstacles: []
     });
-    let origPos: RoomPosition = origin.pos || origin;
-    let destPos: RoomPosition = destination.pos || destination;
+    let origPos = origin.pos || (origin as RoomPosition);
+    let destPos = destination.pos || (destination as RoomPosition);
     let allowedRooms: any;
     if (
       options.useFindRoute ||
@@ -102,17 +98,16 @@ class Traveler {
       let room = Game.rooms[roomName];
       let matrix;
       if (!room) {
-        matrix = this.getStructureMatrix(roomName, options);
+        matrix = this.getStructureMatrix(roomName);
       } else if (options.ignoreStructures) {
         matrix = new PathFinder.CostMatrix();
         if (!options.ignoreCreeps) {
-          // TODO: check
-          Traveler.addCreepsToMatrix(room, matrix);
+          this.addCreepsToMatrix(room, matrix);
         }
       } else if (options.ignoreCreeps || roomName !== origin.pos.roomName) {
-        matrix = this.getStructureMatrix(room, options);
+        matrix = this.getStructureMatrix(room);
       } else {
-        matrix = this.getCreepMatrix(room, options);
+        matrix = this.getCreepMatrix(room);
       }
       for (let obstacle of options.obstacles) {
         matrix.set(obstacle.pos.x, obstacle.pos.y, 0xff);
@@ -150,10 +145,10 @@ class Traveler {
     return ret;
   }
 
-  travelTo(creep: Creep, destination: RoomObject | RoomPosition, options: any = {}) {
+  travelTo(creep: Creep, destination: any, options: any = {}): number {
     // register hostile rooms entered
-    let creepPos: RoomPosition = creep.pos;
-    let destPos: RoomPosition = destination.pos || destination;
+    let creepPos = creep.pos as RoomPosition;
+    let destPos = destination.pos || (destination as RoomPosition);
     this.registerHostileRoom(creep.room);
     // initialize data object
     if (_.isUndefined(creep.memory._travel)) {
@@ -181,40 +176,23 @@ class Traveler {
       return OK;
     }
     // check if creep is stuck
-    let hasMoved: boolean = true;
+
     if (travelData.prev) {
-      const isBorder = (pos: RoomPosition): boolean => {
-        return pos.x === 0 || pos.x === 49 || pos.y === 0 || pos.y === 49;
-      };
-      const opposingBorders = (p1: RoomPosition, p2: RoomPosition): boolean => {
-        return (
-          isBorder(p1) &&
-          isBorder(p2) &&
-          p1.roomName !== p2.roomName &&
-          (p1.x === p2.x || p1.y === p2.y)
-        );
-      };
-      travelData.prev = Traveler.initPosition(travelData.prev);
-      if (creepPos.inRangeTo(travelData.prev, 0) || opposingBorders(creep.pos, travelData.prev)) {
-        hasMoved = false;
+      travelData.prev = this.initPosition(travelData.prev);
+      if (
+        creepPos.inRangeTo(travelData.prev, 0) ||
+        this.opposingBorders(creep.pos, travelData.prev)
+      ) {
         travelData.stuck++;
       } else {
-        creep.room.recordMove(creep);
         travelData.stuck = 0;
       }
     }
     // handle case where creep is stuck
-    if (travelData.stuck >= gOpts.defaultStuckValue && !options.ignoreStuck) {
+    if (travelData.stuck >= Options.defaultStuckValue && !options.ignoreStuck) {
       options.ignoreCreeps = false;
       delete travelData.path;
     }
-    // FIXME: Do an actual calculation to see if we have moved, this is unneccesary and expensive when the creep hasn't moved for
-    // a few ticks and the path gets rebuilt.
-    // // handle case where creep wasn't traveling last tick and may have moved, but destination is still the same
-    // if (Game.time - travelData.tick > Memory.skippedTicks + 2 && hasMoved) {
-    //     console.log(creep.name, 'maybe moved, rebuilding');
-    //     delete travelData.path;
-    // }
     travelData.tick = Game.time;
     // delete path cache if destination is different
     if (
@@ -268,7 +246,7 @@ class Traveler {
             creep,
             new RoomPosition(25, 25, ret.route[1].room),
             _.create(options, {
-              range: gOpts.roomRange,
+              range: Options.roomRange,
               useFindRoute: false
             })
           );
@@ -280,7 +258,7 @@ class Traveler {
             );
           }
         }
-        if (ret.incomplete && ret.ops < 2000 && travelData.stuck < gOpts.defaultStuckValue) {
+        if (ret.incomplete && ret.ops < 2000 && travelData.stuck < Options.defaultStuckValue) {
           options.useFindRoute = false;
           ret = this.findTravelPath(creep, destPos, options);
           if (options.debug) {
@@ -290,7 +268,7 @@ class Traveler {
           }
         }
       }
-      travelData.path = Traveler.serializePath(creep.pos, ret.path);
+      travelData.path = this.serializePath(creep.pos, ret.path);
       travelData.stuck = 0;
     }
     if (!travelData.path || travelData.path.length === 0) {
@@ -301,28 +279,27 @@ class Traveler {
       travelData.path = travelData.path.substr(1);
     }
     travelData.prev = creep.pos;
-    let nextDirection = parseInt(travelData.path[0], 10);
+    let nextDirection = parseInt(travelData.path[0], 10) as DirectionConstant;
     if (options.returnData) {
-      options.returnData.nextPos = Traveler.positionAtDirection(creep.pos, nextDirection);
+      options.returnData.nextPos = this.positionAtDirection(creep.pos, nextDirection);
     }
     return creep.move(nextDirection);
   }
 
-  getStructureMatrix(room, options) {
-    if (options.getStructureMatrix) return options.getStructureMatrix(room);
+  getStructureMatrix(room: any): any {
     this.refreshMatrices();
     if (!this.structureMatrixCache[room.name]) {
       let matrix = new PathFinder.CostMatrix();
-      this.structureMatrixCache[room.name] = Traveler.addStructuresToMatrix(room, matrix, 1);
+      this.structureMatrixCache[room.name] = this.addStructuresToMatrix(room, matrix, 1);
     }
     return this.structureMatrixCache[room.name];
   }
 
-  static initPosition(pos) {
+  initPosition(pos: Pos): RoomPosition {
     return new RoomPosition(pos.x, pos.y, pos.roomName);
   }
 
-  static addStructuresToMatrix(room, matrix, roadCost) {
+  addStructuresToMatrix(room: Room, matrix: CostMatrix, roadCost: number): CostMatrix {
     for (let structure of room.find(FIND_STRUCTURES)) {
       if (structure instanceof StructureRampart) {
         if (!structure.my && !structure.isPublic) {
@@ -348,24 +325,23 @@ class Traveler {
     return matrix;
   }
 
-  getCreepMatrix(room, options) {
-    if (options.getCreepMatrix) return options.getCreepMatrix(room);
+  getCreepMatrix(room: Room) {
     this.refreshMatrices();
     if (!this.creepMatrixCache[room.name]) {
-      this.creepMatrixCache[room.name] = Traveler.addCreepsToMatrix(
+      this.creepMatrixCache[room.name] = this.addCreepsToMatrix(
         room,
-        this.getStructureMatrix(room, options).clone()
+        this.getStructureMatrix(room).clone()
       );
     }
     return this.creepMatrixCache[room.name];
   }
 
-  static addCreepsToMatrix(room, matrix) {
+  addCreepsToMatrix(room: Room, matrix: CostMatrix): CostMatrix {
     room.find(FIND_CREEPS).forEach(creep => matrix.set(creep.pos.x, creep.pos.y, 0xff));
     return matrix;
   }
 
-  static serializePath(startPos, path) {
+  serializePath(startPos: RoomPosition, path: RoomPosition[]) {
     let serializedPath = '';
     let lastPosition = startPos;
     for (let position of path) {
@@ -385,7 +361,7 @@ class Traveler {
     }
   }
 
-  static positionAtDirection(origin, direction) {
+  positionAtDirection(origin: RoomPosition, direction: DirectionConstant) {
     let offsetX = [0, 0, 1, 1, 1, 0, -1, -1, -1];
     let offsetY = [0, -1, -1, 0, 1, 1, 1, 0, -1];
     return new RoomPosition(
@@ -394,50 +370,17 @@ class Traveler {
       origin.roomName
     );
   }
-}
 
-if (gOpts.installTraveler) {
-  global.Traveler = Traveler;
-  global.traveler = new Traveler();
-  global.travelerTick = Game.time;
-}
-
-if (gOpts.installPrototype) {
-  // prototype requires an instance of traveler be installed in global
-  if (!gOpts.installTraveler) {
-    global.traveler = new Traveler();
-    global.travelerTick = Game.time;
+  isBorder(pos: RoomPosition): boolean {
+    return pos.x === 0 || pos.x === 49 || pos.y === 0 || pos.y === 49;
   }
 
-  Creep.prototype.travelTo = function(destination, options = {}) {
-    destination = destination.pos || destination;
-    if (global.traveler && global.travelerTick !== Game.time) {
-      global.traveler = new Traveler();
-    }
-    options = this.getStrategyHandler([], 'moveOptions', options);
-    _.defaults(options, {
-      allowSK: true,
-      avoidSKCreeps: true,
-      debug: global.DEBUG,
-      reportThreshold: global.TRAVELER_THRESHOLD,
-      useFindRoute: _.get(global, 'ROUTE_PRECALCULATION', true),
-      routeCallback: Room.routeCallback(this.pos.roomName, destination.roomName, options),
-      getStructureMatrix: room => Room.getStructureMatrix(room.name || room, options),
-      getCreepMatrix: room => room.getCreepMatrix(options.getStructureMatrix(room))
-    });
-    if (
-      options.respectRamparts &&
-      this.room.situation.invasion &&
-      _.filter(this.pos.lookFor(LOOK_STRUCTURES), { my: true, structureType: STRUCTURE_RAMPART })
-        .length
-    ) {
-      // don't move off a rampart if we're already on one while hostiles are present
-      return OK;
-    }
-    return traveler.travelTo(this, destination, options);
-  };
-}
-
-if (gOpts.exportTraveler) {
-  return Traveler;
+  opposingBorders(p1: RoomPosition, p2: RoomPosition): boolean {
+    return (
+      this.isBorder(p1) &&
+      this.isBorder(p2) &&
+      p1.roomName !== p2.roomName &&
+      (p1.x === p2.x || p1.y === p2.y)
+    );
+  }
 }

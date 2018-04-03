@@ -25,6 +25,8 @@ interface Room {
 
   isWalkable(): boolean;
 
+  registerIsHostile(): void;
+
   // find
 
   cacheFind(findType: number, timeout: number): any[];

@@ -118,3 +118,15 @@ Creep.prototype.hasActiveBodyparts = function(
 ): boolean {
   return this.hasBodyparts(partTypes, this.body.length - Math.ceil(this.hits * 0.01));
 };
+
+Creep.prototype.travelTo = function(destination: any, options: any = {}): number {
+  destination = destination.pos || (destination as RoomPosition);
+  _.defaults(options, {
+    allowSK: true,
+    avoidSKCreeps: true,
+    debug: true,
+    reportThreshold: true,
+    useFindRoute: _.get(global, 'ROUTE_PRECALCULATION', true)
+  });
+  return Traveler.travelTo(this, destination, options);
+};
