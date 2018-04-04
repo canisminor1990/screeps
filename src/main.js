@@ -3,9 +3,9 @@ import Loop from './loop';
 
 function* main() {
   console.log();
-  Log.success('* * * * * * * * * * * * * * * * * * * * *');
-  Log.success('* * * * * * * Code Update ! * * * * * * *');
-  Log.success('* * * * * * * * * * * * * * * * * * * * *');
+  console.log('* * * * * * * * * * * * * * * * * * * * *');
+  console.log('* * * * * * * Code Update ! * * * * * * *');
+  console.log('* * * * * * * * * * * * * * * * * * * * *');
   console.log();
   while (true) {
     Loop();
@@ -30,6 +30,6 @@ exports.loop = function() {
       Memory.thread = regeneratorRuntime.serializeGenerator(thread);
     }
   } catch (e) {
-    Log.warn(`Code Changing at ${Game.time}... ... ...`);
+    console.log(`Code Changing at ${Game.time}... ... ...`);
   }
 };
