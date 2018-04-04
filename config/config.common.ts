@@ -42,7 +42,7 @@ export default (options: EnvOptions): Configuration => {
     devtool: 'source-map',
     target: 'node',
     module: {
-      loaders: [
+      rules: [
         {
           test: /\.js$/,
           enforce: 'pre',
@@ -61,12 +61,17 @@ export default (options: EnvOptions): Configuration => {
           test: /\.tsx?$/,
           exclude: [join(ROOT, 'src/snippets')],
           loader: 'ts-loader',
+          options: {
+            transpileOnly: true,
+          },
         },
       ],
     },
     plugins: [
       new CleanWebpackPlugin([`dist/${options.ENV}/*`], { root: options.ROOT }),
-      new ForkTsCheckerWebpackPlugin(),
+      new ForkTsCheckerWebpackPlugin({
+        ignoreDiagnostics: [2451],
+      }),
       new DefinePlugin(DefineConfig),
       new ScreepsSourceMapToJson(),
     ].filter(Boolean),

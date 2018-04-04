@@ -8,10 +8,6 @@ const Root = () => {
     global.isRoot = true;
   }
 };
-const a: any = {
-  a: 1,
-};
-
 const Loop = () => {
   Root();
   Log.info('Start:', Game.time);
