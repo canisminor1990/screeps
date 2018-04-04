@@ -19,7 +19,7 @@
 
 ## Dev
 
-```
+```bash
 # 本地服务器测试
 $ yarn start
 
