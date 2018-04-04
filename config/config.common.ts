@@ -42,7 +42,7 @@ export default (options: EnvOptions): Configuration => {
     devtool: 'source-map',
     target: 'node',
     module: {
-      loaders: [
+      rules: [
         {
           test: /\.js$/,
           enforce: 'pre',
