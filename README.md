@@ -31,5 +31,4 @@ $ yarn build
 
 # 生成API文档
 $ yarn doc
-``
 ```
