@@ -2,6 +2,7 @@ import { ErrorMapper } from './utils/ErrorMapper';
 
 const Root = () => {
   if (global.isRoot === undefined) {
+    require('./prototypes');
     _.forEach(require('./config'), (value: any, key: string) => (global[key] = value));
     global.Log = require('./global/log').Log;
     global.Dye = require('./global/log').Dye;
@@ -16,6 +17,7 @@ const Loop = () => {
 export default ErrorMapper.wrapLoop(() => {
   try {
     Loop();
+    Game;
   } catch (e) {
     Log.error(e.stack || e.message);
   }

@@ -1,11 +1,10 @@
 import { join } from 'path';
 import { Configuration, DefinePlugin } from 'webpack';
 
-const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
-
 export default (options: EnvOptions): Configuration => {
   const ENV = options.ENV || 'dev';
   const ROOT = options.ROOT || __dirname;
+  const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
   const CleanWebpackPlugin = require('clean-webpack-plugin');
   const ScreepsSourceMapToJson = require('../lib/screeps-webpack-sources').default;
   const DefineConfig = {

@@ -1,4 +1,3 @@
-import './prototypes';
 import Loop from './loop';
 
 function* main() {
@@ -12,7 +11,7 @@ function* main() {
     yield null;
   }
 }
-Game.exports.loop = function() {
+exports.loop = function() {
   var thread;
   try {
     if (Memory.thread) {
