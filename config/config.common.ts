@@ -1,17 +1,15 @@
-import { existsSync } from 'fs';
 import { join } from 'path';
-import { Configuration, DefinePlugin, NoEmitOnErrorsPlugin } from 'webpack';
-import ScreepsSourceMapToJson from './screeps-webpack-sources';
-import { EnvOptions } from './';
-
-const CleanWebpackPlugin = require('clean-webpack-plugin');
-const git = require('git-rev-sync');
+import { Configuration, DefinePlugin } from 'webpack';
 
 export default (options: EnvOptions): Configuration => {
   const ENV = options.ENV || 'dev';
   const ROOT = options.ROOT || __dirname;
-  const gitRepoExists = existsSync('../.git');
-
+  const CleanWebpackPlugin = require('clean-webpack-plugin');
+  const ScreepsSourceMapToJson = require('./screeps-webpack-sources').default;
+  const DefineConfig = {
+    PRODUCTION: JSON.stringify(options.ENV === 'production'),
+    __BUILD_TIME__: JSON.stringify(Date.now())
+  };
   return {
     entry: {
       main: ['screeps-regenerator-runtime/runtime', './src/main.js']
@@ -90,13 +88,8 @@ export default (options: EnvOptions): Configuration => {
     },
     plugins: [
       new CleanWebpackPlugin([`dist/${options.ENV}/*`], { root: options.ROOT }),
-      new DefinePlugin({
-        PRODUCTION: JSON.stringify(options.ENV === 'production'),
-        __BUILD_TIME__: JSON.stringify(Date.now()), // example defination
-        __REVISION__: gitRepoExists ? JSON.stringify(git.short()) : JSON.stringify('')
-      }),
-      new ScreepsSourceMapToJson(),
-      new NoEmitOnErrorsPlugin()
+      new DefinePlugin(DefineConfig),
+      new ScreepsSourceMapToJson()
     ].filter(Boolean),
     watchOptions: {
       ignored: /backup/,

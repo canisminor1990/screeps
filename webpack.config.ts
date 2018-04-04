@@ -1,15 +1,11 @@
 import { defaults } from 'lodash';
-import * as webpack from 'webpack';
-import { EnvOptions } from './config';
+import { Configuration } from 'webpack';
 
-export default (options: EnvOptions): webpack.Configuration => {
+export default (options: EnvOptions): Configuration => {
   defaults(options, {
     ENV: 'dev',
     ROOT: __dirname,
     TEST: false
   });
-
-  const config = require(`./config/config.${options.ENV}`).default(options);
-
-  return config;
+  return require(`./config/config.${options.ENV}`).default(options);
 };
