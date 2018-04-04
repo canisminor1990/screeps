@@ -32,3 +32,12 @@ $ yarn build
 # 生成API文档
 $ yarn doc
 ```
+
+## Link
+
+* [Screeps Doc](http://docs.screeps.com/index.html)
+* [Screeps Api](http://docs.screeps.com/api/)
+* [Lodash](https://lodash.com/docs/4.17.5)
+* [ES6](http://es6.ruanyifeng.com/#docs/class)
+* [TypeScript](https://ts.xcatliu.com/basics/index.html)
+* [TypeDoc](http://typedoc.org/guides/doccomments/)
