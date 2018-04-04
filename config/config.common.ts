@@ -1,6 +1,8 @@
 import { join } from 'path';
 import { Configuration, DefinePlugin } from 'webpack';
 
+const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
+
 export default (options: EnvOptions): Configuration => {
   const ENV = options.ENV || 'dev';
   const ROOT = options.ROOT || __dirname;
@@ -8,23 +10,23 @@ export default (options: EnvOptions): Configuration => {
   const ScreepsSourceMapToJson = require('../lib/screeps-webpack-sources').default;
   const DefineConfig = {
     PRODUCTION: JSON.stringify(options.ENV === 'production'),
-    __BUILD_TIME__: JSON.stringify(Date.now())
+    __BUILD_TIME__: JSON.stringify(Date.now()),
   };
   return {
     entry: {
-      main: ['screeps-regenerator-runtime/runtime', './src/main.js']
+      main: ['screeps-regenerator-runtime/runtime', './src/main.js'],
       // config:'./src/config.js'
     },
     output: {
-      path: join(ROOT, 'dist', ENV),
+      devtoolModuleFilenameTemplate: '[resource-path]',
       filename: '[name].js',
-      pathinfo: false,
       libraryTarget: 'commonjs2',
+      path: join(ROOT, 'dist', ENV),
+      pathinfo: false,
       sourceMapFilename: '[file].map',
-      devtoolModuleFilenameTemplate: '[resource-path]'
     },
     externals: {
-      'main.js.map': 'main.js.map'
+      'main.js.map': 'main.js.map',
     },
     node: {
       Buffer: false,
@@ -32,69 +34,45 @@ export default (options: EnvOptions): Configuration => {
       __filename: false,
       console: true,
       global: true,
-      process: false
+      process: false,
     },
     resolve: {
-      extensions: ['.webpack.js', '.web.js', '.ts', '.tsx', '.js']
+      extensions: ['.webpack.js', '.web.js', '.ts', '.tsx', '.js'],
     },
     devtool: 'source-map',
     target: 'node',
     module: {
-      rules: [
+      loaders: [
         {
           test: /\.js$/,
           enforce: 'pre',
-          use: [
-            {
-              loader: 'source-map-loader'
-            }
-          ]
+          loader: 'source-map-loader',
         },
         {
           test: /\.js$/,
-          use: [
-            {
-              loader: 'babel-loader'
-            }
-          ]
+          loader: 'babel-loader',
         },
         {
           test: /\.tsx?$/,
           enforce: 'pre',
-          use: [
-            {
-              loader: 'source-map-loader'
-            }
-          ]
+          loader: 'source-map-loader',
         },
         {
           test: /\.tsx?$/,
           exclude: [join(ROOT, 'src/snippets')],
-          use: [
-            {
-              loader: 'ts-loader',
-              options: {
-                transpileOnly: true
-              }
-            },
-            {
-              loader: 'eslint-loader',
-              options: {
-                fix: true
-              }
-            }
-          ]
-        }
-      ]
+          loader: 'ts-loader',
+        },
+      ],
     },
     plugins: [
       new CleanWebpackPlugin([`dist/${options.ENV}/*`], { root: options.ROOT }),
+      new ForkTsCheckerWebpackPlugin(),
       new DefinePlugin(DefineConfig),
-      new ScreepsSourceMapToJson()
+      new ScreepsSourceMapToJson(),
     ].filter(Boolean),
     watchOptions: {
       ignored: /backup/,
-      aggregateTimeout: 300
-    }
+      aggregateTimeout: 300,
+    },
   };
 };

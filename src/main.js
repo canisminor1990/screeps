@@ -2,18 +2,15 @@ import './prototypes';
 import Loop from './loop';
 
 function* main() {
-  console.log();
   Log.success('* * * * * * * * * * * * * * * * * * * * *');
   Log.success('* * * * * * * Code Update ! * * * * * * *');
   Log.success('* * * * * * * * * * * * * * * * * * * * *');
-  console.log();
   while (true) {
     Loop();
     yield null;
   }
 }
-
-exports.loop = function() {
+Game.exports.loop = function() {
   var thread;
   try {
     if (Memory.thread) {
