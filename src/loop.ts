@@ -1,7 +1,8 @@
 import { ErrorMapper } from './utils/ErrorMapper';
 
 const Root = () => {
-  if (global.isRoot === undefined) {
+  if (_.isUndefined(global.isRoot) || _.isUndefined(Memory.config.ME)) {
+    console.log(String.fromCodePoint(0x1f503), 'Code Reloading ...');
     require('./prototypes');
     _.forEach(require('./config'), (value: any, key: string) => (global[key] = value));
     global.Log = require('./global/log').Log;
