@@ -1,6 +1,6 @@
 import CommonConfig from './config.common';
 import { Configuration } from 'webpack';
-import { merge } from 'lodash';
+import _ from 'lodash';
 
 export default (options: EnvOptions): Configuration => {
   const webpackConfig: Configuration = CommonConfig(options);
@@ -8,7 +8,7 @@ export default (options: EnvOptions): Configuration => {
   const ScreepsWebpackPlugin = require('screeps-webpack-plugin');
   if (!config.branch) config.branch = 'dev';
 
-  return merge(webpackConfig, {
-    plugins: [new ScreepsWebpackPlugin(config)]
+  return _.merge(webpackConfig, {
+    plugins: [new ScreepsWebpackPlugin(config)],
   });
 };

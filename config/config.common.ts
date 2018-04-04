@@ -1,6 +1,6 @@
-import { join } from 'path';
 import { Configuration, DefinePlugin } from 'webpack';
 
+const path = require('path');
 const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
 
 export default (options: EnvOptions): Configuration => {
@@ -21,7 +21,7 @@ export default (options: EnvOptions): Configuration => {
       devtoolModuleFilenameTemplate: '[resource-path]',
       filename: '[name].js',
       libraryTarget: 'commonjs2',
-      path: join(ROOT, 'dist', ENV),
+      path: path.join(ROOT, 'dist', ENV),
       pathinfo: false,
       sourceMapFilename: '[file].map',
     },
@@ -59,14 +59,16 @@ export default (options: EnvOptions): Configuration => {
         },
         {
           test: /\.tsx?$/,
-          exclude: [join(ROOT, 'src/snippets')],
+          exclude: [path.join(ROOT, 'src/snippets')],
           loader: 'ts-loader',
         },
       ],
     },
     plugins: [
       new CleanWebpackPlugin([`dist/${options.ENV}/*`], { root: options.ROOT }),
-      new ForkTsCheckerWebpackPlugin(),
+      new ForkTsCheckerWebpackPlugin({
+        ignoreDiagnostics: [2451],
+      }),
       new DefinePlugin(DefineConfig),
       new ScreepsSourceMapToJson(),
     ].filter(Boolean),
