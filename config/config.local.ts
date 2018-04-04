@@ -1,7 +1,6 @@
 import { merge } from 'lodash';
 import { Configuration } from 'webpack';
 import CommonConfig from './config.common';
-import path from 'path';
 
 export default (options: EnvOptions): Configuration => {
   const webpackConfig: Configuration = CommonConfig(options);
