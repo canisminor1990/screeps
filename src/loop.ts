@@ -7,6 +7,7 @@ const Root = () => {
     global.Log = require('./global/log').Log;
     global.Dye = require('./global/log').Dye;
     global.isRoot = true;
+    Log.success('Root Done');
   }
 };
 const Loop = () => {
