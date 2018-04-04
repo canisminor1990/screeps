@@ -1,4 +1,6 @@
-# Screeps AI
+# <img src="https://raw.githubusercontent.com/stybbe/Screeps-SC/master/icons/icon48.png" width="24"> Screeps AI
+
+AI for the game [screeps.com](https://screeps.com/).
 
 ## Config
 
