@@ -1,3 +1,4 @@
+import './prototypes';
 import Loop from './loop';
 
 function* main() {

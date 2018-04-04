@@ -13,10 +13,11 @@ export default (options: EnvOptions): Configuration => {
   return {
     entry: {
       main: ['screeps-regenerator-runtime/runtime', './src/main.js']
+      // config:'./src/config.js'
     },
     output: {
       path: join(ROOT, 'dist', ENV),
-      filename: 'main.js',
+      filename: '[name].js',
       pathinfo: false,
       libraryTarget: 'commonjs2',
       sourceMapFilename: '[file].map',

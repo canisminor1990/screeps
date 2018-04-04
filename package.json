@@ -6,6 +6,7 @@
   "scripts": {
     "start": "webpack --colors --watch --env.ENV=local",
     "start:remote": "webpack --colors --watch",
+    "doc": "typedoc --options ./typedoc.json && open ./doc/index.html",
     "build": "webpack --colors --env.ENV=dev",
     "lint": "lint-staged",
     "lint:es": "eslint --fix \"src/**/*.ts\"",
@@ -41,7 +42,6 @@
     "source-map": "^0.5.6"
   },
   "devDependencies": {
-    "@types/es6-shim": "^0.31.36",
     "@types/lodash": "^3.10.1",
     "@types/node": "^9.6.0",
     "@types/source-map": "^0.5.7",
@@ -72,6 +72,7 @@
     "source-map-loader": "^0.2.1",
     "ts-loader": "^3.5.0",
     "ts-node": "^5.0.1",
+    "typedoc": "^0.11.1",
     "typescript": "2.7.1",
     "typescript-eslint-parser": "^14.0.0",
     "typings": "^2.1.1",

@@ -1,9 +1,10 @@
 import { ErrorMapper } from './utils/ErrorMapper';
-import { LogClass } from './global/log';
 
 const Root = () => {
   if (global.isRoot === undefined) {
-    global.Log = new LogClass();
+    _.forEach(require('./config'), (value: any, key: string) => (global[key] = value));
+    global.Log = require('./global/log').Log;
+    global.Dye = require('./global/log').Dye;
     global.isRoot = true;
   }
 };

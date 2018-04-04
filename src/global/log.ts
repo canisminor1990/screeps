@@ -1,5 +1,7 @@
-export class LogClass {
-  private style = {
+import { LogLevel } from '../enums/loglevel';
+
+export const Dye = (style: any, ...text: any[]): string => {
+  const Color = {
     [COLOR_RED]: '#F92672',
     [COLOR_PURPLE]: '#AE81FF',
     [COLOR_BLUE]: '#66D9EF',
@@ -9,69 +11,69 @@ export class LogClass {
     [COLOR_ORANGE]: '#FD971F',
     [COLOR_BROWN]: '#75715E',
     [COLOR_GREY]: '#888888',
-    [COLOR_WHITE]: '#F8F8F0',
-
+    [COLOR_WHITE]: '#F8F8F0'
+  };
+  const Style = {
+    ...Color,
     black: { color: 'black', fontWeight: 'bold' },
-    system: { color: '#999', fontSize: '9px' },
-    error: { color: '#F92672', fontSize: '9px' },
-    warn: { color: '#FD971F', fontSize: '9px' },
-    info: { color: '#66D9EF', fontSize: '9px' },
-    room: { color: '#AE81FF', fontSize: '9px' },
-    success: { color: '#A6E22E', fontSize: '9px' }
+    system: { color: Color[COLOR_GREY], fontSize: '9px' },
+    success: { color: Color[COLOR_GREEN], fontSize: '9px' },
+    error: { color: Color[COLOR_RED], fontSize: '9px' },
+    warn: { color: Color[COLOR_ORANGE], fontSize: '9px' },
+    info: { color: Color[COLOR_BLUE], fontSize: '9px' },
+    debug: { color: Color[COLOR_BROWN], fontSize: '9px' },
+    room: { color: Color[COLOR_PURPLE], fontSize: '9px' }
   };
+  style = Style[style];
+  const msg = text.join(' ');
+  if (_.isObject(style)) {
+    let css = '';
+    const format = (value: string | number, key: string) => {
+      css += `${_.kebabCase(key)}: ${value};`;
+    };
+    _.forEach(style, format);
+    return `<span style="${css}">${msg}</span>`;
+  } else {
+    return `<span style="color: ${style}">${msg}</span>`;
+  }
+};
 
-  public dye = (style: any, ...text: any[]): string => {
-    const msg = text.join(' ');
-    if (_.isObject(style)) {
-      let css = '';
-      const format = (value: string | number, key: string) =>
-        (css += `${_.kebabCase(key)}: ${value};`);
-      _.forEach(style, format);
-      return `<span style="${css}">${msg}</span>`;
-    } else {
-      return `<span style="color: ${style}">${msg}</span>`;
-    }
-  };
+export class Log {
+  static success(...content: any[]): void {
+    console.log(Dye('success', '[SUCCESS]'), Dye(COLOR_GREEN, ...content));
+  }
 
-  public success = (...content: any[]): void => {
-    console.log(
-      this.dye(this.style.success, '[SUCCESS]'),
-      this.dye(this.style[COLOR_GREEN], ...content)
-    );
-  };
+  static error(...content: any[]): void {
+    if (LogLevel[LOG_LEVEL] < 2) return;
+    console.log(Dye('error', '[ERROR]'), Dye(COLOR_RED, ...content));
+  }
 
-  public info = (...content: any[]): void => {
-    console.log(this.dye(this.style.info, '[INFO]'), this.dye(this.style[COLOR_BLUE], ...content));
-  };
+  static warn(...content: any[]) {
+    if (LogLevel[LOG_LEVEL] < 3) return;
+    console.log(Dye('warn', '[WARN]'), Dye(COLOR_ORANGE, ...content));
+  }
 
-  public error = (...content: any[]): void => {
-    console.log(this.dye(this.style.error, '[ERROR]'), this.dye(this.style[COLOR_RED], ...content));
-  };
+  static info(...content: any[]): void {
+    if (LogLevel[LOG_LEVEL] < 4) return;
+    console.log(Dye('info', '[INFO]'), Dye(COLOR_BLUE, ...content));
+  }
 
-  public warn = (...content: any[]) => {
-    console.log(
-      this.dye(this.style.warn, '[WARN]'),
-      this.dye(this.style[COLOR_ORANGE], ...content)
-    );
-  };
+  static debug(...content: any[]): void {
+    if (LogLevel[LOG_LEVEL] < 5) return;
+    console.log(Dye('debug', '[DEBUG]'), ...content);
+  }
 
-  public system = (title: string, ...content: any[]): void => {
-    console.log(this.dye(this.style.system, title), ...content);
-  };
+  static module(title: string, ...content: any[]): void {
+    console.log(Dye('system', `[${title}]`), ...content);
+  }
 
-  public room = (roomName: string, ...content: any[]) => {
-    const title = this.dye(this.style.room, roomName);
-    console.log(
-      this.dye(this.style.room, `<a href="/a/#!/room/${Game.shard.name}/${roomName}">${title}</a>`),
-      ...content
-    );
-  };
+  static room(room: Room, ...content: any[]) {
+    console.log(Dye('room', room.print), ...content);
+  }
 
-  public debug = (content: any): void => {
-    if (_.isObject(content)) {
-      console.log(JSON.stringify(content, null, 2));
-    } else {
-      console.log(content);
-    }
-  };
+  static stringify(content: any): void {
+    console.log('----------------------------------------------');
+    console.log(JSON.stringify(content, null, 2));
+    console.log('----------------------------------------------');
+  }
 }
