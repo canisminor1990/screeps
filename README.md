@@ -33,7 +33,12 @@ $ yarn build
 $ yarn doc
 ```
 
-## Link
+## Third Party Tools
+
+* [ScreepsPlus Grafana](https://screepspl.us/services/grafana)
+* [ScreepsSC Chrome extension](https://github.com/stybbe/Screeps-SC)
+
+## Docs Link
 
 * [Screeps Doc](http://docs.screeps.com/index.html)
 * [Screeps Api](http://docs.screeps.com/api/)
