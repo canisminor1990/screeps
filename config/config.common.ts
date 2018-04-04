@@ -78,10 +78,7 @@ export default (options: EnvOptions): Configuration => {
               }
             },
             {
-              loader: 'eslint-loader',
-              options: {
-                fix: true
-              }
+              loader: 'eslint-loader'
             }
           ]
         }
