@@ -1,0 +1,10 @@
+{
+  "email": "private server only",
+  "password": "private server only",
+  "serverPassword": "private server only",
+  "token": "",
+  "serverUrl": "https://screeps.com",
+  "branch": "dev",
+  "winPath":"",
+  "macPath":""
+}

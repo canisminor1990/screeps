@@ -1,0 +1,11 @@
+{
+	"presets": [
+		"env",
+		"stage-0",
+		"screeps-regenerator-preset"
+	],
+	"plugins": [
+		"add-module-exports",
+		"dynamic-import-webpack"
+	]
+}
