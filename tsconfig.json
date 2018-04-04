@@ -17,7 +17,8 @@
     "noUnusedLocals": true,
     "allowUnreachableCode": false,
     "allowSyntheticDefaultImports": true,
-    "removeComments": true
+    "removeComments": true,
+    "suppressImplicitAnyIndexErrors": true
   },
   "include": [
     "webpack.config.ts",
