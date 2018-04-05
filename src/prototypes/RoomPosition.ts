@@ -69,7 +69,7 @@ Object.defineProperties(RoomPosition.prototype, {
 });
 
 // ////////////////////////////////
-// RoomPosition properties
+// Functions
 // ////////////////////////////////
 
 RoomPosition.prototype.getAdjacentPos = function(range: number): RoomPosition[] {

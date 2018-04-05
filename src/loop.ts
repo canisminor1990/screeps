@@ -8,6 +8,11 @@ const Root = (): void => {
 		console.log(String.fromCodePoint(0x1f503), 'Code Reloading ...');
 		// Assign config
 		if (_.isUndefined(Memory.config)) Memory.config = {};
+		global._ME = _(Game.rooms)
+			.map('controller')
+			.filter('my')
+			.map('owner.username')
+			.first();
 		_.assign(Memory.config, require('config'));
 		_.assign(global, Memory.config);
 		// Extend game prototypes

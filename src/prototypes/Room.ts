@@ -176,7 +176,9 @@ Object.defineProperties(Room.prototype, {
 	},
 });
 
-// Funcitons
+// ////////////////////////////////
+// Functions
+// ////////////////////////////////
 Room.prototype.allStructuresFilter = function(type: string): Structure[] {
 	return this.cacheFilter(`as_${type}`, this.allStructures, (s: Structure) => s.structureType === type);
 };
@@ -186,6 +188,10 @@ Room.prototype.myStructuresFilter = function(type: string): Structure[] {
 Room.prototype.hostileStructuresFilter = function(type: string): Structure[] {
 	return this.cacheFilter(`hs_${type}`, this.hostileStructures, (s: Structure) => s.structureType === type);
 };
+
+// ////////////////////////////////
+// Cahce
+// ////////////////////////////////
 Room.prototype.cacheFilter = function(key: string, objs: any[], filter: Function, timeout: number = 1): any[] {
 	const cacheResult = _.get(this.memory, ['_filter', key]) as FilterCache;
 	if (!_.isUndefined(cacheResult) && Game.time - cacheResult.time <= timeout) {
