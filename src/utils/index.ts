@@ -1,6 +1,3 @@
-/**
- * 基于 ticks 的 setTimeout
- */
 export const setTickout = (func: Function, ticks: number): void => {
 	if (Game.time % ticks === 0) func();
 };
