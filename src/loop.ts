@@ -3,13 +3,14 @@ import { ErrorMapper } from './utils/ErrorMapper';
 // 注入 prototypes 并注册新的 global 项目，使用 isRoot 进行检测是否需要重新注入
 // ==========================================================================
 const Root = (): void => {
-	if (_.isUndefined(global.isRoot) || _.isUndefined(Memory.config.ME)) {
+	if (_.isUndefined(global.isRoot) || _.isUndefined(Memory.config)) {
 		console.log(String.fromCodePoint(0x1f503), 'Code Reloading ...');
-		// Extend game prototypes
-		require('./prototypes');
 		// Assign config
+		if (_.isUndefined(Memory.config)) Memory.config = {};
 		_.assign(Memory.config, require('config'));
 		_.assign(global, Memory.config);
+		// Extend game prototypes
+		require('./prototypes');
 		// Extend functions
 		global.Dye = require('./global/log').Dye;
 		global.Log = require('./global/log').Log;
