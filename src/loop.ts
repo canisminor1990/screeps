@@ -1,8 +1,8 @@
 /// Clock.d.ts
+import './config.js';
 import { ErrorMapper } from './utils/ErrorMapper';
 import { Clock } from './utils/Clock';
-
-const { Log, Dye } = require('./global/log');
+import { Log, Dye } from './global/log';
 
 // 注入 prototypes 并注册新的 global 项目，使用 isRoot 进行检测是否需要重新注入
 // ==========================================================================

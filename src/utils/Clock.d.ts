@@ -4,4 +4,6 @@ declare class Clock {
 	func: Function;
 	tick: number;
 	autoRun: boolean = false;
+	start(): void;
+	stop(): void;
 }
