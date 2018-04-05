@@ -1,5 +1,5 @@
 declare const Dye: Function;
-// declare const Log: LogClass;
+declare const Log: LogClass;
 
 declare class LogClass {
 	success(...content: any[]): void;
