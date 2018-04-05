@@ -66,7 +66,9 @@ export default (options: EnvOptions): Configuration => {
     },
     plugins: [
       new CleanWebpackPlugin([`dist/${options.ENV}/*`], { root: options.ROOT }),
-      new ForkTsCheckerWebpackPlugin(),
+      new ForkTsCheckerWebpackPlugin({
+        ignoreDiagnostics: [2451],
+      }),
       new DefinePlugin(DefineConfig),
       new ScreepsSourceMapToJson(),
     ].filter(Boolean),
