@@ -1,4 +1,8 @@
 import { ErrorMapper } from './utils/ErrorMapper';
+import { Clock } from './utils/Clock.js';
+import Global = NodeJS.Global;
+
+global.Clock = Clock;
 
 // 注入 prototypes 并注册新的 global 项目，使用 isRoot 进行检测是否需要重新注入
 // ==========================================================================
@@ -17,12 +21,22 @@ const Root = (): void => {
 		// Checkpoint
 		global.isRoot = true;
 		Log.success('Root Done');
+		Memory.Clocks = {};
+		/* new Clock({
+      name: 'test clock', initParams: {counter: 0}, func: function() {
+        this.params.counter += 1;
+        Log.info(this.params.counter);
+      }, tick: 1, autoRun: true,
+    }); */
 	}
 };
 
 // Main Loop
 // ==========================================================================
 const Loop = (): void => {
+	_.each(global.Clocks, function(clock) {
+		clock.run();
+	});
 	Log.info('Start:', Game.time);
 };
 
