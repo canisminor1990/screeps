@@ -7,6 +7,7 @@
       "es2016"
     ],
     "sourceMap": false,
+    "declaration":true,
     "experimentalDecorators": true,
     "strictNullChecks": true,
     "strictPropertyInitialization": false,
@@ -23,6 +24,7 @@
   "include": [
     "webpack.config.ts",
     "config/*.ts",
+    "config/*.d.ts",
     "src/**/*.ts",
     "src/**/*.d.ts"
   ],
