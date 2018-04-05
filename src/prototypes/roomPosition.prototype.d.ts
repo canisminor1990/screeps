@@ -10,6 +10,7 @@ interface Pos {
 }
 
 interface RoomPosition {
+	raw: Pos;
 	room: Room;
 	memory: RoomMemory;
 	terrain: Terrain;
@@ -19,8 +20,14 @@ interface RoomPosition {
 	creep: Creep | undefined;
 	canMoveThrough: boolean;
 	isFreeSpace: boolean;
+
 	getAdjacentPos(range: number): RoomPosition[];
+
 	getFreeSpace(range: number): RoomPosition[];
+
 	hasStructure(type: StructureConstant): boolean;
+
+	getPositionInDirection(direction: number): RoomPosition;
+
 	cacheLookFoor(type: LookConstant, timeout?: number): any[];
 }

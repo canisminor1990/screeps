@@ -1,15 +1,17 @@
+import { getGame } from '../utils';
+
 Object.defineProperties(Room.prototype, {
-	// ////////////////
+	// ////////////////////////////////
 	// Logging
-	// ////////////////
+	// ////////////////////////////////
 	print: {
 		get(): string {
 			return '<a href="#!/room/' + Game.shard.name + '/' + this.name + '">' + this.name + '</a>';
 		},
 	},
-	// ////////////////
-	// Room properties
-	// ////////////////
+	// ////////////////////////////////
+	// Short Hand
+	// ////////////////////////////////
 	rcl: {
 		get(): string {
 			return this.controller.level;
@@ -17,20 +19,25 @@ Object.defineProperties(Room.prototype, {
 	},
 	my: {
 		get(): boolean {
-			return this.controller && this.controller.my;
+			return _.get(this.controller, 'my') === true;
 		},
 	},
 	reservedByMe: {
-		get() {
+		get(): boolean {
+			return _.get(this.controller, 'reservation.username') === ME;
+		},
+	},
+	canReserved: {
+		get(): boolean {
 			return (
 				this.controller &&
-				this.controller.reservation &&
-				this.controller.reservation.username === ME
+				_.isUndefined(_.get(this.controller, 'owner.username')) &&
+				_.isUndefined(_.get(this.controller, 'reservation.username'))
 			);
 		},
 	},
 	signedByMe: {
-		get() {
+		get(): boolean {
 			return (
 				this.controller &&
 				this.controller.sign &&
@@ -38,4 +45,157 @@ Object.defineProperties(Room.prototype, {
 			);
 		},
 	},
+
+	// constructionSite
+	constructionSite: {
+		get(): ConstructionSite {
+			return this.cacheFind(FIND_MY_CONSTRUCTION_SITES);
+		},
+	},
+
+	// Structures
+	allStructures: {
+		get(): Structure[] {
+			return this.cacheFind(FIND_STRUCTURES);
+		},
+	},
+	myStructures: {
+		get(): Structure[] {
+			return this.cacheFind(FIND_MY_STRUCTURES);
+		},
+	},
+	hostileStructures: {
+		get(): Structure[] {
+			return this.cacheFind(FIND_HOSTILE_STRUCTURES);
+		},
+	},
+	containers: {
+		get(): StructureContainer[] {
+			return this.myStructuresFilter(STRUCTURE_CONTAINER);
+		},
+	},
+	extensions: {
+		get(): StructureExtension[] {
+			return this.myStructuresFilter(STRUCTURE_EXTENSION);
+		},
+	},
+	extractor: {
+		get(): StructureExtractor | undefined {
+			return this.myStructuresFilter(STRUCTURE_EXTRACTOR)[0];
+		},
+	},
+	labs: {
+		get(): StructureLab[] {
+			return this.myStructuresFilter(STRUCTURE_LAB);
+		},
+	},
+	links: {
+		get(): StructureLink[] {
+			return this.myStructuresFilter(STRUCTURE_LINK);
+		},
+	},
+	nuker: {
+		get(): StructureNuker | undefined {
+			return this.myStructuresFilter(STRUCTURE_NUKER)[0];
+		},
+	},
+	observer: {
+		get(): StructureObserver | undefined {
+			return this.myStructuresFilter(STRUCTURE_OBSERVER)[0];
+		},
+	},
+	powerSpawn: {
+		get(): StructurePowerSpawn | undefined {
+			return this.myStructuresFilter(STRUCTURE_POWER_SPAWN)[0];
+		},
+	},
+	spawns: {
+		get(): StructureSpawn[] {
+			return this.myStructuresFilter(STRUCTURE_SPAWN);
+		},
+	},
+	freeSpawns: {
+		get(): StructureSpawn[] {
+			return _.filter(this.spawns(), spawn => !spawn.spawning);
+		},
+	},
+	storage: {
+		get(): StructureStorage | undefined {
+			return this.myStructuresFilter(STRUCTURE_STORAGE)[0];
+		},
+	},
+	terminal: {
+		get(): StructureTerminal | undefined {
+			return this.myStructuresFilter(STRUCTURE_TERMINAL)[0];
+		},
+	},
+	roads: {
+		get(): StructureRoad[] {
+			return this.allStructuresFilter(STRUCTURE_ROAD);
+		},
+	},
+	ramparts: {
+		get(): StructureRampart[] {
+			return this.allStructuresFilter(STRUCTURE_RAMPART);
+		},
+	},
+	walls: {
+		get(): StructureWall[] {
+			return this.allStructuresFilter(STRUCTURE_WALL);
+		},
+	},
+
+	// Creep
+	allCreeps: {
+		get(): Creep[] {
+			return this.cacheFind(FIND_CREEPS);
+		},
+	},
+	myCreeps: {
+		get(): Creep[] {
+			return this.cacheFind(FIND_MY_CREEPS);
+		},
+	},
+	hostileCreeps: {
+		get(): Creep[] {
+			return this.cacheFind(FIND_HOSTILE_CREEPS);
+		},
+	},
+	hasHostileCreeps: {
+		get(): boolean {
+			return this.hostileCreeps().length > 0;
+		},
+	},
+
+	// Resources
+	sources: {
+		get(): Source[] {
+			return this.cacheFind(FIND_SOURCES, Infinity);
+		},
+	},
+	mineral: {
+		get(): Mineral | undefined {
+			return this.cacheFind(FIND_MINERALS)[0];
+		},
+	},
 });
+
+// Funcitons
+Room.prototype.cacheFind = function(type: number, timeout: number = 1): any[] {
+	if (type === (FIND_SOURCES || FIND_MINERALS)) timeout = Infinity;
+	const isExit =
+		type === (FIND_EXIT_TOP || FIND_EXIT_RIGHT || FIND_EXIT_BOTTOM || FIND_EXIT_LEFT || FIND_EXIT);
+	// 从缓存中提取
+	const cacheResult = _.get(this.memory, ['_find', type]) as FindCache;
+	if (!_.isUndefined(cacheResult) && Game.time - cacheResult.time <= timeout) {
+		// 是id数组则转换为游戏对象，否则直接返回
+		return isExit ? cacheResult.value : getGame.objsByIdArray(cacheResult.value);
+	}
+	// 重新find
+	const result = this.find(type);
+	_.get(this.memory, ['_find', type], {
+		time: Game.time,
+		value: isExit ? result : getGame.objsToIdArray(result),
+	});
+	return result;
+};
