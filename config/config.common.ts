@@ -1,5 +1,5 @@
-import { join } from 'path';
 import { Configuration, DefinePlugin } from 'webpack';
+import { join } from 'path';
 
 export default (options: EnvOptions): Configuration => {
 	const ENV = options.ENV || 'dev';
