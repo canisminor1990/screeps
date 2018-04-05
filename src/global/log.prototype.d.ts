@@ -1,7 +1,7 @@
 declare const Dye: Function;
-declare const Log: LogClass;
+declare const Log: LogProto;
 
-interface LogClass {
+interface LogProto {
 	success(...content: any[]): void;
 
 	info(...content: any[]): void;
