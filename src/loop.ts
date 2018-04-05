@@ -1,4 +1,3 @@
-/// <reference path="./declarations/Clocks.d.ts" />
 import './config.js';
 import { ErrorMapper } from './utils/ErrorMapper';
 
@@ -21,7 +20,6 @@ const Root = (): void => {
 		require('./prototypes');
 		// Extend functions
 		require('./global');
-		console.log(global.Clocks);
 		// Checkpoint
 		global.isRoot = true;
 		Log.success('Root Done');
@@ -30,7 +28,6 @@ const Root = (): void => {
 			Log.info(this.params.counter++);
 		};
 		new Clock('test clock', { counter: 1 }, func, 1, true);
-		new Clock('test clock1', { counter: 1 }, func, 2, true);
 	}
 };
 

@@ -5,7 +5,7 @@ class Clock {
 	public name: string;
 	public initParams: object;
 	public tick: number;
-	private func: Function;
+	public func: Function;
 	public autoRun: boolean;
 
 	constructor(name: string, initParams: object, func: Function, tick: number, autoRun: boolean = false) {

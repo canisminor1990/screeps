@@ -1,7 +1,7 @@
-declare module 'Clocks' {
-	export class Clocks {
-		list: Clock[];
-		// addClock(clock: Clock): void;
-		// tick(): void;
-	}
+type ClockList = {};
+declare class Clocks {
+	list: string[];
+	getClock(name: string): Clock;
+	addClock(clock: Clock): void;
+	tick(): void;
 }

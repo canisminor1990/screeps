@@ -14,7 +14,7 @@ declare class Clock {
 
 	start(): void;
 
-	stop(): void;
+	pause(): void;
 
 	destory(): void;
 
