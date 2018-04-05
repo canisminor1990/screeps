@@ -1,5 +1,5 @@
 import { Configuration, DefinePlugin } from 'webpack';
-import { join } from 'path';
+import { join, resolve } from 'path';
 
 export default (options: EnvOptions): Configuration => {
 	const ENV = options.ENV || 'dev';
@@ -38,6 +38,10 @@ export default (options: EnvOptions): Configuration => {
 			process: false,
 		},
 		resolve: {
+			alias: {
+				// 这里需要个app.js里保持一致
+				Enums: resolve(ROOT, 'enmus'),
+			},
 			extensions: ['.webpack.js', '.web.js', '.ts', '.tsx', '.js'],
 		},
 		devtool: 'source-map',
@@ -71,10 +75,7 @@ export default (options: EnvOptions): Configuration => {
 		plugins: [
 			new CleanWebpackPlugin([`dist/${options.ENV}/*`], { root: options.ROOT }),
 			new ForkTsCheckerWebpackPlugin({ ignoreDiagnostics: [2451, 2687] }),
-			new CopyWebpackPlugin([
-				{ from: join(ROOT, 'src/config.js') },
-				{ from: join(ROOT, 'src/commands.js') },
-			]),
+			new CopyWebpackPlugin([{ from: join(ROOT, 'src/config.js') }, { from: join(ROOT, 'src/commands.js') }]),
 			new DefinePlugin(DefineConfig),
 			new ScreepsSourceMapToJson(),
 		].filter(Boolean),

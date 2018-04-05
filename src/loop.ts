@@ -1,9 +1,8 @@
 /// Clock.d.ts
 import { ErrorMapper } from './utils/ErrorMapper';
 import { Clock } from './utils/Clock';
-import { Log } from './global/log';
 
-global.Clock = Clock;
+const { Log, Dye } = require('./global/log');
 
 // 注入 prototypes 并注册新的 global 项目，使用 isRoot 进行检测是否需要重新注入
 // ==========================================================================
@@ -17,8 +16,9 @@ const Root = (): void => {
 		// Extend game prototypes
 		require('./prototypes');
 		// Extend functions
-		global.Dye = require('./global/log').Dye;
-		global.Log = require('./global/log').Log;
+		global.Dye = Dye;
+		global.Log = Log;
+		global.Clock = Clock;
 		// Checkpoint
 		global.isRoot = true;
 		Log.success('Root Done');

@@ -11,9 +11,7 @@ function* main() {
 		yield null;
 	}
 }
-function a({ a: string = 2 }) {
-	console.log(string);
-}
+
 exports.loop = function() {
 	if (Object.keys(Game.rooms).length === 0) return;
 	let thread;
