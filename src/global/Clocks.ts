@@ -1,4 +1,6 @@
-/// <reference path="../declarations/Clocks.d.ts" />
+/**
+ * 大时钟
+ */
 class Clocks {
 	private l = {};
 	get list(): string[] {

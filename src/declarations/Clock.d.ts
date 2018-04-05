@@ -7,7 +7,7 @@ declare class Clock {
 	name: string;
 	initParams: object;
 	func: Function;
-	tick: number;
+	T: number;
 	autoRun: boolean;
 
 	run(): void;
@@ -18,5 +18,5 @@ declare class Clock {
 
 	destory(): void;
 
-	clean(): void;
+	restart(): void;
 }
