@@ -2,7 +2,8 @@
  * 时钟
  */
 declare class Clock {
-	// constructor(name: string, initParams: object, func: Function, tick: number, autoRun: boolean);
+	constructor(name: string, initParams: object, func: Function, tick: number, autoRun: boolean);
+
 	start(): void;
 
 	stop(): void;

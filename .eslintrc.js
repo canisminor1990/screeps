@@ -28,5 +28,6 @@ module.exports = {
     'no-unused-vars': [0],
     'no-unused-expressions': [0],
     'no-fallthrough': [0],
+    'no-useless-constructor': [0],
   },
 };
