@@ -1,4 +1,4 @@
-import { LogLevel } from '../enums/loglevel';
+import { LogLevel } from '../enums/log';
 
 const Color = {
 	[COLOR_RED]: '#F92672',
@@ -92,4 +92,4 @@ class LogClass {
 	}
 }
 
-export const Log = new LogClass();
+export const Log: LogProto = new LogClass();
