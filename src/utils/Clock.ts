@@ -1,16 +1,23 @@
 export class Clock {
-	name: string;
-	initParams: object;
-	tick: number;
-	func: Function;
-	autoRun: boolean;
-	constructor(
-		name: string,
-		initParams: object,
-		func: Function,
-		tick: number,
-		autoRun: boolean = false,
-	) {
+	public name: string;
+	public initParams: object;
+	public tick: number;
+	private func: Function;
+	public autoRun: boolean;
+
+	constructor({
+		name,
+		initParams,
+		func,
+		tick,
+		autoRun = false,
+	}: {
+		name: string;
+		initParams: object;
+		func: Function;
+		tick: number;
+		autoRun: boolean;
+	}) {
 		this.name = name;
 		this.initParams = initParams;
 		this.func = func;
