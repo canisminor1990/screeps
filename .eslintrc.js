@@ -22,13 +22,13 @@ module.exports = {
   rules: {
     'prettier/prettier': [
       2, {
-        'printWidth': 120,
+        'printWidth': 150,
         'singleQuote': true,
         'trailingComma': 'all',
       },
     ],
     'no-undef': [0],
-    'no-unused-vars': [1],
+    'no-unused-vars': [0],
     'no-unused-expressions': [0],
   },
 };

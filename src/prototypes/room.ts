@@ -4,7 +4,7 @@ Object.defineProperties(Room.prototype, {
   print: {
     get(): string {
       return '<a href="#!/room/' + Game.shard.name + '/' + this.name + '">' + this.name + '</a>';
-    }
+    },
   },
 
   // Room properties
@@ -12,29 +12,21 @@ Object.defineProperties(Room.prototype, {
   rcl: {
     get(): string {
       return this.controller.level;
-    }
+    },
   },
   my: {
     get(): boolean {
       return this.controller && this.controller.my;
-    }
+    },
   },
   reservedByMe: {
     get() {
-      return (
-        this.controller &&
-        this.controller.reservation &&
-        this.controller.reservation.username === ME
-      );
-    }
+      return this.controller && this.controller.reservation && this.controller.reservation.username === ME;
+    },
   },
   signedByMe: {
     get() {
-      return (
-        this.controller &&
-        this.controller.sign &&
-        this.controller.sign.text === CONTROLLER_SIGN_MESSAGE
-      );
-    }
-  }
+      return this.controller && this.controller.sign && this.controller.sign.text === CONTROLLER_SIGN_MESSAGE;
+    },
+  },
 });

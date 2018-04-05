@@ -14,16 +14,10 @@
   },
   "pre-commit": ["lint"],
   "lint-staged": {
-    "README.md": [
-      "prettier --trailing-comma all --single-quote --write",
-      "git add"
-    ],
-    "package.json": [
-      "prettier --trailing-comma all --single-quote --write",
-      "git add"
-    ],
+    "README.md": ["prettier --write", "git add"],
+    "package.json": ["prettier --write", "git add"],
     "src/**/*.js": [
-      "prettier --trailing-comma all --single-quote --write",
+      "prettier --trailing-comma all --single-quote --print-width 150 --write",
       "git add"
     ],
     "src/**/*.ts": ["eslint --fix", "git add"],
