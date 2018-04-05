@@ -1,3 +1,4 @@
+/// <reference path="./declarations/Clocks.d.ts" />
 import './config.js';
 import { ErrorMapper } from './utils/ErrorMapper';
 
@@ -8,34 +9,35 @@ const Root = (): void => {
 		console.log(String.fromCodePoint(0x1f503), 'Code Reloading ...');
 		// Assign config
 		if (_.isUndefined(Memory.config)) Memory.config = {};
+		const config = require('./config.js');
 		global._ME = _(Game.rooms)
 			.map('controller')
 			.filter('my')
 			.map('owner.username')
 			.first();
-		_.assign(Memory.config, require('config'));
+		_.assign(Memory.config, config);
 		_.assign(global, Memory.config);
 		// Extend game prototypes
 		require('./prototypes');
 		// Extend functions
 		require('./global');
+		console.log(global.Clocks);
 		// Checkpoint
 		global.isRoot = true;
 		Log.success('Root Done');
 		Memory.Clocks = {};
 		const func = function() {
-			Log.info(this.params.counter++, !this.pause);
+			Log.info(this.params.counter++);
 		};
-		new Clock('test clock', { counter: 1 }, func, 2, true);
+		new Clock('test clock', { counter: 1 }, func, 1, true);
+		new Clock('test clock1', { counter: 1 }, func, 2, true);
 	}
 };
 
 // Main Loop
 // ==========================================================================
 const Loop = (): void => {
-	_.each(global.Clocks, function(clock) {
-		clock.run();
-	});
+	global.Clocks.tick();
 	Log.info('Start:', Game.time);
 };
 

@@ -1,9 +1,4 @@
-import Log from './Log';
-import Dye from './Dye';
-import { Clock } from './Clock';
-
-_.assign(global, {
-	Log,
-	Dye,
-	Clock,
-});
+global['Log'] = require('./Log').default;
+global['Dye'] = require('./Dye').default;
+global['Clock'] = require('./Clock').Clock;
+global['Clocks'] = new (require('./Clocks')).Clocks();

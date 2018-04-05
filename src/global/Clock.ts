@@ -29,42 +29,41 @@ class Clock {
 		}
 	}
 
-	get pause() {
-		if (Memory.Clocks[this.name]) return Memory.Clocks[this.name].pause;
+	get isPause() {
+		if (Memory.Clocks[this.name]) return Memory.Clocks[this.name].isPause;
 	}
 
-	set pause(v) {
-		if (Memory.Clocks[this.name]) Memory.Clocks[this.name].pause = v;
+	set isPause(v) {
+		if (Memory.Clocks[this.name]) Memory.Clocks[this.name].isPause = v;
 	}
 
 	init() {
-		if (!global.Clocks) global.Clocks = {};
 		if (!Memory.Clocks) Memory.Clocks = {};
 
 		if (!Memory.Clocks[this.name]) {
 			Memory.Clocks[this.name] = {
-				pause: false,
+				isPause: false,
 				params: {},
 			};
 			this.params = this.initParams;
 		} else return;
 
-		if (this.autoRun) global.Clocks[this.name] = this;
+		if (this.autoRun) global.Clocks.addClock(this);
 	}
 
 	run() {
 		if (!Memory.Clocks[this.name]) this.destory();
-		if (!this.pause && Game.time % this.tick === 0) {
+		if (!this.isPause && Game.time % this.tick === 0) {
 			this.func(this.params);
 		}
 	}
 
 	start() {
-		this.pause = false;
+		this.isPause = false;
 	}
 
-	stop() {
-		this.pause = true;
+	pause() {
+		this.isPause = true;
 	}
 
 	destory() {
@@ -72,7 +71,9 @@ class Clock {
 		delete Memory.Clocks[this.name];
 	}
 
-	clean() {}
+	clean() {
+		this.params = this.initParams;
+	}
 }
 
 export { Clock };
