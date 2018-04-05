@@ -28,6 +28,9 @@ exports.loop = function() {
       Memory.thread = regeneratorRuntime.serializeGenerator(thread);
     }
   } catch (e) {
-    console.log(`Code Changing at ${Game.time}... ... ...`);
+    console.log(
+      String.fromCodePoint(0x1f503),
+      `Code Changing at ${Game.time} ...`,
+    );
   }
 };

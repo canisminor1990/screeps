@@ -6,6 +6,7 @@ export default (options: EnvOptions): Configuration => {
   const ROOT = options.ROOT || __dirname;
   const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
   const CleanWebpackPlugin = require('clean-webpack-plugin');
+  const CopyWebpackPlugin = require('copy-webpack-plugin');
   const ScreepsSourceMapToJson = require('../lib/screeps-webpack-sources').default;
   const DefineConfig = {
     PRODUCTION: JSON.stringify(options.ENV === 'production'),
@@ -26,6 +27,7 @@ export default (options: EnvOptions): Configuration => {
     },
     externals: {
       'main.js.map': 'main.js.map',
+      config: 'config',
     },
     node: {
       Buffer: false,
@@ -68,11 +70,10 @@ export default (options: EnvOptions): Configuration => {
     },
     plugins: [
       new CleanWebpackPlugin([`dist/${options.ENV}/*`], { root: options.ROOT }),
-      new ForkTsCheckerWebpackPlugin({
-        ignoreDiagnostics: [2451],
-      }),
+      new ForkTsCheckerWebpackPlugin({ ignoreDiagnostics: [2451] }),
       new DefinePlugin(DefineConfig),
       new ScreepsSourceMapToJson(),
+      new CopyWebpackPlugin([{ from: join(ROOT, 'src/config.js') }]),
     ].filter(Boolean),
     watchOptions: {
       ignored: /backup/,
