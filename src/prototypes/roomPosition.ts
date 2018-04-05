@@ -15,10 +15,10 @@ Object.defineProperties(RoomPosition.prototype, {
 		},
 	},
 	cacheLookFoor: {
-		value(type: LookConstant): any[] {
+		value(type: LookConstant, timeout: number = 1): any[] {
 			const pos = `${this.x},${this.y}`;
 			const cacheResult = _.get(this.memory, ['_lookFor', pos, type]) as LookForCache;
-			if (!_.isUndefined(cacheResult) && cacheResult.time === Game.time) {
+			if (!_.isUndefined(cacheResult) && Game.time - cacheResult.time <= timeout) {
 				switch (type) {
 					case LOOK_TERRAIN:
 						return cacheResult.value;
@@ -29,23 +29,19 @@ Object.defineProperties(RoomPosition.prototype, {
 				}
 			}
 			const result = this.lookFor(type);
+			let value: any[];
 			switch (type) {
 				case LOOK_TERRAIN:
-					_.set(this.memory, ['_lookFor', pos, type], {
-						time: Game.time,
-						value: result,
-					});
+					value = result;
 				case LOOK_FLAGS:
-					_.set(this.memory, ['_lookFor', pos, type], {
-						time: Game.time,
-						value: getGame.flagsToNameArray(result),
-					});
+					value = getGame.flagsToNameArray(result);
 				default:
-					_.set(this.memory, ['_lookFor', pos, type], {
-						time: Game.time,
-						value: getGame.objsToIdArray(result),
-					});
+					value = getGame.objsToIdArray(result);
 			}
+			_.set(this.memory, ['_lookFor', pos, type], {
+				time: Game.time,
+				value: value,
+			});
 			return result;
 		},
 	},

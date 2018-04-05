@@ -6,5 +6,5 @@ interface LookForCache {
 interface RoomPosition {
 	room: Room;
 	memory: RoomMemory;
-	cacheLookFoor(type: LookConstant): any[];
+	cacheLookFoor(type: LookConstant, timeout?: number): any[];
 }
