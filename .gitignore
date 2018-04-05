@@ -5,6 +5,7 @@
 /package-lock.json
 
 # Ignore basic folders
+/example
 /doc
 /dist
 /node_modules
