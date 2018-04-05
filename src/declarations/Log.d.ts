@@ -1,7 +1,6 @@
-declare const Dye: Function;
-declare const Log: LogClass;
+declare const Log: LogConstructor;
 
-declare class LogClass {
+interface LogConstructor {
 	success(...content: any[]): void;
 
 	info(...content: any[]): void;

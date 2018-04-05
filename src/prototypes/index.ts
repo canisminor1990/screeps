@@ -1,3 +1,3 @@
-import './room';
-import './roomPosition';
-import './roomObject';
+import './Room';
+import './RoomPosition';
+import './RoomObject';

@@ -31,8 +31,7 @@ const Loop = (): void => {
 	_.each(global.Clocks, function(clock) {
 		clock.run();
 	});
-	console.log(Log);
-	// Log.info('Start:', Game.time);
+	Log.info('Start:', Game.time);
 };
 
 // 解析 SourceMap , 统一错误处理
