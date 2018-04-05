@@ -12,8 +12,8 @@ const Root = (): void => {
 		// Extend game prototypes
 		require('./prototypes');
 		// Extend functions
-		global.Dye = require('./global/log').Dye;
-		global.Log = require('./global/log').Log;
+		global.Dye = require('./global/Dye').default;
+		global.Log = require('./global/Log').default;
 		// Checkpoint
 		global.isRoot = true;
 		Log.success('Root Done');

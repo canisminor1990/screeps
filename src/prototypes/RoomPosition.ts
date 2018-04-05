@@ -75,7 +75,7 @@ Object.defineProperties(RoomPosition.prototype, {
 });
 
 // ////////////////////////////////
-// RoomPosition properties
+// Functions
 // ////////////////////////////////
 
 RoomPosition.prototype.getAdjacentPos = function(range: number): RoomPosition[] {
@@ -121,6 +121,10 @@ RoomPosition.prototype.getPositionInDirection = function(direction: number): Roo
 			return new RoomPosition(this.x, this.y, this.roomName);
 	}
 };
+
+// ////////////////////////////////
+// Cache
+// ////////////////////////////////
 
 RoomPosition.prototype.cacheLookFoor = function(type: LookConstant, timeout: number = 1): any[] {
 	if (type === LOOK_TERRAIN) timeout = Infinity;

@@ -180,7 +180,9 @@ Object.defineProperties(Room.prototype, {
 	},
 });
 
-// Funcitons
+// ////////////////////////////////
+// Functions
+// ////////////////////////////////
 Room.prototype.allStructuresFilter = function(type: string): Structure[] {
 	return this.cacheFilter(
 		`as_${type}`,
@@ -202,6 +204,10 @@ Room.prototype.hostileStructuresFilter = function(type: string): Structure[] {
 		(s: Structure) => s.structureType === type,
 	);
 };
+
+// ////////////////////////////////
+// Cahce
+// ////////////////////////////////
 Room.prototype.cacheFilter = function(
 	key: string,
 	objs: any[],
