@@ -49,7 +49,7 @@ interface Room {
 	sources: Source[];
 	mineral: Mineral | undefined;
 
-	// Funcitons
+	// Functions
 	allStructuresFilter(type: string): Structure[];
 	myStructuresFilter(type: string): Structure[];
 	hostileStructuresFilter(type: string): Structure[];

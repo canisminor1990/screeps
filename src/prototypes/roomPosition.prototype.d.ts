@@ -29,5 +29,5 @@ interface RoomPosition {
 
 	getPositionInDirection(direction: number): RoomPosition;
 
-	cacheLookFoor(type: LookConstant, timeout?: number): any[];
+	cacheLookFor(type: LookConstant, timeout?: number): any[];
 }

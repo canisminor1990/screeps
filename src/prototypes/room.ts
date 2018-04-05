@@ -38,11 +38,7 @@ Object.defineProperties(Room.prototype, {
 	},
 	signedByMe: {
 		get(): boolean {
-			return (
-				this.controller &&
-				this.controller.sign &&
-				this.controller.sign.text === CONTROLLER_SIGN_MESSAGE
-			);
+			return this.controller && this.controller.sign && this.controller.sign.text === CONTROLLER_SIGN_MESSAGE;
 		},
 	},
 
@@ -182,32 +178,15 @@ Object.defineProperties(Room.prototype, {
 
 // Funcitons
 Room.prototype.allStructuresFilter = function(type: string): Structure[] {
-	return this.cacheFilter(
-		`as_${type}`,
-		this.allStructures,
-		(s: Structure) => s.structureType === type,
-	);
+	return this.cacheFilter(`as_${type}`, this.allStructures, (s: Structure) => s.structureType === type);
 };
 Room.prototype.myStructuresFilter = function(type: string): Structure[] {
-	return this.cacheFilter(
-		`ms_${type}`,
-		this.myStructures,
-		(s: Structure) => s.structureType === type,
-	);
+	return this.cacheFilter(`ms_${type}`, this.myStructures, (s: Structure) => s.structureType === type);
 };
 Room.prototype.hostileStructuresFilter = function(type: string): Structure[] {
-	return this.cacheFilter(
-		`hs_${type}`,
-		this.hostileStructures,
-		(s: Structure) => s.structureType === type,
-	);
+	return this.cacheFilter(`hs_${type}`, this.hostileStructures, (s: Structure) => s.structureType === type);
 };
-Room.prototype.cacheFilter = function(
-	key: string,
-	objs: any[],
-	filter: Function,
-	timeout: number = 1,
-): any[] {
+Room.prototype.cacheFilter = function(key: string, objs: any[], filter: Function, timeout: number = 1): any[] {
 	const cacheResult = _.get(this.memory, ['_filter', key]) as FilterCache;
 	if (!_.isUndefined(cacheResult) && Game.time - cacheResult.time <= timeout) {
 		return getGame.objsByIdArray(cacheResult.value);
@@ -222,8 +201,7 @@ Room.prototype.cacheFilter = function(
 };
 Room.prototype.cacheFind = function(type: number, timeout: number = 1): any[] {
 	if (type === (FIND_SOURCES || FIND_MINERALS)) timeout = Infinity;
-	const isExit =
-		type === (FIND_EXIT_TOP || FIND_EXIT_RIGHT || FIND_EXIT_BOTTOM || FIND_EXIT_LEFT || FIND_EXIT);
+	const isExit = type === (FIND_EXIT_TOP || FIND_EXIT_RIGHT || FIND_EXIT_BOTTOM || FIND_EXIT_LEFT || FIND_EXIT);
 	const cacheResult = _.get(this.memory, ['_find', type]) as FindCache;
 	if (!_.isUndefined(cacheResult) && Game.time - cacheResult.time <= timeout) {
 		return isExit ? cacheResult.value : getGame.objsByIdArray(cacheResult.value);
