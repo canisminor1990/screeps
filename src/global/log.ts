@@ -92,4 +92,4 @@ class LogClass {
 	}
 }
 
-export const Log: LogProto = new LogClass();
+export const Log: LogClass = new LogClass();

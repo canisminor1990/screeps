@@ -1,6 +1,7 @@
 /// Clock.d.ts
 import { ErrorMapper } from './utils/ErrorMapper';
 import { Clock } from './utils/Clock';
+import { Log } from './global/log';
 
 global.Clock = Clock;
 
