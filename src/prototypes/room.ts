@@ -181,14 +181,51 @@ Object.defineProperties(Room.prototype, {
 });
 
 // Funcitons
+Room.prototype.allStructuresFilter = function(type: string): Structure[] {
+	return this.cacheFilter(
+		`as_${type}`,
+		this.allStructures,
+		(s: Structure) => s.structureType === type,
+	);
+};
+Room.prototype.myStructuresFilter = function(type: string): Structure[] {
+	return this.cacheFilter(
+		`ms_${type}`,
+		this.myStructures,
+		(s: Structure) => s.structureType === type,
+	);
+};
+Room.prototype.hostileStructuresFilter = function(type: string): Structure[] {
+	return this.cacheFilter(
+		`hs_${type}`,
+		this.hostileStructures,
+		(s: Structure) => s.structureType === type,
+	);
+};
+Room.prototype.cacheFilter = function(
+	key: string,
+	objs: any[],
+	filter: Function,
+	timeout: number = 1,
+): any[] {
+	const cacheResult = _.get(this.memory, ['_filter', key]) as FilterCache;
+	if (!_.isUndefined(cacheResult) && Game.time - cacheResult.time <= timeout) {
+		return getGame.objsByIdArray(cacheResult.value);
+	}
+	// 重新find
+	const result = _.filter(objs, filter);
+	_.set(this.memory, ['_filter', key], {
+		time: Game.time,
+		value: getGame.objsToIdArray(result),
+	});
+	return result;
+};
 Room.prototype.cacheFind = function(type: number, timeout: number = 1): any[] {
 	if (type === (FIND_SOURCES || FIND_MINERALS)) timeout = Infinity;
 	const isExit =
 		type === (FIND_EXIT_TOP || FIND_EXIT_RIGHT || FIND_EXIT_BOTTOM || FIND_EXIT_LEFT || FIND_EXIT);
-	// 从缓存中提取
 	const cacheResult = _.get(this.memory, ['_find', type]) as FindCache;
 	if (!_.isUndefined(cacheResult) && Game.time - cacheResult.time <= timeout) {
-		// 是id数组则转换为游戏对象，否则直接返回
 		return isExit ? cacheResult.value : getGame.objsByIdArray(cacheResult.value);
 	}
 	// 重新find

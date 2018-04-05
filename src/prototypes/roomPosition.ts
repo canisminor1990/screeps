@@ -124,7 +124,7 @@ RoomPosition.prototype.getPositionInDirection = function(direction: number): Roo
 
 RoomPosition.prototype.cacheLookFoor = function(type: LookConstant, timeout: number = 1): any[] {
 	if (type === LOOK_TERRAIN) timeout = Infinity;
-	const pos = `${this.x},${this.y}`;
+	const pos = `X${this.x}Y${this.y}`;
 	const cacheResult = _.get(this.memory, ['_lookFor', pos, type]) as LookForCache;
 	if (!_.isUndefined(cacheResult) && Game.time - cacheResult.time <= timeout) {
 		switch (type) {

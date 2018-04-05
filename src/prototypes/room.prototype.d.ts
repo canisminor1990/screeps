@@ -3,6 +3,11 @@ interface FindCache {
 	value: any;
 }
 
+interface FilterCache {
+	time: number;
+	value: any;
+}
+
 interface Room {
 	print: string;
 	rcl: number;
@@ -15,9 +20,6 @@ interface Room {
 	constructionSite: ConstructionSite[];
 
 	// structures
-	allStructuresFilter(type: string): Structure[];
-	myStructuresFilter(type: string): Structure[];
-	hostileStructuresFilter(type: string): Structure[];
 	allStructures: Structure[];
 	myStructures: Structure[];
 	hostileStructures: Structure[];
@@ -48,5 +50,9 @@ interface Room {
 	mineral: Mineral | undefined;
 
 	// Funcitons
+	allStructuresFilter(type: string): Structure[];
+	myStructuresFilter(type: string): Structure[];
+	hostileStructuresFilter(type: string): Structure[];
+	cacheFilter(key: string, objs: any[], filter: Function, timeout?: number): any[];
 	cacheFind(type: number, timeout?: number): any[];
 }
