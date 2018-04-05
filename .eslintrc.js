@@ -23,6 +23,7 @@ module.exports = {
         'trailingComma': 'all',
       },
     ],
+    'no-new': [0],
     'no-undef': [0],
     'no-unused-vars': [0],
     'no-unused-expressions': [0],

@@ -1,6 +1,5 @@
 import { ErrorMapper } from './utils/ErrorMapper';
-import { Clock } from './utils/Clock.js';
-import Global = NodeJS.Global;
+import { Clock } from './utils/Clock';
 
 global.Clock = Clock;
 
@@ -22,12 +21,15 @@ const Root = (): void => {
 		global.isRoot = true;
 		Log.success('Root Done');
 		Memory.Clocks = {};
-		/* new Clock({
-      name: 'test clock', initParams: {counter: 0}, func: function() {
-        this.params.counter += 1;
-        Log.info(this.params.counter);
-      }, tick: 1, autoRun: true,
-    }); */
+		new Clock(
+			'test clock',
+			{ counter: 0 },
+			function() {
+				Log.info(this.params.counter++, !this.pause);
+			},
+			2,
+			true,
+		);
 	}
 };
 

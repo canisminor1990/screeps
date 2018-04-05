@@ -1,8 +1,18 @@
 export class Clock {
-	constructor({ name, initParams, func, tick, autoRun = false }) {
-		// this.id = Game.time + Math.random().toFixed(3) * 1000;
+	name: string;
+	initParams: object;
+	tick: number;
+	func: Function;
+	autoRun: boolean;
+	constructor(
+		name: string,
+		initParams: object,
+		func: Function,
+		tick: number,
+		autoRun: boolean = false,
+	) {
 		this.name = name;
-		this.iniParams = initParams;
+		this.initParams = initParams;
 		this.func = func;
 		this.tick = tick;
 		this.autoRun = autoRun;
@@ -38,7 +48,7 @@ export class Clock {
 				pause: false,
 				params: {},
 			};
-			this.params = this.iniParams;
+			this.params = this.initParams;
 		} else return;
 
 		if (this.autoRun) global.Clocks[this.name] = this;
