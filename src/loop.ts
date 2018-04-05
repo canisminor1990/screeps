@@ -22,15 +22,15 @@ const Root = (): void => {
 		global.isRoot = true;
 		Log.success('Root Done');
 		Memory.Clocks = {};
-		new Clock({
-			name: 'test clock',
-			initParams: { counter: 0 },
-			func: function() {
+		new Clock(
+			'test clock',
+			{ counter: 0 },
+			function() {
 				Log.info(this.params.counter++, !this.pause);
 			},
-			tick: 2,
-			autoRun: true,
-		});
+			2,
+			true,
+		);
 	}
 };
 
