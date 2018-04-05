@@ -1,7 +1,7 @@
 declare namespace NodeJS {
-  interface Global {
-    [type: string]: any;
-  }
+	interface Global {
+		[type: string]: any;
+	}
 }
 
 declare const ME: string;

@@ -1,8 +1,3 @@
-/**
- * Author: Ruo
- * Create: 2018-04-04
- * Description:
- */
 module.exports = {
   parser: 'typescript-eslint-parser',
   extends: [
@@ -22,7 +17,8 @@ module.exports = {
   rules: {
     'prettier/prettier': [
       2, {
-        'printWidth': 150,
+        'printWidth': 100,
+		    'useTabs': true,
         'singleQuote': true,
         'trailingComma': 'all',
       },
