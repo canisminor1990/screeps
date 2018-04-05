@@ -1,6 +1,6 @@
 /// <reference path="../declarations/Clocks.d.ts" />
 class Clocks {
-	private l: ClockList = {};
+	private l = {};
 	get list(): string[] {
 		return _.map(this.l, (clock: Clock) => `'${clock.name}'`);
 	}

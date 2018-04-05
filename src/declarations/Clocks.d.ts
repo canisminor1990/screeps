@@ -1,4 +1,3 @@
-type ClockList = {};
 declare class Clocks {
 	list: string[];
 	getClock(name: string): Clock;
