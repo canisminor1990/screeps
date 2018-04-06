@@ -8,34 +8,34 @@ Object.defineProperties(Source.prototype, {
 			this._checkMemory();
 			Memory.sources[this.id] = value;
 		},
-		active: {
-			get(): boolean {
-				return this.energy > 0;
-			},
+	},
+	active: {
+		get(): boolean {
+			return this.energy > 0;
 		},
-		container: {
-			get(): StructureContainer | null {
-				if (!_.isUndefined(this.memory.container)) {
-					const cacheContainer: StructureContainer | null = Game.getObjectById(this.memory.container);
-					if (cacheContainer !== null) return cacheContainer;
-					delete this.memory.container;
-				}
-				// 重新寻找
-				let container: any;
-				_.forEach(this.pos.getAdjacentPos(1), (pos: RoomPosition) => {
-					if (!_.isUndefined(container)) return;
-					let c = pos.getStructure(STRUCTURE_CONTAINER);
-					if (!_.isUndefined(c)) container = c as StructureContainer;
-				});
-				if (_.isUndefined(container)) return null;
-				this.memory.container = container.id;
-				return container;
-			},
+	},
+	container: {
+		get(): StructureContainer | null {
+			if (!_.isUndefined(this.memory.container)) {
+				const cacheContainer: StructureContainer | null = Game.getObjectById(this.memory.container);
+				if (cacheContainer !== null) return cacheContainer;
+				delete this.memory.container;
+			}
+			// 重新寻找
+			let container: any;
+			_.forEach(this.pos.getAdjacentPos(1), (pos: RoomPosition) => {
+				if (!_.isUndefined(container)) return;
+				let c = pos.getStructure(STRUCTURE_CONTAINER);
+				if (!_.isUndefined(c)) container = c as StructureContainer;
+			});
+			if (_.isUndefined(container)) return null;
+			this.memory.container = container.id;
+			return container;
 		},
-		hasContainer: {
-			get(): boolean {
-				return this.container !== null;
-			},
+	},
+	hasContainer: {
+		get(): boolean {
+			return this.container !== null;
 		},
 	},
 });
