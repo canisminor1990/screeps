@@ -17,18 +17,16 @@ class Clock {
 		this.init();
 	}
 
+	// 时钟用到的参数表，最好只存储单层字面量成员的对象
 	get params() {
-		if (!_.isUndefined(Memory.Clocks[this.name])) {
-			return Memory.Clocks[this.name].params;
-		}
+		if (Memory.Clocks[this.name]) return Memory.Clocks[this.name].params;
 	}
 
-	set params(value) {
-		if (!_.isUndefined(Memory.Clocks[this.name])) {
-			Memory.Clocks[this.name].params = value;
-		}
+	set params(v) {
+		if (Memory.Clocks[this.name]) Memory.Clocks[this.name].params = v;
 	}
 
+	// 暂停标签
 	get isPause() {
 		if (Memory.Clocks[this.name]) return Memory.Clocks[this.name].isPause;
 	}
@@ -37,23 +35,34 @@ class Clock {
 		if (Memory.Clocks[this.name]) Memory.Clocks[this.name].isPause = v;
 	}
 
+	// 周期
+	get T() {
+		if (Memory.Clocks[this.name]) return Memory.Clocks[this.name].T;
+	}
+
+	set T(v) {
+		if (Memory.Clocks[this.name]) Memory.Clocks[this.name].T = v;
+	}
+
+	// 初始化
 	init() {
 		if (!Memory.Clocks) Memory.Clocks = {};
 
 		if (!Memory.Clocks[this.name]) {
 			Memory.Clocks[this.name] = {
+				// 写到Memory
 				isPause: false,
+				T: this.tick,
 				params: {},
 			};
 			this.params = this.initParams;
-		} else return;
+		} else return; // 定义过则跳过
 
-		if (this.autoRun) global.Clocks.addClock(this);
+		if (this.autoRun) global.Clocks.addClock(this); // autoRun时自动加入Clocks大时钟，否则要手动加入
 	}
 
 	run() {
-		if (!Memory.Clocks[this.name]) this.destory();
-		if (!this.isPause && Game.time % this.tick === 0) {
+		if (!this.isPause && Game.time % this.T === 0) {
 			this.func(this.params);
 		}
 	}
@@ -62,16 +71,19 @@ class Clock {
 		this.isPause = false;
 	}
 
+	// 暂停
 	pause() {
 		this.isPause = true;
 	}
 
+	// 销毁时钟，从内存和运行环境中移除
 	destory() {
 		delete global.Clocks[this.name];
 		delete Memory.Clocks[this.name];
 	}
 
-	clean() {
+	// 回复时钟参数表到初始状态
+	restart() {
 		this.params = this.initParams;
 	}
 }

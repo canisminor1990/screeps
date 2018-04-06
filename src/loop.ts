@@ -25,8 +25,11 @@ const Root = (): void => {
 		Memory.Clocks = {};
 		const func = function() {
 			Log.info(this.params.counter++);
+			if (this.params.counter > 10) {
+				this.restart();
+			}
 		};
-		new Clock('test clock', { counter: 1 }, func, 1, true);
+		new Clock('test clock', { counter: 0 }, func, 1, true);
 	}
 };
 
