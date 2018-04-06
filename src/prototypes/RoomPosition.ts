@@ -143,6 +143,7 @@ RoomPosition.prototype.cacheLookFor = function(type: LookConstant, timeout: numb
 			break;
 		default:
 			value = getGame.objsToIdArray(result);
+			break;
 	}
 	_.set(Memory, ['_lookFor', pos, type], {
 		time: Game.time,

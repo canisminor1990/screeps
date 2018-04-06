@@ -22,7 +22,7 @@ const Style = {
 	room: { color: Color[COLOR_PURPLE], fontSize: '9px' },
 };
 
-export default (style: string | number, ...text: any[]): string => {
+export const Dye = (style: string | number, ...text: any[]): string => {
 	const applyStyle = Style[style] as string | Object;
 	const msg = text.join(' ');
 	if (_.isObject(applyStyle)) {
