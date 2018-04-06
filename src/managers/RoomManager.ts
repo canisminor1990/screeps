@@ -3,7 +3,7 @@ import { RoomType } from '../enums/room';
 import { isFriend } from '../utils';
 
 export class RoomManager extends Manager {
-	private roomToc: { [type: number]: Room[] };
+	private roomToc: { [type: number]: string[] };
 
 	constructor() {
 		super('RoomManager');
@@ -41,7 +41,7 @@ export class RoomManager extends Manager {
 			if (_.isUndefined(owner)) {
 				// 可以开分矿的房间
 				return this.signType(room, RoomType.remoteCanMine);
-			} else if (isFriend(owner)) {
+			} else if (isFriend(owner as string)) {
 				// 朋友的房间
 				return this.signType(room, RoomType.ownByFriend);
 			} else {

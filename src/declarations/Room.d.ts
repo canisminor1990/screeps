@@ -8,7 +8,15 @@ interface FilterCache {
 	value: any;
 }
 
+interface RoomMemory {
+	_find: any;
+	_filter: any;
+	_time: number;
+	type: number;
+}
+
 interface Room {
+	memory: RoomMemory;
 	print: string;
 	rcl: number;
 	my: boolean;
@@ -52,8 +60,12 @@ interface Room {
 
 	// Functions
 	allStructuresFilter(type: string): Structure[];
+
 	myStructuresFilter(type: string): Structure[];
+
 	hostileStructuresFilter(type: string): Structure[];
+
 	cacheFilter(key: string, objs: any[], filter: Function, timeout?: number): any[];
+
 	cacheFind(type: number, timeout?: number): any[];
 }
