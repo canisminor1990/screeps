@@ -116,10 +116,10 @@ RoomPosition.prototype.getPositionInDirection = function(direction: number): Roo
 };
 
 RoomPosition.prototype.cacheLookFor = function(type: LookConstant, timeout: number = 1): any[] {
-	if (type === LOOK_TERRAIN) timeout = Infinity;
+	if (type === LOOK_TERRAIN) timeout = 60;
 
 	const pos = `X${this.x}Y${this.y}`;
-	const cacheResult = _.get(this.memory, ['_lookFor', pos, type]) as LookForCache;
+	const cacheResult = _.get(Memory, ['_lookFor', pos, type]) as LookForCache;
 
 	if (!_.isUndefined(cacheResult) && Game.time - cacheResult.time <= timeout) {
 		switch (type) {
@@ -133,15 +133,18 @@ RoomPosition.prototype.cacheLookFor = function(type: LookConstant, timeout: numb
 	}
 	const result = this.lookFor(type);
 	let value: any[];
+	console.log(type, LOOK_TERRAIN);
 	switch (type) {
 		case LOOK_TERRAIN:
-			value = result;
+			value = result[0];
+			break;
 		case LOOK_FLAGS:
 			value = getGame.flagsToNameArray(result);
+			break;
 		default:
 			value = getGame.objsToIdArray(result);
 	}
-	_.set(this.memory, ['_lookFor', pos, type], {
+	_.set(Memory, ['_lookFor', pos, type], {
 		time: Game.time,
 		value: value,
 	});
