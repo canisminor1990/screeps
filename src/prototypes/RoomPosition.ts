@@ -15,14 +15,14 @@ Object.defineProperties(RoomPosition.prototype, {
 			return Game.rooms[this.roomName];
 		},
 	},
-	// memory: {
-	// 	get(): any {
-	// 		return this.room.memory;
-	// 	},
-	// 	set(value): void {
-	// 		this.room.memory = value;
-	// 	},
-	// },
+	memory: {
+		get(): any {
+			return this.room.memory;
+		},
+		set(value): void {
+			this.room.memory = value;
+		},
+	},
 	terrain: {
 		get(): Terrain {
 			return this.cacheLookFor(LOOK_TERRAIN)[0];
@@ -61,7 +61,7 @@ Object.defineProperties(RoomPosition.prototype, {
 			);
 		},
 	},
-	isFreeSpace: {
+	canBuild: {
 		get(): boolean {
 			return this.terrain !== 'wall' && _.isUndefined(this.constructionSite) && _.isUndefined(this.mainStructure);
 		},
@@ -84,12 +84,12 @@ RoomPosition.prototype.getAdjacentPos = function(range: number): RoomPosition[] 
 	return AdjacentPos;
 };
 
-RoomPosition.prototype.getFreeSpace = function(range: number): RoomPosition[] {
-	return _.filter(this.getAdjacentPos(range), (pos: RoomPosition) => pos.isFreeSpace);
+RoomPosition.prototype.getCanBuildSpaces = function(range: number): RoomPosition[] {
+	return _.filter(this.getAdjacentPos(range), (pos: RoomPosition) => pos.canBuild);
 };
 
-RoomPosition.prototype.hasStructure = function(type: StructureConstant): boolean {
-	return !!_.filter(this.structures, (s: Structure) => s.structureType === type)[0];
+RoomPosition.prototype.getStructure = function(type: StructureConstant): Structure | undefined {
+	return _.filter(this.structures, (s: Structure) => s.structureType === type)[0];
 };
 
 RoomPosition.prototype.getPositionInDirection = function(direction: number): RoomPosition {

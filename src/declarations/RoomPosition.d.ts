@@ -19,13 +19,13 @@ interface RoomPosition {
 	constructionSite: ConstructionSite | undefined;
 	creep: Creep | undefined;
 	canMoveThrough: boolean;
-	isFreeSpace: boolean;
+	canBuild: boolean;
 
 	getAdjacentPos(range: number): RoomPosition[];
 
-	getFreeSpace(range: number): RoomPosition[];
+	getCanBuildSpaces(range: number): RoomPosition[];
 
-	hasStructure(type: StructureConstant): boolean;
+	getStructure(type: StructureConstant): Structure | undefined;
 
 	getPositionInDirection(direction: number): RoomPosition;
 
