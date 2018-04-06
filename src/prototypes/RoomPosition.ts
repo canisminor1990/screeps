@@ -136,10 +136,13 @@ RoomPosition.prototype.cacheLookFor = function(type: LookConstant, timeout: numb
 	switch (type) {
 		case LOOK_TERRAIN:
 			value = result;
+			break;
 		case LOOK_FLAGS:
 			value = getGame.flagsToNameArray(result);
+			break;
 		default:
 			value = getGame.objsToIdArray(result);
+			break;
 	}
 	_.set(this.memory, ['_lookFor', pos, type], {
 		time: Game.time,

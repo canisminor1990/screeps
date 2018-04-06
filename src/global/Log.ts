@@ -1,6 +1,6 @@
 import { LogLevel } from '../enums/log';
 
-class Log {
+export class Log {
 	LogLevel: number;
 	Emoji: boolean;
 
@@ -52,5 +52,3 @@ class Log {
 		console.log('----------------------------------------------');
 	}
 }
-
-export default new Log() as LogConstructor;
