@@ -29,6 +29,9 @@
     "src/**/*.d.ts"
   ],
   "exclude": [
+    "example",
+    "backup",
+    "dist",
     "node_modules"
   ]
 }

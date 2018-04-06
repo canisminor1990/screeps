@@ -1,6 +1,5 @@
 import { getGame } from '../utils';
 import { RoleType } from '../enums/creep';
-import { FilterCache, FindCache } from '../declarations/Room';
 
 Object.defineProperties(Room.prototype, {
 	// ////////////////////////////////

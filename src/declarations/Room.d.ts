@@ -1,5 +1,3 @@
-import { RoleType } from '../enums/creep';
-
 interface FindCache {
 	time: number;
 	value: any;
@@ -69,9 +67,9 @@ interface Room {
 
 	hostileStructuresFilter(type: string): Structure[];
 
-	getRole(type: RoleType): Creep[];
+	getRole(type: number): Creep[];
 
-	getRoleCount(type: RoleType): number;
+	getRoleCount(type: number): number;
 
 	cacheFilter(key: string, objs: any[], filter: Function, timeout?: number): any[];
 
