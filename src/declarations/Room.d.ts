@@ -38,6 +38,7 @@ interface Room {
 	roads: StructureRoad[];
 	ramparts: StructureRampart[];
 	walls: StructureWall[];
+	KeeperLairs: StructureKeeperLair[];
 
 	// Creeps
 	allCreeps: Creep[];

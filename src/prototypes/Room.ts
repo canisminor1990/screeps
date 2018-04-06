@@ -140,7 +140,11 @@ Object.defineProperties(Room.prototype, {
 			return this.allStructuresFilter(STRUCTURE_WALL);
 		},
 	},
-
+	KeeperLairs: {
+		get(): StructureKeeperLair[] {
+			return this.allStructuresFilter(STRUCTURE_KEEPER_LAIR);
+		},
+	},
 	// Creep
 	allCreeps: {
 		get(): Creep[] {

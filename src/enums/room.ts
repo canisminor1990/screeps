@@ -8,11 +8,12 @@ export enum RoomStatus {
 export enum RoomType {
 	// home base
 	home = 0,
+	bootstrap = 1,
 
 	// remote
 	remoteCanMine = 10,
 	remoteReservedByOther = 11,
-	remoteSourceKeeper = 12,
+	remoteKeeperLair = 12,
 	remoteCenter = 13,
 
 	// other player

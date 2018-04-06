@@ -6,6 +6,8 @@ export abstract class Manager {
 		this.memoryCheck();
 	}
 
+	abstract run(): void;
+
 	protected memoryCheck() {
 		if (_.isUndefined(Memory.manager)) Memory.manager = {};
 		if (_.isUndefined(Memory.manager[this.name])) Memory.manager[this.name] = {};
@@ -17,5 +19,13 @@ export abstract class Manager {
 
 	protected set memory(value: any) {
 		Memory.manager[this.name] = value;
+	}
+
+	protected getValue(manager: string, path: string) {
+		return _.get(Memory.manager, [manager, path]);
+	}
+
+	protected setValue(manager: string, path: string, value: any): void {
+		_.set(Memory.manager, [manager, path], value);
 	}
 }

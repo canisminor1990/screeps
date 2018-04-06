@@ -7,13 +7,18 @@ export class MemoryManager extends Manager {
 		super('MemoryManager');
 	}
 
-	private clearCreepsMemory(): void {
+	public run(): void {
+		this.cleanCreepsMemory();
+		this.cleanRoomsMemory();
+	}
+
+	private cleanCreepsMemory(): void {
 		_.forEach(Object.keys(Memory.creeps), (name: string) => {
 			if (!Game.creeps[name]) delete Memory.creeps[name];
 		});
 	}
 
-	private clearRoomMemory(): void {
+	private cleanRoomsMemory(): void {
 		_.forEach(Object.keys(Memory.rooms), (roomMemory: any, name: string) => {
 			if (Object.keys(roomMemory).length === 0) {
 				delete Memory.rooms[name];
