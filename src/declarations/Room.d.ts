@@ -11,7 +11,8 @@ interface FilterCache {
 interface RoomMemory {
 	_find: any;
 	_filter: any;
-	_time: number;
+	_look: any;
+	time: number;
 	type: number;
 }
 

@@ -14,7 +14,8 @@ export class RoomManager extends Manager {
 	public run(): void {
 		this.cleanMemory();
 		this.buildRoomToc();
-		this.memory = this.roomToc;
+		this.memory.time = Game.time;
+		this.memory.roomToc = this.roomToc;
 	}
 
 	private cleanMemory(): void {
@@ -23,7 +24,7 @@ export class RoomManager extends Manager {
 				delete Memory.rooms[name];
 				return;
 			}
-			const timeCheck = roomMemory._time;
+			const timeCheck = roomMemory.time;
 			if (!_.isUndefined(timeCheck) && timeCheck < Game.time - this.ROOM_MEMORY_TIMECHECK && !Game.rooms[name]) {
 				delete Memory.rooms[name];
 			}
@@ -32,7 +33,7 @@ export class RoomManager extends Manager {
 
 	private buildRoomToc(): void {
 		_.forEach(Game.rooms, (room: Room) => {
-			room.memory._time = Game.time;
+			room.memory.time = Game.time;
 			if (room.controller === undefined) {
 				if (room.sources.length === 0) {
 					// 分割区块的无人区
