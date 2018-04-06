@@ -15,14 +15,14 @@ Object.defineProperties(RoomPosition.prototype, {
 			return Game.rooms[this.roomName];
 		},
 	},
-	// memory: {
-	// 	get(): any {
-	// 		return this.room.memory;
-	// 	},
-	// 	set(value): void {
-	// 		this.room.memory = value;
-	// 	},
-	// },
+	memory: {
+		get(): any {
+			return this.room.memory;
+		},
+		set(value): void {
+			this.room.memory = value;
+		},
+	},
 	terrain: {
 		get(): Terrain {
 			return this.cacheLookFor(LOOK_TERRAIN)[0];

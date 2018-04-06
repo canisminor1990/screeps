@@ -1,5 +1,12 @@
 /**
- * 领地类，表示已个room对象
+ * 领地类，表示一个room对象
  */
-class Colony {}
+class Colony {
+	room: Room;
+	constructor(room: Room) {
+		this.room = room;
+	}
+
+	statistic() {}
+}
 export { Colony };
