@@ -28,4 +28,9 @@ export abstract class Manager {
 	protected setValue(manager: string, path: string, value: any): void {
 		_.set(Memory.manager, [manager, path], value);
 	}
+
+	protected recordStats() {
+		// TODO: 添加其他运行信息
+		this.memory.time = Game.time;
+	}
 }

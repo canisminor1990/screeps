@@ -1,3 +1,5 @@
+import { RoleType } from '../enums/creep';
+
 interface FindCache {
 	time: number;
 	value: any;
@@ -14,6 +16,7 @@ interface RoomMemory {
 	_look: any;
 	time: number;
 	type: number;
+	creepToc: { [type: number]: string[] };
 }
 
 interface Room {
@@ -65,6 +68,10 @@ interface Room {
 	myStructuresFilter(type: string): Structure[];
 
 	hostileStructuresFilter(type: string): Structure[];
+
+	getRole(type: RoleType): Creep[];
+
+	getRoleCount(type: RoleType): number;
 
 	cacheFilter(key: string, objs: any[], filter: Function, timeout?: number): any[];
 

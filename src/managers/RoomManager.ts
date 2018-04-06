@@ -13,9 +13,12 @@ export class RoomManager extends Manager {
 
 	public run(): void {
 		this.cleanMemory();
-		this.buildRoomToc();
-		this.memory.time = Game.time;
+		_.forEach(Game.rooms, (room: Room) => {
+			this.buildRoomToc(room);
+			this.buildCreepToc(room);
+		});
 		this.memory.roomToc = this.roomToc;
+		this.recordStats();
 	}
 
 	private cleanMemory(): void {
@@ -31,52 +34,61 @@ export class RoomManager extends Manager {
 		});
 	}
 
-	private buildRoomToc(): void {
-		_.forEach(Game.rooms, (room: Room) => {
-			room.memory.time = Game.time;
-			if (room.controller === undefined) {
-				if (room.sources.length === 0) {
-					// 分割区块的无人区
-					return this.signType(room, RoomType.public);
-				} else if (room.KeeperLairs.length > 0) {
-					// KeeperLair 矿区
-					return this.signType(room, RoomType.remoteKeeperLair);
-				} else {
-					// 区块中央的
-					return this.signType(room, RoomType.remoteCenter);
-				}
-			}
-			if (room.controller.my) {
-				if (room.spawns.length === 0) {
-					// 我的基地
-					return this.signType(room, RoomType.home);
-				} else {
-					// 还没建设spawn的新基地
-					return this.signType(room, RoomType.bootstrap);
-				}
-			}
-			const reserver = _.get(room.controller, 'reservation.username');
-			if (!_.isUndefined(reserver) && reserver !== ME) {
-				// 被别人 Reserved 的分矿
-				return this.signType(room, RoomType.remoteReservedByOther);
-			}
-			const owner = _.get(room.controller, 'owner.username');
-			if (_.isUndefined(owner)) {
-				// 可以开分矿的房间
-				return this.signType(room, RoomType.remoteCanMine);
-			} else if (isFriend(owner as string)) {
-				// 朋友的房间
-				return this.signType(room, RoomType.ownByFriend);
+	private buildRoomToc(room: Room): void {
+		room.memory.time = Game.time;
+		if (room.controller === undefined) {
+			if (room.sources.length === 0) {
+				// 分割区块的无人区
+				return this.signType(room, RoomType.public);
+			} else if (room.KeeperLairs.length > 0) {
+				// KeeperLair 矿区
+				return this.signType(room, RoomType.remoteKeeperLair);
 			} else {
-				// 敌人的房间
-				return this.signType(room, RoomType.ownByHostile);
+				// 区块中央的
+				return this.signType(room, RoomType.remoteCenter);
 			}
-		});
+		}
+		if (room.controller.my) {
+			if (room.spawns.length === 0) {
+				// 我的基地
+				return this.signType(room, RoomType.home);
+			} else {
+				// 还没建设spawn的新基地
+				return this.signType(room, RoomType.bootstrap);
+			}
+		}
+		const reserver = _.get(room.controller, 'reservation.username');
+		if (!_.isUndefined(reserver) && reserver !== ME) {
+			// 被别人 Reserved 的分矿
+			return this.signType(room, RoomType.remoteReservedByOther);
+		}
+		const owner = _.get(room.controller, 'owner.username');
+		if (_.isUndefined(owner)) {
+			// 可以开分矿的房间
+			return this.signType(room, RoomType.remoteCanMine);
+		} else if (isFriend(owner as string)) {
+			// 朋友的房间
+			return this.signType(room, RoomType.ownByFriend);
+		} else {
+			// 敌人的房间
+			return this.signType(room, RoomType.ownByHostile);
+		}
 	}
 
 	private signType(room: Room, type: number): void {
 		room.memory.type = type;
 		if (!this.roomToc[type]) this.roomToc[type] = [];
 		this.roomToc[type].push(room.name);
+	}
+
+	private buildCreepToc(room: Room): void {
+		let creepToc: { [type: number]: string[] } = {};
+		_.forEach(Memory.creeps, (c: CreepMemory) => {
+			if (c.homeRoom === room.name) {
+				if (_.isUndefined(creepToc[c.role])) creepToc[c.role] = [];
+				creepToc[c.role].push(c.name);
+			}
+		});
+		room.memory.creepToc = creepToc;
 	}
 }

@@ -7,11 +7,12 @@ export class CreepManager extends Manager {
 
 	public run(): void {
 		this.cleanMemory();
+		this.recordStats();
 	}
 
 	private cleanMemory(): void {
-		_.forEach(Object.keys(Memory.creeps), (name: string) => {
-			if (!Game.creeps[name]) delete Memory.creeps[name];
+		_.forEach(Memory.creeps, (creep: CreepMemory, name: string) => {
+			if (creep.hasBorn && !Game.creeps[name]) delete Memory.creeps[name];
 		});
 	}
 }

@@ -1,4 +1,6 @@
 import { getGame } from '../utils';
+import { RoleType } from '../enums/creep';
+import { FilterCache, FindCache } from '../declarations/Room';
 
 Object.defineProperties(Room.prototype, {
 	// ////////////////////////////////
@@ -191,6 +193,20 @@ Room.prototype.myStructuresFilter = function(type: string): Structure[] {
 };
 Room.prototype.hostileStructuresFilter = function(type: string): Structure[] {
 	return this.cacheFilter(`hs_${type}`, this.hostileStructures, (s: Structure) => s.structureType === type);
+};
+Room.prototype.getRole = function(type: RoleType): Creep[] {
+	const CreepList: Creep[] = [];
+	const roleToc = _.get(this.memory, ['creepToc', type]);
+	if (_.isUndefined(roleToc)) return [];
+	_.forEach(_.get(this.memory, ['creepToc', type]), (name: string) => {
+		CreepList.push(Game.creeps[name]);
+	});
+	return _.compact(CreepList);
+};
+Room.prototype.getRoleCount = function(type: RoleType): number {
+	const roleToc = _.get(this.memory, ['creepToc', type]) as string[];
+	if (_.isUndefined(roleToc)) return 0;
+	return roleToc.length;
 };
 
 // ////////////////////////////////
