@@ -5,12 +5,34 @@ import { isFriend } from '../utils';
 export class RoomManager extends Manager {
 	private roomToc: { [type: number]: string[] };
 
+	readonly ROOM_MEMORY_TIMECHECK = 100000;
+
 	constructor() {
 		super('RoomManager');
 	}
 
 	public run(): void {
+		this.cleanMemory();
+		this.buildRoomToc();
+		this.memory = this.roomToc;
+	}
+
+	private cleanMemory(): void {
+		_.forEach(Object.keys(Memory.rooms), (roomMemory: any, name: string) => {
+			if (Object.keys(roomMemory).length === 0) {
+				delete Memory.rooms[name];
+				return;
+			}
+			const timeCheck = roomMemory._time;
+			if (!_.isUndefined(timeCheck) && timeCheck < Game.time - this.ROOM_MEMORY_TIMECHECK && !Game.rooms[name]) {
+				delete Memory.rooms[name];
+			}
+		});
+	}
+
+	private buildRoomToc(): void {
 		_.forEach(Game.rooms, (room: Room) => {
+			room.memory._time = Game.time;
 			if (room.controller === undefined) {
 				if (room.sources.length === 0) {
 					// 分割区块的无人区
@@ -51,7 +73,7 @@ export class RoomManager extends Manager {
 		});
 	}
 
-	private signType(room: Room, type: number) {
+	private signType(room: Room, type: number): void {
 		room.memory.type = type;
 		if (!this.roomToc[type]) this.roomToc[type] = [];
 		this.roomToc[type].push(room.name);
