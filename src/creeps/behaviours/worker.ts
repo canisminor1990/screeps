@@ -25,7 +25,7 @@ export class WorkerBehavior extends Behaviour {
 		let runNextAction = true;
 		_.forEach(this.buildActionFlow(), (action: Action) => {
 			if (!runNextAction) return;
-			const callback = action.run(creep);
+			const callback = action.work(creep);
 			if (callback === OK) runNextAction = false;
 		});
 	}

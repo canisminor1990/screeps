@@ -12,8 +12,7 @@ export class UpgradeAction extends Action {
 
 	targetRange: number = 3;
 
-	public run(creep: Creep): number {
-		this.creep = creep;
+	public run(): number {
 		if (!this.isVaildAction()) return this.ERR_INVALID_ACTION;
 		this.checkTarget();
 		if (this.isValidTarget()) {
@@ -22,12 +21,12 @@ export class UpgradeAction extends Action {
 			this.unAssign();
 			return ERR_INVALID_TARGET;
 		}
-		const direciton = creep.pos.getRangeTo(this.target);
+		const direciton = this.creep.pos.getRangeTo(this.target);
 		if (direciton <= this.targetRange) {
 			this.assign();
-			return creep.upgradeController(this.target);
+			return this.creep.upgradeController(this.target);
 		} else {
-			return creep.moveTo(this.target);
+			return this.creep.moveTo(this.target);
 		}
 	}
 

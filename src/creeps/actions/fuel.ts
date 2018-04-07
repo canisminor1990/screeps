@@ -12,8 +12,7 @@ export class FuelAction extends Action {
 
 	targetRange: number = 1;
 
-	public run(creep: Creep): number {
-		this.creep = creep;
+	public run(): number {
 		if (!this.isVaildAction()) return this.ERR_INVALID_ACTION;
 		this.checkTarget();
 		if (this.isValidTarget()) {
@@ -22,11 +21,11 @@ export class FuelAction extends Action {
 			this.unAssign();
 			return ERR_INVALID_TARGET;
 		}
-		const direciton = creep.pos.getRangeTo(this.target);
+		const direciton = this.creep.pos.getRangeTo(this.target);
 		if (direciton <= this.targetRange) {
-			return creep.transfer(this.target, RESOURCE_ENERGY);
+			return this.creep.transfer(this.target, RESOURCE_ENERGY);
 		} else {
-			return creep.moveTo(this.target);
+			return this.creep.moveTo(this.target);
 		}
 	}
 

@@ -10,7 +10,7 @@ export class CreepManager extends Manager {
 	public run(): void {
 		this.cleanMemory();
 		_.forEach(Memory.creeps, (creep: CreepMemory) => {
-			if (!creep.name) return;
+			if (!creep.name || !creep.hasBorn) return;
 			const Creep = Game.creeps[creep.name];
 			if (_.isUndefined(Creep)) return;
 			Behaviours[creep.role].run(Creep);

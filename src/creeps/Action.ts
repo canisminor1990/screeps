@@ -12,15 +12,13 @@ export abstract class Action {
 		this.name = name;
 	}
 
-	abstract run(creep: Creep): number;
+	abstract run(): number;
 
-	public work(creep: Creep) {
-		try {
-			return this.run(creep);
-		} catch (e) {
-			Log.debug(e);
-			return this.ERR_INVALID_ACTION;
-		}
+	public work(creep: Creep): number {
+		if (_.isUndefined(creep.actionStatus)) creep.setActionStatus(false);
+		if (_.isUndefined(creep.action)) creep.setAction(this.name);
+		this.creep = creep;
+		return this.run();
 	}
 
 	// max allowed creeps per target
@@ -35,8 +33,8 @@ export abstract class Action {
 
 	public assign() {
 		this.creep.room.visual.line(this.creep.pos, this.target.pos, { width: 0.2, opacity: 0.2 });
-		this.creep.say(Emoji[this.name]);
 		if (this.creep.action !== this.name && this.creep.actionStatus === false) {
+			this.creep.say(Emoji[this.name]);
 			this.creep.setAction(this.name);
 			this.creep.setActionStatus(true);
 		}
