@@ -1,21 +1,21 @@
 // 间隔执行
-export const setTickout = (func: Function, ticks: number): void => {
+export function setTickout(func: Function, ticks: number): void {
 	if (Game.time % ticks === 0) func();
-};
+}
 
-export const getUsername = (): string => {
+export function getUsername(): string {
 	return _(Game.rooms)
 		.map('controller')
 		.filter('my')
 		.map('owner.username')
 		.first() as string;
-};
+}
 
 // 判断是否在白名单
 // TODO: 读取 Ally 成员列表
-export const isFriend = (username: string) => {
+export function isFriend(username: string) {
 	return WHITELIST.indexOf(username) !== -1;
-};
+}
 
 // 获取游戏对象
 export class getGame {

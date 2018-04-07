@@ -15,6 +15,7 @@ interface RoomMemory {
 	time: number;
 	type: number;
 	creepToc: { [type: number]: string[] };
+	orders: any[];
 }
 
 interface Room {
