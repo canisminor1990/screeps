@@ -51,7 +51,7 @@ export class HarvestAction extends Action {
 			this.unAssign();
 			return false;
 		}
-		if (this.creep.action !== this.name && (this.creep.actionStatus === true || !this.creep.isEmpty)) return false;
+		if (this.creep.action !== this.name && this.creep.actionStatus === true) return false;
 		return true;
 	}
 
