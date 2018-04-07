@@ -15,15 +15,14 @@ export default (options: EnvOptions): Configuration => {
 	return {
 		entry: {
 			main: ['screeps-regenerator-runtime/runtime', './src/main.js'],
-			// config:'./src/config.js'
 		},
 		output: {
 			devtoolModuleFilenameTemplate: '[resource-path]',
-			filename: '[name].js',
+			filename: 'main.js',
 			libraryTarget: 'commonjs2',
 			path: join(ROOT, 'dist', ENV),
 			pathinfo: false,
-			sourceMapFilename: '[file].map',
+			sourceMapFilename: '[file].map.js',
 		},
 		externals: {
 			'main.js.map': 'main.js.map',

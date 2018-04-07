@@ -14,3 +14,8 @@ export enum StructurePriority {
 	constructedWall,
 	rampart,
 }
+
+export enum ManagerPriority {
+	CreepManager = 1,
+	RoomManager = 2,
+}

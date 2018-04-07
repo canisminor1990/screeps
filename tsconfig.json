@@ -6,7 +6,8 @@
       "dom",
       "es2016"
     ],
-    "sourceMap": false,
+    "baseUrl": "src/",
+    "sourceMap": true,
     "declaration":true,
     "experimentalDecorators": true,
     "strictNullChecks": true,
@@ -31,7 +32,6 @@
   "exclude": [
     "example",
     "backup",
-    "dist",
     "node_modules"
   ]
 }

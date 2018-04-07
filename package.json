@@ -32,7 +32,7 @@
 		"screeps-regenerator-runtime": "^1.0.0",
 		"screeps-webpack-plugin":
 			"git://github.com/langri-sha/screeps-webpack-plugin.git",
-		"source-map": "^0.5.6"
+		"source-map": "^0.6.1"
 	},
 	"devDependencies": {
 		"@types/lodash": "^3.10.1",
@@ -40,6 +40,7 @@
 		"@types/source-map": "^0.5.7",
 		"@types/tether": "^1.4.3",
 		"@types/webpack": "^4.1.2",
+		"@types/webpack-sources": "^0.1.4",
 		"ScreepsAutocomplete": "https://github.com/Garethp/ScreepsAutocomplete.git",
 		"babel-core": "^6.26.0",
 		"babel-loader": "^7.1.3",

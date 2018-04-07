@@ -3,7 +3,7 @@ import { RoomType } from '../enums/room';
 import { isFriend } from '../utils';
 
 export class RoomManager extends Manager {
-	private roomToc: { [type: number]: string[] };
+	private roomToc: { [type: number]: string[] } = {};
 
 	readonly ROOM_MEMORY_TIMECHECK = 100000;
 
@@ -22,6 +22,7 @@ export class RoomManager extends Manager {
 	}
 
 	private cleanMemory(): void {
+		if (_.isUndefined(Memory.rooms)) Memory.rooms = {};
 		_.forEach(Object.keys(Memory.rooms), (roomMemory: any, name: string) => {
 			if (Object.keys(roomMemory).length === 0) {
 				delete Memory.rooms[name];
@@ -77,7 +78,7 @@ export class RoomManager extends Manager {
 
 	private signType(room: Room, type: number): void {
 		room.memory.type = type;
-		if (!this.roomToc[type]) this.roomToc[type] = [];
+		if (_.isUndefined(this.roomToc[type])) this.roomToc[type] = [];
 		this.roomToc[type].push(room.name);
 	}
 

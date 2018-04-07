@@ -1,19 +1,16 @@
-import './config.js';
 import { ErrorMapper } from './utils/ErrorMapper';
-
+import { getUsername } from './utils';
+import { Managers } from './managers';
 // 注入 prototypes 并注册新的 global 项目，使用 isRoot 进行检测是否需要重新注入
 // ==========================================================================
 const Root = (): void => {
-	if (_.isUndefined(global.isRoot) || _.isUndefined(Memory.config)) {
+	if (_.isUndefined(global.isRoot) || _.isUndefined(ME)) {
 		console.log(String.fromCodePoint(0x1f503), 'Code Reloading ...');
 		// Assign config
+		global._ME = getUsername();
 		if (_.isUndefined(Memory.config)) Memory.config = {};
-		global._ME = _(Game.rooms)
-			.map('controller')
-			.filter('my')
-			.map('owner.username')
-			.first();
-		_.assign(Memory.config, require('./config.js'));
+		// 不要改 config 引用路径（打包时候不会引入）
+		_.assign(Memory.config, require('config'));
 		_.assign(global, Memory.config);
 		// Extend game prototypes
 		require('./prototypes');
@@ -38,15 +35,12 @@ const Root = (): void => {
 const Loop = (): void => {
 	global.Clocks.tick();
 	Log.info('Start:', Game.time);
+	Managers.run();
 };
 
 // 解析 SourceMap , 统一错误处理
 // ==========================================================================
 export default ErrorMapper.wrapLoop((): void => {
-	try {
-		Root();
-		Loop();
-	} catch (e) {
-		Log.error(e.stack || e.message);
-	}
+	Root();
+	Loop();
 });

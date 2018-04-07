@@ -3,6 +3,14 @@ export const setTickout = (func: Function, ticks: number): void => {
 	if (Game.time % ticks === 0) func();
 };
 
+export const getUsername = (): string => {
+	return _(Game.rooms)
+		.map('controller')
+		.filter('my')
+		.map('owner.username')
+		.first() as string;
+};
+
 // 判断是否在白名单
 // TODO: 读取 Ally 成员列表
 export const isFriend = (username: string) => {
