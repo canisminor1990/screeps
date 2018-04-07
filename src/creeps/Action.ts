@@ -4,6 +4,7 @@ import { Emoji } from '../utils/Emoji';
 export abstract class Action {
 	public name: ActionType;
 	public creep: Creep;
+	public target: RoomObject;
 
 	protected ERR_INVALID_ACTION: number = -100;
 
@@ -33,8 +34,9 @@ export abstract class Action {
 	abstract isVaildAction(): boolean;
 
 	public assign() {
+		this.creep.room.visual.line(this.creep.pos, this.target.pos);
+		this.creep.say(Emoji[this.name]);
 		if (this.creep.action !== this.name && this.creep.actionStatus === false) {
-			this.creep.say(Emoji[this.name]);
 			this.creep.setAction(this.name);
 			this.creep.setActionStatus(true);
 		}
