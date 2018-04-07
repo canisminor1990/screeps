@@ -56,7 +56,6 @@ export class WorkerSetup extends Setup {
 			_.forEach(this.room.sources, s => {
 				count += s.pos.getCanBuildSpaces(1).length;
 			});
-			return count;
 		}
 		if (!this.hasMinerOrHauler()) count++;
 		count += Math.floor(this.room.constructionSites.length / 10);

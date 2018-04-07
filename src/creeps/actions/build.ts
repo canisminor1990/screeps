@@ -8,7 +8,7 @@ export class BuildAction extends Action {
 		super(ActionType.build);
 	}
 
-	maxPerTarget: number = 2;
+	maxPerTarget: number = 4;
 
 	targetRange: number = 3;
 
