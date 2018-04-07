@@ -50,7 +50,7 @@ export class RoomManager extends Manager {
 			}
 		}
 		if (room.controller.my) {
-			if (room.spawns.length === 0) {
+			if (room.spawns.length !== 0) {
 				// 我的基地
 				return this.signType(room, RoomType.home);
 			} else {
@@ -87,7 +87,7 @@ export class RoomManager extends Manager {
 		_.forEach(Memory.creeps, (c: CreepMemory) => {
 			if (c.homeRoom === room.name) {
 				if (_.isUndefined(creepToc[c.role])) creepToc[c.role] = [];
-				creepToc[c.role].push(c.name);
+				creepToc[c.role].push(c.name as string);
 			}
 		});
 		room.memory.creepToc = creepToc;

@@ -28,7 +28,7 @@ interface Room {
 	signedByMe: boolean;
 
 	// constructionSite
-	constructionSite: ConstructionSite[];
+	constructionSites: ConstructionSite[];
 
 	// structures
 	allStructures: Structure[];

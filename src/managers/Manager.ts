@@ -9,24 +9,24 @@ export abstract class Manager {
 	abstract run(): void;
 
 	protected memoryCheck() {
-		if (_.isUndefined(Memory.manager)) Memory.manager = {};
-		if (_.isUndefined(Memory.manager[this.name])) Memory.manager[this.name] = {};
+		if (_.isUndefined(Memory.managers)) Memory.managers = {};
+		if (_.isUndefined(Memory.managers[this.name])) Memory.managers[this.name] = {};
 	}
 
 	protected get memory(): any {
-		return Memory.manager[this.name];
+		return Memory.managers[this.name];
 	}
 
 	protected set memory(value: any) {
-		Memory.manager[this.name] = value;
+		Memory.managers[this.name] = value;
 	}
 
 	protected getValue(manager: string, path: string) {
-		return _.get(Memory.manager, [manager, path]);
+		return _.get(Memory.managers, [manager, path]);
 	}
 
 	protected setValue(manager: string, path: string, value: any): void {
-		_.set(Memory.manager, [manager, path], value);
+		_.set(Memory.managers, [manager, path], value);
 	}
 
 	protected recordStats() {

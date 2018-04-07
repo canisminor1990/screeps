@@ -43,9 +43,9 @@ Object.defineProperties(Room.prototype, {
 		},
 	},
 
-	// constructionSite
-	constructionSite: {
-		get(): ConstructionSite {
+	// constructionSites
+	constructionSites: {
+		get(): ConstructionSite[] {
 			return this.cacheFind(FIND_MY_CONSTRUCTION_SITES);
 		},
 	},
@@ -113,7 +113,7 @@ Object.defineProperties(Room.prototype, {
 	},
 	freeSpawns: {
 		get(): StructureSpawn[] {
-			return _.filter(this.spawns(), spawn => !spawn.spawning);
+			return _.filter(this.spawns, spawn => !spawn.spawning);
 		},
 	},
 	storage: {

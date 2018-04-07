@@ -21,9 +21,15 @@ export class CreepManager extends Manager {
 	private cleanMemory(): void {
 		_.forEach(Memory.creeps, (creep: CreepMemory, name: string) => {
 			if (!Game.creeps[name]) {
-				if (creep.hasBorn) delete Memory.creeps[name];
+				if (creep.hasBorn) {
+					delete Memory.creeps[name];
+					console.log(Dye('black', creep.name, 'was dead'));
+				}
 			} else {
-				if (!Game.creeps[name].spawning) creep.hasBorn = true;
+				if (!creep.hasBorn && !Game.creeps[name].spawning) {
+					creep.hasBorn = true;
+					Log.success(creep.name, 'was born !');
+				}
 			}
 		});
 	}
