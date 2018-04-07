@@ -7,5 +7,5 @@ export abstract class Behaviour {
 		this.name = name;
 	}
 
-	abstract run(): void;
+	abstract run(creep: Creep): void;
 }

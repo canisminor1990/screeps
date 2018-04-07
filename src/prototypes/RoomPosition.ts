@@ -25,7 +25,7 @@ Object.defineProperties(RoomPosition.prototype, {
 	},
 	terrain: {
 		get(): Terrain {
-			return this.cacheLookFor(LOOK_TERRAIN)[0];
+			return this.cacheLookFor(LOOK_TERRAIN);
 		},
 	},
 	structures: {
@@ -133,7 +133,6 @@ RoomPosition.prototype.cacheLookFor = function(type: LookConstant, timeout: numb
 	}
 	const result = this.lookFor(type);
 	let value: any[];
-	console.log(type, LOOK_TERRAIN);
 	switch (type) {
 		case LOOK_TERRAIN:
 			value = result[0];

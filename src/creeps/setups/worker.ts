@@ -52,12 +52,15 @@ export class WorkerSetup extends Setup {
 	private maxCount(): number {
 		let count: number = 0;
 
-		if (this.room.rcl <= 2) {
-			if (!this.hasMinerOrHauler) return this.room.sources.length * 5;
-			count += this.room.sources.length;
+		if (this.room.rcl <= 2 && !this.hasMinerOrHauler()) {
+			_.forEach(this.room.sources, s => {
+				count += s.pos.getCanBuildSpaces(1).length;
+			});
+			return count;
 		}
-		if (!this.hasMinerOrHauler) count++;
+		if (!this.hasMinerOrHauler()) count++;
 		count += Math.floor(this.room.constructionSites.length / 10);
+
 		return _.max([1, count]);
 	}
 

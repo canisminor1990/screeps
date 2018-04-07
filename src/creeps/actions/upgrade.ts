@@ -1,16 +1,16 @@
 import { ActionType } from '../../enums/action';
 import { Action } from '../Action';
 
-export class HarvestAction extends Action {
-	private target: Source;
+export class UpgradeAction extends Action {
+	private target: StructureController;
 
 	constructor() {
-		super(ActionType.harvest);
+		super(ActionType.upgrade);
 	}
 
-	maxPerTarget: number = 1;
+	maxPerTarget: number = 9;
 
-	targetRange: number = 1;
+	targetRange: number = 3;
 
 	public run(creep: Creep): number {
 		this.creep = creep;
@@ -18,9 +18,9 @@ export class HarvestAction extends Action {
 		this.checkTarget();
 		if (!this.isValidTarget()) return ERR_INVALID_TARGET;
 		const direciton = creep.pos.getRangeTo(this.target);
-		if (direciton === this.targetRange) {
+		if (direciton <= this.targetRange) {
 			this.assign();
-			return creep.harvest(this.target);
+			return creep.upgradeController(this.target);
 		} else {
 			return creep.moveTo(this.target);
 		}
@@ -28,28 +28,28 @@ export class HarvestAction extends Action {
 
 	checkTarget() {
 		const target = this.creep.target;
-		if (!_.isUndefined(target) && target instanceof Source) {
-			this.target = target as Source;
+		if (!_.isUndefined(target) && target instanceof StructureController) {
+			this.target = target as StructureController;
 			return;
 		}
 		this.findNewTarget();
 	}
 
 	findNewTarget(): void {
-		let targets = _.filter(this.creep.room.sources, s => s.active && s.targetOf < s.pos.getCanBuildSpaces(1).length);
-		this.target = targets[0];
-		this.creep.setTarget(targets[0]);
+		let target = this.creep.room.controller as StructureController;
+		if (target.targetOf < this.maxPerTarget) {
+			this.target = target;
+			this.creep.setTarget(target);
+		}
 	}
 
 	isVaildAction(): boolean {
-		if (this.creep.isFull) return false;
-		if (this.creep.totalCarry > 0 && this.creep.action !== this.name) return false;
+		if (this.creep.isEmpty) return false;
 		return true;
 	}
 
 	isValidTarget(): boolean {
 		if (_.isUndefined(this.target)) return false;
-		if (!this.target.active) return false;
 		return true;
 	}
 }

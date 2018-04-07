@@ -1,5 +1,6 @@
 import { Manager } from './Manager';
 import { Emoji } from '../utils/Emoji';
+import { Behaviours } from '../creeps/behaviours';
 
 export class CreepManager extends Manager {
 	constructor() {
@@ -8,15 +9,13 @@ export class CreepManager extends Manager {
 
 	public run(): void {
 		this.cleanMemory();
-		_.forEach(Game.creeps, (creep: Creep) => {
-			this.work(creep);
+		_.forEach(Memory.creeps, (creep: CreepMemory) => {
+			if (!creep.name) return;
+			const Creep = Game.creeps[creep.name];
+			if (_.isUndefined(Creep)) return;
+			Behaviours[creep.role].run(Creep);
 		});
 		this.recordStats();
-	}
-
-	private work(creep: Creep): void {
-		// TODO: 简单试例
-		// if (_.isUndefined(creep.target)) return;
 	}
 
 	private cleanMemory(): void {
