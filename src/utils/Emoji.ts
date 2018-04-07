@@ -10,4 +10,6 @@ export const Emoji = {
 	// Action
 	harvest: String.fromCodePoint(0x26cf), // ⛏
 	upgrade: String.fromCodePoint(0x1f5fd), // 🗽
+	build: String.fromCodePoint(0x2692), // ⚒
+	fuel: String.fromCodePoint(0x26fd), // ⛽
 };

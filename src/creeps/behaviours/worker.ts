@@ -10,13 +10,13 @@ export class WorkerBehavior extends Behaviour {
 		super(RoleType.worker);
 	}
 
-	private priority = [Actions.harvest, Actions.upgrade];
+	private priority = [Actions.harvest, Actions.fuel, Actions.upgrade];
 
 	private buildActionFlow() {
 		let actionFlow = this.priority;
-		// if (creep.room.controller && creep.room.controller.ticksToDowngrade < 2000) { // urgent upgrading
-		// 	priority.unshift(Actions.upgrade);
-		// }
+		if (this.creep.room.controller && this.creep.room.controller.ticksToDowngrade < 2000) {
+			actionFlow.unshift(Actions.upgrade);
+		}
 		return actionFlow;
 	}
 

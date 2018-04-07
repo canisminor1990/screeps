@@ -36,9 +36,10 @@ export class HarvestAction extends Action {
 	}
 
 	findNewTarget(): void {
-		let targets = _.filter(this.creep.room.sources, s => s.active && s.targetOf < s.pos.getCanBuildSpaces(1).length);
-		this.target = targets[0];
-		this.creep.setTarget(targets[0]);
+		const targets = _.filter(this.creep.room.sources, s => s.active && s.targetOf < s.pos.getCanBuildSpaces(1).length);
+		const target = this.creep.pos.findClosestByRange(targets);
+		this.target = target;
+		this.creep.setTarget(target);
 	}
 
 	isVaildAction(): boolean {
