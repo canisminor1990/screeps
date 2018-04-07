@@ -33,7 +33,7 @@ export abstract class Action {
 	abstract isVaildAction(): boolean;
 
 	public assign() {
-		if (this.creep.action !== this.name || this.creep.actionStatus === false) {
+		if (this.creep.action !== this.name && this.creep.actionStatus === false) {
 			this.creep.say(Emoji[this.name]);
 			this.creep.setAction(this.name);
 			this.creep.setActionStatus(true);

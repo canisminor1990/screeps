@@ -16,7 +16,10 @@ export class UpgradeAction extends Action {
 		this.creep = creep;
 		if (!this.isVaildAction()) return this.ERR_INVALID_ACTION;
 		this.checkTarget();
-		if (!this.isValidTarget()) return ERR_INVALID_TARGET;
+		if (!this.isValidTarget()) {
+			this.unAssign();
+			return ERR_INVALID_TARGET;
+		}
 		const direciton = creep.pos.getRangeTo(this.target);
 		if (direciton <= this.targetRange) {
 			this.assign();

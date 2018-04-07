@@ -16,7 +16,10 @@ export class FuelAction extends Action {
 		this.creep = creep;
 		if (!this.isVaildAction()) return this.ERR_INVALID_ACTION;
 		this.checkTarget();
-		if (!this.isValidTarget()) return ERR_INVALID_TARGET;
+		if (!this.isValidTarget()) {
+			this.unAssign();
+			return ERR_INVALID_TARGET;
+		}
 		const direciton = creep.pos.getRangeTo(this.target);
 		if (direciton <= this.targetRange) {
 			return creep.transfer(this.target, RESOURCE_ENERGY);
@@ -29,8 +32,8 @@ export class FuelAction extends Action {
 		const target = this.creep.target;
 		if (
 			!_.isUndefined(target) &&
-			target instanceof (StructureSpawn || StructureExtension) &&
-			this.target.energy < this.target.energyCapacity
+			(target instanceof StructureSpawn || target instanceof StructureExtension) &&
+			target.energy < target.energyCapacity
 		) {
 			this.target = target as StructureSpawn | StructureExtension;
 			return;
