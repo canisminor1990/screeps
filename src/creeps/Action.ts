@@ -1,5 +1,5 @@
 import { ActionType } from '../enums/action';
-
+import { Emoji } from '../utils/Emoji';
 export abstract class Action {
 	public name: ActionType;
 	public creep: Creep;
@@ -24,6 +24,6 @@ export abstract class Action {
 
 	public assign() {
 		this.creep.setAction(this.name);
-		this.creep.say(ActionType[this.name]);
+		this.creep.say(Emoji[this.name]);
 	}
 }
