@@ -44,7 +44,7 @@ export class UpgradeAction extends Action {
 	}
 
 	isVaildAction(): boolean {
-		if (this.creep.isEmpty) return false;
+		if (this.creep.isEmpty && this.creep.action !== this.name) return false;
 		return true;
 	}
 

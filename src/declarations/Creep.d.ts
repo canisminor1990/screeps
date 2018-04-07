@@ -28,7 +28,7 @@ interface Creep {
 
 	setTarget(target: RoomObject | Flag | Room): void;
 
-	setAction(action: string): void;
+	setAction(action: string | undefined): void;
 
 	getBodyparts(partTypes: BodyPartConstant): number;
 

@@ -79,7 +79,7 @@ Creep.prototype.setTarget = function(target: Target): void {
 	}
 };
 
-Creep.prototype.setAction = function(action: ActionType): void {
+Creep.prototype.setAction = function(action: ActionType | undefined): void {
 	this.memory.action = action;
 };
 
