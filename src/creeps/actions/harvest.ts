@@ -2,7 +2,7 @@ import { ActionType } from '../../enums/action';
 import { Action } from '../Action';
 
 export class HarvestAction extends Action {
-	private target: Source;
+	target: Source;
 
 	constructor() {
 		super(ActionType.harvest);

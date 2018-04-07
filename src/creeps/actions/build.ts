@@ -2,7 +2,7 @@ import { ActionType } from '../../enums/action';
 import { Action } from '../Action';
 
 export class BuildAction extends Action {
-	private target: ConstructionSite;
+	target: ConstructionSite;
 
 	constructor() {
 		super(ActionType.build);

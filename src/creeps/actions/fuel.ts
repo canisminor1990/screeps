@@ -2,7 +2,7 @@ import { ActionType } from '../../enums/action';
 import { Action } from '../Action';
 
 export class FuelAction extends Action {
-	private target: StructureSpawn | StructureExtension;
+	target: StructureSpawn | StructureExtension;
 
 	constructor() {
 		super(ActionType.fuel);

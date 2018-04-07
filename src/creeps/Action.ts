@@ -34,7 +34,7 @@ export abstract class Action {
 	abstract isVaildAction(): boolean;
 
 	public assign() {
-		this.creep.room.visual.line(this.creep.pos, this.target.pos);
+		this.creep.room.visual.line(this.creep.pos, this.target.pos, { width: 0.2, opacity: 0.2 });
 		this.creep.say(Emoji[this.name]);
 		if (this.creep.action !== this.name && this.creep.actionStatus === false) {
 			this.creep.setAction(this.name);

@@ -2,7 +2,7 @@ import { ActionType } from '../../enums/action';
 import { Action } from '../Action';
 
 export class UpgradeAction extends Action {
-	private target: StructureController;
+	target: StructureController;
 
 	constructor() {
 		super(ActionType.upgrade);
