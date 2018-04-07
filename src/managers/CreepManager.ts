@@ -1,4 +1,5 @@
 import { Manager } from './Manager';
+import { Emoji } from '../utils/Emoji';
 
 export class CreepManager extends Manager {
 	constructor() {
@@ -23,7 +24,7 @@ export class CreepManager extends Manager {
 			if (!Game.creeps[name]) {
 				if (creep.hasBorn) {
 					delete Memory.creeps[name];
-					console.log(Dye('black', creep.name, 'was dead'));
+					console.log(Emoji.skull, Dye('black', creep.name, 'was dead'));
 				}
 			} else {
 				if (!creep.hasBorn && !Game.creeps[name].spawning) {

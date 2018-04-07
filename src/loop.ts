@@ -1,11 +1,12 @@
 import { ErrorMapper } from './utils/ErrorMapper';
 import { getUsername } from './utils';
 import { Managers } from './managers';
+import { Emoji } from './utils/Emoji';
 // 注入 prototypes 并注册新的 global 项目，使用 isRoot 进行检测是否需要重新注入
 // ==========================================================================
 const Root = (): void => {
 	if (_.isUndefined(global.isRoot) || _.isUndefined(Memory.config)) {
-		console.log(String.fromCodePoint(0x1f503), 'Code Reloading ...');
+		console.log(Emoji.reload, 'Code Reloading ...');
 		// Assign config
 		global._ME = getUsername();
 		if (_.isUndefined(Memory.config)) Memory.config = {};

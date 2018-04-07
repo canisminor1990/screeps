@@ -1,4 +1,5 @@
 import { LogLevel } from '../enums/log';
+import { Emoji } from '../utils/Emoji';
 
 export class Log {
 	LogLevel: number;
@@ -10,31 +11,31 @@ export class Log {
 	}
 
 	success(...content: any[]): void {
-		const title = this.Emoji ? String.fromCodePoint(0x2705) : '[SUCCESS]'; // ✅️
+		const title = this.Emoji ? Emoji.tick : '[SUCCESS]';
 		console.log(Dye('success', title), Dye(COLOR_GREEN, ...content));
 	}
 
 	error(...content: any[]): void {
 		if (this.LogLevel < 2) return;
-		const title = this.Emoji ? String.fromCodePoint(0x274c) : '[ERROR]'; // ❌
+		const title = this.Emoji ? Emoji.cross : '[ERROR]';
 		console.log(Dye('error', title), Dye(COLOR_RED, ...content));
 	}
 
 	warn(...content: any[]) {
 		if (this.LogLevel < 3) return;
-		const title = this.Emoji ? String.fromCodePoint(0x26a0) : '[WARN]'; // ⚠️
+		const title = this.Emoji ? Emoji.warn : '[WARN]';
 		console.log(Dye('warn', title), Dye(COLOR_ORANGE, ...content));
 	}
 
 	info(...content: any[]): void {
 		if (this.LogLevel < 4) return;
-		const title = this.Emoji ? String.fromCodePoint(0x2139) : '[INFO]'; // ℹ️
+		const title = this.Emoji ? Emoji.info : '[INFO]';
 		console.log(Dye('info', title), Dye(COLOR_BLUE, ...content));
 	}
 
 	debug(...content: any[]): void {
 		if (this.LogLevel < 5) return;
-		const title = this.Emoji ? String.fromCodePoint(0x1f41b) : '[DEBUG]'; // 🐛
+		const title = this.Emoji ? Emoji.debug : '[DEBUG]';
 		console.log(Dye('debug', title), ...content);
 	}
 
@@ -43,7 +44,8 @@ export class Log {
 	}
 
 	room(room: Room, ...content: any[]) {
-		console.log(Dye('room', room.print), ...content);
+		const title = this.Emoji ? `${Emoji.home} ${room.print}` : `[${room.print}]`;
+		console.log(Dye('room', title), ...content);
 	}
 
 	stringify(content: any): void {
