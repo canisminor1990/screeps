@@ -41,7 +41,9 @@ export abstract class Action {
 	}
 
 	public unAssign() {
-		this.creep.setAction(undefined);
-		this.creep.setActionStatus(false);
+		if (this.creep.action === this.name && this.creep.actionStatus === true) {
+			this.creep.setAction(undefined);
+			this.creep.setActionStatus(false);
+		}
 	}
 }

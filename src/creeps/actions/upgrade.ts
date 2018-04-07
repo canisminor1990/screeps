@@ -16,7 +16,9 @@ export class UpgradeAction extends Action {
 		this.creep = creep;
 		if (!this.isVaildAction()) return this.ERR_INVALID_ACTION;
 		this.checkTarget();
-		if (!this.isValidTarget()) {
+		if (this.isValidTarget()) {
+			this.assign();
+		} else {
 			this.unAssign();
 			return ERR_INVALID_TARGET;
 		}
@@ -57,7 +59,6 @@ export class UpgradeAction extends Action {
 
 	isValidTarget(): boolean {
 		if (_.isUndefined(this.target) || _.isNull(this.target)) return false;
-		this.assign();
 		return true;
 	}
 }
