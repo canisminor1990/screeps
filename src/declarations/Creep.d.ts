@@ -6,6 +6,7 @@ interface CreepMemory {
 	target?: string | null;
 	targetType?: number | null;
 	action?: string;
+	actionStatus?: boolean;
 }
 
 interface CreepOrder {
@@ -19,6 +20,7 @@ interface Creep {
 	homeRoom: Room;
 	isInHomeRoom: boolean;
 	action: string;
+	actionStatus: boolean;
 	target: RoomObject | Flag | Room | undefined;
 	totalCarry: number;
 	isEmpty: boolean;
@@ -29,6 +31,8 @@ interface Creep {
 	setTarget(target: RoomObject | Flag | Room): void;
 
 	setAction(action: string | undefined): void;
+
+	setActionStatus(status: boolean): void;
 
 	getBodyparts(partTypes: BodyPartConstant): number;
 

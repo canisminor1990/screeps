@@ -44,12 +44,17 @@ export class UpgradeAction extends Action {
 	}
 
 	isVaildAction(): boolean {
-		if (this.creep.isEmpty && this.creep.action !== this.name) return false;
+		if (this.creep.isEmpty) {
+			this.unAssign();
+			return false;
+		}
+		if (this.creep.action !== this.name && this.creep.actionStatus === true) return false;
 		return true;
 	}
 
 	isValidTarget(): boolean {
 		if (_.isUndefined(this.target) || _.isNull(this.target)) return false;
+		this.assign();
 		return true;
 	}
 }

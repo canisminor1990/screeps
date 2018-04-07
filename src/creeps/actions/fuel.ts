@@ -19,7 +19,6 @@ export class FuelAction extends Action {
 		if (!this.isValidTarget()) return ERR_INVALID_TARGET;
 		const direciton = creep.pos.getRangeTo(this.target);
 		if (direciton <= this.targetRange) {
-			this.assign();
 			return creep.transfer(this.target, RESOURCE_ENERGY);
 		} else {
 			return creep.moveTo(this.target);
@@ -28,7 +27,11 @@ export class FuelAction extends Action {
 
 	checkTarget() {
 		const target = this.creep.target;
-		if (!_.isUndefined(target) && target instanceof (StructureSpawn || StructureExtension)) {
+		if (
+			!_.isUndefined(target) &&
+			target instanceof (StructureSpawn || StructureExtension) &&
+			this.target.energy < this.target.energyCapacity
+		) {
 			this.target = target as StructureSpawn | StructureExtension;
 			return;
 		}
@@ -46,12 +49,17 @@ export class FuelAction extends Action {
 	}
 
 	isVaildAction(): boolean {
-		if (this.creep.isEmpty && this.creep.action !== this.name) return false;
+		if (this.creep.isEmpty) {
+			this.unAssign();
+			return false;
+		}
+		if (this.creep.action !== this.name && this.creep.actionStatus === true) return false;
 		return true;
 	}
 
 	isValidTarget(): boolean {
 		if (_.isUndefined(this.target) || _.isNull(this.target)) return false;
+		this.assign();
 		return true;
 	}
 }

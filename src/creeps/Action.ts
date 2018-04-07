@@ -33,7 +33,15 @@ export abstract class Action {
 	abstract isVaildAction(): boolean;
 
 	public assign() {
-		this.creep.setAction(this.name);
-		this.creep.say(Emoji[this.name]);
+		if (this.creep.action !== this.name || this.creep.actionStatus === false) {
+			this.creep.say(Emoji[this.name]);
+			this.creep.setAction(this.name);
+			this.creep.setActionStatus(true);
+		}
+	}
+
+	public unAssign() {
+		this.creep.setAction(undefined);
+		this.creep.setActionStatus(false);
 	}
 }

@@ -19,7 +19,6 @@ export class BuildAction extends Action {
 		if (!this.isValidTarget()) return ERR_INVALID_TARGET;
 		const direciton = creep.pos.getRangeTo(this.target);
 		if (direciton <= this.targetRange) {
-			this.assign();
 			return creep.build(this.target);
 		} else {
 			return creep.moveTo(this.target);
@@ -43,12 +42,17 @@ export class BuildAction extends Action {
 	}
 
 	isVaildAction(): boolean {
-		if (this.creep.isEmpty && this.creep.action !== this.name) return false;
+		if (this.creep.isEmpty) {
+			this.unAssign();
+			return false;
+		}
+		if (this.creep.action !== this.name && this.creep.actionStatus === true) return false;
 		return true;
 	}
 
 	isValidTarget(): boolean {
 		if (_.isUndefined(this.target) || _.isNull(this.target)) return false;
+		this.assign();
 		return true;
 	}
 }
