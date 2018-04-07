@@ -52,7 +52,7 @@ export class FuelAction extends Action {
 	}
 
 	isValidTarget(): boolean {
-		if (_.isUndefined(this.target)) return false;
+		if (_.isUndefined(this.target) || _.isNull(this.target)) return false;
 		return true;
 	}
 }

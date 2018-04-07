@@ -1,5 +1,6 @@
 import { ActionType } from '../enums/action';
 import { Emoji } from '../utils/Emoji';
+
 export abstract class Action {
 	public name: ActionType;
 	public creep: Creep;
@@ -11,6 +12,15 @@ export abstract class Action {
 	}
 
 	abstract run(creep: Creep): number;
+
+	public work(creep: Creep) {
+		try {
+			return this.run(creep);
+		} catch (e) {
+			Log.debug(e);
+			return this.ERR_INVALID_ACTION;
+		}
+	}
 
 	// max allowed creeps per target
 	abstract maxPerTarget: number;

@@ -49,7 +49,7 @@ export class HarvestAction extends Action {
 	}
 
 	isValidTarget(): boolean {
-		if (_.isUndefined(this.target)) return false;
+		if (_.isUndefined(this.target) || _.isNull(this.target)) return false;
 		if (!this.target.active) return false;
 		return true;
 	}
