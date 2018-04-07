@@ -7,7 +7,15 @@ export class CreepManager extends Manager {
 
 	public run(): void {
 		this.cleanMemory();
+		_.forEach(Game.creeps, (creep: Creep) => {
+			this.work(creep);
+		});
 		this.recordStats();
+	}
+
+	private work(creep: Creep): void {
+		// TODO: 简单试例
+		// if (_.isUndefined(creep.target)) return;
 	}
 
 	private cleanMemory(): void {

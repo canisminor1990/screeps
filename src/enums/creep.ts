@@ -1,21 +1,21 @@
 export enum RoleType {
 	// worker
-	worker = 'worker',
-	remoteWorker = 'worker',
+	worker = 1,
+	remoteWorker = 2,
 	// miner
-	miner = 'miner',
-	remoteMiner = 'miner',
+	miner = 10,
+	remoteMiner = 11,
 	// hauler
-	hauler = 'hauler',
-	remoteHauler = 'hauler',
-	// soldier
-	defender = 'soldier',
-	melee = 'soldier',
-	ranger = 'soldier',
-	healer = 'soldier',
+	hauler = 20,
+	remoteHauler = 21,
 	// claimer
-	reserver = 'claimer',
-	claimer = 'claimer',
+	reserver = 30,
+	claimer = 31,
 	// upgrader
-	upgrader = 'upgrader',
+	upgrader = 40,
+	// soldier
+	defender = 100,
+	melee = 101,
+	ranger = 102,
+	healer = 103,
 }
