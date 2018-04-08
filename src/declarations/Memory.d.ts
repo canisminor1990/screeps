@@ -1,5 +1,6 @@
 interface Memory {
-	managers: any;
-	sources: any;
-	minerals: any;
+	managers: object;
+	sources: object;
+	minerals: object;
+	tasks: object;
 }
