@@ -18,7 +18,7 @@ interface Actions {
 
 interface ActionTask {
 	id: string;
-	pos: Pos;
+	pos: RoomPosition;
 	room: string;
 	state: boolean;
 	targetOf: object;

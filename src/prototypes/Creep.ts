@@ -23,11 +23,6 @@ Object.defineProperties(Creep.prototype, {
 			return this.memory.action;
 		},
 	},
-	actionStatus: {
-		get(): boolean {
-			return this.memory.actionStatus;
-		},
-	},
 	target: {
 		get(): Target | undefined {
 			const target = this.memory.target;
@@ -92,12 +87,8 @@ Creep.prototype.setTarget = function(target: Target): void {
 	}
 };
 
-Creep.prototype.setAction = function(action: ActionType | undefined): void {
+Creep.prototype.setAction = function(action: ActionType): void {
 	this.memory.action = action;
-};
-
-Creep.prototype.setActionStatus = function(status: boolean): void {
-	this.memory.actionStatus = status;
 };
 
 Creep.prototype.getBodyparts = function(partTypes: BodyPartConstant): number {

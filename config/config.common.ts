@@ -73,7 +73,7 @@ export default (options: EnvOptions): Configuration => {
 		},
 		plugins: [
 			new CleanWebpackPlugin([`dist/${options.ENV}/*`], { root: options.ROOT }),
-			new ForkTsCheckerWebpackPlugin({ ignoreDiagnostics: [2451, 2687] }),
+			new ForkTsCheckerWebpackPlugin({ ignoreDiagnostics: [2451, 2687, 6133] }),
 			new CopyWebpackPlugin([{ from: join(ROOT, 'src/config.js') }, { from: join(ROOT, 'src/commands.js') }]),
 			new DefinePlugin(DefineConfig),
 			new ScreepsSourceMapToJson(),

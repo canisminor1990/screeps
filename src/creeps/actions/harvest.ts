@@ -23,7 +23,7 @@ export class HarvestAction extends Action {
 		return callback;
 	}
 
-	findNewTask() {
+	findNewTask(): any {
 		let tasks = _.filter(this.taskList, (task: ActionTask) => Object.keys(task.targetOf).length < task.maxPerTarget);
 		if (tasks.length === 0) return null;
 		this.task = this.getMinDistanseTask(tasks);

@@ -1,5 +1,3 @@
-import { Emoji } from './Emoji';
-
 const TRAVEL_NEW_TICK = 1;
 
 const visual = {
@@ -30,11 +28,11 @@ export function travelTo(target: RoomPosition | { pos: RoomPosition }): number {
 		swampCost: 50,
 		ignoreCreeps: this.memory.unMove <= TRAVEL_NEW_TICK,
 		costCallback: (roomName: string, costMatrix: CostMatrix) => {
-			const unbuidRoads = _.filter(
+			const unBuidRoads = _.filter(
 				this.room.constructionSites,
 				(s: ConstructionSite) => s.structureType === STRUCTURE_ROAD,
 			);
-			_.forEach(unbuidRoads, (road: ConstructionSite) => costMatrix.set(road.pos.x, road.pos.y, 0));
+			_.forEach(unBuidRoads, (road: ConstructionSite) => costMatrix.set(road.pos.x, road.pos.y, 0));
 		},
 		visualizePathStyle: {
 			...visual,

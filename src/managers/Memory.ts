@@ -49,8 +49,8 @@ export class MemoryManager extends Manager {
 				if (_.isNull(Game.getObjectById(id))) {
 					delete Memory.tasks[type as string][id];
 				} else {
-					_.forEach(Object.keys(task.targetOf), name => {
-						if (_.isUndefined(Game.creeps[name])) delete Memory.tasks[type][id].targetOf[name];
+					_.forEach(Object.keys(task.targetOf), (name: string) => {
+						if (_.isUndefined(Game.creeps[name])) delete Memory.tasks[type as string][id].targetOf[name];
 					});
 				}
 			});

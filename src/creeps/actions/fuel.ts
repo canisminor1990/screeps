@@ -27,7 +27,7 @@ export class FuelAction extends Action {
 		return callback;
 	}
 
-	findNewTask() {
+	findNewTask(): any {
 		let tasks = _.filter(this.taskList, (task: ActionTask) => task.needEnergy > 0);
 		if (tasks.length === 0) return null;
 		this.task = this.getMinDistanseTask(tasks);

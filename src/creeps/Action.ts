@@ -47,11 +47,11 @@ export abstract class Action {
 		return minDistanseTask;
 	}
 
-	abstract findNewTask();
+	abstract findNewTask(): any;
 
 	public getMemoryTask(): void {
 		const Target = this.creep.target;
-		if (!_.isUndefined(Target)) {
+		if (Target !== undefined) {
 			this.target = Target;
 		} else {
 			this.findNewTask();
@@ -60,18 +60,21 @@ export abstract class Action {
 
 	public assign(): void {
 		if (!this.task) return Log.error(this.creep.name, this.name, 'wrong task');
-		const Target = Game.getObjectById(this.task.id);
-		if (_.isUndefined(Target)) return Log.error(this.creep.name, this.name, 'wrong target');
-		this.creep.room.visual.line(this.creep.pos, this.task.pos, { width: 0.2, opacity: 0.2 });
-		this.creep.say(Emoji[this.name]);
-		this.creep.setAction(this.name);
-		this.creep.setTarget(Target);
-		this.target = Target;
-		new Task(this.name, this.task.id).addTargetOf(this.creep.name);
+		const Target = Game.getObjectById(this.task.id) as RoomObject;
+		if (Target === null) {
+			return Log.error(this.creep.name, this.name, 'wrong target');
+		} else {
+			this.creep.room.visual.line(this.creep.pos, this.task.pos, { width: 0.2, opacity: 0.2 });
+			this.creep.say(Emoji[this.name]);
+			this.creep.setAction(this.name);
+			this.creep.setTarget(Target);
+			this.target = Target;
+			new Task(this.name, this.task.id).addTargetOf(this.creep.name);
+		}
 	}
 
 	public unAssign(): void {
 		this.creep.setAction(ActionType.none);
-		new Task(this.name, this.creep.memory.target).removeTargetOf(this.creep.name);
+		new Task(this.name, this.creep.memory.target as string).removeTargetOf(this.creep.name);
 	}
 }

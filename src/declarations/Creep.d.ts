@@ -22,7 +22,7 @@ interface Creep {
 	isInHomeRoom: boolean;
 	action: string;
 	actionStatus: boolean;
-	target: RoomObject | Flag | Room | undefined;
+	target: RoomObject | undefined;
 	totalCarry: number;
 	isEmpty: boolean;
 	isFull: boolean;
@@ -30,7 +30,7 @@ interface Creep {
 	missingHits: number;
 	isHurt: boolean;
 
-	setTarget(target: RoomObject | Flag | Room): void;
+	setTarget(target: RoomObject): void;
 
 	setAction(action: string): void;
 
