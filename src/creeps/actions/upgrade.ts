@@ -33,7 +33,7 @@ export class UpgradeAction extends Action {
 	}
 
 	action(): number {
-		if (getDistanseBetween(this.creep.pos, this.target.pos) === this.targetRange) {
+		if (getDistanseBetween(this.creep.pos, this.target.pos) <= this.targetRange) {
 			return this.creep.upgradeController(this.target);
 		} else {
 			return this.creep.moveTo(this.target);

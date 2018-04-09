@@ -13,7 +13,7 @@ export class SourceManager extends Manager {
 		_.forEach(getRooms(RoomType.home), (room: Room) => {
 			_.forEach(room.sources, (source: Source) => {
 				const task = new Task(ActionType.harvest, source.id);
-				if (!task.isExist) task.create({ maxPerTarget: source.pos.getCanBuildSpaces(1).length });
+				if (!task.isExist) task.create({ maxPerTarget: source.pos.getFreeSpaces(1).length });
 				task.setState(source.active);
 			});
 		});

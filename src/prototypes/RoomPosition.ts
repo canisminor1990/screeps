@@ -84,7 +84,7 @@ RoomPosition.prototype.getAdjacentPos = function(range: number): RoomPosition[] 
 	return AdjacentPos;
 };
 
-RoomPosition.prototype.getCanBuildSpaces = function(range: number): RoomPosition[] {
+RoomPosition.prototype.getFreeSpaces = function(range: number): RoomPosition[] {
 	return _.filter(this.getAdjacentPos(range), (pos: RoomPosition) => pos.canBuild);
 };
 

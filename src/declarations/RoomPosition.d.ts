@@ -23,7 +23,7 @@ interface RoomPosition {
 
 	getAdjacentPos(range: number): RoomPosition[];
 
-	getCanBuildSpaces(range: number): RoomPosition[];
+	getFreeSpaces(range: number): RoomPosition[];
 
 	getStructure(type: StructureConstant): Structure | undefined;
 

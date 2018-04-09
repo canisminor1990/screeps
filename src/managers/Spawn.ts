@@ -29,6 +29,7 @@ export class SpawnManager extends Manager {
 			// 检查 房间 + 生产中的数量
 			const roomCount = room.getRoleCount(Role);
 			const orderCount = _.filter(this.getOrder(room), (o: CreepOrder) => o.memory.role === Role).length;
+			Log.debug('has:', roomCount + orderCount, 'need:', RclSetup.maxCount);
 			if (roomCount + orderCount < RclSetup.maxCount) {
 				Log.room(room, 'Make spawn order:', RoleType[Role]);
 				let Body = makeBodyArray(RclSetup.fixedBody);

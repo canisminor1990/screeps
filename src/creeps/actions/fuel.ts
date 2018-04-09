@@ -35,7 +35,7 @@ export class FuelAction extends Action {
 	}
 
 	action(): number {
-		if (getDistanseBetween(this.creep.pos, this.target.pos) === this.targetRange) {
+		if (getDistanseBetween(this.creep.pos, this.target.pos) <= this.targetRange) {
 			return this.creep.transfer(this.target, RESOURCE_ENERGY);
 		} else {
 			return this.creep.moveTo(this.target);
