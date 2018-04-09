@@ -16,6 +16,7 @@ export class BuildAction extends Action {
 	public run(): number {
 		if (this.creep.action === this.name && this.creep.memory.target) {
 			this.getMemoryTask();
+			if (_.isUndefined(this.target)) this.unAssign();
 		} else {
 			if (this.findNewTask() == null) return ERR_INVALID_TARGET;
 			this.assign();

@@ -8,6 +8,7 @@ export const Emoji = {
 	home: String.fromCodePoint(0x1f3e0), // 🏠
 	reload: String.fromCodePoint(0x1f503), // 🔃
 	// Action
+	walk: String.fromCodePoint(0x1f45f), // 👟
 	wait: String.fromCodePoint(0x1f6ac), // 🚬
 	harvest: String.fromCodePoint(0x26cf), // ⛏
 	upgrade: String.fromCodePoint(0x1f5fd), // 🗽
