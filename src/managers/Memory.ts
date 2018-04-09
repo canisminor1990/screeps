@@ -45,9 +45,13 @@ export class MemoryManager extends Manager {
 
 	private cleanTaskMemory(): void {
 		_.forEach(Memory.tasks, (typeTask, type) => {
-			_.forEach(Object.keys(typeTask), (id: string) => {
+			_.forEach(typeTask, (task: ActionTask, id: string) => {
 				if (_.isNull(Game.getObjectById(id))) {
 					delete Memory.tasks[type as string][id];
+				} else {
+					_.forEach(Object.keys(task.targetOf), name => {
+						if (_.isUndefined(Game.creeps[name])) delete Memory.tasks[type][id].targetOf[name];
+					});
 				}
 			});
 		});

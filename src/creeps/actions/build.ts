@@ -36,7 +36,7 @@ export class BuildAction extends Action {
 		if (getDistanseBetween(this.creep.pos, this.target.pos) <= this.targetRange) {
 			return this.creep.build(this.target);
 		} else {
-			return this.creep.moveTo(this.target);
+			return this.creep.travelTo(this.target);
 		}
 	}
 

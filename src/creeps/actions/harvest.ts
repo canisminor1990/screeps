@@ -34,7 +34,7 @@ export class HarvestAction extends Action {
 		if (getDistanseBetween(this.creep.pos, this.target.pos) <= this.targetRange) {
 			return this.creep.harvest(this.target);
 		} else {
-			return this.creep.moveTo(this.target);
+			return this.creep.travelTo(this.target);
 		}
 	}
 

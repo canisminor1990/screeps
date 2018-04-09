@@ -7,6 +7,7 @@ interface CreepMemory {
 	targetType?: number | null;
 	action?: string;
 	actionStatus?: boolean;
+	unMove?: number;
 }
 
 interface CreepOrder {
@@ -25,6 +26,7 @@ interface Creep {
 	totalCarry: number;
 	isEmpty: boolean;
 	isFull: boolean;
+	isMove: boolean;
 	missingHits: number;
 	isHurt: boolean;
 
@@ -39,4 +41,6 @@ interface Creep {
 	hasBodyparts(partTypes: BodyPartConstant | BodyPartConstant[], start?: number): boolean;
 
 	hasActiveBodyparts(partTypes: BodyPartConstant | BodyPartConstant[]): boolean;
+
+	travelTo(target: RoomPosition | { pos: RoomPosition }): number;
 }
