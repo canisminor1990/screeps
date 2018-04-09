@@ -3,5 +3,6 @@ export enum ActionType {
 	harvest = 'harvest',
 	upgrade = 'upgrade',
 	build = 'build',
+	repair = 'repair',
 	fuel = 'fuel',
 }

@@ -12,7 +12,7 @@ export class WorkerBehavior extends Behaviour {
 		super(RoleType.worker);
 	}
 
-	private priority = [Actions.harvest, Actions.fuel, Actions.build, Actions.upgrade];
+	private priority = [Actions.harvest, Actions.fuel, Actions.build, Actions.repair, Actions.upgrade];
 
 	private buildActionFlow() {
 		let actionFlow = this.priority;

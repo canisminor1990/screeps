@@ -1,13 +1,12 @@
 import { Emoji } from './Emoji';
 
-const TRAVEL_NEW_TICK = 3;
+const TRAVEL_NEW_TICK = 1;
 
 const visual = {
 	fill: 'transparent',
 	stroke: '#fff',
 	lineStyle: 'dashed',
 	strokeWidth: 0.15,
-	opacity: 0.1,
 };
 
 export function travelTo(target: RoomPosition | { pos: RoomPosition }): number {
@@ -15,18 +14,18 @@ export function travelTo(target: RoomPosition | { pos: RoomPosition }): number {
 	this.memory.unMove = this.isMove ? 0 : this.memory.unMove + 1;
 
 	const travelOldTo = this.moveTo(target, {
-		reusePath: Infinity,
+		reusePath: this.memory.unMove <= TRAVEL_NEW_TICK ? Infinity : 0,
 		noPathFinding: true,
 		visualizePathStyle: {
 			...visual,
 			stroke: '#000',
+			opacity: 0.1,
 		},
 	});
 	this.memory._pos = this.pos;
 	if (travelOldTo === OK && this.memory.unMove === 0) return OK;
 	const travelNewTo = this.moveTo(target, {
-		reusePath: this.memory.unMove <= TRAVEL_NEW_TICK ? Infinity : 0,
-		maxOps: 200,
+		// maxOps: 200,
 		plainCost: 10,
 		swampCost: 50,
 		ignoreCreeps: this.memory.unMove <= TRAVEL_NEW_TICK,
@@ -40,9 +39,9 @@ export function travelTo(target: RoomPosition | { pos: RoomPosition }): number {
 		visualizePathStyle: {
 			...visual,
 			stroke: '#fff',
+			opacity: 0.5,
 		},
 	});
 	this.memory._pos = this.pos;
-	this.say(Emoji.walk);
 	return travelNewTo;
 }

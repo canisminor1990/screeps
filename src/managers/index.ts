@@ -7,6 +7,7 @@ import { SourceManager } from './Source';
 import { FuelManager } from './Fuel';
 import { UpgradeManager } from './Upgrade';
 import { BuildManager } from './Build';
+import { RepairManager } from './Repair';
 
 export class Managers {
 	static run() {
@@ -17,6 +18,7 @@ export class Managers {
 			new SourceManager(),
 			new FuelManager(),
 			new BuildManager(),
+			new RepairManager(),
 			new UpgradeManager(),
 			new CreepManager(),
 		];
