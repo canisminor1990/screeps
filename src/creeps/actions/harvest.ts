@@ -1,5 +1,6 @@
 import { ActionType } from '../../enums/action';
 import { Action } from '../Action';
+import { getDistanseBetween } from '../../utils/PathUtils';
 
 export class HarvestAction extends Action {
 	target: Source;
@@ -8,55 +9,36 @@ export class HarvestAction extends Action {
 		super(ActionType.harvest);
 	}
 
-	maxPerTarget: number = 1;
-
 	targetRange: number = 1;
 
 	public run(): number {
-		if (!this.isVaildAction()) return this.ERR_INVALID_ACTION;
-		this.checkTarget();
-		if (this.isValidTarget()) {
-			this.assign();
+		if (this.creep.action === this.name && this.creep.memory.target) {
+			this.getMemoryTask();
 		} else {
-			this.unAssign();
-			return ERR_INVALID_TARGET;
+			if (this.findNewTask() == null) return ERR_INVALID_TARGET;
+			this.assign();
 		}
-		const direciton = this.creep.pos.getRangeTo(this.target);
-		if (direciton === this.targetRange) {
+		const callback = this.action();
+		if (callback !== OK || this.actionCheck()) this.unAssign();
+		return callback;
+	}
+
+	findNewTask() {
+		let tasks = _.filter(this.taskList, (task: ActionTask) => Object.keys(task.targetOf).length < task.maxPerTarget);
+		if (tasks.length === 0) return null;
+		this.task = this.getMinDistanseTask(tasks);
+		return OK;
+	}
+
+	action(): number {
+		if (getDistanseBetween(this.creep.pos, this.target.pos) === this.targetRange) {
 			return this.creep.harvest(this.target);
 		} else {
 			return this.creep.moveTo(this.target);
 		}
 	}
 
-	checkTarget() {
-		const target = this.creep.target;
-		if (!_.isUndefined(target) && target instanceof Source) {
-			this.target = target as Source;
-			return;
-		}
-		this.findNewTarget();
-	}
-
-	findNewTarget(): void {
-		const targets = _.filter(this.creep.room.sources, s => s.active && s.targetOf < s.pos.getCanBuildSpaces(1).length);
-		const target = this.creep.pos.findClosestByRange(targets);
-		this.target = target;
-		this.creep.setTarget(target);
-	}
-
-	isVaildAction(): boolean {
-		if (this.creep.isFull) {
-			this.unAssign();
-			return false;
-		}
-		if (this.creep.action !== this.name && this.creep.actionStatus === true) return false;
-		return true;
-	}
-
-	isValidTarget(): boolean {
-		if (_.isUndefined(this.target) || _.isNull(this.target)) return false;
-		if (!this.target.active) return false;
-		return true;
+	actionCheck(): boolean {
+		return this.creep.isFull;
 	}
 }

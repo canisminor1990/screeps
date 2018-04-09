@@ -35,7 +35,7 @@
 		"source-map": "^0.6.1"
 	},
 	"devDependencies": {
-		"@types/lodash": "^3.10.1",
+		"@types/lodash": "3.10.1",
 		"@types/node": "^9.6.0",
 		"@types/source-map": "^0.5.7",
 		"@types/tether": "^1.4.3",
@@ -64,7 +64,6 @@
 		"fs-extra": "^5.0.0",
 		"git-rev-sync": "^1.9.1",
 		"lint-staged": "^4.2.3",
-		"lodash": "^4.17.5",
 		"pre-commit": "^1.2.2",
 		"prettier": "^1.9.2",
 		"source-map-loader": "^0.2.1",

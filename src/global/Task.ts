@@ -1,13 +1,15 @@
+import { ActionType } from '../enums/action';
+
 export class Task {
 	type: string;
 	id: string;
-	isExist: boolean;
+	exist: boolean;
 
 	constructor(type: string, id: string) {
 		this.checkMemory();
 		this.type = type;
 		this.id = id;
-		this.isExist = !_.isUndefined(_.get(Memory.tasks, [this.type, this.id]));
+		this.exist = !_.isUndefined(_.get(Memory.tasks, [this.type, this.id]));
 	}
 
 	private checkMemory(): void {
@@ -15,7 +17,7 @@ export class Task {
 	}
 
 	get isExist(): boolean {
-		return this.isExist;
+		return this.exist;
 	}
 
 	get state(): boolean {
@@ -31,7 +33,7 @@ export class Task {
 	}
 
 	get targetOf(): Creep[] {
-		let creeps = [];
+		let creeps: Creep[] = [];
 		_.forEach(_.get(Memory.tasks, [this.type, this.id, 'targetOf']), (name: string) => {
 			creeps.push(Game.creeps[name]);
 		});
@@ -39,36 +41,41 @@ export class Task {
 	}
 
 	get targetOfCount(): number {
-		return _.get(Memory.tasks, [this.type, this.id, 'targetOf']).length;
+		const targetOf = _.get(Memory.tasks, [this.type, this.id, 'targetOf']);
+		return Object.keys(targetOf).length;
 	}
 
-	public create(option?: object): void {
-		const target = Game.getObjectById(this.id);
-		_.set(Memory.tasks, [this.type, this.id], {
-			room: target.room,
+	public create(option?: { [type: string]: any }): void {
+		const target = Game.getObjectById(this.id) as any;
+		if (target === null) return Log.error(ERR_INVALID_TARGET);
+		const value = {
+			id: target.id,
+			room: target.room.name,
 			pos: target.pos.raw,
 			targetOf: {},
 			state: true,
 			...option,
-		});
-		this.isExist = true;
+		};
+		_.set(Memory.tasks, [this.type, this.id], value);
+		this.exist = true;
 	}
 
 	public setState(state: boolean): void {
 		_.set(Memory.tasks, [this.type, this.id, 'state'], state);
 	}
 
-	public set(path: string, value: any): void {
-		_.set(Memory.tasks, [this.type, this.id, path], value);
+	public set(value: { [type: string]: any }): void {
+		const Value = _.assign(_.get(Memory.tasks, [this.type, this.id]), value);
+		_.set(Memory.tasks, [this.type, this.id], Value);
 	}
 
-	public addTargetOf(creep: Creep): void {
-		_.set(Memory.tasks, [this.type, this.id, 'targetOf', creep.name], true);
+	public addTargetOf(name: string): void {
+		_.set(Memory.tasks, [this.type, this.id, 'targetOf', name], true);
 	}
 
-	public removeTargetOf(creep: Creep): void {
+	public removeTargetOf(name: string): void {
 		try {
-			delete Memory.tasks[this.type][this.id]['targetOf'][creep.name];
+			delete Memory.tasks[this.type][this.id]['targetOf'][name];
 		} catch (e) {}
 	}
 
@@ -77,4 +84,8 @@ export class Task {
 			delete Memory.tasks[this.type][this.id];
 		} catch (e) {}
 	}
+}
+
+export function getTaskList(type: ActionType) {
+	return Memory.tasks[type];
 }

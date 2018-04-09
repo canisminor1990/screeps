@@ -30,7 +30,7 @@ interface Creep {
 
 	setTarget(target: RoomObject | Flag | Room): void;
 
-	setAction(action: string | undefined): void;
+	setAction(action: string): void;
 
 	setActionStatus(status: boolean): void;
 

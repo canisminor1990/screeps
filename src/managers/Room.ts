@@ -5,34 +5,17 @@ import { isFriend } from '../utils';
 export class RoomManager extends Manager {
 	private roomToc: { [type: number]: string[] } = {};
 
-	readonly ROOM_MEMORY_TIMECHECK = 100000;
-
 	constructor() {
 		super('RoomManager');
 	}
 
 	public run(): void {
-		this.cleanMemory();
 		_.forEach(Game.rooms, (room: Room) => {
 			this.buildRoomToc(room);
 			this.buildCreepToc(room);
 		});
 		this.memory.roomToc = this.roomToc;
 		this.recordStats();
-	}
-
-	private cleanMemory(): void {
-		if (_.isUndefined(Memory.rooms)) Memory.rooms = {};
-		_.forEach(Object.keys(Memory.rooms), (roomMemory: any, name: string) => {
-			if (Object.keys(roomMemory).length === 0) {
-				delete Memory.rooms[name];
-				return;
-			}
-			const timeCheck = roomMemory.time;
-			if (!_.isUndefined(timeCheck) && timeCheck < Game.time - this.ROOM_MEMORY_TIMECHECK && !Game.rooms[name]) {
-				delete Memory.rooms[name];
-			}
-		});
 	}
 
 	private buildRoomToc(room: Room): void {

@@ -4,18 +4,17 @@ import { RoomType } from '../enums/room';
 import { ActionType } from '../enums/action';
 import { Task } from '../global/Task';
 
-export class SourceManager extends Manager {
+export class UpgradeManager extends Manager {
 	constructor() {
-		super('SourceManager');
+		super('UpgradeManager');
 	}
 
 	public run(): void {
 		_.forEach(getRooms(RoomType.home), (room: Room) => {
-			_.forEach(room.sources, (source: Source) => {
-				const task = new Task(ActionType.harvest, source.id);
-				if (!task.isExist) task.create({ maxPerTarget: source.pos.getCanBuildSpaces(1).length });
-				task.setState(source.active);
-			});
+			if (room.controller) {
+				const task = new Task(ActionType.upgrade, room.controller.id);
+				if (!task.isExist) task.create();
+			}
 		});
 		this.recordStats();
 	}
