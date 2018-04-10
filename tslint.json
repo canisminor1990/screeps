@@ -6,12 +6,20 @@
     "forin": false,
     "interface-name": [false],
     "no-console": [false],
+    "object-literal-sort-keys": false,
     "variable-name": [
       true,
       "ban-keywords",
       "check-format",
       "allow-pascal-case",
       "allow-leading-underscore"
+    ],
+    "trailing-comma": [
+      true,
+      {
+        "multiline": "always",
+        "singleline": "never"
+      }
     ]
   }
 }

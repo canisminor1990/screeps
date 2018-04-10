@@ -1,0 +1,11 @@
+{
+	"mode": "file",
+	"out": "./doc",
+	"ignoreCompilerErrors": true,
+	"excludeExternals": true,
+	"excludeNotExported": true,
+	"includeDeclarations": true,
+	"target": "ES6",
+	"module": "commonjs",
+	"hideGenerator": true
+}

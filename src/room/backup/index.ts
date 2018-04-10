@@ -1,1 +1,0 @@
-export { RoomsMemory } from './memory';
