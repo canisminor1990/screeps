@@ -140,7 +140,7 @@ const utils = {
 			.map('memory')
 			.map((m: obj) => m.spawnQueueHigh.concat(m.spawnQueueMedium, m.spawnQueueLow))
 			.flatten()
-			.some(q => {
+			.some((q: obj) => {
 				if (opts.room) if (q.destiny && q.destiny.room !== opts.room) return false;
 				if (opts.behaviour) return (q.behaviour && q.behaviour === opts.behaviour) || q.name.includes(opts.behaviour);
 				if (opts.setup) return q.setup === opts.setup;
@@ -165,6 +165,71 @@ const utils = {
 		string += `<tr><td>Total</td><td>${_.round(total, 2)}</td></tr></table>`;
 		const padding = Array(biggestKey.length + 2).join(' ');
 		return `<table><tr><th>Key${padding}</th><th>Size (kb)</th></tr>`.concat(string);
+	},
+
+	_resources: _.memoize(() => {
+		// @ts-ignore
+		return _.chain(global)
+			.pick((v, k) => k.startsWith('RESOURCE_'))
+			.value();
+	}),
+
+	/**
+	 * cached map of all the game's resources
+	 */
+	resources() {
+		return this._resources();
+	},
+
+	valueOrZero(x: any) {
+		return x || 0;
+	},
+
+	chargeScale(amount: number, min: number, max: number): number {
+		// TODO per-room strategy
+		if (max === min) {
+			if (amount > max) {
+				return Infinity;
+			} else {
+				return -Infinity;
+			}
+		}
+		const chargeScale = 1 / (max - min); // TODO cache
+
+		return (amount - max) * chargeScale + 1;
+	},
+
+	resetBoostProduction(roomName: string): void {
+		let data;
+		let myRooms = _.filter(Game.rooms, { my: true });
+
+		for (let room of myRooms) {
+			if (roomName === undefined || room.name === roomName) {
+				data = room.memory.resources;
+
+				console.log(room.name);
+
+				if (!_.isUndefined(data)) {
+					data.offers = [];
+					data.orders = [];
+
+					if (data.terminal[0]) data.terminal[0].orders = [];
+
+					if (data.storage[0]) data.storage[0].orders = [];
+
+					if (data.reactions) data.reactions.orders = [];
+
+					if (data.lab) {
+						data.lab = [];
+						_.values(Game.structures)
+							.filter((i: Structure) => i.structureType === 'lab')
+							.map((i: StructureLab) => i.room.setStore(i.id, RESOURCE_ENERGY, 2000));
+					}
+					delete data.boostTiming;
+				} else console.log(`${room.name} has no memory.resources`);
+			}
+		}
+		if (roomName === undefined) delete Memory.boostTiming;
 	},
 };
 

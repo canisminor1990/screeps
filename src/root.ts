@@ -1,7 +1,10 @@
 import { inject } from './util/global';
+import { TravelerInstall } from './traveler';
+import { ProtoypeInstall } from './prototype';
 
 export const install = () => {
-	// Initialize global & config
+	ProtoypeInstall();
+	// Load global & config
 	inject(global, require('./global/index'));
 	global._ME = _(Game.rooms)
 		.map('controller')
@@ -12,8 +15,7 @@ export const install = () => {
 
 	// Load modules
 	_.assign(global, {
-		CompressedMatrix: require('./pathfinder/compressedMatrix'),
-		Extensions: require('./prototype/index'),
+		CompressedMatrix: require('./traveler/compressedMatrix'),
 		Population: require('./global/population'),
 		FlagDir: require('./flag/flagDir'),
 		Task: require('./task/index'),
@@ -130,13 +132,19 @@ export const install = () => {
 	inject(Spawn, require('./global/spawn'));
 
 	// Extend server objects: global.extend();
-	Extensions.extend();
 	Creep.extend();
 	Room.extend();
 	Spawn.extend();
 	FlagDir.extend();
 	Task.populate();
 	OCSMemory.activateSegment(MEM_SEGMENTS.COSTMATRIX_CACHE, true);
+	TravelerInstall({
+		exportTraveler: false,
+		installTraveler: true,
+		installPrototype: true,
+		defaultStuckValue: TRAVELER_STUCK_TICKS,
+		reportThreshold: TRAVELER_THRESHOLD,
+	});
 	global.isRoot = true;
 	if (global.DEBUG) logSystem('Global.install', 'Code reloaded.');
 };

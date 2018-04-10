@@ -1,18 +1,11 @@
 import { install } from './root';
 import { wrapLoop } from './util/wrapLoop';
-import { travelerInstall } from './pathfinder/traveler';
+
 const cpuAtLoad = Game.cpu.getUsed();
 let cpuAtFirstLoop: number;
 
 // load code
 install();
-travelerInstall({
-	exportTraveler: false,
-	installTraveler: true,
-	installPrototype: true,
-	defaultStuckValue: TRAVELER_STUCK_TICKS,
-	reportThreshold: TRAVELER_THRESHOLD,
-});
 
 export const loop = wrapLoop(function() {
 	const cpuAtLoop = Game.cpu.getUsed();

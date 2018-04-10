@@ -17,6 +17,7 @@ interface Memory {
 	cacheValid: {
 		[type: string]: boolean;
 	};
+	controllers: obj;
 	population: obj;
 	tasks: obj;
 	flags: obj;

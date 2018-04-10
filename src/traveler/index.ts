@@ -17,7 +17,7 @@
  * Examples: var Traveler = require('Traveler')();
  *           require('util.traveler')({exportTraveler: false, installTraveler: false, installPrototype: true, defaultStuckValue: 2});
  */
-export const travelerInstall = (globalOpts = {}) => {
+export const TravelerInstall = (globalOpts = {}) => {
 	const gOpts = _.defaults(globalOpts, {
 		exportTraveler: true,
 		installTraveler: false,
