@@ -34,6 +34,8 @@ declare const Grafana: any;
 // declare const Visuals: any
 // declare const CompressedMatrix: any
 
+declare const LAB_REACTIONS: any[];
+
 declare const CRAYON: {
 	death: any;
 	birth: any;

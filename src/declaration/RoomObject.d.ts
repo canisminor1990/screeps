@@ -1,4 +1,4 @@
 interface RoomObject {
 	accessibleFields: number;
-	cloak: boolean;
+	cloak: number | boolean;
 }

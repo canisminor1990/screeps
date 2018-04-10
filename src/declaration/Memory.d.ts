@@ -30,6 +30,7 @@ interface Memory {
 		bucket: number;
 	};
 	heatmap: boolean;
+	pavementArt: obj;
 }
 
 interface RoomMemory {

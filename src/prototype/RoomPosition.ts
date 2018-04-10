@@ -15,7 +15,7 @@ Object.defineProperties(RoomPosition.prototype, {
 		},
 	},
 	radius: {
-		value(radius: number = 1): RoomPosition[] {
+		value: function(radius: number = 1): RoomPosition[] {
 			if (radius === 1) return this.adjacent;
 			if (radius < 1) return [this];
 			const positions = [];

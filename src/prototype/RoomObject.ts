@@ -19,7 +19,7 @@ Object.defineProperties(RoomObject.prototype, {
 		},
 	},
 	cloak: {
-		get(): boolean {
+		get(): number | boolean {
 			const value = Memory.cloaked[this.id];
 			if (!value) {
 				return false;
@@ -30,7 +30,7 @@ Object.defineProperties(RoomObject.prototype, {
 				return value;
 			}
 		},
-		set(value: boolean) {
+		set(value: number | boolean) {
 			if (!value) {
 				delete Memory.cloaked[this.id];
 				return undefined;
