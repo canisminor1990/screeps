@@ -11,6 +11,7 @@ export const install = () => {
 		.filter('my')
 		.map('owner.username')
 		.first();
+
 	_.assign(global, require('./config'));
 
 	// Load modules
@@ -18,28 +19,13 @@ export const install = () => {
 		CompressedMatrix: require('./traveler/compressedMatrix'),
 		Population: require('./global/population'),
 		FlagDir: require('./flag/flagDir'),
-		Task: require('./task/index'),
+		Task: require('./task/index').default,
 		Tower: require('./global/tower'),
 		Util: require('./util/index').default,
 		Events: require('./flag/events'),
 		OCSMemory: require('./memory/index'),
 		Grafana: GRAFANA ? require('./mod/grafana') : undefined,
 		Visuals: require('./mod/visuals'),
-	});
-	_.assign(global.Task, {
-		guard: require('./task/guard'),
-		defense: require('./task/defense'),
-		mining: require('./task/mining'),
-		claim: require('./task/claim'),
-		reserve: require('./task/reserve'),
-		pioneer: require('./task/pioneer'),
-		attackController: require('./task/attackController'),
-		robbing: require('./task/robbing'),
-		reputation: require('./task/reputation'),
-		delivery: require('./task/delivery'),
-		labTech: require('./task/labTech'),
-		safeGen: require('./task/safeGen'),
-		scheduler: require('./task/scheduler'),
 	});
 	Creep.Action = require('./creep/Action');
 	Creep.Behaviour = require('./creep/Behaviour');
