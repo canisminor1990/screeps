@@ -71,7 +71,7 @@ export class PioneerTask {
 			}
 			const owner = flag.room.owner || flag.room.reservation;
 			if (owner && !Task.reputation.isAlly(owner)) {
-				return logError(`Pioneer target room owned by ${owner}`);
+				return Util.logError(`Pioneer target room owned by ${owner}`);
 			}
 		}
 
@@ -146,7 +146,8 @@ export class PioneerTask {
 		if (flag) {
 			// calculate & set time required to spawn and send next substitute creep
 			// TODO: implement better distance calculation
-			creep.data.predictedRenewal = creep.data.spawningTime + routeRange(creep.data.homeRoom, flag.pos.roomName) * 50;
+			creep.data.predictedRenewal =
+				creep.data.spawningTime + Util.routeRange(creep.data.homeRoom, flag.pos.roomName) * 50;
 
 			// get task memory
 			let memory = this.memory(flag);

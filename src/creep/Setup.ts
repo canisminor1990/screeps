@@ -63,8 +63,8 @@ let Setup = function(typeName) {
 	};
 	this.isValidSetup = function(room) {
 		if (room.controller.level < this.minControllerLevel) {
-			if (global.DEBUG && global.TRACE)
-				trace(
+			if (DEBUG && TRACE)
+				Util.trace(
 					'Setup',
 					{
 						setupType: this.type,
@@ -82,8 +82,8 @@ let Setup = function(typeName) {
 		const absEnergy = room.remainingEnergyAvailable;
 		const energy = room.relativeRemainingEnergyAvailable;
 		if (absEnergy < minAbsEnergyAvailable || energy < minEnergyAvailable) {
-			if (global.DEBUG && global.TRACE)
-				trace(
+			if (DEBUG && TRACE)
+				Util.trace(
 					'Setup',
 					{ setupType: this.type, room: room.name, absEnergy, energy, Setup: 'isValidSetup' },
 					'not enough energy',
@@ -94,8 +94,8 @@ let Setup = function(typeName) {
 		let maxCount = this.SelfOrCall(this._maxCount, room);
 		let maxWeight = this.SelfOrCall(this._maxWeight, room);
 		if (maxCount === 0 || maxWeight === 0) {
-			if (global.DEBUG && global.TRACE)
-				trace(
+			if (DEBUG && TRACE)
+				Util.trace(
 					'Setup',
 					{ setupType: this.type, room: room.name, maxCount, maxWeight, Setup: 'isValidSetup' },
 					'too many creeps',
@@ -123,8 +123,8 @@ let Setup = function(typeName) {
 			existingWeight = population.typeWeight[this.type] || 0;
 		}
 		const returnVal = existingCount < maxCount && existingWeight < maxWeight;
-		if (global.DEBUG && global.TRACE)
-			trace(
+		if (DEBUG && TRACE)
+			Util.trace(
 				'Setup',
 				{ setupType: this.type, room: room.name, returnVal, Setup: 'isValidSetup' },
 				'count:',
@@ -165,8 +165,8 @@ let Setup = function(typeName) {
 			const existingWeight = this.existingWeight(room);
 			maxCreepWeight = maxWeight - existingWeight;
 		}
-		if (global.DEBUG && global.TRACE)
-			trace('Setup', {
+		if (DEBUG && TRACE)
+			Util.trace('Setup', {
 				setupType: this.type,
 				room: room.name,
 				Setup: 'parts',
@@ -224,7 +224,7 @@ Setup.maxPerFlag = function(flagFilter, maxRoomRange, measureByHome) {
 		let max = 0;
 		let distance, flag;
 		let calcMax = flagEntry => {
-			distance = routeRange(room.name, flagEntry.roomName);
+			distance = Util.routeRange(room.name, flagEntry.roomName);
 			if (distance > maxRoomRange) {
 				return;
 			}

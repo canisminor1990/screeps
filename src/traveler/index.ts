@@ -411,33 +411,6 @@ export const TravelerInstall = (globalOpts = {}) => {
 			global.traveler = new Traveler();
 			global.travelerTick = Game.time;
 		}
-
-		Creep.prototype.travelTo = function(destination, options = {}) {
-			destination = destination.pos || destination;
-			if (global.traveler && global.travelerTick !== Game.time) {
-				global.traveler = new Traveler();
-			}
-			options = this.getStrategyHandler([], 'moveOptions', options);
-			_.defaults(options, {
-				allowSK: true,
-				avoidSKCreeps: true,
-				debug: global.DEBUG,
-				reportThreshold: global.TRAVELER_THRESHOLD,
-				useFindRoute: _.get(global, 'ROUTE_PRECALCULATION', true),
-				routeCallback: Room.routeCallback(this.pos.roomName, destination.roomName, options),
-				getStructureMatrix: room => Room.getStructureMatrix(room.name || room, options),
-				getCreepMatrix: room => room.getCreepMatrix(options.getStructureMatrix(room)),
-			});
-			if (
-				options.respectRamparts &&
-				this.room.situation.invasion &&
-				_.filter(this.pos.lookFor(LOOK_STRUCTURES), { my: true, structureType: STRUCTURE_RAMPART }).length
-			) {
-				// don't move off a rampart if we're already on one while hostiles are present
-				return OK;
-			}
-			return traveler.travelTo(this, destination, options);
-		};
 	}
 
 	if (gOpts.exportTraveler) {

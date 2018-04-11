@@ -101,7 +101,7 @@ mod.extend = function() {
 
 			if (master.runReaction(slave_a, slave_b) === OK) {
 				data.reactionAmount -= LAB_REACTION_AMOUNT;
-				if (global.DEBUG && global.TRACE)
+				if (DEBUG && TRACE)
 					trace('Room', {
 						roomName: this.name,
 						actionName: 'processLabs',
@@ -187,7 +187,7 @@ mod.extend = function() {
 			for (let room of myRooms) {
 				if (room.name === that.name) continue;
 				let resourcesAll = room.resourcesAll[component] || 0;
-				if (resourcesAll >= global.MIN_OFFER_AMOUNT) roomStored += resourcesAll;
+				if (resourcesAll >= MIN_OFFER_AMOUNT) roomStored += resourcesAll;
 			}
 			return roomStored;
 		};
@@ -210,9 +210,9 @@ mod.extend = function() {
 				resourcesOffered = (this.resourcesOffers[component_a] || 0) + order.amount,
 				amountToOrder = resourcesOffered - resourcesStored;
 
-			let roundedAmountToOrder = global.roundUpTo(amountToOrder, global.MIN_OFFER_AMOUNT);
-			if (amountToOrder < global.TRADE_THRESHOLD && amountToOrder > 0) {
-				if (empireResourcesComponentA >= global.TRADE_THRESHOLD) amountToOrder = global.TRADE_THRESHOLD;
+			let roundedAmountToOrder = Util.roundUpTo(amountToOrder, MIN_OFFER_AMOUNT);
+			if (amountToOrder < TRADE_THRESHOLD && amountToOrder > 0) {
+				if (empireResourcesComponentA >= TRADE_THRESHOLD) amountToOrder = TRADE_THRESHOLD;
 				else if (empireResourcesComponentA >= roundedAmountToOrder) amountToOrder = roundedAmountToOrder;
 			} else if (amountToOrder > 0 && roundedAmountToOrder <= empireResourcesComponentA)
 				amountToOrder = roundedAmountToOrder;
@@ -236,9 +236,9 @@ mod.extend = function() {
 				resourcesOffered = (this.resourcesOffers[component_b] || 0) + order.amount,
 				amountToOrder = resourcesOffered - resourcesStored;
 
-			let roundedAmountToOrder = global.roundUpTo(amountToOrder, global.MIN_OFFER_AMOUNT);
-			if (amountToOrder < global.TRADE_THRESHOLD && amountToOrder > 0) {
-				if (empireResourcesComponentB >= global.TRADE_THRESHOLD) amountToOrder = global.TRADE_THRESHOLD;
+			let roundedAmountToOrder = Util.roundUpTo(amountToOrder, MIN_OFFER_AMOUNT);
+			if (amountToOrder < TRADE_THRESHOLD && amountToOrder > 0) {
+				if (empireResourcesComponentB >= TRADE_THRESHOLD) amountToOrder = TRADE_THRESHOLD;
 				else if (empireResourcesComponentB >= roundedAmountToOrder) amountToOrder = roundedAmountToOrder;
 			} else if (amountToOrder > 0 && roundedAmountToOrder <= empireResourcesComponentB)
 				amountToOrder = roundedAmountToOrder;
@@ -266,9 +266,9 @@ mod.extend = function() {
 				resourcesOffered = (this.resourcesOffers[component_a] || 0) + order.amount,
 				amountToOrder = resourcesOffered - resourcesStored;
 
-			let roundedAmountToOrder = global.roundUpTo(amountToOrder, global.MIN_OFFER_AMOUNT);
-			if (amountToOrder < global.TRADE_THRESHOLD && amountToOrder > 0) {
-				if (empireResourcesComponentA >= global.TRADE_THRESHOLD) amountToOrder = global.TRADE_THRESHOLD;
+			let roundedAmountToOrder = Util.roundUpTo(amountToOrder, MIN_OFFER_AMOUNT);
+			if (amountToOrder < TRADE_THRESHOLD && amountToOrder > 0) {
+				if (empireResourcesComponentA >= TRADE_THRESHOLD) amountToOrder = TRADE_THRESHOLD;
 				else if (empireResourcesComponentA >= roundedAmountToOrder) amountToOrder = roundedAmountToOrder;
 			} else if (amountToOrder > 0 && roundedAmountToOrder <= empireResourcesComponentA)
 				amountToOrder = roundedAmountToOrder;
@@ -295,9 +295,9 @@ mod.extend = function() {
 				resourcesOffered = (this.resourcesOffers[component_b] || 0) + order.amount,
 				amountToOrder = resourcesOffered - resourcesStored;
 
-			let roundedAmountToOrder = global.roundUpTo(amountToOrder, global.MIN_OFFER_AMOUNT);
-			if (amountToOrder < global.TRADE_THRESHOLD && amountToOrder > 0) {
-				if (empireResourcesComponentB >= global.TRADE_THRESHOLD) amountToOrder = global.TRADE_THRESHOLD;
+			let roundedAmountToOrder = Util.roundUpTo(amountToOrder, MIN_OFFER_AMOUNT);
+			if (amountToOrder < TRADE_THRESHOLD && amountToOrder > 0) {
+				if (empireResourcesComponentB >= TRADE_THRESHOLD) amountToOrder = TRADE_THRESHOLD;
 				else if (empireResourcesComponentB >= roundedAmountToOrder) amountToOrder = roundedAmountToOrder;
 			} else if (amountToOrder > 0 && roundedAmountToOrder <= empireResourcesComponentB)
 				amountToOrder = roundedAmountToOrder;
@@ -370,7 +370,7 @@ mod.extend = function() {
 				let returnValue = reactor.runReaction(seed_a, seed_b);
 				if (returnValue === OK) {
 					order.amount -= LAB_REACTION_AMOUNT;
-					if (global.DEBUG && global.TRACE)
+					if (DEBUG && TRACE)
 						trace('Room', {
 							roomName: this.name,
 							actionName: 'processLabs',
@@ -380,9 +380,9 @@ mod.extend = function() {
 							amountRemaining: order.amount,
 						});
 				} else {
-					global.logSystem(
+					Util.logSystem(
 						this.name,
-						`${this.name} runReactions not OK. returnValue: ${global.translateErrorCode(returnValue)}`,
+						`${this.name} runReactions not OK. returnValue: ${Util.translateErrorCode(returnValue)}`,
 					);
 				}
 			}
@@ -632,7 +632,7 @@ mod.extend = function() {
 			});
 			if (existingOrder) {
 				// update existing order
-				if (global.DEBUG && global.TRACE)
+				if (DEBUG && TRACE)
 					trace('Room', {
 						roomName: this.name,
 						actionName: 'placeReactionOrder',
@@ -645,7 +645,7 @@ mod.extend = function() {
 				existingOrder.amount = amount;
 			} else {
 				// create new order
-				if (global.DEBUG && global.TRACE)
+				if (DEBUG && TRACE)
 					trace('Room', {
 						roomName: this.name,
 						actionName: 'placeReactionOrder',
@@ -698,7 +698,7 @@ mod.extend = function() {
 					break;
 			}
 		} else {
-			if (global.DEBUG && global.TRACE)
+			if (DEBUG && TRACE)
 				trace('Room', {
 					roomName: this.name,
 					actionName: 'placeRoomOrder',

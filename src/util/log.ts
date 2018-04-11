@@ -57,18 +57,36 @@ export const logUtils = {
 	 * Log an error for a creep's action, given an error code
 	 */
 	logErrorCode(creep: Creep, code: number): void {
-		let error: string = '';
-		const message = `${error}\nroom: ${creep.pos.roomName}\ncreep: ${creep.name}\naction: ${
-			creep.data.actionName
-		}\ntarget: ${creep.data.targetId}`;
 		if (code) {
-			error = Util.translateErrorCode(code);
+			let error = Util.translateErrorCode(code);
 			if (creep) {
-				creep.say(error || code.toString());
+				if (error) creep.say(error);
+				else creep.say(code);
 			}
+			let message =
+				error +
+				'\nroom: ' +
+				creep.pos.roomName +
+				'\ncreep: ' +
+				creep.name +
+				'\naction: ' +
+				creep.data.actionName +
+				'\ntarget: ' +
+				creep.data.targetId;
+			console.log(Util.dye(CRAYON.error, message), Util.stack());
 			Game.notify(message, 120);
+		} else {
+			let message =
+				'unknown error code\nroom: ' +
+				creep.pos.roomName +
+				'\ncreep: ' +
+				creep.name +
+				'\naction: ' +
+				creep.data.actionName +
+				'\ntarget: ' +
+				creep.data.targetId;
+			console.log(Util.dye(CRAYON.error, message), Util.stack());
 		}
-		console.log(Util.dye(CRAYON.error, message), Util.stack());
 	},
 
 	/**
@@ -81,6 +99,10 @@ export const logUtils = {
 			...message,
 			Util.stack(),
 		);
+	},
+
+	logStringify(x) {
+		console.log(JSON.stringify(x, null, 2));
 	},
 
 	/**

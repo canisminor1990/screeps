@@ -3,9 +3,9 @@ import { TravelerInstall } from './traveler';
 import { ProtoypeInstall } from './prototype';
 
 export const install = () => {
-	ProtoypeInstall();
 	// Load global & config
-	inject(global, require('./global/index'));
+	inject(global, new (require('./global/index')).Constants());
+	inject(global, require('./global/index').Global);
 	global._ME = _(Game.rooms)
 		.map('controller')
 		.filter('my')
@@ -18,11 +18,11 @@ export const install = () => {
 	_.assign(global, {
 		CompressedMatrix: require('./traveler/compressedMatrix'),
 		Population: require('./global/population'),
-		FlagDir: require('./flag/flagDir'),
-		Task: require('./task/index').default,
+		FlagDir: new (require('./flag/flagDir')).default(),
+		Task: new (require('./task/index')).default(),
 		Tower: require('./global/tower'),
 		Util: require('./util/index').default,
-		Events: require('./flag/events'),
+		Events: new (require('./flag/events')).default(),
 		OCSMemory: require('./memory/index'),
 		Grafana: GRAFANA ? require('./mod/grafana') : undefined,
 		Visuals: require('./mod/visuals'),
@@ -94,7 +94,7 @@ export const install = () => {
 			worker: require('./creep/setup/worker'),
 		},
 	});
-	inject(Creep, require('./creep/index'));
+	inject(Creep, new (require('./creep/index')).default());
 	inject(Room, require('./room/index'));
 	_.assign(Room, {
 		_ext: {
@@ -124,6 +124,7 @@ export const install = () => {
 	FlagDir.extend();
 	Task.populate();
 	OCSMemory.activateSegment(MEM_SEGMENTS.COSTMATRIX_CACHE, true);
+	ProtoypeInstall();
 	TravelerInstall({
 		exportTraveler: false,
 		installTraveler: true,
@@ -132,5 +133,5 @@ export const install = () => {
 		reportThreshold: TRAVELER_THRESHOLD,
 	});
 	global.isRoot = true;
-	if (global.DEBUG) logSystem('Global.install', 'Code reloaded.');
+	if (global.DEBUG) Util.logSystem('Global.install', 'Code reloaded.');
 };

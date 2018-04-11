@@ -82,7 +82,7 @@ function work(creep) {
 action.work = work;
 
 function onAssignment(creep) {
-	if (SAY_ASSIGNMENT) creep.say(ACTION_SAY.BOOSTING, global.SAY_PUBLIC);
+	if (SAY_ASSIGNMENT) creep.say(ACTION_SAY.BOOSTING, SAY_PUBLIC);
 }
 action.onAssignment = onAssignment;
 

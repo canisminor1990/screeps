@@ -106,7 +106,7 @@ export class DefenseTask {
 
 		// analyze invader threat and create something bigger
 		while (remainingThreat > 0) {
-			let orderId = global.guid();
+			let orderId = Util.guid();
 			this.creep.defender.queue = invaderCreep.room.my ? 'High' : 'Medium';
 			this.creep.defender.minThreat = remainingThreat * 1.1;
 
@@ -135,7 +135,7 @@ export class DefenseTask {
 						order: creepSetup.destiny.order,
 					});
 					if (DEBUG)
-						global.logSystem(
+						Util.logSystem(
 							creepSetup.queueRoom,
 							`Defender queued for hostile creep ${creepSetup.destiny.order} in ${creepSetup.destiny.spottedIn}`,
 						);

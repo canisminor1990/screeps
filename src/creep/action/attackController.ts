@@ -35,7 +35,7 @@ action.newTarget = function(creep) {
 };
 
 action.step = function(creep) {
-	if (global.CHATTY) creep.say(this.name, global.SAY_PUBLIC);
+	if (CHATTY) creep.say(this.name, SAY_PUBLIC);
 	if (creep.target.color) {
 		if (creep.flag.pos.roomName === creep.pos.roomName) creep.data.targetId = null;
 		creep.travelTo(creep.target);

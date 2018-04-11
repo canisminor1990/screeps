@@ -54,8 +54,8 @@ mod.nextAction = function(creep) {
 		Game.rooms[creep.data.homeRoom] &&
 		Game.rooms[creep.data.homeRoom].controller
 	) {
-		if (global.DEBUG && global.TRACE)
-			trace('Behaviour', {
+		if (DEBUG && TRACE)
+			Util.trace('Behaviour', {
 				actionName: 'travelling',
 				behaviourName: this.name,
 				creepName: creep.name,

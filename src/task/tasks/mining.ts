@@ -100,7 +100,7 @@ export class MiningTask {
 				const queuedHaulers = ignoreQueue ? [] : _.union(memory.queued.remoteHauler, memory.spawning.remoteHauler);
 				const room = Game.rooms[flagRoomName];
 				// TODO loop per-source, take pinned delivery for route calc
-				const travel = routeRange(flagRoomName, homeRoomName);
+				const travel = Util.routeRange(flagRoomName, homeRoomName);
 				const ept = this.strategies.hauler.ept(flagRoomName);
 				// carry = ept * travel * 2 * 50 / 50
 				const validHaulers = _.filter(existingHaulers, c => !this.needsReplacement(c));
@@ -176,7 +176,7 @@ export class MiningTask {
 			// calculate & set time required to spawn and send next substitute creep
 			// TODO: implement better distance calculation
 			creep.data.predictedRenewal =
-				creep.data.spawningTime + routeRange(creep.data.homeRoom, creep.data.destiny.room) * 50;
+				creep.data.spawningTime + Util.routeRange(creep.data.homeRoom, creep.data.destiny.room) * 50;
 			// get task memory
 			const memory = this.memory(creep.data.destiny.room);
 			// save running creep to task memory

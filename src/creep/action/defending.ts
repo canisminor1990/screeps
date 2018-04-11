@@ -24,7 +24,7 @@ action.newTarget = function(creep) {
 	return closestHostile;
 };
 action.step = function(creep) {
-	if (global.CHATTY) creep.say(this.name, global.SAY_PUBLIC);
+	if (CHATTY) creep.say(this.name, SAY_PUBLIC);
 	if (creep.target.pos.roomName !== creep.room.name)
 		return Creep.action.travelling.assignRoom(creep, creep.target.pos.roomName);
 	this.run[creep.data.creepType](creep);
@@ -59,7 +59,7 @@ action.run = {
 		let targets = creep.pos.findInRange(creep.room.hostiles, 3);
 		if (targets.length > 2) {
 			// TODO: precalc damage dealt
-			if (global.CHATTY) creep.say('MassAttack');
+			if (CHATTY) creep.say('MassAttack');
 			creep.attackingRanged = creep.rangedMassAttack() === OK;
 			return;
 		}

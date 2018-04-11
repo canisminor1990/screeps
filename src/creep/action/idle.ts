@@ -14,7 +14,7 @@ action.newTarget = function(creep) {
 	return FlagDir.specialFlag();
 };
 action.step = function(creep) {
-	if (global.CHATTY) creep.say(this.name, global.SAY_PUBLIC);
+	if (CHATTY) creep.say(this.name, SAY_PUBLIC);
 	if (creep.getStrategyHandler([action.name], 'idleMove', creep)) creep.idleMove();
 	delete creep.data.actionName;
 	delete creep.data.targetId;

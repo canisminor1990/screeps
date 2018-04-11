@@ -11,6 +11,7 @@ interface Memory {
 	debugTrace: {
 		error: boolean;
 		no: obj;
+		creepName: string;
 	};
 	cloaked: obj;
 	parameters: obj;
@@ -18,7 +19,9 @@ interface Memory {
 		[type: string]: boolean;
 	};
 	controllers: obj;
-	population: obj;
+	population: {
+		[type: string]: CreepMemory;
+	};
 	tasks: obj;
 	flags: obj;
 	boostTiming: obj;

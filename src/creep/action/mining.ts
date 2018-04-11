@@ -106,7 +106,7 @@ action.determineSpot = function(creep, source) {
 		}
 	}
 	if (!creep.data.determinatedSpot) {
-		logError('Unable to determine working location for miner in room ' + creep.pos.roomName);
+		Util.logError('Unable to determine working location for miner in room ' + creep.pos.roomName);
 	}
 };
 action.work = function(creep) {
@@ -129,8 +129,8 @@ action.work = function(creep) {
 				};
 				_.forEach(Object.keys(creep.carry), transfer);
 			} else {
-				if (global.CHATTY) creep.say('dropmining', global.SAY_PUBLIC);
-				if (global.OOPS) creep.say(String.fromCharCode(8681), global.SAY_PUBLIC);
+				if (CHATTY) creep.say('dropmining', SAY_PUBLIC);
+				if (OOPS) creep.say(String.fromCharCode(8681), SAY_PUBLIC);
 				const drop = r => {
 					if (creep.carry[r] > 0) creep.drop(r);
 				};
@@ -171,8 +171,8 @@ action.getEnergy = function(creep) {
 		filter: r => r.resourceType === RESOURCE_ENERGY,
 	})[0];
 	if (dropped) {
-		if (global.DEBUG && global.TRACE)
-			trace('Action', {
+		if (DEBUG && TRACE)
+			Util.trace('Action', {
 				actionName: this.name,
 				method: 'getEnergy',
 				creepName: creep.name,
@@ -187,8 +187,8 @@ action.getEnergy = function(creep) {
 		filter: s => s.structureType === STRUCTURE_CONTAINER,
 	})[0];
 	if (container && container.sum > 0) {
-		if (global.DEBUG && global.TRACE)
-			trace('Action', {
+		if (DEBUG && TRACE)
+			Util.trace('Action', {
 				actionName: this.name,
 				method: 'getEnergy',
 				creepName: creep.name,
@@ -203,8 +203,8 @@ action.getEnergy = function(creep) {
 		filter: s => s.my && s.structureType === STRUCTURE_LINK,
 	})[0];
 	if (link && link.energy > 0) {
-		if (global.DEBUG && global.TRACE)
-			trace('Action', {
+		if (DEBUG && TRACE)
+			Util.trace('Action', {
 				actionName: this.name,
 				method: 'getEnergy',
 				creepName: creep.name,
@@ -214,8 +214,8 @@ action.getEnergy = function(creep) {
 		creep.withdraw(link, RESOURCE_ENERGY);
 		return true;
 	}
-	if (global.DEBUG && global.TRACE)
-		trace('Action', {
+	if (DEBUG && TRACE)
+		Util.trace('Action', {
 			actionName: this.name,
 			method: 'getEnergy',
 			creepName: creep.name,
@@ -227,8 +227,8 @@ action.getEnergy = function(creep) {
 };
 action.maintain = function(creep) {
 	const minCarry = creep.data.body && creep.data.body.work ? creep.data.body.work * 5 : creep.carryCapacity / 2;
-	if (global.DEBUG && global.TRACE)
-		trace('Action', {
+	if (DEBUG && TRACE)
+		Util.trace('Action', {
 			actionName: this.name,
 			method: 'maintain',
 			creepName: creep.name,
@@ -252,8 +252,8 @@ action.maintain = function(creep) {
 			}
 			if (repairTarget) {
 				creep.data.repairTarget = repairTarget.id;
-				if (global.DEBUG && global.TRACE)
-					trace('Action', {
+				if (DEBUG && TRACE)
+					Util.trace('Action', {
 						actionName: this.name,
 						method: 'maintain',
 						creepName: creep.name,
@@ -278,8 +278,8 @@ action.maintain = function(creep) {
 			}
 			if (buildTarget) {
 				creep.data.buildTarget = buildTarget.id;
-				if (global.DEBUG && global.TRACE)
-					trace('Action', {
+				if (DEBUG && TRACE)
+					Util.trace('Action', {
 						actionName: this.name,
 						method: 'maintain',
 						creepName: creep.name,

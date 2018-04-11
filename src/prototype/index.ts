@@ -1,4 +1,6 @@
 export const ProtoypeInstall = () => {
+	require('./Global');
+	require('./Creep');
 	require('./Structure');
 	require('./Source');
 	require('./RoomPosition');

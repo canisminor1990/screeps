@@ -52,7 +52,7 @@ export const loop = wrapLoop(function() {
 
 		// analyze environment, wait a tick if critical failure
 		if (!FlagDir.analyze()) {
-			logError('FlagDir.analyze failed, waiting one tick to sync flags');
+			Util.logError('FlagDir.analyze failed, waiting one tick to sync flags');
 			return;
 		}
 		p.checkCPU('FlagDir.analyze', PROFILING.ANALYZE_LIMIT);
@@ -85,7 +85,7 @@ export const loop = wrapLoop(function() {
 		if (SEND_STATISTIC_REPORTS) {
 			if (!Memory.statistics || (Memory.statistics.tick && Memory.statistics.tick + TIME_REPORT <= Game.time))
 				require('./memory/statistics').process();
-			processReports();
+			Util.processReports();
 			p.checkCPU('processReports', PROFILING.FLUSH_LIMIT);
 		}
 		FlagDir.cleanup();

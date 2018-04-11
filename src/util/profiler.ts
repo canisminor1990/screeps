@@ -19,7 +19,6 @@ export const profilerUtils = {
 				validTick: Game.time,
 			};
 		}
-		global.profiler = Memory.profiler;
 	},
 
 	/**
@@ -34,9 +33,9 @@ export const profilerUtils = {
 			if (_.isUndefined(Memory.profiler)) {
 				Util.resetProfiler();
 			} else if (
-				!global.profiler ||
-				global.profiler.validTick !== Memory.profiler.validTick ||
-				global.profiler.totalTicks < Memory.profiler.totalTicks
+				!profiler ||
+				profiler.validTick !== Memory.profiler.validTick ||
+				profiler.totalTicks < Memory.profiler.totalTicks
 			) {
 				Util.loadProfiler();
 			}
@@ -51,14 +50,14 @@ export const profilerUtils = {
 						Util.logSystem(name + ':' + localName, used);
 					}
 					if (type) {
-						if (_.isUndefined(global.profiler.types[type]))
-							global.profiler.types[type] = {
+						if (_.isUndefined(profiler.types[type]))
+							profiler.types[type] = {
 								totalCPU: 0,
 								count: 0,
 								totalCount: 0,
 							};
-						global.profiler.types[type].totalCPU += used;
-						global.profiler.types[type].count++;
+						profiler.types[type].totalCPU += used;
+						profiler.types[type].count++;
 					}
 					start = current;
 				};
@@ -66,13 +65,13 @@ export const profilerUtils = {
 			// Calculates total usage and outputs usage based on parameter settings
 			totalCPU = function() {
 				const totalUsed = Game.cpu.getUsed() - onLoad;
-				global.profiler.totalCPU += totalUsed;
-				global.profiler.totalTicks++;
-				const avgCPU = global.profiler.totalCPU / global.profiler.totalTicks;
-				if (PROFILE && !PROFILING.BASIC_ONLY && PROFILING.AVERAGE_USAGE && _.size(global.profiler.types) > 0) {
+				profiler.totalCPU += totalUsed;
+				profiler.totalTicks++;
+				const avgCPU = profiler.totalCPU / profiler.totalTicks;
+				if (PROFILE && !PROFILING.BASIC_ONLY && PROFILING.AVERAGE_USAGE && _.size(profiler.types) > 0) {
 					let string = '';
 					let longestType = '';
-					_(global.profiler.types)
+					_(profiler.types)
 						.map((data: any, type: string) => {
 							data.totalCount += data.count;
 							const typeAvg = _.round(data.totalCPU / data.totalCount, 3);
@@ -109,11 +108,11 @@ export const profilerUtils = {
 					' loop:' + _.round(totalUsed, 2),
 					'other:' + _.round(onLoad, 2),
 					'avg:' + _.round(avgCPU, 2),
-					'ticks:' + global.profiler.totalTicks,
+					'ticks:' + profiler.totalTicks,
 					'bucket:' + Game.cpu.bucket,
 				);
 				if (PROFILE && !PROFILING.BASIC_ONLY) console.log('\n');
-				Memory.profiler = global.profiler;
+				Memory.profiler = profiler;
 			};
 		}
 		return { checkCPU, totalCPU };

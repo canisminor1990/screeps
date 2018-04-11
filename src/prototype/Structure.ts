@@ -141,7 +141,7 @@ Object.defineProperties(StructureStorage.prototype, {
 		},
 	},
 	getNeeds: {
-		value: function(resourceType: string): number {
+		value(resourceType: string): number {
 			let ret = 0;
 			if (!this.room.memory.resources) return 0;
 
@@ -193,7 +193,7 @@ Object.defineProperties(StructureTerminal.prototype, {
 		},
 	},
 	getNeeds: {
-		value: function(resourceType: string): number {
+		value(resourceType: string): number {
 			let ret = 0;
 			if (!this.room.memory.resources) return 0;
 			let terminalData = this.room.memory.resources.terminal[0];
@@ -233,7 +233,7 @@ Object.defineProperties(StructureContainer.prototype, {
 		},
 	},
 	getNeeds: {
-		value: function(resourceType: string): number {
+		value(resourceType: string): number {
 			if (!this.room.memory.resources) return 0;
 			// look up resource and calculate needs
 			let containerData = this.room.memory.resources.container.find((s: obj) => s.id === this.id);
@@ -268,7 +268,7 @@ Object.defineProperties(StructureLab.prototype, {
 		},
 	},
 	getNeeds: {
-		value: function(resourceType: string): number {
+		value(resourceType: string): number {
 			if (!this.room.memory.resources) return 0;
 			let loadTarget = 0;
 			let unloadTarget = 0;
@@ -329,7 +329,7 @@ Object.defineProperties(StructureLab.prototype, {
 
 Object.defineProperties(StructurePowerSpawn.prototype, {
 	getNeeds: {
-		value: function(resourceType: string): number {
+		value(resourceType: string): number {
 			// if parameter is enabled then autofill powerSpawns
 			if (FILL_POWERSPAWN && !this.room.isCriticallyFortifyable) {
 				if (resourceType === RESOURCE_ENERGY && this.energy < this.energyCapacity * 0.75) {

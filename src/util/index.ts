@@ -2,12 +2,12 @@ import { dateUtils } from './date';
 import { logUtils } from './log';
 import { roomUtils } from './room';
 import { profilerUtils } from './profiler';
+import { marketUtils } from './market';
+import { StrategyUtils } from './strategy';
 import { DiamondIterator } from './diamondIterator';
 import { SpiralIterator } from './spiralIterator';
 
 const utils = {
-	DiamondIterator: DiamondIterator,
-	SpiralIterator: SpiralIterator,
 	/**
 	 * 格式化数字单位
 	 */
@@ -75,14 +75,6 @@ const utils = {
 	 */
 	fieldOrFunction(value: any, ...args: any[]): any {
 		return typeof value === 'function' ? value(...args) : value;
-	},
-
-	/**
-	 * 检查是方法或者是对象， TODO:名字有歧义
-	 */
-	isObject(value: any): boolean {
-		if (value === null) return false;
-		return typeof value === 'function' || typeof value === 'object';
 	},
 
 	/**
@@ -233,4 +225,7 @@ const utils = {
 	},
 };
 
-export default _.assign(utils, roomUtils, logUtils, dateUtils, profilerUtils);
+export default _.assign(utils, roomUtils, logUtils, dateUtils, profilerUtils, marketUtils, StrategyUtils, {
+	DiamondIterator,
+	SpiralIterator,
+});

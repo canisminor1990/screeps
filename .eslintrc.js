@@ -34,5 +34,6 @@ module.exports = {
 		'camelcase': [0],
 		'no-unreachable': [1],
 		'no-useless-return': [1],
+		'new-cap': [0],
 	}
 };

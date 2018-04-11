@@ -9,24 +9,24 @@ mod.activateSegment = (id, reset = false) => {
 		}
 		return;
 	}
-	if (id < 0 || id > 99) return logError('RawMemory', 'cannot activate invalid segment ' + id);
+	if (id < 0 || id > 99) return Util.logError('RawMemory', 'cannot activate invalid segment ' + id);
 	const numActive = _.size(RawMemory.segments);
-	if (OCSMemory.numSaved >= 10) return logError('RawMemory', '10 segments saved, cannot activate segment ' + id);
+	if (OCSMemory.numSaved >= 10) return Util.logError('RawMemory', '10 segments saved, cannot activate segment ' + id);
 	if (!reset) {
-		if (numActive >= 10) return logError('RawMemory', '10 segments loaded, cannot activate segment ' + id);
+		if (numActive >= 10) return Util.logError('RawMemory', '10 segments loaded, cannot activate segment ' + id);
 		if (numActive + OCSMemory.numSaved >= 10)
-			return logError('RawMemory', 'combined loaded and saved exceeds limit(10), cannot activate segment ' + id);
+			return Util.logError('RawMemory', 'combined loaded and saved exceeds limit(10), cannot activate segment ' + id);
 	}
 	OCSMemory.toActivate[id] = true;
 };
 mod.deactivateSegment = id => {
-	if (id < 0 || id > 99) return logError('RawMemory', 'cannot deactivate invalid segment ' + id);
+	if (id < 0 || id > 99) return Util.logError('RawMemory', 'cannot deactivate invalid segment ' + id);
 	if (_.size(OCSMemory.toActivate) === 0)
 		Object.keys(RawMemory.segments).forEach(id => (OCSMemory.toActivate[id] = true));
 	delete OCSMemory.toActivate[id];
 };
 mod.cacheValid = id => {
-	return global.cacheValid[id] === Memory.cacheValid[id];
+	return cacheValid[id] === Memory.cacheValid[id];
 };
 mod.processSegment = (id, process) => {
 	if (_.isUndefined(Memory.cacheValid[id])) Memory.cacheValid[id] = false;
@@ -35,7 +35,6 @@ mod.processSegment = (id, process) => {
 		try {
 			let data = segment ? JSON.parse(segment) : {};
 			process(data);
-			global.cacheValid[id] = Memory.cacheValid[id];
 		} catch (e) {
 			console.log(
 				'<font style="color:FireBrick">Error loading segment' +
@@ -45,13 +44,13 @@ mod.processSegment = (id, process) => {
 					'</font>',
 			);
 			RawMemory.segments[id] = '';
-			delete global.cacheValid[id];
+			delete cacheValid[id];
 			delete Memory.cacheValid[id];
 		}
 	}
 };
 mod.processSegments = () => {
-	if (_.isUndefined(global.cacheValid)) global.cacheValid = {};
+	if (_.isUndefined(cacheValid)) cacheValid = {};
 	if (_.isUndefined(Memory.cacheValid)) Memory.cacheValid = {};
 
 	for (let id = MEM_SEGMENTS.COSTMATRIX_CACHE.start; id >= MEM_SEGMENTS.COSTMATRIX_CACHE.end; id--) {
@@ -80,10 +79,10 @@ mod.saveSegment = (range, inputData) => {
 				}
 				if (!encodedData && temp && temp.length > 0) {
 					const size = _.round((temp.length + 2) / 1024, 2);
-					return logError('RawMemory', `Cannot save data at key ${keyNum}, exceeds 100kb limit ${size}kb`);
+					return Util.logError('RawMemory', `Cannot save data at key ${keyNum}, exceeds 100kb limit ${size}kb`);
 				}
-				if (global.DEBUG)
-					logSystem(
+				if (DEBUG)
+					Util.logSystem(
 						'OCSMemory.saveSegment',
 						'Saving ' + _.round(encodedData.length / 1024, 2) + 'kb of data to segment ' + id,
 					);
@@ -93,16 +92,16 @@ mod.saveSegment = (range, inputData) => {
 				if (_.isUndefined(RawMemory.segments[id])) OCSMemory.numSaved++;
 			} else if (numActive > 10) {
 				// TODO: also defer? (This should be impossible)
-				return logError('RawMemory', 'cannot save segment ' + id + ' too many active segments.');
+				return Util.logError('RawMemory', 'cannot save segment ' + id + ' too many active segments.');
 			} else if (numActive + OCSMemory.numSaved > 10) {
 				// TODO: defer one tick?
-				return logError('RawMemory', 'cannot save segment ' + id + ' loaded + saved exceeds limit(10).');
+				return Util.logError('RawMemory', 'cannot save segment ' + id + ' loaded + saved exceeds limit(10).');
 			} else {
-				logError('RawMemory', 'should not be here.');
+				Util.logError('RawMemory', 'should not be here.');
 			}
 		} else if (Memory.cacheValid[id]) {
 			// no more data, clear this segment
-			if (global.DEBUG) logSystem('OCSMemory.saveSegment', 'clearing unused segment ' + id);
+			if (DEBUG) Util.logSystem('OCSMemory.saveSegment', 'clearing unused segment ' + id);
 			RawMemory.segments[id] = '';
 			delete Memory.cacheValid[id];
 		}

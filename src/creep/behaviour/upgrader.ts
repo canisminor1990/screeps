@@ -106,11 +106,11 @@ mod.run = function(creep) {
 			}
 		}
 		if (!creep.data.determinatedSpot) {
-			logError('Unable to determine working location for upgrader in room ' + creep.pos.roomName);
-		} else if (global.SAY_ASSIGNMENT) creep.say(String.fromCharCode(9962), global.SAY_PUBLIC);
+			Util.logError('Unable to determine working location for upgrader in room ' + creep.pos.roomName);
+		} else if (SAY_ASSIGNMENT) creep.say(String.fromCharCode(9962), SAY_PUBLIC);
 	}
 	if (creep.data.determinatedSpot) {
-		if (global.CHATTY) creep.say('upgrading', global.SAY_PUBLIC);
+		if (CHATTY) creep.say('upgrading', SAY_PUBLIC);
 		let range = this.approach(creep);
 		if (creep.room.controller && creep.pos.getRangeTo(creep.room.controller) <= 3) {
 			let carryThreshold = creep.data.body && creep.data.body.work ? creep.data.body.work : creep.carryCapacity / 2;

@@ -234,7 +234,7 @@ mod.extend = function() {
 
 		// build roads on all most frequent used fields
 		let setSite = pos => {
-			if (global.DEBUG) logSystem(this.name, `Constructing new road at ${pos.x}'${pos.y} (${pos.n} traces)`);
+			if (DEBUG) Util.logSystem(this.name, `Constructing new road at ${pos.x}'${pos.y} (${pos.n} traces)`);
 			this.createConstructionSite(pos.x, pos.y, STRUCTURE_ROAD);
 		};
 		_.forEach(data, setSite);

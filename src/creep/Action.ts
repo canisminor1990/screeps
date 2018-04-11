@@ -64,7 +64,7 @@ let Action = function(actionName) {
 	};
 	// order for the creep to execute each tick, when assigned to that action
 	this.step = function(creep) {
-		if (global.CHATTY) creep.say(this.name, global.SAY_PUBLIC);
+		if (CHATTY) creep.say(this.name, SAY_PUBLIC);
 		let range = creep.pos.getRangeTo(creep.target);
 		if (range <= this.targetRange) {
 			var workResult = this.work(creep);
@@ -120,8 +120,8 @@ let Action = function(actionName) {
 	this.assign = function(creep, target) {
 		if (target === undefined) target = this.newTarget(creep);
 		if (target && this.isAddableTarget(target, creep)) {
-			if (global.DEBUG && global.TRACE)
-				trace('Action', {
+			if (DEBUG && TRACE)
+				Util.trace('Action', {
 					creepName: creep.name,
 					assign: this.name,
 					target: !target || target.name || target.id,
@@ -142,8 +142,8 @@ let Action = function(actionName) {
 		return false;
 	};
 	this.showAssignment = function(creep, target) {
-		if (global.SAY_ASSIGNMENT && ACTION_SAY[this.name.toUpperCase()])
-			creep.say(ACTION_SAY[this.name.toUpperCase()], global.SAY_PUBLIC);
+		if (SAY_ASSIGNMENT && ACTION_SAY[this.name.toUpperCase()])
+			creep.say(ACTION_SAY[this.name.toUpperCase()], SAY_PUBLIC);
 		if (target instanceof RoomObject || (target instanceof RoomPosition && VISUALS.ACTION_ASSIGNMENT)) {
 			Visuals.drawArrow(creep, target);
 		}
@@ -178,4 +178,5 @@ let Action = function(actionName) {
 		else return creep.getStrategyHandler([this.name], strategyName, ...args);
 	};
 };
+
 module.exports = Action;
