@@ -1,7 +1,7 @@
 import { Component } from '../class';
 
 export default class FlagClass extends Component {
-	stale: obj = {};
+	stale: Flag[] = [];
 	list: Flag[] = [];
 	flagFilter = (flagColour: obj): obj | void => {
 		if (!flagColour) return;

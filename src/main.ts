@@ -29,11 +29,7 @@ export const loop = wrapLoop(function() {
 			Memory.cloaked = {};
 		}
 
-		Util.set(Memory, 'parameters', {});
-		_.assign(global, { parameters: Memory.parameters }); // allow for shorthand access in console
-		// ensure up to date parameters, override in memory
 		_.assign(global, require('./config'));
-		_.merge(global, parameters);
 
 		// process loaded memory segments
 		OCSMemory.processSegments();
@@ -105,8 +101,8 @@ export const loop = wrapLoop(function() {
 
 		Game.cacheTime = Game.time;
 
-		if (global.DEBUG && global.TRACE)
-			trace('main', {
+		if (DEBUG && TRACE)
+			Util.trace('main', {
 				cpuAtLoad,
 				cpuAtFirstLoop,
 				cpuAtLoop,

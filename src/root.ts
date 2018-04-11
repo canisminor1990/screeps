@@ -5,7 +5,7 @@ import { ProtoypeInstall } from './prototype';
 export const install = () => {
 	// Load global & config
 	inject(global, new (require('./global/index')).Constants());
-	inject(global, require('./global/index').Global);
+
 	global._ME = _(Game.rooms)
 		.map('controller')
 		.filter('my')

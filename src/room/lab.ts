@@ -102,7 +102,7 @@ mod.extend = function() {
 			if (master.runReaction(slave_a, slave_b) === OK) {
 				data.reactionAmount -= LAB_REACTION_AMOUNT;
 				if (DEBUG && TRACE)
-					trace('Room', {
+					Util.trace('Room', {
 						roomName: this.name,
 						actionName: 'processLabs',
 						labId: master.id,
@@ -371,7 +371,7 @@ mod.extend = function() {
 				if (returnValue === OK) {
 					order.amount -= LAB_REACTION_AMOUNT;
 					if (DEBUG && TRACE)
-						trace('Room', {
+						Util.trace('Room', {
 							roomName: this.name,
 							actionName: 'processLabs',
 							reactorType: REACTOR_TYPE_FLOWER,
@@ -633,7 +633,7 @@ mod.extend = function() {
 			if (existingOrder) {
 				// update existing order
 				if (DEBUG && TRACE)
-					trace('Room', {
+					Util.trace('Room', {
 						roomName: this.name,
 						actionName: 'placeReactionOrder',
 						subAction: 'update',
@@ -646,7 +646,7 @@ mod.extend = function() {
 			} else {
 				// create new order
 				if (DEBUG && TRACE)
-					trace('Room', {
+					Util.trace('Room', {
 						roomName: this.name,
 						actionName: 'placeReactionOrder',
 						subAction: 'new',
@@ -699,7 +699,7 @@ mod.extend = function() {
 			}
 		} else {
 			if (DEBUG && TRACE)
-				trace('Room', {
+				Util.trace('Room', {
 					roomName: this.name,
 					actionName: 'placeRoomOrder',
 					subAction: 'no_reactor',

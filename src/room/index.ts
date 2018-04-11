@@ -496,7 +496,7 @@ mod.extend = function() {
 						};
 						Room.pathfinderCacheDirty = true;
 						if (DEBUG && TRACE)
-							trace(
+							Util.trace(
 								'PathFinder',
 								{
 									roomName: this.name,
@@ -2079,7 +2079,7 @@ mod.getCachedStructureMatrix = function(roomName) {
 			ttl < COST_MATRIX_VALIDITY
 		) {
 			if (DEBUG && TRACE)
-				trace('PathFinder', { roomName: roomName, ttl, PathFinder: 'CostMatrix' }, 'cached costmatrix');
+				Util.trace('PathFinder', { roomName: roomName, ttl, PathFinder: 'CostMatrix' }, 'cached costmatrix');
 			return true;
 		}
 		return false;

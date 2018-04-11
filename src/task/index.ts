@@ -1,3 +1,4 @@
+import { Component } from '../class';
 import { GuardTask } from './tasks/guard';
 import { DefenseTask } from './tasks/defense';
 import { MiningTask } from './tasks/mining';
@@ -12,7 +13,7 @@ import { LabTechTask } from './tasks/labTech';
 import { SafeGenTask } from './tasks/safeGen';
 import { SchedulerTask } from './tasks/scheduler';
 
-export default class TaskClass {
+export default class TaskClass extends Component {
 	private _cache: obj = {};
 	executeCache: obj = {};
 	tasks: any[] = [];

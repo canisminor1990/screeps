@@ -7,7 +7,7 @@ Object.defineProperties(Room.prototype, {
 		 * @param {string} [name] - Optional name for the flag
 		 * @returns {string|Number} The name of the flag or an error code.
 		 */
-		value: (flagColour: obj | string, pos: RoomPosition, name: string): string | number | void => {
+		value: (flagColour: obj, pos: RoomPosition, name: string): string | number | void => {
 			if (!pos) pos = this.getPositionAt(25, 25);
 			return pos.newFlag(flagColour, name);
 		},

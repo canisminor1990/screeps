@@ -30,7 +30,7 @@ mod.unregisterCreep = function(creepName) {
 };
 mod.registerAction = function(creep, action, target, entry) {
 	if (DEBUG && TRACE)
-		trace('Population', {
+		Util.trace('Population', {
 			creepName: this.name,
 			registerAction: action.name,
 			target: target.name || target.id,

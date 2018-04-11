@@ -198,6 +198,8 @@ declare const DECAY_AMOUNT: {
 	road: 100;
 	container: 5000;
 };
+declare const DECAYABLES: string[];
+
 declare const MEM_SEGMENTS: {
 	COSTMATRIX_CACHE: {
 		start: 99;

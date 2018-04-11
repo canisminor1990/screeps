@@ -37,7 +37,7 @@ Object.defineProperties(RoomPosition.prototype, {
 		 * @param {string} [name] - Optional name for the flag
 		 * @returns {string|Number} The name of the flag or an error code.
 		 */
-		value: (flagColour: obj | string, name: string): string | number | void => {
+		value(flagColour: obj, name: string): string | number | void {
 			if (!flagColour) flagColour = _.get(FLAG_COLOR, flagColour); // allows you to pass through a string (e.g. 'invade.robbing')
 			if (!flagColour) return;
 			return this.createFlag(name, flagColour.color, flagColour.secondaryColor);
