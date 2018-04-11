@@ -7,11 +7,6 @@ Object.defineProperties(Flag.prototype, {
 			this.memory.cloaking = value;
 		},
 	},
-	compare: {
-		value(flagA, flagB) {
-			return flagA.color === flagB.color && flagA.secondaryColor === flagB.secondaryColor;
-		},
-	},
 	compareTo: {
 		value(flag) {
 			return Flag.compare(this, flag);

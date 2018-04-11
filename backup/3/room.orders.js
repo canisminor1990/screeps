@@ -112,8 +112,10 @@ mod.extend = function() {
                     if (!room.memory.resources.offers)
                         room.memory.resources.offers = [];
                     let remoteOffers = room.memory.resources.offers;
-                    let offered = global.sumCompoundType(remoteOffers);
-                    let available = (room.resourcesStorage[order.type] || 0) + (room.resourcesTerminal[order.type] || 0) - (room.name === this.name ? 0 : (room.resourcesReactions[order.type] || 0)) - (offered[order.type] || 0);
+                    //let offered = global.sumCompoundType(remoteOffers);
+                    //let available = (room.resourcesStorage[order.type] || 0) + (room.resourcesTerminal[order.type] || 0) - (room.resourcesReactions[order.type] || 0) - (offered[order.type] || 0);
+                    let available = room.resourcesAll[order.type] || 0;
+                    //global.logSystem(room.name, `${room.name} ${available} ${order.type}`);
                     if (available < global.MIN_OFFER_AMOUNT)
                         continue;
 
@@ -207,11 +209,8 @@ mod.extend = function() {
                 amount -= cost;
                 cost += amount;
             }
-            console.log(`${this.name} amount: ${amount}`);
             if (cost > (this.terminal.store.energy||0)) continue;
             if (amount < global.MIN_OFFER_AMOUNT) continue;
-
-            console.log(`${offer.type} ${amount} ${targetRoom.name} ${order.id}`);
 
             ret = this.terminal.send(offer.type,amount,targetRoom.name,order.id);
             if (ret == OK) {
@@ -479,6 +478,7 @@ mod.extend = function() {
         let transacting = false;
         for (const mineral in this.terminal.store) {
             if (mineral === RESOURCE_ENERGY || mineral === RESOURCE_POWER) continue;
+            if ((global.MAKE_COMPOUNDS || global.ALLOCATE_COMPOUNDS) && mineral !== this.memory.mineralType) continue;
             let terminalFull = (this.terminal.sum / this.terminal.storeCapacity) > 0.8;
 
             if( this.terminal.store[mineral] >= MIN_MINERAL_SELL_AMOUNT ) {
@@ -503,7 +503,7 @@ mod.extend = function() {
                         o.amount < MIN_MINERAL_SELL_AMOUNT ) return false;
 
                     o.range = Game.map.getRoomLinearDistance(o.roomName, that.name, true);
-                    o.transactionAmount = Math.min(o.amount, that.terminal.store[mineral] - that.resourcesOffers[mineral] - that.resourcesReactions[mineral]);
+                    o.transactionAmount = Math.min(o.amount, that.terminal.store[mineral]);
                     o.transactionCost = Game.market.calcTransactionCost(
                         o.transactionAmount,
                         that.name,
@@ -550,7 +550,7 @@ mod.extend = function() {
             let requiresEnergy = room => (
                 room.my && room.storage && room.terminal &&
                 room.terminal.sum < room.terminal.storeCapacity - ENERGY_BALANCE_TRANSFER_AMOUNT &&
-                room.storage.sum < room.storage.storeCapacity * 0.6 &&
+                room.storage.sum < room.storage.storeCapacity * TARGET_STORAGE_SUM_RATIO &&
                 !room._isReceivingEnergy &&
                 room.storage.store[RESOURCE_ENERGY] < MAX_STORAGE_ENERGY[room.controller.level]
             )
@@ -562,8 +562,10 @@ mod.extend = function() {
                 transacting = response == OK;
             }
         }
-        if ( !transacting && Memory.boostTiming && Memory.boostTiming.compoundAllocationEnabled) {
+        if ( !transacting && !Memory.boostTiming) {
             transacting = this.fillARoomOrder();
+            if (transacting !== true)
+                transacting = false;
         }
     };
 };

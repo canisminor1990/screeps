@@ -3,17 +3,17 @@ module.exports = mod;
 mod.inflowActions = (creep) => {
     return [
         Creep.action.reallocating,
+        Creep.action.withdrawing,
         Creep.action.uncharging,
-        Creep.action.picking,
-        Creep.action.withdrawing
+        Creep.action.picking
     ];
 };
 mod.outflowActions = (creep) => {
     let priority = [
+        Creep.action.storing,
         Creep.action.charging,
-        Creep.action.feeding,
         Creep.action.fueling,
-        Creep.action.storing
+        Creep.action.feeding
     ];
     if ( creep.sum > creep.carry.energy ||
             ( !creep.room.situation.invasion &&

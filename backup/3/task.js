@@ -7,6 +7,7 @@ mod.populate = function() {
         Task.attackController,
         Task.claim,
         Task.defense,
+        Task.delivery,
         Task.guard,
         Task.labTech,
         Task.mining,

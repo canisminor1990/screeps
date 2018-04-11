@@ -131,6 +131,10 @@ mod.FLAG_COLOR = {
             color: COLOR_GREEN,
             secondaryColor: COLOR_BROWN,
         },
+        delivery: { // rob energy from friendly rooms and deliver here
+            color: COLOR_GREEN,
+            secondaryColor: COLOR_YELLOW,
+        },
     },
     //COLOR_YELLOW
     defense: { // point to gather troops
@@ -514,16 +518,18 @@ mod.roundUp = function (num, precision = 0) {
     precision = Math.pow(10, precision);
     return Math.ceil(num * precision) / precision;
 };
-mod.divisibleByFive = function (number) {
-    if (number % LAB_REACTION_AMOUNT !== 0)
-        number = number + LAB_REACTION_AMOUNT - number % LAB_REACTION_AMOUNT;
+mod.roundUpTo = function (number, upTo) {
+    if (number % upTo !== 0)
+        number = number + upTo - number % upTo;
     return number;
 };
 mod.orderingRoom = function () {
     let myRooms = _.filter(Game.rooms, {'my': true});
         return _.filter(myRooms, room => {
             let data = room.memory.resources;
-            if (!data.boostTiming)
+            if (_.isUndefined(data) || _.isUndefined(data.orders))
+                return false;
+            if (_.isUndefined(data.boostTiming))
                 data.boostTiming = {};
             return data.orders.length > 0 && _.sum(data.orders, 'amount') > 0;
     });

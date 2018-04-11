@@ -159,14 +159,21 @@ mod.extend = function() {
         let seed_b = Game.getObjectById(data.seed_b);
         let myRooms = _.filter(Game.rooms, {'my': true});
         let roomTradeUpdate = false;
+        let labOrderPlaced = false;
         let empireResources = function (component) {
-            let roomStored = 0;
-            for (let room of myRooms)
-                roomStored += room.resourcesAll[component] || 0;
+            let roomStored = 0,
+                that = this;
+            for (let room of myRooms) {
+                if (room.name === that.name)
+                    continue;
+                let resourcesAll = room.resourcesAll[component] || 0;
+                if (resourcesAll >= global.MIN_OFFER_AMOUNT)
+                    roomStored += resourcesAll;
+            }
             return roomStored;
         };
-        let empireResourcesComponentA = empireResources(component_a) + (this.resourcesReactions[component_a] || 0);
-        let empireResourcesComponentB = empireResources(component_b) + (this.resourcesReactions[component_b] || 0);
+        let empireResourcesComponentA = empireResources(component_a);
+        let empireResourcesComponentB = empireResources(component_b);
 
         if ( !seed_a || !seed_b ) return;
 
@@ -174,69 +181,53 @@ mod.extend = function() {
         let data_a = this.memory.resources.lab.find( l => l.id === data.seed_a );
         let data_b = this.memory.resources.lab.find( l => l.id === data.seed_b );
         if (!data_a || !_.some(data_a.orders, 'type', component_a)) {
-            if (global.DEBUG)
-                global.logSystem(this.name, `lab_seed_a: this.placeOrder(${data.seed_a}, ${component_a}, ${order.amount});`);
 
             this.placeOrder(data.seed_a, component_a, order.amount);
+            labOrderPlaced = true;
 
             let resourcesStored = (this.resourcesStorage[component_a] || 0) + (this.resourcesTerminal[component_a] || 0) + (this.resourcesLabs[component_a] || 0),
                 resourcesOffered = (this.resourcesOffers[component_a] || 0) + order.amount,
                 amountToOrder = resourcesOffered - resourcesStored;
 
-            if (global.DEBUG) {
-                global.logSystem(this.name, `${this.name}, resourcesStored: ${resourcesStored} resourcesOffered + this order: ${resourcesOffered} amountToOrder: ${amountToOrder}`)
-            }
-
-            if (amountToOrder < TRADE_THRESHOLD && amountToOrder > 0) {
-                if (empireResourcesComponentA >= TRADE_THRESHOLD)
-                    amountToOrder = TRADE_THRESHOLD;
-                else if (empireResourcesComponentA > amountToOrder)
-                    amountToOrder = empireResourcesComponentA;
-
-                global.logSystem(this.name, `amountToOrder rounded to: ${amountToOrder}`);
-            }
+            let roundedAmountToOrder = global.roundUpTo(amountToOrder, global.MIN_OFFER_AMOUNT);
+            if (amountToOrder < global.TRADE_THRESHOLD && amountToOrder > 0) {
+                if (empireResourcesComponentA >= global.TRADE_THRESHOLD)
+                    amountToOrder = global.TRADE_THRESHOLD;
+                else if (empireResourcesComponentA >= roundedAmountToOrder)
+                    amountToOrder = roundedAmountToOrder;
+            } else if (amountToOrder > 0 && roundedAmountToOrder <= empireResourcesComponentA)
+                amountToOrder = roundedAmountToOrder;
 
             if (amountToOrder > 0 && amountToOrder <= empireResourcesComponentA) {
-                if (global.DEBUG)
-                    global.logSystem(this.name, `PlaceRoomOrder in ${this.name} for ${amountToOrder} ${component_a} is placed`);
                 this.placeRoomOrder(data.seed_a, component_a, amountToOrder);
                 roomTradeUpdate = true;
-            } else if (amountToOrder > 0)
-                global.logSystem(this.name, `PlaceRoomOrder in ${this.name} for ${amountToOrder} ${component_b} can not be placed empireResourcesA: ${empireResourcesComponentA}`);
+            }
 
             data_a = this.memory.resources.lab.find( l => l.id === data.seed_a );
             data_a.reactionType = component_a;
         }
         if (!data_b || !_.some(data_b.orders, 'type', component_b)) {
-            if (global.DEBUG)
-                global.logSystem(this.name, `lab_seed_b: this.placeOrder(${data.seed_b}, ${component_b}, ${order.amount});`);
 
             this.placeOrder(data.seed_b, component_b, order.amount);
+            labOrderPlaced = true;
 
             let resourcesStored = (this.resourcesStorage[component_b] || 0) + (this.resourcesTerminal[component_b] || 0) + (this.resourcesLabs[component_b] || 0),
                 resourcesOffered = (this.resourcesOffers[component_b] || 0) + order.amount,
                 amountToOrder = resourcesOffered - resourcesStored;
 
-            if (global.DEBUG) {
-                global.logSystem(this.name, `${this.name}, resourcesStored: ${resourcesStored} resourcesOffered + this order: ${resourcesOffered} amountToOrder: ${amountToOrder}`)
-            }
-
-            if (amountToOrder < TRADE_THRESHOLD && amountToOrder > 0) {
-                if (empireResourcesComponentB >= TRADE_THRESHOLD)
-                    amountToOrder = TRADE_THRESHOLD;
-                else if (empireResourcesComponentB > amountToOrder)
-                    amountToOrder = empireResourcesComponentB;
-
-                global.logSystem(this.name, `amountToOrder rounded to: ${amountToOrder}`);
-            }
+            let roundedAmountToOrder = global.roundUpTo(amountToOrder, global.MIN_OFFER_AMOUNT);
+            if (amountToOrder < global.TRADE_THRESHOLD && amountToOrder > 0) {
+                if (empireResourcesComponentB >= global.TRADE_THRESHOLD)
+                    amountToOrder = global.TRADE_THRESHOLD;
+                else if (empireResourcesComponentB >= roundedAmountToOrder)
+                    amountToOrder = roundedAmountToOrder;
+            } else if (amountToOrder > 0 && roundedAmountToOrder <= empireResourcesComponentB)
+                amountToOrder = roundedAmountToOrder;
 
             if (amountToOrder > 0 && amountToOrder <= empireResourcesComponentB) {
-                if (global.DEBUG)
-                    global.logSystem(this.name, `PlaceRoomOrder in ${this.name} for ${amountToOrder} ${component_b} is placed`);
                 this.placeRoomOrder(data.seed_b, component_b, amountToOrder);
                 roomTradeUpdate = true;
-            } else if (amountToOrder > 0)
-                global.logSystem(this.name, `PlaceRoomOrder in ${this.name} for ${amountToOrder} ${component_b} can not be placed empireResourcesB: ${empireResourcesComponentB}`);
+            }
 
             data_b = this.memory.resources.lab.find( l => l.id === data.seed_b );
             data_b.reactionType = component_b;
@@ -245,72 +236,81 @@ mod.extend = function() {
         let data_a_order = data_a.orders.find( o => o.type === component_a );
         let data_b_order = data_b.orders.find( o => o.type === component_b );
         if ( !data_a_order || data_a_order.amount < order.amount ) {
-            if (global.DEBUG)
-                console.log(`Replacement order C., this.placeOrder(${data.seed_a}, ${component_a}, ${order.amount} - ( ${data_a_order} ? ${data_a_order.orderAmount} : 0 ));`);
             let orderAmount = order.amount - (data_a_order ? data_a_order.orderAmount : 0);
             this.placeOrder(data.seed_a, component_a, orderAmount);
+            labOrderPlaced = true;
 
             let resourcesStored = (this.resourcesStorage[component_a] || 0) + (this.resourcesTerminal[component_a] || 0) + (this.resourcesLabs[component_a] || 0),
                 resourcesOffered = (this.resourcesOffers[component_a] || 0) + order.amount,
                 amountToOrder = resourcesOffered - resourcesStored;
 
-            if (amountToOrder < TRADE_THRESHOLD && amountToOrder > 0) {
-                if (empireResourcesComponentA >= TRADE_THRESHOLD)
-                    amountToOrder = TRADE_THRESHOLD;
-                else if (empireResourcesComponentA > amountToOrder)
-                    amountToOrder = empireResourcesComponentA;
+            let roundedAmountToOrder = global.roundUpTo(amountToOrder, global.MIN_OFFER_AMOUNT);
+            if (amountToOrder < global.TRADE_THRESHOLD && amountToOrder > 0) {
+                if (empireResourcesComponentA >= global.TRADE_THRESHOLD)
+                    amountToOrder = global.TRADE_THRESHOLD;
+                else if (empireResourcesComponentA >= roundedAmountToOrder)
+                    amountToOrder = roundedAmountToOrder;
+            } else if (amountToOrder > 0 && roundedAmountToOrder <= empireResourcesComponentA)
+                amountToOrder = roundedAmountToOrder;
+
+            if (amountToOrder > 0 && amountToOrder <= empireResourcesComponentA) {
+                this.placeRoomOrder(data.seed_a, component_a, amountToOrder);
+                roomTradeUpdate = true;
             }
 
+
             if (amountToOrder > 0) {
-                if (global.DEBUG)
-                    console.log(`placeRoomOrder in ${this.name} for ${amountToOrder} ${component_a} is placed`);
                 this.placeRoomOrder(data.seed_a, component_a, amountToOrder);
                 roomTradeUpdate = true;
             }
         }
         if ( !data_b_order || data_b_order.amount < order.amount ) {
-            if (global.DEBUG)
-                console.log(`Replacement order D., this.placeOrder(${data.seed_b}, ${component_b}, ${order.amount} - ( ${data_b_order} ? ${data_b_order.orderAmount} : 0 ));`);
             let orderAmount = order.amount - (data_b_order ? data_b_order.orderAmount : 0);
             this.placeOrder(data.seed_b, component_b, orderAmount);
+            labOrderPlaced = true;
 
             let resourcesStored = (this.resourcesStorage[component_b] || 0) + (this.resourcesTerminal[component_b] || 0) + (this.resourcesLabs[component_b] || 0),
                 resourcesOffered = (this.resourcesOffers[component_b] || 0) + order.amount,
                 amountToOrder = resourcesOffered - resourcesStored;
 
-            if (amountToOrder < TRADE_THRESHOLD && amountToOrder > 0) {
-                if (empireResourcesComponentB >= TRADE_THRESHOLD)
-                    amountToOrder = TRADE_THRESHOLD;
-                else if (empireResourcesComponentB > amountToOrder)
-                    amountToOrder = empireResourcesComponentB;
+            let roundedAmountToOrder = global.roundUpTo(amountToOrder, global.MIN_OFFER_AMOUNT);
+            if (amountToOrder < global.TRADE_THRESHOLD && amountToOrder > 0) {
+                if (empireResourcesComponentB >= global.TRADE_THRESHOLD)
+                    amountToOrder = global.TRADE_THRESHOLD;
+                else if (empireResourcesComponentB >= roundedAmountToOrder)
+                    amountToOrder = roundedAmountToOrder;
+            } else if (amountToOrder > 0 && roundedAmountToOrder <= empireResourcesComponentB)
+                amountToOrder = roundedAmountToOrder;
+
+            if (amountToOrder > 0 && amountToOrder <= empireResourcesComponentB) {
+                this.placeRoomOrder(data.seed_b, component_b, amountToOrder);
+                roomTradeUpdate = true;
             }
 
             if (amountToOrder > 0) {
-                if (global.DEBUG)
-                    console.log(`placeRoomOrder in ${this.name} for ${amountToOrder} ${component_b} is placed`);
                 this.placeRoomOrder(data.seed_b, component_b, amountToOrder);
                 roomTradeUpdate = true;
             }
         }
 
-        let boostTiming = this.memory.resources.boostTiming,
-            orders = this.memory.resources.orders;
+        let boostTiming = this.memory.resources.boostTiming;
 
         if (roomTradeUpdate) {
             boostTiming.roomState = 'ordersPlaced';
+            //Memory.boostTiming.roomTrading.boostProduction = true;
+            //Memory.boostTiming.timeStamp = Game.time;
             this.GCOrders();
-        } else if (orders.length === 0 || _.sum(orders, 'amount') === 0) {
-            boostTiming.roomState = 'reactionMaking';
-            boostTiming.reactionMaking = Game.time;
-            this.countCheckRoomAt();
+        } else if (labOrderPlaced) {
+            boostTiming.roomState = 'ordersPlaced';
         }
 
         // find and configure idle labs
         let labs = this.find(FIND_MY_STRUCTURES, { filter: (s) => { return s.structureType == STRUCTURE_LAB; } } );
-        let reactors = labs.filter ( l => {
+        let reactors = labs.filter (l => {
             let data = this.memory.resources.lab.find( s => s.id === l.id );
-            return data ? data.reactionState === LAB_IDLE : true;
-        } );
+            let reactions = this.memory.resources.reactions;
+            return data ? data.reactionState === LAB_IDLE && (data.id !== reactions.seed_a || data.id !== reactions.seed_b) : true;
+        });
         for (let i=0;i<reactors.length;i++) {
             let reactor = reactors[i];
             let data = this.memory.resources.lab.find( s => s.id === reactor.id );
@@ -322,20 +322,25 @@ mod.extend = function() {
         }
 
         // verify ability to run reactor
-        if ( seed_a.mineralType !== component_a || seed_b.mineralType !== component_b ) return;
-        let maxReactions = Math.floor( Math.min( seed_a.mineralAmount, seed_b.mineralAmount, order.amount ) / LAB_REACTION_AMOUNT );
-        if ( maxReactions === 0 ) return;
+        if (seed_a.mineralType !== component_a || seed_b.mineralType !== component_b) return;
+        let maxReactions = Math.floor(Math.min(seed_a.mineralAmount, seed_b.mineralAmount, order.amount ) / LAB_REACTION_AMOUNT);
+        if (maxReactions === 0) return;
 
         // run reactions
         let burstReactors = 0;
         for (let i=0;i<reactors.length;i++) {
             let reactor = reactors[i];
-            if ( reactor.mineralAmount === 0 || ( reactor.mineralType === order.type && reactor.mineralAmount <= reactor.mineralCapacity - LAB_REACTION_AMOUNT && burstReactors < maxReactions ) ) {
+            if (reactor.cooldown > 0)
+                continue;
+            if (reactor.mineralAmount === 0 || (reactor.mineralType === order.type && reactor.mineralAmount <= reactor.mineralCapacity - LAB_REACTION_AMOUNT && burstReactors < maxReactions)) {
                 burstReactors++;
                 // FU - SION - HA !
-                if ( reactor.runReaction( seed_a, seed_b ) === OK ) {
+                let returnValue = reactor.runReaction(seed_a, seed_b);
+                if (returnValue === OK) {
                     order.amount -= LAB_REACTION_AMOUNT;
                     if( global.DEBUG && global.TRACE ) trace("Room", { roomName: this.name, actionName: "processLabs", reactorType: REACTOR_TYPE_FLOWER, labId: reactor.id, resourceType: order.type, amountRemaining: order.amount } );
+                } else {
+                    global.logSystem(this.name, `${this.name} runReactions not OK. returnValue: ${global.translateErrorCode(returnValue)}`);
                 }
             }
         }

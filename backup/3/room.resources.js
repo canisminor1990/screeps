@@ -134,7 +134,6 @@ mod.extend = function() {
 
                         let compound = reactionOrders.type,
                             amount = reactionOrders.amount,
-                            reactionMakingLabs = data.lab.length - 2,
                             ingredientA = (global.LAB_REACTIONS[compound][0]),
                             ingredientB = (global.LAB_REACTIONS[compound][1]),
                             labSeedA = Game.getObjectById(reaction.seed_a),

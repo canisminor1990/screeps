@@ -143,88 +143,24 @@ mod.extend = function(){
 
         strategy.freeStrategy(this);
     };
-    Creep.prototype.leaveBorder = function () {
-
-        RoomPosition.prototype.fromDirection = function (direction) {
-            const
-                DIRECTIONS = {
-                    1: [0, -1],
-                    2: [1, -1],
-                    3: [1, 0],
-                    4: [1, 1],
-                    5: [0, 1],
-                    6: [-1, 1],
-                    7: [-1, 0],
-                    8: [-1, -1]
-                };
-            return new RoomPosition(this.x + DIRECTIONS[direction][0], this.y + DIRECTIONS[direction][1], this.roomName)
-        };
-
-        function getDirectionPriorities(lastDirection) {
-
-            let dl, dr, dRev,
-                result = [];
-
-            if (lastDirection === 0)
-                return _.shuffle([1, 2, 3, 4, 5, 6, 7, 8]);
-
-            result.push(lastDirection);
-
-            for (let i = 1; i < 4; i++) {
-
-                dl = lastDirection - i;
-                if (dl < 1)
-                    dl = dl + 8;
-                dr = lastDirection + i;
-                if (dr > 8)
-                    dr = dr - 8;
-                result.push(..._.shuffle([dl, dr]))
-            }
-            dRev = lastDirection + 4;
-            if (dRev > 8)
-                dRev = dRev - 8;
-            result.push(dRev);
-            return result
+    Creep.prototype.leaveBorder = function() {
+        // if on border move away
+        // for emergency case, Path not found
+        let dir = 0;
+        if( this.pos.y === 0 ){
+            dir = BOTTOM;
+        } else if( this.pos.x === 0  ){
+            dir = RIGHT;
+        } else if( this.pos.y === 49  ){
+            dir = TOP;
+        } else if( this.pos.x === 49  ){
+            dir = LEFT;
         }
-
-        let
-            directionsFromExit = {
-                x: {
-                    49: [7, 8, 6],
-                    0: [3, 4, 2]
-                },
-                y: {
-                    49: [1, 8, 2],
-                    0: [5, 6, 4]
-                }
-            },
-            roomPos,
-            allowedDirections;
-
-        if (directionsFromExit.x[this.pos.x])
-            allowedDirections = directionsFromExit.x[this.pos.x];
-        else if (directionsFromExit.y[this.pos.y])
-            allowedDirections = directionsFromExit.y[this.pos.y];
-
-        if (!allowedDirections)
-            return false;
-
-        allowedDirections = getDirectionPriorities(allowedDirections[0]);
-
-        for (let direction of allowedDirections) {
-
-            roomPos = this.pos.fromDirection(direction);
-
-            if (roomPos.x > 0 && roomPos.y > 0) {
-
-                let stuff = roomPos.look();
-
-                if (_.findIndex(stuff, p => p.type === 'creep' || (p.structure && OBSTACLE_OBJECT_TYPES[p.structure.structureType]) || p.terrain === 'wall') === -1) {
-                    this.move(direction);
-                    return direction;
-                }
-            }
+        if (dir) {
+            this.move(dir);
         }
+        return dir;
+        // TODO: CORNER cases
     };
     Creep.prototype.honk = function(){
         if( HONK ) this.say('\u{26D4}\u{FE0E}', SAY_PUBLIC);

@@ -153,6 +153,6 @@ mod.exploitNextRoom = function(creep){
 mod.strategies.withdrawing = {
     name: `withdrawing-${mod.name}`,
     isValidAction: function(creep) {
-        return true;
+        return false;
     },
 };

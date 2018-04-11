@@ -272,4 +272,7 @@ export default class FlagClass extends Component {
 	isSpecialFlag = (object: Flag): boolean => {
 		return object.name === '_OCS';
 	};
+	compare = (flagA, flagB) => {
+		return flagA.color === flagB.color && flagA.secondaryColor === flagB.secondaryColor;
+	};
 }

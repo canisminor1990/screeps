@@ -26,6 +26,10 @@ export const install = () => {
 		Grafana: GRAFANA ? require('./mod/grafana') : undefined,
 		Visuals: require('./mod/visuals'),
 	});
+
+	inject(Flag, new (require('./flag/index')).default());
+	// inject(Flag, require('./tasks/flagDir');
+
 	Creep.Action = require('./creep/Action');
 	Creep.Behaviour = require('./creep/Behaviour');
 	Creep.Setup = require('./creep/Setup');
@@ -93,7 +97,6 @@ export const install = () => {
 			worker: require('./creep/setup/worker'),
 		},
 	});
-	inject(Flag, new (require('./flag/index')).default());
 	inject(Creep, new (require('./creep/index')).default());
 	inject(Room, require('./room/index'));
 	_.assign(Room, {

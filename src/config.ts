@@ -1,12 +1,12 @@
 module.exports = {
 	ME: _ME,
-	CHATTY: true, // creeps say their current action
+	CHATTY: false, // creeps say their current action
 	HONK: true, // HONK when stored path is blocked by other creeps
-	OOPS: true, // Creeps say Oops when dropping energy during dropmining
+	OOPS: false, // Creeps say Oops when dropping energy during dropmining
 	SAY_ASSIGNMENT: true, // say a symbol representing the assiged action
 	SAY_PUBLIC: false, // creeps talk public
 	DEBUG: true, // gimme some more details, use false not undefined to unset
-	DEBUG_STACKS: true, // add stack frame to EVERY console.log message (spammy!)
+	DEBUG_STACKS: false, // add stack frame to EVERY console.log message (spammy!)
 	TRACE: true, // use Memory.debugTrace for low-level information
 	PROFILE: false, // enable CPU profiling
 	PROFILING: {

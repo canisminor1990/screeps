@@ -82,9 +82,9 @@ let mod = {
 				Memory.boostTiming.timeStamp = Game.time;
 			}
 
-			console.log(`FLAGS:`);
-			console.log(`boostProduction: ${roomTrading.boostProduction} boostAllocation: ${roomTrading.boostAllocation}`);
-			console.log(`since: ${Game.time - Memory.boostTiming.timeStamp}`);
+			// console.log(`FLAGS:`);
+			// console.log(`boostProduction: ${roomTrading.boostProduction} boostAllocation: ${roomTrading.boostAllocation}`);
+			// console.log(`since: ${Game.time - Memory.boostTiming.timeStamp}`);
 		}
 
 		if ((MAKE_COMPOUNDS || ALLOCATE_COMPOUNDS) && Memory.boostTiming && Memory.boostTiming.multiOrderingRoomName) {
