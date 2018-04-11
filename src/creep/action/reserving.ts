@@ -19,7 +19,7 @@ action.newTarget = function(creep) {
 	let flag;
 	// TODO: remove  || creep.data.destiny.flagName (temporary backward compatibility)
 	if (creep.data.destiny) flag = Game.flags[creep.data.destiny.targetName || creep.data.destiny.flagName];
-	if (!flag) flag = FlagDir.find(validColor, creep.pos, false, FlagDir.reserveMod, creep.name);
+	if (!flag) flag = Flag.find(validColor, creep.pos, false, Flag.reserveMod, creep.name);
 
 	if (flag) {
 		Population.registerCreepFlag(creep, flag);

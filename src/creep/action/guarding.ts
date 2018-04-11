@@ -11,7 +11,7 @@ action.newTarget = function(creep) {
 	var flag;
 	if (creep.data.destiny) flag = Game.flags[creep.data.destiny.flagName];
 	if (!flag) {
-		flag = FlagDir.find(FLAG_COLOR.defense, creep.pos, false, FlagDir.rangeMod, {
+		flag = Flag.find(FLAG_COLOR.defense, creep.pos, false, Flag.rangeMod, {
 			rangeModPerCrowd: 400,
 			// rangeModByType: creep.data.creepType
 		});

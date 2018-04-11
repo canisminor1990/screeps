@@ -11,7 +11,7 @@ action.isAddableTarget = function(target) {
 	return true;
 };
 action.newTarget = function(creep) {
-	return FlagDir.specialFlag();
+	return Flag.specialFlag();
 };
 action.step = function(creep) {
 	if (CHATTY) creep.say(this.name, SAY_PUBLIC);

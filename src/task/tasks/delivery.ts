@@ -54,7 +54,7 @@ export class DeliveryTask {
 		// if creep count below requirement spawn a new creep creep
 		if (memory.running.length < limit) {
 			// find flag for delivery or calculate home room
-			const deliveryFlag = FlagDir.find(FLAG_COLOR.claim.delivery, flag.pos); // TODO mod, modArgs to re-cost the room?
+			const deliveryFlag = Flag.find(FLAG_COLOR.claim.delivery, flag.pos); // TODO mod, modArgs to re-cost the room?
 			let targetRoom = deliveryFlag && deliveryFlag.pos.roomName;
 			if (!targetRoom) {
 				const room = Room.findSpawnRoom({ targetRoom: flag.pos.roomName });

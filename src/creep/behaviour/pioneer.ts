@@ -52,7 +52,7 @@ mod.nextAction = function(creep) {
 		}
 		// if target room claimed
 		if (flag.room && flag.room.my) {
-			let spawnFlag = FlagDir.find(FLAG_COLOR.claim.spawn, creep.pos, true);
+			let spawnFlag = Flag.find(FLAG_COLOR.claim.spawn, creep.pos, true);
 			// and has spawn flag
 			if (spawnFlag) {
 				// but spawn is complete
@@ -61,7 +61,7 @@ mod.nextAction = function(creep) {
 					spawnFlag.remove();
 					// also remove exploit flags
 					let remove = f => Game.flags[f.name].remove();
-					_.forEach(FlagDir.filter(FLAG_COLOR.invade.exploit, spawnFlag.pos, true), remove);
+					_.forEach(Flag.filter(FLAG_COLOR.invade.exploit, spawnFlag.pos, true), remove);
 				} else {
 					// no spawn => build it
 					let spawnSite = flag.room.myConstructionSites.some(s => s.structureType === STRUCTURE_SPAWN);

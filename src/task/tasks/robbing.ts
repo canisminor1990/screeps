@@ -283,7 +283,7 @@ export class RobbingTask {
 		let validColor = flagEntry =>
 			flagEntry.color === FLAG_COLOR.invade.robbing.color &&
 			flagEntry.secondaryColor === FLAG_COLOR.invade.robbing.secondaryColor;
-		return FlagDir.find(validColor, new RoomPosition(25, 25, roomName), false);
+		return Flag.find(validColor, new RoomPosition(25, 25, roomName), false);
 	};
 	storage = function(roomName, storageRoom) {
 		const memory = this.memory(this.getFlag(roomName));

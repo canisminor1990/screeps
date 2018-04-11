@@ -132,7 +132,7 @@ export class MiningTask {
 		const flagMem = Memory.flags[flagName];
 		if (flagMem && flagMem.task === this.name && flagMem.roomName) {
 			// if there is still a mining flag in that room ignore.
-			const flags = FlagDir.filter(FLAG_COLOR.claim.mining, new RoomPosition(25, 25, flagMem.roomName), true);
+			const flags = Flag.filter(FLAG_COLOR.claim.mining, new RoomPosition(25, 25, flagMem.roomName), true);
 			if (flags && flags.length > 0) return;
 			else {
 				// no more mining in that room.
@@ -475,7 +475,7 @@ export class MiningTask {
 		}
 	};
 	getFlag = roomName => {
-		return FlagDir.find(FLAG_COLOR.claim.mining, new RoomPosition(25, 25, roomName));
+		return Flag.find(FLAG_COLOR.claim.mining, new RoomPosition(25, 25, roomName));
 	};
 	carry = (roomName, partChange) => {
 		const memory = this.memory(roomName);

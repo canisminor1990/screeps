@@ -277,7 +277,7 @@ mod.extend = function() {
 			(this.structures.extensions.length +
 				_.filter(this.constructionSites, s => s.structureType === STRUCTURE_EXTENSION).length);
 		if (shortAmount > 0) {
-			FlagDir.filter(FLAG_COLOR.construct, ...ARGS)
+			Flag.filter(FLAG_COLOR.construct, ...ARGS)
 				.splice(0, shortAmount)
 				.forEach(flag => {
 					CONSTRUCT(flag, STRUCTURE_EXTENSION);
@@ -290,7 +290,7 @@ mod.extend = function() {
 			(this.structures.spawns.length +
 				_.filter(this.constructionSites, s => s.structureType === STRUCTURE_SPAWN).length);
 		if (shortAmount > 0) {
-			FlagDir.filter(FLAG_COLOR.construct.spawn, ...ARGS)
+			Flag.filter(FLAG_COLOR.construct.spawn, ...ARGS)
 				.splice(0, shortAmount)
 				.forEach(flag => {
 					CONSTRUCT(flag, STRUCTURE_SPAWN);
@@ -303,7 +303,7 @@ mod.extend = function() {
 			(this.structures.towers.length +
 				_.filter(this.constructionSites, s => s.structureType === STRUCTURE_TOWER).length);
 		if (shortAmount > 0) {
-			FlagDir.filter(FLAG_COLOR.construct.tower, ...ARGS)
+			Flag.filter(FLAG_COLOR.construct.tower, ...ARGS)
 				.splice(0, shortAmount)
 				.forEach(flag => {
 					CONSTRUCT(flag, STRUCTURE_TOWER);
@@ -316,7 +316,7 @@ mod.extend = function() {
 			(this.structures.links.all.length +
 				_.filter(this.constructionSites, s => s.structureType === STRUCTURE_LINK).length);
 		if (shortAmount > 0) {
-			FlagDir.filter(FLAG_COLOR.construct.link, ...ARGS)
+			Flag.filter(FLAG_COLOR.construct.link, ...ARGS)
 				.splice(0, shortAmount)
 				.forEach(flag => {
 					CONSTRUCT(flag, STRUCTURE_LINK);
@@ -329,7 +329,7 @@ mod.extend = function() {
 			(this.structures.labs.all.length +
 				_.filter(this.constructionSites, s => s.structureType === STRUCTURE_LAB).length);
 		if (shortAmount > 0) {
-			FlagDir.filter(FLAG_COLOR.construct.lab, ...ARGS)
+			Flag.filter(FLAG_COLOR.construct.lab, ...ARGS)
 				.splice(0, shortAmount)
 				.forEach(flag => {
 					CONSTRUCT(flag, STRUCTURE_LAB);
@@ -338,7 +338,7 @@ mod.extend = function() {
 
 		// Storage
 		if (!this.storage && CONTROLLER_STRUCTURES[STRUCTURE_STORAGE][LEVEL] > 0) {
-			FlagDir.filter(FLAG_COLOR.construct.storage, ...ARGS)
+			Flag.filter(FLAG_COLOR.construct.storage, ...ARGS)
 				.splice(0, 1)
 				.forEach(flag => {
 					CONSTRUCT(flag, STRUCTURE_STORAGE);
@@ -347,7 +347,7 @@ mod.extend = function() {
 
 		// Terminal
 		if (!this.terminal && CONTROLLER_STRUCTURES[STRUCTURE_TERMINAL][LEVEL] > 0) {
-			FlagDir.filter(FLAG_COLOR.construct.terminal, ...ARGS)
+			Flag.filter(FLAG_COLOR.construct.terminal, ...ARGS)
 				.splice(0, 1)
 				.forEach(flag => {
 					CONSTRUCT(flag, STRUCTURE_TERMINAL);
@@ -356,7 +356,7 @@ mod.extend = function() {
 
 		// Observer
 		if (!this.structures.observer && CONTROLLER_STRUCTURES[STRUCTURE_OBSERVER][LEVEL] > 0) {
-			FlagDir.filter(FLAG_COLOR.construct.observer, ...ARGS)
+			Flag.filter(FLAG_COLOR.construct.observer, ...ARGS)
 				.splice(0, 1)
 				.forEach(flag => {
 					CONSTRUCT(flag, STRUCTURE_OBSERVER);
@@ -365,7 +365,7 @@ mod.extend = function() {
 
 		// Nuker
 		if (!this.structures.nuker && CONTROLLER_STRUCTURES[STRUCTURE_NUKER][LEVEL] > 0) {
-			FlagDir.filter(FLAG_COLOR.construct.nuker, ...ARGS)
+			Flag.filter(FLAG_COLOR.construct.nuker, ...ARGS)
 				.splice(0, 1)
 				.forEach(flag => {
 					CONSTRUCT(flag, STRUCTURE_NUKER);
@@ -374,7 +374,7 @@ mod.extend = function() {
 
 		// Power Spawn
 		if (!this.structures.powerSpawn && CONTROLLER_STRUCTURES[STRUCTURE_POWER_SPAWN][LEVEL] > 0) {
-			FlagDir.filter(FLAG_COLOR.construct.powerSpawn, ...ARGS)
+			Flag.filter(FLAG_COLOR.construct.powerSpawn, ...ARGS)
 				.splice(0, 1)
 				.forEach(flag => {
 					CONSTRUCT(flag, STRUCTURE_POWER_SPAWN);

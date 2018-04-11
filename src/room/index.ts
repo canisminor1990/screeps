@@ -108,7 +108,7 @@ mod.extend = function() {
 									(Memory.pavementArt[that.room.name] === undefined ||
 										Memory.pavementArt[that.room.name].indexOf('x' + structure.pos.x + 'y' + structure.pos.y + 'x') <
 											0) &&
-									!FlagDir.list.some(
+									!Flag.list.some(
 										f =>
 											f.roomName === structure.pos.roomName &&
 											f.color === COLOR_ORANGE &&
@@ -175,7 +175,7 @@ mod.extend = function() {
 				get: function() {
 					if (_.isUndefined(this._piles)) {
 						const room = this.room;
-						this._piles = FlagDir.filter(FLAG_COLOR.command.drop, room.getPositionAt(25, 25), true).map(function(
+						this._piles = Flag.filter(FLAG_COLOR.command.drop, room.getPositionAt(25, 25), true).map(function(
 							flagInformation,
 						) {
 							const flag = Game.flags[flagInformation.name];
@@ -267,7 +267,7 @@ mod.extend = function() {
 		flags: {
 			configurable: true,
 			get() {
-				return Util.get(this, '_flags', _.filter(FlagDir.list, { roomName: this.name }));
+				return Util.get(this, '_flags', _.filter(Flag.list, { roomName: this.name }));
 			},
 		},
 		structures: {
@@ -389,7 +389,7 @@ mod.extend = function() {
 						let that = this;
 						let adjacent, ownNeighbor, room, mult;
 
-						let flagEntries = FlagDir.filter(FLAG_COLOR.invade.exploit);
+						let flagEntries = Flag.filter(FLAG_COLOR.invade.exploit);
 						let countOwn = roomName => {
 							if (roomName === that.name) return;
 							if (Room.isMine(roomName)) ownNeighbor++;
@@ -425,7 +425,7 @@ mod.extend = function() {
 					let distance, reserved, flag;
 					let rcl = this.controller.level;
 
-					let flagEntries = FlagDir.filter([FLAG_COLOR.claim, FLAG_COLOR.claim.reserve, FLAG_COLOR.invade.exploit]);
+					let flagEntries = Flag.filter([FLAG_COLOR.claim, FLAG_COLOR.claim.reserve, FLAG_COLOR.invade.exploit]);
 					let calcWeight = flagEntry => {
 						// don't spawn claimer for reservation at RCL < 4 (claimer not big enough)
 						if (
@@ -638,7 +638,7 @@ mod.extend = function() {
 		skip: {
 			configurable: true,
 			get() {
-				return Util.get(this, '_skip', !!FlagDir.find(FLAG_COLOR.command.skipRoom, this));
+				return Util.get(this, '_skip', !!Flag.find(FLAG_COLOR.command.skipRoom, this));
 			},
 		},
 	});
@@ -2159,7 +2159,7 @@ mod.shouldRepair = function(room, structure) {
 		(Memory.pavementArt[room.name] === undefined ||
 			Memory.pavementArt[room.name].indexOf('x' + structure.pos.x + 'y' + structure.pos.y + 'x') < 0) &&
 		// not flagged for removal
-		!FlagDir.list.some(
+		!Flag.list.some(
 			f =>
 				f.roomName === structure.pos.roomName &&
 				f.color === COLOR_ORANGE &&

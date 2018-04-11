@@ -18,7 +18,6 @@ export const install = () => {
 	_.assign(global, {
 		CompressedMatrix: require('./traveler/compressedMatrix'),
 		Population: require('./global/population'),
-		FlagDir: new (require('./flag/flagDir')).default(),
 		Task: new (require('./task/index')).default(),
 		Tower: require('./global/tower'),
 		Util: require('./util/index').default,
@@ -94,6 +93,7 @@ export const install = () => {
 			worker: require('./creep/setup/worker'),
 		},
 	});
+	inject(Flag, new (require('./flag/index')).default());
 	inject(Creep, new (require('./creep/index')).default());
 	inject(Room, require('./room/index'));
 	_.assign(Room, {
@@ -121,7 +121,7 @@ export const install = () => {
 	Creep.extend();
 	Room.extend();
 	Spawn.extend();
-	FlagDir.extend();
+	Flag.extend();
 	Task.populate();
 	OCSMemory.activateSegment(MEM_SEGMENTS.COSTMATRIX_CACHE, true);
 	ProtoypeInstall();

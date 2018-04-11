@@ -30,4 +30,17 @@ Object.defineProperties(RoomPosition.prototype, {
 			return positions;
 		},
 	},
+	newFlag: {
+		/**
+		 * Create a new flag at this position
+		 * @param {Object|string} flagColour - An object with color and secondaryColor properties, or a string path for a FLAG_COLOR
+		 * @param {string} [name] - Optional name for the flag
+		 * @returns {string|Number} The name of the flag or an error code.
+		 */
+		value: (flagColour: obj | string, name: string): string | number | void => {
+			if (!flagColour) flagColour = _.get(FLAG_COLOR, flagColour); // allows you to pass through a string (e.g. 'invade.robbing')
+			if (!flagColour) return;
+			return this.createFlag(name, flagColour.color, flagColour.secondaryColor);
+		},
+	},
 });

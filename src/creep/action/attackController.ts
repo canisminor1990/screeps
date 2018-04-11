@@ -20,7 +20,7 @@ action.newTarget = function(creep) {
 
 	var flag;
 	if (creep.data.destiny) flag = Game.flags[creep.data.destiny.targetName];
-	if (!flag) flag = FlagDir.find(validColor, creep.pos, false, FlagDir.reserveMod, creep.name);
+	if (!flag) flag = Flag.find(validColor, creep.pos, false, Flag.reserveMod, creep.name);
 
 	if (flag) {
 		Population.registerCreepFlag(creep, flag);

@@ -94,7 +94,7 @@ mod.registerAction = function(creep, action, target, entry) {
 	}
 	// register target
 	entry.targetId = targetId;
-	if (target && !FlagDir.isSpecialFlag(target)) {
+	if (target && !Flag.isSpecialFlag(target)) {
 		if (target.targetOf === undefined) target.targetOf = [entry];
 		else target.targetOf.push(entry);
 	}
@@ -226,7 +226,7 @@ mod.analyze = function() {
 					? Game.getObjectById(entry.targetId) || Game.spawns[entry.targetId] || Game.flags[entry.targetId]
 					: null;
 			if (target && target.id === creep.id) {
-				target = FlagDir.specialFlag();
+				target = Flag.specialFlag();
 			}
 			if (action && target) this.registerAction(creep, action, target, entry);
 			else {

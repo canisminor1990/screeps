@@ -24,7 +24,7 @@ export class DefenseTask {
 			// if it is not our exploiting target
 			let validColor = flagEntry =>
 				Flag.compare(flagEntry, FLAG_COLOR.invade.exploit) || flagEntry.color === FLAG_COLOR.claim.color;
-			let flag = FlagDir.find(validColor, invaderCreep.pos, true);
+			let flag = Flag.find(validColor, invaderCreep.pos, true);
 
 			if (!flag) return; // ignore invader
 		}

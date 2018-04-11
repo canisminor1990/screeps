@@ -41,7 +41,7 @@ export const loop = wrapLoop(function() {
 
 		// Flush cache
 		Events.flush();
-		FlagDir.flush();
+		Flag.flush();
 		Population.flush();
 		Room.flush();
 		Task.flush();
@@ -51,11 +51,11 @@ export const loop = wrapLoop(function() {
 		Room.register();
 
 		// analyze environment, wait a tick if critical failure
-		if (!FlagDir.analyze()) {
-			Util.logError('FlagDir.analyze failed, waiting one tick to sync flags');
+		if (!Flag.analyze()) {
+			Util.logError('Flag.analyze failed, waiting one tick to sync flags');
 			return;
 		}
-		p.checkCPU('FlagDir.analyze', PROFILING.ANALYZE_LIMIT);
+		p.checkCPU('Flag.analyze', PROFILING.ANALYZE_LIMIT);
 		Room.analyze();
 		p.checkCPU('Room.analyze', PROFILING.ANALYZE_LIMIT);
 		Population.analyze();
@@ -70,7 +70,7 @@ export const loop = wrapLoop(function() {
 		// Execution
 		Population.execute();
 		p.checkCPU('population.execute', PROFILING.EXECUTE_LIMIT);
-		FlagDir.execute();
+		Flag.execute();
 		p.checkCPU('flagDir.execute', PROFILING.EXECUTE_LIMIT);
 		Room.execute();
 		p.checkCPU('room.execute', PROFILING.EXECUTE_LIMIT);
@@ -88,8 +88,8 @@ export const loop = wrapLoop(function() {
 			Util.processReports();
 			p.checkCPU('processReports', PROFILING.FLUSH_LIMIT);
 		}
-		FlagDir.cleanup();
-		p.checkCPU('FlagDir.cleanup', PROFILING.FLUSH_LIMIT);
+		Flag.cleanup();
+		p.checkCPU('Flag.cleanup', PROFILING.FLUSH_LIMIT);
 		Population.cleanup();
 		p.checkCPU('Population.cleanup', PROFILING.FLUSH_LIMIT);
 		Room.cleanup();

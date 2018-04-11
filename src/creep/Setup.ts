@@ -244,7 +244,7 @@ Setup.maxPerFlag = function(flagFilter, maxRoomRange, measureByHome) {
 				max = max + 2;
 			}
 		};
-		let flagEntries = FlagDir.filter(flagFilter);
+		let flagEntries = Flag.filter(flagFilter);
 		flagEntries.forEach(calcMax);
 		return max;
 	};

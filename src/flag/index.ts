@@ -1,5 +1,8 @@
-export default class FlagDir {
-	list: Flag[];
+import { Component } from '../class';
+
+export default class FlagClass extends Component {
+	stale: obj = {};
+	list: Flag[] = [];
 	flagFilter = (flagColour: obj): obj | void => {
 		if (!flagColour) return;
 		let filter;
@@ -68,17 +71,23 @@ export default class FlagDir {
 			return flags[0].name;
 		}
 	};
-	find = function(flagColor, pos, local = true, mod, modArgs) {
+	find = (
+		flagColor: Function | obj,
+		pos: RoomPosition | Room,
+		local: boolean = true,
+		mod?: Function,
+		modArgs?: any,
+	): Flag => {
 		if (pos instanceof Room) pos = pos.getPositionAt(25, 25);
 		let id = this.findName(flagColor, pos, local, mod, modArgs);
 		if (id === null) return null;
 		return Game.flags[id];
 	};
-	removeFromDir = function(name) {
+	removeFromDir = (name: string): void => {
 		let index = this.list.indexOf(f => f.name === name);
 		if (index > -1) this.list = this.list.splice(index, 1);
 	};
-	count = function(flagColor, pos, local = true) {
+	count = (flagColor: Function | obj, pos: RoomPosition | Room, local: boolean = true): number => {
 		let list = this.list;
 		if (!flagColor || this.list.length === 0) return 0;
 
@@ -94,7 +103,7 @@ export default class FlagDir {
 		}
 		return _.countBy(list, filter).true || 0;
 	};
-	filter = function(flagColor, pos, local = true) {
+	filter = (flagColor: Function | obj, pos: RoomPosition | Room, local: boolean = true): Flag[] => {
 		if (!flagColor || this.list.length === 0) return [];
 		let list = this.list;
 		let filter;
@@ -120,14 +129,14 @@ export default class FlagDir {
 		}
 		return _.filter(list, filter);
 	};
-	filterCustom = function(filter) {
+	filterCustom = (filter: Function): Flag[] => {
 		if (!filter || this.list.length === 0) return [];
 		return _.filter(this.list, filter);
 	};
-	rangeMod = function(range, flagItem, args) {
+	rangeMod = (range: number, flagItem: Flag, args: obj): number => {
 		let rangeModPerCrowd = args && args.rangeModPerCrowd ? args.rangeModPerCrowd : 20;
 		let rangeModByType = args ? args.rangeModByType : null;
-		var flag = Game.flags[flagItem.name];
+		var flag: Flag = Game.flags[flagItem.name];
 		let crowd;
 		if (flag.targetOf) {
 			// flag is targetted
@@ -139,9 +148,9 @@ export default class FlagDir {
 		} else crowd = 0; // not targetted
 		return range + crowd * rangeModPerCrowd;
 	};
-	exploitMod = function(range, flagItem, creepName) {
+	exploitMod = (range: number, flagItem: Flag, creepName: string): number => {
 		if (range > 100) return Infinity;
-		var flag = Game.flags[flagItem.name];
+		var flag: Flag = Game.flags[flagItem.name];
 		if (flag.room) {
 			if (flag.room.my) {
 				return Infinity;
@@ -158,69 +167,15 @@ export default class FlagDir {
 		}
 		return range;
 	};
-	hasInvasionFlag = function() {
+	private _hasInvasionFlag: boolean;
+	hasInvasionFlag = (): boolean => {
 		if (_.isUndefined(this._hasInvasionFlag)) {
 			this._hasInvasionFlag = this.findName(FLAG_COLOR.invade) !== null || this.findName(FLAG_COLOR.destroy) !== null;
 		}
 		return this._hasInvasionFlag;
 	};
-	extend = function() {
-		Object.defineProperty(Flag.prototype, 'cloaking', {
-			configurable: true,
-			get: function() {
-				return this.memory.cloaking || '0';
-			},
-			set: function(value) {
-				this.memory.cloaking = value;
-			},
-		});
-
-		Object.defineProperty(Flag, 'compare', {
-			configurable: true,
-			value: function(flagA, flagB) {
-				return flagA.color === flagB.color && flagA.secondaryColor === flagB.secondaryColor;
-			},
-		});
-
-		Object.defineProperty(Flag.prototype, 'compareTo', {
-			configurable: true,
-			// FLAG_COLOR flag
-			value: function(flag) {
-				return Flag.compare(this, flag);
-			},
-		});
-
-		Object.defineProperty(RoomPosition.prototype, 'newFlag', {
-			configurable: true,
-			/**
-			 * Create a new flag at this position
-			 * @param {Object|string} flagColour - An object with color and secondaryColor properties, or a string path for a FLAG_COLOR
-			 * @param {string} [name] - Optional name for the flag
-			 * @returns {string|Number} The name of the flag or an error code.
-			 */
-			value: (flagColour: obj | string, name: string): string | number | void => {
-				if (!flagColour) flagColour = _.get(FLAG_COLOR, flagColour); // allows you to pass through a string (e.g. 'invade.robbing')
-				if (!flagColour) return;
-				return this.createFlag(name, flagColour.color, flagColour.secondaryColor);
-			},
-		});
-
-		Object.defineProperty(Room.prototype, 'newFlag', {
-			configurable: true,
-			/**
-			 * Create a new flag
-			 * @param {Object|string} flagColour - An object with color and secondaryColor properties, or a string path for a FLAG_COLOR
-			 * @param {RoomPosition} [pos] - The position to place the flag. Will assume (25, 25) if left undefined
-			 * @param {string} [name] - Optional name for the flag
-			 * @returns {string|Number} The name of the flag or an error code.
-			 */
-			value: function(flagColour, pos, name) {
-				if (!pos) pos = this.getPositionAt(25, 25);
-				return pos.newFlag(flagColour, name);
-			},
-		});
-	};
-	flush = function() {
+	extend = (): void => {};
+	flush = (): void => {
 		let clear = flag => delete flag.targetOf;
 		_.forEach(Game.flags, clear);
 		this.list = [];
@@ -260,7 +215,7 @@ export default class FlagDir {
 		const specialFlag = this.specialFlag(true);
 		return !!specialFlag;
 	};
-	execute = function() {
+	execute = (): void => {
 		let triggerFound = entry => {
 			try {
 				if (!entry.cloaking || entry.cloaking === 0) {
@@ -278,11 +233,11 @@ export default class FlagDir {
 		let triggerRemoved = flagName => Flag.FlagRemoved.trigger(flagName);
 		this.stale.forEach(triggerRemoved);
 	};
-	cleanup = function() {
+	cleanup = () => {
 		let clearMemory = flagName => delete Memory.flags[flagName];
 		this.stale.forEach(clearMemory);
 	};
-	flagType = function(flag) {
+	flagType = (flag: Flag): string => {
 		if (this.isSpecialFlag(flag)) return '_OCS';
 		for (const primary in FLAG_COLOR) {
 			const type = FLAG_COLOR[primary];
@@ -297,7 +252,7 @@ export default class FlagDir {
 		Util.logError(`Unknown flag type for flag: ${flag ? flag.name : 'undefined flag'}.`);
 		return 'undefined';
 	};
-	specialFlag = function(create) {
+	specialFlag = (create: boolean): Flag => {
 		const name = '_OCS';
 		const flag = Game.flags[name];
 		if (create) {
@@ -314,7 +269,7 @@ export default class FlagDir {
 		}
 		return flag;
 	};
-	isSpecialFlag = function(object) {
+	isSpecialFlag = (object: Flag): boolean => {
 		return object.name === '_OCS';
 	};
 }

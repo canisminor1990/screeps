@@ -49,7 +49,7 @@ export class PioneerTask {
 		}
 		if (pioneer) {
 			// ensure room has a pioneer flag
-			let flag = FlagDir.find(FLAG_COLOR.claim.pioneer, room);
+			let flag = Flag.find(FLAG_COLOR.claim.pioneer, room);
 			if (!flag) {
 				room.newFlag(FLAG_COLOR.claim.pioneer);
 			}

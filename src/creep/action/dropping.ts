@@ -19,7 +19,7 @@ action.newTarget = function(creep) {
 		drop = creep.pos.findClosestByRange(creep.room.structures.spawns);
 	}
 	if (!drop) {
-		drop = creep.pos.findClosestByRange(creep.room.find(FIND_FLAGS, FlagDir.flagFilter(FLAG_COLOR.claim.spawn)));
+		drop = creep.pos.findClosestByRange(creep.room.find(FIND_FLAGS, Flag.flagFilter(FLAG_COLOR.claim.spawn)));
 	}
 	if (!drop) {
 		drop = creep.pos.findClosestByRange(_.filter(creep.room.constructionSites, { structureType: STRUCTURE_SPAWN }));

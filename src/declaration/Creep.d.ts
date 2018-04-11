@@ -1,11 +1,13 @@
 interface CreepConstructor {
 	resolvingError: any;
 	error: obj;
+	Setup: obj;
 	Action: any;
 	Behaviour: any;
+	setup: obj;
 	action: obj;
 	behaviour: obj;
-	setup: obj;
+	extend(): void;
 
 	bodyCosts(body: obj): number;
 
@@ -64,6 +66,8 @@ interface Creep {
 	honkEvade(): void;
 
 	fleeMove(): void;
+
+	idleMove(): any;
 
 	repairNearby(): void;
 

@@ -1,5 +1,6 @@
 interface obj {
 	[type: string]: any;
+
 	[type: number]: any;
 }
 
@@ -23,7 +24,7 @@ declare namespace NodeJS {
 
 declare const Extensions: any;
 declare const Population: any;
-declare const FlagDir: any;
+
 declare const Tower: any;
 declare const Util: any;
 declare const Events: any;

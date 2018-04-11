@@ -1,7 +1,7 @@
 let action = new Creep.Action('invading');
 module.exports = action;
 action.isValidAction = function(creep) {
-	return FlagDir.hasInvasionFlag();
+	return Flag.hasInvasionFlag();
 };
 action.isAddableAction = function() {
 	return true;
@@ -10,7 +10,7 @@ action.isAddableTarget = function() {
 	return true;
 };
 action.getFlaggedStructure = function(flagColor, pos) {
-	let flagsEntries = FlagDir.filter(flagColor, pos, true);
+	let flagsEntries = Flag.filter(flagColor, pos, true);
 	let target = [];
 	let checkFlag = flagEntry => {
 		var flag = Game.flags[flagEntry.name];
@@ -40,7 +40,7 @@ action.newTarget = function(creep) {
 		return destroy;
 	}
 	// move to invasion room
-	var flag = FlagDir.find(FLAG_COLOR.invade, creep.pos, false);
+	var flag = Flag.find(FLAG_COLOR.invade, creep.pos, false);
 	if (flag && (!flag.room || flag.pos.roomName !== creep.pos.roomName)) {
 		Population.registerCreepFlag(creep, flag);
 		return flag; // other room
