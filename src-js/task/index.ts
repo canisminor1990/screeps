@@ -6,7 +6,7 @@ class TaskClass extends Component {
 	tasks: any[] = [];
 	selfRegister: boolean = true;
 	// tasks
-	populate = (): void => {
+	extend = (): void => {
 		this.addTasks(
 			...[
 				Task.attackController,

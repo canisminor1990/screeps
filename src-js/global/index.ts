@@ -20,27 +20,8 @@ const noMemoryWhere = function(e) {
 
 let mod = {};
 module.exports = mod;
-// base class for events
-mod.LiteEvent = function() {
-	// registered subscribers
-	this.handlers = [];
-	// register a new subscriber
-	this.on = function(handler) {
-		this.handlers.push(handler);
-	};
-	// remove a registered subscriber
-	this.off = function(handler) {
-		this.handlers = this.handlers.filter(h => h !== handler);
-	};
-	// call all registered subscribers
-	this.trigger = function(data) {
-		try {
-			this.handlers.slice(0).forEach(h => h(data));
-		} catch (e) {
-			global.logError('Error in LiteEvent.trigger: ' + (e.stack || e));
-		}
-	};
-};
+
+
 // Flag colors, used throughout the code
 // COLOR_RED
 mod.FLAG_COLOR = {

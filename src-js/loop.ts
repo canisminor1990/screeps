@@ -1,48 +1,11 @@
 /* https://gitlab.com/ScreepsCCC/public */
 const cpuAtLoad = Game.cpu.getUsed();
 
-global.inject = (base, alien, namespace) => {
-	let keys = _.keys(alien);
-	for (const key of keys) {
-		if (typeof alien[key] === 'function') {
-			if (namespace) {
-				let original = base[key];
-				if (!base.baseOf) base.baseOf = {};
-				if (!base.baseOf[namespace]) base.baseOf[namespace] = {};
-				if (!base.baseOf[namespace][key]) base.baseOf[namespace][key] = original;
-			}
-			base[key] = alien[key].bind(base);
-		} else if (
-			alien[key] !== null &&
-			typeof base[key] === 'object' &&
-			!Array.isArray(base[key]) &&
-			typeof alien[key] === 'object' &&
-			!Array.isArray(alien[key])
-		) {
-			_.merge(base[key], alien[key]);
-		} else {
-			base[key] = alien[key];
-		}
-	}
-};
-
 const Root = () => {
-	// ensure required memory namespaces
-	if (Memory.modules === undefined) {
-		Memory.modules = {
-			valid: Game.time,
-			viral: {},
-			internalViral: {},
-		};
-	} else if (_.isUndefined(Memory.modules.valid)) {
-		Memory.modules.valid = Game.time;
-	}
 	// Initialize global & parameters
-	// let glob = require("./global");
-	global.inject(global, require('./global/index'));
+	_.assign(global, require('./global/index'));
 	_.assign(global, require('./config'));
-	global.mainInjection = require('./global/mainInjection');
-	global.inject(Flag, require('./flag/index'));
+	_.assign(Flag, require('./flag/index'));
 	// Load modules
 	_.assign(global, {
 		CompressedMatrix: require('./traveler/compressedMatrix'),
@@ -51,7 +14,7 @@ const Root = () => {
 		Task: require('./task/index').default,
 		Tower: require('./structure/tower'),
 		Util: require('./util').default,
-		Events: require('./flag/events'),
+		Events: require('./global/events'),
 		OCSMemory: require('./global/ocsMemory'),
 		Grafana: GRAFANA ? require('./mod/grafana') : undefined,
 		Visuals: require('./mod/visuals'),
@@ -142,8 +105,8 @@ const Root = () => {
 			worker: require('./creep/setup/worker'),
 		},
 	});
-	global.inject(Creep, require('./creep/index'));
-	global.inject(Room, require('./room/index'));
+	_.assign(Creep, require('./creep/index'));
+	_.assign(Room, require('./room/index'));
 	_.assign(Room, {
 		_ext: {
 			construction: require('./room/construction'),
@@ -163,7 +126,7 @@ const Root = () => {
 			boostProduction: require('./room/boostProduction'),
 		},
 	});
-	global.inject(Spawn, require('./structure/spawn'));
+	_.assign(Spawn, require('./structure/spawn'));
 
 	// Extend server objects
 	// global.extend();
@@ -172,12 +135,10 @@ const Root = () => {
 	Room.extend();
 	Spawn.extend();
 	Flag.extend();
-	Task.populate();
+	Task.extend();
 	// custom extend
-	if (global.mainInjection.extend) global.mainInjection.extend();
 	OCSMemory.activateSegment(MEM_SEGMENTS.COSTMATRIX_CACHE, true);
 
-	global.modulesValid = Memory.modules.valid;
 	if (global.DEBUG) logSystem('Global.install', 'Code reloaded.');
 
 	require('./traveler/index')({
@@ -230,7 +191,6 @@ export default () => {
 		Room.flush();
 		Task.flush();
 		// custom flush
-		if (global.mainInjection.flush) global.mainInjection.flush();
 		p.checkCPU('flush', PROFILING.FLUSH_LIMIT);
 
 		// Room event hooks must be registered before analyze for costMatrixInvalid
@@ -247,14 +207,12 @@ export default () => {
 		Population.analyze();
 		p.checkCPU('Population.analyze', PROFILING.ANALYZE_LIMIT);
 		// custom analyze
-		if (global.mainInjection.analyze) global.mainInjection.analyze();
 
 		// Register event hooks
 		Creep.register();
 		Spawn.register();
 		Task.register();
 		// custom register
-		if (global.mainInjection.register) global.mainInjection.register();
 		p.checkCPU('register', PROFILING.REGISTER_LIMIT);
 
 		// Execution
@@ -271,7 +229,6 @@ export default () => {
 		Task.execute();
 		p.checkCPU('task.execute', PROFILING.EXECUTE_LIMIT);
 		// custom execute
-		if (global.mainInjection.execute) global.mainInjection.execute();
 
 		// Postprocessing
 		if (SEND_STATISTIC_REPORTS) {
@@ -287,7 +244,6 @@ export default () => {
 		Room.cleanup();
 		p.checkCPU('Room.cleanup', PROFILING.FLUSH_LIMIT);
 		// custom cleanup
-		if (global.mainInjection.cleanup) global.mainInjection.cleanup();
 
 		OCSMemory.cleanup(); // must come last
 		p.checkCPU('OCSMemory.cleanup', PROFILING.ANALYZE_LIMIT);
