@@ -35,5 +35,6 @@ module.exports = {
 		'no-unreachable': [1],
 		'no-useless-return': [1],
 		'new-cap': [0],
+		'eqeqeq': [0],
 	}
 };
