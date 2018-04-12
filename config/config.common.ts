@@ -15,7 +15,8 @@ export default (options: EnvOptions): Configuration => {
 	};
 	return {
 		entry: {
-			main: './src/main.ts',
+			// main: ['screeps-regenerator-runtime/runtime', './src/main.js'],
+			main: ['screeps-regenerator-runtime/runtime', './src-js/main.js'],
 		},
 		output: {
 			devtoolModuleFilenameTemplate: '[resource-path]',
@@ -27,7 +28,6 @@ export default (options: EnvOptions): Configuration => {
 		},
 		externals: {
 			'main.js.map': 'main.js.map',
-			config: 'config',
 		},
 		node: {
 			Buffer: false,
@@ -48,14 +48,22 @@ export default (options: EnvOptions): Configuration => {
 		target: 'node',
 		module: {
 			rules: [
+				// {
+				// 	test: /\.js$/,
+				// 	enforce: 'pre',
+				// 	loader: 'source-map-loader',
+				// },
 				{
 					test: /\.js$/,
 					loader: 'babel-loader',
 				},
-
+				// {
+				// 	test: /\.tsx?$/,
+				// 	enforce: 'pre',
+				// 	loader: 'source-map-loader',
+				// },
 				{
 					test: /\.tsx?$/,
-					exclude: [join(ROOT, 'src/snippets')],
 					loader: 'ts-loader',
 					options: {
 						transpileOnly: true,
@@ -68,7 +76,7 @@ export default (options: EnvOptions): Configuration => {
 			// new ForkTsCheckerWebpackPlugin({ ignoreDiagnostics: [2451, 2687, 6133] }),
 			// new CopyWebpackPlugin([{ from: join(ROOT, 'src/config.js') }, { from: join(ROOT, 'src/commands.js') }]),
 			// new optimize.ModuleConcatenationPlugin(),
-			// new MinifyPlugin(),
+			new MinifyPlugin(),
 			new DefinePlugin(DefineConfig),
 			new ScreepsSourceMapToJson(),
 		].filter(Boolean),

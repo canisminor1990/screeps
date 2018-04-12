@@ -5,7 +5,6 @@ import { ProtoypeInstall } from './prototype';
 export const install = () => {
 	// Load global & config
 	inject(global, new (require('./global/index')).Constants());
-
 	global._ME = _(Game.rooms)
 		.map('controller')
 		.filter('my')
@@ -127,6 +126,7 @@ export const install = () => {
 	Flag.extend();
 	Task.populate();
 	OCSMemory.activateSegment(MEM_SEGMENTS.COSTMATRIX_CACHE, true);
+
 	ProtoypeInstall();
 	TravelerInstall({
 		exportTraveler: false,

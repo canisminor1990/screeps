@@ -9,7 +9,7 @@
 		"doc": "typedoc --options ./typedoc.json && open ./doc/index.html",
 		"build": "webpack --colors --env.ENV=dev",
 		"lint": "lint-staged",
-		"lint:es": "eslint --fix \"src/**/*.ts\"",
+		"lint:es": "eslint --fix \"src-js/**/*.ts\"",
 		"lint:webpack": "eslint --fix \"config/**/*.ts\" \"webpack.config.ts\""
 	},
 	"pre-commit": ["lint"],
