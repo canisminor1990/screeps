@@ -76,7 +76,7 @@ export default (options: EnvOptions): Configuration => {
 			// new ForkTsCheckerWebpackPlugin({ ignoreDiagnostics: [2451, 2687, 6133] }),
 			// new CopyWebpackPlugin([{ from: join(ROOT, 'src/config.js') }, { from: join(ROOT, 'src/commands.js') }]),
 			// new optimize.ModuleConcatenationPlugin(),
-			new MinifyPlugin(),
+			// new MinifyPlugin(),
 			new DefinePlugin(DefineConfig),
 			new ScreepsSourceMapToJson(),
 		].filter(Boolean),

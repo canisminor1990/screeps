@@ -1,6 +1,6 @@
-/* https://gitlab.com/ScreepsCCC/public */
 const cpuAtLoad = Game.cpu.getUsed();
-
+import {ProtoypeInstall} from './prototype'
+import { TravelerInstall } from './traveler';
 const Root = () => {
 	// Initialize global & parameters
 	_.assign(global, require('./global/index'));
@@ -9,7 +9,6 @@ const Root = () => {
 	// Load modules
 	_.assign(global, {
 		CompressedMatrix: require('./traveler/compressedMatrix'),
-		Extensions: require('./prototype/index'),
 		Population: require('./global/population'),
 		Task: require('./task/index').default,
 		Tower: require('./structure/tower'),
@@ -130,7 +129,7 @@ const Root = () => {
 
 	// Extend server objects
 	// global.extend();
-	Extensions.extend();
+	ProtoypeInstall();
 	Creep.extend();
 	Room.extend();
 	Spawn.extend();
@@ -139,9 +138,9 @@ const Root = () => {
 	// custom extend
 	OCSMemory.activateSegment(MEM_SEGMENTS.COSTMATRIX_CACHE, true);
 
-	if (global.DEBUG) logSystem('Global.install', 'Code reloaded.');
+	if (global.DEBUG) Util.logSystem('Global.install', 'Code reloaded.');
 
-	require('./traveler/index')({
+	TravelerInstall({
 		exportTraveler: false,
 		installTraveler: true,
 		installPrototype: true,
@@ -234,8 +233,8 @@ export default () => {
 		if (SEND_STATISTIC_REPORTS) {
 			if (!Memory.statistics || (Memory.statistics.tick && Memory.statistics.tick + TIME_REPORT <= Game.time))
 				require('./global/statistics').process();
-			processReports();
-			p.checkCPU('processReports', PROFILING.FLUSH_LIMIT);
+			Util.processReports();
+			p.checkCPU('Util.processReports', PROFILING.FLUSH_LIMIT);
 		}
 		Flag.cleanup();
 		p.checkCPU('Flag.cleanup', PROFILING.FLUSH_LIMIT);
@@ -256,7 +255,7 @@ export default () => {
 		Game.cacheTime = Game.time;
 
 		if (global.DEBUG && global.TRACE)
-			trace('main', {
+			Util.trace('main', {
 				cpuAtLoad,
 				cpuAtFirstLoop,
 				cpuAtLoop,

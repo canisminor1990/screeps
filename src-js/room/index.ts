@@ -55,7 +55,7 @@ mod.extend = function() {
 					if (_.isUndefined(this._towers)) {
 						this._towers = [];
 						var add = id => {
-							addById(this._towers, id);
+							Util.addById(this._towers, id);
 						};
 						_.forEach(this.room.memory.towers, add);
 					}
@@ -253,7 +253,7 @@ mod.extend = function() {
 					if (_.isUndefined(this._spawns)) {
 						this._spawns = [];
 						var addSpawn = id => {
-							addById(this._spawns, id);
+							Util.addById(this._spawns, id);
 						};
 						_.forEach(this.room.memory.spawns, addSpawn);
 					}
@@ -463,7 +463,7 @@ mod.extend = function() {
 					if (cachedMatrix) {
 						this._structureMatrix = cachedMatrix;
 					} else {
-						if (global.DEBUG) logSystem(this.name, 'Calculating cost matrix');
+						if (global.DEBUG) Util.logSystem(this.name, 'Calculating cost matrix');
 						const costMatrix = new PathFinder.CostMatrix();
 						let setCosts = structure => {
 							const site = structure instanceof ConstructionSite;
@@ -495,7 +495,7 @@ mod.extend = function() {
 						};
 						Room.pathfinderCacheDirty = true;
 						if (global.DEBUG && global.TRACE)
-							trace(
+							Util.trace(
 								'PathFinder',
 								{ roomName: this.name, prevTime, structures: this.structures.all.length, PathFinder: 'CostMatrix' },
 								'updated costmatrix',
@@ -981,13 +981,13 @@ mod.extend = function() {
 			myRooms = _.filter(Game.rooms, { my: true });
 
 		if (_.isUndefined(data)) {
-			if (global.DEBUG) global.logSystem(this.name, `there is no ${this.name}.memory.resources.`);
+			if (global.DEBUG) Util.logSystem(this.name, `there is no ${this.name}.memory.resources.`);
 			return;
 		}
 
 		if (data.orders.length === 0) return;
 
-		if (global.DEBUG) global.logSystem(this.name, `garbage collecting ${this.name} roomOrders`);
+		if (global.DEBUG) Util.logSystem(this.name, `garbage collecting ${this.name} roomOrders`);
 
 		let reactions = data.reactions,
 			reactionInProgress = reactions.orders.length > 0 && reactions.orders[0].amount > 0;
@@ -1019,13 +1019,13 @@ mod.extend = function() {
 
 		if (!this.ordersWithOffers()) {
 			if (global.DEBUG) {
-				global.logSystem(this.name, `not enough or no offers found. Updating room orders in room ${this.name}`);
+				Util.logSystem(this.name, `not enough or no offers found. Updating room orders in room ${this.name}`);
 			}
 			if (_.isUndefined(data.boostTiming.getOfferAttempts)) data.boostTiming.getOfferAttempts = 0;
 			else data.boostTiming.getOfferAttempts++;
 
 			// GCAllRoomOffers
-			global.logSystem(this.name, `${this.name} running GCAllRoomOffers`);
+			Util.logSystem(this.name, `${this.name} running GCAllRoomOffers`);
 			for (let room of myRooms) {
 				if (!room.memory.resources) continue;
 				let offers = room.memory.resources.offers,
@@ -1047,7 +1047,7 @@ mod.extend = function() {
 					}
 
 					if (!order || targetOfferIdx === -1) {
-						global.logSystem(room.name, `Orphaned offer found and deleted in ${room.name}`);
+						Util.logSystem(room.name, `Orphaned offer found and deleted in ${room.name}`);
 						offers.splice(i, 1);
 						i--;
 					}
@@ -1062,7 +1062,7 @@ mod.extend = function() {
 				data.orders = [];
 				data.reactions.orders[0].amount = 0;
 				delete data.boostTiming.getOfferAttempts;
-				global.logSystem(this.name, `${this.name} no offers found. Reaction and orders DELETED`);
+				Util.logSystem(this.name, `${this.name} no offers found. Reaction and orders DELETED`);
 			}
 		} else {
 			data.boostTiming.checkRoomAt = Game.time + global.CHECK_ORDERS_INTERVAL;
@@ -1075,7 +1075,7 @@ mod.extend = function() {
 			readyOffersFound = 0;
 
 		if (_.isUndefined(data)) {
-			if (global.DEBUG) global.logSystem(this.name, `there is no ${this.name}.memory.resources.`);
+			if (global.DEBUG) Util.logSystem(this.name, `there is no ${this.name}.memory.resources.`);
 			return {
 				readyOffersFound: readyOffersFound,
 				terminalOrderPlaced: terminalOrderPlaced,
@@ -1088,7 +1088,7 @@ mod.extend = function() {
 				terminalOrderPlaced: terminalOrderPlaced,
 			};
 
-		if (global.DEBUG) global.logSystem(this.name, `garbage collecting ${this.name} roomOffers`);
+		if (global.DEBUG) Util.logSystem(this.name, `garbage collecting ${this.name} roomOffers`);
 
 		// garbage collecting room.offers
 		data.offers = _.filter(data.offers, offer => {
@@ -1113,14 +1113,14 @@ mod.extend = function() {
 			for (let offer of data.offers) {
 				let readyAmount = this.terminal.store[offer.type] || 0;
 
-				global.logSystem(this.name, `${readyAmount} / ${offer.amount} ${offer.type} are in ${this.name} terminal`);
+				Util.logSystem(this.name, `${readyAmount} / ${offer.amount} ${offer.type} are in ${this.name} terminal`);
 
 				if (
 					(readyAmount >= offer.amount * 0.5 && readyAmount < offer.amount - global.MIN_OFFER_AMOUNT) ||
 					readyAmount >= offer.amount
 				) {
 					if (global.DEBUG)
-						global.logSystem(
+						Util.logSystem(
 							offer.room,
 							`${Math.min(readyAmount, offer.amount)} ${offer.type} are ready to send from ${this.name}`,
 						);
@@ -1156,26 +1156,26 @@ mod.extend = function() {
 
 					// making terminal orders if it does not exist
 					for (let offer of data.offers) {
-						let ordered = global.sumCompoundType(terminalMemory.orders, 'orderRemaining'),
+						let ordered = Util.sumCompoundType(terminalMemory.orders, 'orderRemaining'),
 							allResources = (ordered[offer.type] || 0) + (terminal.store[offer.type] || 0);
 						if (offer.amount > allResources) {
 							if (global.DEBUG) {
-								global.logSystem(
+								Util.logSystem(
 									this.name,
 									`no / not enough terminal order found in ${this.name} for ${offer.amount} ${offer.type}`,
 								);
-								global.logSystem(
+								Util.logSystem(
 									this.name,
 									`terminal stores: ${terminal.store[offer.type] || 0} ordered: ${ordered[offer.type] || 0}`,
 								);
-								global.logSystem(
+								Util.logSystem(
 									this.name,
 									`terminal order placed for ${Math.max(offer.amount, global.MIN_OFFER_AMOUNT)} ${offer.type}`,
 								);
 							}
 							this.placeOrder(terminalId, offer.type, Math.max(offer.amount, global.MIN_OFFER_AMOUNT));
 							terminalOrderPlaced = true;
-						} else global.logSystem(this.name, `${this.name} terminal orders for ${offer.amount} ${offer.type} is OK.`);
+						} else Util.logSystem(this.name, `${this.name} terminal orders for ${offer.amount} ${offer.type} is OK.`);
 					}
 				}
 			}
@@ -1187,7 +1187,7 @@ mod.extend = function() {
 		};
 	};
 	Room.prototype.GCLabs = function() {
-		if (global.DEBUG) global.logSystem(this.name, `garbage collecting labOrders in ${this.name}`);
+		if (global.DEBUG) Util.logSystem(this.name, `garbage collecting labOrders in ${this.name}`);
 
 		let data = this.memory.resources,
 			labs = data.lab,
@@ -1221,14 +1221,14 @@ mod.extend = function() {
 
 				if (lab.orders.length > order.length) {
 					this.memory.resources.lab[i].orders = order;
-					if (global.DEBUG) global.logSystem(this.name, `lab orders fixed in ${this.name}, ${lab.id}`);
+					if (global.DEBUG) Util.logSystem(this.name, `lab orders fixed in ${this.name}, ${lab.id}`);
 				}
 			}
 		}
 	};
 	Room.prototype.checkOffers = function() {
 		if (Memory.boostTiming.multiOrderingRoomName === this) {
-			global.logSystem(this.name, `${this.name} early roomCheck, multiOrdering in progress`);
+			Util.logSystem(this.name, `${this.name} early roomCheck, multiOrdering in progress`);
 			return true;
 		}
 
@@ -1264,7 +1264,7 @@ mod.extend = function() {
 
 		if (candidates.length === 1 && candidates[0].readyOffers === 1 && _.isUndefined(data.boostTiming.ordersReady)) {
 			let currentRoom = Game.rooms[candidates[0].room];
-			global.logSystem(
+			Util.logSystem(
 				this.name,
 				`${candidates[0].room} there is only one offersReady for ${this.name}, running fillARoomOrder()`,
 			);
@@ -1273,33 +1273,33 @@ mod.extend = function() {
 				fillARoomOrdersReturn = currentRoom.fillARoomOrder();
 				if ((fillARoomOrdersReturn === true && data.orders.length === 0) || _.sum(data.orders, 'amount') === 0) {
 					data.boostTiming.checkRoomAt = Game.time + 1;
-					global.logSystem(
+					Util.logSystem(
 						currentRoom.name,
 						`${currentRoom.name} terminal send was successful. And there are no more orders`,
 					);
-					global.logSystem(this.name, `${this.name} time: ${Game.time} boostTiming:`);
-					global.BB(data.boostTiming);
+					Util.logSystem(this.name, `${this.name} time: ${Game.time} boostTiming:`);
+					Util.logStringify(data.boostTiming);
 
 					return true;
 				} else if (fillARoomOrdersReturn === true) {
 					data.boostTiming.checkRoomAt = Game.time + global.CHECK_ORDERS_INTERVAL;
-					global.logSystem(
+					Util.logSystem(
 						currentRoom.name,
 						`${currentRoom.name} terminal send was successful. BTW, there are orders remained to fulfill`,
 					);
-					global.logSystem(this.name, `${this.name} time: ${Game.time}, boostTiming:`);
-					global.BB(data.boostTiming);
+					Util.logSystem(this.name, `${this.name} time: ${Game.time}, boostTiming:`);
+					Util.logStringify(data.boostTiming);
 
 					return true;
 				}
 			} else {
 				data.boostTiming.checkRoomAt = Game.time + currentRoom.terminal.cooldown + 1;
-				global.logSystem(
+				Util.logSystem(
 					currentRoom.name,
 					`${currentRoom.name} terminal cooldown is: ${currentRoom.terminal.cooldown}`,
 				);
-				global.logSystem(this.name, `${this.name} time: ${Game.time}, boosTiming:`);
-				global.BB(data.boostTiming);
+				Util.logSystem(this.name, `${this.name} time: ${Game.time}, boosTiming:`);
+				Util.logStringify(data.boostTiming);
 
 				return false;
 			}
@@ -1307,8 +1307,8 @@ mod.extend = function() {
 			(candidates.length >= 1 || (candidates.length === 1 && candidates[0].readyOffers > 1)) &&
 			_.isUndefined(data.boostTiming.ordersReady)
 		) {
-			global.logSystem(this.name, `${this.name} has more than one offers ready, boostTiming.ordersReady created`);
-			global.BB(candidates);
+			Util.logSystem(this.name, `${this.name} has more than one offers ready, boostTiming.ordersReady created`);
+			Util.logStringify(candidates);
 			data.boostTiming.ordersReady = {
 				time: Game.time,
 				orderCandidates: candidates,
@@ -1318,11 +1318,11 @@ mod.extend = function() {
 			data.boostTiming.checkRoomAt = Game.time + _.sum(candidates, 'readyOffers') + 1;
 			return true;
 		} else if (returnValue.terminalOrderPlaced) {
-			global.logSystem(this.name, `terminal orders placed for room ${this.name}`);
+			Util.logSystem(this.name, `terminal orders placed for room ${this.name}`);
 			data.boostTiming.checkRoomAt = Game.time + global.CHECK_ORDERS_INTERVAL;
 			return false;
 		} else {
-			global.logSystem(this.name, `${this.name} no readyOffers found`);
+			Util.logSystem(this.name, `${this.name} no readyOffers found`);
 			data.boostTiming.checkRoomAt = Game.time + global.CHECK_ORDERS_INTERVAL;
 			return false;
 		}
@@ -1383,7 +1383,7 @@ mod.extend = function() {
 										ingredientNeeds = global.MIN_COMPOUND_AMOUNT_TO_MAKE;
 								}
 
-								return global.roundUpTo(ingredientNeeds, global.MIN_OFFER_AMOUNT);
+								return Util.roundUpTo(ingredientNeeds, global.MIN_OFFER_AMOUNT);
 							},
 							findIngredients = function(compound, amount) {
 								let ingredientA = global.LAB_REACTIONS[compound][0],
@@ -1468,7 +1468,7 @@ mod.extend = function() {
 						let sellRatio;
 
 						if (global.AUTOMATED_RATIO_COUNT) {
-							sellRatio = global.countPrices('sell', mineral, roomName);
+							sellRatio = Util.countPrices('sell', mineral, roomName);
 							if (global.DEBUG) console.log(`average sellRatio: ${roomName} ${mineral} ${sellRatio}`);
 						} else sellRatio = global.MAX_BUY_RATIO[mineral];
 
@@ -1504,7 +1504,7 @@ mod.extend = function() {
 						if (resOrders.length > 0) {
 							order = _.min(resOrders, 'ratio');
 							console.log('selected order: ');
-							global.BB(order);
+							Util.logStringify(order);
 
 							if (global.DEBUG && order) {
 								console.log(`Game.market.deal("${order.id}", ${order.transactionAmount}, "${roomName}");`);
@@ -1518,7 +1518,7 @@ mod.extend = function() {
 								);
 								return true;
 							} else {
-								console.log(`purchase was FAILED error code: ${translateErrorCode(returnValue)}`);
+								console.log(`purchase was FAILED error code: ${Util.translateErrorCode(returnValue)}`);
 								console.log(returnValue);
 								return false;
 							}
@@ -1556,7 +1556,7 @@ mod.extend = function() {
 
 						if (data.reactorMode === 'idle') {
 							if (global.DEBUG)
-								global.logSystem(
+								Util.logSystem(
 									roomName,
 									`${currentRoom.name} - placeReactionOrder(${ingredient}, ${ingredient}, ${amount})`,
 								);
@@ -1568,7 +1568,7 @@ mod.extend = function() {
 							currentRoom.placeReactionOrder(ingredient, ingredient, amount);
 							Memory.boostTiming.roomTrading.boostProduction = true;
 							Memory.boostTiming.timeStamp = Game.time;
-							global.logSystem(
+							Util.logSystem(
 								currentRoom,
 								`${currentRoom.name}, placeReaction ${amount} ${ingredient} at time: ${Game.time}`,
 							);
@@ -1659,26 +1659,26 @@ mod.extend = function() {
 				let storedResources = this.resourcesAll[compound] || 0;
 
 				if (storedResources === 0) {
-					amountToMake = global.roundUpTo(
+					amountToMake = Util.roundUpTo(
 						global.COMPOUNDS_TO_MAKE[compound].amount + global.COMPOUNDS_TO_MAKE[compound].threshold,
 						global.MIN_OFFER_AMOUNT,
 					);
 					roomFound = makeCompound(this.name, compound, amountToMake);
 					if (roomFound.ingredientMade && global.DEBUG)
-						global.logSystem(
+						Util.logSystem(
 							this.name,
 							`there is no ${compound}, so start to make the compounds for ${
 								global.COMPOUNDS_TO_MAKE[compound].amount
 							} ${compound} in ${this.name}`,
 						);
 				} else if (storedResources <= global.COMPOUNDS_TO_MAKE[compound].threshold) {
-					amountToMake = global.roundUpTo(
+					amountToMake = Util.roundUpTo(
 						global.COMPOUNDS_TO_MAKE[compound].amount + global.COMPOUNDS_TO_MAKE[compound].threshold - storedResources,
 						global.MIN_OFFER_AMOUNT,
 					);
 					roomFound = makeCompound(this.name, compound, amountToMake);
 					if (roomFound.ingredientMade && global.DEBUG)
-						global.logSystem(
+						Util.logSystem(
 							this.name,
 							`it is below the threshold, so start to make the compounds for ${amountToMake} ${compound} in ${
 								this.name
@@ -1714,7 +1714,7 @@ mod.extend = function() {
 
 		boostTiming.checkRoomAt =
 			boostTiming.reactionMaking +
-			global.roundUpTo(amount / allLabsProducedAmountPerTick, reactionCoolDown) +
+			Util.roundUpTo(amount / allLabsProducedAmountPerTick, reactionCoolDown) +
 			reactionCoolDown;
 	};
 	Room.prototype.getSeedLabOrders = function() {
@@ -1830,7 +1830,7 @@ mod.analyze = function() {
 					: err,
 			);
 			console.log(
-				dye(
+				Util.dye(
 					CRAYON.error,
 					'Error in room.js (Room.prototype.loop) for "' +
 						room.name +
@@ -2045,7 +2045,7 @@ mod.roomDistance = function(roomName1, roomName2, diagonal, continuous) {
 	return xDif + yDif; // count diagonal as 2
 };
 mod.rebuildCostMatrix = function(roomName) {
-	if (global.DEBUG) logSystem(roomName, 'Invalidating costmatrix to force a rebuild when we have vision.');
+	if (global.DEBUG) Util.logSystem(roomName, 'Invalidating costmatrix to force a rebuild when we have vision.');
 	_.set(Room, ['pathfinderCache', roomName, 'stale'], true);
 	_.set(Room, ['pathfinderCache', roomName, 'updated'], Game.time);
 	Room.pathfinderCacheDirty = true;
@@ -2059,7 +2059,7 @@ mod.loadCostMatrixCache = function(cache) {
 		}
 	}
 	if (global.DEBUG && count > 0)
-		logSystem('RawMemory', 'loading pathfinder cache.. updated ' + count + ' stale entries.');
+		Util.logSystem('RawMemory', 'loading pathfinder cache.. updated ' + count + ' stale entries.');
 	Room.pathfinderCacheLoaded = true;
 };
 mod.getCachedStructureMatrix = function(roomName) {
@@ -2081,7 +2081,7 @@ mod.getCachedStructureMatrix = function(roomName) {
 			ttl < COST_MATRIX_VALIDITY
 		) {
 			if (global.DEBUG && global.TRACE)
-				trace('PathFinder', { roomName: roomName, ttl, PathFinder: 'CostMatrix' }, 'cached costmatrix');
+				Util.trace('PathFinder', { roomName: roomName, ttl, PathFinder: 'CostMatrix' }, 'cached costmatrix');
 			return true;
 		}
 		return false;

@@ -7,7 +7,7 @@ const triggerNewInvaders = creep => {
 	// create notification
 	const bodyCount = JSON.stringify(_.countBy(creep.body, 'type'));
 	if (global.DEBUG || NOTIFICATE_INVADER || (NOTIFICATE_INTRUDER && creep.room.my) || NOTIFICATE_HOSTILES)
-		logSystem(creep.pos.roomName, `Hostile intruder (${bodyCount}) from "${creep.owner.username}".`);
+		Util.logSystem(creep.pos.roomName, `Hostile intruder (${bodyCount}) from "${creep.owner.username}".`);
 	if (
 		NOTIFICATE_INVADER ||
 		(NOTIFICATE_INTRUDER && creep.owner.username !== 'Invader' && creep.room.my) ||
@@ -16,7 +16,7 @@ const triggerNewInvaders = creep => {
 		Game.notify(
 			`Hostile intruder ${creep.id} (${bodyCount}) from "${creep.owner.username}" in room ${
 				creep.pos.roomName
-			} at ${toDateTimeString(toLocalDate(new Date()))}`,
+			} at ${Util.toDateTimeString(Util.toLocalDate(new Date()))}`,
 		);
 	}
 	// trigger subscribers

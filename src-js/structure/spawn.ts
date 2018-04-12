@@ -31,7 +31,7 @@ mod.extend = function() {
 	};
 	Spawn.prototype.createCreepBySetup = function(setup) {
 		if (global.DEBUG && global.TRACE)
-			trace(
+			Util.trace(
 				'Spawn',
 				{
 					setupType: this.type,
@@ -58,7 +58,7 @@ mod.extend = function() {
 		}
 		if (!params) {
 			if (queue.length && global.DEBUG)
-				global.logSystem(
+				Util.logSystem(
 					this.pos.roomName,
 					'No non-CRITICAL creeps to spawn, delaying spawn until CPU is not CRITICAL, or new entries are added.',
 				);
@@ -72,15 +72,15 @@ mod.extend = function() {
 		});
 		// no parts
 		if (cost === 0) {
-			global.logSystem(this.pos.roomName, dye(CRAYON.error, 'Zero parts body creep queued. Removed.'));
+			Util.logSystem(this.pos.roomName, Util.dye(CRAYON.error, 'Zero parts body creep queued. Removed.'));
 			return false;
 		}
 		// wait with spawning until enough resources are available
 		if (cost > this.room.remainingEnergyAvailable) {
 			if (cost > this.room.energyCapacityAvailable || (cost > 300 && !this.room.creeps.length)) {
-				global.logSystem(
+				Util.logSystem(
 					this.pos.roomName,
-					dye(CRAYON.error, 'Queued creep too big for room: ' + JSON.stringify(params)),
+					Util.dye(CRAYON.error, 'Queued creep too big for room: ' + JSON.stringify(params)),
 				);
 				return false;
 			}
@@ -103,7 +103,7 @@ mod.extend = function() {
 	Spawn.prototype.create = function(body, name, behaviour, destiny) {
 		if (body.length == 0) return false;
 		var newName = this.createCreep(body, name, null);
-		if (name == newName || translateErrorCode(newName) === undefined) {
+		if (name == newName || Util.translateErrorCode(newName) === undefined) {
 			let cost = 0;
 			body.forEach(function(part) {
 				cost += BODYPART_COST[part];
@@ -118,16 +118,16 @@ mod.extend = function() {
 				destiny: destiny,
 				spawnTime: body.length * CREEP_SPAWN_TIME,
 			});
-			if (CENSUS_ANNOUNCEMENTS) global.logSystem(this.pos.roomName, dye(CRAYON.birth, 'Good morning ' + newName + '!'));
+			if (CENSUS_ANNOUNCEMENTS) Util.logSystem(this.pos.roomName, Util.dye(CRAYON.birth, 'Good morning ' + newName + '!'));
 			return true;
 		}
 		if (global.DEBUG || CENSUS_ANNOUNCEMENTS)
-			global.logSystem(
+			Util.logSystem(
 				this.pos.roomName,
-				dye(
+				Util.dye(
 					CRAYON.error,
 					'Offspring failed: ' +
-						translateErrorCode(newName) +
+						Util.translateErrorCode(newName) +
 						'<br/> - body: ' +
 						JSON.stringify(_.countBy(body)) +
 						'<br/> - name: ' +
@@ -146,8 +146,8 @@ mod.register = function() {
 };
 mod.handleSpawningCompleted = function(creep) {
 	if (global.DEBUG && global.TRACE)
-		trace('Spawn', { behaviour: creep.data.creepType, creepName: creep.name, Spawn: 'Creep.spawningCompleted' });
-	if (CENSUS_ANNOUNCEMENTS) global.logSystem(creep.pos.roomName, dye(CRAYON.birth, 'Off to work ' + creep.name + '!'));
+		Util.trace('Spawn', { behaviour: creep.data.creepType, creepName: creep.name, Spawn: 'Creep.spawningCompleted' });
+	if (CENSUS_ANNOUNCEMENTS) Util.logSystem(creep.pos.roomName, Util.dye(CRAYON.birth, 'Off to work ' + creep.name + '!'));
 };
 mod.execute = function() {
 	let run = spawn => {

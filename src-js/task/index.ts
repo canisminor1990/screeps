@@ -278,7 +278,7 @@ class TaskClass extends Component {
 				if (creep.data.predictedRenewal) prediction = creep.data.predictedRenewal;
 				else if (creep.data.spawningTime)
 					prediction = creep.data.spawningTime + Util.routeRange(creep.data.homeRoom, roomName) * 50;
-				else prediction = (routeRange(creep.data.homeRoom, roomName) + 1) * 50;
+				else prediction = (Util.routeRange(creep.data.homeRoom, roomName) + 1) * 50;
 				if (creep.name !== deadCreep && creep.ticksToLive > prediction) {
 					const untilRenewal: number = creep.ticksToLive - prediction;
 					minRemaining = !minRemaining || untilRenewal < minRemaining ? untilRenewal : minRemaining;

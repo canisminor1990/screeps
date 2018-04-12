@@ -11,7 +11,7 @@ const Behaviour = function(name) {
 		if (typeof action === 'string') action = Creep.action[action];
 		const valid = action.isValidAction(creep);
 		if (global.DEBUG && global.TRACE)
-			trace('Action', {
+			Util.trace('Action', {
 				actionName: action.name,
 				behaviourName: this.name,
 				creepName: creep.name,
@@ -26,7 +26,7 @@ const Behaviour = function(name) {
 
 		const addable = action.isAddableAction(creep);
 		if (global.DEBUG && global.TRACE)
-			trace('Action', {
+			Util.trace('Action', {
 				actionName: action.name,
 				behaviourName: this.name,
 				creepName: creep.name,
@@ -44,7 +44,7 @@ const Behaviour = function(name) {
 			: action.assign(creep, target);
 		if (assigned) {
 			if (global.DEBUG && global.TRACE)
-				trace('Behaviour', {
+				Util.trace('Behaviour', {
 					actionName: action.name,
 					behaviourName: this.name,
 					creepName: creep.name,
@@ -58,7 +58,7 @@ const Behaviour = function(name) {
 			p.checkCPU('assigned', 0.3);
 			return true;
 		} else if (global.DEBUG && global.TRACE) {
-			trace('Action', {
+			Util.trace('Action', {
 				actionName: action.name,
 				behaviourName: this.name,
 				creepName: creep.name,
@@ -142,7 +142,7 @@ const Behaviour = function(name) {
 		// Do some work
 		if (creep.action && creep.target) {
 			if (global.DEBUG && global.TRACE)
-				trace('Behaviour', {
+				Util.trace('Behaviour', {
 					actionName: creep.action.name,
 					behaviourName: this.name,
 					creepName: creep.name,

@@ -108,7 +108,7 @@ mod.handleSpawningCompleted = function(creep) {
 		// get task memory
 		let memory = Task.delivery.memory(flag.pos.roomName);
 		Task.validateSpawning(memory, flag, mod.name);
-		creep.data.predictedRenewal = creep.data.spawningTime + routeRange(creep.data.homeRoom, flag.pos.roomName) * 50;
+		creep.data.predictedRenewal = creep.data.spawningTime + Util.routeRange(creep.data.homeRoom, flag.pos.roomName) * 50;
 
 		// save running creep to task memory
 		memory.running.push(creep.name);

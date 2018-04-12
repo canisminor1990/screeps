@@ -88,7 +88,7 @@ mod.extend = function() {
 					let data = this.memory.resources;
 
 					if (!_.isUndefined(data) && !_.isUndefined(data.offers))
-						this._resourcesOffers = global.sumCompoundType(data.offers);
+						this._resourcesOffers = Util.sumCompoundType(data.offers);
 				}
 				return this._resourcesOffers;
 			},
@@ -101,7 +101,7 @@ mod.extend = function() {
 					let data = this.memory.resources;
 
 					if (!_.isUndefined(data) && !_.isUndefined(data.orders))
-						this._resourcesOrders = global.sumCompoundType(data.orders);
+						this._resourcesOrders = Util.sumCompoundType(data.orders);
 				}
 				return this._resourcesOrders;
 			},
@@ -175,7 +175,7 @@ mod.extend = function() {
 				if (_.isUndefined(this._minerals)) {
 					this._minerals = [];
 					let add = id => {
-						addById(this._minerals, id);
+						Util.addById(this._minerals, id);
 					};
 					_.forEach(this.memory.minerals, add);
 				}
@@ -205,7 +205,7 @@ mod.extend = function() {
 				if (_.isUndefined(this._sources)) {
 					this._sources = [];
 					var addSource = id => {
-						addById(this._sources, id);
+						Util.addById(this._sources, id);
 					};
 					this.memory.sources.forEach(addSource);
 				}

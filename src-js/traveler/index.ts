@@ -17,7 +17,7 @@
  * Examples: var Traveler = require('Traveler')();
  *           require('util.traveler')({exportTraveler: false, installTraveler: false, installPrototype: true, defaultStuckValue: 2});
  */
-module.exports = function(globalOpts = {}) {
+export const TravelerInstall = (globalOpts = {}) => {
 	const gOpts = _.defaults(globalOpts, {
 		exportTraveler: true,
 		installTraveler: false,
@@ -69,10 +69,10 @@ module.exports = function(globalOpts = {}) {
 						}
 					}
 					if (
-						!options.allowHostile &&
-						this.getHostileRoom(roomName) &&
-						roomName !== destination &&
-						roomName !== origin
+							!options.allowHostile &&
+							this.getHostileRoom(roomName) &&
+							roomName !== destination &&
+							roomName !== origin
 					) {
 						return Number.POSITIVE_INFINITY;
 					}
@@ -97,11 +97,11 @@ module.exports = function(globalOpts = {}) {
 				obstacles: [],
 			});
 			let origPos = origin.pos || origin,
-				destPos = destination.pos || destination;
+					destPos = destination.pos || destination;
 			let allowedRooms;
 			if (
-				options.useFindRoute ||
-				(options.useFindRoute === undefined && Game.map.getRoomLinearDistance(origPos.roomName, destPos.roomName) > 2)
+					options.useFindRoute ||
+					(options.useFindRoute === undefined && Game.map.getRoomLinearDistance(origPos.roomName, destPos.roomName) > 2)
 			) {
 				allowedRooms = this.findAllowedRooms(origPos.roomName, destPos.roomName, options);
 			}
@@ -117,10 +117,10 @@ module.exports = function(globalOpts = {}) {
 						return false;
 					}
 				} else if (
-					this.getHostileRoom(roomName) &&
-					!options.allowHostile &&
-					roomName !== origPos.roomName &&
-					roomName !== destPos.roomName
+						this.getHostileRoom(roomName) &&
+						!options.allowHostile &&
+						roomName !== origPos.roomName &&
+						roomName !== destPos.roomName
 				) {
 					return false;
 				}
@@ -145,14 +145,14 @@ module.exports = function(globalOpts = {}) {
 				return matrix;
 			};
 			const ret = PathFinder.search(
-				origPos,
-				{ pos: destPos, range: options.range },
-				{
-					maxOps: options.maxOps,
-					plainCost: options.ignoreRoads ? 1 : 2,
-					roomCallback: callback,
-					swampCost: options.ignoreRoads ? 5 : 10,
-				},
+					origPos,
+					{ pos: destPos, range: options.range },
+					{
+						maxOps: options.maxOps,
+						plainCost: options.ignoreRoads ? 1 : 2,
+						roomCallback: callback,
+						swampCost: options.ignoreRoads ? 5 : 10,
+					},
 			);
 			if (options.respectRamparts) {
 				// const start = Game.cpu.getUsed();
@@ -176,7 +176,7 @@ module.exports = function(globalOpts = {}) {
 		travelTo(creep, destination, options = {}) {
 			// register hostile rooms entered
 			let creepPos = creep.pos,
-				destPos = destination.pos || destination;
+					destPos = destination.pos || destination;
 			this.registerHostileRoom(creep.room);
 			// initialize data object
 			if (!creep.memory._travel) {
@@ -236,10 +236,10 @@ module.exports = function(globalOpts = {}) {
 			travelData.tick = Game.time;
 			// delete path cache if destination is different
 			if (
-				!travelData.dest ||
-				travelData.dest.x !== destPos.x ||
-				travelData.dest.y !== destPos.y ||
-				travelData.dest.roomName !== destPos.roomName
+					!travelData.dest ||
+					travelData.dest.x !== destPos.x ||
+					travelData.dest.y !== destPos.y ||
+					travelData.dest.roomName !== destPos.roomName
 			) {
 				delete travelData.path;
 			}
@@ -258,10 +258,10 @@ module.exports = function(globalOpts = {}) {
 				if (travelData.count > 25 && travelData.avg > options.reportThreshold) {
 					if (options.debug) {
 						console.log(
-							`TRAVELER: heavy cpu use: ${creep.name}, avg: ${travelData.cpu / travelData.count}, total: ${_.round(
-								travelData.cpu,
-								2,
-							)},` + `origin: ${creep.pos}, dest: ${destPos}`,
+								`TRAVELER: heavy cpu use: ${creep.name}, avg: ${travelData.cpu / travelData.count}, total: ${_.round(
+										travelData.cpu,
+										2,
+								)},` + `origin: ${creep.pos}, dest: ${destPos}`,
 						);
 					}
 				}
@@ -270,30 +270,30 @@ module.exports = function(globalOpts = {}) {
 					if (options.debug) {
 						if (options.range === 0) {
 							console.log(
-								`TRAVELER: incomplete path for ${creep.name} from ${
-									creep.pos
-								} to ${destPos}, destination may be blocked.`,
+									`TRAVELER: incomplete path for ${creep.name} from ${
+											creep.pos
+											} to ${destPos}, destination may be blocked.`,
 							);
 						} else {
 							console.log(
-								`TRAVELER: incomplete path for ${creep.name} from ${creep.pos} to ${destPos}, range ${
-									options.range
-								}. Route length ${route}.`,
+									`TRAVELER: incomplete path for ${creep.name} from ${creep.pos} to ${destPos}, range ${
+											options.range
+											}. Route length ${route}.`,
 							);
 						}
 					}
 					if (route > 1) {
 						ret = this.findTravelPath(
-							creep,
-							new RoomPosition(25, 25, ret.route[1].room),
-							_.create(options, {
-								range: gOpts.roomRange,
-								useFindRoute: false,
-							}),
+								creep,
+								new RoomPosition(25, 25, ret.route[1].room),
+								_.create(options, {
+									range: gOpts.roomRange,
+									useFindRoute: false,
+								}),
 						);
 						if (options.debug) {
 							console.log(
-								`attempting path through next room using known route was ${ret.incomplete ? 'not' : ''} successful`,
+									`attempting path through next room using known route was ${ret.incomplete ? 'not' : ''} successful`,
 							);
 						}
 					}
@@ -364,8 +364,8 @@ module.exports = function(globalOpts = {}) {
 			this.refreshMatrices();
 			if (!this.creepMatrixCache[room.name]) {
 				this.creepMatrixCache[room.name] = Traveler.addCreepsToMatrix(
-					room,
-					this.getStructureMatrix(room, options).clone(),
+						room,
+						this.getStructureMatrix(room, options).clone(),
 				);
 			}
 			return this.creepMatrixCache[room.name];
@@ -411,33 +411,6 @@ module.exports = function(globalOpts = {}) {
 			global.traveler = new Traveler();
 			global.travelerTick = Game.time;
 		}
-
-		Creep.prototype.travelTo = function(destination, options = {}) {
-			destination = destination.pos || destination;
-			if (global.traveler && global.travelerTick !== Game.time) {
-				global.traveler = new Traveler();
-			}
-			options = this.getStrategyHandler([], 'moveOptions', options);
-			_.defaults(options, {
-				allowSK: true,
-				avoidSKCreeps: true,
-				debug: global.DEBUG,
-				reportThreshold: global.TRAVELER_THRESHOLD,
-				useFindRoute: _.get(global, 'ROUTE_PRECALCULATION', true),
-				routeCallback: Room.routeCallback(this.pos.roomName, destination.roomName, options),
-				getStructureMatrix: room => Room.getStructureMatrix(room.name || room, options),
-				getCreepMatrix: room => room.getCreepMatrix(options.getStructureMatrix(room)),
-			});
-			if (
-				options.respectRamparts &&
-				this.room.situation.invasion &&
-				_.filter(this.pos.lookFor(LOOK_STRUCTURES), { my: true, structureType: STRUCTURE_RAMPART }).length
-			) {
-				// don't move off a rampart if we're already on one while hostiles are present
-				return OK;
-			}
-			return traveler.travelTo(this, destination, options);
-		};
 	}
 
 	if (gOpts.exportTraveler) {

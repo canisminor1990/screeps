@@ -35,7 +35,7 @@ class ReserveTask extends TaskComponent {
 				hasFlag && (Room.isControllerRoom(flag.pos.roomName) || (flag.room && flag.room.controller));
 			if (!hasFlag || !hasController) {
 				if (DEBUG && TRACE)
-					trace('Task', {
+					Util.trace('Task', {
 						hasFlag,
 						hasController,
 						checkForRequiredCreeps: 'skipping room, missing flag or controller',
@@ -53,7 +53,7 @@ class ReserveTask extends TaskComponent {
 				const isOwned = !!flag.room.controller.owner;
 				if (isOwned || validReservation) {
 					if (DEBUG && TRACE)
-						trace('Task', {
+						Util.trace('Task', {
 							validReservation,
 							isOwned,
 							checkForRequiredCreeps: 'skipping room, reserved or owned',
@@ -67,7 +67,7 @@ class ReserveTask extends TaskComponent {
 				if (urgent) params.queue = 'Medium';
 				if (DEBUG && TRACE) {
 					const type = urgent ? 'urgent' : ' ';
-					trace('Task', {
+					Util.trace('Task', {
 						validReservation,
 						isOwned,
 						urgent,
@@ -83,7 +83,7 @@ class ReserveTask extends TaskComponent {
 				params.count = 1;
 				params.queue = 'Medium';
 				if (DEBUG && TRACE)
-					trace('Task', {
+					Util.trace('Task', {
 						lastVisible: flag.memory.lastVisible,
 						tickToEnd: flag.memory.ticksToEnd,
 						checkForRequiredCreeps: 'sending urgent reserver, no visibility',
@@ -251,7 +251,7 @@ class ReserveTask extends TaskComponent {
 		if (flag) {
 			// calculate & set time required to spawn and send next substitute creep
 			// TODO: implement better distance calculation
-			creep.data.predictedRenewal = creep.data.spawningTime + routeRange(creep.data.homeRoom, flag.pos.roomName) * 50;
+			creep.data.predictedRenewal = creep.data.spawningTime + Util.routeRange(creep.data.homeRoom, flag.pos.roomName) * 50;
 			// get task memory
 			let memory = this.memory(flag);
 			// clean/validate task memory spawning creeps
@@ -290,7 +290,7 @@ class ReserveTask extends TaskComponent {
 			}
 		}
 		if (DEBUG && TRACE)
-			trace('Task', {
+			Util.trace('Task', {
 				creepName: creep.name,
 				nextAction: creep.action.name,
 				[this.name]: 'nextAction',

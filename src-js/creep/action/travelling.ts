@@ -10,7 +10,7 @@ action.isAddableTarget = function() {
 	return true;
 };
 action.newTarget = function(creep) {
-	// TODO trace it: console.log(creep.strategy([action.name]).key);
+	// TODO Util.trace it: console.log(creep.strategy([action.name]).key);
 	return creep.getStrategyHandler([action.name], 'newTarget', creep);
 };
 action.step = function(creep) {
@@ -40,7 +40,7 @@ action.step = function(creep) {
 		} else if (targetRange === 0 && creep.pos.isNearTo(target)) {
 			if (target.pos.lookFor(LOOK_CREEPS).length > 0) {
 				// avoid trying to pathfind to a blocked location
-				if (DEBUG) logSystem(creep.name, 'travelling.step: destination blocked, stopping.');
+				if (DEBUG) Util.logSystem(creep.name, 'travelling.step: destination blocked, stopping.');
 				return action.unregister(creep);
 			}
 		}
@@ -57,7 +57,7 @@ action.assignRoom = function(creep, roomName) {
 	if (_.isUndefined(creep.data.travelRange)) creep.data.travelRange = TRAVELLING_BORDER_RANGE || 22;
 	creep.data.travelRoom = roomName;
 	if (global.DEBUG && global.TRACE)
-		trace('Action', { creepName: creep.name, assign: this.name, roomName, Action: 'assign' });
+		Util.trace('Action', { creepName: creep.name, assign: this.name, roomName, Action: 'assign' });
 	return Creep.action.travelling.assign(creep, Flag.specialFlag());
 };
 action.unregister = function(creep) {

@@ -85,7 +85,7 @@ mod.handleSpawningCompleted = creep => {
 	if (flag) {
 		// calculate & set time required to spawn and send next substitute creep
 		// TODO: implement better distance calculation
-		creep.data.predictedRenewal = creep.data.spawningTime + routeRange(creep.data.homeRoom, flag.pos.roomName) * 50;
+		creep.data.predictedRenewal = creep.data.spawningTime + Util.routeRange(creep.data.homeRoom, flag.pos.roomName) * 50;
 
 		// get task memory
 		const memory = Task.safeGen.memory(flag);

@@ -3,7 +3,7 @@ module.exports = mod;
 mod.analyzeRoom = function(room, needMemoryResync) {
 	if (Game.time % global.PROCESS_ORDERS_INTERVAL === 0 || room.name === 'sim') {
 		room.updateResourceOrders();
-		let orderingRoom = global.orderingRoom();
+		let orderingRoom = Util.orderingRoom();
 		if (orderingRoom.length === 1 && room.name !== orderingRoom[0].name) {
 			room.updateRoomOrders();
 			room.terminalBroker();
@@ -119,10 +119,10 @@ mod.extend = function() {
 					}
 					if (!room.memory.resources.offers) room.memory.resources.offers = [];
 					let remoteOffers = room.memory.resources.offers;
-					// let offered = global.sumCompoundType(remoteOffers);
+					// let offered = Util.sumCompoundType(remoteOffers);
 					// let available = (room.resourcesStorage[order.type] || 0) + (room.resourcesTerminal[order.type] || 0) - (room.resourcesReactions[order.type] || 0) - (offered[order.type] || 0);
 					let available = room.resourcesAll[order.type] || 0;
-					// global.logSystem(room.name, `${room.name} ${available} ${order.type}`);
+					// Util.logSystem(room.name, `${room.name} ${available} ${order.type}`);
 					if (available < global.MIN_OFFER_AMOUNT) continue;
 
 					// for COMPOUNDS_TO_ALLOCATE
@@ -146,7 +146,7 @@ mod.extend = function() {
 					});
 					if (existingOffer) {
 						if (global.DEBUG && global.TRACE)
-							global.trace('Room', {
+							Util.trace('Room', {
 								roomName: this.name,
 								remoteRoom: room.name,
 								actionName: 'updateRoomOrders',
@@ -159,7 +159,7 @@ mod.extend = function() {
 						existingOffer.amount = available;
 					} else {
 						if (global.DEBUG && global.TRACE)
-							global.trace('Room', {
+							Util.trace('Room', {
 								roomName: this.name,
 								remoteRoom: room.name,
 								actionName: 'updateRoomOrders',
@@ -169,7 +169,7 @@ mod.extend = function() {
 								amount: available,
 							});
 						if (global.DEBUG)
-							global.logSystem(
+							Util.logSystem(
 								this.name,
 								`Room offer from ${room.name} with id ${order.id} placed for ${available} ${order.type}.`,
 							);
@@ -212,7 +212,7 @@ mod.extend = function() {
 				return o.room == this.name;
 			});
 			if (targetOfferIdx == -1) {
-				logSystem(this.name, 'Orphaned offer found and deleted');
+				Util.logSystem(this.name, 'Orphaned offer found and deleted');
 				offers.splice(i--, 1);
 				continue;
 			}
@@ -229,7 +229,7 @@ mod.extend = function() {
 			if (amount > store + onOrder) {
 				let amt = amount - (store + onOrder);
 				if (global.DEBUG && global.TRACE)
-					trace('Room', {
+					Util.trace('Room', {
 						actionName: 'fillARoomOrder',
 						subAction: 'terminalOrder',
 						roomName: this.name,
@@ -254,14 +254,14 @@ mod.extend = function() {
 			ret = this.terminal.send(offer.type, amount, targetRoom.name, order.id);
 			if (ret == OK) {
 				if (global.DEBUG && global.TRACE)
-					trace('Room', {
+					Util.trace('Room', {
 						actionName: 'fillARoomOrder',
 						roomName: this.name,
 						targetRoomName: targetRoom.name,
 						resourceType: offer.type,
 						amount: amount,
 					});
-				if (global.DEBUG) logSystem(this.name, `Room order filled to ${targetRoom.name} for ${amount} ${offer.type}.`);
+				if (global.DEBUG) Util.logSystem(this.name, `Room order filled to ${targetRoom.name} for ${amount} ${offer.type}.`);
 				offer.amount -= amount;
 				if (offer.amount > 0) {
 					order.offers[targetOfferIdx].amount = offer.amount;
@@ -347,7 +347,7 @@ mod.extend = function() {
 				if (existingOrder) {
 					// delete structure order
 					if (global.DEBUG && global.TRACE)
-						trace('Room', {
+						Util.trace('Room', {
 							roomName: this.name,
 							actionName: 'cancelOrder',
 							orderId: orderId,
@@ -358,7 +358,7 @@ mod.extend = function() {
 			} else {
 				// delete all of structure's orders
 				if (global.DEBUG && global.TRACE)
-					trace('Room', { roomName: this.name, actionName: 'cancelOrder', orderId: orderId, resourceType: 'all' });
+					Util.trace('Room', { roomName: this.name, actionName: 'cancelOrder', orderId: orderId, resourceType: 'all' });
 				containerData.orders = [];
 			}
 		}
@@ -486,7 +486,7 @@ mod.extend = function() {
 			if (existingOrder) {
 				// delete existing order
 				if (global.DEBUG && global.TRACE)
-					trace('Room', {
+					Util.trace('Room', {
 						roomName: this.name,
 						actionName: 'cancelRoomOrder',
 						orderId: orderId,
@@ -497,7 +497,7 @@ mod.extend = function() {
 		} else if (orderId) {
 			// delete all orders matching orderId
 			if (global.DEBUG && global.TRACE)
-				trace('Room', { roomName: this.name, actionName: 'cancelRoomOrder', orderId: orderId, resourceType: 'all' });
+				Util.trace('Room', { roomName: this.name, actionName: 'cancelRoomOrder', orderId: orderId, resourceType: 'all' });
 			for (let i = 0; i < orders.length; i++) {
 				let order = orders[i];
 				if (order.id === orderId) {
@@ -533,7 +533,7 @@ mod.extend = function() {
 		if (existingOrder) {
 			// update existing order
 			if (global.DEBUG && global.TRACE)
-				trace('Room', {
+				Util.trace('Room', {
 					roomName: this.name,
 					actionName: 'placeRoomOrder',
 					subAction: 'update',
@@ -545,7 +545,7 @@ mod.extend = function() {
 		} else {
 			// create new order
 			if (global.DEBUG && global.TRACE)
-				trace('Room', {
+				Util.trace('Room', {
 					roomName: this.name,
 					actionName: 'placeRoomOrder',
 					subAction: 'new',
@@ -553,7 +553,7 @@ mod.extend = function() {
 					resourceType: resourceType,
 					amount: amount,
 				});
-			if (global.DEBUG) logSystem(this.name, `New room order with id ${orderId} placed for ${amount} ${resourceType}.`);
+			if (global.DEBUG) Util.logSystem(this.name, `New room order with id ${orderId} placed for ${amount} ${resourceType}.`);
 			orders.push({
 				id: orderId,
 				type: resourceType,
@@ -577,7 +577,7 @@ mod.extend = function() {
 			if (this.terminal.store[mineral] >= MIN_MINERAL_SELL_AMOUNT) {
 				let buyRatio;
 				if (global.AUTOMATED_RATIO_COUNT) {
-					buyRatio = global.countPrices('buy', mineral, that.name);
+					buyRatio = Util.countPrices('buy', mineral, that.name);
 					if (global.DEBUG) {
 						if (buyRatio === 0) console.log(`there is no buy order for ${mineral}`);
 						else console.log(`average buyRatio: ${that.name} ${mineral} ${buyRatio}`);
@@ -615,19 +615,19 @@ mod.extend = function() {
 					let order = _.max(orders, 'ratio');
 					if (global.DEBUG) {
 						console.log('selected order: ');
-						global.BB(order);
+						Util.logStringify(order);
 					}
 					let result = Game.market.deal(order.id, order.transactionAmount, that.name);
 					if (global.DEBUG || SELL_NOTIFICATION)
-						logSystem(
+						Util.logSystem(
 							that.name,
-							`Selling ${order.transactionAmount} ${mineral} for ${global.roundUp(order.credits)} (${
+							`Selling ${order.transactionAmount} ${mineral} for ${Util.roundUp(order.credits)} (${
 								order.price
-							} ¢/${mineral}, ${order.transactionCost} e): ${translateErrorCode(result)}`,
+							} ¢/${mineral}, ${order.transactionCost} e): ${Util.translateErrorCode(result)}`,
 						);
 					if (SELL_NOTIFICATION)
 						Game.notify(
-							`<h2>Room ${that.name} executed an order!</h2><br/>Result: ${translateErrorCode(
+							`<h2>Room ${that.name} executed an order!</h2><br/>Result: ${Util.translateErrorCode(
 								result,
 							)}<br/>Details:<br/>${JSON.stringify(order).replace(',', ',<br/>')}`,
 						);
@@ -664,11 +664,11 @@ mod.extend = function() {
 				targetRoom._isReceivingEnergy = true;
 				let response = this.terminal.send('energy', ENERGY_BALANCE_TRANSFER_AMOUNT, targetRoom.name, 'have fun');
 				if (global.DEBUG)
-					logSystem(
+					Util.logSystem(
 						that.name,
 						`Transferring ${Util.formatNumber(ENERGY_BALANCE_TRANSFER_AMOUNT)} energy to ${
 							targetRoom.name
-						}: ${translateErrorCode(response)}`,
+						}: ${Util.translateErrorCode(response)}`,
 					);
 				transacting = response == OK;
 			}

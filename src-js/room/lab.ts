@@ -102,7 +102,7 @@ mod.extend = function() {
 			if (master.runReaction(slave_a, slave_b) == OK) {
 				data.reactionAmount -= LAB_REACTION_AMOUNT;
 				if (global.DEBUG && global.TRACE)
-					trace('Room', {
+					Util.trace('Room', {
 						roomName: this.name,
 						actionName: 'processLabs',
 						labId: master.id,
@@ -210,7 +210,7 @@ mod.extend = function() {
 				resourcesOffered = (this.resourcesOffers[component_a] || 0) + order.amount,
 				amountToOrder = resourcesOffered - resourcesStored;
 
-			let roundedAmountToOrder = global.roundUpTo(amountToOrder, global.MIN_OFFER_AMOUNT);
+			let roundedAmountToOrder = Util.roundUpTo(amountToOrder, global.MIN_OFFER_AMOUNT);
 			if (amountToOrder < global.TRADE_THRESHOLD && amountToOrder > 0) {
 				if (empireResourcesComponentA >= global.TRADE_THRESHOLD) amountToOrder = global.TRADE_THRESHOLD;
 				else if (empireResourcesComponentA >= roundedAmountToOrder) amountToOrder = roundedAmountToOrder;
@@ -236,7 +236,7 @@ mod.extend = function() {
 				resourcesOffered = (this.resourcesOffers[component_b] || 0) + order.amount,
 				amountToOrder = resourcesOffered - resourcesStored;
 
-			let roundedAmountToOrder = global.roundUpTo(amountToOrder, global.MIN_OFFER_AMOUNT);
+			let roundedAmountToOrder = Util.roundUpTo(amountToOrder, global.MIN_OFFER_AMOUNT);
 			if (amountToOrder < global.TRADE_THRESHOLD && amountToOrder > 0) {
 				if (empireResourcesComponentB >= global.TRADE_THRESHOLD) amountToOrder = global.TRADE_THRESHOLD;
 				else if (empireResourcesComponentB >= roundedAmountToOrder) amountToOrder = roundedAmountToOrder;
@@ -266,7 +266,7 @@ mod.extend = function() {
 				resourcesOffered = (this.resourcesOffers[component_a] || 0) + order.amount,
 				amountToOrder = resourcesOffered - resourcesStored;
 
-			let roundedAmountToOrder = global.roundUpTo(amountToOrder, global.MIN_OFFER_AMOUNT);
+			let roundedAmountToOrder = Util.roundUpTo(amountToOrder, global.MIN_OFFER_AMOUNT);
 			if (amountToOrder < global.TRADE_THRESHOLD && amountToOrder > 0) {
 				if (empireResourcesComponentA >= global.TRADE_THRESHOLD) amountToOrder = global.TRADE_THRESHOLD;
 				else if (empireResourcesComponentA >= roundedAmountToOrder) amountToOrder = roundedAmountToOrder;
@@ -295,7 +295,7 @@ mod.extend = function() {
 				resourcesOffered = (this.resourcesOffers[component_b] || 0) + order.amount,
 				amountToOrder = resourcesOffered - resourcesStored;
 
-			let roundedAmountToOrder = global.roundUpTo(amountToOrder, global.MIN_OFFER_AMOUNT);
+			let roundedAmountToOrder = Util.roundUpTo(amountToOrder, global.MIN_OFFER_AMOUNT);
 			if (amountToOrder < global.TRADE_THRESHOLD && amountToOrder > 0) {
 				if (empireResourcesComponentB >= global.TRADE_THRESHOLD) amountToOrder = global.TRADE_THRESHOLD;
 				else if (empireResourcesComponentB >= roundedAmountToOrder) amountToOrder = roundedAmountToOrder;
@@ -371,7 +371,7 @@ mod.extend = function() {
 				if (returnValue === OK) {
 					order.amount -= LAB_REACTION_AMOUNT;
 					if (global.DEBUG && global.TRACE)
-						trace('Room', {
+						Util.trace('Room', {
 							roomName: this.name,
 							actionName: 'processLabs',
 							reactorType: REACTOR_TYPE_FLOWER,
@@ -380,9 +380,9 @@ mod.extend = function() {
 							amountRemaining: order.amount,
 						});
 				} else {
-					global.logSystem(
+					Util.logSystem(
 						this.name,
-						`${this.name} runReactions not OK. returnValue: ${global.translateErrorCode(returnValue)}`,
+						`${this.name} runReactions not OK. returnValue: ${Util.translateErrorCode(returnValue)}`,
 					);
 				}
 			}
@@ -633,7 +633,7 @@ mod.extend = function() {
 			if (existingOrder) {
 				// update existing order
 				if (global.DEBUG && global.TRACE)
-					trace('Room', {
+					Util.trace('Room', {
 						roomName: this.name,
 						actionName: 'placeReactionOrder',
 						subAction: 'update',
@@ -646,7 +646,7 @@ mod.extend = function() {
 			} else {
 				// create new order
 				if (global.DEBUG && global.TRACE)
-					trace('Room', {
+					Util.trace('Room', {
 						roomName: this.name,
 						actionName: 'placeReactionOrder',
 						subAction: 'new',
@@ -699,7 +699,7 @@ mod.extend = function() {
 			}
 		} else {
 			if (global.DEBUG && global.TRACE)
-				trace('Room', { roomName: this.name, actionName: 'placeRoomOrder', subAction: 'no_reactor' });
+				Util.trace('Room', { roomName: this.name, actionName: 'placeRoomOrder', subAction: 'no_reactor' });
 			return ERR_INVALID_TARGET;
 		}
 

@@ -30,7 +30,7 @@ mod.unregisterCreep = function(creepName) {
 };
 mod.registerAction = function(creep, action, target, entry) {
 	if (global.DEBUG && global.TRACE)
-		trace('Population', {
+		Util.trace('Population', {
 			creepName: this.name,
 			registerAction: action.name,
 			target: target.name || target.id,
@@ -170,7 +170,7 @@ mod.analyze = function() {
 		let creep = Game.creeps[entry.creepName];
 		if (!creep) {
 			if (CENSUS_ANNOUNCEMENTS)
-				global.logSystem(entry.homeRoom, dye(CRAYON.death, 'Good night ' + entry.creepName + '!'));
+				Util.logSystem(entry.homeRoom, Util.dye(CRAYON.death, 'Good night ' + entry.creepName + '!'));
 			this.died.push(entry.creepName);
 		} else {
 			creep.data = entry;
@@ -192,7 +192,7 @@ mod.analyze = function() {
 				// will die in ticks equal to spawning time or custom
 				creep.data.nearDeath = true;
 				if (CENSUS_ANNOUNCEMENTS)
-					console.log(dye(CRAYON.system, entry.creepName + ' &gt; ') + dye(CRAYON.death, 'Farewell!'), Util.stack());
+					console.log(Util.dye(CRAYON.system, entry.creepName + ' &gt; ') + Util.dye(CRAYON.death, 'Farewell!'), Util.stack());
 				this.predictedRenewal.push(creep.name);
 				if (
 					!this.spawnsToProbe.includes(entry.motherSpawn) &&
@@ -358,7 +358,7 @@ mod.findCircular = function() {
 };
 mod.checkCircular = function(stopId, map, root, rootPath, depth) {
 	if (depth > 10) {
-		logError('Checking for circulars, very deep path', { rootPath, depth });
+		Util.logError('Checking for circulars, very deep path', { rootPath, depth });
 		return;
 	}
 	for (let key in root) {

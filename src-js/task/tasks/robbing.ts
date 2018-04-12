@@ -91,7 +91,7 @@ mod.handleSpawningCompleted = creep => {
 	if (flag) {
 		// calculate & set time required to spawn and send next substitute creep
 		// TODO: implement better distance calculation
-		creep.data.predictedRenewal = creep.data.spawningTime + routeRange(creep.data.homeRoom, flag.pos.roomName) * 50;
+		creep.data.predictedRenewal = creep.data.spawningTime + Util.routeRange(creep.data.homeRoom, flag.pos.roomName) * 50;
 
 		// get task memory
 		let memory = Task.robbing.memory(flag);
@@ -135,7 +135,7 @@ mod.nextAction = creep => {
 		// carrier filled
 		if (carrySum > 0) {
 			if (DEBUG && TRACE)
-				trace('Task', {
+				Util.trace('Task', {
 					creepName: creep.name,
 					pos: creep.pos,
 					nextAction: 'storing?',
@@ -166,7 +166,7 @@ mod.nextAction = creep => {
 		// travelling
 		if (Task[creep.data.destiny.task].exploitNextRoom(creep)) {
 			if (DEBUG && TRACE)
-				trace('Task', {
+				Util.trace('Task', {
 					creepName: creep.name,
 					pos: creep.pos,
 					nextAction: 'travelling',
@@ -178,7 +178,7 @@ mod.nextAction = creep => {
 			// no new flag
 			// behave as worker
 			if (DEBUG && TRACE)
-				trace('Task', {
+				Util.trace('Task', {
 					creepName: creep.name,
 					pos: creep.pos,
 					nextAction: 'working',
@@ -193,7 +193,7 @@ mod.nextAction = creep => {
 		// at target room
 		if (creep.flag && creep.flag.pos.roomName === creep.pos.roomName) {
 			if (DEBUG && TRACE)
-				trace('Task', {
+				Util.trace('Task', {
 					creepName: creep.name,
 					pos: creep.pos,
 					nextAction: 'robbing',
@@ -222,7 +222,7 @@ mod.nextAction = creep => {
 		} else {
 			// not at target room
 			if (DEBUG && TRACE)
-				trace('Task', {
+				Util.trace('Task', {
 					creepName: creep.name,
 					pos: creep.pos,
 					nextAction: 'travelling2',

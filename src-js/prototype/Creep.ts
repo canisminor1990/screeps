@@ -1,3 +1,5 @@
+const Strategy = require('../util/strategy')
+
 Object.defineProperties(Creep.prototype, {
 	flee: {
 		get(): number | void {
@@ -88,8 +90,8 @@ Object.defineProperties(Creep.prototype, {
 			if (_.isUndefined(flagName)) flagName = this.data.flagName;
 			if (!_.isUndefined(findFunc) && flagName) {
 				const ret = _(Memory.population)
-					.filter({ flagName })
-					.find(findFunc) as CreepMemory;
+						.filter({ flagName })
+						.find(findFunc) as CreepMemory;
 				return ret ? ret.creepName : null;
 			} else {
 				Util.logError(`${this.name} - Invalid arguments for Creep.findGroupMemberBy ${flagName} ${findFunc}`);
@@ -111,8 +113,8 @@ Object.defineProperties(Creep.prototype, {
 	getBodyparts: {
 		value(type: string): number {
 			return _(this.body)
-				.filter({ type })
-				.value().length;
+					.filter({ type })
+					.value().length;
 		},
 	},
 	// Check if a creep has body parts of a certain type anf if it is still active.
@@ -193,16 +195,16 @@ Object.defineProperties(Creep.prototype, {
 						Population.countCreep(this.room, entry);
 					} else {
 						console.log(
-							Util.dye(CRAYON.error, 'Corrupt creep without population entry!! : ' + this.name),
-							Util.stack(),
+								Util.dye(CRAYON.error, 'Corrupt creep without population entry!! : ' + this.name),
+								Util.stack(),
 						);
 						// trying to import creep
 						let counts = _.countBy(this.body, 'type');
 						if (counts[WORK] && counts[CARRY]) {
 							let weight =
-								counts[WORK] * BODYPART_COST[WORK] +
-								counts[CARRY] * BODYPART_COST[CARRY] +
-								counts[MOVE] * BODYPART_COST[MOVE];
+									counts[WORK] * BODYPART_COST[WORK] +
+									counts[CARRY] * BODYPART_COST[CARRY] +
+									counts[MOVE] * BODYPART_COST[MOVE];
 							let entry = Population.setCreep({
 								creepName: this.name,
 								creepType: 'worker',
@@ -230,7 +232,7 @@ Object.defineProperties(Creep.prototype, {
 				}
 				total.checkCPU(this.name, PROFILING.EXECUTE_LIMIT / 3, this.data ? this.data.creepType : 'noType');
 			}
-			Util.freeStrategy(this);
+			Strategy.freeStrategy(this);
 		},
 	},
 	leaveBorder: {
@@ -275,11 +277,11 @@ Object.defineProperties(Creep.prototype, {
 			if (this.fatigue > 0) return;
 			let path;
 			if (
-				!this.data.fleePath ||
-				this.data.fleePath.length < 2 ||
-				this.data.fleePath[0].x !== this.pos.x ||
-				this.data.fleePath[0].y !== this.pos.y ||
-				this.data.fleePath[0].roomName !== this.pos.roomName
+					!this.data.fleePath ||
+					this.data.fleePath.length < 2 ||
+					this.data.fleePath[0].x !== this.pos.x ||
+					this.data.fleePath[0].y !== this.pos.y ||
+					this.data.fleePath[0].roomName !== this.pos.roomName
 			) {
 				const goals = _.map(this.room.hostiles, (o: Creep) => {
 					return { pos: o.pos, range: 5 };
@@ -313,16 +315,16 @@ Object.defineProperties(Creep.prototype, {
 			if (this.fatigue > 0) return;
 			// check if on road/structure
 			const needToMove = _(this.room.structures.piles)
-				.filter('pos', this.pos)
-				.concat(this.pos.lookFor(LOOK_STRUCTURES))
-				.concat(this.pos.lookFor(LOOK_CONSTRUCTION_SITES))
-				.size();
+					.filter('pos', this.pos)
+					.concat(this.pos.lookFor(LOOK_STRUCTURES))
+					.concat(this.pos.lookFor(LOOK_CONSTRUCTION_SITES))
+					.size();
 			if (needToMove) {
 				if (
-					!this.data.idle ||
-					!this.data.idle.path ||
-					!this.data.idle.path.length ||
-					this.pos.isEqualTo(this.data.idle.lastPos)
+						!this.data.idle ||
+						!this.data.idle.path ||
+						!this.data.idle.path.length ||
+						this.pos.isEqualTo(this.data.idle.lastPos)
 				) {
 					const idleFlag = Flag.find(FLAG_COLOR.command.idle, this.pos, true, (r, flagEntry: obj) => {
 						const flag = Game.flags[flagEntry.name];
@@ -336,40 +338,40 @@ Object.defineProperties(Creep.prototype, {
 					let ret;
 					if (idleFlag) {
 						ret = PathFinder.search(
-							this.pos,
-							{ pos: idleFlag.pos, range: 0 },
-							{
-								plainCost: 2,
-								swampCost: 10,
-								maxOps: 350,
-								maxRooms: 1,
-								roomCallback: (roomName: string) => {
-									let room = Game.rooms[roomName];
-									if (!room) return;
-									return room.structureMatrix;
+								this.pos,
+								{ pos: idleFlag.pos, range: 0 },
+								{
+									plainCost: 2,
+									swampCost: 10,
+									maxOps: 350,
+									maxRooms: 1,
+									roomCallback: (roomName: string) => {
+										let room = Game.rooms[roomName];
+										if (!room) return;
+										return room.structureMatrix;
+									},
 								},
-							},
 						);
 					} else {
 						let goals = this.room.structures.all
-							.map((o: Structure) => {
-								return { pos: o.pos, range: 1 };
-							})
-							.concat(
-								this.room.sources.map((s: Source) => {
-									return { pos: s.pos, range: 2 };
-								}),
-							)
-							.concat(
-								this.pos.findInRange(FIND_EXIT, 2).map((e: RoomPosition) => {
-									return { pos: e, range: 1 };
-								}),
-							)
-							.concat(
-								this.room.myConstructionSites.map((o: ConstructionSite) => {
+								.map((o: Structure) => {
 									return { pos: o.pos, range: 1 };
-								}),
-							);
+								})
+								.concat(
+										this.room.sources.map((s: Source) => {
+											return { pos: s.pos, range: 2 };
+										}),
+								)
+								.concat(
+										this.pos.findInRange(FIND_EXIT, 2).map((e: RoomPosition) => {
+											return { pos: e, range: 1 };
+										}),
+								)
+								.concat(
+										this.room.myConstructionSites.map((o: ConstructionSite) => {
+											return { pos: o.pos, range: 1 };
+										}),
+								);
 						ret = PathFinder.search(this.pos, goals, {
 							flee: true,
 							plainCost: 2,
@@ -409,11 +411,11 @@ Object.defineProperties(Creep.prototype, {
 			// if it has energy and a work part, remoteMiners do repairs once the source is exhausted.
 			if (this.carry.energy > 0 && this.hasActiveBodyparts(WORK)) {
 				const repairRange =
-					this.data && this.data.creepType === 'remoteHauler'
-						? REMOTE_HAULER.DRIVE_BY_REPAIR_RANGE
-						: DRIVE_BY_REPAIR_RANGE;
+						this.data && this.data.creepType === 'remoteHauler'
+								? REMOTE_HAULER.DRIVE_BY_REPAIR_RANGE
+								: DRIVE_BY_REPAIR_RANGE;
 				const repairTarget = _(this.pos.findInRange(FIND_STRUCTURES, repairRange)).find((s: Structure) =>
-					Room.shouldRepair(this.room, s),
+						Room.shouldRepair(this.room, s),
 				) as Structure;
 				if (repairTarget) {
 					if (DEBUG && TRACE)
@@ -423,9 +425,9 @@ Object.defineProperties(Creep.prototype, {
 			} else {
 				if (DEBUG && TRACE)
 					Util.trace(
-						'Creep',
-						{ creepName: this.name, pos: this.pos, Action: 'repairing', Creep: 'repairNearby' },
-						'not repairing',
+							'Creep',
+							{ creepName: this.name, pos: this.pos, Action: 'repairing', Creep: 'repairNearby' },
+							'not repairing',
 					);
 			}
 		},
@@ -435,9 +437,9 @@ Object.defineProperties(Creep.prototype, {
 			// enable remote haulers to build their own roads and containers
 			if (!REMOTE_HAULER.DRIVE_BY_BUILDING || !this.data || this.data.creepType !== 'remoteHauler') return;
 			const buildTarget = _(this.pos.findInRange(FIND_MY_CONSTRUCTION_SITES, REMOTE_HAULER.DRIVE_BY_BUILD_RANGE)).find(
-				(s: ConstructionSite) =>
-					REMOTE_HAULER.DRIVE_BY_BUILD_ALL ||
-					(s.structureType === STRUCTURE_CONTAINER || s.structureType === STRUCTURE_ROAD),
+					(s: ConstructionSite) =>
+							REMOTE_HAULER.DRIVE_BY_BUILD_ALL ||
+							(s.structureType === STRUCTURE_CONTAINER || s.structureType === STRUCTURE_ROAD),
 			);
 			if (buildTarget) {
 				if (DEBUG && TRACE)
@@ -453,10 +455,10 @@ Object.defineProperties(Creep.prototype, {
 		value() {
 			const signMessage = Util.fieldOrFunction(CONTROLLER_SIGN_MESSAGE, this.room);
 			if (
-				CONTROLLER_SIGN &&
-				(!this.room.controller.sign ||
-					this.room.controller.sign.username !== this.owner.username ||
-					(CONTROLLER_SIGN_UPDATE && this.room.controller.sign.text !== signMessage))
+					CONTROLLER_SIGN &&
+					(!this.room.controller.sign ||
+							this.room.controller.sign.username !== this.owner.username ||
+							(CONTROLLER_SIGN_UPDATE && this.room.controller.sign.text !== signMessage))
 			) {
 				this.signController(this.room.controller, signMessage);
 			}
@@ -508,9 +510,9 @@ Object.defineProperties(Creep.prototype, {
 				getCreepMatrix: (room: Room) => room.getCreepMatrix(options.getStructureMatrix(room)),
 			});
 			if (
-				options.respectRamparts &&
-				this.room.situation.invasion &&
-				_.filter(this.pos.lookFor(LOOK_STRUCTURES), { my: true, structureType: STRUCTURE_RAMPART }).length
+					options.respectRamparts &&
+					this.room.situation.invasion &&
+					_.filter(this.pos.lookFor(LOOK_STRUCTURES), { my: true, structureType: STRUCTURE_RAMPART }).length
 			) {
 				// don't move off a rampart if we're already on one while hostiles are present
 				return OK;
@@ -519,5 +521,3 @@ Object.defineProperties(Creep.prototype, {
 		},
 	},
 });
-
-Creep;

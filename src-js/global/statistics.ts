@@ -12,7 +12,7 @@ mod.process = function() {
 		message =
 			'<div><h3><b>Status report </b></h3>' +
 			'<h4>at ' +
-			toDateTimeString(toLocalDate()) +
+			Util.toDateTimeString(Util.toLocalDate()) +
 			',<br/>' +
 			'comparison to state before: ' +
 			this.toTimeSpanString(new Date(), new Date(this.storedStatisticsTime)) +
@@ -30,13 +30,13 @@ mod.process = function() {
 
 	let invaderReport = invader => {
 		let snip = '<li>' + invader.owner + ': ' + invader.body.replace(/"/g, '');
-		if (invader.leave === undefined) snip += ' since ' + toTimeString(toLocalDate(new Date(invader.time))) + '</li>';
+		if (invader.leave === undefined) snip += ' since ' + Util.toTimeString(Util.toLocalDate(new Date(invader.time))) + '</li>';
 		else
 			snip +=
 				' for ' +
 				(invader.leave - invader.enter) +
 				' loops at ' +
-				toTimeString(toLocalDate(new Date(invader.time))) +
+				Util.toTimeString(Util.toLocalDate(new Date(invader.time))) +
 				'</li>';
 		if (message.length + snip.length > REPORT_MAX_LENGTH) {
 			Memory.statistics.reports.push(message + '</ul></li></ul>');

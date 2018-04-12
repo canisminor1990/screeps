@@ -112,7 +112,7 @@ mod.orderDefenses = invaderCreep => {
 
 	// analyze invader threat and create something bigger
 	while (remainingThreat > 0) {
-		let orderId = global.guid();
+		let orderId = Util.guid();
 		Task.defense.creep.defender.queue = invaderCreep.room.my ? 'High' : 'Medium';
 		Task.defense.creep.defender.minThreat = remainingThreat * 1.1;
 
@@ -141,7 +141,7 @@ mod.orderDefenses = invaderCreep => {
 					order: creepSetup.destiny.order,
 				});
 				if (DEBUG)
-					global.logSystem(
+					Util.logSystem(
 						creepSetup.queueRoom,
 						`Defender queued for hostile creep ${creepSetup.destiny.order} in ${creepSetup.destiny.spottedIn}`,
 					);
@@ -154,7 +154,7 @@ mod.orderDefenses = invaderCreep => {
 		} else {
 			// Can't spawn. Invader will not get handled!
 			if (TRACE || DEBUG)
-				trace(
+				Util.trace(
 					'Task',
 					{ task: 'defense', invaderId: invaderId, targetRoom: invaderCreep.pos.roomName },
 					'Unable to spawn. Invader will not get handled!',

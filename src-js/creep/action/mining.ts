@@ -170,7 +170,7 @@ action.getEnergy = function(creep) {
 	})[0];
 	if (dropped) {
 		if (global.DEBUG && global.TRACE)
-			trace('Action', {
+			Util.trace('Action', {
 				actionName: this.name,
 				method: 'getEnergy',
 				creepName: creep.name,
@@ -186,7 +186,7 @@ action.getEnergy = function(creep) {
 	})[0];
 	if (container && container.sum > 0) {
 		if (global.DEBUG && global.TRACE)
-			trace('Action', {
+			Util.trace('Action', {
 				actionName: this.name,
 				method: 'getEnergy',
 				creepName: creep.name,
@@ -202,7 +202,7 @@ action.getEnergy = function(creep) {
 	})[0];
 	if (link && link.energy > 0) {
 		if (global.DEBUG && global.TRACE)
-			trace('Action', {
+			Util.trace('Action', {
 				actionName: this.name,
 				method: 'getEnergy',
 				creepName: creep.name,
@@ -213,7 +213,7 @@ action.getEnergy = function(creep) {
 		return true;
 	}
 	if (global.DEBUG && global.TRACE)
-		trace('Action', {
+		Util.trace('Action', {
 			actionName: this.name,
 			method: 'getEnergy',
 			creepName: creep.name,
@@ -226,7 +226,7 @@ action.getEnergy = function(creep) {
 action.maintain = function(creep) {
 	const minCarry = creep.data.body && creep.data.body.work ? creep.data.body.work * 5 : creep.carryCapacity / 2;
 	if (global.DEBUG && global.TRACE)
-		trace('Action', {
+		Util.trace('Action', {
 			actionName: this.name,
 			method: 'maintain',
 			creepName: creep.name,
@@ -251,7 +251,7 @@ action.maintain = function(creep) {
 			if (repairTarget) {
 				creep.data.repairTarget = repairTarget.id;
 				if (global.DEBUG && global.TRACE)
-					trace('Action', {
+					Util.trace('Action', {
 						actionName: this.name,
 						method: 'maintain',
 						creepName: creep.name,
@@ -277,7 +277,7 @@ action.maintain = function(creep) {
 			if (buildTarget) {
 				creep.data.buildTarget = buildTarget.id;
 				if (global.DEBUG && global.TRACE)
-					trace('Action', {
+					Util.trace('Action', {
 						actionName: this.name,
 						method: 'maintain',
 						creepName: creep.name,

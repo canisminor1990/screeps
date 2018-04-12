@@ -1,14 +1,8 @@
 import {LiteEvent} from '../class'
 
 module.exports = {
-	flush() {
-		// occurs when a flag is found (each tick)
-		// param: flag
-		Flag.found = new LiteEvent();
+	flush:() => {
 
-		// occurs when a flag memory if found for which no flag exists (before memory removal)
-		// param: flagName
-		Flag.FlagRemoved = new LiteEvent();
 
 		// ocurrs when a creep starts spawning
 		// param: { spawn: spawn.name, name: creep.name, destiny: creep.destiny }

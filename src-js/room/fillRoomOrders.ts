@@ -18,7 +18,7 @@ let mod = {
 
 		if (_.isUndefined(Memory.boostTiming.timeStamp)) Memory.boostTiming.timeStamp = Game.time;
 
-		let orderingRoom = global.orderingRoom(),
+		let orderingRoom = Util.orderingRoom(),
 			numberOfOrderingRooms = orderingRoom.length,
 			roomTrading = Memory.boostTiming.roomTrading,
 			roomTradingType,
@@ -43,15 +43,15 @@ let mod = {
 				roomTradingType = `BOOST_ALLOCATION since: ${Game.time - Memory.boostTiming.timeStamp}`;
 
 			if (!Memory.boostTiming.multiOrderingRoomName)
-				global.logSystem(
+				Util.logSystem(
 					room.name,
 					`orderingRoom.name: ${room.name}, checkRoomAt: ${(room.memory.resources.boostTiming.checkRoomAt || 0) -
 						Game.time} ${roomTradingType}`,
 				);
-			else global.logSystem(room.name, `multi ordering in progress at ${Memory.boostTiming.multiOrderingRoomName}`);
+			else Util.logSystem(room.name, `multi ordering in progress at ${Memory.boostTiming.multiOrderingRoomName}`);
 		} else if (numberOfOrderingRooms > 1) {
 			console.log(`WARNING: ${numberOfOrderingRooms} ordering rooms!`);
-			global.BB(orderingRoom);
+			Util.logStringify(orderingRoom);
 		}
 
 		if (
@@ -65,11 +65,11 @@ let mod = {
 
 			if (ordersWithOffers) {
 				let returnValue = room.checkOffers();
-				global.logSystem(room.name, `checkOffers running from ${room.name} returnValue: ${returnValue}`);
+				Util.logSystem(room.name, `checkOffers running from ${room.name} returnValue: ${returnValue}`);
 			} else {
-				global.logSystem(room.name, `${room.name} no offers found, updating offers`);
+				Util.logSystem(room.name, `${room.name} no offers found, updating offers`);
 				room.GCOrders();
-				global.BB(data.orders);
+				Util.logStringify(data.orders);
 			}
 		} else if (orderingRoom.length === 0) {
 			let roomTrading = Memory.boostTiming.roomTrading;
@@ -101,7 +101,7 @@ let mod = {
 			if (Game.time < candidates.time) return;
 
 			if (orderCandidates.length === 0) {
-				global.logSystem(
+				Util.logSystem(
 					memoryOrderingRoom.name,
 					`all ready offers completed to ${
 						Memory.boostTiming.multiOrderingRoomName
@@ -120,7 +120,7 @@ let mod = {
 
 				if (candidate.readyOffers > 0) {
 					if (currentRoom.terminal.cooldown > 0) {
-						global.logSystem(
+						Util.logSystem(
 							currentRoom.name,
 							`${currentRoom.name} terminal.cooldown: ${currentRoom.terminal.cooldown} fillARoomOrder() delayed.`,
 						);
@@ -128,7 +128,7 @@ let mod = {
 						continue;
 					} else candidates.time = Game.time + 1;
 
-					global.logSystem(
+					Util.logSystem(
 						memoryOrderingRoom.name,
 						`running ${candidate.room} fillARoomOrder() in a row, time: ${Game.time} readyOffers: ${
 							candidate.readyOffers
@@ -139,36 +139,36 @@ let mod = {
 					if (returnValue === true) {
 						candidate.readyOffers--;
 						if (candidate.readyOffers >= 1) {
-							global.logSystem(
+							Util.logSystem(
 								candidate.room,
 								`has ${candidate.readyOffers} remains fillRoomOrders check. readyOffers: ${candidate.readyOffers}`,
 							);
 						} else {
-							global.logSystem(memoryOrderingRoom.name, `offers from ${candidate.room} are completed`);
+							Util.logSystem(memoryOrderingRoom.name, `offers from ${candidate.room} are completed`);
 							orderCandidates.splice(i, 1);
 							i--;
 						}
 					} else if (returnValue === ERR_TIRED) {
 						candidates.time = Game.time + currentRoom.terminal.cooldown;
-						global.logSystem(
+						Util.logSystem(
 							candidate.room,
 							`${candidate.room} offers from ${candidate.room} failed send to ${
 								memoryOrderingRoom.name
 							}.  Terminal.cooldown: ${currentRoom.terminal.cooldown}`,
 						);
 					} else if (returnValue === ERR_NOT_ENOUGH_RESOURCES) {
-						global.logSystem(
+						Util.logSystem(
 							memoryOrderingRoom.name,
 							`WARNING: offers from ${candidate.room} are not completed: not enough resources`,
 						);
 						orderCandidates.splice(i, 1);
 						i--;
 					} else if (returnValue !== true && returnValue !== OK) {
-						global.logSystem(
+						Util.logSystem(
 							memoryOrderingRoom.name,
 							`WARNING: offers from ${
 								candidate.room
-							} are not completed. Offers deleted. terminal.send returns: ${global.translateErrorCode(returnValue)}`,
+							} are not completed. Offers deleted. terminal.send returns: ${Util.translateErrorCode(returnValue)}`,
 						);
 						orderCandidates.splice(i, 1);
 						i--;

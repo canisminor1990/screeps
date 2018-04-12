@@ -18,7 +18,7 @@ mod.run = function(creep) {
 		}
 	}
 	if (global.DEBUG && global.TRACE)
-		trace('Behaviour', {
+		Util.trace('Behaviour', {
 			creepName: creep.name,
 			run: (creep.action && creep.action.name) || 'none',
 			[this.name]: 'run',
