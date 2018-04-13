@@ -261,7 +261,8 @@ mod.extend = function() {
 						resourceType: offer.type,
 						amount: amount,
 					});
-				if (global.DEBUG) Util.logSystem(this.name, `Room order filled to ${targetRoom.name} for ${amount} ${offer.type}.`);
+				if (global.DEBUG)
+					Util.logSystem(this.name, `Room order filled to ${targetRoom.name} for ${amount} ${offer.type}.`);
 				offer.amount -= amount;
 				if (offer.amount > 0) {
 					order.offers[targetOfferIdx].amount = offer.amount;
@@ -497,7 +498,12 @@ mod.extend = function() {
 		} else if (orderId) {
 			// delete all orders matching orderId
 			if (global.DEBUG && global.TRACE)
-				Util.trace('Room', { roomName: this.name, actionName: 'cancelRoomOrder', orderId: orderId, resourceType: 'all' });
+				Util.trace('Room', {
+					roomName: this.name,
+					actionName: 'cancelRoomOrder',
+					orderId: orderId,
+					resourceType: 'all',
+				});
 			for (let i = 0; i < orders.length; i++) {
 				let order = orders[i];
 				if (order.id === orderId) {
@@ -553,7 +559,8 @@ mod.extend = function() {
 					resourceType: resourceType,
 					amount: amount,
 				});
-			if (global.DEBUG) Util.logSystem(this.name, `New room order with id ${orderId} placed for ${amount} ${resourceType}.`);
+			if (global.DEBUG)
+				Util.logSystem(this.name, `New room order with id ${orderId} placed for ${amount} ${resourceType}.`);
 			orders.push({
 				id: orderId,
 				type: resourceType,

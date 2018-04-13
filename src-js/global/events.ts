@@ -1,9 +1,7 @@
-import {LiteEvent} from '../class'
+import { LiteEvent } from '../class';
 
 module.exports = {
-	flush:() => {
-
-
+	flush: () => {
 		// ocurrs when a creep starts spawning
 		// param: { spawn: spawn.name, name: creep.name, destiny: creep.destiny }
 		Creep.spawningStarted = new LiteEvent();
@@ -46,6 +44,5 @@ module.exports = {
 		// occurs when a room's level has increased or decreased
 		// param: room
 		Room.RCLChange = new LiteEvent();
-	}
+	},
 };
-

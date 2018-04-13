@@ -30,7 +30,8 @@ mod.process = function() {
 
 	let invaderReport = invader => {
 		let snip = '<li>' + invader.owner + ': ' + invader.body.replace(/"/g, '');
-		if (invader.leave === undefined) snip += ' since ' + Util.toTimeString(Util.toLocalDate(new Date(invader.time))) + '</li>';
+		if (invader.leave === undefined)
+			snip += ' since ' + Util.toTimeString(Util.toLocalDate(new Date(invader.time))) + '</li>';
 		else
 			snip +=
 				' for ' +

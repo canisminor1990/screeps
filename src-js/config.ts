@@ -1,9 +1,4 @@
-global._ME = _(Game.rooms)
-	.map('controller')
-	.filter('my')
-	.map('owner.username')
-	.first();
-let mod = {
+module.exports = {
 	ME: _ME,
 	CHATTY: false, // creeps say their current action
 	HONK: true, // HONK when stored path is blocked by other creeps
@@ -51,14 +46,14 @@ let mod = {
 		ROOM_ORDERS: true, // display orders the room creates
 		ROOM_OFFERS: true, // display what a room will offer another
 		SPAWN: true, // displays creep name and spawn progress percentage when spawning
-		CONTROLLER: true, // displays level, progress, and ticks to downgrade if active
+		CONTROLLER: false, // displays level, progress, and ticks to downgrade if active
 		STORAGE: true, // displays storage contents
 		TERMINAL: true, // displays terminal contents
-		TOWER: true, // displays tower contents
+		TOWER: false, // displays tower contents
 		TRANSACTIONS: true, // displays 2 most recent transactions over room terminal
-		LABS: true, // displays lab energy, mineral, or cooldown
-		MINERAL: true, // displays mineral amount, or ticks to regen
-		SOURCE: true, // displays energy amount, or ticks to regen
+		LABS: false, // displays lab energy, mineral, or cooldown
+		MINERAL: false, // displays mineral amount, or ticks to regen
+		SOURCE: false, // displays energy amount, or ticks to regen
 		CREEP: true, // draws creep paths
 		WALL: false, // highlight weakest wall and display hits
 		RAMPART: false, // highlight weakest rampart and display hits
@@ -466,4 +461,3 @@ let mod = {
 		},
 	},
 };
-module.exports = mod;

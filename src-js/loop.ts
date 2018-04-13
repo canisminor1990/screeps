@@ -1,7 +1,12 @@
 const cpuAtLoad = Game.cpu.getUsed();
-import {ProtoypeInstall} from './prototype'
+import { ProtoypeInstall } from './prototype';
 import { TravelerInstall } from './traveler';
 const Root = () => {
+	global._ME = _(Game.rooms)
+		.map('controller')
+		.filter('my')
+		.map('owner.username')
+		.first();
 	// Initialize global & parameters
 	_.assign(global, require('./global/index'));
 	_.assign(global, require('./config'));

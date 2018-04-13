@@ -1294,10 +1294,7 @@ mod.extend = function() {
 				}
 			} else {
 				data.boostTiming.checkRoomAt = Game.time + currentRoom.terminal.cooldown + 1;
-				Util.logSystem(
-					currentRoom.name,
-					`${currentRoom.name} terminal cooldown is: ${currentRoom.terminal.cooldown}`,
-				);
+				Util.logSystem(currentRoom.name, `${currentRoom.name} terminal cooldown is: ${currentRoom.terminal.cooldown}`);
 				Util.logSystem(this.name, `${this.name} time: ${Game.time}, boosTiming:`);
 				Util.logStringify(data.boostTiming);
 

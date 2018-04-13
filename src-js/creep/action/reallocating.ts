@@ -702,7 +702,12 @@ action.isAddableTarget = function(target) {
 action.newTarget = function(creep) {
 	let room = creep.room;
 	if (DEBUG && TRACE)
-		Util.trace('Action', { actionName: 'reallocating', roomName: room.name, creepName: creep.name, subAction: 'newTarget' });
+		Util.trace('Action', {
+			actionName: 'reallocating',
+			roomName: room.name,
+			creepName: creep.name,
+			subAction: 'newTarget',
+		});
 	let target = null;
 	if (creep.sum == 0) {
 		let data = room.memory;

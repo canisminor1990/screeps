@@ -192,7 +192,10 @@ mod.analyze = function() {
 				// will die in ticks equal to spawning time or custom
 				creep.data.nearDeath = true;
 				if (CENSUS_ANNOUNCEMENTS)
-					console.log(Util.dye(CRAYON.system, entry.creepName + ' &gt; ') + Util.dye(CRAYON.death, 'Farewell!'), Util.stack());
+					console.log(
+						Util.dye(CRAYON.system, entry.creepName + ' &gt; ') + Util.dye(CRAYON.death, 'Farewell!'),
+						Util.stack(),
+					);
 				this.predictedRenewal.push(creep.name);
 				if (
 					!this.spawnsToProbe.includes(entry.motherSpawn) &&

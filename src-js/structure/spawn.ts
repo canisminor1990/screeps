@@ -118,7 +118,8 @@ mod.extend = function() {
 				destiny: destiny,
 				spawnTime: body.length * CREEP_SPAWN_TIME,
 			});
-			if (CENSUS_ANNOUNCEMENTS) Util.logSystem(this.pos.roomName, Util.dye(CRAYON.birth, 'Good morning ' + newName + '!'));
+			if (CENSUS_ANNOUNCEMENTS)
+				Util.logSystem(this.pos.roomName, Util.dye(CRAYON.birth, 'Good morning ' + newName + '!'));
 			return true;
 		}
 		if (global.DEBUG || CENSUS_ANNOUNCEMENTS)
@@ -147,7 +148,8 @@ mod.register = function() {
 mod.handleSpawningCompleted = function(creep) {
 	if (global.DEBUG && global.TRACE)
 		Util.trace('Spawn', { behaviour: creep.data.creepType, creepName: creep.name, Spawn: 'Creep.spawningCompleted' });
-	if (CENSUS_ANNOUNCEMENTS) Util.logSystem(creep.pos.roomName, Util.dye(CRAYON.birth, 'Off to work ' + creep.name + '!'));
+	if (CENSUS_ANNOUNCEMENTS)
+		Util.logSystem(creep.pos.roomName, Util.dye(CRAYON.birth, 'Off to work ' + creep.name + '!'));
 };
 mod.execute = function() {
 	let run = spawn => {

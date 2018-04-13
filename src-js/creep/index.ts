@@ -1,47 +1,46 @@
 const strategy = require('../util/strategy');
-import {Component} from "../class";
+import { Component } from '../class';
 
-class CreepClass extends Component{
+class CreepClass extends Component {
 	public extend = (): void => {
-
 		strategy.decorateAgent(
-				Creep.prototype,
-				{
-					default: (creep: Creep) => creep.action && creep.action.name,
-					selector: (actionName: string) => Creep.action[actionName],
-				},
-				{
-					default: (creep: Creep) => creep.data.creepType,
-					selector: (behaviourName: string) => Creep.behaviour[behaviourName] && Creep.behaviour[behaviourName],
-				},
-				{
-					default: (creep: Creep) => creep.data.destiny && creep.data.destiny.task,
-					selector: (taskName: string) => Task[taskName] && Task[taskName],
-				},
+			Creep.prototype,
+			{
+				default: (creep: Creep) => creep.action && creep.action.name,
+				selector: (actionName: string) => Creep.action[actionName],
+			},
+			{
+				default: (creep: Creep) => creep.data.creepType,
+				selector: (behaviourName: string) => Creep.behaviour[behaviourName] && Creep.behaviour[behaviourName],
+			},
+			{
+				default: (creep: Creep) => creep.data.destiny && creep.data.destiny.task,
+				selector: (taskName: string) => Task[taskName] && Task[taskName],
+			},
 		);
 	};
 	execute = () => {
 		if (global.DEBUG && Memory.CPU_CRITICAL)
 			Util.logSystem(
-					'system',
-					`${Game.time}: CPU Bucket level is critical (${Game.cpu.bucket}). Skipping non critical creep roles.`,
+				'system',
+				`${Game.time}: CPU Bucket level is critical (${Game.cpu.bucket}). Skipping non critical creep roles.`,
 			);
 		let run = creep => {
 			try {
 				creep.run();
 			} catch (e) {
 				console.log(
-						'<span style="color:FireBrick">Creep ' + creep.name + (e.stack || e.toString()) + '</span>',
-						Util.stack(),
+					'<span style="color:FireBrick">Creep ' + creep.name + (e.stack || e.toString()) + '</span>',
+					Util.stack(),
 				);
 			}
 		};
 		_.forEach(Game.creeps, run);
 	};
-	bodyCosts = (body) => {
+	bodyCosts = body => {
 		let costs = 0;
 		if (body) {
-			body.forEach(function (part) {
+			body.forEach(function(part) {
 				costs += BODYPART_COST[part];
 			});
 		}
@@ -91,7 +90,7 @@ class CreepClass extends Component{
 		let indexOfB = partsOrder.indexOf(b);
 		return indexOfA - indexOfB;
 	};
-	formatParts = (parts) => {
+	formatParts = parts => {
 		if (parts && !Array.isArray(parts) && typeof parts === 'object') {
 			const body = [];
 			for (const part of BODYPARTS_ALL) {
@@ -104,12 +103,12 @@ class CreepClass extends Component{
 	formatBody = (fixedBody, multiBody) => {
 		fixedBody = this.formatParts(fixedBody);
 		multiBody = this.formatParts(multiBody);
-		return {fixedBody, multiBody};
+		return { fixedBody, multiBody };
 	};
 	// params: {minThreat, maxWeight, maxMulti}
 	compileBody = (room, params, sort = true) => {
-		const {fixedBody, multiBody} = this.formatBody(params.fixedBody || [], params.multiBody || []);
-		_.assign(params, {fixedBody, multiBody});
+		const { fixedBody, multiBody } = this.formatBody(params.fixedBody || [], params.multiBody || []);
+		_.assign(params, { fixedBody, multiBody });
 		if (params.sort !== undefined) sort = params.sort;
 		let parts = [];
 		const multi = this.multi(room, params);
@@ -129,7 +128,7 @@ class CreepClass extends Component{
 		return parts;
 	};
 
-	bodyThreat = (body) => {
+	bodyThreat = body => {
 		let threat = 0;
 		let evaluatePart = part => {
 			threat += CREEP_PART_THREAT[part.type ? part.type : part][part.boost ? 'boosted' : 'common'];
@@ -150,5 +149,4 @@ class CreepClass extends Component{
 	};
 }
 
-module.exports = new CreepClass;
-
+module.exports = new CreepClass();
