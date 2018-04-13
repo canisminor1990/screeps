@@ -101,7 +101,7 @@ mod.extend = function() {
 
 			if (master.runReaction(slave_a, slave_b) == OK) {
 				data.reactionAmount -= LAB_REACTION_AMOUNT;
-				if (global.DEBUG && global.TRACE)
+				if (DEBUG && TRACE)
 					Util.trace('Room', {
 						roomName: this.name,
 						actionName: 'processLabs',
@@ -370,7 +370,7 @@ mod.extend = function() {
 				let returnValue = reactor.runReaction(seed_a, seed_b);
 				if (returnValue === OK) {
 					order.amount -= LAB_REACTION_AMOUNT;
-					if (global.DEBUG && global.TRACE)
+					if (DEBUG && TRACE)
 						Util.trace('Room', {
 							roomName: this.name,
 							actionName: 'processLabs',
@@ -632,7 +632,7 @@ mod.extend = function() {
 			});
 			if (existingOrder) {
 				// update existing order
-				if (global.DEBUG && global.TRACE)
+				if (DEBUG && TRACE)
 					Util.trace('Room', {
 						roomName: this.name,
 						actionName: 'placeReactionOrder',
@@ -645,7 +645,7 @@ mod.extend = function() {
 				existingOrder.amount = amount;
 			} else {
 				// create new order
-				if (global.DEBUG && global.TRACE)
+				if (DEBUG && TRACE)
 					Util.trace('Room', {
 						roomName: this.name,
 						actionName: 'placeReactionOrder',
@@ -698,7 +698,7 @@ mod.extend = function() {
 					break;
 			}
 		} else {
-			if (global.DEBUG && global.TRACE)
+			if (DEBUG && TRACE)
 				Util.trace('Room', { roomName: this.name, actionName: 'placeRoomOrder', subAction: 'no_reactor' });
 			return ERR_INVALID_TARGET;
 		}

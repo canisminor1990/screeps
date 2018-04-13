@@ -143,4 +143,4 @@ class AttackControllerTask extends TaskComponent {
 	};
 }
 
-module.exports = new AttackControllerTask();
+export default new AttackControllerTask();

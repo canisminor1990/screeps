@@ -5,12 +5,9 @@ const Behaviour = function(name) {
 	this.inflowActions = creep => []; // priority list of actions for getting resources
 	this.outflowActions = creep => []; // priority list of actions for using resources
 	this.assignAction = function(creep, action, target, debouncePriority) {
-		const p = Util.startProfiling(creep.name + '.assignAction' + ':' + action.name || action, {
-			enabled: PROFILING.BEHAVIOUR,
-		});
 		if (typeof action === 'string') action = Creep.action[action];
 		const valid = action.isValidAction(creep);
-		if (global.DEBUG && global.TRACE)
+		if (DEBUG && TRACE)
 			Util.trace('Action', {
 				actionName: action.name,
 				behaviourName: this.name,
@@ -19,13 +16,11 @@ const Behaviour = function(name) {
 				Action: 'isValidAction',
 			});
 		if (!valid) {
-			p.checkCPU('!valid', 0.3);
 			return false;
 		}
-		p.checkCPU('valid', 0.3);
 
 		const addable = action.isAddableAction(creep);
-		if (global.DEBUG && global.TRACE)
+		if (DEBUG && TRACE)
 			Util.trace('Action', {
 				actionName: action.name,
 				behaviourName: this.name,
@@ -34,16 +29,14 @@ const Behaviour = function(name) {
 				Action: 'isAddableAction',
 			});
 		if (!addable) {
-			p.checkCPU('!addable', 0.3);
 			return false;
 		}
-		p.checkCPU('addable', 0.3);
 
 		const assigned = action.assignDebounce
 			? action.assignDebounce(creep, debouncePriority, target)
 			: action.assign(creep, target);
 		if (assigned) {
-			if (global.DEBUG && global.TRACE)
+			if (DEBUG && TRACE)
 				Util.trace('Behaviour', {
 					actionName: action.name,
 					behaviourName: this.name,
@@ -55,9 +48,8 @@ const Behaviour = function(name) {
 				});
 			creep.data.lastAction = action.name;
 			creep.data.lastTarget = creep.target.id;
-			p.checkCPU('assigned', 0.3);
 			return true;
-		} else if (global.DEBUG && global.TRACE) {
+		} else if (DEBUG && TRACE) {
 			Util.trace('Action', {
 				actionName: action.name,
 				behaviourName: this.name,
@@ -67,38 +59,27 @@ const Behaviour = function(name) {
 				Action: 'assign',
 			});
 		}
-		p.checkCPU('!assigned', 0.3);
 		return false;
 	};
 	this.selectInflowAction = function(creep) {
-		const p = Util.startProfiling('selectInflowAction' + creep.name, { enabled: PROFILING.BEHAVIOUR });
 		const actionChecked = {};
 		const outflowActions = this.outflowActions(creep);
 		for (const action of this.inflowActions(creep)) {
 			if (!actionChecked[action.name]) {
 				actionChecked[action.name] = true;
-				if (this.assignAction(creep, action, undefined, outflowActions)) {
-					p.checkCPU('assigned' + action.name, 1.5);
-					return;
-				}
+				if (this.assignAction(creep, action, undefined, outflowActions)) return
 			}
 		}
-		p.checkCPU('!assigned', 1.5);
 		return Creep.action.idle.assign(creep);
 	};
 	this.selectAction = function(creep, actions) {
-		const p = Util.startProfiling('selectAction' + creep.name, { enabled: PROFILING.BEHAVIOUR });
 		const actionChecked = {};
 		for (const action of actions) {
 			if (!actionChecked[action.name]) {
 				actionChecked[action.name] = true;
-				if (this.assignAction(creep, action)) {
-					p.checkCPU('assigned' + action.name, 1.5);
-					return;
-				}
+				if (this.assignAction(creep, action))return
 			}
 		}
-		p.checkCPU('!assigned', 1.5);
 		return Creep.action.idle.assign(creep);
 	};
 	this.nextAction = function(creep) {
@@ -141,7 +122,7 @@ const Behaviour = function(name) {
 
 		// Do some work
 		if (creep.action && creep.target) {
-			if (global.DEBUG && global.TRACE)
+			if (DEBUG && TRACE)
 				Util.trace('Behaviour', {
 					actionName: creep.action.name,
 					behaviourName: this.name,
@@ -151,7 +132,7 @@ const Behaviour = function(name) {
 				});
 			creep.action.step(creep);
 		} else {
-			logError('Creep without action/activity!\nCreep: ' + creep.name + '\ndata: ' + JSON.stringify(creep.data));
+			Util.logError('Creep without action/activity!\nCreep: ' + creep.name + '\ndata: ' + JSON.stringify(creep.data));
 		}
 	};
 	this.assign = function(creep) {

@@ -77,7 +77,7 @@ class PioneerTask extends TaskComponent {
 			}
 			const owner = flag.room.owner || flag.room.reservation;
 			if (owner && !Task.reputation.isAlly(owner)) {
-				return logError(`Pioneer target room owned by ${owner}`);
+				return Util.logError(`Pioneer target room owned by ${owner}`);
 			}
 		}
 
@@ -188,4 +188,4 @@ class PioneerTask extends TaskComponent {
 	};
 }
 
-module.exports = new PioneerTask();
+export default new PioneerTask();

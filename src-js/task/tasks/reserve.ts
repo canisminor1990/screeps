@@ -311,4 +311,4 @@ class ReserveTask extends TaskComponent {
 	};
 }
 
-module.exports = new ReserveTask();
+export default new ReserveTask();

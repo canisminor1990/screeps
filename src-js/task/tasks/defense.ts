@@ -20,6 +20,7 @@ class DefenseTask extends TaskComponent {
 	}
 	// When a new invader has been spotted
 	handleNewInvader = invaderCreep => {
+
 		// ignore if on blacklist
 		if (!SPAWN_DEFENSE_ON_ATTACK || DEFENSE_BLACKLIST.includes(invaderCreep.pos.roomName)) return;
 		// if not our room and not our reservation
@@ -208,4 +209,4 @@ class DefenseTask extends TaskComponent {
 	};
 }
 
-module.exports = new DefenseTask();
+export default new DefenseTask();

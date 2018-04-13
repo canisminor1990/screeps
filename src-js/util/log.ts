@@ -64,27 +64,27 @@ export const logUtils = {
 				else creep.say(code);
 			}
 			let message =
-				error +
-				'\nroom: ' +
-				creep.pos.roomName +
-				'\ncreep: ' +
-				creep.name +
-				'\naction: ' +
-				creep.data.actionName +
-				'\ntarget: ' +
-				creep.data.targetId;
+					error +
+					'\nroom: ' +
+					creep.pos.roomName +
+					'\ncreep: ' +
+					creep.name +
+					'\naction: ' +
+					creep.data.actionName +
+					'\ntarget: ' +
+					creep.data.targetId;
 			console.log(Util.dye(CRAYON.error, message), Util.stack());
 			Game.notify(message, 120);
 		} else {
 			let message =
-				'unknown error code\nroom: ' +
-				creep.pos.roomName +
-				'\ncreep: ' +
-				creep.name +
-				'\naction: ' +
-				creep.data.actionName +
-				'\ntarget: ' +
-				creep.data.targetId;
+					'unknown error code\nroom: ' +
+					creep.pos.roomName +
+					'\ncreep: ' +
+					creep.name +
+					'\naction: ' +
+					creep.data.actionName +
+					'\ntarget: ' +
+					creep.data.targetId;
 			console.log(Util.dye(CRAYON.error, message), Util.stack());
 		}
 	},
@@ -95,9 +95,9 @@ export const logUtils = {
 	logSystem(roomName: string, ...message: string[]): void {
 		const text = Util.dye(CRAYON.system, roomName);
 		console.log(
-			Util.dye(CRAYON.system, `<a href="/a/#!/room/${Game.shard.name}/${roomName}">${text}</a> &gt;`),
-			...message,
-			Util.stack(),
+				Util.dye(CRAYON.system, `<a href="/a/#!/room/${Game.shard.name}/${roomName}">${text}</a> &gt;`),
+				...message,
+				Util.stack(),
 		);
 	},
 
@@ -119,31 +119,49 @@ export const logUtils = {
 	 * Trace an error or debug statement
 	 */
 	trace(category: string, entityWhere: any, ...message: any[]): void {
-		function reduceMemoryWhere(result: boolean, value: any, key: string): boolean {
-			const setting = Memory.debugTrace[key];
-			if (!Reflect.has(Memory.debugTrace, key)) {
-				return result;
-			} else if (result) {
-				return setting === value || (!value && setting === `${value}`);
-			}
-			return false;
-		}
-
-		function noMemoryWhere(e: obj) {
-			const setting = Memory.debugTrace.no[e[0]];
-			return (
-				setting === true || (e[0] in Memory.debugTrace.no && (setting === e[1] || (!e[1] && setting === `${e[1]}`)))
-			);
-		}
-
-		if (!(Memory.debugTrace[category] === true || _(entityWhere).reduce(reduceMemoryWhere, 1) === true)) return;
-		if (
-			Memory.debugTrace.no &&
-			_(entityWhere)
-				.pairs()
-				.some(noMemoryWhere) === true
-		)
-			return;
+		// function reduceMemoryWhere(result: boolean, value: any, key: string): boolean {
+		// 	const setting = Memory.debugTrace[key];
+		// 	if (!Reflect.has(Memory.debugTrace, key)) {
+		// 		return result;
+		// 	} else if (result) {
+		// 		return setting === value || (!value && setting === `${value}`);
+		// 	}
+		// 	return false;
+		// }
+		//
+		// function noMemoryWhere(e: obj) {
+		// 	const setting = Memory.debugTrace.no[e[0]];
+		// 	return (
+		// 		setting === true || (e[0] in Memory.debugTrace.no && (setting === e[1] || (!e[1] && setting === `${e[1]}`)))
+		// 	);
+		// }
+		//
+		// if (!(Memory.debugTrace[category] === true || _(entityWhere).reduce(reduceMemoryWhere, 1) === true)) return;
+		// if (
+		// 	Memory.debugTrace.no &&
+		// 	_(entityWhere)
+		// 		.pairs()
+		// 		.some(noMemoryWhere) === true
+		// )
+		// 	return;
+		//
+		// let msg = message;
+		// let key;
+		// if (message.length === 0 && category) {
+		// 	let leaf = category;
+		// 	do {
+		// 		key = leaf;
+		// 		leaf = entityWhere[leaf];
+		// 	} while (entityWhere[leaf] && leaf !== category);
+		//
+		// 	if (leaf && leaf !== category) {
+		// 		if (typeof leaf === 'string') {
+		// 			msg = [leaf];
+		// 		} else {
+		// 			msg = [key, '=', leaf];
+		// 		}
+		// 	}
+		// }
 
 		let msg = message;
 		let key;
@@ -163,11 +181,12 @@ export const logUtils = {
 			}
 		}
 		console.log(
-			Game.time,
-			Util.dye(CRAYON.error, category),
-			...msg,
-			Util.dye(CRAYON.birth, JSON.stringify(entityWhere)),
-			Util.stack(),
+				Game.time,
+				Util.dye(CRAYON.error, category),
+				...msg,
+				'<br/>',
+				Util.dye(CRAYON.birth, JSON.stringify(entityWhere, null, 2)),
+				Util.stack(),
 		);
 	},
 };

@@ -137,4 +137,4 @@ class SafeGenTask extends TaskComponent {
 	};
 }
 
-module.exports = new SafeGenTask();
+export default new SafeGenTask();

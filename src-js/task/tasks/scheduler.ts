@@ -50,4 +50,4 @@ class SchedulerTask extends TaskComponent {
 	};
 }
 
-module.exports = new SchedulerTask();
+export default new SchedulerTask();

@@ -544,4 +544,4 @@ class MiningTask extends TaskComponent {
 	};
 }
 
-module.exports = new MiningTask();
+export default new MiningTask();

@@ -40,26 +40,18 @@ CompressedMatrix.deserialize = function(data) {
 CompressedMatrix.compareEfficiency = function(count, costMatrix = new PathFinder.CostMatrix(), verbose = true) {
 	const threshold = verbose ? 0 : 5; // don't display for each unless verbose
 	let serialized, stringified, normalStringified, compressedStringified;
-	const p = Util.startProfiling();
-	const total = Util.startProfiling();
 	for (var i = 0; i < count; i++) {
 		serialized = costMatrix.serialize();
 		if (verbose) console.log('normal', serialized);
-		p.checkCPU('normal-serialize', threshold, 'normal-serialize');
 		stringified = JSON.stringify(serialized);
 		normalStringified = stringified;
 		if (verbose)
 			console.log('normal-deserialize', PathFinder.CostMatrix.deserialize(JSON.parse(stringified)).serialize());
-		p.checkCPU('normal-deserialize', threshold, 'normal-deserialize');
-		total.checkCPU('normal-total', threshold, 'normal-total');
 		serialized = CompressedMatrix.serialize(costMatrix);
 		if (verbose) console.log('comp-serialize', serialized);
-		p.checkCPU('comp-serialize', threshold, 'comp-serialize');
 		stringified = JSON.stringify(serialized);
 		compressedStringified = stringified;
 		if (verbose) console.log('comp-deserialize', CompressedMatrix.deserialize(JSON.parse(stringified)).serialize());
-		p.checkCPU('comp-deserialize', threshold, 'comp-deserialize');
-		total.checkCPU('comp-total', threshold, 'comp-total');
 	}
 	nSize = normalStringified.length / 1024;
 	cSize = compressedStringified.length / 1024;

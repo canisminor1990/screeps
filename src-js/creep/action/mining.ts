@@ -104,7 +104,7 @@ action.determineSpot = function(creep, source) {
 		}
 	}
 	if (!creep.data.determinatedSpot) {
-		logError('Unable to determine working location for miner in room ' + creep.pos.roomName);
+		Util.logError('Unable to determine working location for miner in room ' + creep.pos.roomName);
 	}
 };
 action.work = function(creep) {
@@ -169,7 +169,7 @@ action.getEnergy = function(creep) {
 		filter: r => r.resourceType === RESOURCE_ENERGY,
 	})[0];
 	if (dropped) {
-		if (global.DEBUG && global.TRACE)
+		if (DEBUG && TRACE)
 			Util.trace('Action', {
 				actionName: this.name,
 				method: 'getEnergy',
@@ -185,7 +185,7 @@ action.getEnergy = function(creep) {
 		filter: s => s.structureType === STRUCTURE_CONTAINER,
 	})[0];
 	if (container && container.sum > 0) {
-		if (global.DEBUG && global.TRACE)
+		if (DEBUG && TRACE)
 			Util.trace('Action', {
 				actionName: this.name,
 				method: 'getEnergy',
@@ -201,7 +201,7 @@ action.getEnergy = function(creep) {
 		filter: s => s.my && s.structureType === STRUCTURE_LINK,
 	})[0];
 	if (link && link.energy > 0) {
-		if (global.DEBUG && global.TRACE)
+		if (DEBUG && TRACE)
 			Util.trace('Action', {
 				actionName: this.name,
 				method: 'getEnergy',
@@ -212,7 +212,7 @@ action.getEnergy = function(creep) {
 		creep.withdraw(link, RESOURCE_ENERGY);
 		return true;
 	}
-	if (global.DEBUG && global.TRACE)
+	if (DEBUG && TRACE)
 		Util.trace('Action', {
 			actionName: this.name,
 			method: 'getEnergy',
@@ -225,7 +225,7 @@ action.getEnergy = function(creep) {
 };
 action.maintain = function(creep) {
 	const minCarry = creep.data.body && creep.data.body.work ? creep.data.body.work * 5 : creep.carryCapacity / 2;
-	if (global.DEBUG && global.TRACE)
+	if (DEBUG && TRACE)
 		Util.trace('Action', {
 			actionName: this.name,
 			method: 'maintain',
@@ -250,7 +250,7 @@ action.maintain = function(creep) {
 			}
 			if (repairTarget) {
 				creep.data.repairTarget = repairTarget.id;
-				if (global.DEBUG && global.TRACE)
+				if (DEBUG && TRACE)
 					Util.trace('Action', {
 						actionName: this.name,
 						method: 'maintain',
@@ -276,7 +276,7 @@ action.maintain = function(creep) {
 			}
 			if (buildTarget) {
 				creep.data.buildTarget = buildTarget.id;
-				if (global.DEBUG && global.TRACE)
+				if (DEBUG && TRACE)
 					Util.trace('Action', {
 						actionName: this.name,
 						method: 'maintain',

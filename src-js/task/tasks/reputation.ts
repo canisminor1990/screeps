@@ -117,4 +117,4 @@ class ReputationTask extends TaskComponent {
 	};
 }
 
-module.exports = new ReputationTask();
+export default new ReputationTask();

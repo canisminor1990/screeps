@@ -209,10 +209,8 @@ class Flag extends Component {
 		let triggerFound = entry => {
 			try {
 				if (!entry.cloaking || entry.cloaking == 0) {
-					const p = Util.startProfiling('Flag.execute', { enabled: PROFILING.FLAGS });
 					const flag = Game.flags[entry.name];
 					this.found.trigger(flag);
-					p.checkCPU(entry.name, PROFILING.EXECUTE_LIMIT, this.flagType(flag));
 				}
 			} catch (e) {
 				Util.logError(e.stack || e.message);
@@ -239,7 +237,7 @@ class Flag extends Component {
 				if (this.compare(flag, subType)) return `${primary}.${secondary}`;
 			}
 		}
-		logError(`Unknown flag type for flag: ${flag ? flag.name : 'undefined flag'}.`);
+		Util.logError(`Unknown flag type for flag: ${flag ? flag.name : 'undefined flag'}.`);
 		return 'undefined';
 	};
 	specialFlag = create => {

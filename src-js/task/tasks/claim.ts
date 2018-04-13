@@ -136,4 +136,4 @@ class ClaimTask extends TaskComponent {
 	};
 }
 
-module.exports = new ClaimTask();
+export default new ClaimTask();

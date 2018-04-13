@@ -19,8 +19,16 @@ class CreepClass extends Component {
 			},
 		);
 	};
+
+	isWorkingAge = (creepData) => {
+		const c = Game.creeps[creepData.creepName];
+		return (
+				!c ||
+				(creepData.predictedRenewal || creepData.spawningTime || CREEP_LIFE_TIME) <= (c.ticksToLive || CREEP_LIFE_TIME)
+		);
+	};
 	execute = () => {
-		if (global.DEBUG && Memory.CPU_CRITICAL)
+		if (DEBUG && Memory.CPU_CRITICAL)
 			Util.logSystem(
 				'system',
 				`${Game.time}: CPU Bucket level is critical (${Game.cpu.bucket}). Skipping non critical creep roles.`,
@@ -149,4 +157,4 @@ class CreepClass extends Component {
 	};
 }
 
-module.exports = new CreepClass();
+export default new CreepClass();

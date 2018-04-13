@@ -104,7 +104,7 @@ mod.run = function(creep) {
 			}
 		}
 		if (!creep.data.determinatedSpot) {
-			logError('Unable to determine working location for upgrader in room ' + creep.pos.roomName);
+			Util.logError('Unable to determine working location for upgrader in room ' + creep.pos.roomName);
 		} else if (global.SAY_ASSIGNMENT) creep.say(String.fromCharCode(9962), global.SAY_PUBLIC);
 	}
 	if (creep.data.determinatedSpot) {

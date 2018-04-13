@@ -81,7 +81,7 @@ mod.extend = function() {
 			// see if the reaction is possible
 			let powerSpawn = powerSpawns[i];
 			if (powerSpawn.energy >= POWER_SPAWN_ENERGY_RATIO && powerSpawn.power >= 1) {
-				if (global.DEBUG && global.TRACE) Util.trace('Room', { roomName: this.name, actionName: 'processPower' });
+				if (DEBUG && TRACE) Util.trace('Room', { roomName: this.name, actionName: 'processPower' });
 				powerSpawn.processPower();
 			}
 		}

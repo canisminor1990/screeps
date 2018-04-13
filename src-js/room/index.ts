@@ -463,7 +463,7 @@ mod.extend = function() {
 					if (cachedMatrix) {
 						this._structureMatrix = cachedMatrix;
 					} else {
-						if (global.DEBUG) Util.logSystem(this.name, 'Calculating cost matrix');
+						if (DEBUG) Util.logSystem(this.name, 'Calculating cost matrix');
 						const costMatrix = new PathFinder.CostMatrix();
 						let setCosts = structure => {
 							const site = structure instanceof ConstructionSite;
@@ -494,7 +494,7 @@ mod.extend = function() {
 							version: Room.COSTMATRIX_CACHE_VERSION,
 						};
 						Room.pathfinderCacheDirty = true;
-						if (global.DEBUG && global.TRACE)
+						if (DEBUG && TRACE)
 							Util.trace(
 								'PathFinder',
 								{ roomName: this.name, prevTime, structures: this.structures.all.length, PathFinder: 'CostMatrix' },
@@ -981,13 +981,13 @@ mod.extend = function() {
 			myRooms = _.filter(Game.rooms, { my: true });
 
 		if (_.isUndefined(data)) {
-			if (global.DEBUG) Util.logSystem(this.name, `there is no ${this.name}.memory.resources.`);
+			if (DEBUG) Util.logSystem(this.name, `there is no ${this.name}.memory.resources.`);
 			return;
 		}
 
 		if (data.orders.length === 0) return;
 
-		if (global.DEBUG) Util.logSystem(this.name, `garbage collecting ${this.name} roomOrders`);
+		if (DEBUG) Util.logSystem(this.name, `garbage collecting ${this.name} roomOrders`);
 
 		let reactions = data.reactions,
 			reactionInProgress = reactions.orders.length > 0 && reactions.orders[0].amount > 0;
@@ -1018,7 +1018,7 @@ mod.extend = function() {
 		}
 
 		if (!this.ordersWithOffers()) {
-			if (global.DEBUG) {
+			if (DEBUG) {
 				Util.logSystem(this.name, `not enough or no offers found. Updating room orders in room ${this.name}`);
 			}
 			if (_.isUndefined(data.boostTiming.getOfferAttempts)) data.boostTiming.getOfferAttempts = 0;
@@ -1075,7 +1075,7 @@ mod.extend = function() {
 			readyOffersFound = 0;
 
 		if (_.isUndefined(data)) {
-			if (global.DEBUG) Util.logSystem(this.name, `there is no ${this.name}.memory.resources.`);
+			if (DEBUG) Util.logSystem(this.name, `there is no ${this.name}.memory.resources.`);
 			return {
 				readyOffersFound: readyOffersFound,
 				terminalOrderPlaced: terminalOrderPlaced,
@@ -1088,7 +1088,7 @@ mod.extend = function() {
 				terminalOrderPlaced: terminalOrderPlaced,
 			};
 
-		if (global.DEBUG) Util.logSystem(this.name, `garbage collecting ${this.name} roomOffers`);
+		if (DEBUG) Util.logSystem(this.name, `garbage collecting ${this.name} roomOffers`);
 
 		// garbage collecting room.offers
 		data.offers = _.filter(data.offers, offer => {
@@ -1119,7 +1119,7 @@ mod.extend = function() {
 					(readyAmount >= offer.amount * 0.5 && readyAmount < offer.amount - global.MIN_OFFER_AMOUNT) ||
 					readyAmount >= offer.amount
 				) {
-					if (global.DEBUG)
+					if (DEBUG)
 						Util.logSystem(
 							offer.room,
 							`${Math.min(readyAmount, offer.amount)} ${offer.type} are ready to send from ${this.name}`,
@@ -1159,7 +1159,7 @@ mod.extend = function() {
 						let ordered = Util.sumCompoundType(terminalMemory.orders, 'orderRemaining'),
 							allResources = (ordered[offer.type] || 0) + (terminal.store[offer.type] || 0);
 						if (offer.amount > allResources) {
-							if (global.DEBUG) {
+							if (DEBUG) {
 								Util.logSystem(
 									this.name,
 									`no / not enough terminal order found in ${this.name} for ${offer.amount} ${offer.type}`,
@@ -1187,7 +1187,7 @@ mod.extend = function() {
 		};
 	};
 	Room.prototype.GCLabs = function() {
-		if (global.DEBUG) Util.logSystem(this.name, `garbage collecting labOrders in ${this.name}`);
+		if (DEBUG) Util.logSystem(this.name, `garbage collecting labOrders in ${this.name}`);
 
 		let data = this.memory.resources,
 			labs = data.lab,
@@ -1221,7 +1221,7 @@ mod.extend = function() {
 
 				if (lab.orders.length > order.length) {
 					this.memory.resources.lab[i].orders = order;
-					if (global.DEBUG) Util.logSystem(this.name, `lab orders fixed in ${this.name}, ${lab.id}`);
+					if (DEBUG) Util.logSystem(this.name, `lab orders fixed in ${this.name}, ${lab.id}`);
 				}
 			}
 		}
@@ -1433,13 +1433,13 @@ mod.extend = function() {
 					},
 					purchaseMinerals = function(roomName, mineral, amount) {
 						if (!global.PURCHASE_MINERALS) {
-							if (global.DEBUG)
+							if (DEBUG)
 								console.log(`${roomName} needs to buy ${amount} ${mineral} but PURCHASE_MINERALS is false`);
 							return false;
 						}
 
 						if (currentRoom.storage.charge < global.STORE_CHARGE_PURCHASE) {
-							if (global.DEBUG)
+							if (DEBUG)
 								console.log(
 									`storage.charge in ${roomName} is ${currentRoom.storage.charge}, purchase for ${mineral} is delayed`,
 								);
@@ -1447,7 +1447,7 @@ mod.extend = function() {
 						}
 
 						if (currentRoom.terminal.cooldown > 0) {
-							if (global.DEBUG)
+							if (DEBUG)
 								console.log(
 									`terminal.coolDown in ${roomName} is ${
 										currentRoom.terminal.cooldown
@@ -1460,13 +1460,13 @@ mod.extend = function() {
 							return false;
 						}
 
-						if (global.DEBUG) console.log(`buying ${amount} ${mineral} in ${roomName}`);
+						if (DEBUG) console.log(`buying ${amount} ${mineral} in ${roomName}`);
 
 						let sellRatio;
 
 						if (global.AUTOMATED_RATIO_COUNT) {
 							sellRatio = Util.countPrices('sell', mineral, roomName);
-							if (global.DEBUG) console.log(`average sellRatio: ${roomName} ${mineral} ${sellRatio}`);
+							if (DEBUG) console.log(`average sellRatio: ${roomName} ${mineral} ${sellRatio}`);
 						} else sellRatio = global.MAX_BUY_RATIO[mineral];
 
 						let order,
@@ -1503,7 +1503,7 @@ mod.extend = function() {
 							console.log('selected order: ');
 							Util.logStringify(order);
 
-							if (global.DEBUG && order) {
+							if (DEBUG && order) {
 								console.log(`Game.market.deal("${order.id}", ${order.transactionAmount}, "${roomName}");`);
 							}
 							returnValue = Game.market.deal(order.id, order.transactionAmount, roomName);
@@ -1520,7 +1520,7 @@ mod.extend = function() {
 								return false;
 							}
 						} else {
-							if (global.DEBUG) {
+							if (DEBUG) {
 								if (sellRatio === 0) console.log(`There are no sellOrders for ${mineral}`);
 								else {
 									console.log(
@@ -1541,10 +1541,10 @@ mod.extend = function() {
 					},
 					makeIngredient = function(roomName, ingredient, amount) {
 						if (_.isUndefined(data)) {
-							if (global.DEBUG) console.log(`labs in room ${roomName} are not registered as flower`);
+							if (DEBUG) console.log(`labs in room ${roomName} are not registered as flower`);
 							return false;
 						} else if (data.reactorType !== 'flower') {
-							if (global.DEBUG) console.log(`labs in room ${roomName} are not registered as flower`);
+							if (DEBUG) console.log(`labs in room ${roomName} are not registered as flower`);
 							return false;
 						}
 
@@ -1552,7 +1552,7 @@ mod.extend = function() {
 							returnValue = false;
 
 						if (data.reactorMode === 'idle') {
-							if (global.DEBUG)
+							if (DEBUG)
 								Util.logSystem(
 									roomName,
 									`${currentRoom.name} - placeReactionOrder(${ingredient}, ${ingredient}, ${amount})`,
@@ -1583,12 +1583,12 @@ mod.extend = function() {
 					currentCompound;
 
 				if (!currentRoom.storage || !currentRoom.terminal) {
-					if (global.DEBUG) console.log(`there are no storage/terminal in ${currentRoom.name}`);
+					if (DEBUG) console.log(`there are no storage/terminal in ${currentRoom.name}`);
 					return false;
 				}
 
 				if (_.isUndefined(currentRoom.memory.labs) || currentRoom.memory.labs.length === 0) {
-					if (global.DEBUG) console.log(`there are no labs in ${currentRoom.name}`);
+					if (DEBUG) console.log(`there are no labs in ${currentRoom.name}`);
 					return false;
 				}
 
@@ -1661,7 +1661,7 @@ mod.extend = function() {
 						global.MIN_OFFER_AMOUNT,
 					);
 					roomFound = makeCompound(this.name, compound, amountToMake);
-					if (roomFound.ingredientMade && global.DEBUG)
+					if (roomFound.ingredientMade && DEBUG)
 						Util.logSystem(
 							this.name,
 							`there is no ${compound}, so start to make the compounds for ${
@@ -1674,7 +1674,7 @@ mod.extend = function() {
 						global.MIN_OFFER_AMOUNT,
 					);
 					roomFound = makeCompound(this.name, compound, amountToMake);
-					if (roomFound.ingredientMade && global.DEBUG)
+					if (roomFound.ingredientMade && DEBUG)
 						Util.logSystem(
 							this.name,
 							`it is below the threshold, so start to make the compounds for ${amountToMake} ${compound} in ${
@@ -1803,7 +1803,6 @@ mod.needMemoryResync = function(room) {
 	return Game.time % global.MEMORY_RESYNC_INTERVAL === 0 || room.name == 'sim';
 };
 mod.analyze = function() {
-	const p = Util.startProfiling('Room.analyze', { enabled: PROFILING.ROOMS });
 	// run analyze in each of our submodules
 	for (const key of Object.keys(Room._ext)) {
 		if (Room._ext[key].analyze) Room._ext[key].analyze();
@@ -1842,11 +1841,9 @@ mod.analyze = function() {
 	_.forEach(Game.rooms, r => {
 		if (r.skip) return;
 		getEnvironment(r);
-		p.checkCPU(r.name, PROFILING.ANALYZE_LIMIT / 5);
 	});
 };
 mod.execute = function() {
-	const p = Util.startProfiling('Room.execute', { enabled: PROFILING.ROOMS });
 	// run execute in each of our submodules
 	for (const key of Object.keys(Room._ext)) {
 		if (Room._ext[key].execute) Room._ext[key].execute();
@@ -1861,9 +1858,7 @@ mod.execute = function() {
 			if (room) {
 				// has sight
 				if (room.collapsed) {
-					const p2 = Util.startProfiling(roomName + 'execute', { enabled: PROFILING.ROOMS });
 					Room.collapsed.trigger(room);
-					p2.checkCPU('collapsed', 0.5);
 				}
 			}
 		} catch (e) {
@@ -1872,7 +1867,6 @@ mod.execute = function() {
 	};
 	_.forEach(Memory.rooms, (memory, roomName) => {
 		run(memory, roomName);
-		p.checkCPU(roomName + '.run', 1);
 		if (
 			Game.time % MEMORY_RESYNC_INTERVAL === 0 &&
 			!Game.rooms[roomName] &&
@@ -1890,7 +1884,7 @@ mod.cleanup = function() {
 	}
 	// flush changes to the pathfinderCache but wait until load
 	if (!_.isUndefined(Memory.pathfinder)) {
-		OCSMemory.saveSegment(MEM_SEGMENTS.COSTMATRIX_CACHE, Memory.pathfinder);
+		CMemory.saveSegment(MEM_SEGMENTS.COSTMATRIX_CACHE, Memory.pathfinder);
 		delete Memory.pathfinder;
 	}
 	if (Room.pathfinderCacheDirty && Room.pathfinderCacheLoaded) {
@@ -1912,14 +1906,14 @@ mod.cleanup = function() {
 				if (entry.stale) encodedCache[key].stale = true;
 			}
 		}
-		OCSMemory.saveSegment(MEM_SEGMENTS.COSTMATRIX_CACHE, encodedCache);
+		CMemory.saveSegment(MEM_SEGMENTS.COSTMATRIX_CACHE, encodedCache);
 		Room.pathfinderCacheDirty = false;
 	}
 };
 
 mod.routeCallback = function(origin, destination, options) {
 	if (_.isUndefined(origin) || _.isUndefined(destination))
-		logError(
+		Util.logError(
 			'Room.routeCallback',
 			'both origin and destination must be defined - origin:' + origin + ' destination:' + destination,
 		);
@@ -2042,7 +2036,7 @@ mod.roomDistance = function(roomName1, roomName2, diagonal, continuous) {
 	return xDif + yDif; // count diagonal as 2
 };
 mod.rebuildCostMatrix = function(roomName) {
-	if (global.DEBUG) Util.logSystem(roomName, 'Invalidating costmatrix to force a rebuild when we have vision.');
+	if (DEBUG) Util.logSystem(roomName, 'Invalidating costmatrix to force a rebuild when we have vision.');
 	_.set(Room, ['pathfinderCache', roomName, 'stale'], true);
 	_.set(Room, ['pathfinderCache', roomName, 'updated'], Game.time);
 	Room.pathfinderCacheDirty = true;
@@ -2055,7 +2049,7 @@ mod.loadCostMatrixCache = function(cache) {
 			Room.pathfinderCache[key] = cache[key];
 		}
 	}
-	if (global.DEBUG && count > 0)
+	if (DEBUG && count > 0)
 		Util.logSystem('RawMemory', 'loading pathfinder cache.. updated ' + count + ' stale entries.');
 	Room.pathfinderCacheLoaded = true;
 };
@@ -2077,7 +2071,7 @@ mod.getCachedStructureMatrix = function(roomName) {
 			!mem.stale &&
 			ttl < COST_MATRIX_VALIDITY
 		) {
-			if (global.DEBUG && global.TRACE)
+			if (DEBUG && TRACE)
 				Util.trace('PathFinder', { roomName: roomName, ttl, PathFinder: 'CostMatrix' }, 'cached costmatrix');
 			return true;
 		}

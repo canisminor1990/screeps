@@ -29,7 +29,7 @@ action.step = function(creep) {
 				target = new RoomPosition(25, 25, creep.data.travelRoom);
 			}
 		} else {
-			logError(creep.name + 'Creep.action.travelling called with specialFlag target and travelRoom undefined.');
+			Util.logError(creep.name + 'Creep.action.travelling called with specialFlag target and travelRoom undefined.');
 			target = null;
 		}
 	}
@@ -51,12 +51,12 @@ action.step = function(creep) {
 };
 action.assignRoom = function(creep, roomName) {
 	if (!roomName) {
-		logError(creep.name + 'Creep.action.travelling.assignRoom called with no room.');
+		Util.logError(creep.name + 'Creep.action.travelling.assignRoom called with no room.');
 		return;
 	}
 	if (_.isUndefined(creep.data.travelRange)) creep.data.travelRange = TRAVELLING_BORDER_RANGE || 22;
 	creep.data.travelRoom = roomName;
-	if (global.DEBUG && global.TRACE)
+	if (DEBUG && TRACE)
 		Util.trace('Action', { creepName: creep.name, assign: this.name, roomName, Action: 'assign' });
 	return Creep.action.travelling.assign(creep, Flag.specialFlag());
 };

@@ -323,4 +323,4 @@ class RobbingTask extends TaskComponent {
 	};
 }
 
-module.exports = new RobbingTask();
+export default new RobbingTask();

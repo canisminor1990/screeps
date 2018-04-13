@@ -131,4 +131,4 @@ class GuardTask extends TaskComponent {
 	};
 }
 
-module.exports = new GuardTask();
+export default new GuardTask();

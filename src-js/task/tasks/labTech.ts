@@ -140,4 +140,4 @@ class LabTechTask extends TaskComponent {
 	};
 }
 
-module.exports = new LabTechTask();
+export default new LabTechTask();

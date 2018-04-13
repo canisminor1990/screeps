@@ -42,7 +42,7 @@ mod.outflowActions = creep => {
 mod.needEnergy = creep => Creep.behaviour.worker.needEnergy.call(this, creep);
 mod.nextAction = function(creep) {
 	if (creep.pos.roomName !== creep.data.homeRoom) {
-		if (global.DEBUG && global.TRACE)
+		if (DEBUG && TRACE)
 			Util.trace('Behaviour', {
 				actionName: 'travelling',
 				behaviourName: this.name,
@@ -57,7 +57,7 @@ mod.nextAction = function(creep) {
 	if (!creep.room.collapsed) {
 		Util.set(creep, ['data', 'recycleTick'], Game.time + 50);
 		if (Game.time >= creep.data.recycleTick) {
-			if (global.DEBUG && global.TRACE)
+			if (DEBUG && TRACE)
 				Util.trace('Behaviour', {
 					actionName: 'recycling',
 					behaviourName: this.name,

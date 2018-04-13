@@ -145,7 +145,7 @@ mod.extend = function() {
 						return o.room === this.name && o.id === order.id && o.type === order.type;
 					});
 					if (existingOffer) {
-						if (global.DEBUG && global.TRACE)
+						if (DEBUG && TRACE)
 							Util.trace('Room', {
 								roomName: this.name,
 								remoteRoom: room.name,
@@ -158,7 +158,7 @@ mod.extend = function() {
 						amountRemaining -= available - existingOffer.amount;
 						existingOffer.amount = available;
 					} else {
-						if (global.DEBUG && global.TRACE)
+						if (DEBUG && TRACE)
 							Util.trace('Room', {
 								roomName: this.name,
 								remoteRoom: room.name,
@@ -168,7 +168,7 @@ mod.extend = function() {
 								resourceType: order.type,
 								amount: available,
 							});
-						if (global.DEBUG)
+						if (DEBUG)
 							Util.logSystem(
 								this.name,
 								`Room offer from ${room.name} with id ${order.id} placed for ${available} ${order.type}.`,
@@ -228,7 +228,7 @@ mod.extend = function() {
 			let amount = Math.max(offer.amount, global.MIN_OFFER_AMOUNT);
 			if (amount > store + onOrder) {
 				let amt = amount - (store + onOrder);
-				if (global.DEBUG && global.TRACE)
+				if (DEBUG && TRACE)
 					Util.trace('Room', {
 						actionName: 'fillARoomOrder',
 						subAction: 'terminalOrder',
@@ -253,7 +253,7 @@ mod.extend = function() {
 
 			ret = this.terminal.send(offer.type, amount, targetRoom.name, order.id);
 			if (ret == OK) {
-				if (global.DEBUG && global.TRACE)
+				if (DEBUG && TRACE)
 					Util.trace('Room', {
 						actionName: 'fillARoomOrder',
 						roomName: this.name,
@@ -261,7 +261,7 @@ mod.extend = function() {
 						resourceType: offer.type,
 						amount: amount,
 					});
-				if (global.DEBUG)
+				if (DEBUG)
 					Util.logSystem(this.name, `Room order filled to ${targetRoom.name} for ${amount} ${offer.type}.`);
 				offer.amount -= amount;
 				if (offer.amount > 0) {
@@ -347,7 +347,7 @@ mod.extend = function() {
 				let existingOrder = containerData.orders.find(r => r.type == resourceType);
 				if (existingOrder) {
 					// delete structure order
-					if (global.DEBUG && global.TRACE)
+					if (DEBUG && TRACE)
 						Util.trace('Room', {
 							roomName: this.name,
 							actionName: 'cancelOrder',
@@ -358,7 +358,7 @@ mod.extend = function() {
 				}
 			} else {
 				// delete all of structure's orders
-				if (global.DEBUG && global.TRACE)
+				if (DEBUG && TRACE)
 					Util.trace('Room', { roomName: this.name, actionName: 'cancelOrder', orderId: orderId, resourceType: 'all' });
 				containerData.orders = [];
 			}
@@ -486,7 +486,7 @@ mod.extend = function() {
 			});
 			if (existingOrder) {
 				// delete existing order
-				if (global.DEBUG && global.TRACE)
+				if (DEBUG && TRACE)
 					Util.trace('Room', {
 						roomName: this.name,
 						actionName: 'cancelRoomOrder',
@@ -497,7 +497,7 @@ mod.extend = function() {
 			}
 		} else if (orderId) {
 			// delete all orders matching orderId
-			if (global.DEBUG && global.TRACE)
+			if (DEBUG && TRACE)
 				Util.trace('Room', {
 					roomName: this.name,
 					actionName: 'cancelRoomOrder',
@@ -538,7 +538,7 @@ mod.extend = function() {
 		});
 		if (existingOrder) {
 			// update existing order
-			if (global.DEBUG && global.TRACE)
+			if (DEBUG && TRACE)
 				Util.trace('Room', {
 					roomName: this.name,
 					actionName: 'placeRoomOrder',
@@ -550,7 +550,7 @@ mod.extend = function() {
 			existingOrder.amount = amount;
 		} else {
 			// create new order
-			if (global.DEBUG && global.TRACE)
+			if (DEBUG && TRACE)
 				Util.trace('Room', {
 					roomName: this.name,
 					actionName: 'placeRoomOrder',
@@ -559,7 +559,7 @@ mod.extend = function() {
 					resourceType: resourceType,
 					amount: amount,
 				});
-			if (global.DEBUG)
+			if (DEBUG)
 				Util.logSystem(this.name, `New room order with id ${orderId} placed for ${amount} ${resourceType}.`);
 			orders.push({
 				id: orderId,
@@ -585,7 +585,7 @@ mod.extend = function() {
 				let buyRatio;
 				if (global.AUTOMATED_RATIO_COUNT) {
 					buyRatio = Util.countPrices('buy', mineral, that.name);
-					if (global.DEBUG) {
+					if (DEBUG) {
 						if (buyRatio === 0) console.log(`there is no buy order for ${mineral}`);
 						else console.log(`average buyRatio: ${that.name} ${mineral} ${buyRatio}`);
 					}
@@ -620,12 +620,12 @@ mod.extend = function() {
 
 				if (orders.length > 0) {
 					let order = _.max(orders, 'ratio');
-					if (global.DEBUG) {
+					if (DEBUG) {
 						console.log('selected order: ');
 						Util.logStringify(order);
 					}
 					let result = Game.market.deal(order.id, order.transactionAmount, that.name);
-					if (global.DEBUG || SELL_NOTIFICATION)
+					if (DEBUG || SELL_NOTIFICATION)
 						Util.logSystem(
 							that.name,
 							`Selling ${order.transactionAmount} ${mineral} for ${Util.roundUp(order.credits)} (${
@@ -670,7 +670,7 @@ mod.extend = function() {
 			) {
 				targetRoom._isReceivingEnergy = true;
 				let response = this.terminal.send('energy', ENERGY_BALANCE_TRANSFER_AMOUNT, targetRoom.name, 'have fun');
-				if (global.DEBUG)
+				if (DEBUG)
 					Util.logSystem(
 						that.name,
 						`Transferring ${Util.formatNumber(ENERGY_BALANCE_TRANSFER_AMOUNT)} energy to ${

@@ -114,7 +114,7 @@ let Action = function(actionName) {
 	this.assign = function(creep, target) {
 		if (target === undefined) target = this.newTarget(creep);
 		if (target && this.isAddableTarget(target, creep)) {
-			if (global.DEBUG && global.TRACE)
+			if (DEBUG && TRACE)
 				Util.trace('Action', {
 					creepName: creep.name,
 					assign: this.name,

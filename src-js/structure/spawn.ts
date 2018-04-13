@@ -30,7 +30,7 @@ mod.extend = function() {
 		return busy;
 	};
 	Spawn.prototype.createCreepBySetup = function(setup) {
-		if (global.DEBUG && global.TRACE)
+		if (DEBUG && TRACE)
 			Util.trace(
 				'Spawn',
 				{
@@ -57,7 +57,7 @@ mod.extend = function() {
 			else params = queue.splice(index, 1)[0];
 		}
 		if (!params) {
-			if (queue.length && global.DEBUG)
+			if (queue.length && DEBUG)
 				Util.logSystem(
 					this.pos.roomName,
 					'No non-CRITICAL creeps to spawn, delaying spawn until CPU is not CRITICAL, or new entries are added.',
@@ -122,7 +122,7 @@ mod.extend = function() {
 				Util.logSystem(this.pos.roomName, Util.dye(CRAYON.birth, 'Good morning ' + newName + '!'));
 			return true;
 		}
-		if (global.DEBUG || CENSUS_ANNOUNCEMENTS)
+		if (DEBUG || CENSUS_ANNOUNCEMENTS)
 			Util.logSystem(
 				this.pos.roomName,
 				Util.dye(
@@ -146,7 +146,7 @@ mod.register = function() {
 	Creep.spawningCompleted.on(creep => mod.handleSpawningCompleted(creep));
 };
 mod.handleSpawningCompleted = function(creep) {
-	if (global.DEBUG && global.TRACE)
+	if (DEBUG && TRACE)
 		Util.trace('Spawn', { behaviour: creep.data.creepType, creepName: creep.name, Spawn: 'Creep.spawningCompleted' });
 	if (CENSUS_ANNOUNCEMENTS)
 		Util.logSystem(creep.pos.roomName, Util.dye(CRAYON.birth, 'Off to work ' + creep.name + '!'));

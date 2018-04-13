@@ -150,15 +150,10 @@ Object.defineProperties(Creep.prototype, {
 						return;
 					}
 				}
-				const total = Util.startProfiling('Creep.run', { enabled: PROFILING.CREEPS });
-				const p = Util.startProfiling(this.name + '.run', {
-					enabled: this.data && this.data.creepType && PROFILING.CREEP_TYPE === this.data.creepType,
-				});
+
 				if (this.data && !_.contains(['remoteMiner', 'miner', 'upgrader'], this.data.creepType)) {
 					this.repairNearby();
-					p.checkCPU('repairNearby', PROFILING.MIN_THRESHOLD);
 					this.buildNearby();
-					p.checkCPU('buildNearby', PROFILING.MIN_THRESHOLD);
 				}
 				if (DEBUG && TRACE)
 					Util.trace('Creep', {
@@ -169,7 +164,6 @@ Object.defineProperties(Creep.prototype, {
 					});
 				if (behaviour) {
 					behaviour.run(this);
-					p.checkCPU('behaviour.run', PROFILING.MIN_THRESHOLD);
 				} else if (!this.data) {
 					if (DEBUG && TRACE) Util.trace('Creep', { creepName: this.name, pos: this.pos, Creep: 'run' }, 'memory init');
 					let type = this.memory.setup;
@@ -220,17 +214,13 @@ Object.defineProperties(Creep.prototype, {
 							});
 							Population.countCreep(this.room, entry);
 						} else this.suicide();
-						p.checkCPU('!this.data', PROFILING.MIN_THRESHOLD);
 					}
 				}
 				if (this.flee) {
 					this.fleeMove();
-					p.checkCPU('fleeMove', PROFILING.MIN_THRESHOLD);
 					Creep.behaviour.ranger.heal(this);
-					p.checkCPU('heal', PROFILING.MIN_THRESHOLD);
 					if (SAY_ASSIGNMENT) this.say(String.fromCharCode(10133), SAY_PUBLIC);
 				}
-				total.checkCPU(this.name, PROFILING.EXECUTE_LIMIT / 3, this.data ? this.data.creepType : 'noType');
 			}
 			Strategy.freeStrategy(this);
 		},

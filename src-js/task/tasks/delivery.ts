@@ -142,4 +142,4 @@ class DeliveryTask extends TaskComponent {
 	};
 }
 
-module.exports = new DeliveryTask();
+export default new DeliveryTask();

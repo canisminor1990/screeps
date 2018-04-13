@@ -1,8 +1,8 @@
-import { dateUtils } from './date';
-import { logUtils } from './log';
-import { roomUtils } from './room';
-import { profilerUtils } from './profiler';
-import { marketUtils } from './market';
+import {dateUtils} from './date';
+import {logUtils} from './log';
+import {roomUtils} from './room';
+import {profilerUtils} from './profiler';
+import {marketUtils} from './market';
 
 const utils = {
 	/**
@@ -89,9 +89,9 @@ const utils = {
 	 */
 	processReports(): void {
 		if (
-			!_.isUndefined(Memory.statistics) &&
-			!_.isUndefined(Memory.statistics.reports) &&
-			Memory.statistics.reports.length
+				!_.isUndefined(Memory.statistics) &&
+				!_.isUndefined(Memory.statistics.reports) &&
+				Memory.statistics.reports.length
 		) {
 			let mails;
 			if (Memory.statistics.reports.length <= REPORTS_PER_LOOP) {
@@ -121,19 +121,19 @@ const utils = {
 	inQueue(opts: obj): boolean {
 		if (!opts) return false;
 		// string check
-		if (opts.link) opts = { behaviour: opts };
+		if (opts.link) opts = {behaviour: opts};
 		if (!opts.name && !opts.behaviour && !opts.setup) return false;
 		// @ts-ignore
 		return _(Game.rooms)
-			.filter('my')
-			.map('memory')
-			.map((m: obj) => m.spawnQueueHigh.concat(m.spawnQueueMedium, m.spawnQueueLow))
-			.flatten()
-			.some((q: obj) => {
-				if (opts.room) if (q.destiny && q.destiny.room !== opts.room) return false;
-				if (opts.behaviour) return (q.behaviour && q.behaviour === opts.behaviour) || q.name.includes(opts.behaviour);
-				if (opts.setup) return q.setup === opts.setup;
-			});
+				.filter('my')
+				.map('memory')
+				.map((m: obj) => m.spawnQueueHigh.concat(m.spawnQueueMedium, m.spawnQueueLow))
+				.flatten()
+				.some((q: obj) => {
+					if (opts.room) if (q.destiny && q.destiny.room !== opts.room) return false;
+					if (opts.behaviour) return (q.behaviour && q.behaviour === opts.behaviour) || q.name.includes(opts.behaviour);
+					if (opts.setup) return q.setup === opts.setup;
+				});
 	},
 
 	/**
@@ -159,8 +159,8 @@ const utils = {
 	_resources: _.memoize(() => {
 		// @ts-ignore
 		return _.chain(global)
-			.pick((v, k) => k.startsWith('RESOURCE_'))
-			.value();
+				.pick((v, k) => k.startsWith('RESOURCE_'))
+				.value();
 	}),
 
 	/**
@@ -190,7 +190,7 @@ const utils = {
 
 	resetBoostProduction(roomName: string): void {
 		let data;
-		let myRooms = _.filter(Game.rooms, { my: true });
+		let myRooms = _.filter(Game.rooms, {my: true});
 
 		for (let room of myRooms) {
 			if (roomName === undefined || room.name === roomName) {
@@ -211,8 +211,8 @@ const utils = {
 					if (data.lab) {
 						data.lab = [];
 						_.values(Game.structures)
-							.filter((i: Structure) => i.structureType === 'lab')
-							.map((i: StructureLab) => i.room.setStore(i.id, RESOURCE_ENERGY, 2000));
+								.filter((i: Structure) => i.structureType === 'lab')
+								.map((i: StructureLab) => i.room.setStore(i.id, RESOURCE_ENERGY, 2000));
 					}
 					delete data.boostTiming;
 				} else console.log(`${room.name} has no memory.resources`);
@@ -222,4 +222,16 @@ const utils = {
 	},
 };
 
-export default _.assign(utils, roomUtils, logUtils, dateUtils, profilerUtils, marketUtils);
+export default _.assign(utils, roomUtils, logUtils, dateUtils, marketUtils);
+
+export function Install(name, main, extend = false) {
+	if (_.isString(name)) {
+		global[name] = main
+		if (extend) _.assign(global[name], extend)
+	} else {
+		_.assign(name, main)
+		if (extend) _.assign(name, extend)
+	}
+}
+
+export const getUsername = _(Game.rooms).map('controller').filter('my').map('owner.username').first()
