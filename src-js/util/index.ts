@@ -1,7 +1,6 @@
 import {dateUtils} from './date';
 import {logUtils} from './log';
 import {roomUtils} from './room';
-import {profilerUtils} from './profiler';
 import {marketUtils} from './market';
 
 const utils = {
@@ -71,7 +70,7 @@ const utils = {
 	 * 如果是方法则返回方法结果，否则返回其本身
 	 */
 	fieldOrFunction(value: any, ...args: any[]): any {
-		return typeof value === 'function' ? value(...args) : value;
+		return _.isFunction(value) ? value(...args) : value;
 	},
 
 	/**

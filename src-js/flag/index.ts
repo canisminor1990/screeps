@@ -25,7 +25,7 @@ class Flag extends Component {
 		let filter;
 		if (pos instanceof Room) pos = pos.getPositionAt(25, 25);
 		if (typeof flagColor === 'function') {
-			filter = function(flagEntry) {
+			filter = (flagEntry) => {
 				if (flagColor(flagEntry) && flagEntry.cloaking == 0) {
 					if (!local) return true;
 					if (pos && pos.roomName && flagEntry.roomName === pos.roomName) return true;

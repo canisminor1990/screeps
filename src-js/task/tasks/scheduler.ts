@@ -9,17 +9,17 @@ class SchedulerTask extends TaskComponent {
 
 	processes = {
 		example: {
-			conditions: function() {
+			conditions: () => {
 				return false;
 			},
-			run: function() {
+			run: () =>{
 				console.log('Hello!');
 			},
 		},
 	};
 
 	execute = () => {
-		_.forEach(this.processes, function(n, k) {
+		_.forEach(this.processes, (n, k) =>{
 			if (n.conditions()) n.run();
 		});
 	};

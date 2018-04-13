@@ -83,14 +83,14 @@ class ReputationTask extends TaskComponent {
 			for (const n in NPC) {
 				score[n] = CONST.NPC_SCORE;
 			}
-			_.keys(whitelist).forEach(function(player) {
+			_.keys(whitelist).forEach((player) => {
 				score[player] = CONST.WHITELIST_SCORE;
 			});
 
 			etc.whitelistRepUnion = 0;
 			_.reduce(
 				playerMemory,
-				function(list, player, name) {
+				(list, player, name)=> {
 					if (typeof player.score === 'number') {
 						if (whitelist[name]) {
 							etc.whitelistRepUnion++;
@@ -110,7 +110,7 @@ class ReputationTask extends TaskComponent {
 		if (_.keys(whitelist).length !== PLAYER_WHITELIST.length) {
 			whitelist = this.killWhitelistCache();
 
-			_.forEach(PLAYER_WHITELIST, function(playerName) {
+			_.forEach(PLAYER_WHITELIST, (playerName) => {
 				whitelist[playerName.toLowerCase()] = true;
 			});
 		}

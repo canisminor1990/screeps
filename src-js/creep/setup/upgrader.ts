@@ -19,8 +19,8 @@ class UpgraderSetup extends CreepSetup {
 			},
 			minAbsEnergyAvailable: 400,
 			minEnergyAvailable: 0.5,
-			maxMulti: room => setup.maxMulti(room),
-			maxCount: room => setup.maxCount(room),
+			maxMulti: room => this.maxMulti(room),
+			maxCount: room => this.maxCount(room),
 		}
 	}
 
@@ -37,8 +37,8 @@ class UpgraderSetup extends CreepSetup {
 			},
 			minAbsEnergyAvailable: 300,
 			minEnergyAvailable: 1,
-			maxMulti: room => setup.maxMulti(room),
-			maxCount: room => setup.maxCount(room),
+			maxMulti: room => this.maxMulti(room),
+			maxCount: room => this.maxCount(room),
 		}
 	}
 
@@ -52,7 +52,7 @@ class UpgraderSetup extends CreepSetup {
 			minAbsEnergyAvailable: 1700,
 			minEnergyAvailable: 0.5,
 			maxMulti: CONTROLLER_MAX_UPGRADE_PER_TICK / UPGRADE_CONTROLLER_POWER,
-			maxCount: room => setup.maxCount(room),
+			maxCount: room => this.maxCount(room),
 		}
 	}
 

@@ -244,12 +244,11 @@ export class CreepSetup {
 
 	getRCL = (room, property) => {
 		const prop = this.RCL[room.controller.level][property]
-		if (_.isFunction(prop){
-			console.log(this.type, room.controller.level,property,prop(room))
+		if (_.isFunction(prop)){
+			console.log(this.type, room.controller.level, property, prop(room))
 			return prop(room)
-
 		}
-		console.log(this.type, room.controller.level,property,prop)
+		console.log(this.type, room.controller.level, property, prop)
 		return prop
 	};
 }

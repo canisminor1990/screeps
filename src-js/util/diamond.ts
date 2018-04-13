@@ -16,7 +16,7 @@ class DiamondIterator {
 		const dist = radius;
 		if (!_.isFinite(radius)) throw new Error('not finite: ' + JSON.stringify([xy, radius]));
 		return {
-			[Symbol.iterator]: function() {
+			[Symbol.iterator]: () =>{
 				return new DiamondIterator(center, dist);
 			},
 		};

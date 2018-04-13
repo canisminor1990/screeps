@@ -17,7 +17,7 @@ export const marketUtils = {
 		};
 
 		Array.prototype.sum = function() {
-			return this.reduce(function(sum, a) {
+			return this.reduce((sum, a) => {
 				return sum + Number(a);
 			}, 0);
 		};

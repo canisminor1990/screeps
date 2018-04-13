@@ -469,7 +469,7 @@ class MiningTask extends TaskComponent {
 					return definition;
 				}
 
-				const isWork = function(b) {
+				const isWork = (b) => {
 					return b === WORK;
 				};
 				const baseBody = _.reject(definition.fixedBody, isWork);

@@ -81,24 +81,23 @@ class WorkerSetup extends CreepSetup {
 		return room.population.typeCount.hauler > 0 || room.population.typeCount.miner > 0
 	}
 // this assures that the first worker gets spawned immediately, but later workers require more energy, giving preference to miners
-	byPopulation = (type, start, perBody, limit) => {
-		return (room) => {
-			const result = start + ((room.population && room.population.typeCount[type] * perBody) || 0);
-			if (!limit || result <= limit) {
-				return result;
-			} else {
-				return limit;
-			}
-		};
+	byPopulation = (room, start, perBody, limit) => {
+		let result = start
+		if (room.population) result += room.population.typeCount[this.type] * perBody
+		if (!limit || result <= limit) {
+			return result;
+		} else {
+			return limit;
+		}
 	};
 	minEnergyAvailable = (room) => {
 		switch (room.controller.level) {
 			case 1 :
-				return this.byPopulation(this.type, 0, 1, 1);
+				return this.byPopulation(room, 0, 1, 1);
 			case 2:
-				return this.byPopulation(this.type, 0, 0.8, 1);
+				return this.byPopulation(room, 0, 0.8, 1);
 			case 3:
-				return this.byPopulation(this.type, 0, 0.6, 1);
+				return this.byPopulation(room, 0, 0.6, 1);
 			case 4 || 5 || 6:
 				return this.hasMinerOrHauler(room) ? 0.5 : 0;
 			case 7:
