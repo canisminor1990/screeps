@@ -27,19 +27,19 @@ export const install = () => {
 
 	// Task
 	Install('Task', require('./task').default, {
-		guard: require('./task/tasks/guard').default,
-		defense: require('./task/tasks/defense').default,
-		mining: require('./task/tasks/mining').default,
-		claim: require('./task/tasks/claim').default,
-		reserve: require('./task/tasks/reserve').default,
-		pioneer: require('./task/tasks/pioneer').default,
-		attackController: require('./task/tasks/attackController').default,
-		robbing: require('./task/tasks/robbing').default,
-		reputation: require('./task/tasks/reputation').default,
-		delivery: require('./task/tasks/delivery').default,
-		labTech: require('./task/tasks/labTech').default,
-		safeGen: require('./task/tasks/safeGen').default,
-		scheduler: require('./task/tasks/scheduler').default,
+		guard: require('./task/type/guard').default,
+		defense: require('./task/type/defense').default,
+		mining: require('./task/type/mining').default,
+		claim: require('./task/type/claim').default,
+		reserve: require('./task/type/reserve').default,
+		pioneer: require('./task/type/pioneer').default,
+		attackController: require('./task/type/attackController').default,
+		robbing: require('./task/type/robbing').default,
+		reputation: require('./task/type/reputation').default,
+		delivery: require('./task/type/delivery').default,
+		labTech: require('./task/type/labTech').default,
+		safeGen: require('./task/type/safeGen').default,
+		scheduler: require('./task/type/scheduler').default,
 	});
 
 	// Creep
@@ -111,23 +111,23 @@ export const install = () => {
 	Install(Creep, require('./creep').default);
 
 	// Room
-	Install(Room, require('./room'), {
-		_ext: {
-			construction: require('./room/construction'),
-			containers: require('./room/container'),
-			defense: require('./room/defense'),
-			extensions: require('./room/extension'),
-			labs: require('./room/lab'),
-			links: require('./room/link'),
-			nuker: require('./room/nuker'),
-			observers: require('./room/observer'),
-			orders: require('./room/orders'),
-			power: require('./room/power'),
-			resources: require('./room/resources'),
-			spawns: require('./room/spawn'),
-			towers: require('./room/tower'),
-			fillRoomOrders: require('./room/fillRoomOrders'),
-			boostProduction: require('./room/boostProduction'),
+	Install(Room, require('./room').default, {
+		manager: {
+			construction: require('./room/manager/construction'),
+			containers: require('./room/manager/container'),
+			defense: require('./room/manager/defense'),
+			extensions: require('./room/manager/extension'),
+			labs: require('./room/manager/lab'),
+			links: require('./room/manager/link'),
+			nuker: require('./room/manager/nuker'),
+			observers: require('./room/manager/observer'),
+			orders: require('./room/manager/orders'),
+			power: require('./room/manager/power'),
+			resources: require('./room/manager/resources'),
+			spawns: require('./room/manager/spawn'),
+			towers: require('./room/manager/tower'),
+			fillRoomOrders: require('./room/manager/fillRoomOrders'),
+			boostProduction: require('./room/manager/boostProduction'),
 		},
 	});
 

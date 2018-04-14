@@ -1,3 +1,5 @@
+import { CompressedMatrix } from './compressedMatrix';
+
 /**
  * To start using Traveler, require it in main.js:
  *
@@ -410,7 +412,7 @@ class Traveler {
 
 export const TravelerInstall = () => {
 	_.assign(global, {
-		CompressedMatrix: require('./compressedMatrix'),
+		CompressedMatrix: new CompressedMatrix(),
 		Traveler: Traveler,
 		traveler: new Traveler(),
 		travelerTick: Game.time,
