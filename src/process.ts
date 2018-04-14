@@ -13,23 +13,20 @@ class Process {
 		this.extend();
 	};
 	private extend = () => {
-		Creep.extend();
 		Room.extend();
 		Flag.extend();
 		Task.extend();
-		// custom extend
-		CMemory.activateSegment(MEM_SEGMENTS.COSTMATRIX_CACHE, true);
+		Creep.extend();
+		CMemory.extend();
 	};
 	private fresh = () => {
-		// loaded memory segments
-		CMemory.processSegments();
 		// Flush cache
-		Events.fresh();
-		Flag.fresh();
-		Creep.fresh();
-		Population.fresh();
 		Room.fresh();
+		Flag.fresh();
 		Task.fresh();
+		Population.fresh();
+		Creep.fresh();
+		CMemory.fresh();
 	};
 	private analyze = () => {
 		Flag.analyze();
@@ -41,24 +38,25 @@ class Process {
 		Room.register();
 		this.analyze();
 		// Register event hooks
+		Task.register();
 		Creep.register();
 		StructureSpawn.register();
-		Task.register();
 	};
 	private run = () => {
 		// Execution
-		Population.run();
-		Flag.run();
 		Room.run();
+		Flag.run();
+		Task.run();
+		Population.run();
 		Creep.run();
 		StructureSpawn.run();
-		Task.run();
 	};
 	private cleanup = () => {
+		Room.cleanup();
 		Flag.cleanup();
 		Population.cleanup();
-		Room.cleanup();
-		CMemory.cleanup(); // must come last
+		// must come last
+		CMemory.cleanup();
 	};
 	private addon = () => {
 		// Postprocessing
@@ -69,7 +67,8 @@ class Process {
 			Util.processReports();
 		}
 		// Mod
-		if (ROOM_VISUALS && !Memory.CPU_CRITICAL) Visuals.run(); // At end to correctly display used CPU.
+		// At end to correctly display used CPU.
+		if (ROOM_VISUALS && !Memory.CPU_CRITICAL) Visuals.run();
 		if (GRAFANA && Game.time % GRAFANA_INTERVAL === 0) Grafana.run();
 	};
 }
