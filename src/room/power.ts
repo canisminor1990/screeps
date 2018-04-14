@@ -52,14 +52,14 @@ mod.extend = function() {
 
 	Room.prototype.savePowerSpawn = function() {
 		let powerSpawns = this.find(FIND_MY_STRUCTURES, {
-			filter: structure => structure.structureType === STRUCTURE_POWER_SPAWN,
+			filter: structure => structure.structureType == STRUCTURE_POWER_SPAWN,
 		});
 		if (powerSpawns.length > 0) {
 			this.memory.powerSpawns = [];
 
 			// for each entry add to memory ( if not contained )
 			let add = powerSpawn => {
-				let powerSpawnData = this.memory.powerSpawns.find(l => l.id === powerSpawn.id);
+				let powerSpawnData = this.memory.powerSpawns.find(l => l.id == powerSpawn.id);
 				if (!powerSpawnData) {
 					this.memory.powerSpawns.push({
 						id: powerSpawn.id,
@@ -74,10 +74,10 @@ mod.extend = function() {
 		// run lab reactions WOO!
 		let powerSpawns = this.find(FIND_MY_STRUCTURES, {
 			filter: s => {
-				return s.structureType === STRUCTURE_POWER_SPAWN;
+				return s.structureType == STRUCTURE_POWER_SPAWN;
 			},
 		});
-		for (var i = 0; i < powerSpawns.length; i++) {
+		for (let i = 0; i < powerSpawns.length; i++) {
 			// see if the reaction is possible
 			let powerSpawn = powerSpawns[i];
 			if (powerSpawn.energy >= POWER_SPAWN_ENERGY_RATIO && powerSpawn.power >= 1) {

@@ -10,11 +10,11 @@ action.isValidAction = function(creep) {
 };
 action.isValidTarget = function(target, creep) {
 	if (!target) return false;
-	if (target.structureType === 'link') {
+	if (target.structureType == 'link') {
 		return target.energy > 0;
-	} else if (target.structureType === 'container') {
+	} else if (target.structureType == 'container') {
 		let min = 0;
-		if (target.source === true && target.controller === true) min = target.storeCapacity * MANAGED_CONTAINER_TRIGGER;
+		if (target.source === true && target.controller == true) min = target.storeCapacity * MANAGED_CONTAINER_TRIGGER;
 		else if (creep.data.creepType.indexOf('remote') >= 0) min = 250;
 		else min = 500;
 		return target.sum > min;
@@ -45,7 +45,7 @@ action.newTarget = function(creep) {
 			if (that.isValidTarget(cont, creep)) {
 				let available = cont.sum;
 				if (cont.targetOf)
-					available -= _.sum(cont.targetOf.map(t => (t.actionName === 'uncharging' ? t.carryCapacityLeft : 0)));
+					available -= _.sum(cont.targetOf.map(t => (t.actionName == 'uncharging' ? t.carryCapacityLeft : 0)));
 				if (available < Math.min(creep.carryCapacity - creep.sum, min)) return;
 				if (available > currMax) {
 					currMax = available;
@@ -59,7 +59,7 @@ action.newTarget = function(creep) {
 };
 action.work = function(creep) {
 	let workResult = OK;
-	if (creep.target.source === true && creep.target.controller === true) {
+	if (creep.target.source === true && creep.target.controller == true) {
 		// managed container fun...
 		let max = creep.target.sum - creep.target.storeCapacity * (1 - MANAGED_CONTAINER_TRIGGER);
 		if (max < 1) workResult = ERR_NOT_ENOUGH_RESOURCES;
@@ -69,7 +69,7 @@ action.work = function(creep) {
 			creep.target._sum -= amount;
 			workResult = creep.withdraw(creep.target, RESOURCE_ENERGY, amount);
 		}
-	} else if (creep.target.store !== null) {
+	} else if (creep.target.store != null) {
 		// container
 		let withdraw = r => {
 			if (creep.target.store[r] > 0) workResult = creep.withdraw(creep.target, r);
@@ -86,6 +86,6 @@ action.work = function(creep) {
 	creep.target = null;
 	return workResult;
 };
-action.defaultStrategy.isValidAction = function(creep) {
+action.default.isValidAction = function(creep) {
 	return creep.sum < creep.carryCapacity || false;
 };

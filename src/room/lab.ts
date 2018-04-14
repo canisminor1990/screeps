@@ -45,7 +45,7 @@ mod.extend = function() {
 	// Room prototype extensions go here
 	Room.prototype.saveLabs = function() {
 		let labs = this.find(FIND_MY_STRUCTURES, {
-			filter: structure => structure.structureType === STRUCTURE_LAB,
+			filter: structure => structure.structureType == STRUCTURE_LAB,
 		});
 		if (labs.length > 0) {
 			this.memory.labs = [];
@@ -55,7 +55,7 @@ mod.extend = function() {
 
 			// for each entry add to memory ( if not contained )
 			let add = lab => {
-				let labData = this.memory.labs.find(l => l.id === lab.id);
+				let labData = this.memory.labs.find(l => l.id == lab.id);
 				if (!labData) {
 					this.memory.labs.push({
 						id: lab.id,
@@ -72,34 +72,34 @@ mod.extend = function() {
 		if (Game.time % LAB_COOLDOWN !== 5) return;
 		let labs = this.find(FIND_MY_STRUCTURES, {
 			filter: s => {
-				return s.structureType === STRUCTURE_LAB;
+				return s.structureType == STRUCTURE_LAB;
 			},
 		});
 		if (!this.memory.resources) return;
 		// run basic reactions
 		let master_labs = labs.filter(l => {
-			let data = this.memory.resources.lab.find(s => s.id === l.id);
+			let data = this.memory.resources.lab.find(s => s.id == l.id);
 			return data ? data.slave_a && data.slave_b : false;
 		});
 		for (let i = 0; i < master_labs.length; i++) {
 			// see if the reaction is possible
 			let master = master_labs[i];
 			if (master.cooldown > 0) continue;
-			let data = this.memory.resources.lab.find(s => s.id === master.id);
+			let data = this.memory.resources.lab.find(s => s.id == master.id);
 			if (!data) continue;
 			let compound = data.reactionType;
-			if (master.mineralAmount > 0 && master.mineralType !== compound) continue;
+			if (master.mineralAmount > 0 && master.mineralType != compound) continue;
 			let slave_a = Game.getObjectById(data.slave_a);
 			let slave_b = Game.getObjectById(data.slave_b);
 			if (
 				!slave_a ||
-				slave_a.mineralType !== LAB_REACTIONS[compound][0] ||
+				slave_a.mineralType != LAB_REACTIONS[compound][0] ||
 				!slave_b ||
-				slave_b.mineralType !== LAB_REACTIONS[compound][1]
+				slave_b.mineralType != LAB_REACTIONS[compound][1]
 			)
 				continue;
 
-			if (master.runReaction(slave_a, slave_b) === OK) {
+			if (master.runReaction(slave_a, slave_b) == OK) {
 				data.reactionAmount -= LAB_REACTION_AMOUNT;
 				if (DEBUG && TRACE)
 					Util.trace('Room', {
@@ -143,7 +143,7 @@ mod.extend = function() {
 			// reset labs so they get emptied
 			let labs = this.find(FIND_MY_STRUCTURES, {
 				filter: s => {
-					return s.structureType === STRUCTURE_LAB;
+					return s.structureType == STRUCTURE_LAB;
 				},
 			});
 			for (let i = 0; i < labs.length; i++) {
@@ -187,7 +187,7 @@ mod.extend = function() {
 			for (let room of myRooms) {
 				if (room.name === that.name) continue;
 				let resourcesAll = room.resourcesAll[component] || 0;
-				if (resourcesAll >= MIN_OFFER_AMOUNT) roomStored += resourcesAll;
+				if (resourcesAll >= global.MIN_OFFER_AMOUNT) roomStored += resourcesAll;
 			}
 			return roomStored;
 		};
@@ -210,9 +210,9 @@ mod.extend = function() {
 				resourcesOffered = (this.resourcesOffers[component_a] || 0) + order.amount,
 				amountToOrder = resourcesOffered - resourcesStored;
 
-			let roundedAmountToOrder = Util.roundUpTo(amountToOrder, MIN_OFFER_AMOUNT);
-			if (amountToOrder < TRADE_THRESHOLD && amountToOrder > 0) {
-				if (empireResourcesComponentA >= TRADE_THRESHOLD) amountToOrder = TRADE_THRESHOLD;
+			let roundedAmountToOrder = Util.roundUpTo(amountToOrder, global.MIN_OFFER_AMOUNT);
+			if (amountToOrder < global.TRADE_THRESHOLD && amountToOrder > 0) {
+				if (empireResourcesComponentA >= global.TRADE_THRESHOLD) amountToOrder = global.TRADE_THRESHOLD;
 				else if (empireResourcesComponentA >= roundedAmountToOrder) amountToOrder = roundedAmountToOrder;
 			} else if (amountToOrder > 0 && roundedAmountToOrder <= empireResourcesComponentA)
 				amountToOrder = roundedAmountToOrder;
@@ -236,9 +236,9 @@ mod.extend = function() {
 				resourcesOffered = (this.resourcesOffers[component_b] || 0) + order.amount,
 				amountToOrder = resourcesOffered - resourcesStored;
 
-			let roundedAmountToOrder = Util.roundUpTo(amountToOrder, MIN_OFFER_AMOUNT);
-			if (amountToOrder < TRADE_THRESHOLD && amountToOrder > 0) {
-				if (empireResourcesComponentB >= TRADE_THRESHOLD) amountToOrder = TRADE_THRESHOLD;
+			let roundedAmountToOrder = Util.roundUpTo(amountToOrder, global.MIN_OFFER_AMOUNT);
+			if (amountToOrder < global.TRADE_THRESHOLD && amountToOrder > 0) {
+				if (empireResourcesComponentB >= global.TRADE_THRESHOLD) amountToOrder = global.TRADE_THRESHOLD;
 				else if (empireResourcesComponentB >= roundedAmountToOrder) amountToOrder = roundedAmountToOrder;
 			} else if (amountToOrder > 0 && roundedAmountToOrder <= empireResourcesComponentB)
 				amountToOrder = roundedAmountToOrder;
@@ -266,9 +266,9 @@ mod.extend = function() {
 				resourcesOffered = (this.resourcesOffers[component_a] || 0) + order.amount,
 				amountToOrder = resourcesOffered - resourcesStored;
 
-			let roundedAmountToOrder = Util.roundUpTo(amountToOrder, MIN_OFFER_AMOUNT);
-			if (amountToOrder < TRADE_THRESHOLD && amountToOrder > 0) {
-				if (empireResourcesComponentA >= TRADE_THRESHOLD) amountToOrder = TRADE_THRESHOLD;
+			let roundedAmountToOrder = Util.roundUpTo(amountToOrder, global.MIN_OFFER_AMOUNT);
+			if (amountToOrder < global.TRADE_THRESHOLD && amountToOrder > 0) {
+				if (empireResourcesComponentA >= global.TRADE_THRESHOLD) amountToOrder = global.TRADE_THRESHOLD;
 				else if (empireResourcesComponentA >= roundedAmountToOrder) amountToOrder = roundedAmountToOrder;
 			} else if (amountToOrder > 0 && roundedAmountToOrder <= empireResourcesComponentA)
 				amountToOrder = roundedAmountToOrder;
@@ -295,9 +295,9 @@ mod.extend = function() {
 				resourcesOffered = (this.resourcesOffers[component_b] || 0) + order.amount,
 				amountToOrder = resourcesOffered - resourcesStored;
 
-			let roundedAmountToOrder = Util.roundUpTo(amountToOrder, MIN_OFFER_AMOUNT);
-			if (amountToOrder < TRADE_THRESHOLD && amountToOrder > 0) {
-				if (empireResourcesComponentB >= TRADE_THRESHOLD) amountToOrder = TRADE_THRESHOLD;
+			let roundedAmountToOrder = Util.roundUpTo(amountToOrder, global.MIN_OFFER_AMOUNT);
+			if (amountToOrder < global.TRADE_THRESHOLD && amountToOrder > 0) {
+				if (empireResourcesComponentB >= global.TRADE_THRESHOLD) amountToOrder = global.TRADE_THRESHOLD;
 				else if (empireResourcesComponentB >= roundedAmountToOrder) amountToOrder = roundedAmountToOrder;
 			} else if (amountToOrder > 0 && roundedAmountToOrder <= empireResourcesComponentB)
 				amountToOrder = roundedAmountToOrder;
@@ -327,7 +327,7 @@ mod.extend = function() {
 		// find and configure idle labs
 		let labs = this.find(FIND_MY_STRUCTURES, {
 			filter: s => {
-				return s.structureType === STRUCTURE_LAB;
+				return s.structureType == STRUCTURE_LAB;
 			},
 		});
 		let reactors = labs.filter(l => {
@@ -390,7 +390,7 @@ mod.extend = function() {
 	};
 
 	Room.prototype.cancelReactionOrder = function(labId, dataFilter) {
-		let labData = this.memory.resources.lab.find(l => l.id === labId);
+		let labData = this.memory.resources.lab.find(l => l.id == labId);
 		if (dataFilter && !_.matches(dataFilter)(labId)) return;
 
 		if (labData) {
@@ -423,7 +423,7 @@ mod.extend = function() {
 			// clear local resource orders
 			for (let i = 0; i < labData.orders.length; i++) {
 				let order = labData.orders[i];
-				if (order.type === RESOURCE_ENERGY) continue;
+				if (order.type == RESOURCE_ENERGY) continue;
 				order.orderAmount = 0;
 				order.orderRemaining = 0;
 				order.storeAmount = 0;
@@ -436,7 +436,7 @@ mod.extend = function() {
 	Room.prototype.prepareReactionOrder = function(labId, resourceType, amount) {
 		if (amount <= 0) return OK;
 		let lab = Game.getObjectById(labId);
-		if (!this.my || !lab || !lab.structureType === STRUCTURE_LAB) return ERR_INVALID_TARGET;
+		if (!this.my || !lab || !lab.structureType == STRUCTURE_LAB) return ERR_INVALID_TARGET;
 		if (!LAB_REACTIONS.hasOwnProperty(resourceType)) {
 			return ERR_INVALID_ARGS;
 		}
@@ -449,14 +449,14 @@ mod.extend = function() {
 			};
 		}
 
-		let labData = this.memory.resources.lab.find(l => l.id === labId);
+		let labData = this.memory.resources.lab.find(l => l.id == labId);
 		if (!labData) {
 			this.memory.resources.lab.push({
 				id: labId,
 				orders: [],
 				reactionState: LAB_IDLE,
 			});
-			labData = this.memory.resources.lab.find(l => l.id === labId);
+			labData = this.memory.resources.lab.find(l => l.id == labId);
 		}
 
 		this.cancelReactionOrder(labId);
@@ -487,17 +487,17 @@ mod.extend = function() {
 		// find slave labs
 		let nearbyLabs = lab_master.pos.findInRange(FIND_MY_STRUCTURES, 2, {
 			filter: s => {
-				return s.structureType === STRUCTURE_LAB && s.id !== lab_master.id;
+				return s.structureType == STRUCTURE_LAB && s.id != lab_master.id;
 			},
 		});
 		// console.log(lab_master,"found",nearbyLabs.length,"potential slave labs");
 		for (let i = 0; i < nearbyLabs.length; i++) {
 			let lab = nearbyLabs[i];
-			let data = this.memory.resources.lab.find(l => l.id === lab.id);
+			let data = this.memory.resources.lab.find(l => l.id == lab.id);
 			// console.log(lab_master,"potential slave",i,"has",lab.mineralType,"and is currently",data?data.reactionState:"idle");
-			if (lab_slave_a === null && data && data.reactionType === component_a) {
+			if (lab_slave_a == null && data && data.reactionType == component_a) {
 				lab_slave_a = lab;
-			} else if (lab_slave_b === null && data && data.reactionType === component_b) {
+			} else if (lab_slave_b == null && data && data.reactionType == component_b) {
 				lab_slave_b = lab;
 			}
 			if (lab_slave_a && lab_slave_b) break;
@@ -506,35 +506,35 @@ mod.extend = function() {
 			nearbyLabs.sort((a, b) => lab_master.pos.getRangeTo(a) - lab_master.pos.getRangeTo(b));
 			for (let i = 0; i < nearbyLabs.length; i++) {
 				let lab = nearbyLabs[i];
-				let data = this.memory.resources.lab.find(l => l.id === lab.id);
-				if (!data || !data.reactionState || data.reactionState === LAB_IDLE) {
-					if (lab_slave_a === null) lab_slave_a = lab;
-					else if (lab_slave_b === null) lab_slave_b = lab;
+				let data = this.memory.resources.lab.find(l => l.id == lab.id);
+				if (!data || !data.reactionState || data.reactionState == LAB_IDLE) {
+					if (lab_slave_a == null) lab_slave_a = lab;
+					else if (lab_slave_b == null) lab_slave_b = lab;
 				}
 			}
 		}
 
 		// qualify labs and prepare states
-		if (lab_slave_a === null || lab_slave_b === null) return ERR_NOT_FOUND;
+		if (lab_slave_a == null || lab_slave_b == null) return ERR_NOT_FOUND;
 		let ret = this.prepareReactionOrder(labId, resourceType, amount);
-		if (ret !== OK) {
+		if (ret != OK) {
 			return ret;
 		}
 		ret = this.prepareReactionOrder(lab_slave_a.id, resourceType, amount);
-		if (ret !== OK) {
+		if (ret != OK) {
 			return ret;
 		}
 		ret = this.prepareReactionOrder(lab_slave_b.id, resourceType, amount);
-		if (ret !== OK) {
+		if (ret != OK) {
 			return ret;
 		}
 
 		// place reaction order with master lab
-		let labData = this.memory.resources.lab.find(l => l.id === labId);
+		let labData = this.memory.resources.lab.find(l => l.id == labId);
 		let state = LAB_MASTER;
 		if (labData) {
-			if (labData.reactionState === LAB_SLAVE_1) state = LAB_SLAVE_1;
-			if (labData.reactionState === LAB_SLAVE_2) state = LAB_SLAVE_2;
+			if (labData.reactionState == LAB_SLAVE_1) state = LAB_SLAVE_1;
+			if (labData.reactionState == LAB_SLAVE_2) state = LAB_SLAVE_2;
 			labData.reactionState = state;
 			labData.reactionType = resourceType;
 			labData.reactionAmount = amount;
@@ -543,13 +543,13 @@ mod.extend = function() {
 		}
 
 		// place orders with slave labs
-		labData = this.memory.resources.lab.find(l => l.id === lab_slave_a.id);
+		labData = this.memory.resources.lab.find(l => l.id == lab_slave_a.id);
 		let slaveState = LAB_SLAVE_1;
 		let slaveDepth = 1;
-		if (state === LAB_SLAVE_1) {
+		if (state == LAB_SLAVE_1) {
 			slaveState = LAB_SLAVE_2;
 			slaveDepth = 2;
-		} else if (state === LAB_SLAVE_2) {
+		} else if (state == LAB_SLAVE_2) {
 			slaveState = LAB_SLAVE_3;
 			slaveDepth = 3;
 		}
@@ -572,13 +572,13 @@ mod.extend = function() {
 			if (this.storage) available += this.storage.store[component_a] || 0;
 			if (this.terminal) available += this.terminal.store[component_a] || 0;
 			if (tier > slaveDepth && slaveDepth < 3 && available < amount) {
-				if (this.placeReactionOrder(lab_slave_a.id, component_a, amount - available) === OK) {
-					let order = labData.orders.find(o => o.type === component_a);
+				if (this.placeReactionOrder(lab_slave_a.id, component_a, amount - available) == OK) {
+					let order = labData.orders.find(o => o.type == component_a);
 					if (order) order.orderRemaining = available;
 				}
 			}
 		}
-		labData = this.memory.resources.lab.find(l => l.id === lab_slave_b.id);
+		labData = this.memory.resources.lab.find(l => l.id == lab_slave_b.id);
 		if (labData) {
 			labData.reactionState = slaveState;
 			labData.reactionType = component_b;
@@ -598,8 +598,8 @@ mod.extend = function() {
 			if (this.storage) available += this.storage.store[component_b] || 0;
 			if (this.terminal) available += this.terminal.store[component_b] || 0;
 			if (tier > slaveDepth && slaveDepth < 3 && available < amount) {
-				if (this.placeReactionOrder(lab_slave_a.id, component_a, amount - available) === OK) {
-					let order = labData.orders.find(o => o.type === component_b);
+				if (this.placeReactionOrder(lab_slave_a.id, component_a, amount - available) == OK) {
+					let order = labData.orders.find(o => o.type == component_b);
 					if (order) order.orderRemaining = available;
 				}
 			}
@@ -628,7 +628,7 @@ mod.extend = function() {
 		if (data.reactions) {
 			// create reaction order
 			let existingOrder = data.reactions.orders.find(o => {
-				return o.id === orderId && o.type === resourceType;
+				return o.id == orderId && o.type == resourceType;
 			});
 			if (existingOrder) {
 				// update existing order
@@ -699,11 +699,7 @@ mod.extend = function() {
 			}
 		} else {
 			if (DEBUG && TRACE)
-				Util.trace('Room', {
-					roomName: this.name,
-					actionName: 'placeRoomOrder',
-					subAction: 'no_reactor',
-				});
+				Util.trace('Room', { roomName: this.name, actionName: 'placeRoomOrder', subAction: 'no_reactor' });
 			return ERR_INVALID_TARGET;
 		}
 

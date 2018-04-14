@@ -8,11 +8,9 @@ mod.analyzeRoom = function(room, needMemoryResync) {
 	}
 };
 mod.executeRoom = function(memory, roomName) {
-	const p = Util.startProfiling('Room.observers.executeRoom', { enabled: PROFILING.ROOMS });
 	const room = Game.rooms[roomName];
 	if (room) {
 		if (room.structures.observer) room.controlObserver();
-		p.checkCPU(roomName + '.controlObserver', 0.5);
 	}
 };
 mod.extend = function() {

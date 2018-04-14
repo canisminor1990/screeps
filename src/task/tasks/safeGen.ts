@@ -1,18 +1,23 @@
+import { TaskComponent } from '../../class/Task';
+
 // This task will react on safeGen flags white/brown
-export class SafeGenTask {
-	name = 'safeGen';
-	minControllerLevel = 6;
-	creep = {
-		safeGen: {
-			multiBody: [CARRY, MOVE],
-			maxMulti: 20,
-			maxWeight: 2000,
-			name: 'safeGen',
-			behaviour: 'safeGen',
-			queue: 'Low',
-		},
-	};
-	register = () => {};
+class SafeGenTask extends TaskComponent {
+	constructor() {
+		super('safeGen');
+		this.minControllerLevel = 6;
+		this.creep = {
+			safeGen: {
+				multiBody: [CARRY, MOVE],
+				maxMulti: 20,
+				maxWeight: 2000,
+				name: 'safeGen',
+				behaviour: 'safeGen',
+				queue: 'Low',
+			},
+		};
+	}
+
+	// for each flag
 	handleFlagFound = flag => {
 		// if it is a safeGen flag
 		if (flag.compareTo(FLAG_COLOR.command.safeGen) && Task.nextCreepCheck(flag, this.name)) {
@@ -30,6 +35,7 @@ export class SafeGenTask {
 			}
 		}
 	};
+	// check if a new creep has to be spawned
 	checkForRequiredCreeps = flag => {
 		// get task memory
 		const memory = this.memory(flag);
@@ -64,10 +70,11 @@ export class SafeGenTask {
 			);
 		}
 	};
+	// when a creep starts spawning
 	handleSpawningStarted = params => {
 		// params: {spawn: spawn.name, name: creep.name, destiny: creep.destiny}
 		// ensure it is a creep which has been queued by this task (else return)
-		if (!params.destiny || !params.destiny.task || params.destiny.task !== 'safeGen') return;
+		if (!params.destiny || !params.destiny.task || params.destiny.task != 'safeGen') return;
 		// get flag which caused queueing of that creep
 		// TODO: remove  || creep.data.destiny.flagName (temporary backward compatibility)
 		let flag = Game.flags[params.destiny.targetName || params.destiny.flagName];
@@ -80,9 +87,10 @@ export class SafeGenTask {
 			Task.validateQueued(memory, flag, this.name);
 		}
 	};
+	// when a creep completed spawning
 	handleSpawningCompleted = creep => {
 		// ensure it is a creep which has been requested by this task (else return)
-		if (!creep.data || !creep.data.destiny || !creep.data.destiny.task || creep.data.destiny.task !== 'safeGen') return;
+		if (!creep.data || !creep.data.destiny || !creep.data.destiny.task || creep.data.destiny.task != 'safeGen') return;
 		// get flag which caused request of that creep
 		// TODO: remove  || creep.data.destiny.flagName (temporary backward compatibility)
 		let flag = Game.flags[creep.data.destiny.targetName || creep.data.destiny.flagName];
@@ -101,11 +109,12 @@ export class SafeGenTask {
 			Task.validateSpawning(memory, flag, this.name);
 		}
 	};
+	// when a creep died (or will die soon)
 	handleCreepDied = name => {
 		// get creep memory
 		const mem = Memory.population[name];
 		// ensure it is a creep which has been requested by this task (else return)
-		if (!mem || !mem.destiny || !mem.destiny.task || mem.destiny.task !== 'safeGen') return;
+		if (!mem || !mem.destiny || !mem.destiny.task || mem.destiny.task != 'safeGen') return;
 		// get flag which caused request of that creep
 		// TODO: remove  || creep.data.destiny.flagName (temporary backward compatibility)
 		const flag = Game.flags[mem.destiny.targetName || mem.destiny.flagName];
@@ -114,6 +123,7 @@ export class SafeGenTask {
 			Task.validateRunning(memory, flag, this.name, { roomName: flag.pos.roomName, deadCreep: name });
 		}
 	};
+	// get task memory
 	memory = flag => {
 		if (!flag.memory.tasks) flag.memory.tasks = {};
 		if (!flag.memory.tasks.safeGen) {
@@ -126,3 +136,5 @@ export class SafeGenTask {
 		return flag.memory.tasks.safeGen;
 	};
 }
+
+export default new SafeGenTask();

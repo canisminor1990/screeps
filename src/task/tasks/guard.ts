@@ -1,22 +1,27 @@
 // This task will react on yellow/yellow flags, sending a guarding creep to the flags position.
-export class GuardTask {
-	name = 'guard';
-	minControllerLevel = 3;
-	creep = {
-		guard: {
-			fixedBody: [RANGED_ATTACK, MOVE],
-			multiBody: {
-				[HEAL]: 1,
-				[MOVE]: 2,
-				[RANGED_ATTACK]: 2,
-				[TOUGH]: 1,
+import { TaskComponent } from '../../class/Task';
+
+class GuardTask extends TaskComponent {
+	constructor() {
+		super('guard');
+		this.minControllerLevel = 3;
+		this.creep = {
+			guard: {
+				fixedBody: [RANGED_ATTACK, MOVE],
+				multiBody: {
+					[HEAL]: 1,
+					[MOVE]: 2,
+					[RANGED_ATTACK]: 2,
+					[TOUGH]: 1,
+				},
+				name: 'guard',
+				behaviour: 'ranger',
+				queue: 'Low',
 			},
-			name: 'guard',
-			behaviour: 'ranger',
-			queue: 'Low',
-		},
-	};
-	register = () => {};
+		};
+	}
+
+	// for each flag
 	handleFlagFound = flag => {
 		// if it is a yellow/yellow flag
 		if (flag.compareTo(FLAG_COLOR.defense) && Task.nextCreepCheck(flag, this.name)) {
@@ -25,6 +30,7 @@ export class GuardTask {
 			this.checkForRequiredCreeps(flag);
 		}
 	};
+	// check if a new creep has to be spawned
 	checkForRequiredCreeps = flag => {
 		// get task memory
 		let memory = this.memory(flag);
@@ -61,10 +67,11 @@ export class GuardTask {
 			);
 		}
 	};
+	// when a creep starts spawning
 	handleSpawningStarted = params => {
 		// params: {spawn: spawn.name, name: creep.name, destiny: creep.destiny}
 		// ensure it is a creep which has been queued by this task (else return)
-		if (!params.destiny || !params.destiny.task || params.destiny.task !== 'guard') return;
+		if (!params.destiny || !params.destiny.task || params.destiny.task != 'guard') return;
 		// get flag which caused queueing of that creep
 		let flag = Game.flags[params.destiny.flagName];
 		if (flag) {
@@ -76,9 +83,10 @@ export class GuardTask {
 			Task.validateQueued(memory, flag, this.name);
 		}
 	};
+	// when a creep completed spawning
 	handleSpawningCompleted = creep => {
 		// ensure it is a creep which has been requested by this task (else return)
-		if (!creep.data || !creep.data.destiny || !creep.data.destiny.task || creep.data.destiny.task !== 'guard') return;
+		if (!creep.data || !creep.data.destiny || !creep.data.destiny.task || creep.data.destiny.task != 'guard') return;
 		// get flag which caused request of that creep
 		let flag = Game.flags[creep.data.destiny.flagName];
 		if (flag) {
@@ -96,11 +104,12 @@ export class GuardTask {
 			Task.validateSpawning(memory, flag, this.name);
 		}
 	};
+	// when a creep died (or will die soon)
 	handleCreepDied = name => {
 		// get creep memory
 		let mem = Memory.population[name];
 		// ensure it is a creep which has been requested by this task (else return)
-		if (!mem || !mem.destiny || !mem.destiny.task || mem.destiny.task !== 'guard') return;
+		if (!mem || !mem.destiny || !mem.destiny.task || mem.destiny.task != 'guard') return;
 		// get flag which caused request of that creep
 		let flag = Game.flags[mem.destiny.flagName];
 		if (flag) {
@@ -108,6 +117,7 @@ export class GuardTask {
 			Task.validateRunning(memory, flag, this.name, { roomName: flag.pos.roomName, deadCreep: name });
 		}
 	};
+	// get task memory
 	memory = flag => {
 		if (!flag.memory.tasks) flag.memory.tasks = {};
 		if (!flag.memory.tasks.guard) {
@@ -120,3 +130,5 @@ export class GuardTask {
 		return flag.memory.tasks.guard;
 	};
 }
+
+export default new GuardTask();

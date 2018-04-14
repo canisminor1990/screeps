@@ -45,9 +45,9 @@ action.work = function(creep) {
 			// If the destination is walkable, try to move there before dropping
 			let invalidObject = o => {
 				return (
-					(o.type === LOOK_TERRAIN && o.terrain === 'wall') ||
-					o.type === LOOK_CREEPS ||
-					(o.type === LOOK_STRUCTURES && OBSTACLE_OBJECT_TYPES.includes(o.structure.structureType))
+					(o.type == LOOK_TERRAIN && o.terrain == 'wall') ||
+					o.type == LOOK_CREEPS ||
+					(o.type == LOOK_STRUCTURES && OBSTACLE_OBJECT_TYPES.includes(o.structure.structureType))
 				);
 			};
 			let look = creep.room.lookAt(creep.target);

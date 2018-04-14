@@ -28,7 +28,7 @@ declare const Population: any;
 declare const Tower: any;
 declare const Util: any;
 declare const Events: any;
-declare const OCSMemory: any;
+declare const CMemory: any;
 declare const Grafana: any;
 declare const Traveler: any;
 declare const traveler: any;

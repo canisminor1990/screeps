@@ -1,9 +1,15 @@
-import { Component } from '../class';
+import { LiteEvent, Component } from '../class';
 
-export default class FlagClass extends Component {
-	stale: Flag[] = [];
-	list: Flag[] = [];
-	flagFilter = (flagColour: obj): obj | void => {
+class Flag extends Component {
+	list = [];
+	stale = [];
+	// occurs when a flag is found (each tick)
+	// param: flag
+	found = new LiteEvent();
+	// occurs when a flag memory if found for which no flag exists (before memory removal)
+	// param: flagName
+	FlagRemoved = new LiteEvent();
+	flagFilter = flagColour => {
 		if (!flagColour) return;
 		let filter;
 		if (flagColour.filter) {
@@ -13,29 +19,23 @@ export default class FlagClass extends Component {
 		}
 		return filter;
 	};
-	findName = (
-		flagColor: Function | obj,
-		pos: RoomPosition | Room,
-		local: boolean = true,
-		mod?: Function,
-		modArgs?: any,
-	): any => {
+	findName = (flagColor, pos, local = true, mod, modArgs) => {
 		let list = this.list;
 		if (!flagColor || list.length === 0) return null;
 		let filter;
-		if (pos instanceof Room) pos = pos.getPositionAt(25, 25) as RoomPosition;
+		if (pos instanceof Room) pos = pos.getPositionAt(25, 25);
 		if (typeof flagColor === 'function') {
-			filter = (flagEntry: obj) => {
-				if (flagColor(flagEntry) && flagEntry.cloaking === 0) {
+			filter = flagEntry => {
+				if (flagColor(flagEntry) && flagEntry.cloaking == 0) {
 					if (!local) return true;
-					if (pos instanceof RoomPosition && pos.roomName && flagEntry.roomName === pos.roomName) return true;
+					if (pos && pos.roomName && flagEntry.roomName === pos.roomName) return true;
 				}
 				return false;
 			};
 		} else {
-			filter = this.flagFilter(flagColor) as obj;
+			filter = this.flagFilter(flagColor);
 			_.assign(filter, { cloaking: '0' });
-			if (local && pos instanceof RoomPosition && pos.roomName) {
+			if (local && pos && pos.roomName) {
 				const room = Game.rooms[pos.roomName];
 				if (room) {
 					list = room.flags;
@@ -50,8 +50,8 @@ export default class FlagClass extends Component {
 		if (flags.length === 1) return flags[0].name;
 
 		// some flags found - find nearest
-		if (pos instanceof RoomPosition && pos.roomName) {
-			let range = (flag: RoomPosition) => {
+		if (pos && pos.roomName) {
+			let range = flag => {
 				let r = 0;
 				let roomDist = Util.routeRange(pos.roomName, flag.roomName);
 				if (roomDist === 0) {
@@ -71,23 +71,17 @@ export default class FlagClass extends Component {
 			return flags[0].name;
 		}
 	};
-	find = (
-		flagColor: Function | obj,
-		pos: RoomPosition | Room,
-		local: boolean = true,
-		mod?: Function,
-		modArgs?: any,
-	): Flag => {
+	find = (flagColor, pos, local = true, mod, modArgs) => {
 		if (pos instanceof Room) pos = pos.getPositionAt(25, 25);
 		let id = this.findName(flagColor, pos, local, mod, modArgs);
 		if (id === null) return null;
 		return Game.flags[id];
 	};
-	removeFromDir = (name: string): void => {
+	removeFromDir = name => {
 		let index = this.list.indexOf(f => f.name === name);
 		if (index > -1) this.list = this.list.splice(index, 1);
 	};
-	count = (flagColor: Function | obj, pos: RoomPosition | Room, local: boolean = true): number => {
+	count = (flagColor, pos, local = true) => {
 		let list = this.list;
 		if (!flagColor || this.list.length === 0) return 0;
 
@@ -103,7 +97,7 @@ export default class FlagClass extends Component {
 		}
 		return _.countBy(list, filter).true || 0;
 	};
-	filter = (flagColor: Function | obj, pos: RoomPosition | Room, local: boolean = true): Flag[] => {
+	filter = (flagColor, pos, local = true) => {
 		if (!flagColor || this.list.length === 0) return [];
 		let list = this.list;
 		let filter;
@@ -112,7 +106,7 @@ export default class FlagClass extends Component {
 			filter = entry => {
 				if (local && pos && pos.roomName && entry.roomName !== pos.roomName) return false;
 				for (let i = 0; i < flagColor.length; i++) {
-					if (Flag.compare(flagColor[i], entry)) return true;
+					if (this.compare(flagColor[i], entry)) return true;
 				}
 				return false;
 			};
@@ -129,14 +123,10 @@ export default class FlagClass extends Component {
 		}
 		return _.filter(list, filter);
 	};
-	filterCustom = (filter: Function): Flag[] => {
-		if (!filter || this.list.length === 0) return [];
-		return _.filter(this.list, filter);
-	};
-	rangeMod = (range: number, flagItem: Flag, args: obj): number => {
+	rangeMod = (range, flagItem, args) => {
 		let rangeModPerCrowd = args && args.rangeModPerCrowd ? args.rangeModPerCrowd : 20;
 		let rangeModByType = args ? args.rangeModByType : null;
-		var flag: Flag = Game.flags[flagItem.name];
+		var flag = Game.flags[flagItem.name];
 		let crowd;
 		if (flag.targetOf) {
 			// flag is targetted
@@ -148,18 +138,16 @@ export default class FlagClass extends Component {
 		} else crowd = 0; // not targetted
 		return range + crowd * rangeModPerCrowd;
 	};
-	exploitMod = (range: number, flagItem: Flag, creepName: string): number => {
+	exploitMod = (range, flagItem, creepName) => {
 		if (range > 100) return Infinity;
-		var flag: Flag = Game.flags[flagItem.name];
+		var flag = Game.flags[flagItem.name];
 		if (flag.room) {
 			if (flag.room.my) {
 				return Infinity;
 			}
 			let assigned = flag.targetOf
 				? _.sum(
-						flag.targetOf.map(
-							t => (t.creepType !== 'privateer' || t.creepName === creepName ? 0 : t.carryCapacityLeft),
-						),
+						flag.targetOf.map(t => (t.creepType != 'privateer' || t.creepName == creepName ? 0 : t.carryCapacityLeft)),
 				  )
 				: 0;
 			if (flag.room.sourceEnergyAvailable <= assigned) return Infinity;
@@ -167,22 +155,24 @@ export default class FlagClass extends Component {
 		}
 		return range;
 	};
-	private _hasInvasionFlag: boolean;
-	hasInvasionFlag = (): boolean => {
+	hasInvasionFlag = () => {
 		if (_.isUndefined(this._hasInvasionFlag)) {
-			this._hasInvasionFlag = this.findName(FLAG_COLOR.invade) !== null || this.findName(FLAG_COLOR.destroy) !== null;
+			this._hasInvasionFlag = this.findName(FLAG_COLOR.invade) != null || this.findName(FLAG_COLOR.destroy) != null;
 		}
 		return this._hasInvasionFlag;
 	};
-	extend = (): void => {};
-	flush = (): void => {
+	compare = (flagA, flagB) => {
+		return flagA.color === flagB.color && flagA.secondaryColor === flagB.secondaryColor;
+	};
+	extend = () => {};
+	flush = () => {
 		let clear = flag => delete flag.targetOf;
 		_.forEach(Game.flags, clear);
 		this.list = [];
 		this.stale = [];
 		delete this._hasInvasionFlag;
 	};
-	analyze = function() {
+	analyze = () => {
 		let register = flag => {
 			try {
 				flag.creeps = {};
@@ -215,14 +205,12 @@ export default class FlagClass extends Component {
 		const specialFlag = this.specialFlag(true);
 		return !!specialFlag;
 	};
-	execute = (): void => {
+	execute = () => {
 		let triggerFound = entry => {
 			try {
-				if (!entry.cloaking || entry.cloaking === 0) {
-					const p = Util.startProfiling('Flag.execute', { enabled: PROFILING.FLAGS });
+				if (!entry.cloaking || entry.cloaking == 0) {
 					const flag = Game.flags[entry.name];
-					Flag.found.trigger(flag);
-					p.checkCPU(entry.name, PROFILING.EXECUTE_LIMIT, this.flagType(flag));
+					this.found.trigger(flag);
 				}
 			} catch (e) {
 				Util.logError(e.stack || e.message);
@@ -230,36 +218,36 @@ export default class FlagClass extends Component {
 		};
 		this.list.forEach(triggerFound);
 
-		let triggerRemoved = flagName => Flag.FlagRemoved.trigger(flagName);
+		let triggerRemoved = flagName => this.FlagRemoved.trigger(flagName);
 		this.stale.forEach(triggerRemoved);
 	};
 	cleanup = () => {
 		let clearMemory = flagName => delete Memory.flags[flagName];
 		this.stale.forEach(clearMemory);
 	};
-	flagType = (flag: Flag): string => {
+	flagType = flag => {
 		if (this.isSpecialFlag(flag)) return '_OCS';
 		for (const primary in FLAG_COLOR) {
 			const type = FLAG_COLOR[primary];
-			if (Flag.compare(flag, type)) {
+			if (this.compare(flag, type)) {
 				return primary;
 			}
 			for (const secondary in type) {
 				const subType = type[secondary];
-				if (Flag.compare(flag, subType)) return `${primary}.${secondary}`;
+				if (this.compare(flag, subType)) return `${primary}.${secondary}`;
 			}
 		}
 		Util.logError(`Unknown flag type for flag: ${flag ? flag.name : 'undefined flag'}.`);
 		return 'undefined';
 	};
-	specialFlag = (create: boolean): Flag => {
+	specialFlag = create => {
 		const name = '_OCS';
 		const flag = Game.flags[name];
 		if (create) {
 			if (!flag) {
 				return _(Game.rooms)
 					.values()
-					.some(function(room) {
+					.some(room => {
 						room.getPositionAt(49, 49).newFlag({ color: COLOR_WHITE, secondaryColor: COLOR_PURPLE }, name);
 						return true;
 					});
@@ -269,10 +257,9 @@ export default class FlagClass extends Component {
 		}
 		return flag;
 	};
-	isSpecialFlag = (object: Flag): boolean => {
+	isSpecialFlag = object => {
 		return object.name === '_OCS';
 	};
-	compare = (flagA, flagB) => {
-		return flagA.color === flagB.color && flagA.secondaryColor === flagB.secondaryColor;
-	};
 }
+
+module.exports = new Flag();

@@ -24,7 +24,7 @@ action.isAddableTarget = function(target, creep) {
 	return (
 		(!creep.room.controller ||
 			((!creep.room.controller.owner || creep.room.controller.my) && // my room or not owned
-				(!creep.room.controller.reservation || creep.room.controller.reservation.username === creep.owner.username))) && // my reservation or none
+				(!creep.room.controller.reservation || creep.room.controller.reservation.username == creep.owner.username))) && // my reservation or none
 		(target.targetOf === undefined || target.targetOf.length < target.accessibleFields)
 	);
 };

@@ -4,7 +4,7 @@ import { join, resolve } from 'path';
 export default (options: EnvOptions): Configuration => {
 	const ENV = options.ENV || 'dev';
 	const ROOT = options.ROOT || __dirname;
-	const MinifyPlugin = require('babel-minify-webpack-plugin');
+	const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 	const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
 	const CleanWebpackPlugin = require('clean-webpack-plugin');
 	const CopyWebpackPlugin = require('copy-webpack-plugin');
@@ -15,12 +15,11 @@ export default (options: EnvOptions): Configuration => {
 	};
 	return {
 		entry: {
-			// main: ['screeps-regenerator-runtime/runtime', './src/main.js'],
-			main: ['screeps-regenerator-runtime/runtime', './src-js/main.js'],
+			main: ['screeps-regenerator-runtime/runtime', './src/main.js'],
 		},
 		output: {
 			devtoolModuleFilenameTemplate: '[resource-path]',
-			filename: 'main.js',
+			filename: '[name].js',
 			libraryTarget: 'commonjs2',
 			path: join(ROOT, 'dist', ENV),
 			pathinfo: false,
@@ -28,6 +27,7 @@ export default (options: EnvOptions): Configuration => {
 		},
 		externals: {
 			'main.js.map': 'main.js.map',
+			config: 'config',
 		},
 		node: {
 			Buffer: false,
@@ -44,24 +44,24 @@ export default (options: EnvOptions): Configuration => {
 			},
 			extensions: ['.webpack.js', '.web.js', '.ts', '.tsx', '.js'],
 		},
-		devtool: false,
+		devtool: 'source-map',
 		target: 'node',
 		module: {
 			rules: [
-				// {
-				// 	test: /\.js$/,
-				// 	enforce: 'pre',
-				// 	loader: 'source-map-loader',
-				// },
+				{
+					test: /\.js$/,
+					enforce: 'pre',
+					loader: 'source-map-loader',
+				},
 				{
 					test: /\.js$/,
 					loader: 'babel-loader',
 				},
-				// {
-				// 	test: /\.tsx?$/,
-				// 	enforce: 'pre',
-				// 	loader: 'source-map-loader',
-				// },
+				{
+					test: /\.tsx?$/,
+					enforce: 'pre',
+					loader: 'source-map-loader',
+				},
 				{
 					test: /\.tsx?$/,
 					loader: 'ts-loader',
@@ -74,9 +74,8 @@ export default (options: EnvOptions): Configuration => {
 		plugins: [
 			new CleanWebpackPlugin([`dist/${options.ENV}/*`], { root: options.ROOT }),
 			// new ForkTsCheckerWebpackPlugin({ ignoreDiagnostics: [2451, 2687, 6133] }),
-			// new CopyWebpackPlugin([{ from: join(ROOT, 'src/config.js') }, { from: join(ROOT, 'src/commands.js') }]),
-			// new optimize.ModuleConcatenationPlugin(),
-			// new MinifyPlugin(),
+			new CopyWebpackPlugin([{ from: join(ROOT, 'src/config.js') }, { from: join(ROOT, 'src/commands.js') }]),
+			new UglifyJsPlugin({ sourceMap: true }),
 			new DefinePlugin(DefineConfig),
 			new ScreepsSourceMapToJson(),
 		].filter(Boolean),

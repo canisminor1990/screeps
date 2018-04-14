@@ -10,11 +10,11 @@ action.isAddableTarget = function() {
 	return true;
 };
 action.newTarget = function(creep) {
-	// TODO trace it: console.log(creep.strategy([action.name]).key);
+	// TODO Util.trace it: console.log(creep.strategy([action.name]).key);
 	return creep.getStrategyHandler([action.name], 'newTarget', creep);
 };
 action.step = function(creep) {
-	if (CHATTY) creep.say(this.name, SAY_PUBLIC);
+	if (global.CHATTY) creep.say(this.name, global.SAY_PUBLIC);
 	let targetRange = _.get(creep, ['data', 'travelRange'], this.targetRange);
 	let target = creep.target;
 	if (Flag.isSpecialFlag(creep.target)) {
@@ -68,7 +68,7 @@ action.unregister = function(creep) {
 	delete creep.data.travelRoom;
 	delete creep.data.travelRange;
 };
-action.defaultStrategy.newTarget = function(creep) {
+action.default.newTarget = function(creep) {
 	if (creep.data.travelPos || creep.data.travelRoom) {
 		return Flag.specialFlag();
 	}

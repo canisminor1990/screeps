@@ -29,7 +29,7 @@ let Action = function(actionName) {
 	// determines, if a target is (still) valid. Gets validated each tick.
 	// check possible override in derived action
 	this.isValidTarget = function(target, creep) {
-		return target !== null;
+		return target != null;
 	};
 	// determines, if an action is valid. Gets validated only once upon assignment.
 	// check possible override in derived action
@@ -64,18 +64,12 @@ let Action = function(actionName) {
 	};
 	// order for the creep to execute each tick, when assigned to that action
 	this.step = function(creep) {
-		if (CHATTY) creep.say(this.name, SAY_PUBLIC);
+		if (global.CHATTY) creep.say(this.name, global.SAY_PUBLIC);
 		let range = creep.pos.getRangeTo(creep.target);
 		if (range <= this.targetRange) {
 			var workResult = this.work(creep);
-			if (workResult !== OK) {
-				creep.handleError({
-					errorCode: workResult,
-					action: this,
-					target: creep.target,
-					range,
-					creep,
-				});
+			if (workResult != OK) {
+				creep.handleError({ errorCode: workResult, action: this, target: creep.target, range, creep });
 				return this.unassign(creep);
 			}
 			range = creep.pos.getRangeTo(creep.target); // target may have changed (eg. hauler feed+move/tick)
@@ -129,10 +123,10 @@ let Action = function(actionName) {
 				});
 			if (
 				!creep.action ||
-				creep.action.name !== this.name ||
+				creep.action.name != this.name ||
 				!creep.target ||
 				creep.target.id !== target.id ||
-				creep.target.name !== target.name
+				creep.target.name != target.name
 			) {
 				Population.registerAction(creep, this, target);
 				this.onAssignment(creep, target);
@@ -142,8 +136,8 @@ let Action = function(actionName) {
 		return false;
 	};
 	this.showAssignment = function(creep, target) {
-		if (SAY_ASSIGNMENT && ACTION_SAY[this.name.toUpperCase()])
-			creep.say(ACTION_SAY[this.name.toUpperCase()], SAY_PUBLIC);
+		if (global.SAY_ASSIGNMENT && ACTION_SAY[this.name.toUpperCase()])
+			creep.say(ACTION_SAY[this.name.toUpperCase()], global.SAY_PUBLIC);
 		if (target instanceof RoomObject || (target instanceof RoomPosition && VISUALS.ACTION_ASSIGNMENT)) {
 			Visuals.drawArrow(creep, target);
 		}
@@ -153,15 +147,15 @@ let Action = function(actionName) {
 		this.showAssignment(creep, target);
 	};
 	// empty default strategy
-	this.defaultStrategy = {
+	this.default = {
 		name: `default-${actionName}`,
 		moveOptions: function(options) {
 			return options || {};
 		},
 	};
 	// strategy accessor
-	this.selectStrategies = function() {
-		return [this.defaultStrategy];
+	this.selectstate = function() {
+		return [this.default];
 	};
 	// get member with this action's name
 	this.isMember = function(collection) {
@@ -178,5 +172,4 @@ let Action = function(actionName) {
 		else return creep.getStrategyHandler([this.name], strategyName, ...args);
 	};
 };
-
 module.exports = Action;

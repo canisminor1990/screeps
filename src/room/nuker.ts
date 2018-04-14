@@ -30,14 +30,14 @@ mod.extend = function() {
 	};
 	Room.prototype.saveNuker = function() {
 		let nukers = this.find(FIND_MY_STRUCTURES, {
-			filter: structure => structure.structureType === STRUCTURE_NUKER,
+			filter: structure => structure.structureType == STRUCTURE_NUKER,
 		});
 		if (nukers.length > 0) {
 			this.memory.nukers = [];
 
 			// for each entry add to memory ( if not contained )
 			let add = nuker => {
-				let nukerData = this.memory.nukers.find(l => l.id === nuker.id);
+				let nukerData = this.memory.nukers.find(l => l.id == nuker.id);
 				if (!nukerData) {
 					this.memory.nukers.push({
 						id: nuker.id,

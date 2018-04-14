@@ -1,7 +1,7 @@
 const mod = {};
 module.exports = mod;
 mod.analyzeRoom = function(room, needMemoryResync) {
-	if (Game.time % PROCESS_ORDERS_INTERVAL === 0 || room.name === 'sim') {
+	if (Game.time % global.PROCESS_ORDERS_INTERVAL === 0 || room.name === 'sim') {
 		room.updateResourceOrders();
 		let orderingRoom = Util.orderingRoom();
 		if (orderingRoom.length === 1 && room.name !== orderingRoom[0].name) {
@@ -22,17 +22,17 @@ mod.extend = function() {
 			for (let i = 0; i < data[structureType].length; i++) {
 				let structure = data[structureType][i];
 				// don't reset busy labs
-				if (structureType === STRUCTURE_LAB && structure.reactionState !== LAB_IDLE) continue;
+				if (structureType == STRUCTURE_LAB && structure.reactionState != LAB_IDLE) continue;
 				if (!structure.orders) continue;
 				for (let j = 0; j < structure.orders.length; j++) {
 					let order = structure.orders[j];
 					if (order.orderRemaining <= 0) {
 						let baseAmount = 0;
 						let rcl = this.controller.level;
-						if (structureType === STRUCTURE_STORAGE)
-							baseAmount = order.type === RESOURCE_ENERGY ? MIN_STORAGE_ENERGY[rcl] : MAX_STORAGE_MINERAL;
-						else if (structureType === STRUCTURE_TERMINAL)
-							baseAmount = order.type === RESOURCE_ENERGY ? TERMINAL_ENERGY : 0;
+						if (structureType == STRUCTURE_STORAGE)
+							baseAmount = order.type == RESOURCE_ENERGY ? MIN_STORAGE_ENERGY[rcl] : MAX_STORAGE_MINERAL;
+						else if (structureType == STRUCTURE_TERMINAL)
+							baseAmount = order.type == RESOURCE_ENERGY ? TERMINAL_ENERGY : 0;
 						baseAmount += order.storeAmount;
 						let amount = 0;
 						let cont = Game.getObjectById(structure.id);
@@ -40,17 +40,17 @@ mod.extend = function() {
 							switch (structureType) {
 								case STRUCTURE_LAB:
 									// get lab amount
-									if (order.type === cont.mineralType) {
+									if (order.type == cont.mineralType) {
 										amount = cont.mineralAmount;
-									} else if (order.type === RESOURCE_ENERGY) {
+									} else if (order.type == RESOURCE_ENERGY) {
 										amount = cont.energy;
 									}
 									break;
 								case STRUCTURE_POWER_SPAWN:
 									// get power spawn amount
-									if (order.type === RESOURCE_POWER) {
+									if (order.type == RESOURCE_POWER) {
 										amount = cont.power;
-									} else if (order.type === RESOURCE_ENERGY) {
+									} else if (order.type == RESOURCE_ENERGY) {
 										amount = cont.energy;
 									}
 									break;
@@ -123,16 +123,18 @@ mod.extend = function() {
 					// let available = (room.resourcesStorage[order.type] || 0) + (room.resourcesTerminal[order.type] || 0) - (room.resourcesReactions[order.type] || 0) - (offered[order.type] || 0);
 					let available = room.resourcesAll[order.type] || 0;
 					// Util.logSystem(room.name, `${room.name} ${available} ${order.type}`);
-					if (available < MIN_OFFER_AMOUNT) continue;
+					if (available < global.MIN_OFFER_AMOUNT) continue;
 
 					// for COMPOUNDS_TO_ALLOCATE
-					if (!_.isUndefined(COMPOUNDS_TO_ALLOCATE[order.type])) {
-						let reservedAmount = COMPOUNDS_TO_ALLOCATE[order.type].amount + COMPOUNDS_TO_ALLOCATE[order.type].threshold;
-						if (available < reservedAmount + MIN_OFFER_AMOUNT) continue;
+					if (!_.isUndefined(global.COMPOUNDS_TO_ALLOCATE[order.type])) {
+						let reservedAmount =
+							global.COMPOUNDS_TO_ALLOCATE[order.type].amount + global.COMPOUNDS_TO_ALLOCATE[order.type].threshold;
+						if (available < reservedAmount + global.MIN_OFFER_AMOUNT) continue;
 						else available = available - reservedAmount;
 					}
 
-					if (amountRemaining < MIN_OFFER_AMOUNT && amountRemaining > 0) amountRemaining = MIN_OFFER_AMOUNT;
+					if (amountRemaining < global.MIN_OFFER_AMOUNT && amountRemaining > 0)
+						amountRemaining = global.MIN_OFFER_AMOUNT;
 
 					available = Math.min(available, amountRemaining);
 
@@ -203,13 +205,13 @@ mod.extend = function() {
 			if (!(targetRoom && targetRoom.memory && targetRoom.memory.resources && targetRoom.memory.resources.orders))
 				continue;
 			let order = targetRoom.memory.resources.orders.find(o => {
-				return o.id === offer.id && o.type === offer.type;
+				return o.id == offer.id && o.type == offer.type;
 			});
 			if (!order) continue;
 			let targetOfferIdx = order.offers.findIndex(o => {
-				return o.room === this.name;
+				return o.room == this.name;
 			});
-			if (targetOfferIdx === -1) {
+			if (targetOfferIdx == -1) {
 				Util.logSystem(this.name, 'Orphaned offer found and deleted');
 				offers.splice(i--, 1);
 				continue;
@@ -220,10 +222,10 @@ mod.extend = function() {
 			let terminalOrder = null;
 			if (this.memory.resources.terminal[0])
 				terminalOrder = this.memory.resources.terminal[0].orders.find(o => {
-					return o.type === offer.type;
+					return o.type == offer.type;
 				});
 			if (terminalOrder) onOrder = terminalOrder.orderRemaining;
-			let amount = Math.max(offer.amount, MIN_OFFER_AMOUNT);
+			let amount = Math.max(offer.amount, global.MIN_OFFER_AMOUNT);
 			if (amount > store + onOrder) {
 				let amt = amount - (store + onOrder);
 				if (DEBUG && TRACE)
@@ -242,15 +244,15 @@ mod.extend = function() {
 			amount = Math.min(amount, space, store);
 
 			let cost = Game.market.calcTransactionCost(amount, this.name, targetRoom.name);
-			if (offer.type === RESOURCE_ENERGY) {
+			if (offer.type == RESOURCE_ENERGY) {
 				amount -= cost;
 				cost += amount;
 			}
 			if (cost > (this.terminal.store.energy || 0)) continue;
-			if (amount < MIN_OFFER_AMOUNT) continue;
+			if (amount < global.MIN_OFFER_AMOUNT) continue;
 
 			ret = this.terminal.send(offer.type, amount, targetRoom.name, order.id);
-			if (ret === OK) {
+			if (ret == OK) {
 				if (DEBUG && TRACE)
 					Util.trace('Room', {
 						actionName: 'fillARoomOrder',
@@ -282,13 +284,13 @@ mod.extend = function() {
 		if (
 			!this.my ||
 			!container ||
-			!container.room.name === this.name ||
+			!container.room.name == this.name ||
 			!(
-				container.structureType === STRUCTURE_LAB ||
-				container.structureType === STRUCTURE_POWER_SPAWN ||
-				container.structureType === STRUCTURE_CONTAINER ||
-				container.structureType === STRUCTURE_STORAGE ||
-				container.structureType === STRUCTURE_TERMINAL
+				container.structureType == STRUCTURE_LAB ||
+				container.structureType == STRUCTURE_POWER_SPAWN ||
+				container.structureType == STRUCTURE_CONTAINER ||
+				container.structureType == STRUCTURE_STORAGE ||
+				container.structureType == STRUCTURE_TERMINAL
 			)
 		) {
 			return ERR_INVALID_TARGET;
@@ -306,9 +308,9 @@ mod.extend = function() {
 			};
 		}
 		if (this.memory.resources.powerSpawn === undefined) this.memory.resources.powerSpawn = [];
-		if (!this.memory.resources[container.structureType].find(s => s.id === containerId)) {
+		if (!this.memory.resources[container.structureType].find(s => s.id == containerId)) {
 			this.memory.resources[container.structureType].push(
-				container.structureType === STRUCTURE_LAB
+				container.structureType == STRUCTURE_LAB
 					? {
 							id: containerId,
 							orders: [],
@@ -320,11 +322,11 @@ mod.extend = function() {
 					  },
 			);
 		}
-		if (container.structureType === STRUCTURE_LAB && resourceType !== RESOURCE_ENERGY && amount > 0) {
+		if (container.structureType == STRUCTURE_LAB && resourceType != RESOURCE_ENERGY && amount > 0) {
 			// clear other resource types since labs only hold one at a time
-			let orders = this.memory.resources[STRUCTURE_LAB].find(s => s.id === containerId).orders;
+			let orders = this.memory.resources[STRUCTURE_LAB].find(s => s.id == containerId).orders;
 			for (let i = 0; i < orders.length; i++) {
-				if (orders[i].type !== resourceType && orders[i].type !== RESOURCE_ENERGY) {
+				if (orders[i].type != resourceType && orders[i].type != RESOURCE_ENERGY) {
 					orders[i].orderAmount = 0;
 					orders[i].orderRemaining = 0;
 					orders[i].storeAmount = 0;
@@ -336,12 +338,12 @@ mod.extend = function() {
 
 	Room.prototype.cancelOrder = function(containerId, resourceType = null) {
 		let container = Game.getObjectById(containerId);
-		if (this.prepareResourceOrder(containerId, RESOURCE_ENERGY, 0) !== OK) return ret;
+		if (this.prepareResourceOrder(containerId, RESOURCE_ENERGY, 0) != OK) return ret;
 
-		let containerData = this.memory.resources[container.structureType].find(s => s.id === containerId);
+		let containerData = this.memory.resources[container.structureType].find(s => s.id == containerId);
 		if (containerData) {
 			if (resourceType) {
-				let existingOrder = containerData.orders.find(r => r.type === resourceType);
+				let existingOrder = containerData.orders.find(r => r.type == resourceType);
 				if (existingOrder) {
 					// delete structure order
 					if (DEBUG && TRACE)
@@ -356,12 +358,7 @@ mod.extend = function() {
 			} else {
 				// delete all of structure's orders
 				if (DEBUG && TRACE)
-					Util.trace('Room', {
-						roomName: this.name,
-						actionName: 'cancelOrder',
-						orderId: orderId,
-						resourceType: 'all',
-					});
+					Util.trace('Room', { roomName: this.name, actionName: 'cancelOrder', orderId: orderId, resourceType: 'all' });
 				containerData.orders = [];
 			}
 		}
@@ -380,7 +377,7 @@ mod.extend = function() {
 					storage: [],
 				};
 			}
-			let dataIndex = this.memory.resources.lab.findIndex(x => x.id === labId);
+			let dataIndex = this.memory.resources.lab.findIndex(x => x.id == labId);
 			if (dataIndex > -1) {
 				delete this.memory.resources.lab[dataIndex].reactionType;
 				this.memory.resources.lab[dataIndex].reactionState = 'Storage';
@@ -413,20 +410,20 @@ mod.extend = function() {
 	Room.prototype.placeOrder = function(containerId, resourceType, amount) {
 		let container = Game.getObjectById(containerId);
 		let ret = this.prepareResourceOrder(containerId, resourceType, amount);
-		if (ret !== OK) {
+		if (ret != OK) {
 			return ret;
 		}
 
-		let containerData = this.memory.resources[container.structureType].find(s => s.id === containerId);
+		let containerData = this.memory.resources[container.structureType].find(s => s.id == containerId);
 		if (containerData) {
-			let existingOrder = containerData.orders.find(r => r.type === resourceType);
+			let existingOrder = containerData.orders.find(r => r.type == resourceType);
 			if (existingOrder) {
 				existingOrder.orderAmount += amount;
 				existingOrder.orderRemaining += amount;
 			} else {
 				let containerStore = 0;
 				if (container.structureType === STRUCTURE_LAB) {
-					containerStore = container.mineralType === resourceType ? container.mineralAmount : 0;
+					containerStore = container.mineralType == resourceType ? container.mineralAmount : 0;
 				} else {
 					containerStore = container.store[resourceType] || 0;
 				}
@@ -436,7 +433,7 @@ mod.extend = function() {
 					orderRemaining: amount - containerStore,
 					storeAmount: 0,
 				});
-				if (container.structureType === STRUCTURE_LAB && containerData.reactionState !== 'Storage') {
+				if (container.structureType === STRUCTURE_LAB && containerData.reactionState != 'Storage') {
 					containerData.reactionType = resourceType;
 				}
 			}
@@ -447,13 +444,13 @@ mod.extend = function() {
 	Room.prototype.setStore = function(containerId, resourceType, amount) {
 		let container = Game.getObjectById(containerId);
 		let ret = this.prepareResourceOrder(containerId, resourceType, amount);
-		if (ret !== OK) {
+		if (ret != OK) {
 			return ret;
 		}
 
-		let containerData = this.memory.resources[container.structureType].find(s => s.id === containerId);
+		let containerData = this.memory.resources[container.structureType].find(s => s.id == containerId);
 		if (containerData) {
-			let existingOrder = containerData.orders.find(r => r.type === resourceType);
+			let existingOrder = containerData.orders.find(r => r.type == resourceType);
 			if (existingOrder) {
 				existingOrder.storeAmount = amount;
 			} else {
@@ -484,7 +481,7 @@ mod.extend = function() {
 		let orders = this.memory.resources.orders;
 		if (orderId && resourceType) {
 			let existingOrder = orders.find(o => {
-				return o.id === orderId && o.type === resourceType;
+				return o.id == orderId && o.type == resourceType;
 			});
 			if (existingOrder) {
 				// delete existing order
@@ -536,7 +533,7 @@ mod.extend = function() {
 		}
 		let orders = this.memory.resources.orders;
 		let existingOrder = orders.find(o => {
-			return o.id === orderId && o.type === resourceType;
+			return o.id == orderId && o.type == resourceType;
 		});
 		if (existingOrder) {
 			// update existing order
@@ -579,12 +576,12 @@ mod.extend = function() {
 		let transacting = false;
 		for (const mineral in this.terminal.store) {
 			if (mineral === RESOURCE_ENERGY || mineral === RESOURCE_POWER) continue;
-			if ((MAKE_COMPOUNDS || ALLOCATE_COMPOUNDS) && mineral !== this.memory.mineralType) continue;
+			if ((global.MAKE_COMPOUNDS || global.ALLOCATE_COMPOUNDS) && mineral !== this.memory.mineralType) continue;
 			let terminalFull = this.terminal.sum / this.terminal.storeCapacity > 0.8;
 
 			if (this.terminal.store[mineral] >= MIN_MINERAL_SELL_AMOUNT) {
 				let buyRatio;
-				if (AUTOMATED_RATIO_COUNT) {
+				if (global.AUTOMATED_RATIO_COUNT) {
 					buyRatio = Util.countPrices('buy', mineral, that.name);
 					if (DEBUG) {
 						if (buyRatio === 0) console.log(`there is no buy order for ${mineral}`);
@@ -593,7 +590,7 @@ mod.extend = function() {
 				} else buyRatio = MIN_SELL_RATIO[mineral];
 
 				let orders = Game.market.getAllOrders(o => {
-					if (!o.roomName || o.resourceType !== mineral || o.type !== 'buy' || o.amount < MIN_MINERAL_SELL_AMOUNT)
+					if (!o.roomName || o.resourceType != mineral || o.type != 'buy' || o.amount < MIN_MINERAL_SELL_AMOUNT)
 						return false;
 
 					o.range = Game.map.getRoomLinearDistance(o.roomName, that.name, true);
@@ -607,9 +604,9 @@ mod.extend = function() {
 
 					o.credits = o.transactionAmount * o.price;
 					// o.ratio = o.credits/o.transactionCost; // old formula
-					// o.ratio = (o.credits-o.transactionCost)/o.transactionAmount; // best offer assuming 1e === 1 credit
-					// o.ratio = o.credits/(o.transactionAmount+o.transactionCost); // best offer assuming 1e === 1 mineral
-					o.ratio = (o.credits - o.transactionCost * ENERGY_VALUE_CREDITS) / o.transactionAmount; // best offer assuming 1e === ENERGY_VALUE_CREDITS credits
+					// o.ratio = (o.credits-o.transactionCost)/o.transactionAmount; // best offer assuming 1e == 1 credit
+					// o.ratio = o.credits/(o.transactionAmount+o.transactionCost); // best offer assuming 1e == 1 mineral
+					o.ratio = (o.credits - o.transactionCost * ENERGY_VALUE_CREDITS) / o.transactionAmount; // best offer assuming 1e == ENERGY_VALUE_CREDITS credits
 
 					return (
 						terminalFull ||
@@ -639,13 +636,13 @@ mod.extend = function() {
 								result,
 							)}<br/>Details:<br/>${JSON.stringify(order).replace(',', ',<br/>')}`,
 						);
-					transacting = result === OK;
+					transacting = result == OK;
 					break;
 				}
 			}
 		}
 		if (
-			this.controller.level === 8 &&
+			this.controller.level == 8 &&
 			!transacting &&
 			Util.chargeScale(
 				this.storage.store.energy - ENERGY_BALANCE_TRANSFER_AMOUNT,
@@ -678,7 +675,7 @@ mod.extend = function() {
 							targetRoom.name
 						}: ${Util.translateErrorCode(response)}`,
 					);
-				transacting = response === OK;
+				transacting = response == OK;
 			}
 		}
 		if (!transacting && !Memory.boostTiming) {

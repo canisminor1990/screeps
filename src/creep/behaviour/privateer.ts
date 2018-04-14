@@ -32,12 +32,12 @@ mod.run = function(creep) {
 mod.nextAction = function(creep) {
 	let carrySum = creep.sum;
 	// at home
-	if (creep.pos.roomName === creep.data.homeRoom) {
+	if (creep.pos.roomName == creep.data.homeRoom) {
 		// carrier filled
 		if (carrySum > 0) {
 			let deposit = []; // deposit energy in...
 			// links?
-			if (creep.carry.energy === carrySum) deposit = creep.room.structures.links.privateers;
+			if (creep.carry.energy == carrySum) deposit = creep.room.structures.links.privateers;
 			// storage?
 			if (creep.room.storage) deposit.push(creep.room.storage);
 			// containers?
@@ -66,7 +66,7 @@ mod.nextAction = function(creep) {
 	} else {
 		// not at home
 		// at target room
-		if (creep.flag && creep.flag.pos.roomName === creep.pos.roomName) {
+		if (creep.flag && creep.flag.pos.roomName == creep.pos.roomName) {
 			// check invader/cloaking state
 			if (creep.room.situation.invasion && !creep.flag.compareTo(FLAG_COLOR.invade.robbing)) {
 				creep.flag.cloaking = 50; // TODO: set to Infinity & release when solved
@@ -89,7 +89,7 @@ mod.nextAction = function(creep) {
 					let actions = [Creep.action.dismantling, Creep.action.picking, Creep.action.robbing, Creep.action.harvesting];
 					// TODO: Add extracting (if extractor present) ?
 					for (let iAction = 0; iAction < actions.length; iAction++) {
-						var action = actions[iAction];
+						let action = actions[iAction];
 						if (action.isValidAction(creep) && action.isAddableAction(creep) && action.assign(creep)) return;
 					}
 					// no targets in current room
@@ -101,7 +101,7 @@ mod.nextAction = function(creep) {
 				// carrier full
 				let actions = [Creep.action.building];
 				for (let iAction = 0; iAction < actions.length; iAction++) {
-					let action = actions[iAction];
+					var action = actions[iAction];
 					if (action.isValidAction(creep) && action.isAddableAction(creep) && action.assign(creep)) return;
 				}
 				Population.registerCreepFlag(creep, null);
@@ -140,7 +140,7 @@ mod.exploitNextRoom = function(creep) {
 	}
 	return false;
 };
-mod.strategies.withdrawing = {
+mod.state.withdrawing = {
 	name: `withdrawing-${mod.name}`,
 	isValidAction: function(creep) {
 		return false;

@@ -18,7 +18,7 @@ action.isAddableAction = function(creep) {
 };
 action.isValidTarget = function(target) {
 	return (
-		target !== null &&
+		target != null &&
 		(target.my || Task.reputation.allyOwner(target)) &&
 		target.progress &&
 		target.progress < target.progressTotal
@@ -41,8 +41,8 @@ action.work = function(creep) {
 	creep.getStrategyHandler([action.name], 'getEnergy', creep);
 	return creep.build(creep.target);
 };
-action.defaultStrategy.reachedRange = 1;
+action.default.reachedRange = 1;
 // this allows us to get energy in the same tick if a behaviour defines this strategy, used in behaviour.miner
-action.defaultStrategy.getEnergy = function(creep) {
+action.default.getEnergy = function(creep) {
 	return false;
 };

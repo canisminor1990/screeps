@@ -1,16 +1,20 @@
-export class DeliveryTask {
-	name = 'delivery';
-	minControllerLevel = 4;
-	creep = {
-		recycler: {
-			fixedBody: [CARRY, MOVE],
-			multiBody: [CARRY, MOVE],
-			name: 'recycler',
-			behaviour: 'recycler',
-			queue: 'Low',
-		},
-	};
-	register = () => {};
+import { TaskComponent } from '../../class/Task';
+
+class DeliveryTask extends TaskComponent {
+	constructor() {
+		super('delivery');
+		this.minControllerLevel = 4;
+		this.creep = {
+			recycler: {
+				fixedBody: [CARRY, MOVE],
+				multiBody: [CARRY, MOVE],
+				name: 'recycler',
+				behaviour: 'recycler',
+				queue: 'Low',
+			},
+		};
+	}
+
 	memory = roomName => {
 		let memory = Task.memory(this.name, roomName);
 		if (!memory.hasOwnProperty('queued')) {
@@ -33,7 +37,7 @@ export class DeliveryTask {
 			flag.room && flag.room.my && flag.compareTo(FLAG_COLOR.invade.robbing) && Task.nextCreepCheck(flag, this.name)
 		);
 	};
-	handleFlagFound = function(flag) {
+	handleFlagFound = flag => {
 		// if it is a robbing flag
 		if (this.checkFlag(flag)) {
 			// this is an energy source as long as a destination exists
@@ -41,7 +45,7 @@ export class DeliveryTask {
 		}
 	};
 	maxCreeps = flag => (!(flag.room && flag.room.storage) ? 1 : Math.floor(flag.room.storage.charge * 2));
-	checkForRequiredCreeps = function(flag) {
+	checkForRequiredCreeps = flag => {
 		// check for delivery en route, and spawn a new one if the last was successful
 		const memory = this.memory(flag.pos.roomName);
 
@@ -90,9 +94,9 @@ export class DeliveryTask {
 			);
 		}
 	};
-	handleSpawningStarted = function(params) {
+	handleSpawningStarted = params => {
 		// ensure it is a creep which has been queued by this task (else return)
-		if (!params.destiny || !params.destiny.task || params.destiny.task !== this.name) return;
+		if (!params.destiny || !params.destiny.task || params.destiny.task != this.name) return;
 		// get flag which caused queueing of that creep
 		let flag = Game.flags[params.destiny.targetName];
 		if (flag) {
@@ -105,9 +109,9 @@ export class DeliveryTask {
 
 		// assign destination flag?
 	};
-	handleSpawningCompleted = function(creep) {
+	handleSpawningCompleted = creep => {
 		// ensure it is a creep which has been queued by this task (else return)
-		if (!creep.data || !creep.data.destiny || !creep.data.destiny.task || creep.data.destiny.task !== this.name) return;
+		if (!creep.data || !creep.data.destiny || !creep.data.destiny.task || creep.data.destiny.task != this.name) return;
 		creep.data.homeRoom = creep.data.destiny.homeRoom || creep.data.homeRoom;
 		creep.data.travelRoom = creep.data.destiny.targetRoom || creep.data.travelRoom;
 
@@ -128,7 +132,7 @@ export class DeliveryTask {
 		// get creep memory
 		const mem = Memory.population[name];
 		// ensure it is a creep which has been requested by this task (else return)
-		if (!mem || !mem.destiny || !mem.destiny.task || mem.destiny.task !== this.name) return;
+		if (!mem || !mem.destiny || !mem.destiny.task || mem.destiny.task != this.name) return;
 		// get flag which caused request of that creep
 		const flag = Game.flags[mem.destiny.targetName];
 		if (flag) {
@@ -137,3 +141,5 @@ export class DeliveryTask {
 		}
 	};
 }
+
+export default new DeliveryTask();

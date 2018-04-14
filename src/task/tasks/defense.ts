@@ -1,20 +1,24 @@
 // Defense task handles spotted invaders. Spawns defenders and gives them special behaviour.
-export class DefenseTask {
-	name = 'defense';
-	creep = {
-		defender: {
-			fixedBody: [RANGED_ATTACK, MOVE],
-			multiBody: {
-				[HEAL]: 1,
-				[MOVE]: 2,
-				[RANGED_ATTACK]: 2,
-				[TOUGH]: 1,
+import { TaskComponent } from '../../class/Task';
+
+class DefenseTask extends TaskComponent {
+	constructor() {
+		super('defense');
+		this.creep = {
+			defender: {
+				fixedBody: [RANGED_ATTACK, MOVE],
+				multiBody: {
+					[HEAL]: 1,
+					[MOVE]: 2,
+					[RANGED_ATTACK]: 2,
+					[TOUGH]: 1,
+				},
+				name: 'defender',
+				behaviour: 'ranger',
 			},
-			name: 'defender',
-			behaviour: 'ranger',
-		},
-	};
-	register = () => {};
+		};
+	}
+	// When a new invader has been spotted
 	handleNewInvader = invaderCreep => {
 		// ignore if on blacklist
 		if (!SPAWN_DEFENSE_ON_ATTACK || DEFENSE_BLACKLIST.includes(invaderCreep.pos.roomName)) return;
@@ -23,7 +27,7 @@ export class DefenseTask {
 		if (!invaderCreep.room.my && !invaderCreep.room.reserved) {
 			// if it is not our exploiting target
 			let validColor = flagEntry =>
-				Flag.compare(flagEntry, FLAG_COLOR.invade.exploit) || flagEntry.color === FLAG_COLOR.claim.color;
+				Flag.compare(flagEntry, FLAG_COLOR.invade.exploit) || flagEntry.color == FLAG_COLOR.claim.color;
 			let flag = Flag.find(validColor, invaderCreep.pos, true);
 
 			if (!flag) return; // ignore invader
@@ -36,6 +40,7 @@ export class DefenseTask {
 			invaderCreep.room.hostiles.forEach(this.orderDefenses);
 		}
 	};
+	// When an invader leaves a room
 	handleGoneInvader = invaderId => {
 		// check if invader died or in an other room (requires vision)
 		let invader = Game.getObjectById(invaderId);
@@ -62,6 +67,7 @@ export class DefenseTask {
 			// other existing creeps will recycle themself via nextAction (see below)
 		}
 	};
+	// when a creep died
 	handleCreepDied = creepName => {
 		// check if its our creep
 		let creepMemory = Memory.population[creepName];
@@ -69,7 +75,7 @@ export class DefenseTask {
 			!creepMemory ||
 			!creepMemory.destiny ||
 			!creepMemory.destiny.task ||
-			creepMemory.destiny.task !== 'defense' ||
+			creepMemory.destiny.task != 'defense' ||
 			!creepMemory.destiny.invaderId
 		)
 			return;
@@ -90,6 +96,7 @@ export class DefenseTask {
 	memory = invaderId => {
 		return Task.memory('defense', invaderId);
 	};
+	// spawn defenses against an invader creep
 	orderDefenses = invaderCreep => {
 		let invaderId = invaderCreep.id;
 		let remainingThreat = invaderCreep.threat;
@@ -148,7 +155,7 @@ export class DefenseTask {
 			} else {
 				// Can't spawn. Invader will not get handled!
 				if (TRACE || DEBUG)
-					trace(
+					Util.trace(
 						'Task',
 						{ task: 'defense', invaderId: invaderId, targetRoom: invaderCreep.pos.roomName },
 						'Unable to spawn. Invader will not get handled!',
@@ -157,6 +164,7 @@ export class DefenseTask {
 			}
 		}
 	};
+	// define action assignment for defender creeps
 	nextAction = creep => {
 		// override behaviours nextAction function
 		// this could be a global approach to manipulate creep behaviour
@@ -199,3 +207,5 @@ export class DefenseTask {
 		}
 	};
 }
+
+export default new DefenseTask();

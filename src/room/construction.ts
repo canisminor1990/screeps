@@ -12,8 +12,11 @@ mod.analyzeRoom = function(room, needMemoryResync) {
 mod.extend = function() {
 	// Construction related Room variables go here
 	Room.roomLayoutArray = [
-		[STRUCTURE_EXTENSION, STRUCTURE_ROAD, STRUCTURE_EXTENSION],
+		[null, null, null, null, null, STRUCTURE_EXTENSION, STRUCTURE_ROAD, STRUCTURE_EXTENSION],
 		[
+			null,
+			null,
+			null,
 			STRUCTURE_ROAD,
 			STRUCTURE_EXTENSION,
 			STRUCTURE_ROAD,
@@ -23,6 +26,8 @@ mod.extend = function() {
 			STRUCTURE_ROAD,
 		],
 		[
+			null,
+			null,
 			STRUCTURE_ROAD,
 			STRUCTURE_EXTENSION,
 			STRUCTURE_ROAD,
@@ -34,6 +39,7 @@ mod.extend = function() {
 			STRUCTURE_ROAD,
 		],
 		[
+			null,
 			STRUCTURE_ROAD,
 			STRUCTURE_EXTENSION,
 			STRUCTURE_EXTENSION,
@@ -47,6 +53,7 @@ mod.extend = function() {
 			STRUCTURE_ROAD,
 		],
 		[
+			null,
 			STRUCTURE_EXTENSION,
 			STRUCTURE_ROAD,
 			STRUCTURE_EXTENSION,
@@ -105,6 +112,7 @@ mod.extend = function() {
 			STRUCTURE_EXTENSION,
 		],
 		[
+			null,
 			STRUCTURE_EXTENSION,
 			STRUCTURE_ROAD,
 			STRUCTURE_EXTENSION,
@@ -118,6 +126,7 @@ mod.extend = function() {
 			STRUCTURE_EXTENSION,
 		],
 		[
+			null,
 			STRUCTURE_ROAD,
 			STRUCTURE_EXTENSION,
 			STRUCTURE_EXTENSION,
@@ -131,6 +140,8 @@ mod.extend = function() {
 			STRUCTURE_ROAD,
 		],
 		[
+			null,
+			null,
 			STRUCTURE_ROAD,
 			STRUCTURE_EXTENSION,
 			STRUCTURE_ROAD,
@@ -142,6 +153,9 @@ mod.extend = function() {
 			STRUCTURE_ROAD,
 		],
 		[
+			null,
+			null,
+			null,
 			STRUCTURE_ROAD,
 			STRUCTURE_EXTENSION,
 			STRUCTURE_ROAD,
@@ -150,7 +164,7 @@ mod.extend = function() {
 			STRUCTURE_EXTENSION,
 			STRUCTURE_ROAD,
 		],
-		[STRUCTURE_EXTENSION, STRUCTURE_ROAD, STRUCTURE_EXTENSION],
+		[null, null, null, null, null, STRUCTURE_EXTENSION, STRUCTURE_ROAD, STRUCTURE_EXTENSION],
 	];
 
 	// Room property extensions go here
@@ -188,7 +202,7 @@ mod.extend = function() {
 		let sites;
 		if (filter) sites = this.constructionSites.filter(filter);
 		else sites = this.constructionSites;
-		if (sites.length === 0) return null;
+		if (sites.length == 0) return null;
 		let siteOrder = Util.fieldOrFunction(CONSTRUCTION_PRIORITY, this);
 		let rangeOrder = site => {
 			let order = siteOrder.indexOf(site.structureType);
@@ -202,8 +216,8 @@ mod.extend = function() {
 	Room.prototype.roadConstruction = function(minDeviation = ROAD_CONSTRUCTION_MIN_DEVIATION) {
 		const forced =
 			ROAD_CONSTRUCTION_FORCED_ROOMS[Game.shard.name] &&
-			ROAD_CONSTRUCTION_FORCED_ROOMS[Game.shard.name].indexOf(this.name) !== -1;
-		if ((!ROAD_CONSTRUCTION_ENABLE && !forced) || Game.time % ROAD_CONSTRUCTION_INTERVAL !== 0) return;
+			ROAD_CONSTRUCTION_FORCED_ROOMS[Game.shard.name].indexOf(this.name) != -1;
+		if ((!ROAD_CONSTRUCTION_ENABLE && !forced) || Game.time % ROAD_CONSTRUCTION_INTERVAL != 0) return;
 		if (
 			!forced &&
 			(_.isNumber(ROAD_CONSTRUCTION_ENABLE) && (!this.my || ROAD_CONSTRUCTION_ENABLE > this.controller.level))
@@ -234,7 +248,7 @@ mod.extend = function() {
 
 		// build roads on all most frequent used fields
 		let setSite = pos => {
-			if (DEBUG) Util.logSystem(this.name, `Constructing new road at ${pos.x}'${pos.y} (${pos.n} traces)`);
+			if (DEBUG) Util.logSystem(this.name, `Constructing new road at ${pos.x}'${pos.y} (${pos.n} Util.traces)`);
 			this.createConstructionSite(pos.x, pos.y, STRUCTURE_ROAD);
 		};
 		_.forEach(data, setSite);

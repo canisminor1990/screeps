@@ -60,11 +60,11 @@ mod.extend = function() {
 			(params.maxRange === undefined || Util.routeRange(room.name, params.targetRoom) <= params.maxRange) &&
 			(params.minEnergyCapacity === undefined || params.minEnergyCapacity <= room.energyCapacityAvailable) &&
 			(params.minEnergyAvailable === undefined || params.minEnergyAvailable <= room.energyAvailable) &&
-			(room.name !== params.targetRoom || params.allowTargetRoom === true) &&
+			(room.name != params.targetRoom || params.allowTargetRoom === true) &&
 			(params.minRCL === undefined || room.controller.level >= params.minRCL) &&
 			(params.callBack === undefined || params.callBack(room));
 		let validRooms = _.filter(Game.rooms, isValidRoom);
-		if (validRooms.length === 0) return null;
+		if (validRooms.length == 0) return null;
 		// select "best"
 		// range + roomLevelsUntil8/rangeRclRatio + spawnQueueDuration/rangeQueueRatio
 		let queueTime = queue => _.sum(queue, c => c.parts.length * 3);

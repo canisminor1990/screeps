@@ -49,8 +49,8 @@ mod.outflowActions = function(creep) {
 };
 mod.nextAction = function(creep) {
 	if (
-		creep.data.creepType === 'worker' &&
-		creep.pos.roomName !== creep.data.homeRoom &&
+		creep.data.creepType == 'worker' &&
+		creep.pos.roomName != creep.data.homeRoom &&
 		Game.rooms[creep.data.homeRoom] &&
 		Game.rooms[creep.data.homeRoom].controller
 	) {

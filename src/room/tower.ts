@@ -9,9 +9,7 @@ mod.executeRoom = function(memory, roomName) {
 	const room = Game.rooms[roomName];
 	if (room) {
 		if (room.structures.towers.length > 0) {
-			const p = Util.startProfiling(roomName, { enabled: PROFILING.ROOMS });
 			Tower.loop(room);
-			p.checkCPU('tower.loop', 0.5);
 		}
 	}
 };

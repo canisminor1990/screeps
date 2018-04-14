@@ -9,11 +9,11 @@ action.newTarget = function(creep) {
 		// return nearest spawn
 		target = creep.pos.findClosestByRange(creep.room.structures.spawns);
 	}
-	if (target === null) {
+	if (target == null) {
 		// go to home spawn
 		target = Game.spawns[creep.data.motherSpawn];
 	}
-	if (target === null) {
+	if (target == null) {
 		// If home spawn doesn't exist
 		target = creep.pos.findClosestSpawn();
 	}

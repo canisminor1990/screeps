@@ -1,5 +1,3 @@
-export const Global = {};
-
 export class Constants {
 	LAB_REACTIONS: obj = {};
 	LAB_IDLE = 'idle';
@@ -222,3 +220,5 @@ export class Constants {
 		system: { color: '#999', 'font-size': '10px' },
 	};
 }
+
+module.exports = new Constants();

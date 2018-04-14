@@ -25,20 +25,15 @@ const triggerNewInvaders = creep => {
 const triggerKnownInvaders = id => Room.knownInvader.trigger(id);
 const triggerGoneInvaders = id => Room.goneInvader.trigger(id);
 mod.executeRoom = function(memory, roomName) {
-	const p = Util.startProfiling(roomName + '.defense.execute', { enabled: PROFILING.ROOMS });
 	const room = Game.rooms[roomName];
 	if (room) {
 		// has sight
 		room.goneInvader.forEach(triggerGoneInvaders);
-		p.checkCPU('goneInvader', 0.5);
 		room.hostileIds.forEach(triggerKnownInvaders);
-		p.checkCPU('knownInvaders', 0.5);
 		room.newInvader.forEach(triggerNewInvaders);
-		p.checkCPU('newInvaders', 0.5);
 	} else {
 		// no sight
 		if (memory.hostileIds) _.forEach(memory.hostileIds, triggerKnownInvaders);
-		p.checkCPU('knownInvadersNoSight', 0.5);
 	}
 };
 mod.extend = function() {
@@ -59,7 +54,7 @@ mod.extend = function() {
 			get: function() {
 				if (_.isUndefined(this._casualties)) {
 					var isInjured = creep =>
-						creep.hits < creep.hitsMax && (creep.towers === undefined || creep.towers.length === 0);
+						creep.hits < creep.hitsMax && (creep.towers === undefined || creep.towers.length == 0);
 					this._casualties = _.sortBy(_.filter(this.creeps, isInjured), 'hits');
 				}
 				return this._casualties;
@@ -177,9 +172,9 @@ mod.extend = function() {
 					that.memory.statistics.invaders !== undefined &&
 					that.memory.statistics.invaders.length > 0
 				) {
-					let select = invader => invader.id === id && invader.leave === undefined;
+					let select = invader => invader.id == id && invader.leave === undefined;
 					let entry = _.find(that.memory.statistics.invaders, select);
-					if (entry !== undefined) entry.leave = Game.time;
+					if (entry != undefined) entry.leave = Game.time;
 				}
 			}
 		};

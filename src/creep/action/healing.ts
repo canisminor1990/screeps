@@ -11,8 +11,8 @@ action.isAddableTarget = function(target, creep) {
 };
 action.isValidTarget = function(target, creep) {
 	if (
-		target !== null &&
-		target.hits !== null &&
+		target != null &&
+		target.hits != null &&
 		target.hits < target.hitsMax &&
 		target.pos.roomName === creep.data.healRoom
 	) {
@@ -46,12 +46,12 @@ action.work = function(creep) {
 		return OK;
 	}
 };
-action.defaultStrategy.targetFilter = function(creep) {
+action.default.targetFilter = function(creep) {
 	return function(target) {
 		return target.my;
 	};
 };
-action.defaultStrategy.moveOptions = function(options) {
+action.default.moveOptions = function(options) {
 	// // allow routing in and through hostile rooms
 	// if (_.isUndefined(options.allowHostile)) options.allowHostile = true;
 	return options;

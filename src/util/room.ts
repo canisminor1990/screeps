@@ -26,7 +26,7 @@ export const roomUtils = {
 	routeRange(fromRoom: string | Room, toRoom: string | Room): number {
 		if (fromRoom === toRoom) return 0;
 
-		return Util.get(Memory, `routeRange.${fromRoom}.${toRoom}`, function() {
+		return Util.get(Memory, `routeRange.${fromRoom}.${toRoom}`, () => {
 			const room = fromRoom instanceof Room ? fromRoom : Game.rooms[fromRoom];
 			if (!room) return Room.roomDistance(fromRoom, toRoom, false);
 

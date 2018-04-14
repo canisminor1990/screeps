@@ -14,9 +14,9 @@ action.getFlaggedStructure = function(flagColor, pos) {
 	let target = [];
 	let checkFlag = flagEntry => {
 		var flag = Game.flags[flagEntry.name];
-		if (flag && flag.pos.roomName === pos.roomName && flag.room !== undefined) {
+		if (flag && flag.pos.roomName == pos.roomName && flag.room !== undefined) {
 			// room is visible
-			var targets = flag.room.lookForAt(LOOK_STRUCTURES, flag.pos.x, flag.pos.y);
+			let targets = flag.room.lookForAt(LOOK_STRUCTURES, flag.pos.x, flag.pos.y);
 			if (targets && targets.length > 0) {
 				addTarget = structure => {
 					structure.destroyFlag = flag;
@@ -41,7 +41,7 @@ action.newTarget = function(creep) {
 	}
 	// move to invasion room
 	var flag = Flag.find(FLAG_COLOR.invade, creep.pos, false);
-	if (flag && (!flag.room || flag.pos.roomName !== creep.pos.roomName)) {
+	if (flag && (!flag.room || flag.pos.roomName != creep.pos.roomName)) {
 		Population.registerCreepFlag(creep, flag);
 		return flag; // other room
 	}
@@ -65,7 +65,7 @@ action.newTarget = function(creep) {
 		target = creep.pos.findClosestByRange(creep.room.hostiles, {
 			function(hostile) {
 				return _.some(hostile.body, function(part) {
-					return part.type === ATTACK || part.type === RANGED_ATTACK;
+					return part.type == ATTACK || part.type == RANGED_ATTACK;
 				});
 			},
 		});
@@ -74,7 +74,7 @@ action.newTarget = function(creep) {
 		// attack tower
 		target = creep.pos.findClosestByPath(FIND_HOSTILE_STRUCTURES, {
 			filter: structure => {
-				return structure.structureType === STRUCTURE_TOWER;
+				return structure.structureType == STRUCTURE_TOWER;
 			},
 		});
 		if (target) return target;
@@ -84,14 +84,14 @@ action.newTarget = function(creep) {
 		// attack spawn
 		target = creep.pos.findClosestByPath(FIND_HOSTILE_STRUCTURES, {
 			filter: structure => {
-				return structure.structureType === STRUCTURE_SPAWN;
+				return structure.structureType == STRUCTURE_SPAWN;
 			},
 		});
 		if (target) return target;
 		// attack structures
 		target = creep.pos.findClosestByPath(FIND_HOSTILE_STRUCTURES, {
 			filter: structure => {
-				return structure.structureType !== STRUCTURE_CONTROLLER;
+				return structure.structureType != STRUCTURE_CONTROLLER;
 			},
 		});
 		if (target) return target;
@@ -104,8 +104,8 @@ action.newTarget = function(creep) {
 	return null;
 };
 action.step = function(creep) {
-	if (CHATTY) creep.say(this.name);
-	if (creep.target instanceof Flag && creep.target.pos.roomName === creep.pos.roomName) this.assign(creep);
+	if (global.CHATTY) creep.say(this.name);
+	if (creep.target instanceof Flag && creep.target.pos.roomName == creep.pos.roomName) this.assign(creep);
 	this.run[creep.data.creepType](creep);
 };
 action.run = {
@@ -120,7 +120,7 @@ action.run = {
 			}
 			creep.travelTo(creep.target);
 		}
-		if (!creep.target.my) creep.attacking = creep.attack(creep.target) === OK;
+		if (!creep.target.my) creep.attacking = creep.attack(creep.target) == OK;
 	},
 	ranger: function(creep) {
 		var range = creep.pos.getRangeTo(creep.target);
@@ -140,23 +140,23 @@ action.run = {
 			}
 		}
 		// attack
-		var targets = creep.pos.findInRange(creep.room.hostiles, 3);
+		let targets = creep.pos.findInRange(creep.room.hostiles, 3);
 		if (targets.length > 2) {
 			// TODO: calc damage dealt
-			if (CHATTY) creep.say('MassAttack');
-			creep.attackingRanged = creep.rangedMassAttack() === OK;
+			if (global.CHATTY) creep.say('MassAttack');
+			creep.attackingRanged = creep.rangedMassAttack() == OK;
 			return;
 		}
 		if (range < 4) {
-			creep.attackingRanged = creep.rangedAttack(creep.target) === OK;
+			creep.attackingRanged = creep.rangedAttack(creep.target) == OK;
 			return;
 		}
 		if (targets.length > 0) {
-			creep.attackingRanged = creep.rangedAttack(targets[0]) === OK;
+			creep.attackingRanged = creep.rangedAttack(targets[0]) == OK;
 		}
 	},
 };
-action.defaultStrategy.moveOptions = function(options) {
+action.default.moveOptions = function(options) {
 	// allow routing in and through hostile rooms
 	if (_.isUndefined(options.allowHostile)) options.allowHostile = true;
 	return options;

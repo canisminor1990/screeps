@@ -1,11 +1,7 @@
 import { dateUtils } from './date';
 import { logUtils } from './log';
 import { roomUtils } from './room';
-import { profilerUtils } from './profiler';
 import { marketUtils } from './market';
-import { StrategyUtils } from './strategy';
-import { DiamondIterator } from './diamondIterator';
-import { SpiralIterator } from './spiralIterator';
 
 const utils = {
 	/**
@@ -74,7 +70,7 @@ const utils = {
 	 * 如果是方法则返回方法结果，否则返回其本身
 	 */
 	fieldOrFunction(value: any, ...args: any[]): any {
-		return typeof value === 'function' ? value(...args) : value;
+		return _.isFunction(value) ? value(...args) : value;
 	},
 
 	/**
@@ -225,7 +221,20 @@ const utils = {
 	},
 };
 
-export default _.assign(utils, roomUtils, logUtils, dateUtils, profilerUtils, marketUtils, StrategyUtils, {
-	DiamondIterator,
-	SpiralIterator,
-});
+export default _.assign(utils, roomUtils, logUtils, dateUtils, marketUtils);
+
+export function Install(name, main, extend: obj | boolean = false) {
+	if (_.isString(name)) {
+		global[name] = main;
+		if (extend) _.assign(global[name], extend);
+	} else {
+		_.assign(name, main);
+		if (extend) _.assign(name, extend);
+	}
+}
+
+export const getUsername = _(Game.rooms)
+	.map('controller')
+	.filter('my')
+	.map('owner.username')
+	.first();

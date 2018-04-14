@@ -6,13 +6,7 @@ action.isValidAction = function(creep) {
 	return creep.sum < creep.carryCapacity * 0.95 && !creep.room.my;
 };
 action.isValidTarget = function(target) {
-	if (
-		_.some(target.pos.lookFor(LOOK_STRUCTURES), {
-			structureType: STRUCTURE_RAMPART,
-			isPublic: false,
-			my: false,
-		})
-	) {
+	if (_.some(target.pos.lookFor(LOOK_STRUCTURES), { structureType: STRUCTURE_RAMPART, isPublic: false, my: false })) {
 		return false;
 	}
 
@@ -118,13 +112,13 @@ action.storeCall = function(creep, target, store, valueTransform, valueCallback,
 	}
 	return value;
 };
-action.defaultStrategy.moveOptions = function(options) {
+action.default.moveOptions = function(options) {
 	// // allow routing in and through hostile rooms
 	// if (_.isUndefined(options.allowHostile)) options.allowHostile = true;
 	return options;
 };
 action.minimumTTL = 500;
-action.defaultStrategy.resourceValue = function(creep) {
+action.default.resourceValue = function(creep) {
 	let energyOnly = creep.ticksToLive < action.minimumTTL;
 	if (!energyOnly && creep.data.homeRoom) {
 		const room = Game.rooms[creep.data.homeRoom];
@@ -146,7 +140,7 @@ action.defaultStrategy.resourceValue = function(creep) {
 	};
 };
 action.scoreMultiplier = 1 / Math.log(1.2);
-action.defaultStrategy.resourceScore = function(creep, target, resourceValue) {
+action.default.resourceScore = function(creep, target, resourceValue) {
 	const range = creep.pos.getRangeTo(target);
 	const logBase = action.scoreMultiplier;
 	const adjacentValue = 50;

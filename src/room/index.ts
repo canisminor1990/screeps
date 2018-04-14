@@ -20,7 +20,7 @@ mod.register = function() {
 Room.pathfinderCache = {};
 Room.pathfinderCacheDirty = false;
 Room.pathfinderCacheLoaded = false;
-Room.COSTMATRIX_CACHE_VERSION = COMPRESS_COST_MATRICES ? 4 : 5; // change this to invalidate previously cached costmatrices
+Room.COSTMATRIX_CACHE_VERSION = global.COMPRESS_COST_MATRICES ? 4 : 5; // change this to invalidate previously cached costmatrices
 mod.extend = function() {
 	// run extend in each of our submodules
 	for (const key of Object.keys(Room._ext)) {
@@ -102,7 +102,7 @@ mod.extend = function() {
 									that.room.my &&
 									structure.hits < structure.hitsMax &&
 									structure.hits < MAX_FORTIFY_LIMIT[that.room.controller.level] &&
-									(structure.structureType !== STRUCTURE_CONTAINER || structure.hits < MAX_FORTIFY_CONTAINER) &&
+									(structure.structureType != STRUCTURE_CONTAINER || structure.hits < MAX_FORTIFY_CONTAINER) &&
 									(!DECAYABLES.includes(structure.structureType) ||
 										structure.hitsMax - structure.hits > GAP_REPAIR_DECAYABLE * 3) &&
 									(Memory.pavementArt[that.room.name] === undefined ||
@@ -110,10 +110,10 @@ mod.extend = function() {
 											0) &&
 									!Flag.list.some(
 										f =>
-											f.roomName === structure.pos.roomName &&
-											f.color === COLOR_ORANGE &&
-											f.x === structure.pos.x &&
-											f.y === structure.pos.y,
+											f.roomName == structure.pos.roomName &&
+											f.color == COLOR_ORANGE &&
+											f.x == structure.pos.x &&
+											f.y == structure.pos.y,
 									),
 							),
 							'hits',
@@ -354,7 +354,7 @@ mod.extend = function() {
 			get: function() {
 				if (_.isUndefined(this._situation)) {
 					this._situation = {
-						noEnergy: this.sourceEnergyAvailable === 0,
+						noEnergy: this.sourceEnergyAvailable == 0,
 						invasion: this.hostiles.length > 0 && (!this.controller || !this.controller.safeMode),
 					};
 				}
@@ -391,7 +391,7 @@ mod.extend = function() {
 
 						let flagEntries = Flag.filter(FLAG_COLOR.invade.exploit);
 						let countOwn = roomName => {
-							if (roomName === that.name) return;
+							if (roomName == that.name) return;
 							if (Room.isMine(roomName)) ownNeighbor++;
 						};
 						let calcWeight = flagEntry => {
@@ -430,8 +430,7 @@ mod.extend = function() {
 						// don't spawn claimer for reservation at RCL < 4 (claimer not big enough)
 						if (
 							rcl > 3 ||
-							(flagEntry.color === FLAG_COLOR.claim.color &&
-								flagEntry.secondaryColor === FLAG_COLOR.claim.secondaryColor)
+							(flagEntry.color == FLAG_COLOR.claim.color && flagEntry.secondaryColor == FLAG_COLOR.claim.secondaryColor)
 						) {
 							distance = Room.roomDistance(that.name, flagEntry.roomName);
 							if (distance > maxRange) return;
@@ -446,7 +445,7 @@ mod.extend = function() {
 
 							reserved =
 								flag.targetOf && flag.targetOf
-									? _.sum(flag.targetOf.map(t => (t.creepType === 'claimer' ? t.weight : 0)))
+									? _.sum(flag.targetOf.map(t => (t.creepType == 'claimer' ? t.weight : 0)))
 									: 0;
 							that._claimerMaxWeight += base - reserved;
 						}
@@ -498,12 +497,7 @@ mod.extend = function() {
 						if (DEBUG && TRACE)
 							Util.trace(
 								'PathFinder',
-								{
-									roomName: this.name,
-									prevTime,
-									structures: this.structures.all.length,
-									PathFinder: 'CostMatrix',
-								},
+								{ roomName: this.name, prevTime, structures: this.structures.all.length, PathFinder: 'CostMatrix' },
 								'updated costmatrix',
 							);
 						this._structureMatrix = costMatrix;
@@ -535,7 +529,7 @@ mod.extend = function() {
 			configurable: true,
 			get: function() {
 				if (_.isUndefined(this._myReservation)) {
-					this._myReservation = this.reservation === ME;
+					this._myReservation = this.reservation === global.ME;
 				}
 				return this._myReservation;
 			},
@@ -689,7 +683,7 @@ mod.extend = function() {
 	};
 
 	Room.prototype.findRoute = function(destination, checkOwner = true, preferHighway = true, allowSK = true) {
-		if (this.name === destination) return [];
+		if (this.name == destination) return [];
 		const options = { checkOwner, preferHighway, allowSK };
 		return Game.map.findRoute(this, destination, {
 			routeCallback: Room.routeCallback(this.name, destination, options),
@@ -701,12 +695,12 @@ mod.extend = function() {
 			!ROAD_CONSTRUCTION_ENABLE &&
 			(!ROAD_CONSTRUCTION_FORCED_ROOMS[Game.shard.name] ||
 				(ROAD_CONSTRUCTION_FORCED_ROOMS[Game.shard.name] &&
-					ROAD_CONSTRUCTION_FORCED_ROOMS[Game.shard.name].indexOf(this.name) === -1))
+					ROAD_CONSTRUCTION_FORCED_ROOMS[Game.shard.name].indexOf(this.name) == -1))
 		)
 			return;
 		let x = creep.pos.x;
 		let y = creep.pos.y;
-		if (x === 0 || y === 0 || x === 49 || y === 49 || creep.carry.energy === 0 || creep.data.actionName === 'building')
+		if (x == 0 || y == 0 || x == 49 || y == 49 || creep.carry.energy == 0 || creep.data.actionName == 'building')
 			return;
 
 		let key = `${String.fromCharCode(32 + x)}${String.fromCharCode(32 + y)}_x${x}-y${y}`;
@@ -718,11 +712,9 @@ mod.extend = function() {
 		if (!look) look = this.lookAt(x, y);
 		else look = look[y][x];
 		let invalidObject = o => {
-			return (
-				(o.type === LOOK_TERRAIN && o.terrain === 'wall') || OBSTACLE_OBJECT_TYPES.includes(o[o.type].structureType)
-			);
+			return (o.type == LOOK_TERRAIN && o.terrain == 'wall') || OBSTACLE_OBJECT_TYPES.includes(o[o.type].structureType);
 		};
-		return look.filter(invalidObject).length === 0;
+		return look.filter(invalidObject).length == 0;
 	};
 	Room.prototype.exits = function(findExit, point) {
 		if (point === true) point = 0.5;
@@ -784,8 +776,8 @@ mod.extend = function() {
 			const hue = ((1 - value) * 120).toString(10);
 			return `hsl(${hue}, 100%, 50%)`;
 		};
-		for (var y = startY; y < endY; y++) {
-			for (var x = startX; x < endX; x++) {
+		for (let y = startY; y < endY; y++) {
+			for (let x = startX; x < endX; x++) {
 				const cost = matrix.get(x, y);
 				if (cost) vis.text(cost, x, y);
 				vis.rect(x - 0.5, y - 0.5, 1, 1, { fill: getColourByPercentage(cost / maxCost) });
@@ -1003,23 +995,24 @@ mod.extend = function() {
 		// garbage collecting room.orders
 		if (reactionInProgress) {
 			let reactionsOrders = reactions.orders[0],
-				componentA = LAB_REACTIONS[reactionsOrders.type][0],
-				componentB = LAB_REACTIONS[reactionsOrders.type][1];
+				componentA = global.LAB_REACTIONS[reactionsOrders.type][0],
+				componentB = global.LAB_REACTIONS[reactionsOrders.type][1];
 
 			data.orders = _.filter(data.orders, order => {
 				return (
 					order.amount > 0 &&
 					(order.type === componentA ||
 						order.type === componentB ||
-						(!_.isUndefined(COMPOUNDS_TO_ALLOCATE[order.type]) && COMPOUNDS_TO_ALLOCATE[order.type].allocate))
+						(!_.isUndefined(global.COMPOUNDS_TO_ALLOCATE[order.type]) &&
+							global.COMPOUNDS_TO_ALLOCATE[order.type].allocate))
 				);
 			});
 		} else {
 			data.orders = _.filter(data.orders, order => {
 				return (
 					order.amount > 0 &&
-					!_.isUndefined(COMPOUNDS_TO_ALLOCATE[order.type]) &&
-					COMPOUNDS_TO_ALLOCATE[order.type].allocate
+					!_.isUndefined(global.COMPOUNDS_TO_ALLOCATE[order.type]) &&
+					global.COMPOUNDS_TO_ALLOCATE[order.type].allocate
 				);
 			});
 		}
@@ -1072,7 +1065,7 @@ mod.extend = function() {
 				Util.logSystem(this.name, `${this.name} no offers found. Reaction and orders DELETED`);
 			}
 		} else {
-			data.boostTiming.checkRoomAt = Game.time + CHECK_ORDERS_INTERVAL;
+			data.boostTiming.checkRoomAt = Game.time + global.CHECK_ORDERS_INTERVAL;
 			return false;
 		}
 	};
@@ -1123,7 +1116,7 @@ mod.extend = function() {
 				Util.logSystem(this.name, `${readyAmount} / ${offer.amount} ${offer.type} are in ${this.name} terminal`);
 
 				if (
-					(readyAmount >= offer.amount * 0.5 && readyAmount < offer.amount - MIN_OFFER_AMOUNT) ||
+					(readyAmount >= offer.amount * 0.5 && readyAmount < offer.amount - global.MIN_OFFER_AMOUNT) ||
 					readyAmount >= offer.amount
 				) {
 					if (DEBUG)
@@ -1177,10 +1170,10 @@ mod.extend = function() {
 								);
 								Util.logSystem(
 									this.name,
-									`terminal order placed for ${Math.max(offer.amount, MIN_OFFER_AMOUNT)} ${offer.type}`,
+									`terminal order placed for ${Math.max(offer.amount, global.MIN_OFFER_AMOUNT)} ${offer.type}`,
 								);
 							}
-							this.placeOrder(terminalId, offer.type, Math.max(offer.amount, MIN_OFFER_AMOUNT));
+							this.placeOrder(terminalId, offer.type, Math.max(offer.amount, global.MIN_OFFER_AMOUNT));
 							terminalOrderPlaced = true;
 						} else Util.logSystem(this.name, `${this.name} terminal orders for ${offer.amount} ${offer.type} is OK.`);
 					}
@@ -1207,8 +1200,8 @@ mod.extend = function() {
 
 			if (lab.orders.length > 0) {
 				if (data.reactions.orders.length > 0) {
-					let componentA = LAB_REACTIONS[reactionsOrders.type][0],
-						componentB = LAB_REACTIONS[reactionsOrders.type][1];
+					let componentA = global.LAB_REACTIONS[reactionsOrders.type][0],
+						componentB = global.LAB_REACTIONS[reactionsOrders.type][1];
 
 					order = _.filter(lab.orders, liveOrder => {
 						if (
@@ -1289,7 +1282,7 @@ mod.extend = function() {
 
 					return true;
 				} else if (fillARoomOrdersReturn === true) {
-					data.boostTiming.checkRoomAt = Game.time + CHECK_ORDERS_INTERVAL;
+					data.boostTiming.checkRoomAt = Game.time + global.CHECK_ORDERS_INTERVAL;
 					Util.logSystem(
 						currentRoom.name,
 						`${currentRoom.name} terminal send was successful. BTW, there are orders remained to fulfill`,
@@ -1323,11 +1316,11 @@ mod.extend = function() {
 			return true;
 		} else if (returnValue.terminalOrderPlaced) {
 			Util.logSystem(this.name, `terminal orders placed for room ${this.name}`);
-			data.boostTiming.checkRoomAt = Game.time + CHECK_ORDERS_INTERVAL;
+			data.boostTiming.checkRoomAt = Game.time + global.CHECK_ORDERS_INTERVAL;
 			return false;
 		} else {
 			Util.logSystem(this.name, `${this.name} no readyOffers found`);
-			data.boostTiming.checkRoomAt = Game.time + CHECK_ORDERS_INTERVAL;
+			data.boostTiming.checkRoomAt = Game.time + global.CHECK_ORDERS_INTERVAL;
 			return false;
 		}
 	};
@@ -1347,7 +1340,7 @@ mod.extend = function() {
 
 				if (currentRoom.memory.labs) {
 					if (currentRoom.memory.labs.length < 3) return false;
-					else if (currentRoom.memory.labs.length === 3 && !MAKE_REACTIONS_WITH_3LABS) return false;
+					else if (currentRoom.memory.labs.length === 3 && !global.MAKE_REACTIONS_WITH_3LABS) return false;
 				} else return false;
 
 				if (_.isUndefined(currentRoom.memory.resources)) return false;
@@ -1363,7 +1356,7 @@ mod.extend = function() {
 
 								for (let room of myRooms) {
 									let resourcesAll = room.resourcesAll[mineral] || 0;
-									if (resourcesAll >= MIN_OFFER_AMOUNT) roomStored += resourcesAll;
+									if (resourcesAll >= global.MIN_OFFER_AMOUNT) roomStored += resourcesAll;
 								}
 
 								return roomStored;
@@ -1375,21 +1368,23 @@ mod.extend = function() {
 									storedOffRoom = storedAll - storedRoom,
 									ingredientNeeds;
 
-								if (storedOffRoom < TRADE_THRESHOLD) {
+								if (storedOffRoom < global.TRADE_THRESHOLD) {
 									ingredientNeeds = amount - storedRoom;
 									if (ingredientNeeds < 0) ingredientNeeds = 0;
-									else if (ingredientNeeds < MIN_COMPOUND_AMOUNT_TO_MAKE) ingredientNeeds = MIN_COMPOUND_AMOUNT_TO_MAKE;
+									else if (ingredientNeeds < global.MIN_COMPOUND_AMOUNT_TO_MAKE)
+										ingredientNeeds = global.MIN_COMPOUND_AMOUNT_TO_MAKE;
 								} else {
 									ingredientNeeds = amount - storedAll;
 									if (ingredientNeeds < 0) ingredientNeeds = 0;
-									else if (ingredientNeeds < MIN_COMPOUND_AMOUNT_TO_MAKE) ingredientNeeds = MIN_COMPOUND_AMOUNT_TO_MAKE;
+									else if (ingredientNeeds < global.MIN_COMPOUND_AMOUNT_TO_MAKE)
+										ingredientNeeds = global.MIN_COMPOUND_AMOUNT_TO_MAKE;
 								}
 
-								return Util.roundUpTo(ingredientNeeds, MIN_OFFER_AMOUNT);
+								return Util.roundUpTo(ingredientNeeds, global.MIN_OFFER_AMOUNT);
 							},
 							findIngredients = function(compound, amount) {
-								let ingredientA = LAB_REACTIONS[compound][0],
-									ingredientB = LAB_REACTIONS[compound][1];
+								let ingredientA = global.LAB_REACTIONS[compound][0],
+									ingredientB = global.LAB_REACTIONS[compound][1];
 
 								return {
 									[ingredientA]: ingredientNeeds(ingredientA, amount),
@@ -1437,12 +1432,12 @@ mod.extend = function() {
 						return product;
 					},
 					purchaseMinerals = function(roomName, mineral, amount) {
-						if (!PURCHASE_MINERALS) {
+						if (!global.PURCHASE_MINERALS) {
 							if (DEBUG) console.log(`${roomName} needs to buy ${amount} ${mineral} but PURCHASE_MINERALS is false`);
 							return false;
 						}
 
-						if (currentRoom.storage.charge < STORE_CHARGE_PURCHASE) {
+						if (currentRoom.storage.charge < global.STORE_CHARGE_PURCHASE) {
 							if (DEBUG)
 								console.log(
 									`storage.charge in ${roomName} is ${currentRoom.storage.charge}, purchase for ${mineral} is delayed`,
@@ -1468,10 +1463,10 @@ mod.extend = function() {
 
 						let sellRatio;
 
-						if (AUTOMATED_RATIO_COUNT) {
+						if (global.AUTOMATED_RATIO_COUNT) {
 							sellRatio = Util.countPrices('sell', mineral, roomName);
 							if (DEBUG) console.log(`average sellRatio: ${roomName} ${mineral} ${sellRatio}`);
-						} else sellRatio = MAX_BUY_RATIO[mineral];
+						} else sellRatio = global.MAX_BUY_RATIO[mineral];
 
 						let order,
 							returnValue,
@@ -1495,7 +1490,7 @@ mod.extend = function() {
 									o.transactionAmount = Game.market.credits / o.price;
 									if (o.transactionAmount === 0) return false;
 								}
-								o.ratio = (credits - transactionCost * ENERGY_VALUE_CREDITS) / o.transactionAmount;
+								o.ratio = (credits - transactionCost * global.ENERGY_VALUE_CREDITS) / o.transactionAmount;
 
 								if (o.ratio > sellRatio || o.amount < 100) return false;
 
@@ -1529,12 +1524,12 @@ mod.extend = function() {
 								else {
 									console.log(
 										`No sell order found for ${amount} ${mineral} at ratio ${
-											MAX_BUY_RATIO[mineral]
+											global.MAX_BUY_RATIO[mineral]
 										} in room ${roomName}`,
 									);
 									console.log(
 										`You need to adjust MAX_BUY_RATIO or use AUTOMATED_RATIO_COUNT: true in parameters, current is: ${
-											MAX_BUY_RATIO[mineral]
+											global.MAX_BUY_RATIO[mineral]
 										}, recommended: ${sellRatio}`,
 									);
 								}
@@ -1650,31 +1645,32 @@ mod.extend = function() {
 				};
 			};
 
-		Object.keys(COMPOUNDS_TO_MAKE).forEach(compound => {
+		Object.keys(global.COMPOUNDS_TO_MAKE).forEach(compound => {
 			if (
-				COMPOUNDS_TO_MAKE[compound].make &&
+				global.COMPOUNDS_TO_MAKE[compound].make &&
 				!roomFound.ingredientMade &&
-				(this.name.indexOf(COMPOUNDS_TO_MAKE[compound].rooms) > -1 || COMPOUNDS_TO_MAKE[compound].rooms.length === 0)
+				(this.name.indexOf(global.COMPOUNDS_TO_MAKE[compound].rooms) > -1 ||
+					global.COMPOUNDS_TO_MAKE[compound].rooms.length === 0)
 			) {
 				let storedResources = this.resourcesAll[compound] || 0;
 
 				if (storedResources === 0) {
 					amountToMake = Util.roundUpTo(
-						COMPOUNDS_TO_MAKE[compound].amount + COMPOUNDS_TO_MAKE[compound].threshold,
-						MIN_OFFER_AMOUNT,
+						global.COMPOUNDS_TO_MAKE[compound].amount + global.COMPOUNDS_TO_MAKE[compound].threshold,
+						global.MIN_OFFER_AMOUNT,
 					);
 					roomFound = makeCompound(this.name, compound, amountToMake);
 					if (roomFound.ingredientMade && DEBUG)
 						Util.logSystem(
 							this.name,
 							`there is no ${compound}, so start to make the compounds for ${
-								COMPOUNDS_TO_MAKE[compound].amount
+								global.COMPOUNDS_TO_MAKE[compound].amount
 							} ${compound} in ${this.name}`,
 						);
-				} else if (storedResources <= COMPOUNDS_TO_MAKE[compound].threshold) {
+				} else if (storedResources <= global.COMPOUNDS_TO_MAKE[compound].threshold) {
 					amountToMake = Util.roundUpTo(
-						COMPOUNDS_TO_MAKE[compound].amount + COMPOUNDS_TO_MAKE[compound].threshold - storedResources,
-						MIN_OFFER_AMOUNT,
+						global.COMPOUNDS_TO_MAKE[compound].amount + global.COMPOUNDS_TO_MAKE[compound].threshold - storedResources,
+						global.MIN_OFFER_AMOUNT,
 					);
 					roomFound = makeCompound(this.name, compound, amountToMake);
 					if (roomFound.ingredientMade && DEBUG)
@@ -1723,8 +1719,8 @@ mod.extend = function() {
 		if (_.isUndefined(data) || _.isUndefined(data.reactions) || data.reactions.orders.length === 0) return;
 
 		let orderType = data.reactions.orders[0].type,
-			component_a = LAB_REACTIONS[orderType][0],
-			component_b = LAB_REACTIONS[orderType][1],
+			component_a = global.LAB_REACTIONS[orderType][0],
+			component_b = global.LAB_REACTIONS[orderType][1],
 			labIndexA = data.lab.findIndex(l => {
 				return l.id === data.reactions.seed_a;
 			}),
@@ -1758,7 +1754,7 @@ mod.extend = function() {
 			},
 		});
 		let last = _.last(result.path);
-		if (last === undefined) last = this;
+		if (last == undefined) last = this;
 		// return {goal: null};
 		let goal = _.min(goals, g => last.getRangeTo(g.pos));
 		return {
@@ -1803,10 +1799,9 @@ mod.needMemoryResync = function(room) {
 		room.memory.initialized = Game.time;
 		return true;
 	}
-	return Game.time % MEMORY_RESYNC_INTERVAL === 0 || room.name === 'sim';
+	return Game.time % global.MEMORY_RESYNC_INTERVAL === 0 || room.name == 'sim';
 };
 mod.analyze = function() {
-	const p = Util.startProfiling('Room.analyze', { enabled: PROFILING.ROOMS });
 	// run analyze in each of our submodules
 	for (const key of Object.keys(Room._ext)) {
 		if (Room._ext[key].analyze) Room._ext[key].analyze();
@@ -1845,11 +1840,9 @@ mod.analyze = function() {
 	_.forEach(Game.rooms, r => {
 		if (r.skip) return;
 		getEnvironment(r);
-		p.checkCPU(r.name, PROFILING.ANALYZE_LIMIT / 5);
 	});
 };
 mod.execute = function() {
-	const p = Util.startProfiling('Room.execute', { enabled: PROFILING.ROOMS });
 	// run execute in each of our submodules
 	for (const key of Object.keys(Room._ext)) {
 		if (Room._ext[key].execute) Room._ext[key].execute();
@@ -1864,9 +1857,7 @@ mod.execute = function() {
 			if (room) {
 				// has sight
 				if (room.collapsed) {
-					const p2 = Util.startProfiling(roomName + 'execute', { enabled: PROFILING.ROOMS });
 					Room.collapsed.trigger(room);
-					p2.checkCPU('collapsed', 0.5);
 				}
 			}
 		} catch (e) {
@@ -1875,7 +1866,6 @@ mod.execute = function() {
 	};
 	_.forEach(Memory.rooms, (memory, roomName) => {
 		run(memory, roomName);
-		p.checkCPU(roomName + '.run', 1);
 		if (
 			Game.time % MEMORY_RESYNC_INTERVAL === 0 &&
 			!Game.rooms[roomName] &&
@@ -1893,7 +1883,7 @@ mod.cleanup = function() {
 	}
 	// flush changes to the pathfinderCache but wait until load
 	if (!_.isUndefined(Memory.pathfinder)) {
-		OCSMemory.saveSegment(MEM_SEGMENTS.COSTMATRIX_CACHE, Memory.pathfinder);
+		CMemory.saveSegment(MEM_SEGMENTS.COSTMATRIX_CACHE, Memory.pathfinder);
 		delete Memory.pathfinder;
 	}
 	if (Room.pathfinderCacheDirty && Room.pathfinderCacheLoaded) {
@@ -1905,7 +1895,9 @@ mod.cleanup = function() {
 				encodedCache[key] = {
 					serializedMatrix:
 						entry.serializedMatrix ||
-						(COMPRESS_COST_MATRICES ? CompressedMatrix.serialize(entry.costMatrix) : entry.costMatrix.serialize()),
+						(global.COMPRESS_COST_MATRICES
+							? CompressedMatrix.serialize(entry.costMatrix)
+							: entry.costMatrix.serialize()),
 					updated: entry.updated,
 					version: entry.version,
 				};
@@ -1913,7 +1905,7 @@ mod.cleanup = function() {
 				if (entry.stale) encodedCache[key].stale = true;
 			}
 		}
-		OCSMemory.saveSegment(MEM_SEGMENTS.COSTMATRIX_CACHE, encodedCache);
+		CMemory.saveSegment(MEM_SEGMENTS.COSTMATRIX_CACHE, encodedCache);
 		Room.pathfinderCacheDirty = false;
 	}
 };
@@ -1946,7 +1938,7 @@ mod.routeCallback = function(origin, destination, options) {
 		if (!options.allowHostile && hostile && roomName !== destination && roomName !== origin) {
 			return Number.POSITIVE_INFINITY;
 		}
-		if (isMyOrNeutralRoom || roomName === origin || roomName === destination) return 1;
+		if (isMyOrNeutralRoom || roomName == origin || roomName == destination) return 1;
 		else if (isHighway) return 3;
 		else if (Game.map.isRoomAvailable(roomName)) return options.checkOwner || options.preferHighway ? 11 : 1;
 		return Number.POSITIVE_INFINITY;
@@ -2034,11 +2026,11 @@ mod.adjacentAccessibleRooms = function(roomName, diagonal = true) {
 };
 mod.roomDistance = function(roomName1, roomName2, diagonal, continuous) {
 	if (diagonal) return Game.map.getRoomLinearDistance(roomName1, roomName2, continuous);
-	if (roomName1 === roomName2) return 0;
+	if (roomName1 == roomName2) return 0;
 	let posA = roomName1.split(/([NESW])/);
 	let posB = roomName2.split(/([NESW])/);
-	let xDif = posA[1] === posB[1] ? Math.abs(posA[2] - posB[2]) : posA[2] + posB[2] + 1;
-	let yDif = posA[3] === posB[3] ? Math.abs(posA[4] - posB[4]) : posA[4] + posB[4] + 1;
+	let xDif = posA[1] == posB[1] ? Math.abs(posA[2] - posB[2]) : posA[2] + posB[2] + 1;
+	let yDif = posA[3] == posB[3] ? Math.abs(posA[4] - posB[4]) : posA[4] + posB[4] + 1;
 	// if( diagonal ) return Math.max(xDif, yDif); // count diagonal as 1
 	return xDif + yDif; // count diagonal as 2
 };
@@ -2091,7 +2083,7 @@ mod.getCachedStructureMatrix = function(roomName) {
 			return cache.costMatrix;
 		} else if (cache.serializedMatrix) {
 			// disabled until the CPU efficiency can be improved
-			const costMatrix = COMPRESS_COST_MATRICES
+			const costMatrix = global.COMPRESS_COST_MATRICES
 				? CompressedMatrix.deserialize(cache.serializedMatrix)
 				: PathFinder.CostMatrix.deserialize(cache.serializedMatrix);
 			cache.costMatrix = costMatrix;
@@ -2151,20 +2143,21 @@ mod.shouldRepair = function(room, structure) {
 		structure.hits < structure.hitsMax &&
 		// not owned room or hits below RCL repair limit
 		(!room.my ||
-			structure.hits < MAX_REPAIR_LIMIT[room.controller.level] ||
-			structure.hits < LIMIT_URGENT_REPAIRING + (2 * DECAY_AMOUNT[structure.structureType] || 0)) &&
+			structure.hits < global.MAX_REPAIR_LIMIT[room.controller.level] ||
+			structure.hits < global.LIMIT_URGENT_REPAIRING + (2 * global.DECAY_AMOUNT[structure.structureType] || 0)) &&
 		// not decayable or below threshold
-		(!DECAYABLES.includes(structure.structureType) || structure.hitsMax - structure.hits > GAP_REPAIR_DECAYABLE) &&
+		(!DECAYABLES.includes(structure.structureType) ||
+			structure.hitsMax - structure.hits > global.GAP_REPAIR_DECAYABLE) &&
 		// not pavement art
 		(Memory.pavementArt[room.name] === undefined ||
 			Memory.pavementArt[room.name].indexOf('x' + structure.pos.x + 'y' + structure.pos.y + 'x') < 0) &&
 		// not flagged for removal
 		!Flag.list.some(
 			f =>
-				f.roomName === structure.pos.roomName &&
-				f.color === COLOR_ORANGE &&
-				f.x === structure.pos.x &&
-				f.y === structure.pos.y,
+				f.roomName == structure.pos.roomName &&
+				f.color == COLOR_ORANGE &&
+				f.x == structure.pos.x &&
+				f.y == structure.pos.y,
 		)
 	);
 };

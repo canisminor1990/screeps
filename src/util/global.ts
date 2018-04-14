@@ -1,7 +1,7 @@
 export const inject = (base: any, alien: any, namespace?: string) => {
 	let keys = _.keys(alien);
 	for (const key of keys) {
-		if (typeof alien[key] === 'function') {
+		if (_.isFunction(alien[key])) {
 			if (namespace) {
 				let original = base[key];
 				if (!base.baseOf) base.baseOf = {};

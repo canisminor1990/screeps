@@ -26,7 +26,7 @@ action.newTarget = function(creep) {
 	} else return null;
 
 	// not there, go to flagged room
-	if (!creep.flag.room || creep.flag.pos.roomName !== creep.pos.roomName) {
+	if (!creep.flag.room || creep.flag.pos.roomName != creep.pos.roomName) {
 		return creep.flag;
 	}
 
@@ -36,7 +36,7 @@ action.newTarget = function(creep) {
 action.step = function(creep) {
 	if (CHATTY) creep.say(this.name, SAY_PUBLIC);
 	if (creep.target.color) {
-		if (creep.flag.pos.roomName === creep.pos.roomName)
+		if (creep.flag.pos.roomName == creep.pos.roomName)
 			// change target from flag to controller
 			creep.data.targetId = null;
 		return creep.travelTo(creep.target.pos);
@@ -45,14 +45,8 @@ action.step = function(creep) {
 	let range = creep.pos.getRangeTo(creep.target);
 	if (range <= this.targetRange) {
 		var workResult = this.work(creep);
-		if (workResult !== OK) {
-			creep.handleError({
-				errorCode: workResult,
-				action: this,
-				target: creep.target,
-				range,
-				creep,
-			});
+		if (workResult != OK) {
+			creep.handleError({ errorCode: workResult, action: this, target: creep.target, range, creep });
 		}
 		return workResult;
 	}

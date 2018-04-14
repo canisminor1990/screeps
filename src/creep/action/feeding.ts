@@ -24,7 +24,7 @@ action.newTarget = function(creep) {
 };
 action.work = function(creep) {
 	let result = creep.transfer(creep.target, RESOURCE_ENERGY);
-	if (result === OK && creep.carry.energy > creep.target.energyCapacity - creep.target.energy) {
+	if (result == OK && creep.carry.energy > creep.target.energyCapacity - creep.target.energy) {
 		creep.target = null;
 		this.assign(creep);
 	}

@@ -17,7 +17,7 @@ action.newTarget = function(creep) {
 		});
 	}
 
-	if (creep.action && creep.action.name === 'guarding' && creep.flag) return creep.flag;
+	if (creep.action && creep.action.name == 'guarding' && creep.flag) return creep.flag;
 	if (flag) Population.registerCreepFlag(creep, flag);
 	return flag;
 };

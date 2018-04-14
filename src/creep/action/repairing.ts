@@ -9,7 +9,7 @@ action.isValidAction = function(creep) {
 	return creep.carry.energy > 0;
 };
 action.isValidTarget = function(target) {
-	return target !== null && target.hits && target.hits < target.hitsMax;
+	return target != null && target.hits && target.hits < target.hitsMax;
 };
 action.isAddableTarget = function(target, creep) {
 	return (
@@ -17,7 +17,7 @@ action.isAddableTarget = function(target, creep) {
 			(!creep.room.controller ||
 				((!creep.room.controller.owner || creep.room.controller.my) &&
 					(!creep.room.controller.reservation ||
-						creep.room.controller.reservation.username === creep.owner.username)))) &&
+						creep.room.controller.reservation.username == creep.owner.username)))) &&
 		(!target.targetOf || target.targetOf.length < this.maxPerTarget)
 	);
 };
@@ -30,8 +30,8 @@ action.work = function(creep) {
 	creep.getStrategyHandler([action.name], 'getEnergy', creep);
 	return creep.repair(creep.target);
 };
-action.defaultStrategy.reachedRange = 1;
+action.default.reachedRange = 1;
 // this allows us to get energy in the same tick if a behaviour defines this strategy, used in behaviour.miner
-action.defaultStrategy.getEnergy = function(creep) {
+action.default.getEnergy = function(creep) {
 	return false;
 };

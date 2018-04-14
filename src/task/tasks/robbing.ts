@@ -1,43 +1,52 @@
+import { TaskComponent } from '../../class/Task';
+
 // This task will react on robbing flags (invade/rob or red/yellow), sending 2 creeps to rob that room
-export class RobbingTask {
-	name = 'robbing';
-	creep = {
-		robbing: {
-			fixedBody: [WORK, CARRY, MOVE, MOVE],
-			multiBody: [CARRY, MOVE],
-			name: 'robber',
-			behaviour: 'privateer',
-			queue: 'Low',
+
+class RobbingTask extends TaskComponent {
+	constructor() {
+		super('robbing');
+		this.creep = {
+			robbing: {
+				fixedBody: [WORK, CARRY, MOVE, MOVE],
+				multiBody: [CARRY, MOVE],
+				name: 'robber',
+				behaviour: 'privateer',
+				queue: 'Low',
+			},
+		};
+		this.state = {
+			default: this.default,
+			robber: this.robber,
+		};
+	}
+
+	default = {
+		name: `default-${this.name}`,
+	};
+	robber = {
+		name: `robber-${this.name}`,
+		homeRoom: flag => {
+			// Explicity set by user?
+			const memory = this.memory(flag);
+			if (memory.storageRoom) return Game.rooms[memory.storageRoom];
+			// Otherwise, score it
+			return Room.bestSpawnRoomFor(flag.pos.roomName);
+		},
+		spawnRoom: ({ roomName, minWeight }) => {
+			return Room.findSpawnRoom({
+				targetRoom: roomName,
+				minEnergyCapacity: minWeight || 250,
+			});
 		},
 	};
-	strategies = {
-		defaultStrategy: {
-			name: `default-${this.name}`,
-		},
-		robber: {
-			name: `robber-${this.name}`,
-			homeRoom: function(flag) {
-				// Explicity set by user?
-				const memory = this.memory(flag);
-				if (memory.storageRoom) return Game.rooms[memory.storageRoom];
-				// Otherwise, score it
-				return Room.bestSpawnRoomFor(flag.pos.roomName);
-			},
-			spawnRoom: function({ roomName, minWeight }) {
-				return Room.findSpawnRoom({
-					targetRoom: roomName,
-					minEnergyCapacity: minWeight || 250,
-				});
-			},
-		},
-	};
-	register = () => {};
+
 	checkFlag = flag => {
 		// robbing own rooms is handled by Task.delivery
 		return (
 			!(flag.room && flag.room.my) && flag.compareTo(FLAG_COLOR.invade.robbing) && Task.nextCreepCheck(flag, this.name)
 		);
 	};
+	// for each flag
 	handleFlagFound = flag => {
 		// if it is a robbing flag
 		if (this.checkFlag(flag)) {
@@ -46,6 +55,7 @@ export class RobbingTask {
 			this.checkForRequiredCreeps(flag);
 		}
 	};
+	// check if a new creep has to be spawned
 	checkForRequiredCreeps = flag => {
 		// get task memory
 		let memory = this.memory(flag);
@@ -57,12 +67,12 @@ export class RobbingTask {
 
 		// if creep count below requirement spawn a new creep creep
 		if (count < (memory.numRobbers || 2)) {
-			const spawnRoom = this.strategies.robber.spawnRoom({ roomName });
+			const spawnRoom = this.robber.spawnRoom({ roomName });
 			if (!spawnRoom) {
 				return;
 			}
 			// robbers set homeRoom if closer storage exists
-			const storageRoom = ROBBER_REHOME ? this.strategies.robber.homeRoom(flag) : spawnRoom;
+			const storageRoom = ROBBER_REHOME ? this.robber.homeRoom(flag) : spawnRoom;
 			Task.spawn(
 				this.creep.robbing, // creepDefinition
 				{
@@ -87,10 +97,11 @@ export class RobbingTask {
 			);
 		}
 	};
+	// when a creep starts spawning
 	handleSpawningStarted = params => {
 		// params: {spawn: spawn.name, name: creep.name, destiny: creep.destiny}
 		// ensure it is a creep which has been queued by this task (else return)
-		if (!params.destiny || !params.destiny.task || params.destiny.task !== 'robbing') return;
+		if (!params.destiny || !params.destiny.task || params.destiny.task != 'robbing') return;
 		// get flag which caused queueing of that creep
 		// TODO: remove  || creep.data.destiny.flagName (temporary backward compatibility)
 		let flag = Game.flags[params.destiny.targetName || params.destiny.flagName];
@@ -103,9 +114,10 @@ export class RobbingTask {
 			Task.validateQueued(memory, flag, this.name);
 		}
 	};
+	// when a creep completed spawning
 	handleSpawningCompleted = creep => {
 		// ensure it is a creep which has been requested by this task (else return)
-		if (!creep.data || !creep.data.destiny || !creep.data.destiny.task || creep.data.destiny.task !== 'robbing') return;
+		if (!creep.data || !creep.data.destiny || !creep.data.destiny.task || creep.data.destiny.task != 'robbing') return;
 		if (creep.data.destiny.homeRoom) {
 			creep.data.homeRoom = creep.data.destiny.homeRoom;
 		}
@@ -126,11 +138,12 @@ export class RobbingTask {
 			Task.validateSpawning(memory, flag, this.name);
 		}
 	};
+	// when a creep died (or will die soon)
 	handleCreepDied = name => {
 		// get creep memory
 		let mem = Memory.population[name];
 		// ensure it is a creep which has been requested by this task (else return)
-		if (!mem || !mem.destiny || !mem.destiny.task || mem.destiny.task !== 'robbing') return;
+		if (!mem || !mem.destiny || !mem.destiny.task || mem.destiny.task != 'robbing') return;
 		// get flag which caused request of that creep
 		// TODO: remove  || creep.data.destiny.flagName (temporary backward compatibility)
 		let flag = Game.flags[mem.destiny.targetName || mem.destiny.flagName];
@@ -139,6 +152,7 @@ export class RobbingTask {
 			Task.validateRunning(memory, flag, this.name, { roomName: flag.pos.roomName, deadCreep: name });
 		}
 	};
+	// get task memory
 	memory = flag => {
 		if (!flag.memory.tasks) flag.memory.tasks = {};
 		if (!flag.memory.tasks.robbing) {
@@ -154,11 +168,11 @@ export class RobbingTask {
 	nextAction = creep => {
 		let carrySum = creep.sum;
 		// at home
-		if (creep.pos.roomName === creep.data.homeRoom) {
+		if (creep.pos.roomName == creep.data.homeRoom) {
 			// carrier filled
 			if (carrySum > 0) {
 				if (DEBUG && TRACE)
-					trace('Task', {
+					Util.trace('Task', {
 						creepName: creep.name,
 						pos: creep.pos,
 						nextAction: 'storing?',
@@ -167,7 +181,7 @@ export class RobbingTask {
 					});
 				let deposit = []; // deposit energy in...
 				// links?
-				if (creep.carry.energy === carrySum) deposit = creep.room.structures.links.privateers;
+				if (creep.carry.energy == carrySum) deposit = creep.room.structures.links.privateers;
 				// storage?
 				if (creep.room.storage) deposit.push(creep.room.storage);
 				// containers?
@@ -175,7 +189,7 @@ export class RobbingTask {
 				// Choose the closest
 				if (deposit.length > 0) {
 					let target = creep.pos.findClosestByRange(deposit);
-					if (target.structureType === STRUCTURE_STORAGE && Creep.action.storing.assign(creep, target)) return;
+					if (target.structureType == STRUCTURE_STORAGE && Creep.action.storing.assign(creep, target)) return;
 					else if (Creep.action.charging.assign(creep, target)) return;
 				}
 				// if( Creep.action.storing.assign(creep) ) return;
@@ -189,7 +203,7 @@ export class RobbingTask {
 			// travelling
 			if (Task[creep.data.destiny.task].exploitNextRoom(creep)) {
 				if (DEBUG && TRACE)
-					trace('Task', {
+					Util.trace('Task', {
 						creepName: creep.name,
 						pos: creep.pos,
 						nextAction: 'travelling',
@@ -201,7 +215,7 @@ export class RobbingTask {
 				// no new flag
 				// behave as worker
 				if (DEBUG && TRACE)
-					trace('Task', {
+					Util.trace('Task', {
 						creepName: creep.name,
 						pos: creep.pos,
 						nextAction: 'working',
@@ -216,7 +230,7 @@ export class RobbingTask {
 			// at target room
 			if (creep.flag && creep.flag.pos.roomName === creep.pos.roomName) {
 				if (DEBUG && TRACE)
-					trace('Task', {
+					Util.trace('Task', {
 						creepName: creep.name,
 						pos: creep.pos,
 						nextAction: 'robbing',
@@ -227,7 +241,7 @@ export class RobbingTask {
 				if (creep.sum < creep.carryCapacity * 0.4) {
 					// harvesting or picking
 					var actions = [Creep.action.picking, Creep.action.robbing];
-					for (var iAction = 0; iAction < actions.length; iAction++) {
+					for (let iAction = 0; iAction < actions.length; iAction++) {
 						var action = actions[iAction];
 						if (action.isValidAction(creep) && action.isAddableAction(creep) && action.assign(creep)) return;
 					}
@@ -245,7 +259,7 @@ export class RobbingTask {
 			} else {
 				// not at target room
 				if (DEBUG && TRACE)
-					trace('Task', {
+					Util.trace('Task', {
 						creepName: creep.name,
 						pos: creep.pos,
 						nextAction: 'travelling2',
@@ -279,13 +293,13 @@ export class RobbingTask {
 		Creep.action.travelling.assignRoom(creep, creep.data.homeRoom);
 		return false;
 	};
-	getFlag = function(roomName) {
+	getFlag = roomName => {
 		let validColor = flagEntry =>
-			flagEntry.color === FLAG_COLOR.invade.robbing.color &&
-			flagEntry.secondaryColor === FLAG_COLOR.invade.robbing.secondaryColor;
+			flagEntry.color == FLAG_COLOR.invade.robbing.color &&
+			flagEntry.secondaryColor == FLAG_COLOR.invade.robbing.secondaryColor;
 		return Flag.find(validColor, new RoomPosition(25, 25, roomName), false);
 	};
-	storage = function(roomName, storageRoom) {
+	storage = (roomName, storageRoom) => {
 		const memory = this.memory(this.getFlag(roomName));
 		if (storageRoom) {
 			const was = memory.storageRoom;
@@ -308,3 +322,5 @@ export class RobbingTask {
 		}
 	};
 }
+
+export default new RobbingTask();

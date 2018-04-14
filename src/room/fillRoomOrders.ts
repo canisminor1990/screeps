@@ -5,7 +5,7 @@ let mod = {
 		this.fillRoomOrders();
 	},
 	fillRoomOrders() {
-		if (!MAKE_COMPOUNDS && !ALLOCATE_COMPOUNDS) return;
+		if (!global.MAKE_COMPOUNDS && !global.ALLOCATE_COMPOUNDS) return;
 
 		if (_.isUndefined(Memory.boostTiming)) Memory.boostTiming = {};
 
@@ -87,7 +87,11 @@ let mod = {
 			// console.log(`since: ${Game.time - Memory.boostTiming.timeStamp}`);
 		}
 
-		if ((MAKE_COMPOUNDS || ALLOCATE_COMPOUNDS) && Memory.boostTiming && Memory.boostTiming.multiOrderingRoomName) {
+		if (
+			(global.MAKE_COMPOUNDS || global.ALLOCATE_COMPOUNDS) &&
+			Memory.boostTiming &&
+			Memory.boostTiming.multiOrderingRoomName
+		) {
 			let memoryOrderingRoom = Game.rooms[Memory.boostTiming.multiOrderingRoomName],
 				data = memoryOrderingRoom.memory.resources,
 				candidates = data.boostTiming.ordersReady,
@@ -104,7 +108,7 @@ let mod = {
 					} Memory.boostTiming.multiOrderingRoomName deleted.`,
 				);
 				Game.rooms[Memory.boostTiming.multiOrderingRoomName].memory.resources.boostTiming.checkRoomAt =
-					Game.time + CHECK_ORDERS_INTERVAL;
+					Game.time + global.CHECK_ORDERS_INTERVAL;
 				delete Memory.boostTiming.multiOrderingRoomName;
 				delete memoryOrderingRoom.memory.resources.boostTiming.ordersReady;
 				return;

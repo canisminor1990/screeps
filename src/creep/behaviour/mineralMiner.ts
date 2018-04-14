@@ -9,7 +9,7 @@ mod.getEnergy = function(creep) {
 mod.maintain = function(creep) {
 	return Creep.behaviour.miner.maintain.call(this, creep);
 };
-mod.strategies.mining = {
+mod.state.mining = {
 	newTarget: function(creep) {
 		const notOccupied = source => {
 			const hasThisSource = data => data.creepName !== creep.name && data.determinatedTarget === source.id;

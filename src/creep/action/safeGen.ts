@@ -54,7 +54,7 @@ action.work = function(creep) {
 			workResult = this.generateSafeMode(creep);
 			break;
 		default:
-			if (creep.data.creepType === 'safeGen' && Game.flags[creep.data.destiny.targetName])
+			if (creep.data.creepType == 'safeGen' && Game.flags[creep.data.destiny.targetName])
 				Game.flags[creep.data.destiny.targetName].remove();
 			this.cancelAction(creep);
 			break;

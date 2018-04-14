@@ -43,7 +43,7 @@ mod.extend = function() {
 				configurable: true,
 				get: function() {
 					if (_.isUndefined(this._storage)) {
-						let byType = l => l.storage === true;
+						let byType = l => l.storage == true;
 						this._storage = this.all.filter(byType);
 					}
 					return this._storage;
@@ -53,7 +53,7 @@ mod.extend = function() {
 				configurable: true,
 				get: function() {
 					if (_.isUndefined(this._in)) {
-						let byType = l => l.storage === false && l.controller === false;
+						let byType = l => l.storage == false && l.controller == false;
 						this._in = _.filter(this.all, byType);
 					}
 					return this._in;
@@ -64,7 +64,7 @@ mod.extend = function() {
 				get: function() {
 					if (_.isUndefined(this._privateers)) {
 						let byType = l =>
-							l.storage === false && l.controller === false && l.source === false && l.energy < l.energyCapacity * 0.85;
+							l.storage == false && l.controller == false && l.source == false && l.energy < l.energyCapacity * 0.85;
 						this._privateers = _.filter(this.all, byType);
 					}
 					return this._privateers;
@@ -75,7 +75,7 @@ mod.extend = function() {
 	// Link related Room variables go here
 	Room.prototype.saveLinks = function() {
 		let links = this.find(FIND_MY_STRUCTURES, {
-			filter: structure => structure.structureType === STRUCTURE_LINK,
+			filter: structure => structure.structureType == STRUCTURE_LINK,
 		});
 		if (links.length > 0) {
 			this.memory.links = [];
@@ -85,7 +85,7 @@ mod.extend = function() {
 			/*
             let kept = [];
             let keep = (entry) => {
-                if( links.find( (c) => c.id === entry.id )){
+                if( links.find( (c) => c.id == entry.id )){
                     entry.storage = storageLinks.includes(entry.id);
                     kept.push(entry);
                 }
@@ -98,7 +98,7 @@ mod.extend = function() {
 			// for each link add to memory ( if not contained )
 			let add = link => {
 				// TODO consolidate managed container code
-				if (!this.memory.links.find(l => l.id === link.id)) {
+				if (!this.memory.links.find(l => l.id == link.id)) {
 					let isControllerLink = link.pos.getRangeTo(this.controller) <= 4;
 					let isSource = false;
 					if (!isControllerLink) {
@@ -120,7 +120,7 @@ mod.extend = function() {
 	};
 
 	Room.prototype.linkDispatcher = function() {
-		let filled = l => l.cooldown === 0 && l.energy >= l.energyCapacity * (l.source ? 0.85 : 0.5);
+		let filled = l => l.cooldown == 0 && l.energy >= l.energyCapacity * (l.source ? 0.85 : 0.5);
 		let empty = l => l.energy < l.energyCapacity * 0.15;
 		let filledIn = this.structures.links.in.filter(filled);
 		let emptyController = this.structures.links.controller.filter(empty);

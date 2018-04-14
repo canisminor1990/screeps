@@ -6,7 +6,7 @@ action.isValidAction = function(creep) {
 	return creep.sum < creep.carryCapacity;
 };
 action.isValidTarget = function(target) {
-	return target !== null && target.amount !== null && target.amount > 0;
+	return target != null && target.amount != null && target.amount > 0;
 };
 action.isAddableAction = function(creep) {
 	if (creep.data.creepType.indexOf('remote') > 0) return true;
@@ -44,11 +44,11 @@ action.newTarget = function(creep) {
 };
 action.work = function(creep) {
 	var result = creep.pickup(creep.target);
-	if (result === OK) {
+	if (result == OK) {
 		if (creep.sum < creep.carryCapacity * 0.8) {
 			// is there another in range?
 			let loot = creep.pos.findInRange(creep.room.droppedResources, 1, {
-				filter: o => o.resourceType !== RESOURCE_ENERGY && this.isAddableTarget(o, creep),
+				filter: o => o.resourceType != RESOURCE_ENERGY && this.isAddableTarget(o, creep),
 			});
 			if (!loot || loot.length < 1)
 				loot = creep.pos.findInRange(creep.room.droppedResources, 1, {
@@ -75,4 +75,4 @@ action.work = function(creep) {
 	}
 	return result;
 };
-action.defaultStrategy.energyOnly = true;
+action.default.energyOnly = true;

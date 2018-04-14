@@ -47,10 +47,10 @@ action.newTarget = function(creep) {
 };
 action.work = function(creep) {
 	var workResult;
-	for (var resourceType in creep.carry) {
+	for (let resourceType in creep.carry) {
 		if (creep.carry[resourceType] > 0) {
 			workResult = creep.transfer(creep.target, resourceType);
-			if (workResult !== OK) break;
+			if (workResult != OK) break;
 		}
 	}
 	delete creep.data.actionName;

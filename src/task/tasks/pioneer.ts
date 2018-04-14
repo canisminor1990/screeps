@@ -1,25 +1,29 @@
 // This task will react on pioneer flags - 4 for Green/White, 1 for Green/Red
-export class PioneerTask {
-	name = 'pioneer';
-	creep = {
-		pioneer: {
-			fixedBody: {
-				[CARRY]: 2,
-				[MOVE]: 2,
-				[WORK]: 2,
+import { TaskComponent } from '../../class/Task';
+
+class PioneerTask extends TaskComponent {
+	constructor() {
+		super('pioneer');
+		this.creep = {
+			pioneer: {
+				fixedBody: {
+					[CARRY]: 2,
+					[MOVE]: 2,
+					[WORK]: 2,
+				},
+				multiBody: [WORK, MOVE, CARRY],
+				name: 'pioneer',
+				behaviour: 'pioneer',
+				queue: 'Low',
 			},
-			multiBody: [WORK, MOVE, CARRY],
-			name: 'pioneer',
-			behaviour: 'pioneer',
-			queue: 'Low',
-		},
-		worker: {
-			fixedBody: [MOVE, CARRY, WORK],
-			behaviour: 'collapseWorker',
-			queue: 'High',
-		},
-	};
-	register = () => {};
+			worker: {
+				fixedBody: [MOVE, CARRY, WORK],
+				behaviour: 'collapseWorker',
+				queue: 'High',
+			},
+		};
+	}
+
 	handleRoomDied = room => {
 		const recoveryType = 'collapseWorker';
 
@@ -55,6 +59,7 @@ export class PioneerTask {
 			}
 		}
 	};
+	// for each flag
 	handleFlagFound = flag => {
 		// if it is a pioneer single or spawn
 		if (flag.compareTo(FLAG_COLOR.claim.pioneer) && Task.nextCreepCheck(flag, this.name)) {
@@ -63,6 +68,7 @@ export class PioneerTask {
 			this.checkForRequiredCreeps(flag);
 		}
 	};
+	// check if a new creep has to be spawned
 	checkForRequiredCreeps = flag => {
 		// only when room is owned
 		if (!flag || (flag.room && !flag.room.my && !flag.room.reserved)) {
@@ -79,11 +85,7 @@ export class PioneerTask {
 		let memory = this.memory(flag);
 
 		// re-validate if too much time has passed in the queue
-		Task.validateAll(memory, flag, this.name, {
-			roomName: flag.pos.roomName,
-			subKey: 'pioneer',
-			checkValid: true,
-		});
+		Task.validateAll(memory, flag, this.name, { roomName: flag.pos.roomName, subKey: 'pioneer', checkValid: true });
 
 		// decide number of pioneers required
 		let count = memory.queued.length + memory.spawning.length + memory.running.length;
@@ -119,10 +121,11 @@ export class PioneerTask {
 			);
 		}
 	};
+	// when a creep starts spawning
 	handleSpawningStarted = params => {
 		// params: {spawn: spawn.name, name: creep.name, destiny: creep.destiny}
 		// ensure it is a creep which has been queued by this task (else return)
-		if (!params.destiny || !params.destiny.task || params.destiny.task !== 'pioneer') return;
+		if (!params.destiny || !params.destiny.task || params.destiny.task != 'pioneer') return;
 		// get flag which caused queueing of that creep
 		let flag = Game.flags[params.destiny.flagName];
 		if (flag) {
@@ -138,9 +141,10 @@ export class PioneerTask {
 			Task.validateQueued(memory, flag, this.name, { queues: [priority] });
 		}
 	};
+	// when a creep completed spawning
 	handleSpawningCompleted = creep => {
 		// ensure it is a creep which has been requested by this task (else return)
-		if (!creep.data || !creep.data.destiny || !creep.data.destiny.task || creep.data.destiny.task !== 'pioneer') return;
+		if (!creep.data || !creep.data.destiny || !creep.data.destiny.task || creep.data.destiny.task != 'pioneer') return;
 		// get flag which caused request of that creep
 		let flag = Game.flags[creep.data.destiny.flagName];
 		if (flag) {
@@ -157,11 +161,12 @@ export class PioneerTask {
 			Task.validateSpawning(memory, flag, this.name);
 		}
 	};
+	// when a creep died (or will die soon)
 	handleCreepDied = name => {
 		// get creep memory
 		let mem = Memory.population[name];
 		// ensure it is a creep which has been requested by this task (else return)
-		if (!mem || !mem.destiny || !mem.destiny.task || mem.destiny.task !== 'pioneer') return;
+		if (!mem || !mem.destiny || !mem.destiny.task || mem.destiny.task != 'pioneer') return;
 		// get flag which caused request of that creep
 		let flag = Game.flags[mem.destiny.flagName];
 		if (flag) {
@@ -169,6 +174,7 @@ export class PioneerTask {
 			Task.validateRunning(memory, flag, this.name, { roomName: flag.pos.roomName, deadCreep: name });
 		}
 	};
+	// get task memory
 	memory = flag => {
 		if (!flag.memory.tasks) flag.memory.tasks = {};
 		if (!flag.memory.tasks.pioneer) {
@@ -181,3 +187,5 @@ export class PioneerTask {
 		return flag.memory.tasks.pioneer;
 	};
 }
+
+export default new PioneerTask();

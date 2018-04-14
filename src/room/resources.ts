@@ -124,8 +124,8 @@ mod.extend = function() {
 
 						let compound = reactionOrders.type,
 							amount = reactionOrders.amount,
-							ingredientA = LAB_REACTIONS[compound][0],
-							ingredientB = LAB_REACTIONS[compound][1],
+							ingredientA = global.LAB_REACTIONS[compound][0],
+							ingredientB = global.LAB_REACTIONS[compound][1],
 							labSeedA = Game.getObjectById(reaction.seed_a),
 							labSeedB = Game.getObjectById(reaction.seed_b),
 							mineralAmountA = labSeedA.mineralAmount,
@@ -196,7 +196,7 @@ mod.extend = function() {
 		sources: {
 			configurable: true,
 			get: function() {
-				if (_.isUndefined(this.memory.sources) || this.name === 'sim') {
+				if (_.isUndefined(this.memory.sources) || this.name == 'sim') {
 					this._sources = this.find(FIND_SOURCES);
 					if (this._sources.length > 0) {
 						this.memory.sources = this._sources.map(s => s.id);

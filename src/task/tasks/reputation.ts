@@ -1,3 +1,5 @@
+import { TaskComponent } from '../../class/Task';
+
 const NPC = {
 	'Source Keeper': true,
 	Invader: true,
@@ -10,8 +12,11 @@ const CONST = {
 	NPC_SCORE: -200,
 };
 
-export class ReputationTask {
-	name = 'reputation';
+class ReputationTask extends TaskComponent {
+	constructor() {
+		super('reputation');
+	}
+
 	myName = () => ME;
 	isNPC = username => NPC[username] === true;
 	npcOwner = creep => creep.owner && this.isNPC(creep.owner.username);
@@ -21,6 +26,8 @@ export class ReputationTask {
 	isHostile = username => this.score(username) < CONST.NEUTRAL;
 	notHostile = username => !this.isHostile(username);
 	hostileOwner = creep => creep.owner && this.isHostile(creep.owner.username);
+	whitelist = () => this.cache('whitelist');
+
 	whitelist = () => this.cache('whitelist');
 	score = username => {
 		const reps = this.cache('score');
@@ -34,6 +41,7 @@ export class ReputationTask {
 			return (reps[name] = 0);
 		}
 	};
+
 	setScore = (username, score) => {
 		const name = username && username.toLowerCase();
 		this.score()[name] = score;
@@ -65,7 +73,7 @@ export class ReputationTask {
 		}
 	};
 
-	private _loadScore = () => {
+	_loadScore = () => {
 		const etc = this.cache('etc');
 		const playerMemory = this.memory('players');
 		const whitelist = this.whitelist();
@@ -75,14 +83,14 @@ export class ReputationTask {
 			for (const n in NPC) {
 				score[n] = CONST.NPC_SCORE;
 			}
-			_.keys(whitelist).forEach(function(player) {
+			_.keys(whitelist).forEach(player => {
 				score[player] = CONST.WHITELIST_SCORE;
 			});
 
 			etc.whitelistRepUnion = 0;
 			_.reduce(
 				playerMemory,
-				function(list, player, name) {
+				(list, player, name) => {
 					if (typeof player.score === 'number') {
 						if (whitelist[name]) {
 							etc.whitelistRepUnion++;
@@ -97,14 +105,16 @@ export class ReputationTask {
 			this.setScore(this.myName(), CONST.MY_SCORE);
 		}
 	};
-	private _loadWhitelist = () => {
+	_loadWhitelist = () => {
 		let whitelist = this.whitelist();
 		if (_.keys(whitelist).length !== PLAYER_WHITELIST.length) {
 			whitelist = this.killWhitelistCache();
 
-			_.forEach(PLAYER_WHITELIST, function(playerName) {
+			_.forEach(PLAYER_WHITELIST, playerName => {
 				whitelist[playerName.toLowerCase()] = true;
 			});
 		}
 	};
 }
+
+export default new ReputationTask();

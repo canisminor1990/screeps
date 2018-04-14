@@ -75,9 +75,7 @@ action.determineSpot = function(creep, source) {
 		if (!spot) {
 			spot = creep.pos.findClosestByPath(spots, {
 				filter: pos => {
-					return !_.some(creep.room.lookForAt(LOOK_STRUCTURES, pos), {
-						structureType: STRUCTURE_ROAD,
-					});
+					return !_.some(creep.room.lookForAt(LOOK_STRUCTURES, pos), { structureType: STRUCTURE_ROAD });
 				},
 			});
 		}
@@ -129,8 +127,8 @@ action.work = function(creep) {
 				};
 				_.forEach(Object.keys(creep.carry), transfer);
 			} else {
-				if (CHATTY) creep.say('dropmining', SAY_PUBLIC);
-				if (OOPS) creep.say(String.fromCharCode(8681), SAY_PUBLIC);
+				if (global.CHATTY) creep.say('dropmining', global.SAY_PUBLIC);
+				if (global.OOPS) creep.say(String.fromCharCode(8681), global.SAY_PUBLIC);
 				const drop = r => {
 					if (creep.carry[r] > 0) creep.drop(r);
 				};
@@ -296,7 +294,7 @@ action.maintain = function(creep) {
 	}
 	return false; // idle
 };
-action.defaultStrategy.newTarget = function(creep) {
+action.default.newTarget = function(creep) {
 	const addable = s => Creep.action.mining.isValidTarget(s, creep) && Creep.action.mining.isAddableTarget(s, creep);
 	return (
 		_(creep.room.sources)

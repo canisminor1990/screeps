@@ -8,12 +8,12 @@ mod.nextAction = function(creep) {
 	}
 
 	// at home
-	if (creep.pos.roomName === creep.data.homeRoom) {
+	if (creep.pos.roomName == creep.data.homeRoom) {
 		// carrier filled
 		if (creep.sum > 0) {
 			let deposit = []; // deposit energy in...
 			// links?
-			if (creep.carry.energy === creep.sum) deposit = creep.room.structures.links.privateers;
+			if (creep.carry.energy == creep.sum) deposit = creep.room.structures.links.privateers;
 			// storage?
 			if (creep.room.storage) deposit.push(creep.room.storage);
 			// containers?
@@ -21,7 +21,7 @@ mod.nextAction = function(creep) {
 			// Choose the closest
 			if (deposit.length > 0) {
 				let target = creep.pos.findClosestByRange(deposit);
-				if (target.structureType === STRUCTURE_STORAGE && this.assignAction(creep, 'storing', target)) return;
+				if (target.structureType == STRUCTURE_STORAGE && this.assignAction(creep, 'storing', target)) return;
 				else if (this.assignAction(creep, 'charging', target)) return;
 				else if (this.assignAction(creep, 'storing')) return; // prefer storage
 			}
@@ -43,14 +43,14 @@ mod.nextAction = function(creep) {
 		if (this.gotoTargetRoom(creep)) {
 			return;
 		}
-	} else if (creep.data.destiny.room === creep.pos.roomName) {
+	} else if (creep.data.destiny.room == creep.pos.roomName) {
 		// at target room
 		// TODO: This should perhaps check which distance is greater and make this decision based on that plus its load size
 		if (creep.sum / creep.carryCapacity > REMOTE_HAULER.MIN_LOAD) {
 			this.goHome(creep);
 			return;
 		}
-		// picking last until we have strategies that can compare cost vs benefit otherwise remoteHaulers bounce between piles of dropped energy
+		// picking last until we have state that can compare cost vs benefit otherwise remoteHaulers bounce between piles of dropped energy
 		if (this.assignAction(creep, 'uncharging')) return;
 		// if (this.assignAction(creep, Creep.action.robbing)) return;
 		if (this.assignAction(creep, 'picking')) return;
@@ -87,7 +87,7 @@ mod.gotoTargetRoom = function(creep) {
 mod.goHome = function(creep) {
 	return Creep.action.travelling.assignRoom(creep, creep.data.homeRoom);
 };
-mod.strategies.picking = {
+mod.state.picking = {
 	name: `picking-${mod.name}`,
 	energyOnly: false,
 };

@@ -1,93 +1,100 @@
+import { TaskComponent } from '../../class/Task';
+
 // This task will react on exploit, reserve and remotemine flags, sending a reserving creep to the flags position.
-export class ReserveTask {
-	name = 'reserve';
-	spawnRoomMaxRange = 6;
-	VALID_RESERVATION = 1000;
-	URGENT_RESERVATION = 250;
-	creep = {
-		reserver: {
-			fixedBody: {
-				[CLAIM]: 2,
-				[MOVE]: 2,
+class ReserveTask extends TaskComponent {
+	constructor() {
+		super('reserve');
+		this.state = {
+			default: this.default,
+		};
+		this.spawnRoomMaxRange = 6;
+		this.creep = {
+			reserver: {
+				fixedBody: {
+					[CLAIM]: 2,
+					[MOVE]: 2,
+				},
+				multiBody: [CLAIM, MOVE],
+				maxMulti: 7,
+				name: 'reserver',
+				behaviour: 'claimer',
 			},
-			multiBody: [CLAIM, MOVE],
-			maxMulti: 7,
-			name: 'reserver',
-			behaviour: 'claimer',
-		},
-	};
-	strategies = {
-		defaultStrategy: {
-			name: `default-${this.name}`,
-			spawnParams: function(flag) {
-				// :{count:number, priority:string}
-				const params = { count: 0, queue: 'Low' }; // default to no spawn
-				const hasFlag = !!flag;
-				const hasController =
-					hasFlag && (Room.isControllerRoom(flag.pos.roomName) || (flag.room && flag.room.controller));
-				if (!hasFlag || !hasController) {
+		};
+	}
+
+	private VALID_RESERVATION = 1000;
+	private URGENT_RESERVATION = 250;
+
+	default = {
+		name: `default-${this.name}`,
+		spawnParams: flag => {
+			// :{count:number, priority:string}
+			const params = { count: 0, queue: 'Low' }; // default to no spawn
+			const hasFlag = !!flag;
+			const hasController =
+				hasFlag && (Room.isControllerRoom(flag.pos.roomName) || (flag.room && flag.room.controller));
+			if (!hasFlag || !hasController) {
+				if (DEBUG && TRACE)
+					Util.trace('Task', {
+						hasFlag,
+						hasController,
+						checkForRequiredCreeps: 'skipping room, missing flag or controller',
+						[this.name]: 'checkForRequiredCreeps',
+						Task: this.name,
+					});
+				return params;
+			}
+			if (flag.room) {
+				flag.memory.lastVisible = Game.time;
+				flag.memory.ticksToEnd = flag.room.controller.reservation && flag.room.controller.reservation.ticksToEnd;
+				const validReservation =
+					flag.room.controller.reservation &&
+					(flag.room.controller.reservation.ticksToEnd > 1000 || flag.room.controller.reservation.username !== ME);
+				const isOwned = !!flag.room.controller.owner;
+				if (isOwned || validReservation) {
 					if (DEBUG && TRACE)
-						trace('Task', {
-							hasFlag,
-							hasController,
-							checkForRequiredCreeps: 'skipping room, missing flag or controller',
+						Util.trace('Task', {
+							validReservation,
+							isOwned,
+							checkForRequiredCreeps: 'skipping room, reserved or owned',
 							[this.name]: 'checkForRequiredCreeps',
 							Task: this.name,
 						});
 					return params;
 				}
-				if (flag.room) {
-					flag.memory.lastVisible = Game.time;
-					flag.memory.ticksToEnd = flag.room.controller.reservation && flag.room.controller.reservation.ticksToEnd;
-					const validReservation =
-						flag.room.controller.reservation &&
-						(flag.room.controller.reservation.ticksToEnd > 1000 || flag.room.controller.reservation.username !== ME);
-					const isOwned = !!flag.room.controller.owner;
-					if (isOwned || validReservation) {
-						if (DEBUG && TRACE)
-							trace('Task', {
-								validReservation,
-								isOwned,
-								checkForRequiredCreeps: 'skipping room, reserved or owned',
-								[this.name]: 'checkForRequiredCreeps',
-								Task: this.name,
-							});
-						return params;
-					}
-					const urgent = !flag.room.controller.reservation || flag.room.controller.reservation.ticksToEnd < 250;
-					params.count = 1;
-					if (urgent) params.queue = 'Medium';
-					if (DEBUG && TRACE) {
-						const type = urgent ? 'urgent' : ' ';
-						trace('Task', {
-							validReservation,
-							isOwned,
-							urgent,
-							checkForRequiredCreeps: `sending${type}reserver`,
-							[this.name]: 'checkForRequiredCreeps',
-							Task: this.name,
-						});
-					}
-				} else if (
-					_.isUndefined(flag.memory.lastVisible) ||
-					Game.time - flag.memory.lastVisible > (flag.memory.ticksToEnd - 250 || 250)
-				) {
-					params.count = 1;
-					params.queue = 'Medium';
-					if (DEBUG && TRACE)
-						trace('Task', {
-							lastVisible: flag.memory.lastVisible,
-							tickToEnd: flag.memory.ticksToEnd,
-							checkForRequiredCreeps: 'sending urgent reserver, no visibility',
-							[this.name]: 'checkForRequiredCreeps',
-							Task: this.name,
-						});
+				const urgent = !flag.room.controller.reservation || flag.room.controller.reservation.ticksToEnd < 250;
+				params.count = 1;
+				if (urgent) params.queue = 'Medium';
+				if (DEBUG && TRACE) {
+					const type = urgent ? 'urgent' : ' ';
+					Util.trace('Task', {
+						validReservation,
+						isOwned,
+						urgent,
+						checkForRequiredCreeps: `sending${type}reserver`,
+						[this.name]: 'checkForRequiredCreeps',
+						Task: this.name,
+					});
 				}
-				return params;
-			},
+			} else if (
+				_.isUndefined(flag.memory.lastVisible) ||
+				Game.time - flag.memory.lastVisible > (flag.memory.ticksToEnd - 250 || 250)
+			) {
+				params.count = 1;
+				params.queue = 'Medium';
+				if (DEBUG && TRACE)
+					Util.trace('Task', {
+						lastVisible: flag.memory.lastVisible,
+						tickToEnd: flag.memory.ticksToEnd,
+						checkForRequiredCreeps: 'sending urgent reserver, no visibility',
+						[this.name]: 'checkForRequiredCreeps',
+						Task: this.name,
+					});
+			}
+			return params;
 		},
 	};
-	register = () => {};
+	// for each flag
 	handleFlagFound = flag => {
 		// if it is a reserve, exploit or remote mine flag
 		if (
@@ -120,15 +127,49 @@ export class ReserveTask {
 			}
 		}
 	};
+	// for each flag
+	handleFlagFound = flag => {
+		// if it is a reserve, exploit or remote mine flag
+		if (
+			(flag.compareTo(FLAG_COLOR.claim.reserve) ||
+				flag.compareTo(FLAG_COLOR.invade.exploit) ||
+				flag.compareTo(FLAG_COLOR.claim.mining)) &&
+			(Room.isControllerRoom(flag.pos.roomName) || (flag.room && flag.room.controller))
+		) {
+			const memory = this.memory(flag);
+			if (flag.room) {
+				flag.memory.lastVisible = Game.time;
+				flag.memory.ticksToEnd = flag.room.controller.reservation && flag.room.controller.reservation.ticksToEnd;
+				const currCheck = _.get(flag.memory, ['nextCheck', this.name], Infinity);
+				const nextCheck = Game.time + flag.memory.ticksToEnd - this.VALID_RESERVATION;
+				if (nextCheck < currCheck && !memory.waitForCreeps) {
+					const count = memory.queued.length + memory.spawning.length + memory.running.length;
+					if (count === 0) {
+						// and not currently spawning
+						_.set(flag.memory, ['nextCheck', this.name], nextCheck);
+					} else {
+						memory.waitForCreeps = true;
+					}
+				}
+			}
+			if (Task.nextCreepCheck(flag, this.name)) {
+				delete memory.waitForCreeps;
+				Util.set(flag.memory, 'task', this.name);
+				// check if a new creep has to be spawned
+				this.checkForRequiredCreeps(flag);
+			}
+		}
+	};
+	// check if a new creep has to be spawned
 	checkForRequiredCreeps = flag => {
 		let spawnParams;
 		if (flag.compareTo(FLAG_COLOR.claim.mining)) {
-			spawnParams = Task.mining.strategies.reserve.spawnParams(flag);
+			spawnParams = Task.mining.state.reserve.spawnParams(flag);
 		} else if (flag.compareTo(FLAG_COLOR.invade.exploit)) {
-			spawnParams = this.strategies.defaultStrategy.spawnParams(flag);
+			spawnParams = this.state.default.spawnParams(flag);
 			spawnParams.queue = 'Low'; // privateer reserve is always low queue
 		} else {
-			spawnParams = this.strategies.defaultStrategy.spawnParams(flag);
+			spawnParams = this.state.default.spawnParams(flag);
 		}
 
 		// get task memory
@@ -141,10 +182,10 @@ export class ReserveTask {
 		});
 
 		// if low & creep in low queue => move to medium queue
-		if (spawnParams.queue !== 'Low' && memory.queued.length === 1) {
+		if (spawnParams.queue !== 'Low' && memory.queued.length == 1) {
 			let spawnRoom = Game.rooms[memory.queued[0].room];
 			let elevate = (entry, index) => {
-				if (entry.targetName === memory.queued[0].targetName) {
+				if (entry.targetName == memory.queued[0].targetName) {
 					let spawnData = spawnRoom.spawnQueueLow.splice(index, 1);
 					spawnRoom.spawnQueueMedium.push(spawnData);
 					return true;
@@ -185,10 +226,11 @@ export class ReserveTask {
 			);
 		}
 	};
+	// when a creep starts spawning
+	// params: {spawn: spawn.name, name: creep.name, destiny: creep.destiny}
 	handleSpawningStarted = params => {
-		// params: {spawn: spawn.name, name: creep.name, destiny: creep.destiny}
 		// ensure it is a creep which has been queued by this task (else return)
-		if (!params.destiny || !params.destiny.task || params.destiny.task !== this.name) return;
+		if (!params.destiny || !params.destiny.task || params.destiny.task != this.name) return;
 		// get flag which caused queueing of that creep
 		let flag = Game.flags[params.destiny.targetName];
 		if (flag) {
@@ -200,9 +242,10 @@ export class ReserveTask {
 			memory.spawning.push(params);
 		}
 	};
+	// when a creep completed spawning
 	handleSpawningCompleted = creep => {
 		// ensure it is a creep which has been requested by this task (else return)
-		if (!creep.data || !creep.data.destiny || !creep.data.destiny.task || creep.data.destiny.task !== this.name) return;
+		if (!creep.data || !creep.data.destiny || !creep.data.destiny.task || creep.data.destiny.task != this.name) return;
 		// get flag which caused request of that creep
 		let flag = Game.flags[creep.data.destiny.targetName];
 		if (flag) {
@@ -218,11 +261,12 @@ export class ReserveTask {
 			memory.running.push(creep.name);
 		}
 	};
+	// when a creep died (or will die soon)
 	handleCreepDied = name => {
 		// get creep memory
 		let mem = Memory.population[name];
 		// ensure it is a creep which has been requested by this task (else return)
-		if (!mem || !mem.destiny || !mem.destiny.task || mem.destiny.task !== this.name) return;
+		if (!mem || !mem.destiny || !mem.destiny.task || mem.destiny.task != this.name) return;
 		// get flag which caused request of that creep
 		let flag = Game.flags[mem.destiny.targetName];
 		if (flag) {
@@ -240,20 +284,21 @@ export class ReserveTask {
 		// Reserve if possible, if not (should be never) then recycle
 		let priority = [Creep.action.reserving, Creep.action.recycling];
 		//  console.log("bingo")
-		for (var iAction = 0; iAction < priority.length; iAction++) {
+		for (let iAction = 0; iAction < priority.length; iAction++) {
 			var action = priority[iAction];
 			if (action.isValidAction(creep) && action.isAddableAction(creep) && action.assign(creep)) {
 				break;
 			}
 		}
 		if (DEBUG && TRACE)
-			trace('Task', {
+			Util.trace('Task', {
 				creepName: creep.name,
 				nextAction: creep.action.name,
 				[this.name]: 'nextAction',
 				Task: this.name,
 			});
 	};
+	// get task memory
 	memory = flag => {
 		const memory = Util.get(flag.memory, ['tasks', 'reserve'], {
 			queued: [],
@@ -265,3 +310,5 @@ export class ReserveTask {
 		return memory;
 	};
 }
+
+export default new ReserveTask();

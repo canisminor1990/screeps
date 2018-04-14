@@ -7,7 +7,7 @@ action.isValidAction = function(creep) {
 	return creep.carryCapacity === 0 || creep.sum < creep.carryCapacity;
 };
 action.isValidTarget = function(target) {
-	return target !== null;
+	return target != null;
 };
 action.newTarget = function(creep) {
 	let target;
@@ -25,15 +25,15 @@ action.newTarget = function(creep) {
 				flag.remove();
 
 				let otherFlagMod = (range, flagItem, args) => {
-					if (flagItem.name === args) return Infinity;
+					if (flagItem.name == args) return Infinity;
 					return range;
 				};
 				flag = Flag.find(FLAG_COLOR.destroy.dismantle, creep.pos, true, otherFlagMod, oldName);
-				if (oldName === flag.name) Util.logError('Removed flag found again in dismantling.newTarget!');
+				if (oldName == flag.name) Util.logError('Removed flag found again in dismantling.newTarget!');
 				if (flag) {
 					if (flag.room !== undefined) {
 						// room is visible
-						targets = flag.room.lookForAt(LOOK_STRUCTURES, flag.pos.x, flag.pos.y);
+						let targets = flag.room.lookForAt(LOOK_STRUCTURES, flag.pos.x, flag.pos.y);
 						if (targets && targets.length > 0) return targets[0];
 						else {
 							// remove flag. try next flag

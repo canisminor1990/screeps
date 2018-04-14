@@ -73,16 +73,7 @@ Object.defineProperties(StructureRampart.prototype, {
 	},
 });
 
-// StructureContainer
-// ///////////////////
-
-Object.defineProperties(StructureContainer.prototype, {
-	active: {
-		value: true,
-	},
-});
-
-// StructureContainer
+// StructureRoad
 // ///////////////////
 
 Object.defineProperties(StructureRoad.prototype, {
@@ -223,9 +214,12 @@ Object.defineProperties(StructureTerminal.prototype, {
 // ///////////////////
 
 Object.defineProperties(StructureContainer.prototype, {
+	active: {
+		value: true,
+	},
 	sum: {
 		get(): number {
-			if (_.isUndefined(this._sum) || this._sumSet !== Game.time) {
+			if (_.isUndefined(this._sum) || this._sumSet != Game.time) {
 				this._sumSet = Game.time;
 				this._sum = _.sum(this.store);
 			}
@@ -235,11 +229,12 @@ Object.defineProperties(StructureContainer.prototype, {
 	getNeeds: {
 		value(resourceType: string): number {
 			if (!this.room.memory.resources) return 0;
+
 			// look up resource and calculate needs
-			let containerData = this.room.memory.resources.container.find((s: obj) => s.id === this.id);
+			let containerData = this.room.memory.resources.container.find(s => s.id == this.id);
 			if (containerData) {
-				let order = containerData.orders.find((o: obj) => {
-					return o.type === resourceType;
+				let order = containerData.orders.find(o => {
+					return o.type == resourceType;
 				});
 				if (order) {
 					let loadTarget = Math.max(order.orderRemaining + (this.store[resourceType] || 0), order.storeAmount);

@@ -82,11 +82,11 @@ function work(creep) {
 action.work = work;
 
 function onAssignment(creep) {
-	if (SAY_ASSIGNMENT) creep.say(ACTION_SAY.BOOSTING, SAY_PUBLIC);
+	if (SAY_ASSIGNMENT) creep.say(ACTION_SAY.BOOSTING, global.SAY_PUBLIC);
 }
 action.onAssignment = onAssignment;
 
-action.defaultStrategy.isValidMineralType = function(mineralType) {
+action.default.isValidMineralType = function(mineralType) {
 	for (const category in BOOSTS) {
 		for (const compound in BOOSTS[category]) {
 			if (mineralType === compound) {

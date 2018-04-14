@@ -16,7 +16,7 @@ mod.heal = function(creep) {
 mod.actions = creep => {
 	return [Creep.action.defending, Creep.action.invading, Creep.action.guarding];
 };
-mod.strategies.healing = {
+mod.state.healing = {
 	moveOptions: function(options) {
 		options.respectRamparts = true;
 		return options;

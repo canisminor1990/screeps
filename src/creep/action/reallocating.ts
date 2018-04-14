@@ -4,15 +4,15 @@ action.maxPerTarget = 1;
 action.maxPerAction = 1;
 action.getLabOrder = function(lab) {
 	if (!lab) return null;
-	var order = null;
+	let order = null;
 	let room = lab.room;
 	if (!room.memory || !room.memory.resources) return null;
 
-	let data = room.memory.resources.lab.find(s => s.id === lab.id);
+	let data = room.memory.resources.lab.find(s => s.id == lab.id);
 	if (data) {
 		let orders = data.orders;
-		for (var i = 0; i < orders.length; i++) {
-			if (orders[i].type !== RESOURCE_ENERGY && (orders[i].orderRemaining > 0 || orders[i].storeAmount > 0)) {
+		for (let i = 0; i < orders.length; i++) {
+			if (orders[i].type != RESOURCE_ENERGY && (orders[i].orderRemaining > 0 || orders[i].storeAmount > 0)) {
 				order = orders[i];
 				break;
 			}
@@ -33,8 +33,8 @@ action.findNeeding = function(room, resourceType, amountMin, structureId) {
 			if (lab) amount = lab.getNeeds(resourceType);
 			if (
 				amount >= amountMin &&
-				(lab.mineralAmount === 0 || lab.mineralType === resourceType || resourceType === RESOURCE_ENERGY) &&
-				lab.id !== structureId
+				(lab.mineralAmount === 0 || lab.mineralType == resourceType || resourceType == RESOURCE_ENERGY) &&
+				lab.id != structureId
 			) {
 				return { structure: lab, amount: amount };
 			}
@@ -48,8 +48,8 @@ action.findNeeding = function(room, resourceType, amountMin, structureId) {
 			if (powerSpawn) amount = powerSpawn.getNeeds(resourceType);
 			if (
 				amount >= amountMin &&
-				(resourceType === RESOURCE_POWER || resourceType === RESOURCE_ENERGY) &&
-				powerSpawn.id !== structureId
+				(resourceType == RESOURCE_POWER || resourceType == RESOURCE_ENERGY) &&
+				powerSpawn.id != structureId
 			) {
 				return { structure: powerSpawn, amount: amount };
 			}
@@ -61,7 +61,7 @@ action.findNeeding = function(room, resourceType, amountMin, structureId) {
 			const container = Game.getObjectById(containers[i].id);
 			let amount = 0;
 			if (container) amount = container.getNeeds(resourceType);
-			if (amount >= amountMin && container.id !== structureId) {
+			if (amount >= amountMin && container.id != structureId) {
 				return { structure: container, amount: amount };
 			}
 		}
@@ -69,14 +69,14 @@ action.findNeeding = function(room, resourceType, amountMin, structureId) {
 	const terminal = room.terminal;
 	if (terminal && terminal.active) {
 		let amount = terminal.getNeeds(resourceType);
-		if (amount >= amountMin && terminal.id !== structureId) {
+		if (amount >= amountMin && terminal.id != structureId) {
 			return { structure: terminal, amount: amount };
 		}
 	}
 	let storage = room.storage;
 	if (storage && storage.active) {
 		let amount = storage.getNeeds(resourceType);
-		if (amount >= amountMin && storage.id !== structureId) {
+		if (amount >= amountMin && storage.id != structureId) {
 			return { structure: storage, amount: amount };
 		}
 	}
@@ -85,7 +85,7 @@ action.findNeeding = function(room, resourceType, amountMin, structureId) {
 	if (
 		storage &&
 		storage.active &&
-		(resourceType === RESOURCE_ENERGY || resourceType === RESOURCE_POWER) &&
+		(resourceType == RESOURCE_ENERGY || resourceType == RESOURCE_POWER) &&
 		storage.storeCapacity - storage.sum > amountMin
 	) {
 		return { structure: storage, amount: 0 };
@@ -93,8 +93,8 @@ action.findNeeding = function(room, resourceType, amountMin, structureId) {
 	if (
 		terminal &&
 		terminal.active &&
-		resourceType !== RESOURCE_ENERGY &&
-		resourceType !== RESOURCE_POWER &&
+		resourceType != RESOURCE_ENERGY &&
+		resourceType != RESOURCE_POWER &&
 		terminal.storeCapacity - terminal.sum > amountMin
 	) {
 		return { structure: terminal, amount: 0 };
@@ -108,7 +108,7 @@ action.newTargetLab = function(creep) {
 	let data = room.memory;
 	// check labs for needs and make sure to empty the lab before filling
 	if (data && data.labs && data.labs.length > 0) {
-		for (var i = 0; i < data.labs.length; i++) {
+		for (let i = 0; i < data.labs.length; i++) {
 			let d = data.labs[i];
 			let lab = Game.getObjectById(d.id);
 			if (!lab) continue;
@@ -194,8 +194,8 @@ action.newTargetLab = function(creep) {
 					}
 					if (
 						ROOM_TRADING &&
-						!(MAKE_COMPOUNDS || ALLOCATE_COMPOUNDS) &&
-						!(lab.mineralType === RESOURCE_ENERGY || lab.mineralType === room.mineralType)
+						!(global.MAKE_COMPOUNDS || global.ALLOCATE_COMPOUNDS) &&
+						!(lab.mineralType == RESOURCE_ENERGY || lab.mineralType == room.mineralType)
 					) {
 						const orderCreated = _.some(room.memory.resources.orders, { type: lab.mineralType });
 						if (!orderCreated) room.placeRoomOrder(lab.id, lab.mineralType, amount);
@@ -208,7 +208,7 @@ action.newTargetLab = function(creep) {
 				if (order) {
 					// found an order
 					resourceType = order.type;
-					amount = order.orderRemaining + order.storeAmount;
+					let amount = order.orderRemaining + order.storeAmount;
 					if (DEBUG && TRACE)
 						Util.trace('Action', {
 							actionName: 'reallocating',
@@ -260,8 +260,8 @@ action.newTargetLab = function(creep) {
 					}
 					if (
 						ROOM_TRADING &&
-						!(MAKE_COMPOUNDS || ALLOCATE_COMPOUNDS) &&
-						!(resourceType === RESOURCE_ENERGY || resourceType === room.mineralType)
+						!(global.MAKE_COMPOUNDS || global.ALLOCATE_COMPOUNDS) &&
+						!(resourceType == RESOURCE_ENERGY || resourceType == room.mineralType)
 					) {
 						const orderCreated = _.some(room.memory.resources.orders, { type: lab.mineralType });
 						if (!orderCreated) room.placeRoomOrder(lab.id, resourceType, order.orderRemaining);
@@ -280,7 +280,7 @@ action.newTargetLab = function(creep) {
 						resourceType: RESOURCE_ENERGY,
 						needs: amount,
 					});
-				needing = this.findNeeding(room, RESOURCE_ENERGY);
+				let needing = this.findNeeding(room, RESOURCE_ENERGY);
 				if (needing) {
 					if (DEBUG && TRACE)
 						Util.trace('Action', {
@@ -355,10 +355,10 @@ action.newTargetPowerSpawn = function(creep) {
 	const powerSpawns = room.structures.powerSpawns.all;
 	// check powerSpawns for needs and make sure to empty the powerSpawn before filling
 	if (powerSpawns.length > 0) {
-		for (var i = 0; i < powerSpawns.length; i++) {
+		for (let i = 0; i < powerSpawns.length; i++) {
 			const powerSpawn = Game.getObjectById(powerSpawns[i].id);
 			if (!powerSpawn) continue;
-			var amount = 0;
+			let amount = 0;
 			amount = powerSpawn.getNeeds(RESOURCE_ENERGY);
 			if (amount > 0) {
 				// powerSpawn needs energy so find a lower priority container with some
@@ -474,12 +474,12 @@ action.newTargetContainer = function(creep) {
 	const containers = room.structures.container.all;
 	// check containers for needs
 	if (containers.length > 0) {
-		for (var i = 0; i < containers.length; i++) {
+		for (let i = 0; i < containers.length; i++) {
 			const container = Game.getObjectById(containers[i].id);
 			if (container) {
 				// check contents for excess
-				for (var resource in container.store) {
-					var needs = container.getNeeds(resource);
+				for (let resource in container.store) {
+					let needs = container.getNeeds(resource);
 					if (resource && needs < 0) {
 						// container has extra resource
 						if (DEBUG && TRACE)
@@ -491,7 +491,7 @@ action.newTargetContainer = function(creep) {
 								resourceType: resource,
 								needs: needs,
 							});
-						var needing = this.findNeeding(room, resource);
+						let needing = this.findNeeding(room, resource);
 						if (needing) {
 							if (DEBUG && TRACE)
 								Util.trace('Action', {
@@ -509,10 +509,10 @@ action.newTargetContainer = function(creep) {
 				}
 				// check orders for needs
 				if (room.memory.resources) {
-					let containerData = room.memory.resources.container.find(s => s.id === container.id);
+					let containerData = room.memory.resources.container.find(s => s.id == container.id);
 					if (containerData) {
 						let orders = containerData.orders;
-						for (var j = 0; j < orders.length; j++) {
+						for (let j = 0; j < orders.length; j++) {
 							let type = orders[j].type;
 							let amount = container.getNeeds(type);
 							if (amount > 0) {
@@ -530,7 +530,7 @@ action.newTargetContainer = function(creep) {
 									room.storage &&
 									room.storage.active &&
 									room.storage.store[type] &&
-									!(type === RESOURCE_ENERGY && room.storage.charge < 0.5)
+									!(type == RESOURCE_ENERGY && room.storage.charge < 0.5)
 								) {
 									if (DEBUG && TRACE)
 										Util.trace('Action', {
@@ -572,9 +572,9 @@ action.newTargetTerminal = function(creep) {
 	let terminal = creep.room.terminal;
 	if (terminal && terminal.active) {
 		// check for excess
-		for (var resource in terminal.store) {
+		for (let resource in terminal.store) {
 			// terminal only has too much energy or power
-			//                    if (resource && (resource === RESOURCE_ENERGY || resource === RESOURCE_POWER)) {
+			//                    if (resource && (resource == RESOURCE_ENERGY || resource == RESOURCE_POWER)) {
 			let amount = -terminal.getNeeds(resource);
 			if (amount > 0) {
 				// excess resource found
@@ -588,7 +588,7 @@ action.newTargetTerminal = function(creep) {
 						needs: -amount,
 					});
 				let dest = this.findNeeding(room, resource, 1, terminal.id);
-				if (dest && dest.structure.id !== terminal.id) {
+				if (dest && dest.structure.id != terminal.id) {
 					if (DEBUG && TRACE)
 						Util.trace('Action', {
 							actionName: 'reallocating',
@@ -610,7 +610,7 @@ action.newTargetTerminal = function(creep) {
 			orders.push(RESOURCE_ENERGY);
 			let type = null;
 			let amount = 0;
-			for (var i = 0; i < orders.length; i++) {
+			for (let i = 0; i < orders.length; i++) {
 				type = orders[i].type;
 				amount = terminal.getNeeds(type);
 				if (amount > 0) {
@@ -628,7 +628,7 @@ action.newTargetTerminal = function(creep) {
 						room.storage &&
 						room.storage.active &&
 						room.storage.store[type] &&
-						!(type === RESOURCE_ENERGY && room.storage.charge < 0.5)
+						!(type == RESOURCE_ENERGY && room.storage.charge < 0.5)
 					) {
 						if (DEBUG && TRACE)
 							Util.trace('Action', {
@@ -654,7 +654,7 @@ action.newTargetStorage = function(creep) {
 	let storage = creep.room.storage;
 	if (storage && storage.active) {
 		// check for excess to overflow back to terminal
-		for (var resource in storage.store) {
+		for (let resource in storage.store) {
 			let amount = -storage.getNeeds(resource);
 			if (resource && amount > 0) {
 				if (DEBUG && TRACE)
@@ -694,7 +694,7 @@ action.isValidTarget = function(target) {
 };
 action.isAddableAction = function(creep) {
 	let pop = creep.room.population;
-	return creep.sum === 0 && (!pop || !pop.actionCount[this.name] || pop.actionCount[this.name] < this.maxPerAction);
+	return creep.sum == 0 && (!pop || !pop.actionCount[this.name] || pop.actionCount[this.name] < this.maxPerAction);
 };
 action.isAddableTarget = function(target) {
 	return true;
@@ -709,7 +709,7 @@ action.newTarget = function(creep) {
 			subAction: 'newTarget',
 		});
 	let target = null;
-	if (creep.sum === 0) {
+	if (creep.sum == 0) {
 		let data = room.memory;
 		if (data) {
 			target = this.newTargetLab(creep);
@@ -744,7 +744,7 @@ action.cancelAction = function(creep) {
 	delete creep.data.path;
 };
 action.unloadStructure = function(creep, target, resource, amount) {
-	var amt = Math.min(amount, creep.carryCapacity - creep.sum);
+	let amt = Math.min(amount, creep.carryCapacity - creep.sum);
 	let workResult = creep.withdraw(target, resource, amt);
 	if (DEBUG && TRACE)
 		Util.trace('Action', {
@@ -760,16 +760,16 @@ action.unloadStructure = function(creep, target, resource, amount) {
 	return workResult;
 };
 action.loadStructure = function(creep, target, resource, amount) {
-	var workResult = null;
+	let workResult = null;
 	let room = creep.room;
-	var amt = Math.min(amount, creep.carry[resource] || 0);
+	let amt = Math.min(amount, creep.carry[resource] || 0);
 	if (amt > 0) workResult = creep.transfer(target, resource, amt);
-	if (workResult === OK) {
+	if (workResult == OK) {
 		// update order
 		let data = null;
-		if (room.memory.resources) data = room.memory.resources[target.structureType].find(s => s.id === target.id);
+		if (room.memory.resources) data = room.memory.resources[target.structureType].find(s => s.id == target.id);
 		if (data && data.orders) {
-			let order = data.orders.find(o => o.type === resource);
+			let order = data.orders.find(o => o.type == resource);
 			if (order && order.orderRemaining > 0) {
 				order.orderRemaining -= amt;
 			}
@@ -808,9 +808,9 @@ action.assignDropOff = function(creep, resource) {
 action.unloadLab = function(creep) {
 	// load up from the lab
 	let target = creep.target;
-	var workResult = null;
-	var resource = null;
-	var amount = 0;
+	let workResult = null;
+	let resource = null;
+	let amount = 0;
 	amount = -target.getNeeds(RESOURCE_ENERGY);
 	if (amount > 0) resource = RESOURCE_ENERGY;
 	if (!resource) {
@@ -830,16 +830,16 @@ action.unloadLab = function(creep) {
 			needs: amount,
 			workResult,
 		});
-	if (workResult === OK) {
+	if (workResult == OK) {
 		this.assignDropOff(creep, resource);
 	} else this.cancelAction(creep);
 	return workResult;
 };
 action.unloadPowerSpawn = function(creep) {
 	let target = creep.target;
-	var workResult = null;
-	var resource = null;
-	var amount = 0;
+	let workResult = null;
+	let resource = null;
+	let amount = 0;
 	amount = -target.getNeeds(RESOURCE_ENERGY);
 	if (amount > 0) resource = RESOURCE_ENERGY;
 	if (!resource) {
@@ -859,16 +859,16 @@ action.unloadPowerSpawn = function(creep) {
 			needs: amount,
 			workResult,
 		});
-	if (workResult === OK) {
+	if (workResult == OK) {
 		this.assignDropOff(creep, resource);
 	} else this.cancelAction(creep);
 	return workResult;
 };
 action.unloadContainer = function(creep) {
 	let target = creep.target;
-	var workResult = null;
-	var resource = null;
-	var amount = 0;
+	let workResult = null;
+	let resource = null;
+	let amount = 0;
 	// identify resource and load up from store
 	let store = Object.keys(target.store);
 	if (creep.data.reallocating) {
@@ -877,9 +877,9 @@ action.unloadContainer = function(creep) {
 	}
 	for (let i = 0; i < store.length; i++) {
 		let res = store[i];
-		if (res && target.store[res] > 0 && (target.structureType === STRUCTURE_LAB || target.getNeeds(res) < 0)) {
+		if (res && target.store[res] > 0 && (target.structureType == STRUCTURE_LAB || target.getNeeds(res) < 0)) {
 			let dat = this.findNeeding(room, res, 1, target.id);
-			// if (dat && dat.structure.id === target.id) dat = null;
+			// if (dat && dat.structure.id == target.id) dat = null;
 			if (dat) {
 				amount = dat.amount;
 			}
@@ -891,8 +891,8 @@ action.unloadContainer = function(creep) {
 				storage &&
 				storage.active &&
 				dat &&
-				dat.structure.structureType === STRUCTURE_STORAGE &&
-				res === RESOURCE_ENERGY
+				dat.structure.structureType == STRUCTURE_STORAGE &&
+				res == RESOURCE_ENERGY
 			) {
 				amount = storage.storeCapacity - storage.sum;
 				resource = res;
@@ -913,7 +913,7 @@ action.unloadContainer = function(creep) {
 			needs: amount,
 			workResult,
 		});
-	if (workResult === OK) {
+	if (workResult == OK) {
 		this.assignDropOff(creep, resource);
 	} else this.cancelAction(creep);
 	return workResult;
@@ -922,9 +922,9 @@ action.unloadTerminal = function(creep) {
 	let target = creep.target;
 	let room = creep.room;
 	let storage = room.storage;
-	var workResult = null;
-	var resource = null;
-	var amount = 0;
+	let workResult = null;
+	let resource = null;
+	let amount = 0;
 	// identify resource and load up from store
 	let store = Object.keys(target.store);
 	if (creep.data.reallocating) {
@@ -933,9 +933,9 @@ action.unloadTerminal = function(creep) {
 	}
 	for (let i = 0; i < store.length; i++) {
 		let res = store[i];
-		if (res && target.store[res] > 0 && (target.structureType === STRUCTURE_LAB || target.getNeeds(res) < 0)) {
+		if (res && target.store[res] > 0 && (target.structureType == STRUCTURE_LAB || target.getNeeds(res) < 0)) {
 			let dat = this.findNeeding(room, res, 1, target.id);
-			// if (dat && dat.structure.id === target.id) dat = null;
+			// if (dat && dat.structure.id == target.id) dat = null;
 			if (dat) {
 				amount = dat.amount;
 			}
@@ -947,8 +947,8 @@ action.unloadTerminal = function(creep) {
 				storage &&
 				storage.active &&
 				dat &&
-				dat.structure.structureType === STRUCTURE_STORAGE &&
-				res === RESOURCE_ENERGY
+				dat.structure.structureType == STRUCTURE_STORAGE &&
+				res == RESOURCE_ENERGY
 			) {
 				amount = storage.storeCapacity - storage.sum;
 				resource = res;
@@ -970,7 +970,7 @@ action.unloadTerminal = function(creep) {
 			needs: amount,
 			workResult,
 		});
-	if (workResult === OK) {
+	if (workResult == OK) {
 		this.assignDropOff(creep, resource);
 	} else this.cancelAction(creep);
 	return workResult;
@@ -979,9 +979,9 @@ action.unloadStorage = function(creep) {
 	let target = creep.target;
 	let room = creep.room;
 	let terminal = room.terminal;
-	var workResult = null;
-	var resource = null;
-	var amount = 0;
+	let workResult = null;
+	let resource = null;
+	let amount = 0;
 	// check for other container's needs and local excess
 	let store = Object.keys(target.store);
 	if (creep.data.reallocating) {
@@ -991,7 +991,7 @@ action.unloadStorage = function(creep) {
 	for (let i = 0; i < store.length; i++) {
 		let res = store[i];
 		if (res && target.store[res] > 0) {
-			if (res === RESOURCE_ENERGY && target.charge < 0.5) continue;
+			if (res == RESOURCE_ENERGY && target.charge < 0.5) continue;
 			let dat = this.findNeeding(room, res, 1, target.id);
 			if (DEBUG && TRACE)
 				Util.trace('Action', {
@@ -1003,7 +1003,7 @@ action.unloadStorage = function(creep) {
 					resourceType: res,
 					amount: dat && dat.amount,
 				});
-			if (dat && dat.structure.id === target.id) dat = null;
+			if (dat && dat.structure.id == target.id) dat = null;
 			if (dat) {
 				amount = dat.amount;
 			}
@@ -1015,9 +1015,9 @@ action.unloadStorage = function(creep) {
 				terminal &&
 				terminal.active &&
 				dat &&
-				dat.structure.structureType === STRUCTURE_TERMINAL &&
-				res !== RESOURCE_ENERGY &&
-				res !== RESOURCE_POWER
+				dat.structure.structureType == STRUCTURE_TERMINAL &&
+				res != RESOURCE_ENERGY &&
+				res != RESOURCE_POWER
 			) {
 				amount = terminal.storeCapacity - terminal.sum;
 				resource = res;
@@ -1039,7 +1039,7 @@ action.unloadStorage = function(creep) {
 			needs: amount,
 			workResult,
 		});
-	if (workResult === OK) {
+	if (workResult == OK) {
 		this.assignDropOff(creep, resource);
 	} else this.cancelAction(creep);
 	return workResult;
@@ -1047,9 +1047,9 @@ action.unloadStorage = function(creep) {
 action.loadLab = function(creep) {
 	let target = creep.target;
 	let room = creep.room;
-	var workResult = null;
-	var resource = null;
-	var amount = 0;
+	let workResult = null;
+	let resource = null;
+	let amount = 0;
 	// drop off at lab
 	amount = target.getNeeds(RESOURCE_ENERGY);
 	if (amount > 0 && (creep.carry.energy || 0) > 0) {
@@ -1084,9 +1084,9 @@ action.loadLab = function(creep) {
 action.loadPowerSpawn = function(creep) {
 	let target = creep.target;
 	let room = creep.room;
-	var workResult = null;
-	var resource = null;
-	var amount = 0;
+	let workResult = null;
+	let resource = null;
+	let amount = 0;
 	// drop off at powerSpawn
 	if (room.memory.resources && room.memory.resources.powerSpawn === undefined) room.memory.resources.powerSpawn = [];
 	amount = target.getNeeds(RESOURCE_ENERGY);
@@ -1120,12 +1120,12 @@ action.loadPowerSpawn = function(creep) {
 action.loadContainer = function(creep) {
 	let target = creep.target;
 	let room = creep.room;
-	var workResult = null;
-	var resource = null;
-	var amount = 0;
+	let workResult = null;
+	let resource = null;
+	let amount = 0;
 	// drop off at store
-	for (var res in creep.carry) {
-		if (res && creep.carry[res] === 0) continue;
+	for (let res in creep.carry) {
+		if (res && creep.carry[res] == 0) continue;
 		amount = target.getNeeds(res);
 		if (amount > 0) {
 			resource = res;
@@ -1154,17 +1154,17 @@ action.loadContainer = function(creep) {
 action.loadTerminal = function(creep) {
 	let target = creep.target;
 	let room = creep.room;
-	var workResult = null;
-	var resource = null;
-	var amount = 0;
+	let workResult = null;
+	let resource = null;
+	let amount = 0;
 	// drop off at store
-	for (var res in creep.carry) {
-		if (res && creep.carry[res] === 0) continue;
+	for (let res in creep.carry) {
+		if (res && creep.carry[res] == 0) continue;
 		amount = target.getNeeds(res);
 		if (amount > 0) {
 			resource = res;
 			break;
-		} else if (res !== RESOURCE_ENERGY && res !== RESOURCE_POWER) {
+		} else if (res != RESOURCE_ENERGY && res != RESOURCE_POWER) {
 			resource = res;
 			amount = target.storeCapacity - target.sum;
 			break;
@@ -1191,12 +1191,12 @@ action.loadTerminal = function(creep) {
 action.loadStorage = function(creep) {
 	let target = creep.target;
 	let room = creep.room;
-	var workResult = null;
-	var resource = null;
-	var amount = 0;
+	let workResult = null;
+	let resource = null;
+	let amount = 0;
 	// drop off at store
-	for (var res in creep.carry) {
-		if (res && creep.carry[res] === 0) continue;
+	for (let res in creep.carry) {
+		if (res && creep.carry[res] == 0) continue;
 		amount = target.getNeeds(res);
 		if (amount > 0) {
 			resource = res;
@@ -1222,13 +1222,13 @@ action.loadStorage = function(creep) {
 	return workResult;
 };
 action.work = function(creep) {
-	var workResult = null;
+	let workResult = null;
 	let room = creep.room;
 	let target = creep.target;
 	let storage = room.storage;
 	let terminal = room.terminal;
 
-	if (creep.sum === 0) {
+	if (creep.sum == 0) {
 		switch (target.structureType) {
 			case STRUCTURE_LAB:
 				workResult = this.unloadLab(creep);

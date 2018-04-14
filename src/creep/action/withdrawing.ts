@@ -62,7 +62,7 @@ action.assignDebounce = function(creep, outflowActions, target) {
 	}
 	return false;
 };
-action.defaultStrategy.isValidAction = function(creep) {
+action.default.isValidAction = function(creep) {
 	return !!(
 		((creep.room.storage && creep.room.storage.store[RESOURCE_ENERGY]) ||
 			(creep.room.terminal && creep.room.terminal.store[RESOURCE_ENERGY])) &&

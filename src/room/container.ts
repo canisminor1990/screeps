@@ -35,7 +35,7 @@ mod.extend = function() {
 							this._controller = [Game.getObjectById(this.room.controller.memory.storage)];
 							if (!this._controller[0]) delete this.room.controller.memory.storage;
 						} else {
-							let byType = c => c.controller === true;
+							let byType = c => c.controller == true;
 							this._controller = _.filter(this.all, byType);
 						}
 					}
@@ -46,7 +46,7 @@ mod.extend = function() {
 				configurable: true,
 				get: function() {
 					if (_.isUndefined(this._in)) {
-						let byType = c => c.controller === false;
+						let byType = c => c.controller == false;
 						this._in = _.filter(this.all, byType);
 						// add managed
 						let isFull = c => c.sum >= c.storeCapacity * (1 - MANAGED_CONTAINER_TRIGGER);
@@ -59,7 +59,7 @@ mod.extend = function() {
 				configurable: true,
 				get: function() {
 					if (_.isUndefined(this._out)) {
-						let byType = c => c.controller === true;
+						let byType = c => c.controller == true;
 						this._out = _.filter(this.all, byType);
 						// add managed
 						let isEmpty = c => c.sum <= c.storeCapacity * MANAGED_CONTAINER_TRIGGER;
@@ -82,7 +82,7 @@ mod.extend = function() {
 				configurable: true,
 				get: function() {
 					if (_.isUndefined(this._managed)) {
-						let byType = c => c.source === true && c.controller === true;
+						let byType = c => c.source === true && c.controller == true;
 						this._managed = _.filter(this.all, byType);
 					}
 					return this._managed;
@@ -94,7 +94,7 @@ mod.extend = function() {
 
 	// Room prototype extensions go here
 	Room.prototype.saveContainers = function() {
-		let containers = this.structures.all.filter(structure => structure.structureType === STRUCTURE_CONTAINER);
+		let containers = this.structures.all.filter(structure => structure.structureType == STRUCTURE_CONTAINER);
 		if (containers.length > 0) {
 			this.memory.container = [];
 			let add = cont => {
@@ -130,7 +130,7 @@ mod.extend = function() {
 			let sourceField = this.terminal.pos.findClosestByRange(minerSpots, 1);
 			let source = [];
 			if (sourceField) {
-				if (this.sources.length === 1) {
+				if (this.sources.length == 1) {
 					source = this.sources;
 				} else {
 					source.push(sourceField.isNearTo(this.sources[0]) ? this.sources[0] : this.sources[1]);

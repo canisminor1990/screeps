@@ -1,53 +1,27 @@
-import { Component } from '../class';
-import { GuardTask } from './tasks/guard';
-import { DefenseTask } from './tasks/defense';
-import { MiningTask } from './tasks/mining';
-import { ClaimTask } from './tasks/claim';
-import { ReserveTask } from './tasks/reserve';
-import { PioneerTask } from './tasks/pioneer';
-import { AttackControllerTask } from './tasks/attackController';
-import { RobbingTask } from './tasks/robbing';
-import { ReputationTask } from './tasks/reputation';
-import { DeliveryTask } from './tasks/delivery';
-import { LabTechTask } from './tasks/labTech';
-import { SafeGenTask } from './tasks/safeGen';
-import { SchedulerTask } from './tasks/scheduler';
+import { Component } from '../class/Component';
 
-export default class TaskClass extends Component {
+class TaskClass extends Component {
 	private _cache: obj = {};
 	executeCache: obj = {};
 	tasks: any[] = [];
 	selfRegister: boolean = true;
 	// tasks
-	guard = new GuardTask();
-	defense = new DefenseTask();
-	mining = new MiningTask();
-	claim = new ClaimTask();
-	reserve = new ReserveTask();
-	pioneer = new PioneerTask();
-	attackController = new AttackControllerTask();
-	robbing = new RobbingTask();
-	reputation = new ReputationTask();
-	delivery = new DeliveryTask();
-	labTech = new LabTechTask();
-	safeGen = new SafeGenTask();
-	scheduler = new SchedulerTask();
-	populate = (): void => {
+	extend = (): void => {
 		this.addTasks(
 			...[
-				this.attackController,
-				this.claim,
-				this.defense,
-				this.delivery,
-				this.guard,
-				this.labTech,
-				this.mining,
-				this.pioneer,
-				this.reputation,
-				this.reserve,
-				this.robbing,
-				this.safeGen,
-				this.scheduler,
+				Task.attackController,
+				Task.claim,
+				Task.defense,
+				Task.delivery,
+				Task.guard,
+				Task.labTech,
+				Task.mining,
+				Task.pioneer,
+				Task.reputation,
+				Task.reserve,
+				Task.robbing,
+				Task.safeGen,
+				Task.scheduler,
 			],
 		);
 	};
@@ -304,7 +278,7 @@ export default class TaskClass extends Component {
 				if (creep.data.predictedRenewal) prediction = creep.data.predictedRenewal;
 				else if (creep.data.spawningTime)
 					prediction = creep.data.spawningTime + Util.routeRange(creep.data.homeRoom, roomName) * 50;
-				else prediction = (routeRange(creep.data.homeRoom, roomName) + 1) * 50;
+				else prediction = (Util.routeRange(creep.data.homeRoom, roomName) + 1) * 50;
 				if (creep.name !== deadCreep && creep.ticksToLive > prediction) {
 					const untilRenewal: number = creep.ticksToLive - prediction;
 					minRemaining = !minRemaining || untilRenewal < minRemaining ? untilRenewal : minRemaining;
@@ -348,3 +322,5 @@ export default class TaskClass extends Component {
 		}
 	};
 }
+
+export default new TaskClass();

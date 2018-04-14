@@ -1,15 +1,21 @@
 // This task will react on labTech flags purple/white
-export class LabTechTask {
-	name = 'labTech';
-	creep = {
-		labTech: {
-			fixedBody: [WORK, CARRY, MOVE],
-			multiBody: [CARRY, CARRY, MOVE],
-			name: 'labTech',
-			behaviour: 'labTech',
-			queue: 'Low',
-		},
-	};
+import { TaskComponent } from '../../class/Task';
+
+class LabTechTask extends TaskComponent {
+	constructor() {
+		super('labTech');
+		this.creep = {
+			labTech: {
+				fixedBody: [WORK, CARRY, MOVE],
+				multiBody: [CARRY, CARRY, MOVE],
+				name: 'labTech',
+				behaviour: 'labTech',
+				queue: 'Low',
+			},
+		};
+	}
+
+	// hook into events
 	register = () => {
 		// when a new flag has been found (occurs every tick, for each flag)
 		Flag.found.on(flag => this.handleFlagFound(flag));
@@ -22,6 +28,7 @@ export class LabTechTask {
 		// a creep died
 		Creep.died.on(name => this.handleCreepDied(name));
 	};
+	// for each flag
 	handleFlagFound = flag => {
 		// if it is a labTech flag
 		if (flag.compareTo(FLAG_COLOR.labs.labTech) && Task.nextCreepCheck(flag, this.name)) {
@@ -30,6 +37,7 @@ export class LabTechTask {
 			this.checkForRequiredCreeps(flag);
 		}
 	};
+	// check if a new creep has to be spawned
 	checkForRequiredCreeps = flag => {
 		// get task memory
 		const memory = this.memory(flag);
@@ -65,10 +73,11 @@ export class LabTechTask {
 			);
 		}
 	};
+	// when a creep starts spawning
 	handleSpawningStarted = params => {
 		// params: {spawn: spawn.name, name: creep.name, destiny: creep.destiny}
 		// ensure it is a creep which has been queued by this task (else return)
-		if (!params.destiny || !params.destiny.task || params.destiny.task !== 'labTech') return;
+		if (!params.destiny || !params.destiny.task || params.destiny.task != 'labTech') return;
 		// get flag which caused queueing of that creep
 		// TODO: remove  || creep.data.destiny.flagName (temporary backward compatibility)
 		let flag = Game.flags[params.destiny.targetName || params.destiny.flagName];
@@ -81,9 +90,10 @@ export class LabTechTask {
 			Task.validateQueued(memory, flag, this.name);
 		}
 	};
+	// when a creep completed spawning
 	handleSpawningCompleted = creep => {
 		// ensure it is a creep which has been requested by this task (else return)
-		if (!creep.data || !creep.data.destiny || !creep.data.destiny.task || creep.data.destiny.task !== 'labTech') return;
+		if (!creep.data || !creep.data.destiny || !creep.data.destiny.task || creep.data.destiny.task != 'labTech') return;
 		// get flag which caused request of that creep
 		// TODO: remove  || creep.data.destiny.flagName (temporary backward compatibility)
 		let flag = Game.flags[creep.data.destiny.targetName || creep.data.destiny.flagName];
@@ -102,11 +112,12 @@ export class LabTechTask {
 			Task.validateSpawning(memory, flag, this.name);
 		}
 	};
+	// when a creep died (or will die soon)
 	handleCreepDied = name => {
 		// get creep memory
 		const mem = Memory.population[name];
 		// ensure it is a creep which has been requested by this task (else return)
-		if (!mem || !mem.destiny || !mem.destiny.task || mem.destiny.task !== 'labTech') return;
+		if (!mem || !mem.destiny || !mem.destiny.task || mem.destiny.task != 'labTech') return;
 		// get flag which caused request of that creep
 		// TODO: remove  || creep.data.destiny.flagName (temporary backward compatibility)
 		const flag = Game.flags[mem.destiny.targetName || mem.destiny.flagName];
@@ -115,6 +126,7 @@ export class LabTechTask {
 			Task.validateRunning(memory, flag, this.name, { roomName: flag.pos.roomName, deadCreep: name });
 		}
 	};
+	// get task memory
 	memory = flag => {
 		if (!flag.memory.tasks) flag.memory.tasks = {};
 		if (!flag.memory.tasks.labTech) {
@@ -127,3 +139,5 @@ export class LabTechTask {
 		return flag.memory.tasks.labTech;
 	};
 }
+
+export default new LabTechTask();

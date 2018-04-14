@@ -43,7 +43,7 @@ mod.nextAction = function(creep) {
 
 	if (flag) {
 		// not at target room
-		if (!flag.room || flag.pos.roomName !== creep.pos.roomName) {
+		if (!flag.room || flag.pos.roomName != creep.pos.roomName) {
 			// travel to target room
 			if (Creep.action.travelling.assignRoom(creep, flag.pos.roomName)) {
 				Population.registerCreepFlag(creep, flag);

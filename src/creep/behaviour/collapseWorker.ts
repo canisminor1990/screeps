@@ -71,7 +71,7 @@ mod.nextAction = function(creep) {
 	}
 	return Creep.behaviour.worker.nextAction.call(this, creep);
 };
-mod.strategies.defaultStrategy.canWithdrawEnergy = function(creep, target) {
+mod.state.default.canWithdrawEnergy = function(creep, target) {
 	return function(amount) {
 		return amount > 0;
 	};

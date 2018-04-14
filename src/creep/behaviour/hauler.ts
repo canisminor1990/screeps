@@ -8,7 +8,7 @@ mod.outflowActions = creep => {
 	if (
 		creep.sum > creep.carry.energy ||
 		(!creep.room.situation.invasion &&
-			SPAWN_DEFENSE_ON_ATTACK &&
+			global.SPAWN_DEFENSE_ON_ATTACK &&
 			creep.room.conserveForDefense &&
 			creep.room.relativeEnergyAvailable > 0.8)
 	) {
@@ -21,7 +21,7 @@ mod.outflowActions = creep => {
 };
 mod.nextAction = function(creep) {
 	if (
-		creep.pos.roomName !== creep.data.homeRoom &&
+		creep.pos.roomName != creep.data.homeRoom &&
 		Game.rooms[creep.data.homeRoom] &&
 		Game.rooms[creep.data.homeRoom].controller
 	) {
@@ -29,7 +29,7 @@ mod.nextAction = function(creep) {
 	}
 	return this.nextEnergyAction(creep);
 };
-mod.strategies.picking = {
+mod.state.picking = {
 	name: `picking-${mod.name}`,
 	energyOnly: false,
 };

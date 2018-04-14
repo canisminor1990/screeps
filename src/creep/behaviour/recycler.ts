@@ -22,13 +22,13 @@ mod.actions = function(creep) {
 		Creep.action.idle,
 	];
 };
-mod.strategies.recycling = {
+mod.state.recycling = {
 	name: `recycling-${mod.name}`,
 	isValidAction: function(creep) {
 		return !creep.sum; // only recycle when empty
 	},
 };
-mod.strategies.uncharging = {
+mod.state.uncharging = {
 	name: `uncharging-${mod.name}`,
 	isValidAction: function(creep) {
 		return (
@@ -38,7 +38,7 @@ mod.strategies.uncharging = {
 		);
 	},
 };
-mod.strategies.withdrawing = {
+mod.state.withdrawing = {
 	name: `withdrawing-${mod.name}`,
 	isValidAction: function(creep) {
 		return (
@@ -50,7 +50,7 @@ mod.strategies.withdrawing = {
 		);
 	},
 };
-mod.strategies.travelling = {
+mod.state.travelling = {
 	name: `travelling-${mod.name}`,
 	newTarget: function(creep) {
 		if (!creep.data.travelRoom) {

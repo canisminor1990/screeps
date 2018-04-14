@@ -99,7 +99,7 @@ mod.registerAction = function(creep, action, target, entry) {
 		else target.targetOf.push(entry);
 	}
 	// clear saved path
-	if (targetId !== oldTargetId) {
+	if (targetId != oldTargetId) {
 		delete entry.path;
 	}
 
@@ -108,7 +108,7 @@ mod.registerAction = function(creep, action, target, entry) {
 	creep.data = entry;
 };
 mod.registerCreepFlag = function(creep, flag) {
-	if (flag && creep.data && creep.data.flagName && creep.data.flagName === flag.name && creep.flag.name === flag.name)
+	if (flag && creep.data && creep.data.flagName && creep.data.flagName == flag.name && creep.flag.name == flag.name)
 		return;
 	if (creep.data && creep.data.flagName) {
 		// unregister flag
@@ -165,7 +165,6 @@ mod.flush = function() {
 	}
 };
 mod.analyze = function() {
-	const p = Util.startProfiling('Population.analyze', { enabled: PROFILING.CREEPS });
 	let register = entry => {
 		let creep = Game.creeps[entry.creepName];
 		if (!creep) {
@@ -199,7 +198,7 @@ mod.analyze = function() {
 				this.predictedRenewal.push(creep.name);
 				if (
 					!this.spawnsToProbe.includes(entry.motherSpawn) &&
-					entry.motherSpawn !== 'unknown' &&
+					entry.motherSpawn != 'unknown' &&
 					Game.spawns[entry.motherSpawn]
 				) {
 					this.spawnsToProbe.push(entry.motherSpawn);
@@ -207,7 +206,7 @@ mod.analyze = function() {
 			}
 			entry.ttl = creep.ticksToLive;
 
-			if (entry.creepType && (creep.ticksToLive === undefined || Creep.Setup.isWorkingAge(entry))) {
+			if (entry.creepType && (creep.ticksToLive === undefined || Creep.isWorkingAge(entry))) {
 				this.countCreep(creep.room, entry);
 			}
 
@@ -245,7 +244,6 @@ mod.analyze = function() {
 	};
 	_.forEach(Memory.population, c => {
 		register(c);
-		p.checkCPU('Register: ' + c.creepName, PROFILING.ANALYZE_LIMIT / 2);
 	});
 
 	let validateAssignment = entry => {
@@ -258,21 +256,18 @@ mod.analyze = function() {
 				delete entry.targetId;
 				creep.action = null;
 				creep.target = null;
-			} else if (oldId !== target.id || target.name) {
+			} else if (oldId != target.id || target.name) {
 				this.registerAction(creep, creep.action, target, entry);
 			}
 		}
 	};
 	_.forEach(Memory.population, c => {
 		validateAssignment(c);
-		p.checkCPU('Validate: ' + c.creepName, PROFILING.ANALYZE_LIMIT / 2);
 	});
 };
 mod.execute = function() {
-	const p = Util.startProfiling('Population.execute', { enabled: PROFILING.CREEPS });
 	let triggerCompleted = name => Creep.spawningCompleted.trigger(Game.creeps[name]);
 	this.spawned.forEach(triggerCompleted);
-	p.checkCPU('triggerCompleted', PROFILING.EXECUTE_LIMIT / 4);
 
 	// Creep.died.on(n => console.log(`Creep ${n} died!`));
 	Creep.died.on(c => {
@@ -283,23 +278,18 @@ mod.execute = function() {
 	});
 	let triggerDied = name => Creep.died.trigger(name);
 	this.died.forEach(triggerDied);
-	p.checkCPU('triggerDied', PROFILING.EXECUTE_LIMIT / 4);
 
 	let triggerRenewal = name => Creep.predictedRenewal.trigger(Game.creeps[name]);
 	this.predictedRenewal.forEach(triggerRenewal);
-	p.checkCPU('triggerRenewal', PROFILING.EXECUTE_LIMIT / 4);
 
-	if (Game.time % SPAWN_INTERVAL !== 0) {
+	if (Game.time % SPAWN_INTERVAL != 0) {
 		let probeSpawn = spawnName => Game.spawns[spawnName].execute();
 		this.spawnsToProbe.forEach(probeSpawn);
-		p.checkCPU('probeSpawn', PROFILING.EXECUTE_LIMIT / 4);
 	}
 };
 mod.cleanup = function() {
-	const p = Util.startProfiling('Population.cleanup', { enabled: PROFILING.CREEPS });
 	let unregister = name => Population.unregisterCreep(name);
 	this.died.forEach(unregister);
-	p.checkCPU('died', PROFILING.FLUSH_LIMIT);
 	// TODO consider clearing target here
 };
 mod.sortEntries = function() {

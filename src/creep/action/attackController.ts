@@ -27,7 +27,7 @@ action.newTarget = function(creep) {
 	} else return null;
 
 	// not there, go to flagged room
-	if (!creep.flag.room || creep.flag.pos.roomName !== creep.pos.roomName) {
+	if (!creep.flag.room || creep.flag.pos.roomName != creep.pos.roomName) {
 		return creep.flag;
 	}
 
@@ -35,9 +35,9 @@ action.newTarget = function(creep) {
 };
 
 action.step = function(creep) {
-	if (CHATTY) creep.say(this.name, SAY_PUBLIC);
+	if (global.CHATTY) creep.say(this.name, global.SAY_PUBLIC);
 	if (creep.target.color) {
-		if (creep.flag.pos.roomName === creep.pos.roomName) creep.data.targetId = null;
+		if (creep.flag.pos.roomName == creep.pos.roomName) creep.data.targetId = null;
 		creep.travelTo(creep.target);
 		return;
 	}
@@ -45,7 +45,7 @@ action.step = function(creep) {
 	let range = creep.pos.getRangeTo(creep.target);
 	if (range <= this.targetRange) {
 		var workResult = this.work(creep);
-		if (workResult !== OK) {
+		if (workResult != OK) {
 			creep.handleError({ errorCode: workResult, action, target: creep.target, range, creep });
 		}
 	} else {
@@ -67,7 +67,7 @@ action.work = function(creep) {
 	}
 	return workResult;
 };
-action.defaultStrategy.moveOptions = function(options) {
+action.default.moveOptions = function(options) {
 	// // allow routing in and through hostile rooms
 	// if (_.isUndefined(options.allowHostile)) options.allowHostile = true;
 	return options;
