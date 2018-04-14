@@ -9,14 +9,14 @@ export const install = () => {
 
 	// Util
 	Install('Util', require('./util').default, {
-		DiamondIterator: require('./util/diamond'),
-		SpiralIterator: require('./util/spiral'),
+		DiamondIterator: require('./util/iterator/diamond').default,
+		SpiralIterator: require('./util/iterator/spiral').default,
 	});
 
 	// Load modules
 	ProtoypeInstall();
 	TravelerInstall();
-	Install(global, require('./global'), {
+	Install(global, require('./global').default, {
 		CMemory: require('./global/CMemory'),
 		Population: require('./global/population'),
 		Events: require('./global/events'),

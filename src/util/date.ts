@@ -38,11 +38,13 @@ export const dateUtils = {
 	 */
 	isSummerTime(date: Date): boolean {
 		if (!Reflect.has(Date.prototype, 'stdTimezoneOffset')) {
-			Date.prototype.stdTimezoneOffset = (): number => {
-				const jan = new Date(this.getFullYear(), 0, 1);
-				const jul = new Date(this.getFullYear(), 6, 1);
-				return Math.max(jan.getTimezoneOffset(), jul.getTimezoneOffset());
-			};
+			Object.defineProperty(Date.prototype, 'stdTimezoneOffset', {
+				value(): boolean {
+					const jan = new Date(this.getFullYear(), 0, 1);
+					const jul = new Date(this.getFullYear(), 6, 1);
+					return Math.max(jan.getTimezoneOffset(), jul.getTimezoneOffset());
+				},
+			});
 		}
 		if (!Reflect.has(Date.prototype, 'dst')) {
 			Object.defineProperty(Date.prototype, 'dst', {

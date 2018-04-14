@@ -1,4 +1,4 @@
-export class Constants {
+class Constants {
 	LAB_REACTIONS: obj = {};
 	LAB_IDLE = 'idle';
 	LAB_BOOST = 'boost';
@@ -221,4 +221,4 @@ export class Constants {
 	};
 }
 
-module.exports = new Constants();
+export default new Constants();

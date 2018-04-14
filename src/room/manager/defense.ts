@@ -10,8 +10,8 @@ const triggerNewInvaders = creep => {
 		Util.logSystem(creep.pos.roomName, `Hostile intruder (${bodyCount}) from "${creep.owner.username}".`);
 	if (
 		NOTIFICATE_INVADER ||
-		(NOTIFICATE_INTRUDER && creep.owner.username !== 'Invader' && creep.room.my) ||
-		(NOTIFICATE_HOSTILES && creep.owner.username !== 'Invader')
+		(NOTIFICATE_INTRUDER && creep.owner.username !== ('Invader' && 'Source Keeper') && creep.room.my) ||
+		(NOTIFICATE_HOSTILES && creep.owner.username !== ('Invader' && 'Source Keeper'))
 	) {
 		Game.notify(
 			`Hostile intruder ${creep.id} (${bodyCount}) from "${creep.owner.username}" in room ${

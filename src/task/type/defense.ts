@@ -23,18 +23,19 @@ class DefenseTask extends TaskComponent {
 		// ignore if on blacklist
 		if (!SPAWN_DEFENSE_ON_ATTACK || DEFENSE_BLACKLIST.includes(invaderCreep.pos.roomName)) return;
 		// if not our room and not our reservation
-
+		console.log(invaderCreep.room.my, invaderCreep.room.reserved);
 		if (!invaderCreep.room.my && !invaderCreep.room.reserved) {
 			// if it is not our exploiting target
 			let validColor = flagEntry =>
-				Flag.compare(flagEntry, FLAG_COLOR.invade.exploit) || flagEntry.color == FLAG_COLOR.claim.color;
+				Flag.compare(flagEntry, FLAG_COLOR.invade.exploit) ||
+				flagEntry.color == (FLAG_COLOR.claim.color || FLAG_COLOR.claim.mining);
 			let flag = Flag.find(validColor, invaderCreep.pos, true);
-
 			if (!flag) return; // ignore invader
 		}
 		// check room threat balance
 		if (invaderCreep.room.defenseLevel.sum > invaderCreep.room.hostileThreatLevel) {
 			// room can handle that
+			console.log('room can handle that');
 		} else {
 			// order a defender for each invader (if not happened yet)
 			invaderCreep.room.hostiles.forEach(this.orderDefenses);
@@ -114,7 +115,7 @@ class DefenseTask extends TaskComponent {
 		// analyze invader threat and create something bigger
 		while (remainingThreat > 0) {
 			let orderId = Util.guid();
-			this.creep.defender.queue = invaderCreep.room.my ? 'High' : 'Medium';
+			this.creep.defender.queue = 'High';
 			this.creep.defender.minThreat = remainingThreat * 1.1;
 
 			let queued = Task.spawn(

@@ -41,7 +41,7 @@ Object.defineProperties(Creep.prototype, {
 	threat: {
 		get() {
 			if (_.isUndefined(this._threat)) {
-				this._threat = this.bodyThreat(this.body);
+				this._threat = Creep.bodyThreat(this.body);
 			}
 			return this._threat;
 		},

@@ -11,7 +11,7 @@ class DiamondIterator {
 	// private _dir
 	// private _step;
 
-	static loop(xy, radius) {
+	static loop = (xy, radius) => {
 		const center = xy;
 		const dist = radius;
 		if (!_.isFinite(radius)) throw new Error('not finite: ' + JSON.stringify([xy, radius]));
@@ -20,11 +20,11 @@ class DiamondIterator {
 				return new DiamondIterator(center, dist);
 			},
 		};
-	}
+	};
 
-	static inside(pos, xy, radius) {
+	static inside = (pos, xy, radius) => {
 		return Math.abs(xy.x - pos.x) + Math.abs(xy.y - pos.y) < radius;
-	}
+	};
 
 	constructor(xy, radius) {
 		if (!_.isFinite(radius)) throw new Error('not finite: ' + JSON.stringify([xy, radius]));
@@ -37,7 +37,7 @@ class DiamondIterator {
 		this._stepB = 0.25;
 	}
 
-	next() {
+	next = () => {
 		const a = this._stepA;
 		const b = this._stepB;
 
@@ -80,6 +80,6 @@ class DiamondIterator {
 		}
 
 		return result;
-	}
+	};
 }
-module.exports = DiamondIterator;
+export default DiamondIterator;

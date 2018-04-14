@@ -57,7 +57,7 @@ Object.defineProperties(Room.prototype, {
 				};
 				this.combatCreeps.forEach(evaluate);
 				this._defenseLevel.towers = this.structures.towers.length;
-				this._defenseLevel.sum = this._defenseLevel.creeps + this._defenseLevel.towers * Creep.partThreat.tower;
+				this._defenseLevel.sum = this._defenseLevel.creeps + this._defenseLevel.towers * CREEP_PART_THREAT.tower;
 			}
 			return this._defenseLevel;
 		},

@@ -44,6 +44,7 @@ class TaskClass extends Component {
 			}
 			if (task.handleCreepError) Creep.error.on(errorData => task.handleCreepError(errorData));
 			// Room events
+
 			if (task.handleNewInvader) Room.newInvader.on(invader => task.handleNewInvader(invader));
 			if (task.handleKnownInvader) Room.knownInvader.on(invaderID => task.handleKnownInvader(invaderID));
 			if (task.handleGoneInvader) Room.goneInvader.on(invaderID => task.handleGoneInvader(invaderID));

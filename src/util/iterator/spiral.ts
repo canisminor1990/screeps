@@ -46,7 +46,7 @@ class SpiralIterator {
 		return this._ring;
 	}
 
-	next() {
+	next = () => {
 		SpiralIterator.dirTransform(this, this._dir);
 
 		--this._step;
@@ -78,9 +78,9 @@ class SpiralIterator {
 			done: this._ring >= this._ringLimit,
 			value: { x: this.x, y: this.y },
 		};
-	}
+	};
 
-	static dirTransform(origin, dir) {
+	static dirTransform = (origin, dir) => {
 		switch (dir) {
 			case TOP_RIGHT:
 				origin.x++;
@@ -110,6 +110,7 @@ class SpiralIterator {
 		}
 
 		return origin;
-	}
+	};
 }
-module.exports = SpiralIterator;
+
+export default SpiralIterator;
