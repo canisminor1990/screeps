@@ -265,7 +265,7 @@ mod.analyze = function() {
 		validateAssignment(c);
 	});
 };
-mod.execute = function() {
+mod.run = function() {
 	let triggerCompleted = name => Creep.spawningCompleted.trigger(Game.creeps[name]);
 	this.spawned.forEach(triggerCompleted);
 
@@ -283,7 +283,7 @@ mod.execute = function() {
 	this.predictedRenewal.forEach(triggerRenewal);
 
 	if (Game.time % SPAWN_INTERVAL != 0) {
-		let probeSpawn = spawnName => Game.spawns[spawnName].execute();
+		let probeSpawn = spawnName => Game.spawns[spawnName].run();
 		this.spawnsToProbe.forEach(probeSpawn);
 	}
 };

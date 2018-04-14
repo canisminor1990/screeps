@@ -18,7 +18,7 @@ class SchedulerTask extends TaskComponent {
 		},
 	};
 
-	execute = () => {
+	run = () => {
 		_.forEach(this.processes, (n, k) => {
 			if (n.conditions()) n.run();
 		});

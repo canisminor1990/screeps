@@ -2,7 +2,7 @@ import { Component } from '../class/Component';
 
 class TaskClass extends Component {
 	private cache: obj = {};
-	private executeCache: obj = {};
+	private runCache: obj = {};
 	private tasks: any[] = [];
 
 	public extend = (): void => {
@@ -32,7 +32,7 @@ class TaskClass extends Component {
 			// Extending of any other kind
 			if (task.register) task.register();
 			// Flag Events
-			if (task.execute && !this.executeCache[task.name]) this.executeCache[task.name] = { execute: task.execute };
+			if (task.run && !this.runCache[task.name]) this.runCache[task.name] = { run: task.run };
 			if (task.handleFlagFound) Flag.found.on(flag => task.handleFlagFound(flag));
 			if (task.handleFlagRemoved) Flag.FlagRemoved.on(flagName => task.handleFlagRemoved(flagName));
 			// Creep Events
@@ -50,10 +50,10 @@ class TaskClass extends Component {
 			if (task.handleRoomDied) Room.collapsed.on(room => task.handleRoomDied(room));
 		});
 	};
-	public execute = (): void => {
-		_.forEach(this.executeCache, (n: any, k: string) => {
+	public run = (): void => {
+		_.forEach(this.runCache, (n: any, k: string) => {
 			try {
-				n.execute();
+				n.run();
 			} catch (e) {
 				console.log(`Error executing Task "${k}"<br>${e.stack || e.toString()}`);
 			}

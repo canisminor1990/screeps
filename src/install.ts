@@ -2,7 +2,7 @@ import { ProtoypeInstall } from './prototype';
 import { TravelerInstall } from './traveler';
 import { Install, getUsername } from './util';
 
-export default () => {
+export const install = () => {
 	// Config
 	Install('_ME', getUsername);
 	Install(global, require('config'));
@@ -141,15 +141,6 @@ export default () => {
 		Visuals: require('./mod/visuals'),
 	});
 
-	// Extend server objects
-	Creep.extend();
-	Room.extend();
-	Flag.extend();
-	Task.extend();
-	// custom extend
-	CMemory.activateSegment(MEM_SEGMENTS.COSTMATRIX_CACHE, true);
-
 	if (DEBUG) Util.logSystem('Global.install', 'Code reloaded.');
-
 	Install('isRoot', true);
 };

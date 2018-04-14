@@ -211,7 +211,7 @@ module.exports = {
 		'miner',
 		'hauler',
 		'upgrader',
-	], // when the bucket drops below the critical bucket level only these creep roles will be executed
+	], // when the bucket drops below the critical bucket level only these creep roles will be rund
 	ROBBER_REHOME: false, // May robbers choose closer storage for delivery?
 	OBSERVER_OBSERVE_RANGE: 3, // the range for observers to look at
 	OBSERVER_OBSERVE_HIGHWAYS_ONLY: true, // the observers will only look at highways - changing this will require you to clear cached rooms

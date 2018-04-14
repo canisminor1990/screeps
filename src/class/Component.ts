@@ -3,6 +3,6 @@ export abstract class Component {
 	public fresh = (): void => {};
 	public analyze = (): void => {};
 	public register = (): void => {};
-	public execute = (): void => {};
+	public run = (): void => {};
 	public cleanup = (): void => {};
 }

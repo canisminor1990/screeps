@@ -1,14 +1,28 @@
+import { install } from './install';
+
 class Process {
-	public run = () => {
+	public loop = () => {
+		this.fresh();
+		this.register();
+		this.run();
+		this.cleanup();
+		this.addon();
+	};
+	public install = () => {
+		install();
+		this.extend();
+	};
+	private extend = () => {
+		Creep.extend();
+		Room.extend();
+		Flag.extend();
+		Task.extend();
+		// custom extend
+		CMemory.activateSegment(MEM_SEGMENTS.COSTMATRIX_CACHE, true);
+	};
+	private fresh = () => {
 		// loaded memory segments
 		CMemory.processSegments();
-		this.Flush();
-		this.Register();
-		this.Execution();
-		this.Cleanup();
-		this.Addon();
-	};
-	private Flush = () => {
 		// Flush cache
 		Events.fresh();
 		Flag.fresh();
@@ -17,39 +31,36 @@ class Process {
 		Room.fresh();
 		Task.fresh();
 	};
-	private Register = () => {
-		// Room event hooks must be registered before analyze for costMatrixInvalid
-		Room.register();
-
-		// analyze environment, wait a tick if critical failure
-		if (!Flag.analyze()) {
-			Util.logError('Flag.analyze failed, waiting one tick to sync flags');
-			return;
-		}
+	private analyze = () => {
+		Flag.analyze();
 		Room.analyze();
 		Population.analyze();
-
+	};
+	private register = () => {
+		// Room event hooks must be registered before analyze for costMatrixInvalid
+		Room.register();
+		this.analyze();
 		// Register event hooks
 		Creep.register();
 		StructureSpawn.register();
 		Task.register();
 	};
-	private Execution = () => {
+	private run = () => {
 		// Execution
-		Population.execute();
-		Flag.execute();
-		Room.execute();
-		Creep.execute();
-		StructureSpawn.execute();
-		Task.execute();
+		Population.run();
+		Flag.run();
+		Room.run();
+		Creep.run();
+		StructureSpawn.run();
+		Task.run();
 	};
-	private Cleanup = () => {
+	private cleanup = () => {
 		Flag.cleanup();
 		Population.cleanup();
 		Room.cleanup();
 		CMemory.cleanup(); // must come last
 	};
-	private Addon = () => {
+	private addon = () => {
 		// Postprocessing
 		if (SEND_STATISTIC_REPORTS) {
 			if (!Memory.statistics || (Memory.statistics.tick && Memory.statistics.tick + TIME_REPORT <= Game.time)) {

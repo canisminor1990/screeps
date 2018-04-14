@@ -632,7 +632,7 @@ mod.extend = function() {
 						);
 					if (SELL_NOTIFICATION)
 						Game.notify(
-							`<h2>Room ${that.name} executed an order!</h2><br/>Result: ${Util.translateErrorCode(
+							`<h2>Room ${that.name} rund an order!</h2><br/>Result: ${Util.translateErrorCode(
 								result,
 							)}<br/>Details:<br/>${JSON.stringify(order).replace(',', ',<br/>')}`,
 						);

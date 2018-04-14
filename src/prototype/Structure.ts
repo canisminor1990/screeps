@@ -323,7 +323,7 @@ Object.defineProperties(StructureLab.prototype, {
 // ///////////////////
 
 Object.defineProperties(StructureSpawn.prototype, {
-	execute: {
+	run: {
 		value() {
 			if (this.spawning) return;
 			let room = this.room;

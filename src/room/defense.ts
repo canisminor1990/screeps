@@ -24,7 +24,7 @@ const triggerNewInvaders = creep => {
 };
 const triggerKnownInvaders = id => Room.knownInvader.trigger(id);
 const triggerGoneInvaders = id => Room.goneInvader.trigger(id);
-mod.executeRoom = function(memory, roomName) {
+mod.runRoom = function(memory, roomName) {
 	const room = Game.rooms[roomName];
 	if (room) {
 		// has sight

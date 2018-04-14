@@ -7,7 +7,7 @@ mod.analyzeRoom = function(room, needMemoryResync) {
 		if (room.structures.observer) room.initObserverRooms();
 	}
 };
-mod.executeRoom = function(memory, roomName) {
+mod.runRoom = function(memory, roomName) {
 	const room = Game.rooms[roomName];
 	if (room) {
 		if (room.structures.observer) room.controlObserver();

@@ -5,7 +5,7 @@ mod.analyzeRoom = function(room, needMemoryResync) {
 		room.saveTowers();
 	}
 };
-mod.executeRoom = function(memory, roomName) {
+mod.runRoom = function(memory, roomName) {
 	const room = Game.rooms[roomName];
 	if (room) {
 		if (room.structures.towers.length > 0) {

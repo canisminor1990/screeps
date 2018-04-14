@@ -1,4 +1,6 @@
 import { Component, EventClass } from '../class';
+import { Install } from '../util';
+
 const strategy = require('../util/strategy');
 
 class CreepClass extends Component {
@@ -20,25 +22,23 @@ class CreepClass extends Component {
 		);
 	};
 	public fresh = () => {
-		// ocurrs when a creep starts spawning
-		// param: { spawn: spawn.name, name: creep.name, destiny: creep.destiny }
-		Creep.spawningStarted = new EventClass();
-
-		// ocurrs when a creep completes spawning
-		// param: creep
-		Creep.spawningCompleted = new EventClass();
-
-		// ocurrs when a creep will die in the amount of ticks required to renew it
-		// param: creep
-		Creep.predictedRenewal = new EventClass();
-
-		// ocurrs when a creep dies
-		// param: creep name
-		Creep.died = new EventClass();
-
-		// after a creep error
-		// param: {creep, tryAction, tryTarget, workResult}
-		Creep.error = new EventClass();
+		Install(Creep, {
+			// ocurrs when a creep starts spawning
+			// param: { spawn: spawn.name, name: creep.name, destiny: creep.destiny }
+			spawningStarted: new EventClass(),
+			// ocurrs when a creep completes spawning
+			// param: creep
+			spawningCompleted: new EventClass(),
+			// ocurrs when a creep will die in the amount of ticks required to renew it
+			// param: creep
+			predictedRenewal: new EventClass(),
+			// ocurrs when a creep dies
+			// param: creep name
+			died: new EventClass(),
+			// after a creep error
+			// param: {creep, tryAction, tryTarget, workResult}
+			error: new EventClass(),
+		});
 	};
 	public register = () => {
 		for (const action in Creep.action) {
@@ -51,7 +51,7 @@ class CreepClass extends Component {
 			if (Creep.setup[setup].register) Creep.setup[setup].register(this);
 		}
 	};
-	public execute = () => {
+	public run = () => {
 		if (DEBUG && Memory.CPU_CRITICAL)
 			Util.logSystem(
 				'system',
@@ -77,7 +77,7 @@ class CreepClass extends Component {
 			(creepData.predictedRenewal || creepData.spawningTime || CREEP_LIFE_TIME) <= (c.ticksToLive || CREEP_LIFE_TIME)
 		);
 	};
-	execute = () => {
+	run = () => {
 		if (DEBUG && Memory.CPU_CRITICAL)
 			Util.logSystem(
 				'system',

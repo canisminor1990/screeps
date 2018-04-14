@@ -30,7 +30,7 @@ interface FlagConstructor {
 
 	fresh(): void;
 
-	execute(): void;
+	run(): void;
 
 	cleanup(): void;
 

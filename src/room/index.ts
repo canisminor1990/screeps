@@ -1842,16 +1842,16 @@ mod.analyze = function() {
 		getEnvironment(r);
 	});
 };
-mod.execute = function() {
-	// run execute in each of our submodules
+mod.run = function() {
+	// run run in each of our submodules
 	for (const key of Object.keys(Room._ext)) {
-		if (Room._ext[key].execute) Room._ext[key].execute();
+		if (Room._ext[key].run) Room._ext[key].run();
 	}
 	let run = (memory, roomName) => {
 		try {
-			// run executeRoom in each of our submodules
+			// run runRoom in each of our submodules
 			for (const key of Object.keys(Room._ext)) {
-				if (Room._ext[key].executeRoom) Room._ext[key].executeRoom(memory, roomName);
+				if (Room._ext[key].runRoom) Room._ext[key].runRoom(memory, roomName);
 			}
 			const room = Game.rooms[roomName];
 			if (room) {

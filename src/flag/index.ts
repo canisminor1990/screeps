@@ -1,18 +1,20 @@
 import { Component, EventClass } from '../class';
+import { Install } from '../util';
 
 class FlagClass extends Component {
 	list = [];
 	stale = [];
 
 	public fresh = () => {
-		// occurs when a flag is found (each tick)
-		// param: flag
-		Flag.found = new EventClass();
-		// occurs when a flag memory if found for which no flag exists (before memory removal)
-		// param: flagName
-		Flag.FlagRemoved = new EventClass();
-		//
-		let clear = flag => delete flag.targetOf;
+		Install(Flag, {
+			// occurs when a flag is found (each tick)
+			// param: flag
+			found: new EventClass(),
+			// occurs when a flag memory if found for which no flag exists (before memory removal)
+			// param: flagName
+			FlagRemoved: new EventClass(),
+		});
+		const clear = flag => delete flag.targetOf;
 		_.forEach(Game.flags, clear);
 		this.list = [];
 		this.stale = [];
@@ -51,7 +53,7 @@ class FlagClass extends Component {
 		const specialFlag = this.specialFlag(true);
 		return !!specialFlag;
 	};
-	public execute = () => {
+	public run = () => {
 		let triggerFound = entry => {
 			try {
 				if (!entry.cloaking || entry.cloaking == 0) {

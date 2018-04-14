@@ -6,7 +6,7 @@ let Action = function(actionName) {
 	this.maxPerTarget = Infinity;
 	// max allowed creeps per action (and room)
 	this.maxPerAction = Infinity;
-	// range within which the action can be executed (e.g. upgrade controller = 3)
+	// range within which the action can be rund (e.g. upgrade controller = 3)
 	this.targetRange = 1;
 	// range until which the target has been reached. (e.g. can be less than targetRange)
 	this.reachedRange = 1;
@@ -62,7 +62,7 @@ let Action = function(actionName) {
 		delete creep.action;
 		delete creep.target;
 	};
-	// order for the creep to execute each tick, when assigned to that action
+	// order for the creep to run each tick, when assigned to that action
 	this.step = function(creep) {
 		if (global.CHATTY) creep.say(this.name, global.SAY_PUBLIC);
 		let range = creep.pos.getRangeTo(creep.target);
@@ -90,7 +90,7 @@ let Action = function(actionName) {
 			}
 		}
 	};
-	// order for the creep to execute when at target
+	// order for the creep to run when at target
 	this.work = function(creep) {
 		return ERR_INVALID_ARGS;
 	};

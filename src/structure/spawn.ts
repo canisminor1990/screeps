@@ -13,9 +13,9 @@ class StructureSpawnClass extends Component {
 		if (CENSUS_ANNOUNCEMENTS)
 			Util.logSystem(creep.pos.roomName, Util.dye(CRAYON.birth, 'Off to work ' + creep.name + '!'));
 	};
-	execute = () => {
+	run = () => {
 		let run = spawn => {
-			if (spawn.room.my) spawn.execute();
+			if (spawn.room.my) spawn.run();
 		};
 		_.forEach(Game.spawns, run);
 	};
