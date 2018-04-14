@@ -1,39 +1,33 @@
 import { Component } from '../class/Component';
 
 class TaskClass extends Component {
-	private _cache: obj = {};
-	executeCache: obj = {};
-	tasks: any[] = [];
-	selfRegister: boolean = true;
-	// tasks
-	extend = (): void => {
-		this.addTasks(
-			...[
-				Task.attackController,
-				Task.claim,
-				Task.defense,
-				Task.delivery,
-				Task.guard,
-				Task.labTech,
-				Task.mining,
-				Task.pioneer,
-				Task.reputation,
-				Task.reserve,
-				Task.robbing,
-				Task.safeGen,
-				Task.scheduler,
-			],
-		);
+	private cache: obj = {};
+	private executeCache: obj = {};
+	private tasks: any[] = [];
+
+	public extend = (): void => {
+		this.tasks = [
+			Task.attackController,
+			Task.claim,
+			Task.defense,
+			Task.delivery,
+			Task.guard,
+			Task.labTech,
+			Task.mining,
+			Task.pioneer,
+			Task.reputation,
+			Task.reserve,
+			Task.robbing,
+			Task.safeGen,
+			Task.scheduler,
+		];
 	};
-	private addTasks = (...task: any[]): void => {
-		this.tasks.push(...task);
-	};
-	public flush = (): void => {
+	public fresh = (): void => {
 		this.tasks.forEach(task => {
-			if (task.flush) task.flush();
+			if (task.fresh) task.fresh();
 		});
 	};
-	register = (): void => {
+	public register = (): void => {
 		this.tasks.forEach(task => {
 			// Extending of any other kind
 			if (task.register) task.register();
@@ -56,7 +50,7 @@ class TaskClass extends Component {
 			if (task.handleRoomDied) Room.collapsed.on(room => task.handleRoomDied(room));
 		});
 	};
-	execute = (): void => {
+	public execute = (): void => {
 		_.forEach(this.executeCache, (n: any, k: string) => {
 			try {
 				n.execute();
@@ -65,7 +59,11 @@ class TaskClass extends Component {
 			}
 		});
 	};
-	// task:  (string) name of the task, s: (string) any selector for that task, could be room name, flag name, enemy name
+	public cleanup = (subKeys: string, task: string, s: string): void => {
+		this.removeQueued(this.memory(task, s), subKeys);
+		this.clearMemory(task, s);
+	};
+
 	memory = (task: string, s: string): obj => {
 		const memory = Util.get(Memory, ['tasks', task, s], {});
 		// temporary migration, remove if in dev
@@ -74,10 +72,7 @@ class TaskClass extends Component {
 		delete memory.spawningValid;
 		return memory;
 	};
-	cleanup = (subKeys: string, task: string, s: string): void => {
-		this.removeQueued(this.memory(task, s), subKeys);
-		this.clearMemory(task, s);
-	};
+
 	removeQueued = (memory: obj, subKeys: string): void => {
 		const removeEntries = (mem: obj) => {
 			if (_.isUndefined(mem)) return;
@@ -106,12 +101,12 @@ class TaskClass extends Component {
 		if (Memory.tasks[task] && Memory.tasks[task][s]) delete Memory.tasks[task][s];
 	};
 	cache = (task: string, s: string): any => {
-		if (!this._cache[task]) this._cache[task] = {};
-		if (!this._cache[task][s]) this._cache[task][s] = {};
-		return this._cache[task][s];
+		if (!this.cache[task]) this.cache[task] = {};
+		if (!this.cache[task][s]) this.cache[task][s] = {};
+		return this.cache[task][s];
 	};
 	clearCache = (task: string, s: string): void => {
-		if (this._cache[task] && this._cache[task][s]) delete this._cache[task][s];
+		if (this.cache[task] && this.cache[task][s]) delete this.cache[task][s];
 	};
 	spawn = (creepDefinition: obj, destiny: obj, roomParams: obj, onQueued?: Function) => {
 		// get nearest room

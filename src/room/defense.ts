@@ -37,7 +37,7 @@ mod.executeRoom = function(memory, roomName) {
 	}
 };
 mod.extend = function() {};
-mod.flushRoom = function(room) {
+mod.freshRoom = function(room) {
 	room.newInvader = [];
 	room.goneInvader = [];
 };

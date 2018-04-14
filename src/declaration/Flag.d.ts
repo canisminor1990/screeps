@@ -28,7 +28,7 @@ interface FlagConstructor {
 
 	extend(): void;
 
-	flush(): void;
+	fresh(): void;
 
 	execute(): void;
 

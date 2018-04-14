@@ -1,4 +1,4 @@
 export * from './Component';
 export * from './Task';
-export * from './LiteEvent';
+export * from './Event';
 export * from './CreepSetup';

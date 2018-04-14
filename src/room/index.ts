@@ -1768,14 +1768,14 @@ mod.extend = function() {
 		return this.findClosestByPathFinder(Game.spawns, spawn => ({ pos: spawn.pos, range: 1 })).goal;
 	};
 };
-mod.flush = function() {
-	// run flush in each of our submodules
+mod.fresh = function() {
+	// run fresh in each of our submodules
 	for (const key of Object.keys(Room._ext)) {
-		if (Room._ext[key].flush) Room._ext[key].flush();
+		if (Room._ext[key].fresh) Room._ext[key].fresh();
 	}
 	let clean = room => {
 		for (const key of Object.keys(Room._ext)) {
-			if (Room._ext[key].flushRoom) Room._ext[key].flushRoom(room);
+			if (Room._ext[key].freshRoom) Room._ext[key].freshRoom(room);
 		}
 	};
 	_.forEach(Game.rooms, clean);
@@ -1881,7 +1881,7 @@ mod.cleanup = function() {
 	for (const key of Object.keys(Room._ext)) {
 		if (Room._ext[key].cleanup) Room._ext[key].cleanup();
 	}
-	// flush changes to the pathfinderCache but wait until load
+	// fresh changes to the pathfinderCache but wait until load
 	if (!_.isUndefined(Memory.pathfinder)) {
 		CMemory.saveSegment(MEM_SEGMENTS.COSTMATRIX_CACHE, Memory.pathfinder);
 		delete Memory.pathfinder;

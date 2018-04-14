@@ -1,8 +1,77 @@
-import { Component } from '../class';
+import { Component, EventClass } from '../class';
 
 class FlagClass extends Component {
 	list = [];
 	stale = [];
+
+	public fresh = () => {
+		// occurs when a flag is found (each tick)
+		// param: flag
+		Flag.found = new EventClass();
+		// occurs when a flag memory if found for which no flag exists (before memory removal)
+		// param: flagName
+		Flag.FlagRemoved = new EventClass();
+		//
+		let clear = flag => delete flag.targetOf;
+		_.forEach(Game.flags, clear);
+		this.list = [];
+		this.stale = [];
+		delete this._hasInvasionFlag;
+	};
+	public analyze = () => {
+		let register = flag => {
+			try {
+				flag.creeps = {};
+				if (flag.cloaking && flag.cloaking > 0) flag.cloaking--;
+				this.list.push({
+					name: flag.name,
+					color: flag.color,
+					secondaryColor: flag.secondaryColor,
+					roomName: flag.pos.roomName,
+					x: flag.pos.x,
+					y: flag.pos.y,
+					cloaking: flag.cloaking,
+				});
+			} catch (e) {
+				Util.logError(e.stack || e.message);
+			}
+		};
+		_.forEach(Game.flags, register);
+
+		let findStaleFlags = (entry, flagName) => {
+			try {
+				if (!Game.flags[flagName]) {
+					this.stale.push(flagName);
+				}
+			} catch (e) {
+				Util.logError(e.stack || e.message);
+			}
+		};
+		_.forEach(Memory.flags, findStaleFlags);
+		const specialFlag = this.specialFlag(true);
+		return !!specialFlag;
+	};
+	public execute = () => {
+		let triggerFound = entry => {
+			try {
+				if (!entry.cloaking || entry.cloaking == 0) {
+					const flag = Game.flags[entry.name];
+					Flag.found.trigger(flag);
+				}
+			} catch (e) {
+				Util.logError(e.stack || e.message);
+			}
+		};
+		this.list.forEach(triggerFound);
+
+		let triggerRemoved = flagName => Flag.FlagRemoved.trigger(flagName);
+		this.stale.forEach(triggerRemoved);
+	};
+	public cleanup = () => {
+		let clearMemory = flagName => delete Memory.flags[flagName];
+		this.stale.forEach(clearMemory);
+	};
+
 	flagFilter = flagColour => {
 		if (!flagColour) return;
 		let filter;
@@ -157,67 +226,6 @@ class FlagClass extends Component {
 	};
 	compare = (flagA, flagB) => {
 		return flagA.color === flagB.color && flagA.secondaryColor === flagB.secondaryColor;
-	};
-	extend = () => {};
-	flush = () => {
-		let clear = flag => delete flag.targetOf;
-		_.forEach(Game.flags, clear);
-		this.list = [];
-		this.stale = [];
-		delete this._hasInvasionFlag;
-	};
-	analyze = () => {
-		let register = flag => {
-			try {
-				flag.creeps = {};
-				if (flag.cloaking && flag.cloaking > 0) flag.cloaking--;
-				this.list.push({
-					name: flag.name,
-					color: flag.color,
-					secondaryColor: flag.secondaryColor,
-					roomName: flag.pos.roomName,
-					x: flag.pos.x,
-					y: flag.pos.y,
-					cloaking: flag.cloaking,
-				});
-			} catch (e) {
-				Util.logError(e.stack || e.message);
-			}
-		};
-		_.forEach(Game.flags, register);
-
-		let findStaleFlags = (entry, flagName) => {
-			try {
-				if (!Game.flags[flagName]) {
-					this.stale.push(flagName);
-				}
-			} catch (e) {
-				Util.logError(e.stack || e.message);
-			}
-		};
-		_.forEach(Memory.flags, findStaleFlags);
-		const specialFlag = this.specialFlag(true);
-		return !!specialFlag;
-	};
-	execute = () => {
-		let triggerFound = entry => {
-			try {
-				if (!entry.cloaking || entry.cloaking == 0) {
-					const flag = Game.flags[entry.name];
-					Flag.found.trigger(flag);
-				}
-			} catch (e) {
-				Util.logError(e.stack || e.message);
-			}
-		};
-		this.list.forEach(triggerFound);
-
-		let triggerRemoved = flagName => Flag.FlagRemoved.trigger(flagName);
-		this.stale.forEach(triggerRemoved);
-	};
-	cleanup = () => {
-		let clearMemory = flagName => delete Memory.flags[flagName];
-		this.stale.forEach(clearMemory);
 	};
 	flagType = flag => {
 		if (this.isSpecialFlag(flag)) return '_OCS';

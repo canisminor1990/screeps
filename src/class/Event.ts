@@ -1,16 +1,16 @@
-export class LiteEvent {
+export class EventClass {
 	// registered subscribers
-	handlers = [];
+	public handlers = [];
 	// register a new subscriber
-	on = handler => {
+	public on = handler => {
 		this.handlers.push(handler);
 	};
 	// remove a registered subscriber
-	off = handler => {
+	public off = handler => {
 		this.handlers = this.handlers.filter(h => h !== handler);
 	};
 	// call all registered subscribers
-	trigger = data => {
+	public trigger = data => {
 		try {
 			this.handlers.slice(0).forEach(h => h(data));
 		} catch (e) {

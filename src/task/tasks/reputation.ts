@@ -48,7 +48,7 @@ class ReputationTask extends TaskComponent {
 		this.playerMemory(name).score = score;
 	};
 
-	flush = () => {
+	fresh = () => {
 		this._loadWhitelist();
 		this._loadScore();
 	};

@@ -10,11 +10,12 @@ class Process {
 	};
 	private Flush = () => {
 		// Flush cache
-		Events.flush();
-		Flag.flush();
-		Population.flush();
-		Room.flush();
-		Task.flush();
+		Events.fresh();
+		Flag.fresh();
+		Creep.fresh();
+		Population.fresh();
+		Room.fresh();
+		Task.fresh();
 	};
 	private Register = () => {
 		// Room event hooks must be registered before analyze for costMatrixInvalid

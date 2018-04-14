@@ -108,6 +108,6 @@ mod.extend = function() {
 	};
 	// New Room methods go here
 };
-mod.flush = function() {
+mod.fresh = function() {
 	Memory.observerSchedule = [];
 };

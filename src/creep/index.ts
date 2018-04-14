@@ -1,4 +1,4 @@
-import { Component } from '../class';
+import { Component, EventClass } from '../class';
 const strategy = require('../util/strategy');
 
 class CreepClass extends Component {
@@ -18,6 +18,56 @@ class CreepClass extends Component {
 				selector: (taskName: string) => Task[taskName] && Task[taskName],
 			},
 		);
+	};
+	public fresh = () => {
+		// ocurrs when a creep starts spawning
+		// param: { spawn: spawn.name, name: creep.name, destiny: creep.destiny }
+		Creep.spawningStarted = new EventClass();
+
+		// ocurrs when a creep completes spawning
+		// param: creep
+		Creep.spawningCompleted = new EventClass();
+
+		// ocurrs when a creep will die in the amount of ticks required to renew it
+		// param: creep
+		Creep.predictedRenewal = new EventClass();
+
+		// ocurrs when a creep dies
+		// param: creep name
+		Creep.died = new EventClass();
+
+		// after a creep error
+		// param: {creep, tryAction, tryTarget, workResult}
+		Creep.error = new EventClass();
+	};
+	public register = () => {
+		for (const action in Creep.action) {
+			if (Creep.action[action].register) Creep.action[action].register(this);
+		}
+		for (const behaviour in Creep.behaviour) {
+			if (Creep.behaviour[behaviour].register) Creep.behaviour[behaviour].register(this);
+		}
+		for (const setup in Creep.setup) {
+			if (Creep.setup[setup].register) Creep.setup[setup].register(this);
+		}
+	};
+	public execute = () => {
+		if (DEBUG && Memory.CPU_CRITICAL)
+			Util.logSystem(
+				'system',
+				`${Game.time}: CPU Bucket level is critical (${Game.cpu.bucket}). Skipping non critical creep roles.`,
+			);
+		let run = creep => {
+			try {
+				creep.run();
+			} catch (e) {
+				console.log(
+					'<span style="color:FireBrick">Creep ' + creep.name + (e.stack || e.toString()) + '</span>',
+					Util.stack(),
+				);
+			}
+		};
+		_.forEach(Game.creeps, run);
 	};
 
 	isWorkingAge = creepData => {
@@ -135,7 +185,6 @@ class CreepClass extends Component {
 		}
 		return parts;
 	};
-
 	bodyThreat = body => {
 		let threat = 0;
 		let evaluatePart = part => {
@@ -143,17 +192,6 @@ class CreepClass extends Component {
 		};
 		if (body) body.forEach(evaluatePart);
 		return threat;
-	};
-	register = () => {
-		for (const action in Creep.action) {
-			if (Creep.action[action].register) Creep.action[action].register(this);
-		}
-		for (const behaviour in Creep.behaviour) {
-			if (Creep.behaviour[behaviour].register) Creep.behaviour[behaviour].register(this);
-		}
-		for (const setup in Creep.setup) {
-			if (Creep.setup[setup].register) Creep.setup[setup].register(this);
-		}
 	};
 }
 

@@ -87,7 +87,7 @@ mod.extend = function() {
 		}
 	};
 };
-mod.flushRoom = function(room) {
+mod.freshRoom = function(room) {
 	if (!room._powerBank) {
 		delete room.memory.powerBank;
 	}

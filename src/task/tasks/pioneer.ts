@@ -34,7 +34,7 @@ class PioneerTask extends TaskComponent {
 		// try to spawn a worker
 		let pioneer = true;
 		if (room.energyAvailable > 199) {
-			// flush high queue
+			// fresh high queue
 			room.spawnQueueHigh.splice(0, room.spawnQueueHigh.length);
 			const definition = this.creep.worker;
 			pioneer = !Task.spawn(
