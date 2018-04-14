@@ -1,13 +1,7 @@
-import { Component, LiteEvent } from '../class';
-
+import { Component } from '../class';
 const strategy = require('../util/strategy');
 
 class CreepClass extends Component {
-	constructor() {
-		super();
-		this.flush();
-	}
-
 	public extend = (): void => {
 		strategy.decorateAgent(
 			Creep.prototype,
@@ -24,29 +18,6 @@ class CreepClass extends Component {
 				selector: (taskName: string) => Task[taskName] && Task[taskName],
 			},
 		);
-	};
-
-	flush = () => {
-		// ocurrs when a creep starts spawning
-		// param: { spawn: spawn.name, name: creep.name, destiny: creep.destiny }
-		this.spawningStarted = new LiteEvent();
-
-		// ocurrs when a creep completes spawning
-		// param: creep
-		this.spawningCompleted = new LiteEvent();
-
-		// ocurrs when a creep will die in the amount of ticks required to renew it
-		// param: creep
-		this.predictedRenewal = new LiteEvent();
-
-		// ocurrs when a creep dies
-		// param: creep name
-		this.died = new LiteEvent();
-
-		// after a creep error
-		// param: {creep, tryAction, tryTarget, workResult}
-		this.error = new LiteEvent();
-		this.error = new LiteEvent();
 	};
 
 	isWorkingAge = creepData => {

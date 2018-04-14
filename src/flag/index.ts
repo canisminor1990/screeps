@@ -1,11 +1,8 @@
-import { Component, LiteEvent } from '../class';
+import { Component } from '../class';
 
-class Flag extends Component {
-	constructor() {
-		super();
-		this.flush();
-	}
-
+class FlagClass extends Component {
+	list = [];
+	stale = [];
 	flagFilter = flagColour => {
 		if (!flagColour) return;
 		let filter;
@@ -163,15 +160,10 @@ class Flag extends Component {
 	};
 	extend = () => {};
 	flush = () => {
+		let clear = flag => delete flag.targetOf;
+		_.forEach(Game.flags, clear);
 		this.list = [];
 		this.stale = [];
-		// occurs when a flag is found (each tick)
-		// param: flag
-		this.found = new LiteEvent();
-		// occurs when a flag memory if found for which no flag exists (before memory removal)
-		// param: flagName
-		this.FlagRemoved = new LiteEvent();
-		_.forEach(Game.flags, flag => delete flag.targetOf);
 		delete this._hasInvasionFlag;
 	};
 	analyze = () => {
@@ -212,7 +204,7 @@ class Flag extends Component {
 			try {
 				if (!entry.cloaking || entry.cloaking == 0) {
 					const flag = Game.flags[entry.name];
-					this.found.trigger(flag);
+					Flag.found.trigger(flag);
 				}
 			} catch (e) {
 				Util.logError(e.stack || e.message);
@@ -220,7 +212,7 @@ class Flag extends Component {
 		};
 		this.list.forEach(triggerFound);
 
-		let triggerRemoved = flagName => this.FlagRemoved.trigger(flagName);
+		let triggerRemoved = flagName => Flag.FlagRemoved.trigger(flagName);
 		this.stale.forEach(triggerRemoved);
 	};
 	cleanup = () => {
@@ -264,4 +256,4 @@ class Flag extends Component {
 	};
 }
 
-module.exports = new Flag();
+export default new FlagClass();

@@ -1,6 +1,5 @@
 import { ProtoypeInstall } from './prototype';
 import { TravelerInstall } from './traveler';
-import { EventFlush } from './global/events';
 import { Install, getUsername } from './util';
 
 export default () => {
@@ -20,10 +19,11 @@ export default () => {
 	Install(global, require('./global'), {
 		CMemory: require('./global/CMemory'),
 		Population: require('./global/population'),
+		Events: require('./global/events'),
 	});
 
 	// Flag
-	Install(Flag, require('./flag/index'));
+	Install(Flag, require('./flag/index').default);
 
 	// Task
 	Install('Task', require('./task').default, {

@@ -1,5 +1,3 @@
-import { EventFlush } from './global/events';
-
 class Process {
 	public run = () => {
 		// loaded memory segments
@@ -12,14 +10,12 @@ class Process {
 	};
 	private Flush = () => {
 		// Flush cache
-		EventFlush();
+		Events.flush();
 		Flag.flush();
-		Creep.flush();
 		Population.flush();
 		Room.flush();
 		Task.flush();
 	};
-
 	private Register = () => {
 		// Room event hooks must be registered before analyze for costMatrixInvalid
 		Room.register();

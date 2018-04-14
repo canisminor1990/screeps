@@ -1,16 +1,16 @@
 export class LiteEvent {
 	// registered subscribers
-	public handlers = [];
+	handlers = [];
 	// register a new subscriber
-	public on = handler => {
-		if (_.isNull(handler)) this.handlers.push(handler);
+	on = handler => {
+		this.handlers.push(handler);
 	};
 	// remove a registered subscriber
-	public off = handler => {
+	off = handler => {
 		this.handlers = this.handlers.filter(h => h !== handler);
 	};
 	// call all registered subscribers
-	public trigger = data => {
+	trigger = data => {
 		try {
 			this.handlers.slice(0).forEach(h => h(data));
 		} catch (e) {

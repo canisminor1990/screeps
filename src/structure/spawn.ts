@@ -3,6 +3,7 @@ import { Component } from '../class';
 class StructureSpawnClass extends Component {
 	priorityHigh = [Creep.setup.worker, Creep.setup.miner, Creep.setup.hauler, Creep.setup.upgrader];
 	priorityLow = [Creep.setup.mineralMiner, Creep.setup.privateer];
+	extend = () => {};
 	register = () => {
 		Creep.spawningCompleted.on(creep => this.handleSpawningCompleted(creep));
 	};
