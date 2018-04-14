@@ -43,11 +43,6 @@ export class CreepSetup {
 	_maxCount = room => this.getRCL(room, 'maxCount');
 	_maxWeight = room => this.getRCL(room, 'maxWeight');
 
-	SelfOrCall = (obj, param) => {
-		if (obj == null) return null;
-		if (_.isFunction(obj)) return obj.apply(this, [param]);
-		else return obj;
-	};
 	buildParams = spawn => {
 		let memory = {
 			setup: null,

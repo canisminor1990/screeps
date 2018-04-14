@@ -6,7 +6,7 @@ class ChargingAction extends CreepAction {
 		this._isAddableTarget = this.isAddableTarget;
 		this.isAddableTarget = (target, creep) => {
 			return (
-				this._isAddableTarget.apply(this, [target, creep]) &&
+				this._isAddableTarget(target, creep) &&
 				((target instanceof OwnedStructure && target.my) ||
 					(!creep.room.controller ||
 						((!creep.room.controller.owner || creep.room.controller.my) &&

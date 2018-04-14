@@ -1,15 +1,15 @@
 import { RoomStructures } from './RoomStructures';
 // save original API functions
-const find = Room.prototype.find;
+Room.prototype._find = Room.prototype.find;
 Object.defineProperties(Room.prototype, {
 	find: {
 		value(c, opt) {
 			if (_.isArray(c)) {
 				return _(c)
-					.map(x => find.call(this, x, opt))
+					.map(type => this._find(type, opt))
 					.flatten()
 					.value();
-			} else return find.apply(this, arguments);
+			} else return this._find(c, opt);
 		},
 	},
 	structures: {

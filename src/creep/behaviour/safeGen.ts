@@ -1,5 +1,12 @@
-const mod = new Creep.Behaviour('safeGen');
-module.exports = mod;
-mod.actions = function(creep) {
-	return [Creep.action.safeGen, Creep.action.recycling];
-};
+import { CreepBehaviour } from '../../class';
+
+class SafeGenBehaviour extends CreepBehaviour {
+	constructor() {
+		super('safeGen');
+	}
+	actions = creep => {
+		return [Creep.action.safeGen, Creep.action.recycling];
+	};
+}
+
+export default new SafeGenBehaviour();

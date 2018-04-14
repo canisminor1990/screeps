@@ -1,10 +1,25 @@
-// base class for behaviours
-const Behaviour = function(name) {
-	this.name = name;
-	this.actions = creep => []; // priority list of non resource based actions
-	this.inflowActions = creep => []; // priority list of actions for getting resources
-	this.outflowActions = creep => []; // priority list of actions for using resources
-	this.assignAction = function(creep, action, target, debouncePriority) {
+export class CreepBehaviour {
+	name: string;
+
+	constructor(behaviourName: string) {
+		this.name = behaviourName;
+	}
+
+	state = {
+		default: {
+			name: `default-${this.name}`,
+		},
+	};
+	setState = (value: obj): void => {
+		_.assign(this.state, value);
+	};
+	mergeState = (value: obj): void => {
+		_.merge(this.state, value);
+	};
+	actions = creep => []; // priority list of non resource based actions
+	inflowActions = creep => []; // priority list of actions for getting resources
+	outflowActions = creep => []; // priority list of actions for using resources
+	assignAction = (creep, action, target, debouncePriority) => {
 		if (typeof action === 'string') action = Creep.action[action];
 		const valid = action.isValidAction(creep);
 		if (DEBUG && TRACE)
@@ -61,10 +76,10 @@ const Behaviour = function(name) {
 		}
 		return false;
 	};
-	this.selectInflowAction = function(creep) {
+	selectInflowAction = creep => {
 		const actionChecked = {};
 		const outflowActions = this.outflowActions(creep);
-		for (const action of this.inflowActions(creep)) {
+		for (let action of this.inflowActions(creep)) {
 			if (!actionChecked[action.name]) {
 				actionChecked[action.name] = true;
 				if (this.assignAction(creep, action, undefined, outflowActions)) return;
@@ -72,9 +87,9 @@ const Behaviour = function(name) {
 		}
 		return Creep.action.idle.assign(creep);
 	};
-	this.selectAction = function(creep, actions) {
+	selectAction = (creep, actions) => {
 		const actionChecked = {};
-		for (const action of actions) {
+		for (let action of actions) {
 			if (!actionChecked[action.name]) {
 				actionChecked[action.name] = true;
 				if (this.assignAction(creep, action)) return;
@@ -82,11 +97,11 @@ const Behaviour = function(name) {
 		}
 		return Creep.action.idle.assign(creep);
 	};
-	this.nextAction = function(creep) {
+	nextAction = creep => {
 		return this.selectAction(creep, this.actions(creep));
 	};
-	this.needEnergy = creep => creep.sum < creep.carryCapacity / 2;
-	this.nextEnergyAction = function(creep) {
+	needEnergy = creep => creep.sum < creep.carryCapacity / 2;
+	nextEnergyAction = creep => {
 		if (this.needEnergy(creep)) {
 			return this.selectInflowAction(creep);
 		} else {
@@ -102,10 +117,10 @@ const Behaviour = function(name) {
 			return this.selectAction(creep, this.outflowActions(creep));
 		}
 	};
-	this.invalidAction = function(creep) {
+	invalidAction = creep => {
 		return !creep.action;
 	};
-	this.run = function(creep) {
+	run = creep => {
 		// Assign next Action
 		if (this.invalidAction(creep)) {
 			if (
@@ -135,16 +150,10 @@ const Behaviour = function(name) {
 			Util.logError('Creep without action/activity!\nCreep: ' + creep.name + '\ndata: ' + JSON.stringify(creep.data));
 		}
 	};
-	this.assign = function(creep) {
+	assign = creep => {
 		creep.data.creepType = this.name;
 	};
-	this.state = {
-		default: {
-			name: `default-${this.name}`,
-		},
-	};
-	this.selectstate = function(actionName) {
+	selectstate = actionName => {
 		return [this.state.default, this.state[actionName]];
 	};
-};
-module.exports = Behaviour;
+}

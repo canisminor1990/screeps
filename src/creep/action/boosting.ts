@@ -18,7 +18,7 @@ class BoostingAction extends CreepAction {
 			const boostPartType = this.getBoostPartType(target.mineralType);
 			// mineralType is a boosting compound
 			return (
-				this._isAddableTarget.apply(this, [target, creep]) &&
+				this._isAddableTarget(target, creep) &&
 				creep.getStrategyHandler([this.name], 'isValidMineralType', target.mineralType) &&
 				// creep has active body parts matching the mineralType's boost
 				creep.hasActiveBodyparts(boostPartType) &&

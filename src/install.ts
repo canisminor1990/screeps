@@ -42,8 +42,11 @@ export const install = () => {
 	});
 
 	// Creep
-	Creep.Action = require('./creep/Action');
-	Creep.Behaviour = require('./creep/Behaviour');
+	Install(Creep, {
+		Action: require('./class').CreepAction,
+		Behaviour: require('./class').Behaviour,
+		Setup: require('./class').CreepSetup,
+	});
 	Install((Creep.action = {}), {
 		attackController: require('./creep/action/attackController').default,
 		avoiding: require('./creep/action/avoiding').default,
@@ -78,24 +81,24 @@ export const install = () => {
 		withdrawing: require('./creep/action/withdrawing').default,
 	});
 	Install((Creep.behaviour = {}), {
-		claimer: require('./creep/behaviour/claimer'),
-		collapseWorker: require('./creep/behaviour/collapseWorker'),
-		hauler: require('./creep/behaviour/hauler'),
-		healer: require('./creep/behaviour/healer'),
-		labTech: require('./creep/behaviour/labTech'),
-		melee: require('./creep/behaviour/melee'),
-		miner: require('./creep/behaviour/miner'),
-		mineralMiner: require('./creep/behaviour/mineralMiner'),
-		remoteMiner: require('./creep/behaviour/remoteMiner'),
-		remoteHauler: require('./creep/behaviour/remoteHauler'),
-		remoteWorker: require('./creep/behaviour/remoteWorker'),
-		pioneer: require('./creep/behaviour/pioneer'),
-		privateer: require('./creep/behaviour/privateer'),
-		recycler: require('./creep/behaviour/recycler'),
-		ranger: require('./creep/behaviour/ranger'),
-		upgrader: require('./creep/behaviour/upgrader'),
-		worker: require('./creep/behaviour/worker'),
-		safeGen: require('./creep/behaviour/safeGen'),
+		claimer: require('./creep/behaviour/claimer').default,
+		collapseWorker: require('./creep/behaviour/collapseWorker').default,
+		hauler: require('./creep/behaviour/hauler').default,
+		healer: require('./creep/behaviour/healer').default,
+		labTech: require('./creep/behaviour/labTech').default,
+		melee: require('./creep/behaviour/melee').default,
+		miner: require('./creep/behaviour/miner').default,
+		mineralMiner: require('./creep/behaviour/mineralMiner').default,
+		remoteMiner: require('./creep/behaviour/remoteMiner').default,
+		remoteHauler: require('./creep/behaviour/remoteHauler').default,
+		remoteWorker: require('./creep/behaviour/remoteWorker').default,
+		pioneer: require('./creep/behaviour/pioneer').default,
+		privateer: require('./creep/behaviour/privateer').default,
+		recycler: require('./creep/behaviour/recycler').default,
+		ranger: require('./creep/behaviour/ranger').default,
+		upgrader: require('./creep/behaviour/upgrader').default,
+		worker: require('./creep/behaviour/worker').default,
+		safeGen: require('./creep/behaviour/safeGen').default,
 	});
 	Install((Creep.setup = {}), {
 		hauler: require('./creep/setup/hauler').default,

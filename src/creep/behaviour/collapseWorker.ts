@@ -1,78 +1,86 @@
-const mod = new Creep.Behaviour('collapseWorker');
-module.exports = mod;
-mod.inflowActions = creep => {
-	let priority = [
-		Creep.action.picking,
-		Creep.action.withdrawing,
-		Creep.action.uncharging,
-		Creep.action.harvesting,
-		Creep.action.dismantling,
-		Creep.action.reallocating,
-	];
-	if (creep.sum > creep.carry.energy) {
-		priority.unshift(Creep.action.storing);
+import { CreepBehaviour } from '../../class';
+
+class CollapseWorkerBehaviour extends CreepBehaviour {
+	constructor() {
+		super('collapseWorker');
+		this.mergeState({
+			default: {
+				canWithdrawEnergy: (creep, target) => amount => amount > 0,
+			},
+		});
 	}
-	return priority;
-};
-mod.outflowActions = creep => {
-	const invasion = creep.room.situation.invasion && creep.room.controller && creep.room.controller.level > 2;
-	if (invasion) {
-		return [Creep.action.feeding, Creep.action.fueling, Creep.action.repairing];
-	} else {
+
+	inflowActions = creep => {
 		let priority = [
-			Creep.action.feeding,
-			Creep.action.fueling,
-			Creep.action.charging,
-			Creep.action.repairing,
-			Creep.action.building,
-			Creep.action.fortifying,
-			Creep.action.upgrading,
+			Creep.action.picking,
+			Creep.action.withdrawing,
+			Creep.action.uncharging,
+			Creep.action.harvesting,
+			Creep.action.dismantling,
+			Creep.action.reallocating,
 		];
-		if (!invasion) {
-			priority.push(Creep.action.storing);
-			priority.push(Creep.action.dropping);
-		}
-		if (creep.room.controller && creep.room.controller.ticksToDowngrade < 500) {
-			// urgent upgrading
-			priority.unshift(Creep.action.upgrading);
+		if (creep.sum > creep.carry.energy) {
+			priority.unshift(Creep.action.storing);
 		}
 		return priority;
-	}
-};
-mod.needEnergy = creep => Creep.behaviour.worker.needEnergy.call(this, creep);
-mod.nextAction = function(creep) {
-	if (creep.pos.roomName !== creep.data.homeRoom) {
-		if (DEBUG && TRACE)
-			Util.trace('Behaviour', {
-				actionName: 'travelling',
-				behaviourName: this.name,
-				creepName: creep.name,
-				assigned: true,
-				Behaviour: 'nextAction',
-				Action: 'assign',
-			});
-		Creep.action.travelling.assignRoom(creep, creep.data.homeRoom);
-		return true;
-	}
-	if (!creep.room.collapsed) {
-		Util.set(creep, ['data', 'recycleTick'], Game.time + 50);
-		if (Game.time >= creep.data.recycleTick) {
+	};
+	outflowActions = creep => {
+		const invasion = creep.room.situation.invasion && creep.room.controller && creep.room.controller.level > 2;
+		if (invasion) {
+			return [Creep.action.feeding, Creep.action.fueling, Creep.action.repairing];
+		} else {
+			let priority = [
+				Creep.action.feeding,
+				Creep.action.fueling,
+				Creep.action.charging,
+				Creep.action.repairing,
+				Creep.action.building,
+				Creep.action.fortifying,
+				Creep.action.upgrading,
+			];
+			if (!invasion) {
+				priority.push(Creep.action.storing);
+				priority.push(Creep.action.dropping);
+			}
+			if (creep.room.controller && creep.room.controller.ticksToDowngrade < 500) {
+				// urgent upgrading
+				priority.unshift(Creep.action.upgrading);
+			}
+			return priority;
+		}
+	};
+	needEnergy = creep => Creep.behaviour.worker.needEnergy(creep);
+	nextAction = creep => {
+		if (creep.pos.roomName !== creep.data.homeRoom) {
 			if (DEBUG && TRACE)
 				Util.trace('Behaviour', {
-					actionName: 'recycling',
+					actionName: 'travelling',
 					behaviourName: this.name,
 					creepName: creep.name,
 					assigned: true,
 					Behaviour: 'nextAction',
 					Action: 'assign',
 				});
-			return this.assignAction(creep, 'recycling');
+			Creep.action.travelling.assignRoom(creep, creep.data.homeRoom);
+			return true;
 		}
-	}
-	return Creep.behaviour.worker.nextAction.call(this, creep);
-};
-mod.state.default.canWithdrawEnergy = function(creep, target) {
-	return function(amount) {
-		return amount > 0;
+		if (!creep.room.collapsed) {
+			Util.set(creep, ['data', 'recycleTick'], Game.time + 50);
+			if (Game.time >= creep.data.recycleTick) {
+				if (DEBUG && TRACE)
+					Util.trace('Behaviour', {
+						actionName: 'recycling',
+						behaviourName: this.name,
+						creepName: creep.name,
+						assigned: true,
+						Behaviour: 'nextAction',
+						Action: 'assign',
+					});
+				return this.assignAction(creep, 'recycling');
+			}
+		}
+		return Creep.behaviour.worker.nextAction(creep);
 	};
-};
+}
+
+export default new CollapseWorkerBehaviour();
