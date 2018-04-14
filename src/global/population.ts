@@ -8,7 +8,7 @@ mod.setCreep = function(val) {
 	return Memory.population[val.creepName];
 };
 mod.registerCreep = function(creepName, creepType, creepCost, room, spawnName, body, destiny = null) {
-	var entry = this.setCreep({
+	let entry = this.setCreep({
 		creepName: creepName,
 		creepType: creepType,
 		weight: creepCost,
@@ -211,7 +211,7 @@ mod.analyze = function() {
 			}
 
 			if (entry.flagName) {
-				var flag = Game.flags[entry.flagName];
+				let flag = Game.flags[entry.flagName];
 				if (!flag) delete entry.flagName;
 				else {
 					if (flag.targetOf === undefined) flag.targetOf = [entry];

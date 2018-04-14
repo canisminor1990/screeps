@@ -204,7 +204,7 @@ mod.extend = function() {
 				}
 				if (_.isUndefined(this._sources)) {
 					this._sources = [];
-					var addSource = id => {
+					let addSource = id => {
 						Util.addById(this._sources, id);
 					};
 					this.memory.sources.forEach(addSource);
@@ -218,7 +218,7 @@ mod.extend = function() {
 				if (_.isUndefined(this.memory.sourceAccessibleFields)) {
 					let sourceAccessibleFields = 0;
 					let sources = this.sources;
-					var countAccess = source => (sourceAccessibleFields += source.accessibleFields);
+					let countAccess = source => (sourceAccessibleFields += source.accessibleFields);
 					_.forEach(sources, countAccess);
 					this.memory.sourceAccessibleFields = sourceAccessibleFields;
 				}
@@ -230,7 +230,7 @@ mod.extend = function() {
 			get: function() {
 				if (_.isUndefined(this._sourceEnergyAvailable)) {
 					this._sourceEnergyAvailable = 0;
-					var countEnergy = source => (this._sourceEnergyAvailable += source.energy);
+					let countEnergy = source => (this._sourceEnergyAvailable += source.energy);
 					_.forEach(this.sources, countEnergy);
 				}
 				return this._sourceEnergyAvailable;

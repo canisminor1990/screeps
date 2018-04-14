@@ -54,7 +54,7 @@ mod.extend = function() {
 				get: function() {
 					if (_.isUndefined(this._towers)) {
 						this._towers = [];
-						var add = id => {
+						let add = id => {
 							Util.addById(this._towers, id);
 						};
 						_.forEach(this.room.memory.towers, add);
@@ -76,7 +76,7 @@ mod.extend = function() {
 				configurable: true,
 				get: function() {
 					if (_.isUndefined(this._urgentRepairableSites)) {
-						var isUrgent = site => site.hits < LIMIT_URGENT_REPAIRING + (DECAY_AMOUNT[site.structureType] || 0);
+						let isUrgent = site => site.hits < LIMIT_URGENT_REPAIRING + (DECAY_AMOUNT[site.structureType] || 0);
 						this._urgentRepairableSites = _.filter(this.repairable, isUrgent);
 					}
 					return this._urgentRepairableSites;
@@ -126,9 +126,9 @@ mod.extend = function() {
 				configurable: true,
 				get: function() {
 					if (_.isUndefined(this._fuelables)) {
-						var that = this;
-						var factor = that.room.situation.invasion ? 1 : 0.82;
-						var fuelable = target => target.energy < target.energyCapacity * factor;
+						let that = this;
+						let factor = that.room.situation.invasion ? 1 : 0.82;
+						let fuelable = target => target.energy < target.energyCapacity * factor;
 						this._fuelables = _.sortBy(_.filter(this.towers, fuelable), 'energy'); // TODO: Add Nuker
 					}
 					return this._fuelables;
@@ -252,7 +252,7 @@ mod.extend = function() {
 				get: function() {
 					if (_.isUndefined(this._spawns)) {
 						this._spawns = [];
-						var addSpawn = id => {
+						let addSpawn = id => {
 							Util.addById(this._spawns, id);
 						};
 						_.forEach(this.room.memory.spawns, addSpawn);
@@ -1945,7 +1945,7 @@ mod.routeCallback = function(origin, destination, options) {
 	};
 };
 mod.getCostMatrix = function(roomName) {
-	var room = Game.rooms[roomName];
+	let room = Game.rooms[roomName];
 	if (!room) return;
 	return room.costMatrix;
 };

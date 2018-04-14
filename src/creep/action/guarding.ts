@@ -8,7 +8,7 @@ action.isAddableTarget = function() {
 };
 action.reachedRange = 0;
 action.newTarget = function(creep) {
-	var flag;
+	let flag;
 	if (creep.data.destiny) flag = Game.flags[creep.data.destiny.flagName];
 	if (!flag) {
 		flag = Flag.find(FLAG_COLOR.defense, creep.pos, false, Flag.rangeMod, {

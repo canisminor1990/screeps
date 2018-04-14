@@ -48,11 +48,11 @@ action.newTarget = function(creep) {
 		}
 	}
 
-	var that = this;
+	let that = this;
 	if (creep.room.structures.container.out.length > 0) {
 		let target = null;
 		let maxFree = 0;
-		var emptyest = o => {
+		let emptyest = o => {
 			if (that.isValidTarget(o, creep) && that.isAddableTarget(o, creep)) {
 				let free = o.storeCapacity - o.sum;
 				if (free > maxFree) {
@@ -86,9 +86,9 @@ action.work = function(creep) {
 	creep.target = null;
 	return workResult;
 	/* container charging with minerals not supported currently
-    var workResult;
+    let workResult;
     if( creep.target.structureType == STRUCTURE_CONTAINER ) {
-        for(var resourceType in creep.carry) {
+        for(let resourceType in creep.carry) {
             if( creep.carry[resourceType] > 0 ){
                 workResult = creep.transfer(creep.target, resourceType);
                 if( workResult != OK ) break;

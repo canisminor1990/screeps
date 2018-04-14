@@ -1,32 +1,29 @@
 import { ProtoypeInstall } from './prototype';
 import { TravelerInstall } from './traveler';
+import { EventFlush } from './global/events';
 import { Install, getUsername } from './util';
 
 export default () => {
-	// Initialize global & parameters
+	// Config
 	Install('_ME', getUsername);
 	Install(global, require('config'));
-	Install(global, require('./global'));
-
-	// Load modules
-	Install(global, {
-		CompressedMatrix: require('./traveler/compressedMatrix'),
-		Population: require('./global/population'),
-		Tower: require('./structure/tower'),
-		Events: require('./global/events'),
-		CMemory: require('./global/CMemory'),
-		Grafana: GRAFANA ? require('./mod/grafana') : undefined,
-		Visuals: require('./mod/visuals'),
-	});
-
-	// Flag
-	Install(Flag, require('./flag/index'));
 
 	// Util
 	Install('Util', require('./util').default, {
 		DiamondIterator: require('./util/diamond'),
 		SpiralIterator: require('./util/spiral'),
 	});
+
+	// Load modules
+	ProtoypeInstall();
+	TravelerInstall();
+	Install(global, require('./global'), {
+		CMemory: require('./global/CMemory'),
+		Population: require('./global/population'),
+	});
+
+	// Flag
+	Install(Flag, require('./flag/index'));
 
 	// Task
 	Install('Task', require('./task').default, {
@@ -45,6 +42,7 @@ export default () => {
 		scheduler: require('./task/tasks/scheduler').default,
 	});
 
+	// Creep
 	Creep.Action = require('./creep/Action');
 	Creep.Behaviour = require('./creep/Behaviour');
 	Install((Creep.action = {}), {
@@ -111,6 +109,8 @@ export default () => {
 	});
 
 	Install(Creep, require('./creep').default);
+
+	// Room
 	Install(Room, require('./room'), {
 		_ext: {
 			construction: require('./room/construction'),
@@ -131,15 +131,19 @@ export default () => {
 		},
 	});
 
-	Install(Spawn, require('./structure/spawn'));
+	// Structure
+	Install(StructureTower, require('./structure/tower').default);
+	Install(StructureSpawn, require('./structure/spawn').default);
+
+	// Addon
+	Install(global, {
+		Grafana: GRAFANA ? require('./mod/grafana') : undefined,
+		Visuals: require('./mod/visuals'),
+	});
 
 	// Extend server objects
-	// global.extend();
-	ProtoypeInstall();
-	TravelerInstall();
 	Creep.extend();
 	Room.extend();
-	Spawn.extend();
 	Flag.extend();
 	Task.extend();
 	// custom extend

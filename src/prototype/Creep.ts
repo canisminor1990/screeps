@@ -173,7 +173,7 @@ Object.defineProperties(Creep.prototype, {
 					let breeding = this.memory.breeding;
 					if (type && weight && home && spawn && breeding) {
 						// console.log( 'Fixing corrupt creep without population entry: ' + this.name );
-						var entry = Population.setCreep({
+						let entry = Population.setCreep({
 							creepName: this.name,
 							creepType: type,
 							weight: weight,

@@ -285,7 +285,7 @@ class ReserveTask extends TaskComponent {
 		let priority = [Creep.action.reserving, Creep.action.recycling];
 		//  console.log("bingo")
 		for (let iAction = 0; iAction < priority.length; iAction++) {
-			var action = priority[iAction];
+			let action = priority[iAction];
 			if (action.isValidAction(creep) && action.isAddableAction(creep) && action.assign(creep)) {
 				break;
 			}

@@ -12,8 +12,8 @@ action.isValidTarget = function(target) {
 	return target && target.active && target.hits && target.hits < target.hitsMax;
 };
 action.newTarget = function(creep) {
-	var that = this;
-	var isAddable = target => that.isAddableTarget(target, creep);
+	let that = this;
+	let isAddable = target => that.isAddableTarget(target, creep);
 	return _.find(creep.room.structures.fortifyable, isAddable);
 };
 action.work = function(creep) {

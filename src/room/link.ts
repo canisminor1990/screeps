@@ -72,7 +72,7 @@ mod.extend = function() {
 			},
 		});
 	};
-	// Link related Room variables go here
+	// Link related Room letiables go here
 	Room.prototype.saveLinks = function() {
 		let links = this.find(FIND_MY_STRUCTURES, {
 			filter: structure => structure.structureType == STRUCTURE_LINK,

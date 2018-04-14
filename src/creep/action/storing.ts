@@ -46,7 +46,7 @@ action.newTarget = function(creep) {
 	return null;
 };
 action.work = function(creep) {
-	var workResult;
+	let workResult;
 	for (let resourceType in creep.carry) {
 		if (creep.carry[resourceType] > 0) {
 			workResult = creep.transfer(creep.target, resourceType);

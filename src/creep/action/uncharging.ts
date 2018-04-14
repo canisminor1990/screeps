@@ -33,7 +33,7 @@ action.newTarget = function(creep) {
 		}
 	}
 
-	var that = this;
+	let that = this;
 	if (creep.room.structures.container.in.length > 0) {
 		let min;
 		if (creep.data.creepType.indexOf('remote') >= 0) min = 250;

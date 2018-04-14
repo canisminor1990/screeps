@@ -38,7 +38,7 @@ mod.outflowActions = creep => {
 	return priority;
 };
 mod.nextAction = function(creep) {
-	var flag;
+	let flag;
 	if (creep.data.destiny) flag = Game.flags[creep.data.destiny.flagName];
 
 	if (flag) {

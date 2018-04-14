@@ -1,14 +1,11 @@
-import { LiteEvent, Component } from '../class';
+import { Component, LiteEvent } from '../class';
 
 class Flag extends Component {
-	list = [];
-	stale = [];
-	// occurs when a flag is found (each tick)
-	// param: flag
-	found = new LiteEvent();
-	// occurs when a flag memory if found for which no flag exists (before memory removal)
-	// param: flagName
-	FlagRemoved = new LiteEvent();
+	constructor() {
+		super();
+		this.flush();
+	}
+
 	flagFilter = flagColour => {
 		if (!flagColour) return;
 		let filter;
@@ -126,7 +123,7 @@ class Flag extends Component {
 	rangeMod = (range, flagItem, args) => {
 		let rangeModPerCrowd = args && args.rangeModPerCrowd ? args.rangeModPerCrowd : 20;
 		let rangeModByType = args ? args.rangeModByType : null;
-		var flag = Game.flags[flagItem.name];
+		let flag = Game.flags[flagItem.name];
 		let crowd;
 		if (flag.targetOf) {
 			// flag is targetted
@@ -140,7 +137,7 @@ class Flag extends Component {
 	};
 	exploitMod = (range, flagItem, creepName) => {
 		if (range > 100) return Infinity;
-		var flag = Game.flags[flagItem.name];
+		let flag = Game.flags[flagItem.name];
 		if (flag.room) {
 			if (flag.room.my) {
 				return Infinity;
@@ -166,10 +163,15 @@ class Flag extends Component {
 	};
 	extend = () => {};
 	flush = () => {
-		let clear = flag => delete flag.targetOf;
-		_.forEach(Game.flags, clear);
 		this.list = [];
 		this.stale = [];
+		// occurs when a flag is found (each tick)
+		// param: flag
+		this.found = new LiteEvent();
+		// occurs when a flag memory if found for which no flag exists (before memory removal)
+		// param: flagName
+		this.FlagRemoved = new LiteEvent();
+		_.forEach(Game.flags, flag => delete flag.targetOf);
 		delete this._hasInvasionFlag;
 	};
 	analyze = () => {

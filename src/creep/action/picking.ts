@@ -43,7 +43,7 @@ action.newTarget = function(creep) {
 	return creep.pos.findClosestByPath(droppedResources, { filter: filter });
 };
 action.work = function(creep) {
-	var result = creep.pickup(creep.target);
+	let result = creep.pickup(creep.target);
 	if (result == OK) {
 		if (creep.sum < creep.carryCapacity * 0.8) {
 			// is there another in range?

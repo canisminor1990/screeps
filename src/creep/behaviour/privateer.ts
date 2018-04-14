@@ -101,7 +101,7 @@ mod.nextAction = function(creep) {
 				// carrier full
 				let actions = [Creep.action.building];
 				for (let iAction = 0; iAction < actions.length; iAction++) {
-					var action = actions[iAction];
+					let action = actions[iAction];
 					if (action.isValidAction(creep) && action.isAddableAction(creep) && action.assign(creep)) return;
 				}
 				Population.registerCreepFlag(creep, null);

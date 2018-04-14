@@ -90,7 +90,7 @@ mod.extend = function() {
 			},
 		});
 	};
-	// Container related Room variables go here
+	// Container related Room letiables go here
 
 	// Room prototype extensions go here
 	Room.prototype.saveContainers = function() {

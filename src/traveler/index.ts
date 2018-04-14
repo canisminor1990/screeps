@@ -410,6 +410,7 @@ class Traveler {
 
 export const TravelerInstall = () => {
 	_.assign(global, {
+		CompressedMatrix: require('./compressedMatrix'),
 		Traveler: Traveler,
 		traveler: new Traveler(),
 		travelerTick: Game.time,

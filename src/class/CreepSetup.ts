@@ -49,7 +49,7 @@ export class CreepSetup {
 		else return obj;
 	};
 	buildParams = spawn => {
-		var memory = {
+		let memory = {
 			setup: null,
 			name: null,
 			parts: [],

@@ -10,7 +10,7 @@ mod.analyzeRoom = function(room, needMemoryResync) {
 	room.roadConstruction();
 };
 mod.extend = function() {
-	// Construction related Room variables go here
+	// Construction related Room letiables go here
 	Room.roomLayoutArray = [
 		[null, null, null, null, null, STRUCTURE_EXTENSION, STRUCTURE_ROAD, STRUCTURE_EXTENSION],
 		[

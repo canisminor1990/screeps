@@ -240,9 +240,9 @@ class RobbingTask extends TaskComponent {
 				// get some energy
 				if (creep.sum < creep.carryCapacity * 0.4) {
 					// harvesting or picking
-					var actions = [Creep.action.picking, Creep.action.robbing];
+					let actions = [Creep.action.picking, Creep.action.robbing];
 					for (let iAction = 0; iAction < actions.length; iAction++) {
-						var action = actions[iAction];
+						let action = actions[iAction];
 						if (action.isValidAction(creep) && action.isAddableAction(creep) && action.assign(creep)) return;
 					}
 					// no targets in current room
@@ -276,7 +276,7 @@ class RobbingTask extends TaskComponent {
 	exploitNextRoom = creep => {
 		if (creep.sum < creep.carryCapacity * 0.4) {
 			// calc by distance to home room
-			var flag;
+			let flag;
 			if (creep.data.destiny) flag = Game.flags[creep.data.destiny.flagName];
 			if (!flag) flag = this.getFlag(creep.data.homeRoom);
 			// new flag found

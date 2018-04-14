@@ -40,7 +40,7 @@ mod.extend = function() {
 			},
 		});
 	};
-	// Lab related Room variables go here
+	// Lab related Room letiables go here
 
 	// Room prototype extensions go here
 	Room.prototype.saveLabs = function() {

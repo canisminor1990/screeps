@@ -54,7 +54,7 @@ action.step = function(creep) {
 
 	let range = creep.pos.getRangeTo(creep.target);
 	if (range <= this.targetRange) {
-		var workResult = this.work(creep);
+		let workResult = this.work(creep);
 		if (workResult != OK) {
 			creep.handleError({ errorCode: workResult, action: this, target: creep.target, range, creep });
 		}
@@ -66,7 +66,7 @@ action.work = function(creep) {
 
 	return creep.claimController(creep.target);
 	/*
-    var workResult;
+    let workResult;
         workResult = creep.claimController(creep.target);
     if( creep.target.owner && !creep.target.my ){
         workResult = creep.attackController(creep.target);

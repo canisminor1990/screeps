@@ -14,7 +14,7 @@ mod.executeRoom = function(memory, roomName) {
 	}
 };
 mod.extend = function() {
-	// Related Room variables go here
+	// Related Room letiables go here
 
 	// Room prototype extensions go here
 	Room.prototype.controlObserver = function() {
