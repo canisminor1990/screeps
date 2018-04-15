@@ -325,10 +325,19 @@ const Visuals = class {
 				// BUCKET
 				x += sectionWidth + bufferWidth;
 				const BUCKET_PERCENTAGE = Math.min(1, Game.cpu.bucket / 10000);
-				this.drawBar(vis, BUCKET_PERCENTAGE, x, BAR_Y, sectionWidth, 1, `Bucket: ${Game.cpu.bucket}`, {
-					fill: getColourByPercentage(BUCKET_PERCENTAGE, true),
-					opacity: BAR_STYLE.opacity,
-				});
+				this.drawBar(
+					vis,
+					BUCKET_PERCENTAGE,
+					x,
+					BAR_Y,
+					sectionWidth,
+					1,
+					`Bucket: ${Game.cpu.bucket}`,
+					{
+						fill: getColourByPercentage(BUCKET_PERCENTAGE, true),
+						opacity: BAR_STYLE.opacity,
+					},
+				);
 
 				// TICK
 				x += sectionWidth + bufferWidth;
@@ -407,7 +416,10 @@ const Visuals = class {
 				.flatten()
 				.size();
 			const SCU_PERCENTAGE = count / spawnCount;
-			this.drawPie(vis, SCU_PERCENTAGE, 1, 'SCU', getColourByPercentage(SCU_PERCENTAGE), { x, y: y++ });
+			this.drawPie(vis, SCU_PERCENTAGE, 1, 'SCU', getColourByPercentage(SCU_PERCENTAGE), {
+				x,
+				y: y++,
+			});
 
 			// TICK
 			y += 15;
@@ -512,7 +524,9 @@ const Visuals = class {
 					y - 0.75,
 					sectionWidth,
 					1,
-					`Energy: ${room.energyAvailable}/${room.energyCapacityAvailable} (${(ENERGY_PERCENTAGE * 100).toFixed(2)}%)`,
+					`Energy: ${room.energyAvailable}/${room.energyCapacityAvailable} (${(
+						ENERGY_PERCENTAGE * 100
+					).toFixed(2)}%)`,
 					{
 						fill: getColourByPercentage(ENERGY_PERCENTAGE, true),
 						opacity: BAR_STYLE.opacity,
@@ -547,7 +561,15 @@ const Visuals = class {
 				max = 1;
 				inner = 'N/A';
 			}
-			this.drawPie(vis, val, max, title, getColourByPercentage(val / max, true), { x, y: y++ }, inner);
+			this.drawPie(
+				vis,
+				val,
+				max,
+				title,
+				getColourByPercentage(val / max, true),
+				{ x, y: y++ },
+				inner,
+			);
 
 			// Energy Available
 			if (!room.controller.reservation && room.controller.owner) {
@@ -607,11 +629,9 @@ const Visuals = class {
 		let y = controller.pos.y - 0.5;
 		const style = this.toolTipStyle;
 		let line0 = `L: ${controller.level}`;
-		let line1 = `P: ${Util.formatNumber(controller.progress)}/${Util.formatNumber(controller.progressTotal)} (${(
-			controller.progress /
-			controller.progressTotal *
-			100
-		).toFixed(2)}%)`;
+		let line1 = `P: ${Util.formatNumber(controller.progress)}/${Util.formatNumber(
+			controller.progressTotal,
+		)} (${(controller.progress / controller.progressTotal * 100).toFixed(2)}%)`;
 		let line2 = `D: ${Util.formatNumber(controller.ticksToDowngrade)}`;
 		if (controller.level === 8) {
 			line1 = undefined;
@@ -626,7 +646,10 @@ const Visuals = class {
 		if (line1) {
 			vis.text(line1, BASE_X, (y += 0.4), style);
 		}
-		if (controller.ticksToDowngrade < CONTROLLER_DOWNGRADE[controller.level] || controller.reservation) {
+		if (
+			controller.ticksToDowngrade < CONTROLLER_DOWNGRADE[controller.level] ||
+			controller.reservation
+		) {
 			let downgradeStyle = Object.assign({}, style, { color: RED });
 			vis.text(line2, BASE_X, (y += 0.4), downgradeStyle);
 		}
@@ -661,7 +684,9 @@ const Visuals = class {
 				}
 			}
 			vis.text(
-				`H: ${Util.formatNumber(weakest.hits)} (${(weakest.hits / weakest.hitsMax * 100).toFixed(2)}%)`,
+				`H: ${Util.formatNumber(weakest.hits)} (${(weakest.hits / weakest.hitsMax * 100).toFixed(
+					2,
+				)}%)`,
 				weakest.pos.x + 1,
 				y,
 				this.toolTipStyle,
@@ -673,7 +698,11 @@ const Visuals = class {
 		const vis = new RoomVisual(room.name);
 		const x = 43;
 		let y = VISUALS.INFO_PIE_CHART ? 0.5 : 4.5;
-		if (!room.memory.resources || !room.memory.resources.orders || !_.size(room.memory.resources.orders)) {
+		if (
+			!room.memory.resources ||
+			!room.memory.resources.orders ||
+			!_.size(room.memory.resources.orders)
+		) {
 			return;
 		}
 
@@ -698,7 +727,11 @@ const Visuals = class {
 		const vis = new RoomVisual(room.name);
 		const x = 43;
 		let y = VISUALS.INFO_PIE_CHART ? 0.5 : 4.5;
-		if (!room.memory.resources || !room.memory.resources.offers || !_.size(room.memory.resources.offers)) {
+		if (
+			!room.memory.resources ||
+			!room.memory.resources.offers ||
+			!_.size(room.memory.resources.offers)
+		) {
 			return;
 		}
 		if (VISUALS.STORAGE && room.storage) {
@@ -760,7 +793,9 @@ const Visuals = class {
 
 		transactions.forEach(transaction => {
 			const outgoing = transaction.sender.username === room.controller.owner.username;
-			const toSelf = transaction.recipient ? transaction.sender.username === transaction.recipient.username : false;
+			const toSelf = transaction.recipient
+				? transaction.sender.username === transaction.recipient.username
+				: false;
 			const receiving = room.name === transaction.to;
 			const colour = outgoing || receiving ? GREEN : RED;
 			const prefix = outgoing ? '+' : '-';
@@ -799,7 +834,12 @@ const Visuals = class {
 			);
 		}
 		if (lab.cooldown) {
-			vis.text(`C: ${lab.cooldown}`, x, (y += 0.4), Object.assign({ color: RED }, this.toolTipStyle));
+			vis.text(
+				`C: ${lab.cooldown}`,
+				x,
+				(y += 0.4),
+				Object.assign({ color: RED }, this.toolTipStyle),
+			);
 		}
 	}
 
@@ -846,7 +886,12 @@ const Visuals = class {
 
 	drawTowerInfo(tower) {
 		const vis = new RoomVisual(tower.room.name);
-		vis.text(`E: ${tower.energy}/${tower.energyCapacity}`, tower.pos.x + 1, tower.pos.y - 0.5, this.toolTipStyle);
+		vis.text(
+			`E: ${tower.energy}/${tower.energyCapacity}`,
+			tower.pos.x + 1,
+			tower.pos.y - 0.5,
+			this.toolTipStyle,
+		);
 	}
 
 	creepPathStyle(creep) {

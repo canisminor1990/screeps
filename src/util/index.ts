@@ -20,7 +20,12 @@ const utils = {
 	/**
 	 * 给角色标序号
 	 */
-	pad(number: number, padCharacter: string = '0', padLength: number = 2, padLengthMax: boolean = true): string {
+	pad(
+		number: number,
+		padCharacter: string = '0',
+		padLength: number = 2,
+		padLengthMax: boolean = true,
+	): string {
 		if (padLengthMax) padLength -= number.toString().length;
 		const padString = _.times(padLength, () => padCharacter).join('');
 		return padString + number;
@@ -130,7 +135,8 @@ const utils = {
 			.flatten()
 			.some((q: obj) => {
 				if (opts.room) if (q.destiny && q.destiny.room !== opts.room) return false;
-				if (opts.behaviour) return (q.behaviour && q.behaviour === opts.behaviour) || q.name.includes(opts.behaviour);
+				if (opts.behaviour)
+					return (q.behaviour && q.behaviour === opts.behaviour) || q.name.includes(opts.behaviour);
 				if (opts.setup) return q.setup === opts.setup;
 			});
 	},

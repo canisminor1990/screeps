@@ -47,12 +47,16 @@ export class CompressedMatrix {
 			stringified = JSON.stringify(serialized);
 			normalStringified = stringified;
 			if (verbose)
-				console.log('normal-deserialize', PathFinder.CostMatrix.deserialize(JSON.parse(stringified)).serialize());
+				console.log(
+					'normal-deserialize',
+					PathFinder.CostMatrix.deserialize(JSON.parse(stringified)).serialize(),
+				);
 			serialized = this.serialize(costMatrix);
 			if (verbose) console.log('comp-serialize', serialized);
 			stringified = JSON.stringify(serialized);
 			compressedStringified = stringified;
-			if (verbose) console.log('comp-deserialize', this.deserialize(JSON.parse(stringified)).serialize());
+			if (verbose)
+				console.log('comp-deserialize', this.deserialize(JSON.parse(stringified)).serialize());
 		}
 		this.state.nSize = normalStringified.length / 1024;
 		this.state.cSize = compressedStringified.length / 1024;

@@ -25,10 +25,14 @@ class DroppingAction extends CreepAction {
 			drop = creep.pos.findClosestByRange(creep.room.structures.spawns);
 		}
 		if (!drop) {
-			drop = creep.pos.findClosestByRange(creep.room.find(FIND_FLAGS, Flag.flagFilter(FLAG_COLOR.claim.spawn)));
+			drop = creep.pos.findClosestByRange(
+				creep.room.find(FIND_FLAGS, Flag.flagFilter(FLAG_COLOR.claim.spawn)),
+			);
 		}
 		if (!drop) {
-			drop = creep.pos.findClosestByRange(_.filter(creep.room.constructionSites, { structureType: STRUCTURE_SPAWN }));
+			drop = creep.pos.findClosestByRange(
+				_.filter(creep.room.constructionSites, { structureType: STRUCTURE_SPAWN }),
+			);
 		}
 		if (!drop) {
 			drop = creep.room.controller;
@@ -47,7 +51,12 @@ class DroppingAction extends CreepAction {
 			)
 		) {
 			let range = creep.pos.getRangeTo(creep.target);
-			if (range > 0 && creep.data.lastPos && creep.data.path && !_.eq(creep.pos, creep.data.lastPos)) {
+			if (
+				range > 0 &&
+				creep.data.lastPos &&
+				creep.data.path &&
+				!_.eq(creep.pos, creep.data.lastPos)
+			) {
 				// If the destination is walkable, try to move there before dropping
 				let invalidObject = o => {
 					return (

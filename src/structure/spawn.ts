@@ -9,7 +9,11 @@ class StructureSpawnClass extends Component {
 	};
 	handleSpawningCompleted = creep => {
 		if (DEBUG && TRACE)
-			Util.trace('Spawn', { behaviour: creep.data.creepType, creepName: creep.name, Spawn: 'Creep.spawningCompleted' });
+			Util.trace('Spawn', {
+				behaviour: creep.data.creepType,
+				creepName: creep.name,
+				Spawn: 'Creep.spawningCompleted',
+			});
 		if (CENSUS_ANNOUNCEMENTS)
 			Util.logSystem(creep.pos.roomName, Util.dye(CRAYON.birth, 'Off to work ' + creep.name + '!'));
 	};

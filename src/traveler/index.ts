@@ -69,12 +69,18 @@ class Traveler {
 					}
 					let fMod = parsed[1] % 10;
 					let sMod = parsed[2] % 10;
-					let isSK = !(fMod === 5 && sMod === 5) && (fMod >= 4 && fMod <= 6) && (sMod >= 4 && sMod <= 6);
+					let isSK =
+						!(fMod === 5 && sMod === 5) && (fMod >= 4 && fMod <= 6) && (sMod >= 4 && sMod <= 6);
 					if (isSK) {
 						return 10;
 					}
 				}
-				if (!options.allowHostile && this.getHostileRoom(roomName) && roomName !== destination && roomName !== origin) {
+				if (
+					!options.allowHostile &&
+					this.getHostileRoom(roomName) &&
+					roomName !== destination &&
+					roomName !== origin
+				) {
 					return Number.POSITIVE_INFINITY;
 				}
 				return 2.5;
@@ -103,7 +109,8 @@ class Traveler {
 		let allowedRooms;
 		if (
 			options.useFindRoute ||
-			(options.useFindRoute === undefined && Game.map.getRoomLinearDistance(origPos.roomName, destPos.roomName) > 2)
+			(options.useFindRoute === undefined &&
+				Game.map.getRoomLinearDistance(origPos.roomName, destPos.roomName) > 2)
 		) {
 			allowedRooms = this.findAllowedRooms(origPos.roomName, destPos.roomName, options);
 		}
@@ -161,9 +168,15 @@ class Traveler {
 			// search the path for a rampart
 			const room = Game.rooms[origPos.roomName];
 			// if we have ramparts in the room
-			if (room && room.find(FIND_MY_STRUCTURES, { filter: { structureType: STRUCTURE_RAMPART } }).length) {
+			if (
+				room &&
+				room.find(FIND_MY_STRUCTURES, { filter: { structureType: STRUCTURE_RAMPART } }).length
+			) {
 				for (let i = 0; i < ret.path.length; i++) {
-					if (_.filter(ret.path[i].lookFor(LOOK_STRUCTURES), { structureType: STRUCTURE_RAMPART }).length) {
+					if (
+						_.filter(ret.path[i].lookFor(LOOK_STRUCTURES), { structureType: STRUCTURE_RAMPART })
+							.length
+					) {
 						// rampart in the path
 						ret.path = ret.path.slice(0, i + 1);
 						break;
@@ -213,7 +226,12 @@ class Traveler {
 				return pos.x === 0 || pos.x === 49 || pos.y === 0 || pos.y === 49;
 			};
 			const opposingBorders = (p1, p2) => {
-				return isBorder(p1) && isBorder(p2) && p1.roomName !== p2.roomName && (p1.x === p2.x || p1.y === p2.y);
+				return (
+					isBorder(p1) &&
+					isBorder(p2) &&
+					p1.roomName !== p2.roomName &&
+					(p1.x === p2.x || p1.y === p2.y)
+				);
 			};
 			travelData.prev = Traveler.initPosition(travelData.prev);
 			if (creepPos.inRangeTo(travelData.prev, 0) || opposingBorders(creep.pos, travelData.prev)) {
@@ -261,10 +279,9 @@ class Traveler {
 			if (travelData.count > 25 && travelData.avg > options.reportThreshold) {
 				if (options.debug) {
 					console.log(
-						`TRAVELER: heavy cpu use: ${creep.name}, avg: ${travelData.cpu / travelData.count}, total: ${_.round(
-							travelData.cpu,
-							2,
-						)},` + `origin: ${creep.pos}, dest: ${destPos}`,
+						`TRAVELER: heavy cpu use: ${creep.name}, avg: ${travelData.cpu /
+							travelData.count}, total: ${_.round(travelData.cpu, 2)},` +
+							`origin: ${creep.pos}, dest: ${destPos}`,
 					);
 				}
 			}
@@ -296,7 +313,9 @@ class Traveler {
 					);
 					if (options.debug) {
 						console.log(
-							`attempting path through next room using known route was ${ret.incomplete ? 'not' : ''} successful`,
+							`attempting path through next room using known route was ${
+								ret.incomplete ? 'not' : ''
+							} successful`,
 						);
 					}
 				}
@@ -304,7 +323,9 @@ class Traveler {
 					options.useFindRoute = false;
 					ret = this.findTravelPath(creep, destPos, options);
 					if (options.debug) {
-						console.log(`attempting path without findRoute was ${ret.incomplete ? 'not ' : ''}successful`);
+						console.log(
+							`attempting path without findRoute was ${ret.incomplete ? 'not ' : ''}successful`,
+						);
 					}
 				}
 			}
@@ -406,7 +427,11 @@ class Traveler {
 	static positionAtDirection = (origin, direction) => {
 		let offsetX = [0, 0, 1, 1, 1, 0, -1, -1, -1];
 		let offsetY = [0, -1, -1, 0, 1, 1, 1, 0, -1];
-		return new RoomPosition(origin.x + offsetX[direction], origin.y + offsetY[direction], origin.roomName);
+		return new RoomPosition(
+			origin.x + offsetX[direction],
+			origin.y + offsetY[direction],
+			origin.roomName,
+		);
 	};
 }
 

@@ -11,7 +11,12 @@ class FuelingAction extends CreepAction {
 		return creep.carry.energy > 0 && creep.room.towerFreeCapacity > 0;
 	};
 	isValidTarget = target => {
-		return target && (target.energy || target.energy == 0) && target.active && target.energy < target.energyCapacity;
+		return (
+			target &&
+			(target.energy || target.energy == 0) &&
+			target.active &&
+			target.energy < target.energyCapacity
+		);
 	};
 	isAddableTarget = target => {
 		return target.my && (!target.targetOf || target.targetOf.length < this.maxPerTarget);

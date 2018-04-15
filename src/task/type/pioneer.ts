@@ -85,7 +85,11 @@ class PioneerTask extends TaskComponent {
 		let memory = this.memory(flag);
 
 		// re-validate if too much time has passed in the queue
-		Task.validateAll(memory, flag, this.name, { roomName: flag.pos.roomName, subKey: 'pioneer', checkValid: true });
+		Task.validateAll(memory, flag, this.name, {
+			roomName: flag.pos.roomName,
+			subKey: 'pioneer',
+			checkValid: true,
+		});
 
 		// decide number of pioneers required
 		let count = memory.queued.length + memory.spawning.length + memory.running.length;
@@ -144,7 +148,13 @@ class PioneerTask extends TaskComponent {
 	// when a creep completed spawning
 	handleSpawningCompleted = creep => {
 		// ensure it is a creep which has been requested by this task (else return)
-		if (!creep.data || !creep.data.destiny || !creep.data.destiny.task || creep.data.destiny.task != 'pioneer') return;
+		if (
+			!creep.data ||
+			!creep.data.destiny ||
+			!creep.data.destiny.task ||
+			creep.data.destiny.task != 'pioneer'
+		)
+			return;
 		// get flag which caused request of that creep
 		let flag = Game.flags[creep.data.destiny.flagName];
 		if (flag) {
@@ -171,7 +181,10 @@ class PioneerTask extends TaskComponent {
 		let flag = Game.flags[mem.destiny.flagName];
 		if (flag) {
 			let memory = this.memory(flag);
-			Task.validateRunning(memory, flag, this.name, { roomName: flag.pos.roomName, deadCreep: name });
+			Task.validateRunning(memory, flag, this.name, {
+				roomName: flag.pos.roomName,
+				deadCreep: name,
+			});
 		}
 	};
 	// get task memory

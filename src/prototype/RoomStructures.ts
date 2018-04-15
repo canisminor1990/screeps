@@ -39,7 +39,10 @@ export class RoomStructures {
 				get: function() {
 					if (_.isUndefined(this._repairable)) {
 						let that = this;
-						this._repairable = _.sortBy(that.all.filter(structure => Room.shouldRepair(that.room, structure)), 'hits');
+						this._repairable = _.sortBy(
+							that.all.filter(structure => Room.shouldRepair(that.room, structure)),
+							'hits',
+						);
 					}
 					return this._repairable;
 				},
@@ -48,7 +51,8 @@ export class RoomStructures {
 				configurable: true,
 				get: function() {
 					if (_.isUndefined(this._urgentRepairableSites)) {
-						let isUrgent = site => site.hits < LIMIT_URGENT_REPAIRING + (DECAY_AMOUNT[site.structureType] || 0);
+						let isUrgent = site =>
+							site.hits < LIMIT_URGENT_REPAIRING + (DECAY_AMOUNT[site.structureType] || 0);
 						this._urgentRepairableSites = _.filter(this.repairable, isUrgent);
 					}
 					return this._urgentRepairableSites;
@@ -74,12 +78,14 @@ export class RoomStructures {
 									that.room.my &&
 									structure.hits < structure.hitsMax &&
 									structure.hits < MAX_FORTIFY_LIMIT[that.room.controller.level] &&
-									(structure.structureType != STRUCTURE_CONTAINER || structure.hits < MAX_FORTIFY_CONTAINER) &&
+									(structure.structureType != STRUCTURE_CONTAINER ||
+										structure.hits < MAX_FORTIFY_CONTAINER) &&
 									(!DECAYABLES.includes(structure.structureType) ||
 										structure.hitsMax - structure.hits > GAP_REPAIR_DECAYABLE * 3) &&
 									(Memory.pavementArt[that.room.name] === undefined ||
-										Memory.pavementArt[that.room.name].indexOf('x' + structure.pos.x + 'y' + structure.pos.y + 'x') <
-											0) &&
+										Memory.pavementArt[that.room.name].indexOf(
+											'x' + structure.pos.x + 'y' + structure.pos.y + 'x',
+										) < 0) &&
 									!Flag.list.some(
 										f =>
 											f.roomName == structure.pos.roomName &&
@@ -147,9 +153,11 @@ export class RoomStructures {
 				get: function() {
 					if (_.isUndefined(this._piles)) {
 						const room = this.room;
-						this._piles = Flag.filter(FLAG_COLOR.command.drop, room.getPositionAt(25, 25), true).map(function(
-							flagInformation,
-						) {
+						this._piles = Flag.filter(
+							FLAG_COLOR.command.drop,
+							room.getPositionAt(25, 25),
+							true,
+						).map(function(flagInformation) {
 							const flag = Game.flags[flagInformation.name];
 							const piles = room.lookForAt(LOOK_ENERGY, flag.pos.x, flag.pos.y);
 							return (piles.length && piles[0]) || flag;

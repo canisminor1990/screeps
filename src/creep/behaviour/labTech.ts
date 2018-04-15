@@ -6,10 +6,20 @@ class LabTechBehaviour extends CreepBehaviour {
 	}
 
 	inflowActions = creep => {
-		return [Creep.action.reallocating, Creep.action.withdrawing, Creep.action.uncharging, Creep.action.picking];
+		return [
+			Creep.action.reallocating,
+			Creep.action.withdrawing,
+			Creep.action.uncharging,
+			Creep.action.picking,
+		];
 	};
 	outflowActions = creep => {
-		let priority = [Creep.action.storing, Creep.action.charging, Creep.action.fueling, Creep.action.feeding];
+		let priority = [
+			Creep.action.storing,
+			Creep.action.charging,
+			Creep.action.fueling,
+			Creep.action.feeding,
+		];
 		if (
 			creep.sum > creep.carry.energy ||
 			(!creep.room.situation.invasion &&

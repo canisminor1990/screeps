@@ -57,9 +57,12 @@ mod.extend = function() {
 		// filter validRooms
 		let isValidRoom = room =>
 			room.my &&
-			(params.maxRange === undefined || Util.routeRange(room.name, params.targetRoom) <= params.maxRange) &&
-			(params.minEnergyCapacity === undefined || params.minEnergyCapacity <= room.energyCapacityAvailable) &&
-			(params.minEnergyAvailable === undefined || params.minEnergyAvailable <= room.energyAvailable) &&
+			(params.maxRange === undefined ||
+				Util.routeRange(room.name, params.targetRoom) <= params.maxRange) &&
+			(params.minEnergyCapacity === undefined ||
+				params.minEnergyCapacity <= room.energyCapacityAvailable) &&
+			(params.minEnergyAvailable === undefined ||
+				params.minEnergyAvailable <= room.energyAvailable) &&
 			(room.name != params.targetRoom || params.allowTargetRoom === true) &&
 			(params.minRCL === undefined || room.controller.level >= params.minRCL) &&
 			(params.callBack === undefined || params.callBack(room));
@@ -69,7 +72,9 @@ mod.extend = function() {
 		// range + roomLevelsUntil8/rangeRclRatio + spawnQueueDuration/rangeQueueRatio
 		let queueTime = queue => _.sum(queue, c => c.parts.length * 3);
 		let roomTime = room =>
-			(queueTime(room.spawnQueueLow) * 0.9 + queueTime(room.spawnQueueMedium) + queueTime(room.spawnQueueHigh) * 1.1) /
+			(queueTime(room.spawnQueueLow) * 0.9 +
+				queueTime(room.spawnQueueMedium) +
+				queueTime(room.spawnQueueHigh) * 1.1) /
 			room.structures.spawns.length;
 		let evaluation = room => {
 			return (

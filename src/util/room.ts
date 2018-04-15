@@ -60,7 +60,8 @@ export const roomUtils = {
 		if (!Memory.pavementArt || !Memory.pavementArt[roomName]) return false;
 		const room = Game.rooms[roomName] as Room;
 		if (!room) return false;
-		const unpaved = (s: Structure) => Memory.pavementArt[roomName].indexOf(`x${s.pos.x}y${s.pos.y}x`) >= 0;
+		const unpaved = (s: Structure) =>
+			Memory.pavementArt[roomName].indexOf(`x${s.pos.x}y${s.pos.y}x`) >= 0;
 		const structures = room.structures.all.filter(unpaved);
 		const destroy = (s: Structure) => s.destroy();
 		if (structures) structures.forEach(destroy);
@@ -85,7 +86,9 @@ export const roomUtils = {
 				return true;
 			})
 			.value() // for some reason _.set is broken in _.forEach
-			.forEach((s: Structure) => _.set(layout, [s.pos.x - startX, s.pos.y - startY], s.structureType));
+			.forEach((s: Structure) =>
+				_.set(layout, [s.pos.x - startX, s.pos.y - startY], s.structureType),
+			);
 		// RegEx Magic
 		const replacementMap = {
 			null: '',

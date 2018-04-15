@@ -27,11 +27,16 @@ class RemoteHaulerBehaviour extends CreepBehaviour {
 				// storage?
 				if (creep.room.storage) deposit.push(creep.room.storage);
 				// containers?
-				if (creep.room.structures.container) deposit = deposit.concat(creep.room.structures.container.privateers);
+				if (creep.room.structures.container)
+					deposit = deposit.concat(creep.room.structures.container.privateers);
 				// Choose the closest
 				if (deposit.length > 0) {
 					let target = creep.pos.findClosestByRange(deposit);
-					if (target.structureType == STRUCTURE_STORAGE && this.assignAction(creep, 'storing', target)) return;
+					if (
+						target.structureType == STRUCTURE_STORAGE &&
+						this.assignAction(creep, 'storing', target)
+					)
+						return;
 					else if (this.assignAction(creep, 'charging', target)) return;
 					else if (this.assignAction(creep, 'storing')) return; // prefer storage
 				}

@@ -83,7 +83,13 @@ export class CreepAction {
 		if (range <= this.targetRange) {
 			let workResult = this.work(creep);
 			if (workResult != OK) {
-				creep.handleError({ errorCode: workResult, action: this, target: creep.target, range, creep });
+				creep.handleError({
+					errorCode: workResult,
+					action: this,
+					target: creep.target,
+					range,
+					creep,
+				});
 				return this.unassign(creep);
 			}
 			range = creep.pos.getRangeTo(creep.target); // target may have changed (eg. hauler feed+move/tick)
@@ -152,7 +158,10 @@ export class CreepAction {
 	showAssignment = (creep, target) => {
 		if (SAY_ASSIGNMENT && ACTION_SAY[this.name.toUpperCase()])
 			creep.say(ACTION_SAY[this.name.toUpperCase()], SAY_PUBLIC);
-		if (target instanceof RoomObject || (target instanceof RoomPosition && VISUALS.ACTION_ASSIGNMENT)) {
+		if (
+			target instanceof RoomObject ||
+			(target instanceof RoomPosition && VISUALS.ACTION_ASSIGNMENT)
+		) {
 			Visuals.drawArrow(creep, target);
 		}
 	};

@@ -7,8 +7,11 @@ class CMemoryClass extends Component {
 		// custom extend
 		this.activateSegment(MEM_SEGMENTS.COSTMATRIX_CACHE, true);
 		// ensure required memory namespaces
-		if (_.isUndefined(Memory.debugTrace)) Memory.debugTrace = { error: true, no: {} };
-		if (_.isUndefined(Memory.cloaked)) Memory.cloaked = {};
+		_.defaults(Memory, {
+			cloaked: {},
+			debugTrace: { error: true, no: {} },
+			pavementArt: {},
+		});
 	};
 	fresh = () => {
 		Memory.CPU_CRITICAL = Memory.CPU_CRITICAL
@@ -31,19 +34,27 @@ class CMemoryClass extends Component {
 			}
 			return;
 		}
-		if (id < 0 || id > 99) return Util.logError('RawMemory', 'cannot activate invalid segment ' + id);
+		if (id < 0 || id > 99)
+			return Util.logError('RawMemory', 'cannot activate invalid segment ' + id);
 		const numActive = _.size(RawMemory.segments);
-		if (this.numSaved >= 10) return Util.logError('RawMemory', '10 segments saved, cannot activate segment ' + id);
+		if (this.numSaved >= 10)
+			return Util.logError('RawMemory', '10 segments saved, cannot activate segment ' + id);
 		if (!reset) {
-			if (numActive >= 10) return Util.logError('RawMemory', '10 segments loaded, cannot activate segment ' + id);
+			if (numActive >= 10)
+				return Util.logError('RawMemory', '10 segments loaded, cannot activate segment ' + id);
 			if (numActive + this.numSaved >= 10)
-				return Util.logError('RawMemory', 'combined loaded and saved exceeds limit(10), cannot activate segment ' + id);
+				return Util.logError(
+					'RawMemory',
+					'combined loaded and saved exceeds limit(10), cannot activate segment ' + id,
+				);
 		}
 		this.toActivate[id] = true;
 	};
 	deactivateSegment = id => {
-		if (id < 0 || id > 99) return Util.logError('RawMemory', 'cannot deactivate invalid segment ' + id);
-		if (_.size(this.toActivate) === 0) Object.keys(RawMemory.segments).forEach(id => (this.toActivate[id] = true));
+		if (id < 0 || id > 99)
+			return Util.logError('RawMemory', 'cannot deactivate invalid segment ' + id);
+		if (_.size(this.toActivate) === 0)
+			Object.keys(RawMemory.segments).forEach(id => (this.toActivate[id] = true));
 		delete this.toActivate[id];
 	};
 	cacheValid = id => {
@@ -75,7 +86,11 @@ class CMemoryClass extends Component {
 		if (_.isUndefined(global.cacheValid)) global.cacheValid = {};
 		if (_.isUndefined(Memory.cacheValid)) Memory.cacheValid = {};
 
-		for (let id = MEM_SEGMENTS.COSTMATRIX_CACHE.start; id >= MEM_SEGMENTS.COSTMATRIX_CACHE.end; id--) {
+		for (
+			let id = MEM_SEGMENTS.COSTMATRIX_CACHE.start;
+			id >= MEM_SEGMENTS.COSTMATRIX_CACHE.end;
+			id--
+		) {
 			this.processSegment(id, Room.loadCostMatrixCache);
 		}
 	};
@@ -101,7 +116,10 @@ class CMemoryClass extends Component {
 					}
 					if (!encodedData && temp && temp.length > 0) {
 						const size = _.round((temp.length + 2) / 1024, 2);
-						return Util.logError('RawMemory', `Cannot save data at key ${keyNum}, exceeds 100kb limit ${size}kb`);
+						return Util.logError(
+							'RawMemory',
+							`Cannot save data at key ${keyNum}, exceeds 100kb limit ${size}kb`,
+						);
 					}
 					if (DEBUG)
 						Util.logSystem(
@@ -114,10 +132,16 @@ class CMemoryClass extends Component {
 					if (_.isUndefined(RawMemory.segments[id])) this.numSaved++;
 				} else if (numActive > 10) {
 					// TODO: also defer? (This should be impossible)
-					return Util.logError('RawMemory', 'cannot save segment ' + id + ' too many active segments.');
+					return Util.logError(
+						'RawMemory',
+						'cannot save segment ' + id + ' too many active segments.',
+					);
 				} else if (numActive + this.numSaved > 10) {
 					// TODO: defer one tick?
-					return Util.logError('RawMemory', 'cannot save segment ' + id + ' loaded + saved exceeds limit(10).');
+					return Util.logError(
+						'RawMemory',
+						'cannot save segment ' + id + ' loaded + saved exceeds limit(10).',
+					);
 				} else {
 					Util.logError('RawMemory', 'should not be here.');
 				}

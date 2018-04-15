@@ -13,7 +13,8 @@ class CreepClass extends Component {
 			},
 			{
 				default: (creep: Creep) => creep.data.creepType,
-				selector: (behaviourName: string) => Creep.behaviour[behaviourName] && Creep.behaviour[behaviourName],
+				selector: (behaviourName: string) =>
+					Creep.behaviour[behaviourName] && Creep.behaviour[behaviourName],
 			},
 			{
 				default: (creep: Creep) => creep.data.destiny && creep.data.destiny.task,
@@ -55,14 +56,19 @@ class CreepClass extends Component {
 		if (DEBUG && Memory.CPU_CRITICAL)
 			Util.logSystem(
 				'system',
-				`${Game.time}: CPU Bucket level is critical (${Game.cpu.bucket}). Skipping non critical creep roles.`,
+				`${Game.time}: CPU Bucket level is critical (${
+					Game.cpu.bucket
+				}). Skipping non critical creep roles.`,
 			);
 		let run = creep => {
 			try {
 				creep.run();
 			} catch (e) {
 				console.log(
-					'<span style="color:FireBrick">Creep ' + creep.name + (e.stack || e.toString()) + '</span>',
+					'<span style="color:FireBrick">Creep ' +
+						creep.name +
+						(e.stack || e.toString()) +
+						'</span>',
 					Util.stack(),
 				);
 			}
@@ -74,21 +80,27 @@ class CreepClass extends Component {
 		const c = Game.creeps[creepData.creepName];
 		return (
 			!c ||
-			(creepData.predictedRenewal || creepData.spawningTime || CREEP_LIFE_TIME) <= (c.ticksToLive || CREEP_LIFE_TIME)
+			(creepData.predictedRenewal || creepData.spawningTime || CREEP_LIFE_TIME) <=
+				(c.ticksToLive || CREEP_LIFE_TIME)
 		);
 	};
 	run = () => {
 		if (DEBUG && Memory.CPU_CRITICAL)
 			Util.logSystem(
 				'system',
-				`${Game.time}: CPU Bucket level is critical (${Game.cpu.bucket}). Skipping non critical creep roles.`,
+				`${Game.time}: CPU Bucket level is critical (${
+					Game.cpu.bucket
+				}). Skipping non critical creep roles.`,
 			);
 		let run = creep => {
 			try {
 				creep.run();
 			} catch (e) {
 				console.log(
-					'<span style="color:FireBrick">Creep ' + creep.name + (e.stack || e.toString()) + '</span>',
+					'<span style="color:FireBrick">Creep ' +
+						creep.name +
+						(e.stack || e.toString()) +
+						'</span>',
 					Util.stack(),
 				);
 			}
@@ -133,7 +145,9 @@ class CreepClass extends Component {
 		const maxPartsMulti = Math.floor((50 - params.fixedBody.length) / params.multiBody.length);
 		const maxEnergy = params.currentEnergy ? room.energyAvailable : room.energyCapacityAvailable;
 		const maxAffordableMulti = Math.floor((maxEnergy - fixedCosts) / multiCosts);
-		const maxWeightMulti = params.maxWeight ? Math.floor((params.maxWeight - fixedCosts) / multiCosts) : Infinity;
+		const maxWeightMulti = params.maxWeight
+			? Math.floor((params.maxWeight - fixedCosts) / multiCosts)
+			: Infinity;
 		const maxMulti = params.maxMulti || Infinity;
 		// find the smallest maximum to set our upper bound
 		const max = _.min([maxAffordableMulti, maxThreatMulti, maxWeightMulti, maxMulti]);
@@ -165,7 +179,10 @@ class CreepClass extends Component {
 	};
 	// params: {minThreat, maxWeight, maxMulti}
 	compileBody = (room, params, sort = true) => {
-		const { fixedBody, multiBody } = this.formatBody(params.fixedBody || [], params.multiBody || []);
+		const { fixedBody, multiBody } = this.formatBody(
+			params.fixedBody || [],
+			params.multiBody || [],
+		);
 		_.assign(params, { fixedBody, multiBody });
 		if (params.sort !== undefined) sort = params.sort;
 		let parts = [];

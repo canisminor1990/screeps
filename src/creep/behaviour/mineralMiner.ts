@@ -7,7 +7,8 @@ class MineralMinerBehaviour extends CreepBehaviour {
 			mining: {
 				newTarget: creep => {
 					const notOccupied = source => {
-						const hasThisSource = data => data.creepName !== creep.name && data.determinatedTarget === source.id;
+						const hasThisSource = data =>
+							data.creepName !== creep.name && data.determinatedTarget === source.id;
 						return !_.find(Memory.population, hasThisSource);
 					};
 					return _.find(creep.room.minerals, notOccupied);

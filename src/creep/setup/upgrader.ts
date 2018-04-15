@@ -106,7 +106,13 @@ class UpgraderSetup extends CreepSetup {
 		if (upgraderEnergy === 0) return 0;
 		if (room.storage && room.storage.active) {
 			return (
-				add + Math.max(1, Math.floor((room.storage.store.energy - MAX_STORAGE_ENERGY[room.controller.level]) / 350000))
+				add +
+				Math.max(
+					1,
+					Math.floor(
+						(room.storage.store.energy - MAX_STORAGE_ENERGY[room.controller.level]) / 350000,
+					),
+				)
 			);
 		}
 		// if energy on the ground next to source > 700 return 3

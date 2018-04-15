@@ -15,15 +15,19 @@ class ReservingAction extends CreepAction {
 		return true;
 	};
 	isAddableTarget = (target, creep) => {
-		return target && (target instanceof Flag || (target.structureType === 'controller' && !target.owner));
+		return (
+			target && (target instanceof Flag || (target.structureType === 'controller' && !target.owner))
+		);
 	};
 	newTarget = creep => {
 		let validColor = flagEntry =>
-			Flag.compare(flagEntry, FLAG_COLOR.claim.reserve) || Flag.compare(flagEntry, FLAG_COLOR.invade.exploit);
+			Flag.compare(flagEntry, FLAG_COLOR.claim.reserve) ||
+			Flag.compare(flagEntry, FLAG_COLOR.invade.exploit);
 
 		let flag;
 		// TODO: remove  || creep.data.destiny.flagName (temporary backward compatibility)
-		if (creep.data.destiny) flag = Game.flags[creep.data.destiny.targetName || creep.data.destiny.flagName];
+		if (creep.data.destiny)
+			flag = Game.flags[creep.data.destiny.targetName || creep.data.destiny.flagName];
 		if (!flag) flag = Flag.find(validColor, creep.pos, false, Flag.reserveMod, creep.name);
 
 		if (flag) {
@@ -50,7 +54,13 @@ class ReservingAction extends CreepAction {
 		if (range <= this.targetRange) {
 			let workResult = this.work(creep);
 			if (workResult != OK) {
-				creep.handleError({ errorCode: workResult, action: this.name, target: creep.target, range, creep });
+				creep.handleError({
+					errorCode: workResult,
+					action: this.name,
+					target: creep.target,
+					range,
+					creep,
+				});
 			}
 			return workResult;
 		}

@@ -74,7 +74,9 @@ mod.storage = function(room, object) {
 	if (room.storage) {
 		object.store = _.sum(room.storage.store);
 		object.resources = {};
-		Object.keys(room.storage.store).forEach(resource => (object.resources[resource] = room.storage.store[resource]));
+		Object.keys(room.storage.store).forEach(
+			resource => (object.resources[resource] = room.storage.store[resource]),
+		);
 	}
 };
 
@@ -82,7 +84,9 @@ mod.terminal = function(room, object) {
 	if (room.terminal) {
 		object.store = _.sum(room.terminal.store);
 		object.resources = {};
-		Object.keys(room.terminal.store).forEach(resource => (object.resources[resource] = room.terminal.store[resource]));
+		Object.keys(room.terminal.store).forEach(
+			resource => (object.resources[resource] = room.terminal.store[resource]),
+		);
 	}
 };
 

@@ -6,9 +6,21 @@ interface FlagConstructor {
 
 	flagFilter(flagColour: obj): obj | void;
 
-	findName(flagColor: Function | obj, pos: RoomPosition | Room, local?: boolean, mod?: Function, modArgs?: any): any;
+	findName(
+		flagColor: Function | obj,
+		pos: RoomPosition | Room,
+		local?: boolean,
+		mod?: Function,
+		modArgs?: any,
+	): any;
 
-	find(flagColor: Function | obj, pos: RoomPosition | Room, local?: boolean, mod?: Function, modArgs?: any): Flag;
+	find(
+		flagColor: Function | obj,
+		pos: RoomPosition | Room,
+		local?: boolean,
+		mod?: Function,
+		modArgs?: any,
+	): Flag;
 
 	removeFromDir(name: string): void;
 

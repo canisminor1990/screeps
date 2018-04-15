@@ -7,14 +7,18 @@ class FeedingAction extends CreepAction {
 	maxPerTarget = 1;
 
 	isValidAction = creep => {
-		return creep.carry.energy > 0 && creep.room.energyAvailable < creep.room.energyCapacityAvailable;
+		return (
+			creep.carry.energy > 0 && creep.room.energyAvailable < creep.room.energyCapacityAvailable
+		);
 	};
 	isValidTarget = target => {
 		return target && !_.isUndefined(target.energy) && target.energy < target.energyCapacity;
 	};
 	isAddableTarget = target => {
 		return (
-			target.my && (!target.targetOf || _.filter(target.targetOf, { actionName: 'feeding' }).length < this.maxPerTarget)
+			target.my &&
+			(!target.targetOf ||
+				_.filter(target.targetOf, { actionName: 'feeding' }).length < this.maxPerTarget)
 		);
 	};
 	newTarget = creep => {

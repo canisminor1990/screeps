@@ -12,7 +12,12 @@ class RemoteWorkerBehaviour extends CreepBehaviour {
 	}
 
 	inflowActions = creep => {
-		return [Creep.action.picking, Creep.action.uncharging, Creep.action.withdrawing, Creep.action.harvesting];
+		return [
+			Creep.action.picking,
+			Creep.action.uncharging,
+			Creep.action.withdrawing,
+			Creep.action.harvesting,
+		];
 	};
 	outflowActions = creep => {
 		return [Creep.action.repairing, Creep.action.building, Creep.action.recycling];

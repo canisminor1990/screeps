@@ -34,7 +34,10 @@ class DeliveryTask extends TaskComponent {
 	};
 	checkFlag = flag => {
 		return (
-			flag.room && flag.room.my && flag.compareTo(FLAG_COLOR.invade.robbing) && Task.nextCreepCheck(flag, this.name)
+			flag.room &&
+			flag.room.my &&
+			flag.compareTo(FLAG_COLOR.invade.robbing) &&
+			Task.nextCreepCheck(flag, this.name)
 		);
 	};
 	handleFlagFound = flag => {
@@ -44,7 +47,8 @@ class DeliveryTask extends TaskComponent {
 			this.checkForRequiredCreeps(flag); // TODO destination
 		}
 	};
-	maxCreeps = flag => (!(flag.room && flag.room.storage) ? 1 : Math.floor(flag.room.storage.charge * 2));
+	maxCreeps = flag =>
+		!(flag.room && flag.room.storage) ? 1 : Math.floor(flag.room.storage.charge * 2);
 	checkForRequiredCreeps = flag => {
 		// check for delivery en route, and spawn a new one if the last was successful
 		const memory = this.memory(flag.pos.roomName);
@@ -111,7 +115,13 @@ class DeliveryTask extends TaskComponent {
 	};
 	handleSpawningCompleted = creep => {
 		// ensure it is a creep which has been queued by this task (else return)
-		if (!creep.data || !creep.data.destiny || !creep.data.destiny.task || creep.data.destiny.task != this.name) return;
+		if (
+			!creep.data ||
+			!creep.data.destiny ||
+			!creep.data.destiny.task ||
+			creep.data.destiny.task != this.name
+		)
+			return;
 		creep.data.homeRoom = creep.data.destiny.homeRoom || creep.data.homeRoom;
 		creep.data.travelRoom = creep.data.destiny.targetRoom || creep.data.travelRoom;
 
@@ -137,7 +147,10 @@ class DeliveryTask extends TaskComponent {
 		const flag = Game.flags[mem.destiny.targetName];
 		if (flag) {
 			const memory = this.memory(flag.pos.roomName);
-			Task.validateRunning(memory, flag, this.name, { roomName: flag.pos.roomName, deadCreep: name });
+			Task.validateRunning(memory, flag, this.name, {
+				roomName: flag.pos.roomName,
+				deadCreep: name,
+			});
 		}
 	};
 }

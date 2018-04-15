@@ -35,7 +35,8 @@ class DismantlingAction extends CreepAction {
 						return range;
 					};
 					flag = Flag.find(FLAG_COLOR.destroy.dismantle, creep.pos, true, otherFlagMod, oldName);
-					if (oldName == flag.name) Util.logError('Removed flag found again in dismantling.newTarget!');
+					if (oldName == flag.name)
+						Util.logError('Removed flag found again in dismantling.newTarget!');
 					if (flag) {
 						if (flag.room !== undefined) {
 							// room is visible

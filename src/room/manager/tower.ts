@@ -20,7 +20,8 @@ mod.extend = function() {
 			get: function() {
 				if (_.isUndefined(this._towerFreeCapacity)) {
 					this._towerFreeCapacity = 0;
-					let addFreeCapacity = tower => (this._towerFreeCapacity += tower.energyCapacity - tower.energy);
+					let addFreeCapacity = tower =>
+						(this._towerFreeCapacity += tower.energyCapacity - tower.energy);
 					_.forEach(this.structures.towers, addFreeCapacity);
 				}
 				return this._towerFreeCapacity;

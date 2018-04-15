@@ -107,7 +107,10 @@ class WorkerSetup extends CreepSetup {
 		}
 	};
 	maxMulti = (room, fixedCost, multiCost, multiLength) => {
-		return _.min([Math.floor((room.energyCapacityAvailable - fixedCost) / multiCost), Math.floor(50 / multiLength)]);
+		return _.min([
+			Math.floor((room.energyCapacityAvailable - fixedCost) / multiCost),
+			Math.floor(50 / multiLength),
+		]);
 	};
 }
 

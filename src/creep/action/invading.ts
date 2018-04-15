@@ -117,7 +117,8 @@ class InvadingAction extends CreepAction {
 	};
 	step = creep => {
 		if (CHATTY) creep.say(this.name);
-		if (creep.target instanceof Flag && creep.target.pos.roomName == creep.pos.roomName) this.assign(creep);
+		if (creep.target instanceof Flag && creep.target.pos.roomName == creep.pos.roomName)
+			this.assign(creep);
 		this.run[creep.data.creepType](creep);
 	};
 	run = {

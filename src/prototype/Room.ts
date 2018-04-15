@@ -33,7 +33,8 @@ Object.defineProperties(Room.prototype, {
 	casualties: {
 		get() {
 			if (_.isUndefined(this._casualties)) {
-				let isInjured = creep => creep.hits < creep.hitsMax && (creep.towers === undefined || creep.towers.length == 0);
+				let isInjured = creep =>
+					creep.hits < creep.hitsMax && (creep.towers === undefined || creep.towers.length == 0);
 				this._casualties = _.sortBy(_.filter(this.creeps, isInjured), 'hits');
 			}
 			return this._casualties;
@@ -57,7 +58,8 @@ Object.defineProperties(Room.prototype, {
 				};
 				this.combatCreeps.forEach(evaluate);
 				this._defenseLevel.towers = this.structures.towers.length;
-				this._defenseLevel.sum = this._defenseLevel.creeps + this._defenseLevel.towers * CREEP_PART_THREAT.tower;
+				this._defenseLevel.sum =
+					this._defenseLevel.creeps + this._defenseLevel.towers * CREEP_PART_THREAT.tower;
 			}
 			return this._defenseLevel;
 		},
@@ -182,14 +184,18 @@ Object.defineProperties(Room.prototype, {
 		get() {
 			if (_.isUndefined(this._relativeEnergyAvailable)) {
 				this._relativeEnergyAvailable =
-					this.energyCapacityAvailable > 0 ? this.energyAvailable / this.energyCapacityAvailable : 0;
+					this.energyCapacityAvailable > 0
+						? this.energyAvailable / this.energyCapacityAvailable
+						: 0;
 			}
 			return this._relativeEnergyAvailable;
 		},
 	},
 	relativeRemainingEnergyAvailable: {
 		get() {
-			return this.energyCapacityAvailable > 0 ? this.remainingEnergyAvailable / this.energyCapacityAvailable : 0;
+			return this.energyCapacityAvailable > 0
+				? this.remainingEnergyAvailable / this.energyCapacityAvailable
+				: 0;
 		},
 	},
 	remainingEnergyAvailable: {
@@ -306,12 +312,17 @@ Object.defineProperties(Room.prototype, {
 				let distance, reserved, flag;
 				let rcl = this.controller.level;
 
-				let flagEntries = Flag.filter([FLAG_COLOR.claim, FLAG_COLOR.claim.reserve, FLAG_COLOR.invade.exploit]);
+				let flagEntries = Flag.filter([
+					FLAG_COLOR.claim,
+					FLAG_COLOR.claim.reserve,
+					FLAG_COLOR.invade.exploit,
+				]);
 				let calcWeight = flagEntry => {
 					// don't spawn claimer for reservation at RCL < 4 (claimer not big enough)
 					if (
 						rcl > 3 ||
-						(flagEntry.color == FLAG_COLOR.claim.color && flagEntry.secondaryColor == FLAG_COLOR.claim.secondaryColor)
+						(flagEntry.color == FLAG_COLOR.claim.color &&
+							flagEntry.secondaryColor == FLAG_COLOR.claim.secondaryColor)
 					) {
 						distance = Room.roomDistance(that.name, flagEntry.roomName);
 						if (distance > maxRange) return;
@@ -351,14 +362,19 @@ Object.defineProperties(Room.prototype, {
 						if (site && !structure.my && Task.reputation.allyOwner(structure))
 							return costMatrix.set(structure.pos.x, structure.pos.y, 0xff);
 						if (structure.structureType === STRUCTURE_ROAD) {
-							if (!site || USE_UNBUILT_ROADS) return costMatrix.set(structure.pos.x, structure.pos.y, 1);
+							if (!site || USE_UNBUILT_ROADS)
+								return costMatrix.set(structure.pos.x, structure.pos.y, 1);
 						} else if (structure.structureType === STRUCTURE_PORTAL) {
 							return costMatrix.set(structure.pos.x, structure.pos.y, 0xff); // only take final step onto portals
 						} else if (OBSTACLE_OBJECT_TYPES.includes(structure.structureType)) {
 							if (!site || Task.reputation.allyOwner(structure))
 								// don't set for hostile construction sites
 								return costMatrix.set(structure.pos.x, structure.pos.y, 0xff);
-						} else if (structure.structureType === STRUCTURE_RAMPART && !structure.my && !structure.isPublic) {
+						} else if (
+							structure.structureType === STRUCTURE_RAMPART &&
+							!structure.my &&
+							!structure.isPublic
+						) {
 							if (!site || Task.reputation.allyOwner(structure))
 								// don't set for hostile construction sites
 								return costMatrix.set(structure.pos.x, structure.pos.y, 0xff);
@@ -377,7 +393,12 @@ Object.defineProperties(Room.prototype, {
 					if (DEBUG && TRACE)
 						Util.trace(
 							'PathFinder',
-							{ roomName: this.name, prevTime, structures: this.structures.all.length, PathFinder: 'CostMatrix' },
+							{
+								roomName: this.name,
+								prevTime,
+								structures: this.structures.all.length,
+								PathFinder: 'CostMatrix',
+							},
 							'updated costmatrix',
 						);
 					this._structureMatrix = costMatrix;
@@ -417,7 +438,8 @@ Object.defineProperties(Room.prototype, {
 				if (this.controller) {
 					const myName = _.find(Game.spawns).owner.username;
 					this._reserved =
-						this.controller.my || (this.controller.reservation && this.controller.reservation.username === myName);
+						this.controller.my ||
+						(this.controller.reservation && this.controller.reservation.username === myName);
 				} else {
 					this._reserved = false;
 				}
@@ -455,7 +477,8 @@ Object.defineProperties(Room.prototype, {
 				if (this.reserved) {
 					this._ally = true;
 				} else if (this.controller) {
-					this._ally = Task.reputation.isAlly(this.owner) || Task.reputation.isAlly(this.reservation);
+					this._ally =
+						Task.reputation.isAlly(this.owner) || Task.reputation.isAlly(this.reservation);
 				} else {
 					this._ally = false;
 				}
@@ -487,7 +510,9 @@ Object.defineProperties(Room.prototype, {
 				// is collapsed if workers + haulers + pioneers in room = 0
 				let workers = this.population.typeCount['worker'] ? this.population.typeCount['worker'] : 0;
 				let haulers = this.population.typeCount['hauler'] ? this.population.typeCount['hauler'] : 0;
-				let pioneers = this.population.typeCount['pioneer'] ? this.population.typeCount['pioneer'] : 0;
+				let pioneers = this.population.typeCount['pioneer']
+					? this.population.typeCount['pioneer']
+					: 0;
 				this._collapsed = workers + haulers + pioneers === 0;
 			}
 			return this._collapsed;
@@ -527,7 +552,10 @@ Object.defineProperties(Room.prototype, {
 	countMyStructures: {
 		value() {
 			const numStructures = _.size(this.structures.my);
-			if (!_.isUndefined(this.memory.myTotalStructures) && numStructures !== this.memory.myTotalStructures) {
+			if (
+				!_.isUndefined(this.memory.myTotalStructures) &&
+				numStructures !== this.memory.myTotalStructures
+			) {
 				Room.costMatrixInvalid.trigger(this);
 				// these are vital for feeding
 				this.saveExtensions();
@@ -566,7 +594,14 @@ Object.defineProperties(Room.prototype, {
 				return;
 			let x = creep.pos.x;
 			let y = creep.pos.y;
-			if (x == 0 || y == 0 || x == 49 || y == 49 || creep.carry.energy == 0 || creep.data.actionName == 'building')
+			if (
+				x == 0 ||
+				y == 0 ||
+				x == 49 ||
+				y == 49 ||
+				creep.carry.energy == 0 ||
+				creep.data.actionName == 'building'
+			)
 				return;
 
 			let key = `${String.fromCharCode(32 + x)}${String.fromCharCode(32 + y)}_x${x}-y${y}`;
@@ -580,7 +615,8 @@ Object.defineProperties(Room.prototype, {
 			else look = look[y][x];
 			let invalidObject = o => {
 				return (
-					(o.type == LOOK_TERRAIN && o.terrain == 'wall') || OBSTACLE_OBJECT_TYPES.includes(o[o.type].structureType)
+					(o.type == LOOK_TERRAIN && o.terrain == 'wall') ||
+					OBSTACLE_OBJECT_TYPES.includes(o[o.type].structureType)
 				);
 			};
 			return look.filter(invalidObject).length == 0;
@@ -701,7 +737,10 @@ Object.defineProperties(Room.prototype, {
 	highwayHasWalls: {
 		value() {
 			if (!Room.isHighwayRoom(this.name)) return false;
-			return !!_.find(this.getPositionAt(25, 25).lookFor(LOOK_STRUCTURES), s => s instanceof StructureWall);
+			return !!_.find(
+				this.getPositionAt(25, 25).lookFor(LOOK_STRUCTURES),
+				s => s instanceof StructureWall,
+			);
 		},
 	},
 	isTargetAccessible: {
@@ -737,10 +776,19 @@ Object.defineProperties(Room.prototype, {
 				if (y % 10 === 0) {
 					// corner room
 
-					const top = !!_.find(this.getPositionAt(25, 24).lookFor(LOOK_STRUCTURES), s => s instanceof StructureWall);
-					const left = !!_.find(this.getPositionAt(24, 25).lookFor(LOOK_STRUCTURES, s => s instanceof StructureWall));
-					const bottom = !!_.find(this.getPositionAt(25, 26).lookFor(LOOK_STRUCTURES, s => s instanceof StructureWall));
-					const right = !!_.find(this.getPositionAt(26, 25).lookFor(LOOK_STRUCTURES, s => s instanceof StructureWall));
+					const top = !!_.find(
+						this.getPositionAt(25, 24).lookFor(LOOK_STRUCTURES),
+						s => s instanceof StructureWall,
+					);
+					const left = !!_.find(
+						this.getPositionAt(24, 25).lookFor(LOOK_STRUCTURES, s => s instanceof StructureWall),
+					);
+					const bottom = !!_.find(
+						this.getPositionAt(25, 26).lookFor(LOOK_STRUCTURES, s => s instanceof StructureWall),
+					);
+					const right = !!_.find(
+						this.getPositionAt(26, 25).lookFor(LOOK_STRUCTURES, s => s instanceof StructureWall),
+					);
 
 					// both in same quadrant
 					if (getQuadrant(object) === getQuadrant(target)) return true;
@@ -767,10 +815,12 @@ Object.defineProperties(Room.prototype, {
 						if (Util.areEqual(BOTTOM, getHorHalf(object), getHorHalf(target))) return true;
 						if (left) {
 							if (Util.areEqual(RIGHT, getVerHalf(object), getVerHalf(target))) return true;
-							if (getQuadrant(object) === TOP_LEFT && getQuadrant(target) !== TOP_LEFT) return false;
+							if (getQuadrant(object) === TOP_LEFT && getQuadrant(target) !== TOP_LEFT)
+								return false;
 						} else {
 							if (Util.areEqual(LEFT, getVerHalf(object), getVerHalf(target))) return true;
-							if (getQuadrant(object) === TOP_RIGHT && getQuadrant(target) !== TOP_RIGHT) return false;
+							if (getQuadrant(object) === TOP_RIGHT && getQuadrant(target) !== TOP_RIGHT)
+								return false;
 						}
 					} else {
 						if (left && right) {
@@ -781,10 +831,12 @@ Object.defineProperties(Room.prototype, {
 						if (Util.areEqual(TOP, getHorHalf(object), getHorHalf(target))) return true;
 						if (left) {
 							if (Util.areEqual(RIGHT, getVerHalf(object), getVerHalf(target))) return true;
-							if (getQuadrant(object) === BOTTOM_LEFT && getQuadrant(target) !== BOTTOM_LEFT) return false;
+							if (getQuadrant(object) === BOTTOM_LEFT && getQuadrant(target) !== BOTTOM_LEFT)
+								return false;
 						} else {
 							if (Util.areEqual(LEFT, getVerHalf(object), getVerHalf(target))) return true;
-							if (getQuadrant(object) === BOTTOM_RIGHT && getQuadrant(target) !== BOTTOM_RIGHT) return false;
+							if (getQuadrant(object) === BOTTOM_RIGHT && getQuadrant(target) !== BOTTOM_RIGHT)
+								return false;
 						}
 					}
 					return true;
@@ -904,7 +956,10 @@ Object.defineProperties(Room.prototype, {
 
 			if (!this.ordersWithOffers()) {
 				if (DEBUG) {
-					Util.logSystem(this.name, `not enough or no offers found. Updating room orders in room ${this.name}`);
+					Util.logSystem(
+						this.name,
+						`not enough or no offers found. Updating room orders in room ${this.name}`,
+					);
 				}
 				if (_.isUndefined(data.boostTiming.getOfferAttempts)) data.boostTiming.getOfferAttempts = 0;
 				else data.boostTiming.getOfferAttempts++;
@@ -919,7 +974,14 @@ Object.defineProperties(Room.prototype, {
 					for (let i = 0; i < offers.length; i++) {
 						let offer = offers[i];
 						let targetRoom = Game.rooms[offer.room];
-						if (!(targetRoom && targetRoom.memory && targetRoom.memory.resources && targetRoom.memory.resources.orders))
+						if (
+							!(
+								targetRoom &&
+								targetRoom.memory &&
+								targetRoom.memory.resources &&
+								targetRoom.memory.resources.orders
+							)
+						)
 							continue;
 						let order = targetRoom.memory.resources.orders.find(o => {
 							return o.id === offer.id && o.type === offer.type;
@@ -986,7 +1048,8 @@ Object.defineProperties(Room.prototype, {
 				for (let i = 0; i < orderRoomOrders.length; i++) {
 					let order = orderRoomOrders[i];
 
-					if (offer.id === order.id && !_.isUndefined(resourcesAll) && resourcesAll >= 0) return true;
+					if (offer.id === order.id && !_.isUndefined(resourcesAll) && resourcesAll >= 0)
+						return true;
 					else if (offer.id === order.id) {
 						orderRoom.memory.resources.orders[i].offers = [];
 						return false;
@@ -1000,16 +1063,22 @@ Object.defineProperties(Room.prototype, {
 				for (let offer of data.offers) {
 					let readyAmount = this.terminal.store[offer.type] || 0;
 
-					Util.logSystem(this.name, `${readyAmount} / ${offer.amount} ${offer.type} are in ${this.name} terminal`);
+					Util.logSystem(
+						this.name,
+						`${readyAmount} / ${offer.amount} ${offer.type} are in ${this.name} terminal`,
+					);
 
 					if (
-						(readyAmount >= offer.amount * 0.5 && readyAmount < offer.amount - global.MIN_OFFER_AMOUNT) ||
+						(readyAmount >= offer.amount * 0.5 &&
+							readyAmount < offer.amount - global.MIN_OFFER_AMOUNT) ||
 						readyAmount >= offer.amount
 					) {
 						if (DEBUG)
 							Util.logSystem(
 								offer.room,
-								`${Math.min(readyAmount, offer.amount)} ${offer.type} are ready to send from ${this.name}`,
+								`${Math.min(readyAmount, offer.amount)} ${offer.type} are ready to send from ${
+									this.name
+								}`,
 							);
 						readyOffersFound++;
 					} else {
@@ -1049,20 +1118,34 @@ Object.defineProperties(Room.prototype, {
 								if (DEBUG) {
 									Util.logSystem(
 										this.name,
-										`no / not enough terminal order found in ${this.name} for ${offer.amount} ${offer.type}`,
+										`no / not enough terminal order found in ${this.name} for ${offer.amount} ${
+											offer.type
+										}`,
 									);
 									Util.logSystem(
 										this.name,
-										`terminal stores: ${terminal.store[offer.type] || 0} ordered: ${ordered[offer.type] || 0}`,
+										`terminal stores: ${terminal.store[offer.type] || 0} ordered: ${ordered[
+											offer.type
+										] || 0}`,
 									);
 									Util.logSystem(
 										this.name,
-										`terminal order placed for ${Math.max(offer.amount, global.MIN_OFFER_AMOUNT)} ${offer.type}`,
+										`terminal order placed for ${Math.max(offer.amount, global.MIN_OFFER_AMOUNT)} ${
+											offer.type
+										}`,
 									);
 								}
-								this.placeOrder(terminalId, offer.type, Math.max(offer.amount, global.MIN_OFFER_AMOUNT));
+								this.placeOrder(
+									terminalId,
+									offer.type,
+									Math.max(offer.amount, global.MIN_OFFER_AMOUNT),
+								);
 								terminalOrderPlaced = true;
-							} else Util.logSystem(this.name, `${this.name} terminal orders for ${offer.amount} ${offer.type} is OK.`);
+							} else
+								Util.logSystem(
+									this.name,
+									`${this.name} terminal orders for ${offer.amount} ${offer.type} is OK.`,
+								);
 						}
 					}
 				}
@@ -1094,7 +1177,9 @@ Object.defineProperties(Room.prototype, {
 
 						order = _.filter(lab.orders, liveOrder => {
 							if (
-								(liveOrder.orderAmount > 0 || liveOrder.orderRemaining > 0 || liveOrder.storeAmount > 0) &&
+								(liveOrder.orderAmount > 0 ||
+									liveOrder.orderRemaining > 0 ||
+									liveOrder.storeAmount > 0) &&
 								(liveOrder.type === componentA ||
 									liveOrder.type === componentB ||
 									liveOrder.type === 'energy' ||
@@ -1153,16 +1238,25 @@ Object.defineProperties(Room.prototype, {
 				}
 			}
 
-			if (candidates.length === 1 && candidates[0].readyOffers === 1 && _.isUndefined(data.boostTiming.ordersReady)) {
+			if (
+				candidates.length === 1 &&
+				candidates[0].readyOffers === 1 &&
+				_.isUndefined(data.boostTiming.ordersReady)
+			) {
 				let currentRoom = Game.rooms[candidates[0].room];
 				Util.logSystem(
 					this.name,
-					`${candidates[0].room} there is only one offersReady for ${this.name}, running fillARoomOrder()`,
+					`${candidates[0].room} there is only one offersReady for ${
+						this.name
+					}, running fillARoomOrder()`,
 				);
 				let fillARoomOrdersReturn = false;
 				if (currentRoom.terminal.cooldown === 0) {
 					fillARoomOrdersReturn = currentRoom.fillARoomOrder();
-					if ((fillARoomOrdersReturn === true && data.orders.length === 0) || _.sum(data.orders, 'amount') === 0) {
+					if (
+						(fillARoomOrdersReturn === true && data.orders.length === 0) ||
+						_.sum(data.orders, 'amount') === 0
+					) {
 						data.boostTiming.checkRoomAt = Game.time + 1;
 						Util.logSystem(
 							currentRoom.name,
@@ -1176,7 +1270,9 @@ Object.defineProperties(Room.prototype, {
 						data.boostTiming.checkRoomAt = Game.time + global.CHECK_ORDERS_INTERVAL;
 						Util.logSystem(
 							currentRoom.name,
-							`${currentRoom.name} terminal send was successful. BTW, there are orders remained to fulfill`,
+							`${
+								currentRoom.name
+							} terminal send was successful. BTW, there are orders remained to fulfill`,
 						);
 						Util.logSystem(this.name, `${this.name} time: ${Game.time}, boostTiming:`);
 						Util.logStringify(data.boostTiming);
@@ -1198,7 +1294,10 @@ Object.defineProperties(Room.prototype, {
 				(candidates.length >= 1 || (candidates.length === 1 && candidates[0].readyOffers > 1)) &&
 				_.isUndefined(data.boostTiming.ordersReady)
 			) {
-				Util.logSystem(this.name, `${this.name} has more than one offers ready, boostTiming.ordersReady created`);
+				Util.logSystem(
+					this.name,
+					`${this.name} has more than one offers ready, boostTiming.ordersReady created`,
+				);
 				Util.logStringify(candidates);
 				data.boostTiming.ordersReady = {
 					time: Game.time,
@@ -1238,7 +1337,8 @@ Object.defineProperties(Room.prototype, {
 
 					if (currentRoom.memory.labs) {
 						if (currentRoom.memory.labs.length < 3) return false;
-						else if (currentRoom.memory.labs.length === 3 && !global.MAKE_REACTIONS_WITH_3LABS) return false;
+						else if (currentRoom.memory.labs.length === 3 && !global.MAKE_REACTIONS_WITH_3LABS)
+							return false;
 					} else return false;
 
 					if (_.isUndefined(currentRoom.memory.resources)) return false;
@@ -1331,7 +1431,10 @@ Object.defineProperties(Room.prototype, {
 						},
 						purchaseMinerals = function(roomName, mineral, amount) {
 							if (!global.PURCHASE_MINERALS) {
-								if (DEBUG) console.log(`${roomName} needs to buy ${amount} ${mineral} but PURCHASE_MINERALS is false`);
+								if (DEBUG)
+									console.log(
+										`${roomName} needs to buy ${amount} ${mineral} but PURCHASE_MINERALS is false`,
+									);
 								return false;
 							}
 
@@ -1380,7 +1483,11 @@ Object.defineProperties(Room.prototype, {
 
 									o.transactionAmount = Math.min(o.amount, amount);
 
-									transactionCost = Game.market.calcTransactionCost(o.transactionAmount, o.roomName, roomName);
+									transactionCost = Game.market.calcTransactionCost(
+										o.transactionAmount,
+										o.roomName,
+										roomName,
+									);
 
 									if (transactionCost > currentRoom.terminal.store[RESOURCE_ENERGY]) return false;
 
@@ -1390,7 +1497,8 @@ Object.defineProperties(Room.prototype, {
 										o.transactionAmount = Game.market.credits / o.price;
 										if (o.transactionAmount === 0) return false;
 									}
-									o.ratio = (credits - transactionCost * global.ENERGY_VALUE_CREDITS) / o.transactionAmount;
+									o.ratio =
+										(credits - transactionCost * global.ENERGY_VALUE_CREDITS) / o.transactionAmount;
 
 									if (o.ratio > sellRatio || o.amount < 100) return false;
 
@@ -1403,7 +1511,9 @@ Object.defineProperties(Room.prototype, {
 								Util.logStringify(order);
 
 								if (DEBUG && order) {
-									console.log(`Game.market.deal("${order.id}", ${order.transactionAmount}, "${roomName}");`);
+									console.log(
+										`Game.market.deal("${order.id}", ${order.transactionAmount}, "${roomName}");`,
+									);
 								}
 								returnValue = Game.market.deal(order.id, order.transactionAmount, roomName);
 								if (returnValue === OK) {
@@ -1414,7 +1524,9 @@ Object.defineProperties(Room.prototype, {
 									);
 									return true;
 								} else {
-									console.log(`purchase was FAILED error code: ${Util.translateErrorCode(returnValue)}`);
+									console.log(
+										`purchase was FAILED error code: ${Util.translateErrorCode(returnValue)}`,
+									);
 									console.log(returnValue);
 									return false;
 								}
@@ -1454,7 +1566,9 @@ Object.defineProperties(Room.prototype, {
 								if (DEBUG)
 									Util.logSystem(
 										roomName,
-										`${currentRoom.name} - placeReactionOrder(${ingredient}, ${ingredient}, ${amount})`,
+										`${
+											currentRoom.name
+										} - placeReactionOrder(${ingredient}, ${ingredient}, ${amount})`,
 									);
 
 								// garbage collecting labs
@@ -1466,7 +1580,9 @@ Object.defineProperties(Room.prototype, {
 								Memory.boostTiming.timeStamp = Game.time;
 								Util.logSystem(
 									currentRoom,
-									`${currentRoom.name}, placeReaction ${amount} ${ingredient} at time: ${Game.time}`,
+									`${currentRoom.name}, placeReaction ${amount} ${ingredient} at time: ${
+										Game.time
+									}`,
 								);
 								let boostTiming = currentRoom.memory.resources.boostTiming;
 								boostTiming.roomState = 'reactionPlaced';
@@ -1537,7 +1653,11 @@ Object.defineProperties(Room.prototype, {
 					// make the compound
 					if (!mineralPurchased) {
 						currentCompound = compoundArray[compoundArray.length - 1];
-						ingredientMade = makeIngredient(roomName, currentCompound.compound, currentCompound.amount);
+						ingredientMade = makeIngredient(
+							roomName,
+							currentCompound.compound,
+							currentCompound.amount,
+						);
 					}
 					return {
 						ingredientMade: ingredientMade,
@@ -1556,7 +1676,8 @@ Object.defineProperties(Room.prototype, {
 
 					if (storedResources === 0) {
 						amountToMake = Util.roundUpTo(
-							global.COMPOUNDS_TO_MAKE[compound].amount + global.COMPOUNDS_TO_MAKE[compound].threshold,
+							global.COMPOUNDS_TO_MAKE[compound].amount +
+								global.COMPOUNDS_TO_MAKE[compound].threshold,
 							global.MIN_OFFER_AMOUNT,
 						);
 						roomFound = makeCompound(this.name, compound, amountToMake);
@@ -1624,7 +1745,12 @@ Object.defineProperties(Room.prototype, {
 		value() {
 			let data = this.memory.resources;
 
-			if (_.isUndefined(data) || _.isUndefined(data.reactions) || data.reactions.orders.length === 0) return;
+			if (
+				_.isUndefined(data) ||
+				_.isUndefined(data.reactions) ||
+				data.reactions.orders.length === 0
+			)
+				return;
 
 			let orderType = data.reactions.orders[0].type,
 				component_a = global.LAB_REACTIONS[orderType][0],

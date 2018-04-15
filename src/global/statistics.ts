@@ -22,7 +22,8 @@ mod.process = function() {
 
 		if (Game.cpu.bucket) {
 			bucketDif = Game.cpu.bucket - Memory.statistics.bucket;
-			message += 'CPU Bucket: ' + Game.cpu.bucket + ' (' + (bucketDif >= 0 ? '+' : '') + bucketDif + ')';
+			message +=
+				'CPU Bucket: ' + Game.cpu.bucket + ' (' + (bucketDif >= 0 ? '+' : '') + bucketDif + ')';
 		}
 		message += '</div>';
 		Memory.statistics.reports.push(message);
@@ -53,7 +54,11 @@ mod.process = function() {
 					// controller
 					message = '<ul><li><b>Room ' + room.name + '</b><br/><u>Controller</u><ul>';
 					let isUpgraded = room.controller.progress < room.memory.statistics.controllerProgress;
-					let filledPercent = (100 * room.controller.progress / room.controller.progressTotal).toFixed(0);
+					let filledPercent = (
+						100 *
+						room.controller.progress /
+						room.controller.progressTotal
+					).toFixed(0);
 					let totalDif = isUpgraded
 						? room.memory.statistics.controllerProgressTotal -
 						  room.memory.statistics.controllerProgress +
@@ -88,12 +93,26 @@ mod.process = function() {
 								? currentRecord[type] - memoryStoreRecord[type]
 								: memoryStoreRecord[type] * -1;
 							message +=
-								'<li>' + type + ': ' + (currentRecord[type] || 0) + ' (' + (dif > -1 ? '+' : '') + dif + ')</li>';
+								'<li>' +
+								type +
+								': ' +
+								(currentRecord[type] || 0) +
+								' (' +
+								(dif > -1 ? '+' : '') +
+								dif +
+								')</li>';
 						}
 						// new
 						for (let type in currentRecord) {
 							if (!memoryStoreRecord[type])
-								message += '<li>' + type + ': ' + currentRecord[type] + ' (+' + currentRecord[type] + ')</li>';
+								message +=
+									'<li>' +
+									type +
+									': ' +
+									currentRecord[type] +
+									' (+' +
+									currentRecord[type] +
+									')</li>';
 						}
 						message += '</ul>';
 					}
@@ -122,7 +141,9 @@ mod.process = function() {
 
 			// set statistics
 			let present = invader => invader.leave === undefined;
-			let invaders = room.memory.statistics ? _.filter(room.memory.statistics.invader, present) : [];
+			let invaders = room.memory.statistics
+				? _.filter(room.memory.statistics.invader, present)
+				: [];
 			room.memory.statistics = {
 				tick: Game.time,
 				time: Date.now(),

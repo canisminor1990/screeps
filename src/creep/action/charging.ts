@@ -15,7 +15,9 @@ class ChargingAction extends CreepAction {
 				((target.structureType == STRUCTURE_CONTAINER &&
 					target.storeCapacity - target.sum > Math.min(creep.carry.energy, 500)) ||
 					target.structureType == STRUCTURE_LINK) &&
-				(target.structureType != STRUCTURE_CONTAINER || !target.controller || creep.carry.energy == creep.sum) // don't put minerals in upgrader container
+				(target.structureType != STRUCTURE_CONTAINER ||
+					!target.controller ||
+					creep.carry.energy == creep.sum) // don't put minerals in upgrader container
 			);
 		};
 	}
@@ -46,10 +48,18 @@ class ChargingAction extends CreepAction {
 	newTarget = creep => {
 		// if storage link is not full & controller link < 15% => charge
 		if (creep.room.structures.links.storage.length > 0) {
-			let linkStorage = creep.room.structures.links.storage.find(l => l.energy < l.energyCapacity * 0.85);
+			let linkStorage = creep.room.structures.links.storage.find(
+				l => l.energy < l.energyCapacity * 0.85,
+			);
 			if (linkStorage) {
-				let emptyControllerLink = creep.room.structures.links.controller.find(l => l.energy <= l.energyCapacity * 0.15);
-				if (emptyControllerLink && this.isValidTarget(linkStorage, creep) && this.isAddableTarget(linkStorage, creep))
+				let emptyControllerLink = creep.room.structures.links.controller.find(
+					l => l.energy <= l.energyCapacity * 0.15,
+				);
+				if (
+					emptyControllerLink &&
+					this.isValidTarget(linkStorage, creep) &&
+					this.isAddableTarget(linkStorage, creep)
+				)
 					return linkStorage;
 			}
 		}

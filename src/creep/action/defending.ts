@@ -58,7 +58,10 @@ class DefendingAction extends CreepAction {
 					if (direction) {
 						if (
 							COMBAT_CREEPS_RESPECT_RAMPARTS &&
-							!_.filter(creep.pos.lookFor(LOOK_STRUCTURES), { my: true, structureType: STRUCTURE_RAMPART })
+							!_.filter(creep.pos.lookFor(LOOK_STRUCTURES), {
+								my: true,
+								structureType: STRUCTURE_RAMPART,
+							})
 						) {
 							creep.move(direction);
 						}

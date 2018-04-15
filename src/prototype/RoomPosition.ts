@@ -56,7 +56,8 @@ Object.defineProperties(RoomPosition.prototype, {
 	},
 	findClosestSpawn: {
 		value() {
-			return this.findClosestByPathFinder(Game.spawns, spawn => ({ pos: spawn.pos, range: 1 })).goal;
+			return this.findClosestByPathFinder(Game.spawns, spawn => ({ pos: spawn.pos, range: 1 }))
+				.goal;
 		},
 	},
 	newFlag: {

@@ -45,10 +45,14 @@ let mod = {
 			if (!Memory.boostTiming.multiOrderingRoomName)
 				Util.logSystem(
 					room.name,
-					`orderingRoom.name: ${room.name}, checkRoomAt: ${(room.memory.resources.boostTiming.checkRoomAt || 0) -
-						Game.time} ${roomTradingType}`,
+					`orderingRoom.name: ${room.name}, checkRoomAt: ${(room.memory.resources.boostTiming
+						.checkRoomAt || 0) - Game.time} ${roomTradingType}`,
 				);
-			else Util.logSystem(room.name, `multi ordering in progress at ${Memory.boostTiming.multiOrderingRoomName}`);
+			else
+				Util.logSystem(
+					room.name,
+					`multi ordering in progress at ${Memory.boostTiming.multiOrderingRoomName}`,
+				);
 		} else if (numberOfOrderingRooms > 1) {
 			console.log(`WARNING: ${numberOfOrderingRooms} ordering rooms!`);
 			Util.logStringify(orderingRoom);
@@ -65,7 +69,10 @@ let mod = {
 
 			if (ordersWithOffers) {
 				let returnValue = room.checkOffers();
-				Util.logSystem(room.name, `checkOffers running from ${room.name} returnValue: ${returnValue}`);
+				Util.logSystem(
+					room.name,
+					`checkOffers running from ${room.name} returnValue: ${returnValue}`,
+				);
 			} else {
 				Util.logSystem(room.name, `${room.name} no offers found, updating offers`);
 				room.GCOrders();
@@ -107,7 +114,9 @@ let mod = {
 						Memory.boostTiming.multiOrderingRoomName
 					} Memory.boostTiming.multiOrderingRoomName deleted.`,
 				);
-				Game.rooms[Memory.boostTiming.multiOrderingRoomName].memory.resources.boostTiming.checkRoomAt =
+				Game.rooms[
+					Memory.boostTiming.multiOrderingRoomName
+				].memory.resources.boostTiming.checkRoomAt =
 					Game.time + global.CHECK_ORDERS_INTERVAL;
 				delete Memory.boostTiming.multiOrderingRoomName;
 				delete memoryOrderingRoom.memory.resources.boostTiming.ordersReady;
@@ -122,7 +131,9 @@ let mod = {
 					if (currentRoom.terminal.cooldown > 0) {
 						Util.logSystem(
 							currentRoom.name,
-							`${currentRoom.name} terminal.cooldown: ${currentRoom.terminal.cooldown} fillARoomOrder() delayed.`,
+							`${currentRoom.name} terminal.cooldown: ${
+								currentRoom.terminal.cooldown
+							} fillARoomOrder() delayed.`,
 						);
 						candidates.time = Game.time + currentRoom.terminal.cooldown;
 						continue;
@@ -141,10 +152,15 @@ let mod = {
 						if (candidate.readyOffers >= 1) {
 							Util.logSystem(
 								candidate.room,
-								`has ${candidate.readyOffers} remains fillRoomOrders check. readyOffers: ${candidate.readyOffers}`,
+								`has ${candidate.readyOffers} remains fillRoomOrders check. readyOffers: ${
+									candidate.readyOffers
+								}`,
 							);
 						} else {
-							Util.logSystem(memoryOrderingRoom.name, `offers from ${candidate.room} are completed`);
+							Util.logSystem(
+								memoryOrderingRoom.name,
+								`offers from ${candidate.room} are completed`,
+							);
 							orderCandidates.splice(i, 1);
 							i--;
 						}
@@ -168,7 +184,9 @@ let mod = {
 							memoryOrderingRoom.name,
 							`WARNING: offers from ${
 								candidate.room
-							} are not completed. Offers deleted. terminal.send returns: ${Util.translateErrorCode(returnValue)}`,
+							} are not completed. Offers deleted. terminal.send returns: ${Util.translateErrorCode(
+								returnValue,
+							)}`,
 						);
 						orderCandidates.splice(i, 1);
 						i--;

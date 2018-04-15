@@ -12,10 +12,20 @@ class HaulerBehaviour extends CreepBehaviour {
 	}
 
 	inflowActions = creep => {
-		return [Creep.action.uncharging, Creep.action.picking, Creep.action.withdrawing, Creep.action.reallocating];
+		return [
+			Creep.action.uncharging,
+			Creep.action.picking,
+			Creep.action.withdrawing,
+			Creep.action.reallocating,
+		];
 	};
 	outflowActions = creep => {
-		let priority = [Creep.action.feeding, Creep.action.charging, Creep.action.fueling, Creep.action.storing];
+		let priority = [
+			Creep.action.feeding,
+			Creep.action.charging,
+			Creep.action.fueling,
+			Creep.action.storing,
+		];
 		if (
 			creep.sum > creep.carry.energy ||
 			(!creep.room.situation.invasion &&

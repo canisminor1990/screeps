@@ -217,10 +217,12 @@ mod.extend = function() {
 		const forced =
 			ROAD_CONSTRUCTION_FORCED_ROOMS[Game.shard.name] &&
 			ROAD_CONSTRUCTION_FORCED_ROOMS[Game.shard.name].indexOf(this.name) != -1;
-		if ((!ROAD_CONSTRUCTION_ENABLE && !forced) || Game.time % ROAD_CONSTRUCTION_INTERVAL != 0) return;
+		if ((!ROAD_CONSTRUCTION_ENABLE && !forced) || Game.time % ROAD_CONSTRUCTION_INTERVAL != 0)
+			return;
 		if (
 			!forced &&
-			(_.isNumber(ROAD_CONSTRUCTION_ENABLE) && (!this.my || ROAD_CONSTRUCTION_ENABLE > this.controller.level))
+			(_.isNumber(ROAD_CONSTRUCTION_ENABLE) &&
+				(!this.my || ROAD_CONSTRUCTION_ENABLE > this.controller.level))
 		)
 			return;
 
@@ -233,7 +235,10 @@ mod.extend = function() {
 			};
 		});
 
-		let min = Math.max(ROAD_CONSTRUCTION_ABS_MIN, data.reduce((_sum, b) => _sum + b.n, 0) / data.length * minDeviation);
+		let min = Math.max(
+			ROAD_CONSTRUCTION_ABS_MIN,
+			data.reduce((_sum, b) => _sum + b.n, 0) / data.length * minDeviation,
+		);
 		data = data.filter(e => {
 			if (e.n >= min) {
 				let structures = this.lookForAt(LOOK_STRUCTURES, e.x, e.y);
@@ -248,7 +253,11 @@ mod.extend = function() {
 
 		// build roads on all most frequent used fields
 		let setSite = pos => {
-			if (DEBUG) Util.logSystem(this.name, `Constructing new road at ${pos.x}'${pos.y} (${pos.n} Util.traces)`);
+			if (DEBUG)
+				Util.logSystem(
+					this.name,
+					`Constructing new road at ${pos.x}'${pos.y} (${pos.n} Util.traces)`,
+				);
 			this.createConstructionSite(pos.x, pos.y, STRUCTURE_ROAD);
 		};
 		_.forEach(data, setSite);

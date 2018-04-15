@@ -36,8 +36,10 @@ class TaskClass extends Component {
 			if (task.handleFlagFound) Flag.found.on(flag => task.handleFlagFound(flag));
 			if (task.handleFlagRemoved) Flag.FlagRemoved.on(flagName => task.handleFlagRemoved(flagName));
 			// Creep Events
-			if (task.handleSpawningStarted) Creep.spawningStarted.on(params => task.handleSpawningStarted(params));
-			if (task.handleSpawningCompleted) Creep.spawningCompleted.on(creep => task.handleSpawningCompleted(creep));
+			if (task.handleSpawningStarted)
+				Creep.spawningStarted.on(params => task.handleSpawningStarted(params));
+			if (task.handleSpawningCompleted)
+				Creep.spawningCompleted.on(creep => task.handleSpawningCompleted(creep));
 			if (task.handleCreepDied) {
 				Creep.predictedRenewal.on(creep => task.handleCreepDied(creep.name));
 				Creep.died.on(name => task.handleCreepDied(name));
@@ -46,8 +48,10 @@ class TaskClass extends Component {
 			// Room events
 
 			if (task.handleNewInvader) Room.newInvader.on(invader => task.handleNewInvader(invader));
-			if (task.handleKnownInvader) Room.knownInvader.on(invaderID => task.handleKnownInvader(invaderID));
-			if (task.handleGoneInvader) Room.goneInvader.on(invaderID => task.handleGoneInvader(invaderID));
+			if (task.handleKnownInvader)
+				Room.knownInvader.on(invaderID => task.handleKnownInvader(invaderID));
+			if (task.handleGoneInvader)
+				Room.goneInvader.on(invaderID => task.handleGoneInvader(invaderID));
 			if (task.handleRoomDied) Room.collapsed.on(room => task.handleRoomDied(room));
 		});
 	};
@@ -111,7 +115,9 @@ class TaskClass extends Component {
 	};
 	spawn = (creepDefinition: obj, destiny: obj, roomParams: obj, onQueued?: Function) => {
 		// get nearest room
-		let room = roomParams.explicit ? Game.rooms[roomParams.explicit] : Room.findSpawnRoom(roomParams);
+		let room = roomParams.explicit
+			? Game.rooms[roomParams.explicit]
+			: Room.findSpawnRoom(roomParams);
 		if (!room) return null;
 		// define new creep
 		if (!destiny) destiny = {};
@@ -132,7 +138,9 @@ class TaskClass extends Component {
 			Util.logSystem(
 				Util.dye(
 					CRAYON.error,
-					`${destiny.task} task tried to queue a zero parts body ${creepDefinition.behaviour} creep. Aborted.`,
+					`${destiny.task} task tried to queue a zero parts body ${
+						creepDefinition.behaviour
+					} creep. Aborted.`,
 				),
 			);
 			return null;
@@ -158,7 +166,9 @@ class TaskClass extends Component {
 	forceSpawn = (creepDef: obj, roomParams: obj, target: obj) => {
 		if (roomParams.link) roomParams = { targetRoom: roomParams };
 		if (!roomParams.targetRoom) return;
-		const room = roomParams.explicit ? Game.rooms[roomParams.explicit] : Room.findSpawnRoom(roomParams);
+		const room = roomParams.explicit
+			? Game.rooms[roomParams.explicit]
+			: Room.findSpawnRoom(roomParams);
 		if (!room) return;
 
 		const destiny: obj = {};
@@ -184,7 +194,9 @@ class TaskClass extends Component {
 	};
 	validateQueued = (memory: obj, flag: Flag, task: string, options: obj = {}): void => {
 		const subKey: string = options.subKey ? 'queued.' + options.subKey : 'queued';
-		const checkPath: string = options.subKey ? 'nextQueuedCheck.' + options.subKey : 'nextQueuedCheck';
+		const checkPath: string = options.subKey
+			? 'nextQueuedCheck.' + options.subKey
+			: 'nextQueuedCheck';
 		const queued = Util.get(memory, subKey, []);
 		let nextCheck: number = _.get(memory, checkPath, 0);
 		// if checkPathValid = true, it will only revalidate if 50 ticks have passed since the last validation
@@ -217,7 +229,9 @@ class TaskClass extends Component {
 	};
 	validateSpawning = (memory: obj, flag: Flag, task: string, options: obj = {}): void => {
 		const subKey: string = options.subKey ? 'spawning.' + options.subKey : 'spawning';
-		const checkPath: string = options.subKey ? 'nextSpawnCheck.' + options.subKey : 'nextSpawnCheck';
+		const checkPath: string = options.subKey
+			? 'nextSpawnCheck.' + options.subKey
+			: 'nextSpawnCheck';
 		const spawning = Util.get(memory, subKey, []);
 		let nextCheck: number = _.get(memory, checkPath, 0);
 		if (spawning.length && (!options.checkValid || Game.time > nextCheck)) {
@@ -232,7 +246,9 @@ class TaskClass extends Component {
 						(spawn.newSpawn && spawn.newSpawn.name === entry.name))
 				) {
 					minRemaining =
-						!minRemaining || spawn.spawning.remainingTime < minRemaining ? spawn.spawning.remainingTime : minRemaining;
+						!minRemaining || spawn.spawning.remainingTime < minRemaining
+							? spawn.spawning.remainingTime
+							: minRemaining;
 					validated.push(entry);
 				}
 			};
@@ -254,7 +270,9 @@ class TaskClass extends Component {
 	};
 	validateRunning = (memory: obj, flag: Flag, task: string, options: obj = {}): void => {
 		const subKey: string = options.subKey ? 'running.' + options.subKey : 'running';
-		const checkPath: string = options.subKey ? 'nextRunningCheck.' + options.subKey : 'nextRunningCheck';
+		const checkPath: string = options.subKey
+			? 'nextRunningCheck.' + options.subKey
+			: 'nextRunningCheck';
 		const running = Util.get(memory, subKey, []);
 		const roomName: string = options.roomName;
 		let nextCheck = _.get(memory, checkPath, 0);
@@ -273,7 +291,8 @@ class TaskClass extends Component {
 				let prediction;
 				if (creep.data.predictedRenewal) prediction = creep.data.predictedRenewal;
 				else if (creep.data.spawningTime)
-					prediction = creep.data.spawningTime + Util.routeRange(creep.data.homeRoom, roomName) * 50;
+					prediction =
+						creep.data.spawningTime + Util.routeRange(creep.data.homeRoom, roomName) * 50;
 				else prediction = (Util.routeRange(creep.data.homeRoom, roomName) + 1) * 50;
 				if (creep.name !== deadCreep && creep.ticksToLive > prediction) {
 					const untilRenewal: number = creep.ticksToLive - prediction;
@@ -287,7 +306,8 @@ class TaskClass extends Component {
 				nextCheck = Game.time + Math.min(TASK_CREEP_CHECK_INTERVAL, minRemaining); // check running at least every 250 ticks
 				Util.set(memory, checkPath, nextCheck, false);
 			} else {
-				if (options.subKey && memory.nextRunningCheck) delete memory.nextRunningCheck[options.subKey];
+				if (options.subKey && memory.nextRunningCheck)
+					delete memory.nextRunningCheck[options.subKey];
 				else delete memory.nextRunningCheck;
 			}
 		}

@@ -41,7 +41,10 @@ class RobbingAction extends CreepAction {
 
 					// console.log(creep.name, 'resourceScore', type, amount, multiplier, range, logBase, adjacentValue);
 
-					return { amount, score: multiplier * amount * (adjacentValue - Math.log1p(range) * logBase) };
+					return {
+						amount,
+						score: multiplier * amount * (adjacentValue - Math.log1p(range) * logBase),
+					};
 				};
 			},
 		});
@@ -55,11 +58,20 @@ class RobbingAction extends CreepAction {
 		return creep.sum < creep.carryCapacity * 0.95 && !creep.room.my;
 	};
 	isValidTarget = target => {
-		if (_.some(target.pos.lookFor(LOOK_STRUCTURES), { structureType: STRUCTURE_RAMPART, isPublic: false, my: false })) {
+		if (
+			_.some(target.pos.lookFor(LOOK_STRUCTURES), {
+				structureType: STRUCTURE_RAMPART,
+				isPublic: false,
+				my: false,
+			})
+		) {
 			return false;
 		}
 
-		if (target.structureType === STRUCTURE_NUKER || target.structureType === STRUCTURE_POWER_SPAWN) {
+		if (
+			target.structureType === STRUCTURE_NUKER ||
+			target.structureType === STRUCTURE_POWER_SPAWN
+		) {
 			return false;
 		}
 
@@ -116,7 +128,13 @@ class RobbingAction extends CreepAction {
 			.value();
 
 		return this.targetCall(creep, resourcesDescending, target => {
-			return creep.getStrategyHandler([this.name], 'resourceScore', creep, target, resourceRobValue);
+			return creep.getStrategyHandler(
+				[this.name],
+				'resourceScore',
+				creep,
+				target,
+				resourceRobValue,
+			);
 		});
 	};
 	targetCall = (creep, resourcesDescending, targetHandler) => {
@@ -125,7 +143,14 @@ class RobbingAction extends CreepAction {
 
 			let score = 0;
 			if (target.store) {
-				score = this.storeCall(creep, target, target.store, Util.valueOrZero, valueCallback, resourcesDescending);
+				score = this.storeCall(
+					creep,
+					target,
+					target.store,
+					Util.valueOrZero,
+					valueCallback,
+					resourcesDescending,
+				);
 			} else if (target.structureType === STRUCTURE_LAB) {
 				score = this.storeCall(
 					creep,
@@ -135,7 +160,13 @@ class RobbingAction extends CreepAction {
 					valueCallback,
 				);
 			} else {
-				score = this.storeCall(creep, target, { [RESOURCE_ENERGY]: target.energy }, Util.valueOrZero, valueCallback);
+				score = this.storeCall(
+					creep,
+					target,
+					{ [RESOURCE_ENERGY]: target.energy },
+					Util.valueOrZero,
+					valueCallback,
+				);
 				// TODO dropped resources are a combination of all drops under that point, their decay function relates to the number of separate resources
 				/* instead of valueOrZero:
 							 const valueTransform = function(count) {

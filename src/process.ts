@@ -61,7 +61,10 @@ class Process {
 	private addon = () => {
 		// Postprocessing
 		if (SEND_STATISTIC_REPORTS) {
-			if (!Memory.statistics || (Memory.statistics.tick && Memory.statistics.tick + TIME_REPORT <= Game.time)) {
+			if (
+				!Memory.statistics ||
+				(Memory.statistics.tick && Memory.statistics.tick + TIME_REPORT <= Game.time)
+			) {
 				require('./global/statistics').process();
 			}
 			Util.processReports();

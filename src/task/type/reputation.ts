@@ -78,7 +78,10 @@ class ReputationTask extends TaskComponent {
 		const playerMemory = this.memory('players');
 		const whitelist = this.whitelist();
 		let score = this.score();
-		if (_.keys(playerMemory).length + _.keys(whitelist).length !== _.keys(score).length + etc.whitelistRepUnion) {
+		if (
+			_.keys(playerMemory).length + _.keys(whitelist).length !==
+			_.keys(score).length + etc.whitelistRepUnion
+		) {
 			score = this.killScoreCache();
 			for (const n in NPC) {
 				score[n] = CONST.NPC_SCORE;

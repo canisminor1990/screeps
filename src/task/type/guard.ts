@@ -86,7 +86,13 @@ class GuardTask extends TaskComponent {
 	// when a creep completed spawning
 	handleSpawningCompleted = creep => {
 		// ensure it is a creep which has been requested by this task (else return)
-		if (!creep.data || !creep.data.destiny || !creep.data.destiny.task || creep.data.destiny.task != 'guard') return;
+		if (
+			!creep.data ||
+			!creep.data.destiny ||
+			!creep.data.destiny.task ||
+			creep.data.destiny.task != 'guard'
+		)
+			return;
 		// get flag which caused request of that creep
 		let flag = Game.flags[creep.data.destiny.flagName];
 		if (flag) {
@@ -114,7 +120,10 @@ class GuardTask extends TaskComponent {
 		let flag = Game.flags[mem.destiny.flagName];
 		if (flag) {
 			const memory = this.memory(flag);
-			Task.validateRunning(memory, flag, this.name, { roomName: flag.pos.roomName, deadCreep: name });
+			Task.validateRunning(memory, flag, this.name, {
+				roomName: flag.pos.roomName,
+				deadCreep: name,
+			});
 		}
 	};
 	// get task memory

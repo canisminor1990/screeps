@@ -64,7 +64,10 @@ mod.extend = function() {
 				get: function() {
 					if (_.isUndefined(this._privateers)) {
 						let byType = l =>
-							l.storage == false && l.controller == false && l.source == false && l.energy < l.energyCapacity * 0.85;
+							l.storage == false &&
+							l.controller == false &&
+							l.source == false &&
+							l.energy < l.energyCapacity * 0.85;
 						this._privateers = _.filter(this.all, byType);
 					}
 					return this._privateers;

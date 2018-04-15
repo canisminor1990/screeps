@@ -61,7 +61,11 @@ class WithdrawingAction extends CreepAction {
 				dummyCreep.carry[RESOURCE_ENERGY] = maxWithdraw; // assume we get a full load of energy
 				let nextTarget = null;
 				const validAction = _.find(outflowActions, a => {
-					if (a.name !== 'storing' && a.isValidAction(dummyCreep) && a.isAddableAction(dummyCreep)) {
+					if (
+						a.name !== 'storing' &&
+						a.isValidAction(dummyCreep) &&
+						a.isAddableAction(dummyCreep)
+					) {
 						nextTarget = a.newTarget(dummyCreep);
 						return !!nextTarget;
 					}

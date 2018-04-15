@@ -95,7 +95,10 @@ export const logUtils = {
 	logSystem(roomName: string, ...message: string[]): void {
 		const text = Util.dye(CRAYON.system, roomName);
 		console.log(
-			Util.dye(CRAYON.system, `<a href="/a/#!/room/${Game.shard.name}/${roomName}">${text}</a> &gt;`),
+			Util.dye(
+				CRAYON.system,
+				`<a href="/a/#!/room/${Game.shard.name}/${roomName}">${text}</a> &gt;`,
+			),
 			...message,
 			Util.stack(),
 		);

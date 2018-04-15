@@ -17,7 +17,10 @@ class MiningAction extends CreepAction {
 
 	renewTarget = true;
 	isValidTarget = (target, creep) => {
-		return target && (target instanceof Source || (target instanceof Mineral && !target.ticksToRegeneration));
+		return (
+			target &&
+			(target instanceof Source || (target instanceof Mineral && !target.ticksToRegeneration))
+		);
 	};
 	isAddableAction = creep => {
 		const room = creep.room;
@@ -90,7 +93,9 @@ class MiningAction extends CreepAction {
 			if (!spot) {
 				spot = creep.pos.findClosestByPath(spots, {
 					filter: pos => {
-						return !_.some(creep.room.lookForAt(LOOK_STRUCTURES, pos), { structureType: STRUCTURE_ROAD });
+						return !_.some(creep.room.lookForAt(LOOK_STRUCTURES, pos), {
+							structureType: STRUCTURE_ROAD,
+						});
 					},
 				});
 			}
@@ -132,11 +137,16 @@ class MiningAction extends CreepAction {
 			this.resetChecks(creep);
 			const minCarry =
 				creep.carryCapacity -
-				(creep.data.body && creep.data.body.work ? creep.data.body.work * 2 : creep.carryCapacity / 2);
+				(creep.data.body && creep.data.body.work
+					? creep.data.body.work * 2
+					: creep.carryCapacity / 2);
 			if (creep.sum > minCarry) {
 				if (creep.target.link && creep.target.link.energy < creep.target.link.energyCapacity) {
 					creep.transfer(creep.target.link, RESOURCE_ENERGY);
-				} else if (creep.target.container && creep.target.container.sum < creep.target.container.storeCapacity) {
+				} else if (
+					creep.target.container &&
+					creep.target.container.sum < creep.target.container.storeCapacity
+				) {
 					const transfer = r => {
 						if (creep.carry[r] > 0) creep.transfer(creep.target.container, r);
 					};
@@ -165,7 +175,11 @@ class MiningAction extends CreepAction {
 			this.determineSpot(creep, creep.target);
 		} else {
 			const targetRoom = creep.data.destiny ? creep.data.destiny.room : creep.data.homeRoom;
-			const targetPos = new RoomPosition(creep.data.determinatedSpot.x, creep.data.determinatedSpot.y, targetRoom);
+			const targetPos = new RoomPosition(
+				creep.data.determinatedSpot.x,
+				creep.data.determinatedSpot.y,
+				targetRoom,
+			);
 			const range = creep.pos.getRangeTo(targetPos);
 			if (range > 1) {
 				creep.travelTo(targetPos, { range: 1 });
@@ -239,7 +253,8 @@ class MiningAction extends CreepAction {
 		return false;
 	};
 	maintain = creep => {
-		const minCarry = creep.data.body && creep.data.body.work ? creep.data.body.work * 5 : creep.carryCapacity / 2;
+		const minCarry =
+			creep.data.body && creep.data.body.work ? creep.data.body.work * 5 : creep.carryCapacity / 2;
 		if (DEBUG && TRACE)
 			Util.trace('Action', {
 				actionName: this.name,
@@ -250,17 +265,24 @@ class MiningAction extends CreepAction {
 				minCarry,
 			});
 		if (creep.carry.energy <= minCarry) {
-			if (!creep.data.energyChecked || Game.time - creep.data.energyChecked > MINER_WORK_THRESHOLD) {
+			if (
+				!creep.data.energyChecked ||
+				Game.time - creep.data.energyChecked > MINER_WORK_THRESHOLD
+			) {
 				this.getEnergy(creep);
 			}
 		}
 		if (creep.carry.energy > 0) {
-			if (!creep.data.repairChecked || Game.time - creep.data.repairChecked > MINER_WORK_THRESHOLD) {
+			if (
+				!creep.data.repairChecked ||
+				Game.time - creep.data.repairChecked > MINER_WORK_THRESHOLD
+			) {
 				let repairTarget = Game.getObjectById(creep.data.repairTarget);
 				if (!repairTarget || repairTarget.hits === repairTarget.hitsMax) {
 					repairTarget = creep.pos.findInRange(FIND_STRUCTURES, 3, {
 						filter: s =>
-							(s.structureType === STRUCTURE_CONTAINER || s.structureType === STRUCTURE_ROAD) && s.hits < s.hitsMax,
+							(s.structureType === STRUCTURE_CONTAINER || s.structureType === STRUCTURE_ROAD) &&
+							s.hits < s.hitsMax,
 					})[0];
 				}
 				if (repairTarget) {

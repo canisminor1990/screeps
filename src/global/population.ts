@@ -43,7 +43,10 @@ class PopulationClass extends Component {
 			let creep = Game.creeps[entry.creepName];
 			if (!creep) {
 				if (CENSUS_ANNOUNCEMENTS)
-					Util.logSystem(entry.homeRoom, Util.dye(CRAYON.death, 'Good night ' + entry.creepName + '!'));
+					Util.logSystem(
+						entry.homeRoom,
+						Util.dye(CRAYON.death, 'Good night ' + entry.creepName + '!'),
+					);
 				this.died.push(entry.creepName);
 			} else {
 				creep.data = entry;
@@ -59,14 +62,16 @@ class PopulationClass extends Component {
 					this.spawned.push(entry.creepName);
 					if (Game.spawns[entry.motherSpawn]) this.spawnsToProbe.push(entry.motherSpawn); // only push living spawns
 				} else if (
-					creep.ticksToLive <= (entry.predictedRenewal ? entry.predictedRenewal : entry.spawningTime) &&
+					creep.ticksToLive <=
+						(entry.predictedRenewal ? entry.predictedRenewal : entry.spawningTime) &&
 					!creep.data.nearDeath
 				) {
 					// will die in ticks equal to spawning time or custom
 					creep.data.nearDeath = true;
 					if (CENSUS_ANNOUNCEMENTS)
 						console.log(
-							Util.dye(CRAYON.system, entry.creepName + ' &gt; ') + Util.dye(CRAYON.death, 'Farewell!'),
+							Util.dye(CRAYON.system, entry.creepName + ' &gt; ') +
+								Util.dye(CRAYON.death, 'Farewell!'),
 							Util.stack(),
 						);
 					this.predictedRenewal.push(creep.name);
@@ -93,10 +98,15 @@ class PopulationClass extends Component {
 						creep.flag = flag;
 					}
 				}
-				let action = entry.actionName && Creep.action[entry.actionName] ? Creep.action[entry.actionName] : null;
+				let action =
+					entry.actionName && Creep.action[entry.actionName]
+						? Creep.action[entry.actionName]
+						: null;
 				let target =
 					action && entry.targetId
-						? Game.getObjectById(entry.targetId) || Game.spawns[entry.targetId] || Game.flags[entry.targetId]
+						? Game.getObjectById(entry.targetId) ||
+						  Game.spawns[entry.targetId] ||
+						  Game.flags[entry.targetId]
 						: null;
 				if (target && target.id === creep.id) {
 					target = Flag.specialFlag();
@@ -224,9 +234,11 @@ class PopulationClass extends Component {
 			if (room.population.actionWeight[creep.action.name] === undefined)
 				room.population.actionWeight[creep.action.name] = 0;
 			else room.population.actionWeight[creep.action.name] -= entry.weight;
-			if (this.actionCount[creep.action.name] === undefined) this.actionCount[creep.action.name] = 0;
+			if (this.actionCount[creep.action.name] === undefined)
+				this.actionCount[creep.action.name] = 0;
 			else this.actionCount[creep.action.name]--;
-			if (this.actionWeight[creep.action.name] === undefined) this.actionWeight[creep.action.name] = 0;
+			if (this.actionWeight[creep.action.name] === undefined)
+				this.actionWeight[creep.action.name] = 0;
 			else this.actionWeight[creep.action.name] -= entry.weight;
 
 			delete creep.data.determinatedSpot;
@@ -234,7 +246,8 @@ class PopulationClass extends Component {
 		}
 		// register action
 		entry.actionName = action.name;
-		if (room.population.actionCount[action.name] === undefined) room.population.actionCount[action.name] = 1;
+		if (room.population.actionCount[action.name] === undefined)
+			room.population.actionCount[action.name] = 1;
 		else room.population.actionCount[action.name]++;
 		if (room.population.actionWeight[action.name] === undefined)
 			room.population.actionWeight[action.name] = entry.weight;
@@ -249,7 +262,9 @@ class PopulationClass extends Component {
 		if (entry.targetId) {
 			// unregister target
 			let oldTarget = entry.targetId
-				? Game.getObjectById(entry.targetId) || Game.spawns[entry.targetId] || Game.flags[entry.targetId]
+				? Game.getObjectById(entry.targetId) ||
+				  Game.spawns[entry.targetId] ||
+				  Game.flags[entry.targetId]
 				: null;
 			if (oldTarget) {
 				oldTargetId = oldTarget.id || oldTarget.name;
@@ -276,7 +291,13 @@ class PopulationClass extends Component {
 		creep.data = entry;
 	};
 	registerCreepFlag = (creep, flag) => {
-		if (flag && creep.data && creep.data.flagName && creep.data.flagName == flag.name && creep.flag.name == flag.name)
+		if (
+			flag &&
+			creep.data &&
+			creep.data.flagName &&
+			creep.data.flagName == flag.name &&
+			creep.flag.name == flag.name
+		)
 			return;
 		if (creep.data && creep.data.flagName) {
 			// unregister flag
@@ -308,14 +329,16 @@ class PopulationClass extends Component {
 			};
 		}
 
-		if (room.population.typeCount[entry.creepType] === undefined) room.population.typeCount[entry.creepType] = 1;
+		if (room.population.typeCount[entry.creepType] === undefined)
+			room.population.typeCount[entry.creepType] = 1;
 		else room.population.typeCount[entry.creepType]++;
 		if (room.population.typeWeight[entry.creepType] === undefined)
 			room.population.typeWeight[entry.creepType] = entry.weight;
 		else room.population.typeWeight[entry.creepType] += entry.weight;
 		if (this.typeCount[entry.creepType] === undefined) this.typeCount[entry.creepType] = 1;
 		else this.typeCount[entry.creepType]++;
-		if (this.typeWeight[entry.creepType] === undefined) this.typeWeight[entry.creepType] = entry.weight;
+		if (this.typeWeight[entry.creepType] === undefined)
+			this.typeWeight[entry.creepType] = entry.weight;
 		else this.typeWeight[entry.creepType] += entry.weight;
 	};
 

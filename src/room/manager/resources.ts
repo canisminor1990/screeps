@@ -54,7 +54,8 @@ mod.extend = function() {
 									mineralAmount = labStructure.mineralAmount;
 
 								if (!_.isUndefined(mineralType)) {
-									if (_.isUndefined(this._resourcesLabs[mineralType])) this._resourcesLabs[mineralType] = mineralAmount;
+									if (_.isUndefined(this._resourcesLabs[mineralType]))
+										this._resourcesLabs[mineralType] = mineralAmount;
 									else this._resourcesLabs[mineralType] += mineralAmount;
 								}
 							}
@@ -72,7 +73,8 @@ mod.extend = function() {
 
 					for (let creep of this.creeps) {
 						Object.keys(creep.carries).forEach(content => {
-							if (_.isUndefined(this._resourcesCreeps[content])) this._resourcesCreeps[content] = creep.carry[content];
+							if (_.isUndefined(this._resourcesCreeps[content]))
+								this._resourcesCreeps[content] = creep.carry[content];
 							else this._resourcesCreeps[content] += creep.carry[content];
 						});
 					}

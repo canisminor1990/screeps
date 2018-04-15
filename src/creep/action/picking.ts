@@ -44,7 +44,8 @@ class PickingAction extends CreepAction {
 		let filter;
 		if (creep.room.my && creep.room.situation.invasion) {
 			// pickup near sources only
-			filter = r => this.isAddableTarget(r, creep) && r.pos.findInRange(creep.room.sources, 1).length > 0;
+			filter = r =>
+				this.isAddableTarget(r, creep) && r.pos.findInRange(creep.room.sources, 1).length > 0;
 		} else {
 			filter = r => this.isAddableTarget(r, creep);
 		}

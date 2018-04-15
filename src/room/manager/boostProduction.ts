@@ -52,7 +52,8 @@ let mod = {
 				}
 
 				// inactive rooms => try to make reactions
-				if (numberOfOrderingRooms === 0 && !reactionPlacedRoom && !roomFound) roomFound = room.makeReaction();
+				if (numberOfOrderingRooms === 0 && !reactionPlacedRoom && !roomFound)
+					roomFound = room.makeReaction();
 
 				// log and fix next finishing reactions data
 				if (
@@ -65,7 +66,8 @@ let mod = {
 					let reactionOrder = data.reactions.orders[0];
 					Util.logSystem(
 						room.name,
-						`${room.name}, finishing ${reactionOrder.type}. checkRoomAt: ${boostTiming.checkRoomAt - Game.time}`,
+						`${room.name}, finishing ${reactionOrder.type}. checkRoomAt: ${boostTiming.checkRoomAt -
+							Game.time}`,
 					);
 					let labA = Game.getObjectById(data.reactions.seed_a),
 						labB = Game.getObjectById(data.reactions.seed_b),
@@ -84,7 +86,9 @@ let mod = {
 					Util.logSystem(room.name, `reactionAmount ${reactionAmount}`);
 					Util.logSystem(
 						room.name,
-						`labs stored: seed_a: ${labA.mineralAmount} ${component_a} seed_b: ${labB.mineralAmount} ${component_b}`,
+						`labs stored: seed_a: ${labA.mineralAmount} ${component_a} seed_b: ${
+							labB.mineralAmount
+						} ${component_b}`,
 					);
 
 					Util.logSystem(
@@ -96,8 +100,10 @@ let mod = {
 						Util.logSystem(room.name, `lab orders OK`);
 						if (reactionAmount > 0) {
 							if (
-								((_.isUndefined(resourcesA) || resourcesA === 0) && labA.mineralAmount < LAB_REACTION_AMOUNT) ||
-								((_.isUndefined(resourcesB) || resourcesB === 0) && labB.mineralAmount < LAB_REACTION_AMOUNT)
+								((_.isUndefined(resourcesA) || resourcesA === 0) &&
+									labA.mineralAmount < LAB_REACTION_AMOUNT) ||
+								((_.isUndefined(resourcesB) || resourcesB === 0) &&
+									labB.mineralAmount < LAB_REACTION_AMOUNT)
 							) {
 								reactionOrder.amount = 0;
 								Util.logSystem(room.name, `resources NOT OK`);
@@ -136,7 +142,10 @@ let mod = {
 						if (_.sum(data.reactions.orders, 'amount') > 0) {
 							boostTiming.reactionMaking = Game.time;
 							room.countCheckRoomAt();
-							Util.logSystem(room.name, `${room.name} checkRoomAt counted: ${boostTiming.checkRoomAt - Game.time}`);
+							Util.logSystem(
+								room.name,
+								`${room.name} checkRoomAt counted: ${boostTiming.checkRoomAt - Game.time}`,
+							);
 						} else {
 							console.log(`Game.time: ${Game.time}`);
 							Util.logSystem(room.name, `reactions done in in ${room.name}`);

@@ -94,7 +94,9 @@ mod.extend = function() {
 
 	// Room prototype extensions go here
 	Room.prototype.saveContainers = function() {
-		let containers = this.structures.all.filter(structure => structure.structureType == STRUCTURE_CONTAINER);
+		let containers = this.structures.all.filter(
+			structure => structure.structureType == STRUCTURE_CONTAINER,
+		);
 		if (containers.length > 0) {
 			this.memory.container = [];
 			let add = cont => {
@@ -153,7 +155,8 @@ mod.extend = function() {
 			source.forEach(assignStorage);
 			mineral.forEach(assignStorage);
 
-			if (this.storage.pos.getRangeTo(this.controller) < 4) this.controller.memory.storage = this.storage.id;
+			if (this.storage.pos.getRangeTo(this.controller) < 4)
+				this.controller.memory.storage = this.storage.id;
 		}
 	};
 
@@ -168,7 +171,12 @@ mod.extend = function() {
 				let container = Game.getObjectById(d.id);
 				if (container) {
 					let amt = -container.getNeeds(resourceType);
-					if (!(this.structures.container.out.includes(container) && resourceType === RESOURCE_ENERGY) && amt > 0) {
+					if (
+						!(
+							this.structures.container.out.includes(container) && resourceType === RESOURCE_ENERGY
+						) &&
+						amt > 0
+					) {
 						let amount = amt;
 						if (amount >= amountMin) return { structure: container, amount: amount };
 					}

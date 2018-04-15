@@ -30,7 +30,8 @@ mod.extend = function() {
 						let baseAmount = 0;
 						let rcl = this.controller.level;
 						if (structureType == STRUCTURE_STORAGE)
-							baseAmount = order.type == RESOURCE_ENERGY ? MIN_STORAGE_ENERGY[rcl] : MAX_STORAGE_MINERAL;
+							baseAmount =
+								order.type == RESOURCE_ENERGY ? MIN_STORAGE_ENERGY[rcl] : MAX_STORAGE_MINERAL;
 						else if (structureType == STRUCTURE_TERMINAL)
 							baseAmount = order.type == RESOURCE_ENERGY ? TERMINAL_ENERGY : 0;
 						baseAmount += order.storeAmount;
@@ -128,7 +129,8 @@ mod.extend = function() {
 					// for COMPOUNDS_TO_ALLOCATE
 					if (!_.isUndefined(global.COMPOUNDS_TO_ALLOCATE[order.type])) {
 						let reservedAmount =
-							global.COMPOUNDS_TO_ALLOCATE[order.type].amount + global.COMPOUNDS_TO_ALLOCATE[order.type].threshold;
+							global.COMPOUNDS_TO_ALLOCATE[order.type].amount +
+							global.COMPOUNDS_TO_ALLOCATE[order.type].threshold;
 						if (available < reservedAmount + global.MIN_OFFER_AMOUNT) continue;
 						else available = available - reservedAmount;
 					}
@@ -171,7 +173,9 @@ mod.extend = function() {
 						if (DEBUG)
 							Util.logSystem(
 								this.name,
-								`Room offer from ${room.name} with id ${order.id} placed for ${available} ${order.type}.`,
+								`Room offer from ${room.name} with id ${order.id} placed for ${available} ${
+									order.type
+								}.`,
 							);
 						amountRemaining -= available;
 						order.offers.push({
@@ -196,13 +200,21 @@ mod.extend = function() {
 	};
 
 	Room.prototype.fillARoomOrder = function() {
-		if (!(this.terminal && this.memory && this.memory.resources && this.memory.resources.offers)) return false;
+		if (!(this.terminal && this.memory && this.memory.resources && this.memory.resources.offers))
+			return false;
 		let offers = this.memory.resources.offers,
 			ret = false;
 		for (let i = 0; i < offers.length; i++) {
 			let offer = offers[i];
 			let targetRoom = Game.rooms[offer.room];
-			if (!(targetRoom && targetRoom.memory && targetRoom.memory.resources && targetRoom.memory.resources.orders))
+			if (
+				!(
+					targetRoom &&
+					targetRoom.memory &&
+					targetRoom.memory.resources &&
+					targetRoom.memory.resources.orders
+				)
+			)
 				continue;
 			let order = targetRoom.memory.resources.orders.find(o => {
 				return o.id == offer.id && o.type == offer.type;
@@ -261,7 +273,11 @@ mod.extend = function() {
 						resourceType: offer.type,
 						amount: amount,
 					});
-				if (DEBUG) Util.logSystem(this.name, `Room order filled to ${targetRoom.name} for ${amount} ${offer.type}.`);
+				if (DEBUG)
+					Util.logSystem(
+						this.name,
+						`Room order filled to ${targetRoom.name} for ${amount} ${offer.type}.`,
+					);
 				offer.amount -= amount;
 				if (offer.amount > 0) {
 					order.offers[targetOfferIdx].amount = offer.amount;
@@ -340,7 +356,9 @@ mod.extend = function() {
 		let container = Game.getObjectById(containerId);
 		if (this.prepareResourceOrder(containerId, RESOURCE_ENERGY, 0) != OK) return ret;
 
-		let containerData = this.memory.resources[container.structureType].find(s => s.id == containerId);
+		let containerData = this.memory.resources[container.structureType].find(
+			s => s.id == containerId,
+		);
 		if (containerData) {
 			if (resourceType) {
 				let existingOrder = containerData.orders.find(r => r.type == resourceType);
@@ -358,7 +376,12 @@ mod.extend = function() {
 			} else {
 				// delete all of structure's orders
 				if (DEBUG && TRACE)
-					Util.trace('Room', { roomName: this.name, actionName: 'cancelOrder', orderId: orderId, resourceType: 'all' });
+					Util.trace('Room', {
+						roomName: this.name,
+						actionName: 'cancelOrder',
+						orderId: orderId,
+						resourceType: 'all',
+					});
 				containerData.orders = [];
 			}
 		}
@@ -396,7 +419,9 @@ mod.extend = function() {
 			let dataIndex = this.memory.resources.lab.findIndex(x => x.id === labId);
 			if (dataIndex > -1) {
 				if (data.reactions.orders.length > 0)
-					this.memory.resources.lab[dataIndex].reactionType = this.memory.resources.reactions.orders[0].type;
+					this.memory.resources.lab[
+						dataIndex
+					].reactionType = this.memory.resources.reactions.orders[0].type;
 				this.memory.resources.lab[dataIndex].reactionState = 'idle';
 				this.memory.resources.lab[dataIndex].orders = _.filter(
 					this.memory.resources.lab[dataIndex].orders,
@@ -414,7 +439,9 @@ mod.extend = function() {
 			return ret;
 		}
 
-		let containerData = this.memory.resources[container.structureType].find(s => s.id == containerId);
+		let containerData = this.memory.resources[container.structureType].find(
+			s => s.id == containerId,
+		);
 		if (containerData) {
 			let existingOrder = containerData.orders.find(r => r.type == resourceType);
 			if (existingOrder) {
@@ -448,7 +475,9 @@ mod.extend = function() {
 			return ret;
 		}
 
-		let containerData = this.memory.resources[container.structureType].find(s => s.id == containerId);
+		let containerData = this.memory.resources[container.structureType].find(
+			s => s.id == containerId,
+		);
 		if (containerData) {
 			let existingOrder = containerData.orders.find(r => r.type == resourceType);
 			if (existingOrder) {
@@ -558,7 +587,11 @@ mod.extend = function() {
 					resourceType: resourceType,
 					amount: amount,
 				});
-			if (DEBUG) Util.logSystem(this.name, `New room order with id ${orderId} placed for ${amount} ${resourceType}.`);
+			if (DEBUG)
+				Util.logSystem(
+					this.name,
+					`New room order with id ${orderId} placed for ${amount} ${resourceType}.`,
+				);
 			orders.push({
 				id: orderId,
 				type: resourceType,
@@ -576,7 +609,11 @@ mod.extend = function() {
 		let transacting = false;
 		for (const mineral in this.terminal.store) {
 			if (mineral === RESOURCE_ENERGY || mineral === RESOURCE_POWER) continue;
-			if ((global.MAKE_COMPOUNDS || global.ALLOCATE_COMPOUNDS) && mineral !== this.memory.mineralType) continue;
+			if (
+				(global.MAKE_COMPOUNDS || global.ALLOCATE_COMPOUNDS) &&
+				mineral !== this.memory.mineralType
+			)
+				continue;
 			let terminalFull = this.terminal.sum / this.terminal.storeCapacity > 0.8;
 
 			if (this.terminal.store[mineral] >= MIN_MINERAL_SELL_AMOUNT) {
@@ -590,16 +627,32 @@ mod.extend = function() {
 				} else buyRatio = MIN_SELL_RATIO[mineral];
 
 				let orders = Game.market.getAllOrders(o => {
-					if (!o.roomName || o.resourceType != mineral || o.type != 'buy' || o.amount < MIN_MINERAL_SELL_AMOUNT)
+					if (
+						!o.roomName ||
+						o.resourceType != mineral ||
+						o.type != 'buy' ||
+						o.amount < MIN_MINERAL_SELL_AMOUNT
+					)
 						return false;
 
 					o.range = Game.map.getRoomLinearDistance(o.roomName, that.name, true);
 					o.transactionAmount = Math.min(o.amount, that.terminal.store[mineral]);
-					o.transactionCost = Game.market.calcTransactionCost(o.transactionAmount, that.name, o.roomName);
-					if (o.transactionCost > that.terminal.store.energy && o.transactionAmount > MIN_MINERAL_SELL_AMOUNT) {
+					o.transactionCost = Game.market.calcTransactionCost(
+						o.transactionAmount,
+						that.name,
+						o.roomName,
+					);
+					if (
+						o.transactionCost > that.terminal.store.energy &&
+						o.transactionAmount > MIN_MINERAL_SELL_AMOUNT
+					) {
 						// cant afford. try min amount
 						o.transactionAmount = MIN_MINERAL_SELL_AMOUNT;
-						o.transactionCost = Game.market.calcTransactionCost(o.transactionAmount, that.name, o.roomName);
+						o.transactionCost = Game.market.calcTransactionCost(
+							o.transactionAmount,
+							that.name,
+							o.roomName,
+						);
 					}
 
 					o.credits = o.transactionAmount * o.price;
@@ -663,11 +716,20 @@ mod.extend = function() {
 			let targetRoom = _.min(_.filter(Game.rooms, requiresEnergy), 'storage.store.energy');
 			if (
 				targetRoom instanceof Room &&
-				Game.market.calcTransactionCost(ENERGY_BALANCE_TRANSFER_AMOUNT, this.name, targetRoom.name) <
+				Game.market.calcTransactionCost(
+					ENERGY_BALANCE_TRANSFER_AMOUNT,
+					this.name,
+					targetRoom.name,
+				) <
 					this.terminal.store.energy - ENERGY_BALANCE_TRANSFER_AMOUNT
 			) {
 				targetRoom._isReceivingEnergy = true;
-				let response = this.terminal.send('energy', ENERGY_BALANCE_TRANSFER_AMOUNT, targetRoom.name, 'have fun');
+				let response = this.terminal.send(
+					'energy',
+					ENERGY_BALANCE_TRANSFER_AMOUNT,
+					targetRoom.name,
+					'have fun',
+				);
 				if (DEBUG)
 					Util.logSystem(
 						that.name,

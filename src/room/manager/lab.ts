@@ -170,7 +170,12 @@ mod.extend = function() {
 
 	Room.prototype.processReactorFlowerBurst = function() {
 		let data = this.memory.resources.reactions;
-		if (!data || data.reactorType !== REACTOR_TYPE_FLOWER || data.reactorMode !== REACTOR_MODE_BURST) return;
+		if (
+			!data ||
+			data.reactorType !== REACTOR_TYPE_FLOWER ||
+			data.reactorMode !== REACTOR_MODE_BURST
+		)
+			return;
 
 		let order = data.orders[0];
 		if (order.mode !== REACTOR_MODE_BURST) return;
@@ -212,8 +217,10 @@ mod.extend = function() {
 
 			let roundedAmountToOrder = Util.roundUpTo(amountToOrder, global.MIN_OFFER_AMOUNT);
 			if (amountToOrder < global.TRADE_THRESHOLD && amountToOrder > 0) {
-				if (empireResourcesComponentA >= global.TRADE_THRESHOLD) amountToOrder = global.TRADE_THRESHOLD;
-				else if (empireResourcesComponentA >= roundedAmountToOrder) amountToOrder = roundedAmountToOrder;
+				if (empireResourcesComponentA >= global.TRADE_THRESHOLD)
+					amountToOrder = global.TRADE_THRESHOLD;
+				else if (empireResourcesComponentA >= roundedAmountToOrder)
+					amountToOrder = roundedAmountToOrder;
 			} else if (amountToOrder > 0 && roundedAmountToOrder <= empireResourcesComponentA)
 				amountToOrder = roundedAmountToOrder;
 
@@ -238,8 +245,10 @@ mod.extend = function() {
 
 			let roundedAmountToOrder = Util.roundUpTo(amountToOrder, global.MIN_OFFER_AMOUNT);
 			if (amountToOrder < global.TRADE_THRESHOLD && amountToOrder > 0) {
-				if (empireResourcesComponentB >= global.TRADE_THRESHOLD) amountToOrder = global.TRADE_THRESHOLD;
-				else if (empireResourcesComponentB >= roundedAmountToOrder) amountToOrder = roundedAmountToOrder;
+				if (empireResourcesComponentB >= global.TRADE_THRESHOLD)
+					amountToOrder = global.TRADE_THRESHOLD;
+				else if (empireResourcesComponentB >= roundedAmountToOrder)
+					amountToOrder = roundedAmountToOrder;
 			} else if (amountToOrder > 0 && roundedAmountToOrder <= empireResourcesComponentB)
 				amountToOrder = roundedAmountToOrder;
 
@@ -268,8 +277,10 @@ mod.extend = function() {
 
 			let roundedAmountToOrder = Util.roundUpTo(amountToOrder, global.MIN_OFFER_AMOUNT);
 			if (amountToOrder < global.TRADE_THRESHOLD && amountToOrder > 0) {
-				if (empireResourcesComponentA >= global.TRADE_THRESHOLD) amountToOrder = global.TRADE_THRESHOLD;
-				else if (empireResourcesComponentA >= roundedAmountToOrder) amountToOrder = roundedAmountToOrder;
+				if (empireResourcesComponentA >= global.TRADE_THRESHOLD)
+					amountToOrder = global.TRADE_THRESHOLD;
+				else if (empireResourcesComponentA >= roundedAmountToOrder)
+					amountToOrder = roundedAmountToOrder;
 			} else if (amountToOrder > 0 && roundedAmountToOrder <= empireResourcesComponentA)
 				amountToOrder = roundedAmountToOrder;
 
@@ -297,8 +308,10 @@ mod.extend = function() {
 
 			let roundedAmountToOrder = Util.roundUpTo(amountToOrder, global.MIN_OFFER_AMOUNT);
 			if (amountToOrder < global.TRADE_THRESHOLD && amountToOrder > 0) {
-				if (empireResourcesComponentB >= global.TRADE_THRESHOLD) amountToOrder = global.TRADE_THRESHOLD;
-				else if (empireResourcesComponentB >= roundedAmountToOrder) amountToOrder = roundedAmountToOrder;
+				if (empireResourcesComponentB >= global.TRADE_THRESHOLD)
+					amountToOrder = global.TRADE_THRESHOLD;
+				else if (empireResourcesComponentB >= roundedAmountToOrder)
+					amountToOrder = roundedAmountToOrder;
 			} else if (amountToOrder > 0 && roundedAmountToOrder <= empireResourcesComponentB)
 				amountToOrder = roundedAmountToOrder;
 
@@ -334,7 +347,8 @@ mod.extend = function() {
 			let data = this.memory.resources.lab.find(s => s.id === l.id);
 			let reactions = this.memory.resources.reactions;
 			return data
-				? data.reactionState === LAB_IDLE && (data.id !== reactions.seed_a || data.id !== reactions.seed_b)
+				? data.reactionState === LAB_IDLE &&
+						(data.id !== reactions.seed_a || data.id !== reactions.seed_b)
 				: true;
 		});
 		for (let i = 0; i < reactors.length; i++) {
@@ -382,7 +396,9 @@ mod.extend = function() {
 				} else {
 					Util.logSystem(
 						this.name,
-						`${this.name} runReactions not OK. returnValue: ${Util.translateErrorCode(returnValue)}`,
+						`${this.name} runReactions not OK. returnValue: ${Util.translateErrorCode(
+							returnValue,
+						)}`,
 					);
 				}
 			}
@@ -609,7 +625,12 @@ mod.extend = function() {
 		return OK;
 	};
 
-	Room.prototype.placeFlowerReactionOrder = function(orderId, resourceType, amount, mode = REACTOR_MODE_BURST) {
+	Room.prototype.placeFlowerReactionOrder = function(
+		orderId,
+		resourceType,
+		amount,
+		mode = REACTOR_MODE_BURST,
+	) {
 		if (amount <= 0) return OK;
 		if (!LAB_REACTIONS.hasOwnProperty(resourceType)) {
 			return ERR_INVALID_ARGS;
@@ -667,7 +688,12 @@ mod.extend = function() {
 		return OK;
 	};
 
-	Room.prototype.placeReactionOrder = function(orderId, resourceType, amount, mode = REACTOR_MODE_BURST) {
+	Room.prototype.placeReactionOrder = function(
+		orderId,
+		resourceType,
+		amount,
+		mode = REACTOR_MODE_BURST,
+	) {
 		if (amount <= 0) return OK;
 		if (!LAB_REACTIONS.hasOwnProperty(resourceType)) {
 			return ERR_INVALID_ARGS;
@@ -699,7 +725,11 @@ mod.extend = function() {
 			}
 		} else {
 			if (DEBUG && TRACE)
-				Util.trace('Room', { roomName: this.name, actionName: 'placeRoomOrder', subAction: 'no_reactor' });
+				Util.trace('Room', {
+					roomName: this.name,
+					actionName: 'placeRoomOrder',
+					subAction: 'no_reactor',
+				});
 			return ERR_INVALID_TARGET;
 		}
 
@@ -719,7 +749,12 @@ mod.extend = function() {
 
 		let seed_a = Game.getObjectById(seed_a_id);
 		let seed_b = Game.getObjectById(seed_b_id);
-		if (!seed_a || !seed_b || seed_a.structureType !== STRUCTURE_LAB || seed_b.structureType !== STRUCTURE_LAB)
+		if (
+			!seed_a ||
+			!seed_b ||
+			seed_a.structureType !== STRUCTURE_LAB ||
+			seed_b.structureType !== STRUCTURE_LAB
+		)
 			return ERR_INVALID_TARGET;
 
 		let data = this.memory.resources;

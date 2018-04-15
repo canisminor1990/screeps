@@ -20,7 +20,8 @@ class ClaimingAction extends CreepAction {
 	newTarget = creep => {
 		let flag;
 		// TODO: remove  || creep.data.destiny.flagName (temporary backward compatibility)
-		if (creep.data.destiny) flag = Game.flags[creep.data.destiny.targetName || creep.data.destiny.flagName];
+		if (creep.data.destiny)
+			flag = Game.flags[creep.data.destiny.targetName || creep.data.destiny.flagName];
 		if (!flag) flag = Flag.find(FLAG_COLOR.claim, creep.pos, false, Flag.claimMod, creep.name);
 
 		if (flag) {
@@ -61,7 +62,13 @@ class ClaimingAction extends CreepAction {
 		if (range <= this.targetRange) {
 			let workResult = this.work(creep);
 			if (workResult != OK) {
-				creep.handleError({ errorCode: workResult, action: this.name, target: creep.target, range, creep });
+				creep.handleError({
+					errorCode: workResult,
+					action: this.name,
+					target: creep.target,
+					range,
+					creep,
+				});
 			}
 		}
 		creep.travelTo(creep.target.pos);

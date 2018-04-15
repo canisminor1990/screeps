@@ -58,7 +58,11 @@ export class CreepSetup {
 		memory.cost = Creep.bodyCosts(memory.parts);
 		memory.mother = spawn.name;
 		memory.home = spawn.pos.roomName;
-		for (let son = 1; memory.name == null || Game.creeps[memory.name] || Memory.population[memory.name]; son++) {
+		for (
+			let son = 1;
+			memory.name == null || Game.creeps[memory.name] || Memory.population[memory.name];
+			son++
+		) {
 			memory.name = this.type + '-' + memory.cost + '-' + son;
 		}
 		return memory;
@@ -68,7 +72,12 @@ export class CreepSetup {
 			if (DEBUG && TRACE)
 				Util.trace(
 					'Setup',
-					{ setupType: this.type, room: room.name, rcl: room.controller.level, Setup: 'isValidSetup' },
+					{
+						setupType: this.type,
+						room: room.name,
+						rcl: room.controller.level,
+						Setup: 'isValidSetup',
+					},
 					'low RCL',
 				);
 			return false;
@@ -198,7 +207,10 @@ export class CreepSetup {
 		return mix;
 	};
 	maxCost = room => {
-		return Creep.bodyCosts(this._multiBody(room)) * this._maxMulti(room) + Creep.bodyCosts(this._fixedBody(room));
+		return (
+			Creep.bodyCosts(this._multiBody(room)) * this._maxMulti(room) +
+			Creep.bodyCosts(this._fixedBody(room))
+		);
 	};
 	maxPerFlag = (flagFilter, maxRoomRange, measureByHome) => {
 		if (!flagFilter) {

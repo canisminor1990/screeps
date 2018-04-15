@@ -10,7 +10,8 @@ class FortifyingAction extends CreepAction {
 	targetRange = 3;
 	isValidAction = creep => {
 		return (
-			creep.carry.energy > 0 && (!creep.room.storage || !creep.room.storage.active || creep.room.storage.charge > 0.6)
+			creep.carry.energy > 0 &&
+			(!creep.room.storage || !creep.room.storage.active || creep.room.storage.charge > 0.6)
 		);
 	};
 	isValidTarget = target => {

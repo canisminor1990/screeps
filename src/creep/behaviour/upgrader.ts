@@ -10,7 +10,11 @@ class UpgraderBehaviour extends CreepBehaviour {
 		c.data.determinatedSpot &&
 		(c.data.ttl > c.data.spawningTime || c.data.ttl > c.data.predictedRenewal);
 	approach = creep => {
-		let targetPos = new RoomPosition(creep.data.determinatedSpot.x, creep.data.determinatedSpot.y, creep.pos.roomName);
+		let targetPos = new RoomPosition(
+			creep.data.determinatedSpot.x,
+			creep.data.determinatedSpot.y,
+			creep.pos.roomName,
+		);
 		let range = creep.pos.getRangeTo(targetPos);
 		if (range > 0) {
 			creep.data.movingToTarget = true;
@@ -80,7 +84,9 @@ class UpgraderBehaviour extends CreepBehaviour {
 					return both.length ? both : linkSpots;
 				}
 				// priority: containers > storage > terminal
-				return containerSpots.length ? containerSpots : storageSpots.length ? storageSpots : terminalSpots;
+				return containerSpots.length
+					? containerSpots
+					: storageSpots.length ? storageSpots : terminalSpots;
 			};
 			let spots = determineSpots();
 			if (spots.length > 0) {
@@ -91,7 +97,9 @@ class UpgraderBehaviour extends CreepBehaviour {
 				// prefer off roads
 				let spot = creep.pos.findClosestByPath(spots, {
 					filter: pos => {
-						return !_.some(creep.room.lookForAt(LOOK_STRUCTURES, pos), { structureType: STRUCTURE_ROAD });
+						return !_.some(creep.room.lookForAt(LOOK_STRUCTURES, pos), {
+							structureType: STRUCTURE_ROAD,
+						});
 					},
 				});
 				if (!spot) spot = creep.pos.findClosestByPath(spots) || spots[0];
@@ -103,29 +111,40 @@ class UpgraderBehaviour extends CreepBehaviour {
 					let spawn = Game.spawns[creep.data.motherSpawn];
 					if (spawn) {
 						let path = spot.findPathTo(spawn, { ignoreCreeps: true });
-						const speed = creep.data.body ? Math.ceil(creep.data.body.work / (2 * creep.data.body.move)) : 1; // road assumed
+						const speed = creep.data.body
+							? Math.ceil(creep.data.body.work / (2 * creep.data.body.move))
+							: 1; // road assumed
 						if (path) creep.data.predictedRenewal = creep.data.spawningTime + path.length * speed;
 					}
 				}
 			}
 			if (!creep.data.determinatedSpot) {
-				Util.logError('Unable to determine working location for upgrader in room ' + creep.pos.roomName);
+				Util.logError(
+					'Unable to determine working location for upgrader in room ' + creep.pos.roomName,
+				);
 			} else if (SAY_ASSIGNMENT) creep.say(String.fromCharCode(9962), SAY_PUBLIC);
 		}
 		if (creep.data.determinatedSpot) {
 			if (CHATTY) creep.say('upgrading', SAY_PUBLIC);
 			let range = this.approach(creep);
 			if (creep.room.controller && creep.pos.getRangeTo(creep.room.controller) <= 3) {
-				let carryThreshold = creep.data.body && creep.data.body.work ? creep.data.body.work : creep.carryCapacity / 2;
+				let carryThreshold =
+					creep.data.body && creep.data.body.work ? creep.data.body.work : creep.carryCapacity / 2;
 				if (creep.carry.energy <= carryThreshold) {
-					let store = _.find(creep.room.structures.links.controller, s => s.energy > 0 && creep.pos.isNearTo(s));
+					let store = _.find(
+						creep.room.structures.links.controller,
+						s => s.energy > 0 && creep.pos.isNearTo(s),
+					);
 					if (!store)
 						store = _.find(
 							creep.room.structures.container.controller,
 							s => s.store[RESOURCE_ENERGY] > 0 && creep.pos.isNearTo(s),
 						);
 					if (!store) {
-						store = creep.room.storage && creep.room.storage.charge > 0 && creep.pos.isNearTo(creep.room.storage);
+						store =
+							creep.room.storage &&
+							creep.room.storage.charge > 0 &&
+							creep.pos.isNearTo(creep.room.storage);
 					}
 					if (!store) {
 						store =

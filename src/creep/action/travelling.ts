@@ -42,7 +42,10 @@ class TravellingAction extends CreepAction {
 					target = new RoomPosition(25, 25, creep.data.travelRoom);
 				}
 			} else {
-				Util.logError(creep.name + 'Creep.action.travelling called with specialFlag target and travelRoom undefined.');
+				Util.logError(
+					creep.name +
+						'Creep.action.travelling called with specialFlag target and travelRoom undefined.',
+				);
 				target = null;
 			}
 		}
@@ -67,9 +70,16 @@ class TravellingAction extends CreepAction {
 			Util.logError(creep.name + 'Creep.action.travelling.assignRoom called with no room.');
 			return;
 		}
-		if (_.isUndefined(creep.data.travelRange)) creep.data.travelRange = TRAVELLING_BORDER_RANGE || 22;
+		if (_.isUndefined(creep.data.travelRange))
+			creep.data.travelRange = TRAVELLING_BORDER_RANGE || 22;
 		creep.data.travelRoom = roomName;
-		if (DEBUG && TRACE) Util.trace('Action', { creepName: creep.name, assign: this.name, roomName, Action: 'assign' });
+		if (DEBUG && TRACE)
+			Util.trace('Action', {
+				creepName: creep.name,
+				assign: this.name,
+				roomName,
+				Action: 'assign',
+			});
 		return this.assign(creep, Flag.specialFlag());
 	};
 	unregister = creep => {

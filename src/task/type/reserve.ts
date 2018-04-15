@@ -32,7 +32,8 @@ class ReserveTask extends TaskComponent {
 			const params = { count: 0, queue: 'Low' }; // default to no spawn
 			const hasFlag = !!flag;
 			const hasController =
-				hasFlag && (Room.isControllerRoom(flag.pos.roomName) || (flag.room && flag.room.controller));
+				hasFlag &&
+				(Room.isControllerRoom(flag.pos.roomName) || (flag.room && flag.room.controller));
 			if (!hasFlag || !hasController) {
 				if (DEBUG && TRACE)
 					Util.trace('Task', {
@@ -46,10 +47,12 @@ class ReserveTask extends TaskComponent {
 			}
 			if (flag.room) {
 				flag.memory.lastVisible = Game.time;
-				flag.memory.ticksToEnd = flag.room.controller.reservation && flag.room.controller.reservation.ticksToEnd;
+				flag.memory.ticksToEnd =
+					flag.room.controller.reservation && flag.room.controller.reservation.ticksToEnd;
 				const validReservation =
 					flag.room.controller.reservation &&
-					(flag.room.controller.reservation.ticksToEnd > 1000 || flag.room.controller.reservation.username !== ME);
+					(flag.room.controller.reservation.ticksToEnd > 1000 ||
+						flag.room.controller.reservation.username !== ME);
 				const isOwned = !!flag.room.controller.owner;
 				if (isOwned || validReservation) {
 					if (DEBUG && TRACE)
@@ -62,7 +65,8 @@ class ReserveTask extends TaskComponent {
 						});
 					return params;
 				}
-				const urgent = !flag.room.controller.reservation || flag.room.controller.reservation.ticksToEnd < 250;
+				const urgent =
+					!flag.room.controller.reservation || flag.room.controller.reservation.ticksToEnd < 250;
 				params.count = 1;
 				if (urgent) params.queue = 'Medium';
 				if (DEBUG && TRACE) {
@@ -106,7 +110,8 @@ class ReserveTask extends TaskComponent {
 			const memory = this.memory(flag);
 			if (flag.room) {
 				flag.memory.lastVisible = Game.time;
-				flag.memory.ticksToEnd = flag.room.controller.reservation && flag.room.controller.reservation.ticksToEnd;
+				flag.memory.ticksToEnd =
+					flag.room.controller.reservation && flag.room.controller.reservation.ticksToEnd;
 				const currCheck = _.get(flag.memory, ['nextCheck', this.name], Infinity);
 				const nextCheck = Game.time + flag.memory.ticksToEnd - this.VALID_RESERVATION;
 				if (nextCheck < currCheck && !memory.waitForCreeps) {
@@ -139,7 +144,8 @@ class ReserveTask extends TaskComponent {
 			const memory = this.memory(flag);
 			if (flag.room) {
 				flag.memory.lastVisible = Game.time;
-				flag.memory.ticksToEnd = flag.room.controller.reservation && flag.room.controller.reservation.ticksToEnd;
+				flag.memory.ticksToEnd =
+					flag.room.controller.reservation && flag.room.controller.reservation.ticksToEnd;
 				const currCheck = _.get(flag.memory, ['nextCheck', this.name], Infinity);
 				const nextCheck = Game.time + flag.memory.ticksToEnd - this.VALID_RESERVATION;
 				if (nextCheck < currCheck && !memory.waitForCreeps) {
@@ -245,7 +251,13 @@ class ReserveTask extends TaskComponent {
 	// when a creep completed spawning
 	handleSpawningCompleted = creep => {
 		// ensure it is a creep which has been requested by this task (else return)
-		if (!creep.data || !creep.data.destiny || !creep.data.destiny.task || creep.data.destiny.task != this.name) return;
+		if (
+			!creep.data ||
+			!creep.data.destiny ||
+			!creep.data.destiny.task ||
+			creep.data.destiny.task != this.name
+		)
+			return;
 		// get flag which caused request of that creep
 		let flag = Game.flags[creep.data.destiny.targetName];
 		if (flag) {
@@ -271,7 +283,10 @@ class ReserveTask extends TaskComponent {
 		let flag = Game.flags[mem.destiny.targetName];
 		if (flag) {
 			const memory = this.memory(flag);
-			Task.validateRunning(memory, flag, this.name, { roomName: flag.pos.roomName, deadCreep: name });
+			Task.validateRunning(memory, flag, this.name, {
+				roomName: flag.pos.roomName,
+				deadCreep: name,
+			});
 		}
 	};
 	nextAction = creep => {

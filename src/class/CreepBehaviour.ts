@@ -147,7 +147,12 @@ export class CreepBehaviour {
 				});
 			creep.action.step(creep);
 		} else {
-			Util.logError('Creep without action/activity!\nCreep: ' + creep.name + '\ndata: ' + JSON.stringify(creep.data));
+			Util.logError(
+				'Creep without action/activity!\nCreep: ' +
+					creep.name +
+					'\ndata: ' +
+					JSON.stringify(creep.data),
+			);
 		}
 	};
 	assign = creep => {

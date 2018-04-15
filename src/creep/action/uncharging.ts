@@ -24,7 +24,8 @@ class UnchargingAction extends CreepAction {
 			return target.energy > 0;
 		} else if (target.structureType == 'container') {
 			let min = 0;
-			if (target.source === true && target.controller == true) min = target.storeCapacity * MANAGED_CONTAINER_TRIGGER;
+			if (target.source === true && target.controller == true)
+				min = target.storeCapacity * MANAGED_CONTAINER_TRIGGER;
 			else if (creep.data.creepType.indexOf('remote') >= 0) min = 250;
 			else min = 500;
 			return target.sum > min;
@@ -36,7 +37,9 @@ class UnchargingAction extends CreepAction {
 		if (creep.room.structures.links.storage.length > 0) {
 			let linkStorage = creep.room.structures.links.storage.find(l => l.energy > 0);
 			if (linkStorage) {
-				let emptyControllerLink = creep.room.structures.links.controller.find(l => l.energy < l.energyCapacity * 0.15);
+				let emptyControllerLink = creep.room.structures.links.controller.find(
+					l => l.energy < l.energyCapacity * 0.15,
+				);
 				if (!emptyControllerLink || linkStorage.energy <= linkStorage.energyCapacity * 0.85)
 					// also clear half filled
 					return linkStorage;
@@ -55,7 +58,9 @@ class UnchargingAction extends CreepAction {
 				if (that.isValidTarget(cont, creep)) {
 					let available = cont.sum;
 					if (cont.targetOf)
-						available -= _.sum(cont.targetOf.map(t => (t.actionName == 'uncharging' ? t.carryCapacityLeft : 0)));
+						available -= _.sum(
+							cont.targetOf.map(t => (t.actionName == 'uncharging' ? t.carryCapacityLeft : 0)),
+						);
 					if (available < Math.min(creep.carryCapacity - creep.sum, min)) return;
 					if (available > currMax) {
 						currMax = available;

@@ -15,7 +15,10 @@ class ReallocatingAction extends CreepAction {
 		if (data) {
 			let orders = data.orders;
 			for (let i = 0; i < orders.length; i++) {
-				if (orders[i].type != RESOURCE_ENERGY && (orders[i].orderRemaining > 0 || orders[i].storeAmount > 0)) {
+				if (
+					orders[i].type != RESOURCE_ENERGY &&
+					(orders[i].orderRemaining > 0 || orders[i].storeAmount > 0)
+				) {
 					order = orders[i];
 					break;
 				}
@@ -36,7 +39,9 @@ class ReallocatingAction extends CreepAction {
 				if (lab) amount = lab.getNeeds(resourceType);
 				if (
 					amount >= amountMin &&
-					(lab.mineralAmount === 0 || lab.mineralType == resourceType || resourceType == RESOURCE_ENERGY) &&
+					(lab.mineralAmount === 0 ||
+						lab.mineralType == resourceType ||
+						resourceType == RESOURCE_ENERGY) &&
 					lab.id != structureId
 				) {
 					return { structure: lab, amount: amount };
@@ -168,7 +173,11 @@ class ReallocatingAction extends CreepAction {
 							creep.data.reallocating = lab.mineralType;
 							return room.storage;
 						}
-						if (room.terminal && room.terminal.active && room.terminal.getNeeds(lab.mineralType) < 0) {
+						if (
+							room.terminal &&
+							room.terminal.active &&
+							room.terminal.getNeeds(lab.mineralType) < 0
+						) {
 							if (DEBUG && TRACE)
 								Util.trace('Action', {
 									actionName: 'reallocating',
@@ -321,7 +330,11 @@ class ReallocatingAction extends CreepAction {
 						creep.data.reallocating = RESOURCE_ENERGY;
 						return room.storage;
 					}
-					if (room.terminal && room.terminal.active && room.terminal.getNeeds(RESOURCE_ENERGY) < 0) {
+					if (
+						room.terminal &&
+						room.terminal.active &&
+						room.terminal.getNeeds(RESOURCE_ENERGY) < 0
+					) {
 						if (DEBUG && TRACE)
 							Util.trace('Action', {
 								actionName: 'reallocating',
@@ -387,7 +400,11 @@ class ReallocatingAction extends CreepAction {
 						creep.data.reallocating = RESOURCE_ENERGY;
 						return room.storage;
 					}
-					if (room.terminal && room.terminal.active && room.terminal.getNeeds(RESOURCE_ENERGY) < 0) {
+					if (
+						room.terminal &&
+						room.terminal.active &&
+						room.terminal.getNeeds(RESOURCE_ENERGY) < 0
+					) {
 						if (DEBUG && TRACE)
 							Util.trace('Action', {
 								actionName: 'reallocating',
@@ -697,7 +714,10 @@ class ReallocatingAction extends CreepAction {
 	};
 	isAddableAction = creep => {
 		let pop = creep.room.population;
-		return creep.sum == 0 && (!pop || !pop.actionCount[this.name] || pop.actionCount[this.name] < this.maxPerAction);
+		return (
+			creep.sum == 0 &&
+			(!pop || !pop.actionCount[this.name] || pop.actionCount[this.name] < this.maxPerAction)
+		);
 	};
 	isAddableTarget = target => {
 		return true;
@@ -770,7 +790,8 @@ class ReallocatingAction extends CreepAction {
 		if (workResult == OK) {
 			// update order
 			let data = null;
-			if (room.memory.resources) data = room.memory.resources[target.structureType].find(s => s.id == target.id);
+			if (room.memory.resources)
+				data = room.memory.resources[target.structureType].find(s => s.id == target.id);
 			if (data && data.orders) {
 				let order = data.orders.find(o => o.type == resource);
 				if (order && order.orderRemaining > 0) {
@@ -880,7 +901,11 @@ class ReallocatingAction extends CreepAction {
 		}
 		for (let i = 0; i < store.length; i++) {
 			let res = store[i];
-			if (res && target.store[res] > 0 && (target.structureType == STRUCTURE_LAB || target.getNeeds(res) < 0)) {
+			if (
+				res &&
+				target.store[res] > 0 &&
+				(target.structureType == STRUCTURE_LAB || target.getNeeds(res) < 0)
+			) {
 				let dat = this.findNeeding(room, res, 1, target.id);
 				// if (dat && dat.structure.id == target.id) dat = null;
 				if (dat) {
@@ -936,7 +961,11 @@ class ReallocatingAction extends CreepAction {
 		}
 		for (let i = 0; i < store.length; i++) {
 			let res = store[i];
-			if (res && target.store[res] > 0 && (target.structureType == STRUCTURE_LAB || target.getNeeds(res) < 0)) {
+			if (
+				res &&
+				target.store[res] > 0 &&
+				(target.structureType == STRUCTURE_LAB || target.getNeeds(res) < 0)
+			) {
 				let dat = this.findNeeding(room, res, 1, target.id);
 				// if (dat && dat.structure.id == target.id) dat = null;
 				if (dat) {
@@ -1091,7 +1120,8 @@ class ReallocatingAction extends CreepAction {
 		let resource = null;
 		let amount = 0;
 		// drop off at powerSpawn
-		if (room.memory.resources && room.memory.resources.powerSpawn === undefined) room.memory.resources.powerSpawn = [];
+		if (room.memory.resources && room.memory.resources.powerSpawn === undefined)
+			room.memory.resources.powerSpawn = [];
 		amount = target.getNeeds(RESOURCE_ENERGY);
 		if (amount > 0 && (creep.carry.energy || 0) > 0) {
 			resource = RESOURCE_ENERGY;

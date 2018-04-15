@@ -16,7 +16,11 @@ class AttackControllerAction extends CreepAction {
 		return true;
 	};
 	isValidTarget = (target, creep) => {
-		return target && (!target.reservation || !Task.reputation.allyOwner(target.reservation)) && creep.flag;
+		return (
+			target &&
+			(!target.reservation || !Task.reputation.allyOwner(target.reservation)) &&
+			creep.flag
+		);
 	};
 	isAddableAction = () => {
 		return true;
@@ -24,7 +28,8 @@ class AttackControllerAction extends CreepAction {
 	isAddableTarget = target => {
 		return (
 			target &&
-			(target instanceof Flag || (target.structureType === 'controller' && (target.reservation || target.owner)))
+			(target instanceof Flag ||
+				(target.structureType === 'controller' && (target.reservation || target.owner)))
 		);
 	};
 	newTarget = creep => {
@@ -58,7 +63,13 @@ class AttackControllerAction extends CreepAction {
 		if (range <= this.targetRange) {
 			let workResult = this.work(creep);
 			if (workResult != OK) {
-				creep.handleError({ errorCode: workResult, action: this.name, target: creep.target, range, creep });
+				creep.handleError({
+					errorCode: workResult,
+					action: this.name,
+					target: creep.target,
+					range,
+					creep,
+				});
 			}
 		} else {
 			creep.travelTo(creep.target);

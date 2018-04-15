@@ -11,7 +11,8 @@ mod.decorateAgent = function(prototype, ...definitions) {
 		const returnValOrMethod = currentStrategy[method];
 		const strategyKey = currentStrategy.key;
 		const strategyName = currentStrategy.name;
-		if (DEBUG && TRACE) Util.trace('Strategy', { agent: this.name, strategyKey, strategyName, method });
+		if (DEBUG && TRACE)
+			Util.trace('Strategy', { agent: this.name, strategyKey, strategyName, method });
 		if (returnValOrMethod === undefined) {
 			Util.logError('strategy handler returned undefined', {
 				agent: this.name || this.id,
@@ -58,7 +59,12 @@ mod.decorateAgent = function(prototype, ...definitions) {
 			return mod.customizeStrategy(this, key, strategy);
 		}
 
-		strategy = mod.buildStrategy(key, mod.strategyChainUtils, definitions, this.staticCustomStrategy.apply(this, key));
+		strategy = mod.buildStrategy(
+			key,
+			mod.strategyChainUtils,
+			definitions,
+			this.staticCustomStrategy.apply(this, key),
+		);
 
 		if (!strategy) {
 			Util.logError('no strategy', { agent: this.name || this.id, key });

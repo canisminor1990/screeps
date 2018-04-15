@@ -22,14 +22,18 @@ class StoringAction extends CreepAction {
 		return (
 			room.storage.store[room.mineralType] &&
 			room.storage.store[room.mineralType] > MAX_STORAGE_MINERAL * 1.05 &&
-			room.terminal.sum - room.terminal.store.energy + Math.max(room.terminal.store.energy, TERMINAL_ENERGY) <
+			room.terminal.sum -
+				room.terminal.store.energy +
+				Math.max(room.terminal.store.energy, TERMINAL_ENERGY) <
 				room.terminal.storeCapacity
 		);
 	};
 	newTarget = creep => {
 		let roomMineralType = creep.room.mineralType;
 		let sendMineralToTerminal = creep =>
-			creep.carry[roomMineralType] && creep.carry[roomMineralType] > 0 && this.isValidMineralToTerminal(creep.room);
+			creep.carry[roomMineralType] &&
+			creep.carry[roomMineralType] > 0 &&
+			this.isValidMineralToTerminal(creep.room);
 		let sendEnergyToTerminal = creep =>
 			creep.carry.energy > 0 &&
 			creep.room.storage.charge > 0.5 &&

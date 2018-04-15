@@ -23,7 +23,10 @@ class AttackControllerTask extends TaskComponent {
 	// for each flag
 	handleFlagFound = flag => {
 		// if it is a Green/Purple flag
-		if (flag.compareTo(FLAG_COLOR.invade.attackController) && Task.nextCreepCheck(flag, this.name)) {
+		if (
+			flag.compareTo(FLAG_COLOR.invade.attackController) &&
+			Task.nextCreepCheck(flag, this.name)
+		) {
 			Util.set(flag.memory, 'task', this.name);
 			// check if a new creep has to be spawned
 			this.checkForRequiredCreeps(flag);
@@ -68,7 +71,8 @@ class AttackControllerTask extends TaskComponent {
 	handleSpawningStarted = params => {
 		// params: {spawn: spawn.name, name: creep.name, destiny: creep.destiny}
 		// ensure it is a creep which has been queued by this task (else return)
-		if (!params.destiny || !params.destiny.task || params.destiny.task != 'attackController') return;
+		if (!params.destiny || !params.destiny.task || params.destiny.task != 'attackController')
+			return;
 		// get flag which caused queueing of that creep
 		let flag = Game.flags[params.destiny.targetName];
 		if (flag) {
@@ -84,7 +88,12 @@ class AttackControllerTask extends TaskComponent {
 	// when a creep completed spawning
 	handleSpawningCompleted = creep => {
 		// ensure it is a creep which has been requested by this task (else return)
-		if (!creep.data || !creep.data.destiny || !creep.data.destiny.task || creep.data.destiny.task != 'attackController')
+		if (
+			!creep.data ||
+			!creep.data.destiny ||
+			!creep.data.destiny.task ||
+			creep.data.destiny.task != 'attackController'
+		)
 			return;
 		// get flag which caused request of that creep
 		let flag = Game.flags[creep.data.destiny.targetName];
@@ -113,7 +122,10 @@ class AttackControllerTask extends TaskComponent {
 		let flag = Game.flags[mem.destiny.targetName];
 		if (flag) {
 			const memory = this.memory(flag);
-			Task.validateRunning(memory, flag, this.name, { roomName: flag.pos.roomName, deadCreep: name });
+			Task.validateRunning(memory, flag, this.name, {
+				roomName: flag.pos.roomName,
+				deadCreep: name,
+			});
 		}
 	};
 	// get task memory

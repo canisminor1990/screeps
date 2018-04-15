@@ -67,7 +67,8 @@ class RoomClass extends Component {
 			try {
 				// run analyzeRoom in each of our submodules
 				for (const key of Object.keys(Room.manager)) {
-					if (Room.manager[key].analyzeRoom) Room.manager[key].analyzeRoom(room, this.needMemoryResync(room));
+					if (Room.manager[key].analyzeRoom)
+						Room.manager[key].analyzeRoom(room, this.needMemoryResync(room));
 				}
 				if (this.totalSitesChanged()) room.countMySites();
 				if (this.totalStructuresChanged()) room.countMyStructures();
@@ -190,11 +191,18 @@ class RoomClass extends Component {
 		if (_.isUndefined(origin) || _.isUndefined(destination))
 			Util.logError(
 				'Room.routeCallback',
-				'both origin and destination must be defined - origin:' + origin + ' destination:' + destination,
+				'both origin and destination must be defined - origin:' +
+					origin +
+					' destination:' +
+					destination,
 			);
 		return roomName => {
 			if (Game.map.getRoomLinearDistance(origin, roomName) > options.restrictDistance) return false;
-			if (roomName !== destination && ROUTE_ROOM_COST[Game.shard.name] && ROUTE_ROOM_COST[Game.shard.name][roomName]) {
+			if (
+				roomName !== destination &&
+				ROUTE_ROOM_COST[Game.shard.name] &&
+				ROUTE_ROOM_COST[Game.shard.name][roomName]
+			) {
 				return ROUTE_ROOM_COST[Game.shard.name][roomName];
 			}
 			let isHighway = false;
@@ -208,7 +216,8 @@ class RoomClass extends Component {
 				const room = Game.rooms[roomName];
 				// allow for explicit overrides of hostile rooms using hostileRooms[roomName] = false
 				isMyOrNeutralRoom =
-					!hostile || (room && room.controller && (room.controller.my || room.controller.owner === undefined));
+					!hostile ||
+					(room && room.controller && (room.controller.my || room.controller.owner === undefined));
 			}
 			if (!options.allowSK && this.isSKRoom(roomName)) return 10;
 			if (!options.allowHostile && hostile && roomName !== destination && roomName !== origin) {
@@ -216,7 +225,8 @@ class RoomClass extends Component {
 			}
 			if (isMyOrNeutralRoom || roomName == origin || roomName == destination) return 1;
 			else if (isHighway) return 3;
-			else if (Game.map.isRoomAvailable(roomName)) return options.checkOwner || options.preferHighway ? 11 : 1;
+			else if (Game.map.isRoomAvailable(roomName))
+				return options.checkOwner || options.preferHighway ? 11 : 1;
 			return Number.POSITIVE_INFINITY;
 		};
 	};
@@ -279,7 +289,10 @@ class RoomClass extends Component {
 		let names = [];
 		for (let x = parseInt(parts[2]) - 1; x < parseInt(parts[2]) + 2; x++) {
 			for (let y = parseInt(parts[4]) - 1; y < parseInt(parts[4]) + 2; y++) {
-				names.push((x < 0 ? toggle(parts[1]) + '0' : parts[1] + x) + (y < 0 ? toggle(parts[3]) + '0' : parts[3] + y));
+				names.push(
+					(x < 0 ? toggle(parts[1]) + '0' : parts[1] + x) +
+						(y < 0 ? toggle(parts[3]) + '0' : parts[3] + y),
+				);
 			}
 		}
 		return names;
@@ -292,8 +305,10 @@ class RoomClass extends Component {
 				let roomExits = Game.map.describeExits(roomName);
 				let dirA = (direction + 1) % 8 + 1;
 				let dirB = (direction + 5) % 8 + 1;
-				if (roomExits && roomExits[dirA] && !validRooms.includes(roomExits[dirA])) validRooms.push(roomExits[dirA]);
-				if (roomExits && roomExits[dirB] && !validRooms.includes(roomExits[dirB])) validRooms.push(roomExits[dirB]);
+				if (roomExits && roomExits[dirA] && !validRooms.includes(roomExits[dirA]))
+					validRooms.push(roomExits[dirA]);
+				if (roomExits && roomExits[dirB] && !validRooms.includes(roomExits[dirB]))
+					validRooms.push(roomExits[dirB]);
 			}
 			validRooms.push(roomName);
 		};
@@ -311,7 +326,8 @@ class RoomClass extends Component {
 		return xDif + yDif; // count diagonal as 2
 	};
 	rebuildCostMatrix = roomName => {
-		if (DEBUG) Util.logSystem(roomName, 'Invalidating costmatrix to force a rebuild when we have vision.');
+		if (DEBUG)
+			Util.logSystem(roomName, 'Invalidating costmatrix to force a rebuild when we have vision.');
 		_.set(Room, ['pathfinderCache', roomName, 'stale'], true);
 		_.set(Room, ['pathfinderCache', roomName, 'updated'], Game.time);
 		this.pathfinderCacheDirty = true;
@@ -325,7 +341,10 @@ class RoomClass extends Component {
 			}
 		}
 		if (DEBUG && count > 0)
-			Util.logSystem('RawMemory', 'loading pathfinder cache.. updated ' + count + ' stale entries.');
+			Util.logSystem(
+				'RawMemory',
+				'loading pathfinder cache.. updated ' + count + ' stale entries.',
+			);
 		this.pathfinderCacheLoaded = true;
 	};
 	getCachedStructureMatrix = roomName => {
@@ -347,7 +366,11 @@ class RoomClass extends Component {
 				ttl < COST_MATRIX_VALIDITY
 			) {
 				if (DEBUG && TRACE)
-					Util.trace('PathFinder', { roomName: roomName, ttl, PathFinder: 'CostMatrix' }, 'cached costmatrix');
+					Util.trace(
+						'PathFinder',
+						{ roomName: roomName, ttl, PathFinder: 'CostMatrix' },
+						'cached costmatrix',
+					);
 				return true;
 			}
 			return false;
@@ -365,7 +388,10 @@ class RoomClass extends Component {
 				cache.costMatrix = costMatrix;
 				return costMatrix;
 			} else {
-				Util.logError('Room.getCachedStructureMatrix', `Cached costmatrix for ${roomName} is invalid ${cache}`);
+				Util.logError(
+					'Room.getCachedStructureMatrix',
+					`Cached costmatrix for ${roomName} is invalid ${cache}`,
+				);
 				delete this.pathfinderCache[roomName];
 			}
 		}
@@ -420,13 +446,16 @@ class RoomClass extends Component {
 			// not owned room or hits below RCL repair limit
 			(!room.my ||
 				structure.hits < global.MAX_REPAIR_LIMIT[room.controller.level] ||
-				structure.hits < global.LIMIT_URGENT_REPAIRING + (2 * global.DECAY_AMOUNT[structure.structureType] || 0)) &&
+				structure.hits <
+					global.LIMIT_URGENT_REPAIRING +
+						(2 * global.DECAY_AMOUNT[structure.structureType] || 0)) &&
 			// not decayable or below threshold
 			(!DECAYABLES.includes(structure.structureType) ||
 				structure.hitsMax - structure.hits > global.GAP_REPAIR_DECAYABLE) &&
 			// not pavement art
 			(Memory.pavementArt[room.name] === undefined ||
-				Memory.pavementArt[room.name].indexOf('x' + structure.pos.x + 'y' + structure.pos.y + 'x') < 0) &&
+				Memory.pavementArt[room.name].indexOf('x' + structure.pos.x + 'y' + structure.pos.y + 'x') <
+					0) &&
 			// not flagged for removal
 			!Flag.list.some(
 				f =>

@@ -54,11 +54,16 @@ class PrivateerBehaviour extends CreepBehaviour {
 				// storage?
 				if (creep.room.storage) deposit.push(creep.room.storage);
 				// containers?
-				if (creep.room.structures.container) deposit = deposit.concat(creep.room.structures.container.privateers);
+				if (creep.room.structures.container)
+					deposit = deposit.concat(creep.room.structures.container.privateers);
 				// Choose the closest
 				if (deposit.length > 0) {
 					let target = creep.pos.findClosestByRange(deposit);
-					if (target.structureType === STRUCTURE_STORAGE && this.assignAction(creep, 'storing', target)) return;
+					if (
+						target.structureType === STRUCTURE_STORAGE &&
+						this.assignAction(creep, 'storing', target)
+					)
+						return;
 					else if (this.assignAction(creep, 'charging', target)) return;
 				}
 				// if( Creep.action.storing.assign(creep) ) return;
@@ -108,7 +113,12 @@ class PrivateerBehaviour extends CreepBehaviour {
 						// TODO: Add extracting (if extractor present) ?
 						for (let iAction = 0; iAction < actions.length; iAction++) {
 							let action = actions[iAction];
-							if (action.isValidAction(creep) && action.isAddableAction(creep) && action.assign(creep)) return;
+							if (
+								action.isValidAction(creep) &&
+								action.isAddableAction(creep) &&
+								action.assign(creep)
+							)
+								return;
 						}
 						// no targets in current room
 						creep.flag.cloaking = 50;
@@ -120,7 +130,12 @@ class PrivateerBehaviour extends CreepBehaviour {
 					let actions = [Creep.action.building];
 					for (let iAction = 0; iAction < actions.length; iAction++) {
 						let action = actions[iAction];
-						if (action.isValidAction(creep) && action.isAddableAction(creep) && action.assign(creep)) return;
+						if (
+							action.isValidAction(creep) &&
+							action.isAddableAction(creep) &&
+							action.assign(creep)
+						)
+							return;
 					}
 					Population.registerCreepFlag(creep, null);
 					Creep.action.travelling.assignRoom(creep, creep.data.homeRoom);
@@ -139,7 +154,8 @@ class PrivateerBehaviour extends CreepBehaviour {
 		if (creep.sum < creep.carryCapacity * 0.4) {
 			// calc by distance to home room
 			let validColor = flagEntry =>
-				Flag.compare(flagEntry, FLAG_COLOR.invade.exploit) || Flag.compare(flagEntry, FLAG_COLOR.invade.robbing);
+				Flag.compare(flagEntry, FLAG_COLOR.invade.exploit) ||
+				Flag.compare(flagEntry, FLAG_COLOR.invade.robbing);
 			let flag = Flag.find(
 				validColor,
 				new RoomPosition(25, 25, creep.data.homeRoom),
