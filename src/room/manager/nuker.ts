@@ -40,8 +40,7 @@ class NukerManager extends RoomManager {
 				this.room = room;
 				Object.defineProperties(this, {
 					all: {
-						configurable: true,
-						get: function() {
+						get() {
 							if (_.isUndefined(this._all)) {
 								this._all = [];
 								let add = entry => {

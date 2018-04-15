@@ -127,8 +127,7 @@ class ContainerManager extends RoomManager {
 				this.room = room;
 				Object.defineProperties(this, {
 					all: {
-						configurable: true,
-						get: function() {
+						get() {
 							if (_.isUndefined(this._container)) {
 								this._container = [];
 								let add = entry => {
@@ -144,8 +143,7 @@ class ContainerManager extends RoomManager {
 						},
 					},
 					controller: {
-						configurable: true,
-						get: function() {
+						get() {
 							if (_.isUndefined(this._controller)) {
 								if (this.room.my && this.room.controller.memory.storage) {
 									this._controller = [Game.getObjectById(this.room.controller.memory.storage)];
@@ -159,8 +157,7 @@ class ContainerManager extends RoomManager {
 						},
 					},
 					in: {
-						configurable: true,
-						get: function() {
+						get() {
 							if (_.isUndefined(this._in)) {
 								let byType = c => c.controller == false;
 								this._in = _.filter(this.all, byType);
@@ -172,8 +169,7 @@ class ContainerManager extends RoomManager {
 						},
 					},
 					out: {
-						configurable: true,
-						get: function() {
+						get() {
 							if (_.isUndefined(this._out)) {
 								let byType = c => c.controller == true;
 								this._out = _.filter(this.all, byType);
@@ -185,8 +181,7 @@ class ContainerManager extends RoomManager {
 						},
 					},
 					privateers: {
-						configurable: true,
-						get: function() {
+						get() {
 							if (_.isUndefined(this._privateers)) {
 								let byType = c => c.source === false && !c.mineral && c.sum < c.storeCapacity;
 								this._privateers = _.filter(this.all, byType);
@@ -195,8 +190,7 @@ class ContainerManager extends RoomManager {
 						},
 					},
 					managed: {
-						configurable: true,
-						get: function() {
+						get() {
 							if (_.isUndefined(this._managed)) {
 								let byType = c => c.source === true && c.controller == true;
 								this._managed = _.filter(this.all, byType);

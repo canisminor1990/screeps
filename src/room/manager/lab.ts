@@ -755,8 +755,7 @@ class LabManager extends RoomManager {
 				this.room = room;
 				Object.defineProperties(this, {
 					all: {
-						configurable: true,
-						get: function() {
+						get() {
 							if (_.isUndefined(this._all)) {
 								this._all = [];
 								let add = entry => {
@@ -772,8 +771,7 @@ class LabManager extends RoomManager {
 						},
 					},
 					storage: {
-						configurable: true,
-						get: function() {
+						get() {
 							if (_.isUndefined(this._storage)) {
 								let byType = l => l.storage === true;
 								this._storage = this.all.filter(byType);

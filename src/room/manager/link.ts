@@ -107,8 +107,7 @@ class LinkManager extends RoomManager {
 
 				Object.defineProperties(this, {
 					all: {
-						configurable: true,
-						get: function() {
+						get() {
 							if (_.isUndefined(this._all)) {
 								this._all = [];
 								let add = entry => {
@@ -124,8 +123,7 @@ class LinkManager extends RoomManager {
 						},
 					},
 					controller: {
-						configurable: true,
-						get: function() {
+						get() {
 							if (_.isUndefined(this._controller)) {
 								let byType = c => c.controller === true;
 								this._controller = this.all.filter(byType);
@@ -134,8 +132,7 @@ class LinkManager extends RoomManager {
 						},
 					},
 					storage: {
-						configurable: true,
-						get: function() {
+						get() {
 							if (_.isUndefined(this._storage)) {
 								let byType = l => l.storage == true;
 								this._storage = this.all.filter(byType);
@@ -144,8 +141,7 @@ class LinkManager extends RoomManager {
 						},
 					},
 					in: {
-						configurable: true,
-						get: function() {
+						get() {
 							if (_.isUndefined(this._in)) {
 								let byType = l => l.storage == false && l.controller == false;
 								this._in = _.filter(this.all, byType);
@@ -154,8 +150,7 @@ class LinkManager extends RoomManager {
 						},
 					},
 					privateers: {
-						configurable: true,
-						get: function() {
+						get() {
 							if (_.isUndefined(this._privateers)) {
 								let byType = l =>
 									l.storage == false &&
