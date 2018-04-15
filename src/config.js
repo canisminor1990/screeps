@@ -32,10 +32,10 @@ module.exports = {
 		STORAGE: true, // displays storage contents
 		TERMINAL: true, // displays terminal contents
 		TOWER: false, // displays tower contents
-		TRANSACTIONS: true, // displays 2 most recent transactions over room terminal
+		TRANSACTIONS: false, // displays 2 most recent transactions over room terminal
 		LABS: false, // displays lab energy, mineral, or cooldown
-		MINERAL: false, // displays mineral amount, or ticks to regen
-		SOURCE: false, // displays energy amount, or ticks to regen
+		MINERAL: true, // displays mineral amount, or ticks to regen
+		SOURCE: true, // displays energy amount, or ticks to regen
 		CREEP: true, // draws creep paths
 		WALL: false, // highlight weakest wall and display hits
 		RAMPART: false, // highlight weakest rampart and display hits
@@ -70,19 +70,19 @@ module.exports = {
 		7: 25000,
 		8: 50000,
 	},
-	MAX_STORAGE_MINERAL: 100000, // keep a max of each type of minerals in store
+	MAX_STORAGE_MINERAL: 200000, // keep a max of each type of minerals in store
 	ROOM_TRADING: true, // set this true to enable haulers within your colony to request resources from other rooms in your colony
 	FILL_POWERSPAWN: true,
 	MIN_MINERAL_SELL_AMOUNT: 20000,
 	ENERGY_VALUE_CREDITS: 0.05, // assumed energy exchange rate (in credits) to determine best mineral sell offer
-	// MAX_SELL_RANGE: 60,
+	//MAX_SELL_RANGE: 60,
 	TERMINAL_ENERGY: 100000,
 	ENERGY_BALANCE_TRANSFER_AMOUNT: 50000, // amount to transfer when balancing empire energy
 	TARGET_STORAGE_SUM_RATIO: 0.6,
 	AUTOMATED_RATIO_COUNT: true,
 	MIN_SELL_RATIO: {
-		H: 0.25,
-		O: 0.25,
+		H: 0.2,
+		O: 0.2,
 		U: 0.4,
 		L: 0.4,
 		K: 0.4,
@@ -91,8 +91,8 @@ module.exports = {
 	},
 	// prices for automated buy, adjust it to your shard prices
 	MAX_BUY_RATIO: {
-		H: 0.3,
-		O: 0.3,
+		H: 0.2,
+		O: 0.2,
 		L: 0.3,
 		U: 0.3,
 		K: 0.3,
@@ -130,7 +130,7 @@ module.exports = {
 		5: 100000,
 		6: 300000,
 		7: 750000,
-		8: 300000000,
+		8: 30000000,
 	},
 	MAX_FORTIFY_CONTAINER: 50000,
 	LIMIT_URGENT_REPAIRING: 750, // urgent repair when hits below
@@ -141,8 +141,8 @@ module.exports = {
 	REPORT_MAX_LENGTH: 500,
 	REPORTS_PER_LOOP: 18,
 	SEND_STATISTIC_REPORTS: true, // Set to true to receive room statistics per mail, otherwise set to false.
-	ROAD_CONSTRUCTION_ENABLE: true, // Set to False to disable automatic road construction, or to a number to enable for owned rooms reaching that RC Level. WARNING: HIGH MEMORY USAGE
-	ROAD_CONSTRUCTION_FORCED_ROOMS: { shard0: [] }, // Add room names to force automatic road construction regardless of ROAD_CONSTRUCTION_ENABLE e.g. {'shard0':['W0N0','W1N0'],'shard1':['W0N0', 'W1N0']}.
+	ROAD_CONSTRUCTION_ENABLE: false, // Set to False to disable automatic road construction, or to a number to enable for owned rooms reaching that RC Level. WARNING: HIGH MEMORY USAGE
+	ROAD_CONSTRUCTION_FORCED_ROOMS: { shard0: [] }, //Add room names to force automatic road construction regardless of ROAD_CONSTRUCTION_ENABLE e.g. {'shard0':['W0N0','W1N0'],'shard1':['W0N0', 'W1N0']}.
 	ROAD_CONSTRUCTION_INTERVAL: 500,
 	ROAD_CONSTRUCTION_MIN_DEVIATION: 1.2,
 	ROAD_CONSTRUCTION_ABS_MIN: 3,
@@ -155,7 +155,7 @@ module.exports = {
 	NOTIFICATE_INVADER: false, // Also log common 'Invader' hostiles
 	NOTIFICATE_INTRUDER: true, // Log any hostiles in your rooms
 	NOTIFICATE_HOSTILES: true, // Log any hostiles - Ignores NOTIFICATE_INTRUDER and NOTIFICATE_INVADER
-	COMBAT_CREEPS_RESPECT_RAMPARTS: false, // causes own creeps not to leave through ramparts when defending
+	COMBAT_CREEPS_RESPECT_RAMPARTS: true, // causes own creeps not to leave through ramparts when defending
 	COST_MATRIX_VALIDITY: 1000,
 	// function parameters: room. expected result: array
 	CONSTRUCTION_PRIORITY: [
@@ -211,44 +211,44 @@ module.exports = {
 		'miner',
 		'hauler',
 		'upgrader',
-	], // when the bucket drops below the critical bucket level only these creep roles will be rund
+	], // when the bucket drops below the critical bucket level only these creep roles will be executed
 	ROBBER_REHOME: false, // May robbers choose closer storage for delivery?
 	OBSERVER_OBSERVE_RANGE: 3, // the range for observers to look at
 	OBSERVER_OBSERVE_HIGHWAYS_ONLY: true, // the observers will only look at highways - changing this will require you to clear cached rooms
 	COMPRESS_COST_MATRICES: false, // enable to compress cached cost matrices (1/5 the size, but currently about 2x CPU usage)
 	ACTION_SAY: {
 		// what gets said on creep.action.*.onAssignment
-		ATTACK_CONTROLLER: String.fromCodePoint(0x1f680), // 🚀
-		AVOIDING: String.fromCodePoint(0x1f440), // 👀
-		BOOSTING: String.fromCodePoint(0x1f525), // 🔥
-		BUILDING: String.fromCodePoint(0x1f3d7), // 🏗
-		BULLDOZING: String.fromCodePoint(0x1f69c), // 🚜
-		CHARGING: String.fromCodePoint(0x1f50c), // 🔌
-		CLAIMING: String.fromCodePoint(0x26f3), // ⛳
-		DEFENDING: String.fromCodePoint(0x2694), // ⚔
-		DISMANTLING: String.fromCodePoint(0x26d1), // ⛑
-		DROPPING: String.fromCodePoint(0x1f4a9), // 💩
-		FEEDING: String.fromCodePoint(0x1f355), // 🍕
-		FORTIFYING: String.fromCodePoint(0x1f6a7), // 🚧
-		FUELING: String.fromCodePoint(0x26fd), // ⛽
-		GUARDING: String.fromCodePoint(0x1f6e1), // 🛡
-		HARVESTING: String.fromCodePoint(0x26cf), // ⛏
-		HEALING: String.fromCodePoint(0x1f48a), // 💊
-		IDLE: String.fromCodePoint(0x1f3b5), // 🎵
-		INVADING: String.fromCodePoint(0x1f52b), // 🔫
-		MINING: String.fromCodePoint(0x26cf), // ⛏
-		PICKING: String.fromCodePoint(0x1f9e4), // 🧤
-		REALLOCATING: String.fromCodePoint(0x1f52e), // 🔮
-		RECYCLING: String.fromCodePoint(0x1f504), // 🔄
-		REPAIRING: String.fromCodePoint(0x1f527), // 🔧
-		RESERVING: String.fromCodePoint(0x1f6a9), // 🚩
-		ROBBING: String.fromCodePoint(0x1f47b), // 👻
-		STORING: String.fromCodePoint(0x23ec), // ⏬
-		TRAVELLING: String.fromCodePoint(0x1f3c3), // 🏃
-		UNCHARGING: String.fromCodePoint(0x1f50b), // 🔋
-		UPGRADING: String.fromCodePoint(0x1f64f), // 🙏
-		WITHDRAWING: String.fromCodePoint(0x23eb), // ⏫
-		SAFEGEN: String.fromCodePoint(0x1f512), // 🔒
+		ATTACK_CONTROLLER: String.fromCodePoint(0x1f680), // ð
+		AVOIDING: String.fromCodePoint(0x1f440), // ð
+		BOOSTING: String.fromCodePoint(0x1f525), // ð¥
+		BUILDING: String.fromCodePoint(0x1f3d7), // ð
+		BULLDOZING: String.fromCodePoint(0x1f69c), // ð
+		CHARGING: String.fromCodePoint(0x1f50c), // ð
+		CLAIMING: String.fromCodePoint(0x26f3), // â³
+		DEFENDING: String.fromCodePoint(0x2694), // â
+		DISMANTLING: String.fromCodePoint(0x26d1), // â
+		DROPPING: String.fromCodePoint(0x1f4a9), // ð©
+		FEEDING: String.fromCodePoint(0x1f355), // ð
+		FORTIFYING: String.fromCodePoint(0x1f6a7), // ð§
+		FUELING: String.fromCodePoint(0x26fd), // â½
+		GUARDING: String.fromCodePoint(0x1f6e1), // ð¡
+		HARVESTING: String.fromCodePoint(0x26cf), // â
+		HEALING: String.fromCodePoint(0x1f48a), // ð
+		IDLE: String.fromCodePoint(0x1f3b5), // ðµ
+		INVADING: String.fromCodePoint(0x1f52b), // ð«
+		MINING: String.fromCodePoint(0x26cf), // â
+		PICKING: String.fromCodePoint(0x1f9e4), // ð§¤
+		REALLOCATING: String.fromCodePoint(0x1f52e), // ð®
+		RECYCLING: String.fromCodePoint(0x1f504), // ð
+		REPAIRING: String.fromCodePoint(0x1f527), // ð§
+		RESERVING: String.fromCodePoint(0x1f6a9), // ð©
+		ROBBING: String.fromCodePoint(0x1f47b), // ð»
+		STORING: String.fromCodePoint(0x23ec), // â¬
+		TRAVELLING: String.fromCodePoint(0x1f3c3), // ð
+		UNCHARGING: String.fromCodePoint(0x1f50b), // ð
+		UPGRADING: String.fromCodePoint(0x1f64f), // ð
+		WITHDRAWING: String.fromCodePoint(0x23eb), // â«
+		SAFEGEN: String.fromCodePoint(0x1f512), // ð
 	},
 	// automatedBoostProduction
 	// rooms with storage, terminal and flower registered labs loaded with energy are needed for the process
@@ -434,7 +434,7 @@ module.exports = {
 			labRefilledAt: 500,
 		},
 		XGHO2: {
-			// -70% damage taken
+			//-70% damage taken
 			allocate: false,
 			allocateRooms: [],
 			threshold: 15000,

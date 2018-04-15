@@ -7,7 +7,7 @@
 		"start": "webpack --colors --watch --env.ENV=local",
 		"start:remote": "webpack --colors --watch --env.ENV=dev",
 		"doc": "typedoc --options ./typedoc.json && open ./doc/index.html",
-		"build": "webpack --colors --env.ENV=dev",
+		"build": "webpack --colors --env.ENV=production",
 		"lint": "lint-staged",
 		"lint:es": "eslint --fix \"src/**/*.ts\"",
 		"lint:webpack": "eslint --fix \"config/**/*.ts\" \"webpack.config.ts\""

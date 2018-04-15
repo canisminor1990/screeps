@@ -3,5 +3,6 @@
   "serverUrl": "https://screeps.com",
   "branch": "dev",
   "winPath":"C:\\Users\\i\\AppData\\Local\\Screeps\\scripts\\127_0_0_1___21025\\default",
-  "macPath":"/Users/yangyufan/Library/Application Support/Screeps/scripts/127_0_0_1___21025/default"
+  "macPath":"/Users/yangyufan/Library/Application Support/Screeps/scripts/127_0_0_1___21025/default",
+  "token": "a91792c2-fb5f-4004-a978-96c1da72d694"
 }

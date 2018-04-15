@@ -18,7 +18,8 @@ interface baseMineralNumber {
 	Z: number;
 	X: number;
 }
-
+declare const BUILD_TIME: string;
+declare const ENV: string;
 declare const _ME: string;
 declare const ME: string;
 declare const CHATTY: boolean;

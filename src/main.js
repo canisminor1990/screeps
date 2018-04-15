@@ -12,7 +12,7 @@ function* main() {
 	}
 }
 
-exports.loop = function() {
+export const loop = () => {
 	if (Object.keys(Game.rooms).length === 0) return;
 	let thread;
 	try {
