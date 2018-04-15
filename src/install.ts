@@ -19,6 +19,7 @@ export const install = () => {
 	Install(global, require('./global').default, {
 		CMemory: require('./global/CMemory').default,
 		Population: require('./global/population').default,
+		Statistics: require('./global/statistics').default,
 	});
 
 	// Flag
