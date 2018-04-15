@@ -1,11 +1,10 @@
 import { Component, EventClass } from '../class';
 import { Install } from '../util';
-
-const strategy = require('../util/strategy');
+import { Strategy } from '../util/strategy';
 
 class CreepClass extends Component {
 	public extend = (): void => {
-		strategy.decorateAgent(
+		Strategy.decorateAgent(
 			Creep.prototype,
 			{
 				default: (creep: Creep) => creep.action && creep.action.name,

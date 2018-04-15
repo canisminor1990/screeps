@@ -1,4 +1,4 @@
-const Strategy = require('../util/strategy');
+import { Strategy } from '../util/strategy';
 
 Object.defineProperties(Creep.prototype, {
 	flee: {
