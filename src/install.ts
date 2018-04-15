@@ -115,21 +115,21 @@ export const install = () => {
 	// Room
 	Install(Room, require('./room').default, {
 		manager: {
-			construction: require('./room/manager/construction'),
-			containers: require('./room/manager/container'),
-			defense: require('./room/manager/defense'),
-			extensions: require('./room/manager/extension'),
-			labs: require('./room/manager/lab'),
-			links: require('./room/manager/link'),
-			nuker: require('./room/manager/nuker'),
-			observers: require('./room/manager/observer'),
-			orders: require('./room/manager/orders'),
-			power: require('./room/manager/power'),
-			resources: require('./room/manager/resources'),
-			spawns: require('./room/manager/spawn'),
-			towers: require('./room/manager/tower'),
-			fillRoomOrders: require('./room/manager/fillRoomOrders'),
-			boostProduction: require('./room/manager/boostProduction'),
+			construction: require('./room/manager/construction').default,
+			containers: require('./room/manager/container').default,
+			defense: require('./room/manager/defense').default,
+			extensions: require('./room/manager/extension').default,
+			labs: require('./room/manager/lab').default,
+			links: require('./room/manager/link').default,
+			nuker: require('./room/manager/nuker').default,
+			observers: require('./room/manager/observer').default,
+			orders: require('./room/manager/orders').default,
+			power: require('./room/manager/power').default,
+			resources: require('./room/manager/resources').default,
+			spawns: require('./room/manager/spawn').default,
+			towers: require('./room/manager/tower').default,
+			fillRoomOrders: require('./room/manager/fillRoomOrders').default,
+			boostProduction: require('./room/manager/boostProduction').default,
 		},
 	});
 
@@ -139,10 +139,11 @@ export const install = () => {
 
 	// Addon
 	Install(global, {
-		Grafana: GRAFANA ? require('./mod/grafana') : undefined,
-		Visuals: require('./mod/visuals'),
+		Grafana: GRAFANA ? require('./mod/grafana').default : undefined,
+		Visuals: require('./mod/visuals').default,
 	});
 
-	if (DEBUG) Util.logSystem('Global.install', 'Code reloaded.');
+	// Install Done
 	Install('isRoot', true);
+	Util.logSystem('Global.install', 'Code reloaded.');
 };

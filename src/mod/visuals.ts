@@ -6,164 +6,7 @@ const BLUE = '#0000FF';
 const YELLOW = '#FFFF00';
 const CYAN = '#00FFFF';
 
-const getColourByPercentage = (percentage, reverse) => {
-	const value = reverse ? percentage : 1 - percentage;
-	const hue = (value * 120).toString(10);
-	return `hsl(${hue}, 100%, 50%)`;
-};
-
-const getResourceColour = resourceType => {
-	const BASE = {
-		[RESOURCE_ENERGY]: '#FFE56D',
-		[RESOURCE_POWER]: RED,
-		[RESOURCE_CATALYST]: '#FF7A7A',
-		[RESOURCE_GHODIUM]: WHITE,
-		[RESOURCE_HYDROGEN]: '#CCCCCC',
-		[RESOURCE_KEANIUM]: '#9370FF',
-		[RESOURCE_LEMERGIUM]: '#89F4A5',
-		[RESOURCE_OXYGEN]: '#CCCCCC',
-		[RESOURCE_UTRIUM]: '#88D6F7',
-		[RESOURCE_ZYNTHIUM]: '#F2D28B',
-	};
-
-	let colour = BASE[resourceType];
-
-	if (colour) return colour;
-
-	let compoundType = [
-		RESOURCE_UTRIUM,
-		RESOURCE_LEMERGIUM,
-		RESOURCE_KEANIUM,
-		RESOURCE_ZYNTHIUM,
-		RESOURCE_GHODIUM,
-		RESOURCE_HYDROGEN,
-		RESOURCE_OXYGEN,
-	].find(type => resourceType.includes(type));
-	return BASE[compoundType];
-};
-
-const storageObject = (vis, store, x, startY) => {
-	Object.keys(store).forEach(resource =>
-		vis.text(
-			`${resource}: ${Util.formatNumber(store[resource])}`,
-			x,
-			(startY += 0.6),
-			Object.assign({ color: getResourceColour(resource) }, { align: 'left', font: 0.5 }),
-		),
-	);
-};
-
-const Visuals = class {
-	// VISUAL UTIL METHODS
-	drawBar(vis, val, x, y, width, height, inner, fillStyle = {}) {
-		if (!inner) inner = val;
-		const TEXT_Y = y + 0.75;
-		vis.rect(x, y, width, height, this.barStyle);
-		vis.rect(x, y, width * val, height, fillStyle);
-		vis.text(inner, x + width / 2, TEXT_Y);
-	}
-
-	drawPie(vis, val, max, title, colour, center, inner) {
-		if (!inner) inner = val;
-
-		let p = 1;
-		if (max !== 0) p = val / max;
-		const r = 1; // radius
-		center = { x: center.x, y: center.y * r * 4.5 };
-		vis.circle(center, {
-			radius: r + 0.1,
-			fill: BLACK,
-			stroke: 'rgba(255, 255, 255, 0.8)',
-		});
-		const poly = [center];
-		const tau = 2 * Math.PI;
-		const surf = tau * (p + 0.1);
-		const offs = -Math.PI / 2;
-		const step = tau / 32;
-		for (let i = 0; i <= surf; i += step) {
-			poly.push({
-				x: center.x + Math.cos(i + offs),
-				y: center.y - Math.cos(i),
-			});
-		}
-		poly.push(center);
-		vis.poly(poly, {
-			fill: colour,
-			opacity: 1,
-			stroke: colour,
-			strokeWidth: 0.05,
-		});
-		vis.text(Number.isFinite(inner) ? Util.formatNumber(inner) : inner, center.x, center.y + 0.33, {
-			color: WHITE,
-			font: '1 monospace',
-			align: 'center',
-			stroke: 'rgba(0, 0, 0, 0.8)',
-			strokeWidth: 0.08,
-		});
-		let yoff = 0.7;
-		if (p > 0.35 && p < 0.65) yoff += 0.3;
-		vis.text(title, center.x, center.y + r + yoff, {
-			color: WHITE,
-			font: '0.6 monospace',
-			align: 'center',
-		});
-		const lastpol = poly[poly.length - 2];
-		vis.text(
-			'' + Math.floor(p * 100) + '%',
-			lastpol.x + (lastpol.x - center.x) * 0.7,
-			lastpol.y + (lastpol.y - center.y) * 0.4 + 0.1,
-			{
-				color: WHITE,
-				font: '0.4 monospace',
-				align: 'center',
-			},
-		);
-	}
-
-	drawLine(from, to, style) {
-		if (from instanceof RoomObject) from = from.pos;
-		if (to instanceof RoomObject) to = to.pos;
-		if (!(from instanceof RoomPosition || to instanceof RoomPosition))
-			throw new Error('Visuals: Point not a RoomPosition');
-		if (from.roomName !== to.roomName) return; // cannot draw lines to another room
-		const vis = new RoomVisual(from.roomName);
-		style = style instanceof Creep ? this.creepPathStyle(style) : style || {};
-		vis.line(from, to, style);
-	}
-
-	drawArrow(from, to, style) {
-		if (from instanceof RoomObject) from = from.pos;
-		if (to instanceof RoomObject) to = to.pos;
-		if (!(from instanceof RoomPosition || to instanceof RoomPosition))
-			throw new Error('Visuals: Point not a RoomPosition');
-		if (from.roomName !== to.roomName) return; // cannot draw lines to another room
-		const vis = new RoomVisual(from.roomName);
-		this.drawLine(from, to, style);
-
-		const delta_x = from.x - to.x;
-		const delta_y = from.y - to.y;
-		const theta_radians = Math.atan2(delta_y, delta_x);
-		const base_angle = 0.610865;
-		const new_angle = theta_radians + base_angle;
-		const length = Math.log1p(Util.getDistance(from, to)) * 0.5;
-		style = style instanceof Creep ? this.creepPathStyle(style) : style || {};
-
-		vis.line(
-			to.x,
-			to.y,
-			to.x + length * Math.cos(theta_radians + base_angle),
-			to.y + length * Math.sin(theta_radians + base_angle),
-			style,
-		);
-		vis.line(
-			to.x,
-			to.y,
-			to.x + length * Math.cos(theta_radians - base_angle),
-			to.y + length * Math.sin(theta_radians - base_angle),
-			style,
-		);
-	}
-
+class VisualsClass {
 	constructor() {
 		this.barStyle = { fill: '#2B2B2B', opacity: 0.8, stroke: BLACK };
 		this.sparklineStyle = [
@@ -194,7 +37,7 @@ const Visuals = class {
 		this.vis = new RoomVisual();
 	}
 
-	run() {
+	run = () => {
 		const visibleChecked = VISUALS.VISIBLE_ONLY;
 		const VISUAL_ROOMS = visibleChecked ? Util.getVisibleRooms() : Object.keys(Game.rooms);
 		_.forEach(VISUAL_ROOMS, roomName => {
@@ -274,9 +117,113 @@ const Visuals = class {
 			}
 			this.drawGlobal();
 		}
-	}
+	};
+	drawBar = (vis, val, x, y, width, height, inner, fillStyle = {}) => {
+		if (!inner) inner = val;
+		const TEXT_Y = y + 0.75;
+		vis.rect(x, y, width, height, this.barStyle);
+		vis.rect(x, y, width * val, height, fillStyle);
+		vis.text(inner, x + width / 2, TEXT_Y);
+	};
+	drawPie = (vis, val, max, title, colour, center, inner) => {
+		if (!inner) inner = val;
 
-	drawGlobal() {
+		let p = 1;
+		if (max !== 0) p = val / max;
+		const r = 1; // radius
+		center = { x: center.x, y: center.y * r * 4.5 };
+		vis.circle(center, {
+			radius: r + 0.1,
+			fill: BLACK,
+			stroke: 'rgba(255, 255, 255, 0.8)',
+		});
+		const poly = [center];
+		const tau = 2 * Math.PI;
+		const surf = tau * (p + 0.1);
+		const offs = -Math.PI / 2;
+		const step = tau / 32;
+		for (let i = 0; i <= surf; i += step) {
+			poly.push({
+				x: center.x + Math.cos(i + offs),
+				y: center.y - Math.cos(i),
+			});
+		}
+		poly.push(center);
+		vis.poly(poly, {
+			fill: colour,
+			opacity: 1,
+			stroke: colour,
+			strokeWidth: 0.05,
+		});
+		vis.text(Number.isFinite(inner) ? Util.formatNumber(inner) : inner, center.x, center.y + 0.33, {
+			color: WHITE,
+			font: '1 monospace',
+			align: 'center',
+			stroke: 'rgba(0, 0, 0, 0.8)',
+			strokeWidth: 0.08,
+		});
+		let yoff = 0.7;
+		if (p > 0.35 && p < 0.65) yoff += 0.3;
+		vis.text(title, center.x, center.y + r + yoff, {
+			color: WHITE,
+			font: '0.6 monospace',
+			align: 'center',
+		});
+		const lastpol = poly[poly.length - 2];
+		vis.text(
+			'' + Math.floor(p * 100) + '%',
+			lastpol.x + (lastpol.x - center.x) * 0.7,
+			lastpol.y + (lastpol.y - center.y) * 0.4 + 0.1,
+			{
+				color: WHITE,
+				font: '0.4 monospace',
+				align: 'center',
+			},
+		);
+	};
+	drawLine = (from, to, style) => {
+		if (from instanceof RoomObject) from = from.pos;
+		if (to instanceof RoomObject) to = to.pos;
+		if (!(from instanceof RoomPosition || to instanceof RoomPosition))
+			throw new Error('Visuals: Point not a RoomPosition');
+		if (from.roomName !== to.roomName) return; // cannot draw lines to another room
+		const vis = new RoomVisual(from.roomName);
+		style = style instanceof Creep ? this.creepPathStyle(style) : style || {};
+		vis.line(from, to, style);
+	};
+	drawArrow = (from, to, style) => {
+		if (from instanceof RoomObject) from = from.pos;
+		if (to instanceof RoomObject) to = to.pos;
+		if (!(from instanceof RoomPosition || to instanceof RoomPosition))
+			throw new Error('Visuals: Point not a RoomPosition');
+		if (from.roomName !== to.roomName) return; // cannot draw lines to another room
+		const vis = new RoomVisual(from.roomName);
+		this.drawLine(from, to, style);
+
+		const delta_x = from.x - to.x;
+		const delta_y = from.y - to.y;
+		const theta_radians = Math.atan2(delta_y, delta_x);
+		const base_angle = 0.610865;
+		const new_angle = theta_radians + base_angle;
+		const length = Math.log1p(Util.getDistance(from, to)) * 0.5;
+		style = style instanceof Creep ? this.creepPathStyle(style) : style || {};
+
+		vis.line(
+			to.x,
+			to.y,
+			to.x + length * Math.cos(theta_radians + base_angle),
+			to.y + length * Math.sin(theta_radians + base_angle),
+			style,
+		);
+		vis.line(
+			to.x,
+			to.y,
+			to.x + length * Math.cos(theta_radians - base_angle),
+			to.y + length * Math.sin(theta_radians - base_angle),
+			style,
+		);
+	};
+	drawGlobal = () => {
 		const vis = this.vis;
 		const bufferWidth = 1;
 		if (!VISUALS.INFO_PIE_CHART) {
@@ -299,7 +246,7 @@ const Visuals = class {
 					1,
 					`GCL: ${Game.gcl.level} (${(GCL_PERCENTAGE * 100).toFixed(2)}%)`,
 					{
-						fill: getColourByPercentage(GCL_PERCENTAGE, true),
+						fill: this._getColourByPercentage(GCL_PERCENTAGE, true),
 						opacity: BAR_STYLE.opacity,
 					},
 				);
@@ -317,7 +264,7 @@ const Visuals = class {
 					1,
 					`CPU: ${(CPU_PERCENTAGE * 100).toFixed(2)}%`,
 					{
-						fill: getColourByPercentage(FUNCTIONAL_CPU_PERCENTAGE),
+						fill: this._getColourByPercentage(FUNCTIONAL_CPU_PERCENTAGE),
 						opacity: BAR_STYLE.opacity,
 					},
 				);
@@ -334,7 +281,7 @@ const Visuals = class {
 					1,
 					`Bucket: ${Game.cpu.bucket}`,
 					{
-						fill: getColourByPercentage(BUCKET_PERCENTAGE, true),
+						fill: this._getColourByPercentage(BUCKET_PERCENTAGE, true),
 						opacity: BAR_STYLE.opacity,
 					},
 				);
@@ -366,7 +313,7 @@ const Visuals = class {
 					1,
 					`SCU: ${(SCU_PERCENTAGE * 100).toFixed(2)}%`,
 					{
-						fill: getColourByPercentage(Math.min(1, SCU_PERCENTAGE)),
+						fill: this._getColourByPercentage(Math.min(1, SCU_PERCENTAGE)),
 						opacity: BAR_STYLE.opacity,
 					},
 				);
@@ -380,7 +327,7 @@ const Visuals = class {
 				Math.round(Game.gcl.progress),
 				Game.gcl.progressTotal,
 				`GCL ${Game.gcl.level}`,
-				getColourByPercentage(Game.gcl.progress / Game.gcl.progressTotal, true),
+				this._getColourByPercentage(Game.gcl.progress / Game.gcl.progressTotal, true),
 				{ x, y: y++ },
 			);
 
@@ -392,7 +339,7 @@ const Visuals = class {
 				Math.round(Game.cpu.getUsed()),
 				Game.cpu.limit,
 				'CPU',
-				getColourByPercentage(FUNCTIONAL_CPU_PERCENTAGE),
+				this._getColourByPercentage(FUNCTIONAL_CPU_PERCENTAGE),
 				{ x, y: y++ },
 			);
 
@@ -402,7 +349,7 @@ const Visuals = class {
 				Game.cpu.bucket,
 				10000,
 				'Bucket',
-				getColourByPercentage(Math.min(1, Game.cpu.bucket / 10000), true),
+				this._getColourByPercentage(Math.min(1, Game.cpu.bucket / 10000), true),
 				{ x, y: y++ },
 			);
 
@@ -416,7 +363,7 @@ const Visuals = class {
 				.flatten()
 				.size();
 			const SCU_PERCENTAGE = count / spawnCount;
-			this.drawPie(vis, SCU_PERCENTAGE, 1, 'SCU', getColourByPercentage(SCU_PERCENTAGE), {
+			this.drawPie(vis, SCU_PERCENTAGE, 1, 'SCU', this._getColourByPercentage(SCU_PERCENTAGE), {
 				x,
 				y: y++,
 			});
@@ -443,9 +390,8 @@ const Visuals = class {
 				this.sparklineStyle,
 			);
 		}
-	}
-
-	collectSparklineStats() {
+	};
+	collectSparklineStats = () => {
 		Util.set(Memory, 'visualStats.cpu', []);
 		Memory.visualStats.cpu.push({
 			limit: Game.cpu.limit,
@@ -455,9 +401,8 @@ const Visuals = class {
 		if (Memory.visualStats.cpu.length >= 100) {
 			Memory.visualStats.cpu.shift();
 		}
-	}
-
-	drawSparkline(room, x, y, w, h, values, opts) {
+	};
+	drawSparkline = (room, x, y, w, h, values, opts) => {
 		const vis = room ? new RoomVisual(room) : this.vis;
 		_.forEach(opts, opt => {
 			vis.poly(
@@ -468,9 +413,8 @@ const Visuals = class {
 				opt,
 			);
 		});
-	}
-
-	drawRoomInfo(room) {
+	};
+	drawRoomInfo = room => {
 		const vis = new RoomVisual(room.name);
 		let x;
 		let y = 0;
@@ -501,7 +445,7 @@ const Visuals = class {
 				text = `Unowned`;
 			}
 			this.drawBar(vis, RCL_PERCENTAGE, x, y - 0.75, sectionWidth, 1, text, {
-				fill: getColourByPercentage(RCL_PERCENTAGE, true),
+				fill: this._getColourByPercentage(RCL_PERCENTAGE, true),
 				opacity: BAR_STYLE.opacity,
 			});
 
@@ -528,7 +472,7 @@ const Visuals = class {
 						ENERGY_PERCENTAGE * 100
 					).toFixed(2)}%)`,
 					{
-						fill: getColourByPercentage(ENERGY_PERCENTAGE, true),
+						fill: this._getColourByPercentage(ENERGY_PERCENTAGE, true),
 						opacity: BAR_STYLE.opacity,
 					},
 				);
@@ -566,7 +510,7 @@ const Visuals = class {
 				val,
 				max,
 				title,
-				getColourByPercentage(val / max, true),
+				this._getColourByPercentage(val / max, true),
 				{ x, y: y++ },
 				inner,
 			);
@@ -579,14 +523,13 @@ const Visuals = class {
 					room.energyAvailable,
 					room.energyCapacityAvailable,
 					'Energy',
-					getColourByPercentage(PERCENTAGE, true),
+					this._getColourByPercentage(PERCENTAGE, true),
 					{ x, y: y++ },
 				);
 			}
 		}
-	}
-
-	drawSpawnInfo(spawn) {
+	};
+	drawSpawnInfo = spawn => {
 		if (!spawn.spawning) return;
 		const vis = new RoomVisual(spawn.room.name);
 		vis.text(
@@ -599,9 +542,8 @@ const Visuals = class {
 			spawn.pos.y - 0.5,
 			this.toolTipStyle,
 		);
-	}
-
-	drawMineralInfo(mineral) {
+	};
+	drawMineralInfo = mineral => {
 		const vis = new RoomVisual(mineral.room.name);
 		const x = mineral.pos.x + 1;
 		const y = mineral.pos.y - 0.5;
@@ -610,9 +552,8 @@ const Visuals = class {
 		} else {
 			vis.text(`Regen: ${Util.formatNumber(mineral.ticksToRegeneration)}`, x, y, this.toolTipStyle);
 		}
-	}
-
-	drawSourceInfo(source) {
+	};
+	drawSourceInfo = source => {
 		const vis = new RoomVisual(source.room.name);
 		const x = source.pos.x + 1;
 		const y = source.pos.y - 0.5;
@@ -621,9 +562,8 @@ const Visuals = class {
 		} else {
 			vis.text(`Regen: ${source.ticksToRegeneration}`, x, y, this.toolTipStyle);
 		}
-	}
-
-	drawControllerInfo(controller) {
+	};
+	drawControllerInfo = controller => {
 		const vis = new RoomVisual(controller.room.name);
 		const BASE_X = controller.pos.x + 1;
 		let y = controller.pos.y - 0.5;
@@ -653,9 +593,8 @@ const Visuals = class {
 			let downgradeStyle = Object.assign({}, style, { color: RED });
 			vis.text(line2, BASE_X, (y += 0.4), downgradeStyle);
 		}
-	}
-
-	highlightWeakest(room, structureType) {
+	};
+	highlightWeakest = (room, structureType) => {
 		const vis = new RoomVisual(room.name);
 		const weakest = _(room.find(FIND_STRUCTURES))
 			.filter({ structureType })
@@ -692,9 +631,8 @@ const Visuals = class {
 				this.toolTipStyle,
 			);
 		}
-	}
-
-	drawRoomOrders(room) {
+	};
+	drawRoomOrders = room => {
 		const vis = new RoomVisual(room.name);
 		const x = 43;
 		let y = VISUALS.INFO_PIE_CHART ? 0.5 : 4.5;
@@ -718,12 +656,11 @@ const Visuals = class {
 				`${order.type}: ${Util.formatNumber(order.amount)}`,
 				x,
 				(y += 0.6),
-				Object.assign({ color: getResourceColour(order.type) }, this.toolTipStyle),
+				Object.assign({ color: this._getResourceColour(order.type) }, this.toolTipStyle),
 			);
 		}
-	}
-
-	drawRoomOffers(room) {
+	};
+	drawRoomOffers = room => {
 		const vis = new RoomVisual(room.name);
 		const x = 43;
 		let y = VISUALS.INFO_PIE_CHART ? 0.5 : 4.5;
@@ -749,21 +686,19 @@ const Visuals = class {
 				`${offer.type}: ${Util.formatNumber(offer.amount)} (to ${offer.room})`,
 				x,
 				(y += 0.6),
-				Object.assign({ color: getResourceColour(offer.type) }, this.toolTipStyle),
+				Object.assign({ color: this._getResourceColour(offer.type) }, this.toolTipStyle),
 			);
 		}
-	}
-
-	drawStorageInfo(storage) {
+	};
+	drawStorageInfo = storage => {
 		if (!storage || !_.size(storage.store)) return;
 		const vis = new RoomVisual(storage.room.name);
 		const x = 43;
 		let y = VISUALS.INFO_PIE_CHART ? 0.5 : 4.5;
 		vis.text('Storage Contents', x, ++y, { align: 'left' });
-		storageObject(vis, storage.store, x, y);
-	}
-
-	drawTerminalInfo(terminal) {
+		this._storageObject(vis, storage.store, x, y);
+	};
+	drawTerminalInfo = terminal => {
 		if (!terminal || !_.size(terminal.store)) return;
 		const vis = new RoomVisual(terminal.room.name);
 		const x = 43;
@@ -772,10 +707,9 @@ const Visuals = class {
 			y += 2 + _.size(terminal.room.storage.store) * 0.6;
 		}
 		vis.text('Terminal Contents', x, ++y, { align: 'left' });
-		storageObject(vis, terminal.store, x, y);
-	}
-
-	drawTransactions(room) {
+		this._storageObject(vis, terminal.store, x, y);
+	};
+	drawTransactions = room => {
 		if (!room.terminal) return;
 		const vis = new RoomVisual(room.name);
 		const x = room.terminal.pos.x;
@@ -810,9 +744,8 @@ const Visuals = class {
 
 			y += 0.4;
 		});
-	}
-
-	drawLabInfo(lab) {
+	};
+	drawLabInfo = lab => {
 		const vis = new RoomVisual(lab.room.name);
 		if (!lab.energy && !lab.mineralAmount && !lab.cooldown) return;
 		const x = lab.pos.x + 0.8;
@@ -822,7 +755,7 @@ const Visuals = class {
 				`E: ${Util.formatNumber(lab.energy)}`,
 				x,
 				y,
-				Object.assign({ color: getResourceColour(RESOURCE_ENERGY) }, this.toolTipStyle),
+				Object.assign({ color: this._getResourceColour(RESOURCE_ENERGY) }, this.toolTipStyle),
 			);
 		}
 		if (lab.mineralAmount) {
@@ -830,7 +763,7 @@ const Visuals = class {
 				`M: ${lab.mineralType} (${Util.formatNumber(lab.mineralAmount)})`,
 				x,
 				(y += 0.4),
-				Object.assign({ color: getResourceColour(lab.mineralType) }, this.toolTipStyle),
+				Object.assign({ color: this._getResourceColour(lab.mineralType) }, this.toolTipStyle),
 			);
 		}
 		if (lab.cooldown) {
@@ -841,9 +774,8 @@ const Visuals = class {
 				Object.assign({ color: RED }, this.toolTipStyle),
 			);
 		}
-	}
-
-	setHeatMapData(room) {
+	};
+	setHeatMapData = room => {
 		Util.set(room.memory, 'heatmap', () => {
 			const r = {};
 			for (let x = 0; x < 50; x++) {
@@ -862,9 +794,8 @@ const Visuals = class {
 			const key = `${String.fromCharCode(32 + x)}${String.fromCharCode(32 + y)}_x${x}-y${y}`;
 			room.memory.heatmap[key]++;
 		});
-	}
-
-	drawHeatMapData(room) {
+	};
+	drawHeatMapData = room => {
 		const vis = new RoomVisual(room.name);
 		const data = Object.keys(room.memory.heatmap).map(k => {
 			return {
@@ -879,12 +810,11 @@ const Visuals = class {
 		const PERCENTAGE_MAX = _.sum(MAP_DATA, d => d.n) / MAP_DATA.length * 2;
 		MAP_DATA.forEach(d => {
 			const PERCENTAGE = d.n / PERCENTAGE_MAX;
-			const colour = getColourByPercentage(Math.min(1, PERCENTAGE));
+			const colour = this._getColourByPercentage(Math.min(1, PERCENTAGE));
 			vis.rect(d.x - 0.5, d.y - 0.5, 1, 1, { fill: colour });
 		});
-	}
-
-	drawTowerInfo(tower) {
+	};
+	drawTowerInfo = tower => {
 		const vis = new RoomVisual(tower.room.name);
 		vis.text(
 			`E: ${tower.energy}/${tower.energyCapacity}`,
@@ -892,9 +822,8 @@ const Visuals = class {
 			tower.pos.y - 0.5,
 			this.toolTipStyle,
 		);
-	}
-
-	creepPathStyle(creep) {
+	};
+	creepPathStyle = creep => {
 		function randomColour() {
 			let c = '#';
 			while (c.length < 7)
@@ -912,9 +841,8 @@ const Visuals = class {
 			color: creep.data.pathColour,
 			lineStyle: 'dashed',
 		};
-	}
-
-	drawCreepPath(creep) {
+	};
+	drawCreepPath = creep => {
 		const vis = new RoomVisual(creep.room.name);
 		if (creep.action && creep.action.name === 'idle') return; // don't draw idle path
 		if (
@@ -948,6 +876,51 @@ const Visuals = class {
 			dir = +dir; // force coerce to number
 			vis.line(x, y, (x += maths[dir].x), (y += maths[dir].y), style);
 		}
-	}
-};
-module.exports = new Visuals();
+	};
+
+	private _getColourByPercentage = (percentage, reverse) => {
+		const value = reverse ? percentage : 1 - percentage;
+		const hue = (value * 120).toString(10);
+		return `hsl(${hue}, 100%, 50%)`;
+	};
+	private _getResourceColour = resourceType => {
+		const BASE = {
+			[RESOURCE_ENERGY]: '#FFE56D',
+			[RESOURCE_POWER]: RED,
+			[RESOURCE_CATALYST]: '#FF7A7A',
+			[RESOURCE_GHODIUM]: WHITE,
+			[RESOURCE_HYDROGEN]: '#CCCCCC',
+			[RESOURCE_KEANIUM]: '#9370FF',
+			[RESOURCE_LEMERGIUM]: '#89F4A5',
+			[RESOURCE_OXYGEN]: '#CCCCCC',
+			[RESOURCE_UTRIUM]: '#88D6F7',
+			[RESOURCE_ZYNTHIUM]: '#F2D28B',
+		};
+
+		let colour = BASE[resourceType];
+
+		if (colour) return colour;
+
+		let compoundType = [
+			RESOURCE_UTRIUM,
+			RESOURCE_LEMERGIUM,
+			RESOURCE_KEANIUM,
+			RESOURCE_ZYNTHIUM,
+			RESOURCE_GHODIUM,
+			RESOURCE_HYDROGEN,
+			RESOURCE_OXYGEN,
+		].find(type => resourceType.includes(type));
+		return BASE[compoundType];
+	};
+	private _storageObject = (vis, store, x, startY) => {
+		Object.keys(store).forEach(resource =>
+			vis.text(
+				`${resource}: ${Util.formatNumber(store[resource])}`,
+				x,
+				(startY += 0.6),
+				Object.assign({ color: this._getResourceColour(resource) }, { align: 'left', font: 0.5 }),
+			),
+		);
+	};
+}
+export default new VisualsClass();

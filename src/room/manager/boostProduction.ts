@@ -1,18 +1,22 @@
-'use strict';
+import { RoomManager } from '../../class';
 
-let mod = {
-	analyze() {
+class BoostProductionManager extends RoomManager {
+	constructor() {
+		super('boostProduction');
+	}
+
+	analyze = () => {
 		this.boostProduction();
-	},
-	boostProduction() {
-		if (!global.MAKE_COMPOUNDS) return;
+	};
+	boostProduction = () => {
+		if (!MAKE_COMPOUNDS) return;
 
 		let roomTrading = Memory.boostTiming.roomTrading;
 
 		if (roomTrading.boostAllocation || roomTrading.reallocating) return;
 
 		// make compounds
-		if (Game.time % global.MAKE_COMPOUNDS_INTERVAL === 0) {
+		if (Game.time % MAKE_COMPOUNDS_INTERVAL === 0) {
 			let myRooms = _.filter(Game.rooms, { my: true }),
 				orderingRoom = Util.orderingRoom(),
 				reactionPlacedRoom = _.some(myRooms, room => {
@@ -72,8 +76,8 @@ let mod = {
 					let labA = Game.getObjectById(data.reactions.seed_a),
 						labB = Game.getObjectById(data.reactions.seed_b),
 						orderType = reactionOrder.type,
-						component_a = global.LAB_REACTIONS[orderType][0],
-						component_b = global.LAB_REACTIONS[orderType][1],
+						component_a = LAB_REACTIONS[orderType][0],
+						component_b = LAB_REACTIONS[orderType][1],
 						reactionAmount = reactionOrder.amount,
 						labOrderAmounts = room.getSeedLabOrders(),
 						labOrderAmountA = labOrderAmounts.labOrderAmountA,
@@ -155,7 +159,7 @@ let mod = {
 				}
 			}
 		}
-	},
-};
+	};
+}
 
-module.exports = mod;
+export default new BoostProductionManager();

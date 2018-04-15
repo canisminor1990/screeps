@@ -1,11 +1,16 @@
-'use strict';
+import { RoomManager } from '../../class';
 
-let mod = {
-	analyze() {
+class FillRoomOrdersManager extends RoomManager {
+	constructor() {
+		super('fillRoomOrders');
+	}
+
+	analyze = () => {
 		this.fillRoomOrders();
-	},
-	fillRoomOrders() {
-		if (!global.MAKE_COMPOUNDS && !global.ALLOCATE_COMPOUNDS) return;
+	};
+
+	fillRoomOrders = () => {
+		if (!MAKE_COMPOUNDS && !ALLOCATE_COMPOUNDS) return;
 
 		if (_.isUndefined(Memory.boostTiming)) Memory.boostTiming = {};
 
@@ -95,7 +100,7 @@ let mod = {
 		}
 
 		if (
-			(global.MAKE_COMPOUNDS || global.ALLOCATE_COMPOUNDS) &&
+			(MAKE_COMPOUNDS || ALLOCATE_COMPOUNDS) &&
 			Memory.boostTiming &&
 			Memory.boostTiming.multiOrderingRoomName
 		) {
@@ -117,7 +122,7 @@ let mod = {
 				Game.rooms[
 					Memory.boostTiming.multiOrderingRoomName
 				].memory.resources.boostTiming.checkRoomAt =
-					Game.time + global.CHECK_ORDERS_INTERVAL;
+					Game.time + CHECK_ORDERS_INTERVAL;
 				delete Memory.boostTiming.multiOrderingRoomName;
 				delete memoryOrderingRoom.memory.resources.boostTiming.ordersReady;
 				return;
@@ -194,7 +199,7 @@ let mod = {
 				}
 			}
 		}
-	},
-};
+	};
+}
 
-module.exports = mod;
+export default new FillRoomOrdersManager();
