@@ -5,7 +5,6 @@
 /package-lock.json
 
 # Ignore basic folders
-/dist
 /tsc-out
 /node_modules
 
