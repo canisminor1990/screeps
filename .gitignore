@@ -8,7 +8,6 @@
 # Ignore basic folders
 /example
 /doc
-/dist
 /node_modules
 
 # TypeScript definitions installed by Typings
