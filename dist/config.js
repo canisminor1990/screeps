@@ -21,7 +21,7 @@ module.exports = {
 	SELL_NOTIFICATION: true, // send mail when selling minerals
 	SPAWN_INTERVAL: 5, // loops between regular spawn probe
 	ROOM_VISUALS: true, // display basic room statistics with RoomVisuals
-	ROOM_VISUALS_ALL: false, // displays visuals in all rooms you have vision in. Only your rooms when false.
+	ROOM_VISUALS_ALL: true, // displays visuals in all rooms you have vision in. Only your rooms when false.
 	VISUALS: {
 		// if ROOM_VISUALS is enabled, you can select what you want to display - All is a bit much for some people.
 		VISIBLE_ONLY: false, // depends on userscript: https://github.com/Esryok/screeps-browser-ext/blob/master/visible-room-tracker.user.js
@@ -32,7 +32,7 @@ module.exports = {
 		ROOM_ORDERS: true, // display orders the room creates
 		ROOM_OFFERS: true, // display what a room will offer another
 		SPAWN: true, // displays creep name and spawn progress percentage when spawning
-		CONTROLLER: false, // displays level, progress, and ticks to downgrade if active
+		CONTROLLER: true, // displays level, progress, and ticks to downgrade if active
 		STORAGE: true, // displays storage contents
 		TERMINAL: true, // displays terminal contents
 		TOWER: false, // displays tower contents
@@ -222,37 +222,37 @@ module.exports = {
 	COMPRESS_COST_MATRICES: false, // enable to compress cached cost matrices (1/5 the size, but currently about 2x CPU usage)
 	ACTION_SAY: {
 		// what gets said on creep.action.*.onAssignment
-		ATTACK_CONTROLLER: String.fromCodePoint(0x1f680), // ð
-		AVOIDING: String.fromCodePoint(0x1f440), // ð
-		BOOSTING: String.fromCodePoint(0x1f525), // ð¥
-		BUILDING: String.fromCodePoint(0x1f3d7), // ð
-		BULLDOZING: String.fromCodePoint(0x1f69c), // ð
-		CHARGING: String.fromCodePoint(0x1f50c), // ð
-		CLAIMING: String.fromCodePoint(0x26f3), // â³
-		DEFENDING: String.fromCodePoint(0x2694), // â
-		DISMANTLING: String.fromCodePoint(0x26d1), // â
-		DROPPING: String.fromCodePoint(0x1f4a9), // ð©
-		FEEDING: String.fromCodePoint(0x1f355), // ð
-		FORTIFYING: String.fromCodePoint(0x1f6a7), // ð§
-		FUELING: String.fromCodePoint(0x26fd), // â½
-		GUARDING: String.fromCodePoint(0x1f6e1), // ð¡
-		HARVESTING: String.fromCodePoint(0x26cf), // â
-		HEALING: String.fromCodePoint(0x1f48a), // ð
-		IDLE: String.fromCodePoint(0x1f3b5), // ðµ
-		INVADING: String.fromCodePoint(0x1f52b), // ð«
-		MINING: String.fromCodePoint(0x26cf), // â
-		PICKING: String.fromCodePoint(0x1f9e4), // ð§¤
-		REALLOCATING: String.fromCodePoint(0x1f52e), // ð®
-		RECYCLING: String.fromCodePoint(0x1f504), // ð
-		REPAIRING: String.fromCodePoint(0x1f527), // ð§
-		RESERVING: String.fromCodePoint(0x1f6a9), // ð©
-		ROBBING: String.fromCodePoint(0x1f47b), // ð»
-		STORING: String.fromCodePoint(0x23ec), // â¬
-		TRAVELLING: String.fromCodePoint(0x1f3c3), // ð
-		UNCHARGING: String.fromCodePoint(0x1f50b), // ð
-		UPGRADING: String.fromCodePoint(0x1f64f), // ð
-		WITHDRAWING: String.fromCodePoint(0x23eb), // â«
-		SAFEGEN: String.fromCodePoint(0x1f512), // ð
+		ATTACK_CONTROLLER: String.fromCodePoint(0x1f680), // Ã°ÂÂÂ
+		AVOIDING: String.fromCodePoint(0x1f440), // Ã°ÂÂÂ
+		BOOSTING: String.fromCodePoint(0x1f525), // Ã°ÂÂÂ¥
+		BUILDING: String.fromCodePoint(0x1f3d7), // Ã°ÂÂÂ
+		BULLDOZING: String.fromCodePoint(0x1f69c), // Ã°ÂÂÂ
+		CHARGING: String.fromCodePoint(0x1f50c), // Ã°ÂÂÂ
+		CLAIMING: String.fromCodePoint(0x26f3), // Ã¢ÂÂ³
+		DEFENDING: String.fromCodePoint(0x2694), // Ã¢ÂÂ
+		DISMANTLING: String.fromCodePoint(0x26d1), // Ã¢ÂÂ
+		DROPPING: String.fromCodePoint(0x1f4a9), // Ã°ÂÂÂ©
+		FEEDING: String.fromCodePoint(0x1f355), // Ã°ÂÂÂ
+		FORTIFYING: String.fromCodePoint(0x1f6a7), // Ã°ÂÂÂ§
+		FUELING: String.fromCodePoint(0x26fd), // Ã¢ÂÂ½
+		GUARDING: String.fromCodePoint(0x1f6e1), // Ã°ÂÂÂ¡
+		HARVESTING: String.fromCodePoint(0x26cf), // Ã¢ÂÂ
+		HEALING: String.fromCodePoint(0x1f48a), // Ã°ÂÂÂ
+		IDLE: String.fromCodePoint(0x1f3b5), // Ã°ÂÂÂµ
+		INVADING: String.fromCodePoint(0x1f52b), // Ã°ÂÂÂ«
+		MINING: String.fromCodePoint(0x26cf), // Ã¢ÂÂ
+		PICKING: String.fromCodePoint(0x1f9e4), // Ã°ÂÂ§Â¤
+		REALLOCATING: String.fromCodePoint(0x1f52e), // Ã°ÂÂÂ®
+		RECYCLING: String.fromCodePoint(0x1f504), // Ã°ÂÂÂ
+		REPAIRING: String.fromCodePoint(0x1f527), // Ã°ÂÂÂ§
+		RESERVING: String.fromCodePoint(0x1f6a9), // Ã°ÂÂÂ©
+		ROBBING: String.fromCodePoint(0x1f47b), // Ã°ÂÂÂ»
+		STORING: String.fromCodePoint(0x23ec), // Ã¢ÂÂ¬
+		TRAVELLING: String.fromCodePoint(0x1f3c3), // Ã°ÂÂÂ
+		UNCHARGING: String.fromCodePoint(0x1f50b), // Ã°ÂÂÂ
+		UPGRADING: String.fromCodePoint(0x1f64f), // Ã°ÂÂÂ
+		WITHDRAWING: String.fromCodePoint(0x23eb), // Ã¢ÂÂ«
+		SAFEGEN: String.fromCodePoint(0x1f512), // Ã°ÂÂÂ
 	},
 	// automatedBoostProduction
 	// rooms with storage, terminal and flower registered labs loaded with energy are needed for the process

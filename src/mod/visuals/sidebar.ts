@@ -3,13 +3,24 @@ import { VisualsBase } from './base';
 class Sidebar extends VisualsBase {
 	infoStyle = {
 		align: 'left',
-		font: '0.5 Menlo',
+		font: '0.8 Menlo',
 		backgroundColor: 'rgba(0,0,0,.5)',
 	};
 	objectStyle = {
 		align: 'left',
-		font: '0.3 Menlo',
+		font: '0.6 Menlo',
+		backgroundColor: 'rgba(0,0,0,.1)',
+		backgroundPadding: '0.2',
 	};
+	titleStyle = {
+		align: 'left',
+		font: 'bold 0.5 Menlo',
+		color: 'rgba(0,0,0,.7)',
+		backgroundPadding: '0.2',
+	};
+	yPading = 3;
+	yMargin = 1;
+	yListMargin = 1;
 
 	drawRoomOrders = room => {
 		const vis = new RoomVisual(room.name);
@@ -20,13 +31,13 @@ class Sidebar extends VisualsBase {
 		}
 
 		if (VISUALS.STORAGE && room.storage) {
-			y += 2 + _.size(room.storage.store) * 0.6;
+			y += this.yPading + _.size(room.storage.store) * this.yListMargin;
 		}
 		if (VISUALS.TERMINAL && room.terminal) {
-			y += 2 + _.size(room.terminal.store) * 0.6;
+			y += this.yPading + _.size(room.terminal.store) * this.yListMargin;
 		}
 		vis.text('Room Orders', x, ++y, this.infoStyle);
-		this._roomOrdersObject(vis, room.memory.resources.orders, x, y + 0.2);
+		this._roomOrdersObject(vis, room.memory.resources.orders, x, y + this.yMargin);
 	};
 	drawRoomOffers = room => {
 		const vis = new RoomVisual(room.name);
@@ -36,16 +47,16 @@ class Sidebar extends VisualsBase {
 			return;
 		}
 		if (VISUALS.STORAGE && room.storage) {
-			y += 2 + _.size(room.storage.store) * 0.6;
+			y += this.yPading + _.size(room.storage.store) * this.yListMargin;
 		}
 		if (VISUALS.TERMINAL && room.terminal) {
-			y += 2 + _.size(room.terminal.store) * 0.6;
+			y += this.yPading + _.size(room.terminal.store) * this.yListMargin;
 		}
 		if (VISUALS.ROOM_ORDERS && room.memory.resources.orders) {
-			y += 2 + _.size(room.memory.resources.orders) * 0.6;
+			y += this.yPading + _.size(room.memory.resources.orders) * this.yListMargin;
 		}
 		vis.text('Room Offerings', x, ++y, this.infoStyle);
-		this._roomOrdersObject(vis, room.memory.resources.offers, x, y + 0.2);
+		this._roomOrdersObject(vis, room.memory.resources.offers, x, y + this.yMargin);
 	};
 	drawStorageInfo = storage => {
 		if (!storage || !_.size(storage.store)) return;
@@ -53,7 +64,7 @@ class Sidebar extends VisualsBase {
 		const x = 1;
 		let y = 1;
 		vis.text('Storage Contents', x, ++y, this.infoStyle);
-		this._storageObject(vis, storage.store, x, y + 0.2);
+		this._storageObject(vis, storage.store, x, y + this.yMargin);
 	};
 	drawTerminalInfo = terminal => {
 		if (!terminal || !_.size(terminal.store)) return;
@@ -61,19 +72,25 @@ class Sidebar extends VisualsBase {
 		const x = 1;
 		let y = 1;
 		if (VISUALS.STORAGE && terminal.room.storage) {
-			y += 2 + _.size(terminal.room.storage.store) * 0.6;
+			y += this.yPading + _.size(terminal.room.storage.store) * this.yListMargin;
 		}
 		vis.text('Terminal Contents', x, ++y, this.infoStyle);
-		this._storageObject(vis, terminal.store, x, y + 0.2);
+		this._storageObject(vis, terminal.store, x, y + this.yMargin);
 	};
 
 	private _roomOrdersObject = (vis, store, x, startY) => {
 		for (let order of store) {
 			const title = order.type === RESOURCE_ENERGY ? 'E' : order.type;
 			vis.text(
-				`${title}: ${Util.formatNumber(order.amount)}`,
+				`${title}`,
 				x,
-				(startY += 0.6),
+				(startY += this.yListMargin),
+				Object.assign({ backgroundColor: this.getResourceColour(order.type) }, this.titleStyle),
+			);
+			vis.text(
+				`${Util.formatNumber(order.amount)}`,
+				x + 2,
+				startY,
 				Object.assign({ color: this.getResourceColour(order.type) }, this.objectStyle),
 			);
 		}
@@ -82,9 +99,15 @@ class Sidebar extends VisualsBase {
 		Object.keys(store).forEach(type => {
 			const title = type === RESOURCE_ENERGY ? 'E' : type;
 			vis.text(
-				`${title}: ${Util.formatNumber(store[type])}`,
+				`${title}`,
 				x,
-				(startY += 0.6),
+				(startY += this.yListMargin),
+				Object.assign({ backgroundColor: this.getResourceColour(type) }, this.titleStyle),
+			);
+			vis.text(
+				`${Util.formatNumber(store[type])}`,
+				x + 2,
+				startY,
 				Object.assign({ color: this.getResourceColour(type) }, this.objectStyle),
 			);
 		});

@@ -39,7 +39,7 @@ class ToolTip extends VisualsBase {
 		const BASE_X = controller.pos.x + 0.5;
 		let y = controller.pos.y;
 		const style = this.toolTipStyle;
-		let line0 = `${Emoji.upgrade} ${controller.level}`;
+		let line0 = `${Emoji.upgrade} Lv${controller.level}`;
 		let line1 = `${Util.formatNumber(controller.progress)}/${Util.formatNumber(controller.progressTotal)} (${(
 			controller.progress /
 			controller.progressTotal *
@@ -50,18 +50,20 @@ class ToolTip extends VisualsBase {
 			line1 = undefined;
 		} else if (controller.reservation) {
 			line0 = `${Emoji.flag} Reserved`;
-			line1 = `${controller.reservation.username}`;
+			line1 = undefined;
 			line2 = `${Emoji.reload} ${controller.reservation.ticksToEnd}`;
 		} else if (!controller.owner) {
 			return;
 		}
-		vis.text(line0, BASE_X, y, style);
+
 		if (line1) {
-			vis.text(line1, BASE_X, (y += 1), style);
+			vis.text(line0 + ': ' + line1, BASE_X, y, style);
+		} else {
+			vis.text(line0, BASE_X, y, style);
 		}
 		if (controller.ticksToDowngrade < CONTROLLER_DOWNGRADE[controller.level] || controller.reservation) {
 			let downgradeStyle = Object.assign({}, style, { color: '#FF0000' });
-			vis.text(line2, BASE_X, (y += 1), downgradeStyle);
+			vis.text(line2, BASE_X, (y += 1.2), downgradeStyle);
 		}
 	};
 	drawLabInfo = lab => {
