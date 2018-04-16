@@ -51,7 +51,6 @@ export const dateUtils = {
 				get(): boolean {
 					return this.getTimezoneOffset() < this.stdTimezoneOffset();
 				},
-				configurable: true,
 			});
 		}
 

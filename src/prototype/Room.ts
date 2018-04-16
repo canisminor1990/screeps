@@ -274,12 +274,12 @@ Object.defineProperties(Room.prototype, {
 				this._privateerMaxWeight = 0;
 				if (!this.situation.invasion && !this.conserveForDefense) {
 					let base = this.controller.level * 1000;
-					let that = this;
+
 					let adjacent, ownNeighbor, room, mult;
 
 					let flagEntries = Flag.filter(FLAG_COLOR.invade.exploit);
 					let countOwn = roomName => {
-						if (roomName == that.name) return;
+						if (roomName == this.name) return;
 						if (Room.isMine(roomName)) ownNeighbor++;
 					};
 					let calcWeight = flagEntry => {
@@ -294,7 +294,7 @@ Object.defineProperties(Room.prototype, {
 						}
 						ownNeighbor = 1;
 						adjacent.forEach(countOwn);
-						that._privateerMaxWeight += mult * base / ownNeighbor;
+						this._privateerMaxWeight += mult * base / ownNeighbor;
 					};
 					flagEntries.forEach(calcWeight);
 				}
@@ -308,7 +308,6 @@ Object.defineProperties(Room.prototype, {
 				this._claimerMaxWeight = 0;
 				let base = 1250;
 				let maxRange = 2;
-				let that = this;
 				let distance, reserved, flag;
 				let rcl = this.controller.level;
 
@@ -324,7 +323,7 @@ Object.defineProperties(Room.prototype, {
 						(flagEntry.color == FLAG_COLOR.claim.color &&
 							flagEntry.secondaryColor == FLAG_COLOR.claim.secondaryColor)
 					) {
-						distance = Room.roomDistance(that.name, flagEntry.roomName);
+						distance = Room.roomDistance(this.name, flagEntry.roomName);
 						if (distance > maxRange) return;
 						flag = Game.flags[flagEntry.name];
 						if (
@@ -339,7 +338,7 @@ Object.defineProperties(Room.prototype, {
 							flag.targetOf && flag.targetOf
 								? _.sum(flag.targetOf.map(t => (t.creepType == 'claimer' ? t.weight : 0)))
 								: 0;
-						that._claimerMaxWeight += base - reserved;
+						this._claimerMaxWeight += base - reserved;
 					}
 				};
 				flagEntries.forEach(calcWeight);
@@ -427,7 +426,7 @@ Object.defineProperties(Room.prototype, {
 	myReservation: {
 		get() {
 			if (_.isUndefined(this._myReservation)) {
-				this._myReservation = this.reservation === global.ME;
+				this._myReservation = this.reservation === ME;
 			}
 			return this._myReservation;
 		},
@@ -932,24 +931,24 @@ Object.defineProperties(Room.prototype, {
 			// garbage collecting room.orders
 			if (reactionInProgress) {
 				let reactionsOrders = reactions.orders[0],
-					componentA = global.LAB_REACTIONS[reactionsOrders.type][0],
-					componentB = global.LAB_REACTIONS[reactionsOrders.type][1];
+					componentA = LAB_REACTIONS[reactionsOrders.type][0],
+					componentB = LAB_REACTIONS[reactionsOrders.type][1];
 
 				data.orders = _.filter(data.orders, order => {
 					return (
 						order.amount > 0 &&
 						(order.type === componentA ||
 							order.type === componentB ||
-							(!_.isUndefined(global.COMPOUNDS_TO_ALLOCATE[order.type]) &&
-								global.COMPOUNDS_TO_ALLOCATE[order.type].allocate))
+							(!_.isUndefined(COMPOUNDS_TO_ALLOCATE[order.type]) &&
+								COMPOUNDS_TO_ALLOCATE[order.type].allocate))
 					);
 				});
 			} else {
 				data.orders = _.filter(data.orders, order => {
 					return (
 						order.amount > 0 &&
-						!_.isUndefined(global.COMPOUNDS_TO_ALLOCATE[order.type]) &&
-						global.COMPOUNDS_TO_ALLOCATE[order.type].allocate
+						!_.isUndefined(COMPOUNDS_TO_ALLOCATE[order.type]) &&
+						COMPOUNDS_TO_ALLOCATE[order.type].allocate
 					);
 				});
 			}
@@ -1012,7 +1011,7 @@ Object.defineProperties(Room.prototype, {
 					Util.logSystem(this.name, `${this.name} no offers found. Reaction and orders DELETED`);
 				}
 			} else {
-				data.boostTiming.checkRoomAt = Game.time + global.CHECK_ORDERS_INTERVAL;
+				data.boostTiming.checkRoomAt = Game.time + CHECK_ORDERS_INTERVAL;
 				return false;
 			}
 		},
@@ -1069,8 +1068,7 @@ Object.defineProperties(Room.prototype, {
 					);
 
 					if (
-						(readyAmount >= offer.amount * 0.5 &&
-							readyAmount < offer.amount - global.MIN_OFFER_AMOUNT) ||
+						(readyAmount >= offer.amount * 0.5 && readyAmount < offer.amount - MIN_OFFER_AMOUNT) ||
 						readyAmount >= offer.amount
 					) {
 						if (DEBUG)
@@ -1130,16 +1128,12 @@ Object.defineProperties(Room.prototype, {
 									);
 									Util.logSystem(
 										this.name,
-										`terminal order placed for ${Math.max(offer.amount, global.MIN_OFFER_AMOUNT)} ${
+										`terminal order placed for ${Math.max(offer.amount, MIN_OFFER_AMOUNT)} ${
 											offer.type
 										}`,
 									);
 								}
-								this.placeOrder(
-									terminalId,
-									offer.type,
-									Math.max(offer.amount, global.MIN_OFFER_AMOUNT),
-								);
+								this.placeOrder(terminalId, offer.type, Math.max(offer.amount, MIN_OFFER_AMOUNT));
 								terminalOrderPlaced = true;
 							} else
 								Util.logSystem(
@@ -1172,8 +1166,8 @@ Object.defineProperties(Room.prototype, {
 
 				if (lab.orders.length > 0) {
 					if (data.reactions.orders.length > 0) {
-						let componentA = global.LAB_REACTIONS[reactionsOrders.type][0],
-							componentB = global.LAB_REACTIONS[reactionsOrders.type][1];
+						let componentA = LAB_REACTIONS[reactionsOrders.type][0],
+							componentB = LAB_REACTIONS[reactionsOrders.type][1];
 
 						order = _.filter(lab.orders, liveOrder => {
 							if (
@@ -1267,7 +1261,7 @@ Object.defineProperties(Room.prototype, {
 
 						return true;
 					} else if (fillARoomOrdersReturn === true) {
-						data.boostTiming.checkRoomAt = Game.time + global.CHECK_ORDERS_INTERVAL;
+						data.boostTiming.checkRoomAt = Game.time + CHECK_ORDERS_INTERVAL;
 						Util.logSystem(
 							currentRoom.name,
 							`${
@@ -1309,11 +1303,11 @@ Object.defineProperties(Room.prototype, {
 				return true;
 			} else if (returnValue.terminalOrderPlaced) {
 				Util.logSystem(this.name, `terminal orders placed for room ${this.name}`);
-				data.boostTiming.checkRoomAt = Game.time + global.CHECK_ORDERS_INTERVAL;
+				data.boostTiming.checkRoomAt = Game.time + CHECK_ORDERS_INTERVAL;
 				return false;
 			} else {
 				Util.logSystem(this.name, `${this.name} no readyOffers found`);
-				data.boostTiming.checkRoomAt = Game.time + global.CHECK_ORDERS_INTERVAL;
+				data.boostTiming.checkRoomAt = Game.time + CHECK_ORDERS_INTERVAL;
 				return false;
 			}
 		},
@@ -1337,7 +1331,7 @@ Object.defineProperties(Room.prototype, {
 
 					if (currentRoom.memory.labs) {
 						if (currentRoom.memory.labs.length < 3) return false;
-						else if (currentRoom.memory.labs.length === 3 && !global.MAKE_REACTIONS_WITH_3LABS)
+						else if (currentRoom.memory.labs.length === 3 && !MAKE_REACTIONS_WITH_3LABS)
 							return false;
 					} else return false;
 
@@ -1354,7 +1348,7 @@ Object.defineProperties(Room.prototype, {
 
 									for (let room of myRooms) {
 										let resourcesAll = room.resourcesAll[mineral] || 0;
-										if (resourcesAll >= global.MIN_OFFER_AMOUNT) roomStored += resourcesAll;
+										if (resourcesAll >= MIN_OFFER_AMOUNT) roomStored += resourcesAll;
 									}
 
 									return roomStored;
@@ -1366,23 +1360,23 @@ Object.defineProperties(Room.prototype, {
 										storedOffRoom = storedAll - storedRoom,
 										ingredientNeeds;
 
-									if (storedOffRoom < global.TRADE_THRESHOLD) {
+									if (storedOffRoom < TRADE_THRESHOLD) {
 										ingredientNeeds = amount - storedRoom;
 										if (ingredientNeeds < 0) ingredientNeeds = 0;
-										else if (ingredientNeeds < global.MIN_COMPOUND_AMOUNT_TO_MAKE)
-											ingredientNeeds = global.MIN_COMPOUND_AMOUNT_TO_MAKE;
+										else if (ingredientNeeds < MIN_COMPOUND_AMOUNT_TO_MAKE)
+											ingredientNeeds = MIN_COMPOUND_AMOUNT_TO_MAKE;
 									} else {
 										ingredientNeeds = amount - storedAll;
 										if (ingredientNeeds < 0) ingredientNeeds = 0;
-										else if (ingredientNeeds < global.MIN_COMPOUND_AMOUNT_TO_MAKE)
-											ingredientNeeds = global.MIN_COMPOUND_AMOUNT_TO_MAKE;
+										else if (ingredientNeeds < MIN_COMPOUND_AMOUNT_TO_MAKE)
+											ingredientNeeds = MIN_COMPOUND_AMOUNT_TO_MAKE;
 									}
 
-									return Util.roundUpTo(ingredientNeeds, global.MIN_OFFER_AMOUNT);
+									return Util.roundUpTo(ingredientNeeds, MIN_OFFER_AMOUNT);
 								},
 								findIngredients = function(compound, amount) {
-									let ingredientA = global.LAB_REACTIONS[compound][0],
-										ingredientB = global.LAB_REACTIONS[compound][1];
+									let ingredientA = LAB_REACTIONS[compound][0],
+										ingredientB = LAB_REACTIONS[compound][1];
 
 									return {
 										[ingredientA]: ingredientNeeds(ingredientA, amount),
@@ -1430,7 +1424,7 @@ Object.defineProperties(Room.prototype, {
 							return product;
 						},
 						purchaseMinerals = function(roomName, mineral, amount) {
-							if (!global.PURCHASE_MINERALS) {
+							if (!PURCHASE_MINERALS) {
 								if (DEBUG)
 									console.log(
 										`${roomName} needs to buy ${amount} ${mineral} but PURCHASE_MINERALS is false`,
@@ -1438,7 +1432,7 @@ Object.defineProperties(Room.prototype, {
 								return false;
 							}
 
-							if (currentRoom.storage.charge < global.STORE_CHARGE_PURCHASE) {
+							if (currentRoom.storage.charge < STORE_CHARGE_PURCHASE) {
 								if (DEBUG)
 									console.log(
 										`storage.charge in ${roomName} is ${
@@ -1466,10 +1460,10 @@ Object.defineProperties(Room.prototype, {
 
 							let sellRatio;
 
-							if (global.AUTOMATED_RATIO_COUNT) {
+							if (AUTOMATED_RATIO_COUNT) {
 								sellRatio = Util.countPrices('sell', mineral, roomName);
 								if (DEBUG) console.log(`average sellRatio: ${roomName} ${mineral} ${sellRatio}`);
-							} else sellRatio = global.MAX_BUY_RATIO[mineral];
+							} else sellRatio = MAX_BUY_RATIO[mineral];
 
 							let order,
 								returnValue,
@@ -1498,7 +1492,7 @@ Object.defineProperties(Room.prototype, {
 										if (o.transactionAmount === 0) return false;
 									}
 									o.ratio =
-										(credits - transactionCost * global.ENERGY_VALUE_CREDITS) / o.transactionAmount;
+										(credits - transactionCost * ENERGY_VALUE_CREDITS) / o.transactionAmount;
 
 									if (o.ratio > sellRatio || o.amount < 100) return false;
 
@@ -1536,12 +1530,12 @@ Object.defineProperties(Room.prototype, {
 									else {
 										console.log(
 											`No sell order found for ${amount} ${mineral} at ratio ${
-												global.MAX_BUY_RATIO[mineral]
+												MAX_BUY_RATIO[mineral]
 											} in room ${roomName}`,
 										);
 										console.log(
 											`You need to adjust MAX_BUY_RATIO or use AUTOMATED_RATIO_COUNT: true in parameters, current is: ${
-												global.MAX_BUY_RATIO[mineral]
+												MAX_BUY_RATIO[mineral]
 											}, recommended: ${sellRatio}`,
 										);
 									}
@@ -1665,35 +1659,34 @@ Object.defineProperties(Room.prototype, {
 					};
 				};
 
-			Object.keys(global.COMPOUNDS_TO_MAKE).forEach(compound => {
+			Object.keys(COMPOUNDS_TO_MAKE).forEach(compound => {
 				if (
-					global.COMPOUNDS_TO_MAKE[compound].make &&
+					COMPOUNDS_TO_MAKE[compound].make &&
 					!roomFound.ingredientMade &&
-					(this.name.indexOf(global.COMPOUNDS_TO_MAKE[compound].rooms) > -1 ||
-						global.COMPOUNDS_TO_MAKE[compound].rooms.length === 0)
+					(this.name.indexOf(COMPOUNDS_TO_MAKE[compound].rooms) > -1 ||
+						COMPOUNDS_TO_MAKE[compound].rooms.length === 0)
 				) {
 					let storedResources = this.resourcesAll[compound] || 0;
 
 					if (storedResources === 0) {
 						amountToMake = Util.roundUpTo(
-							global.COMPOUNDS_TO_MAKE[compound].amount +
-								global.COMPOUNDS_TO_MAKE[compound].threshold,
-							global.MIN_OFFER_AMOUNT,
+							COMPOUNDS_TO_MAKE[compound].amount + COMPOUNDS_TO_MAKE[compound].threshold,
+							MIN_OFFER_AMOUNT,
 						);
 						roomFound = makeCompound(this.name, compound, amountToMake);
 						if (roomFound.ingredientMade && DEBUG)
 							Util.logSystem(
 								this.name,
 								`there is no ${compound}, so start to make the compounds for ${
-									global.COMPOUNDS_TO_MAKE[compound].amount
+									COMPOUNDS_TO_MAKE[compound].amount
 								} ${compound} in ${this.name}`,
 							);
-					} else if (storedResources <= global.COMPOUNDS_TO_MAKE[compound].threshold) {
+					} else if (storedResources <= COMPOUNDS_TO_MAKE[compound].threshold) {
 						amountToMake = Util.roundUpTo(
-							global.COMPOUNDS_TO_MAKE[compound].amount +
-								global.COMPOUNDS_TO_MAKE[compound].threshold -
+							COMPOUNDS_TO_MAKE[compound].amount +
+								COMPOUNDS_TO_MAKE[compound].threshold -
 								storedResources,
-							global.MIN_OFFER_AMOUNT,
+							MIN_OFFER_AMOUNT,
 						);
 						roomFound = makeCompound(this.name, compound, amountToMake);
 						if (roomFound.ingredientMade && DEBUG)
@@ -1753,8 +1746,8 @@ Object.defineProperties(Room.prototype, {
 				return;
 
 			let orderType = data.reactions.orders[0].type,
-				component_a = global.LAB_REACTIONS[orderType][0],
-				component_b = global.LAB_REACTIONS[orderType][1],
+				component_a = LAB_REACTIONS[orderType][0],
+				component_b = LAB_REACTIONS[orderType][1],
 				labIndexA = data.lab.findIndex(l => {
 					return l.id === data.reactions.seed_a;
 				}),

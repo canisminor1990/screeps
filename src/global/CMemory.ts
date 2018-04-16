@@ -58,7 +58,7 @@ class CMemoryClass extends Component {
 		delete this.toActivate[id];
 	};
 	cacheValid = id => {
-		return global.cacheValid[id] === Memory.cacheValid[id];
+		return Util.cacheValid[id] === Memory.cacheValid[id];
 	};
 	processSegment = (id, process) => {
 		if (_.isUndefined(Memory.cacheValid[id])) Memory.cacheValid[id] = false;
@@ -67,7 +67,7 @@ class CMemoryClass extends Component {
 			try {
 				let data = segment ? JSON.parse(segment) : {};
 				process(data);
-				global.cacheValid[id] = Memory.cacheValid[id];
+				Util.cacheValid[id] = Memory.cacheValid[id];
 			} catch (e) {
 				console.log(
 					'<font style="color:FireBrick">Error loading segment' +
@@ -77,13 +77,13 @@ class CMemoryClass extends Component {
 						'</font>',
 				);
 				RawMemory.segments[id] = '';
-				delete global.cacheValid[id];
+				delete Util.cacheValid[id];
 				delete Memory.cacheValid[id];
 			}
 		}
 	};
 	processSegments = () => {
-		if (_.isUndefined(global.cacheValid)) global.cacheValid = {};
+		if (_.isUndefined(Util.cacheValid)) Util.cacheValid = {};
 		if (_.isUndefined(Memory.cacheValid)) Memory.cacheValid = {};
 
 		for (

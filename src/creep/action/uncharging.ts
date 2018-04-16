@@ -45,8 +45,6 @@ class UnchargingAction extends CreepAction {
 					return linkStorage;
 			}
 		}
-
-		let that = this;
 		if (creep.room.structures.container.in.length > 0) {
 			let min;
 			if (creep.data.creepType.indexOf('remote') >= 0) min = 250;
@@ -55,7 +53,7 @@ class UnchargingAction extends CreepAction {
 			let target = null;
 			let currMax = 0;
 			let fullest = cont => {
-				if (that.isValidTarget(cont, creep)) {
+				if (this.isValidTarget(cont, creep)) {
 					let available = cont.sum;
 					if (cont.targetOf)
 						available -= _.sum(

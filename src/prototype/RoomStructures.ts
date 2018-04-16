@@ -4,8 +4,7 @@ export class RoomStructures {
 
 		Object.defineProperties(this, {
 			all: {
-				configurable: true,
-				get: function() {
+				get() {
 					if (_.isUndefined(this._all)) {
 						this._all = this.room.find(FIND_STRUCTURES);
 					}
@@ -13,8 +12,7 @@ export class RoomStructures {
 				},
 			},
 			my: {
-				configurable: true,
-				get: function() {
+				get() {
 					if (_.isUndefined(this._my)) {
 						this._my = this.room.find(FIND_MY_STRUCTURES);
 					}
@@ -22,8 +20,7 @@ export class RoomStructures {
 				},
 			},
 			towers: {
-				configurable: true,
-				get: function() {
+				get() {
 					if (_.isUndefined(this._towers)) {
 						this._towers = [];
 						let add = id => {
@@ -35,12 +32,10 @@ export class RoomStructures {
 				},
 			},
 			repairable: {
-				configurable: true,
-				get: function() {
+				get() {
 					if (_.isUndefined(this._repairable)) {
-						let that = this;
 						this._repairable = _.sortBy(
-							that.all.filter(structure => Room.shouldRepair(that.room, structure)),
+							this.all.filter(structure => Room.shouldRepair(this.room, structure)),
 							'hits',
 						);
 					}
@@ -48,8 +43,7 @@ export class RoomStructures {
 				},
 			},
 			urgentRepairable: {
-				configurable: true,
-				get: function() {
+				get() {
 					if (_.isUndefined(this._urgentRepairableSites)) {
 						let isUrgent = site =>
 							site.hits < LIMIT_URGENT_REPAIRING + (DECAY_AMOUNT[site.structureType] || 0);
@@ -59,8 +53,7 @@ export class RoomStructures {
 				},
 			},
 			feedable: {
-				configurable: true,
-				get: function() {
+				get() {
 					if (_.isUndefined(this._feedable)) {
 						this._feedable = this.extensions.concat(this.spawns);
 					}
@@ -68,22 +61,20 @@ export class RoomStructures {
 				},
 			},
 			fortifyable: {
-				configurable: true,
-				get: function() {
+				get() {
 					if (_.isUndefined(this._fortifyableSites)) {
-						let that = this;
 						this._fortifyableSites = _.sortBy(
-							that.all.filter(
+							this.all.filter(
 								structure =>
-									that.room.my &&
+									this.room.my &&
 									structure.hits < structure.hitsMax &&
-									structure.hits < MAX_FORTIFY_LIMIT[that.room.controller.level] &&
+									structure.hits < MAX_FORTIFY_LIMIT[this.room.controller.level] &&
 									(structure.structureType != STRUCTURE_CONTAINER ||
 										structure.hits < MAX_FORTIFY_CONTAINER) &&
 									(!DECAYABLES.includes(structure.structureType) ||
 										structure.hitsMax - structure.hits > GAP_REPAIR_DECAYABLE * 3) &&
-									(Memory.pavementArt[that.room.name] === undefined ||
-										Memory.pavementArt[that.room.name].indexOf(
+									(Memory.pavementArt[this.room.name] === undefined ||
+										Memory.pavementArt[this.room.name].indexOf(
 											'x' + structure.pos.x + 'y' + structure.pos.y + 'x',
 										) < 0) &&
 									!Flag.list.some(
@@ -101,11 +92,9 @@ export class RoomStructures {
 				},
 			},
 			fuelable: {
-				configurable: true,
-				get: function() {
+				get() {
 					if (_.isUndefined(this._fuelables)) {
-						let that = this;
-						let factor = that.room.situation.invasion ? 1 : 0.82;
+						let factor = this.room.situation.invasion ? 1 : 0.82;
 						let fuelable = target => target.energy < target.energyCapacity * factor;
 						this._fuelables = _.sortBy(_.filter(this.towers, fuelable), 'energy'); // TODO: Add Nuker
 					}
@@ -113,8 +102,7 @@ export class RoomStructures {
 				},
 			},
 			container: {
-				configurable: true,
-				get: function() {
+				get() {
 					if (_.isUndefined(this._container)) {
 						this._container = new Room.Containers(this.room);
 					}
@@ -122,8 +110,7 @@ export class RoomStructures {
 				},
 			},
 			links: {
-				configurable: true,
-				get: function() {
+				get() {
 					if (_.isUndefined(this._links)) {
 						this._links = new Room.Links(this.room);
 					}
@@ -131,8 +118,7 @@ export class RoomStructures {
 				},
 			},
 			labs: {
-				configurable: true,
-				get: function() {
+				get() {
 					if (_.isUndefined(this._labs)) {
 						this._labs = new Room.Labs(this.room);
 					}
@@ -140,8 +126,7 @@ export class RoomStructures {
 				},
 			},
 			virtual: {
-				configurable: true,
-				get: function() {
+				get() {
 					if (_.isUndefined(this._virtual)) {
 						this._virtual = _(this.all).concat(this.piles);
 					}
@@ -149,8 +134,7 @@ export class RoomStructures {
 				},
 			},
 			piles: {
-				configurable: true,
-				get: function() {
+				get() {
 					if (_.isUndefined(this._piles)) {
 						const room = this.room;
 						this._piles = Flag.filter(
@@ -167,8 +151,7 @@ export class RoomStructures {
 				},
 			},
 			observer: {
-				configurable: true,
-				get: function() {
+				get() {
 					if (_.isUndefined(this._observer) && this.room.memory.observer) {
 						this._observer = Game.getObjectById(this.room.memory.observer.id);
 					}
@@ -176,8 +159,7 @@ export class RoomStructures {
 				},
 			},
 			nuker: {
-				configurable: true,
-				get: function() {
+				get() {
 					if (_.isUndefined(this._nuker)) {
 						if (this.room.memory.nukers && this.room.memory.nukers.length > 0) {
 							this._nuker = Game.getObjectById(this.room.memory.nukers[0].id);
@@ -187,8 +169,7 @@ export class RoomStructures {
 				},
 			},
 			nukers: {
-				configurable: true,
-				get: function() {
+				get() {
 					if (_.isUndefined(this._nukers)) {
 						this._nukers = new Room.Nuker(this.room);
 					}
@@ -196,8 +177,7 @@ export class RoomStructures {
 				},
 			},
 			powerSpawn: {
-				configurable: true,
-				get: function() {
+				get() {
 					if (_.isUndefined(this._powerSpawn)) {
 						if (this.room.memory.powerSpawns && this.room.memory.powerSpawns.length > 0) {
 							this._powerSpawn = Game.getObjectById(this.room.memory.powerSpawns[0].id);
@@ -207,8 +187,7 @@ export class RoomStructures {
 				},
 			},
 			powerSpawns: {
-				configurable: true,
-				get: function() {
+				get() {
 					if (_.isUndefined(this._powerSpawns)) {
 						this._powerSpawns = new Room.PowerSpawn(this.room);
 					}
@@ -216,8 +195,7 @@ export class RoomStructures {
 				},
 			},
 			extensions: {
-				configurable: true,
-				get: function() {
+				get() {
 					if (_.isUndefined(this.room.memory.extensions)) {
 						this.room.saveExtensions();
 					}
@@ -228,8 +206,7 @@ export class RoomStructures {
 				},
 			},
 			spawns: {
-				configurable: true,
-				get: function() {
+				get() {
 					if (_.isUndefined(this._spawns)) {
 						this._spawns = [];
 						let addSpawn = id => {

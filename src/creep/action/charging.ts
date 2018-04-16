@@ -63,13 +63,11 @@ class ChargingAction extends CreepAction {
 					return linkStorage;
 			}
 		}
-
-		let that = this;
 		if (creep.room.structures.container.out.length > 0) {
 			let target = null;
 			let maxFree = 0;
 			let emptyest = o => {
-				if (that.isValidTarget(o, creep) && that.isAddableTarget(o, creep)) {
+				if (this.isValidTarget(o, creep) && this.isAddableTarget(o, creep)) {
 					let free = o.storeCapacity - o.sum;
 					if (free > maxFree) {
 						maxFree = free;

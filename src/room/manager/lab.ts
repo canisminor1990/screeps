@@ -161,11 +161,10 @@ class LabManager extends RoomManager {
 					let myRooms = _.filter(Game.rooms, { my: true });
 					let roomTradeUpdate = false;
 					let labOrderPlaced = false;
-					let empireResources = function(component) {
-						let roomStored = 0,
-							that = this;
+					let empireResources = component => {
+						let roomStored = 0;
 						for (let room of myRooms) {
-							if (room.name === that.name) continue;
+							if (room.name === this.name) continue;
 							let resourcesAll = room.resourcesAll[component] || 0;
 							if (resourcesAll >= MIN_OFFER_AMOUNT) roomStored += resourcesAll;
 						}

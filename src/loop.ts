@@ -17,8 +17,6 @@ const Loop = () => {
 			cpuAtFirstLoop,
 			cpuAtLoop,
 			cpuTick: Game.cpu.getUsed(),
-			isNewServer: global.isNewServer,
-			lastServerSwitch: Game.lastServerSwitch,
 			main: 'cpu',
 		});
 };

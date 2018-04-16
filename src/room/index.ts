@@ -150,7 +150,7 @@ class RoomClass extends Component {
 					encodedCache[key] = {
 						serializedMatrix:
 							entry.serializedMatrix ||
-							(global.COMPRESS_COST_MATRICES
+							(COMPRESS_COST_MATRICES
 								? CompressedMatrix.serialize(entry.costMatrix)
 								: entry.costMatrix.serialize()),
 						updated: entry.updated,
@@ -184,7 +184,7 @@ class RoomClass extends Component {
 			room.memory.initialized = Game.time;
 			return true;
 		}
-		return Game.time % global.MEMORY_RESYNC_INTERVAL === 0 || room.name == 'sim';
+		return Game.time % MEMORY_RESYNC_INTERVAL === 0 || room.name == 'sim';
 	};
 
 	routeCallback = (origin, destination, options) => {
@@ -382,7 +382,7 @@ class RoomClass extends Component {
 				return cache.costMatrix;
 			} else if (cache.serializedMatrix) {
 				// disabled until the CPU efficiency can be improved
-				const costMatrix = global.COMPRESS_COST_MATRICES
+				const costMatrix = COMPRESS_COST_MATRICES
 					? CompressedMatrix.deserialize(cache.serializedMatrix)
 					: PathFinder.CostMatrix.deserialize(cache.serializedMatrix);
 				cache.costMatrix = costMatrix;
@@ -445,13 +445,12 @@ class RoomClass extends Component {
 			structure.hits < structure.hitsMax &&
 			// not owned room or hits below RCL repair limit
 			(!room.my ||
-				structure.hits < global.MAX_REPAIR_LIMIT[room.controller.level] ||
+				structure.hits < MAX_REPAIR_LIMIT[room.controller.level] ||
 				structure.hits <
-					global.LIMIT_URGENT_REPAIRING +
-						(2 * global.DECAY_AMOUNT[structure.structureType] || 0)) &&
+					LIMIT_URGENT_REPAIRING + (2 * DECAY_AMOUNT[structure.structureType] || 0)) &&
 			// not decayable or below threshold
 			(!DECAYABLES.includes(structure.structureType) ||
-				structure.hitsMax - structure.hits > global.GAP_REPAIR_DECAYABLE) &&
+				structure.hitsMax - structure.hits > GAP_REPAIR_DECAYABLE) &&
 			// not pavement art
 			(Memory.pavementArt[room.name] === undefined ||
 				Memory.pavementArt[room.name].indexOf('x' + structure.pos.x + 'y' + structure.pos.y + 'x') <

@@ -10,6 +10,7 @@ export const ProtoypeInstall = () => {
 	require('./StructureContainer');
 	require('./StructureController');
 	require('./StructureLab');
+	require('./StructureNuker');
 	require('./StructurePowerSpawn');
 	require('./StructureRampart');
 	require('./StructureRoad');

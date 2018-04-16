@@ -55,9 +55,17 @@ class OrdersManager extends RoomManager {
 												}
 												break;
 											case STRUCTURE_POWER_SPAWN:
-												// get power spawn amount
+												// get powerSpawn amount
 												if (order.type == RESOURCE_POWER) {
 													amount = cont.power;
+												} else if (order.type == RESOURCE_ENERGY) {
+													amount = cont.energy;
+												}
+												break;
+											case STRUCTURE_NUKER:
+												// get nuker amount
+												if (order.type == RESOURCE_GHODIUM) {
+													amount = cont.ghodium;
 												} else if (order.type == RESOURCE_ENERGY) {
 													amount = cont.energy;
 												}
@@ -124,6 +132,7 @@ class OrdersManager extends RoomManager {
 										terminal: [],
 										storage: [],
 										powerSpawn: [],
+										nuker: [],
 									};
 								}
 								if (!room.memory.resources.offers) room.memory.resources.offers = [];
@@ -315,6 +324,7 @@ class OrdersManager extends RoomManager {
 						!container.room.name == this.name ||
 						!(
 							container.structureType == STRUCTURE_LAB ||
+							container.structureType == STRUCTURE_NUKER ||
 							container.structureType == STRUCTURE_POWER_SPAWN ||
 							container.structureType == STRUCTURE_CONTAINER ||
 							container.structureType == STRUCTURE_STORAGE ||
@@ -330,11 +340,13 @@ class OrdersManager extends RoomManager {
 						this.memory.resources = {
 							lab: [],
 							powerSpawn: [],
+							nuker: [],
 							container: [],
 							terminal: [],
 							storage: [],
 						};
 					}
+					if (this.memory.resources.nuker === undefined) this.memory.resources.nuker = [];
 					if (this.memory.resources.powerSpawn === undefined) this.memory.resources.powerSpawn = [];
 					if (!this.memory.resources[container.structureType].find(s => s.id == containerId)) {
 						this.memory.resources[container.structureType].push(
@@ -413,6 +425,7 @@ class OrdersManager extends RoomManager {
 							this.memory.resources = {
 								lab: [],
 								powerSpawn: [],
+								nuker: [],
 								container: [],
 								terminal: [],
 								storage: [],
@@ -524,11 +537,14 @@ class OrdersManager extends RoomManager {
 					if (this.memory.resources === undefined) {
 						this.memory.resources = {
 							lab: [],
+							powerSpawn: [],
+							nuker: [],
 							container: [],
 							terminal: [],
 							storage: [],
 						};
 					}
+					if (this.memory.resources.nuker === undefined) this.memory.resources.nuker = [];
 					if (this.memory.resources.powerSpawn === undefined) this.memory.resources.powerSpawn = [];
 					if (this.memory.resources.orders === undefined) {
 						this.memory.resources.orders = [];
@@ -578,11 +594,14 @@ class OrdersManager extends RoomManager {
 					if (this.memory.resources === undefined) {
 						this.memory.resources = {
 							lab: [],
+							powerSpawn: [],
+							nuker: [],
 							container: [],
 							terminal: [],
 							storage: [],
 						};
 					}
+					if (this.memory.resources.nuker === undefined) this.memory.resources.nuker = [];
 					if (this.memory.resources.powerSpawn === undefined) this.memory.resources.powerSpawn = [];
 					if (this.memory.resources.orders === undefined) {
 						this.memory.resources.orders = [];
@@ -633,7 +652,6 @@ class OrdersManager extends RoomManager {
 				value() {
 					if (!this.my || !this.terminal || !this.storage) return;
 					if (this.terminal.cooldown && this.terminal.cooldown > 0) return;
-					let that = this;
 					let transacting = false;
 					for (const mineral in this.terminal.store) {
 						if (mineral === RESOURCE_ENERGY || mineral === RESOURCE_POWER) continue;
@@ -644,10 +662,10 @@ class OrdersManager extends RoomManager {
 						if (this.terminal.store[mineral] >= MIN_MINERAL_SELL_AMOUNT) {
 							let buyRatio;
 							if (AUTOMATED_RATIO_COUNT) {
-								buyRatio = Util.countPrices('buy', mineral, that.name);
+								buyRatio = Util.countPrices('buy', mineral, this.name);
 								if (DEBUG) {
 									if (buyRatio === 0) console.log(`there is no buy order for ${mineral}`);
-									else console.log(`average buyRatio: ${that.name} ${mineral} ${buyRatio}`);
+									else console.log(`average buyRatio: ${this.name} ${mineral} ${buyRatio}`);
 								}
 							} else buyRatio = MIN_SELL_RATIO[mineral];
 
@@ -660,22 +678,22 @@ class OrdersManager extends RoomManager {
 								)
 									return false;
 
-								o.range = Game.map.getRoomLinearDistance(o.roomName, that.name, true);
-								o.transactionAmount = Math.min(o.amount, that.terminal.store[mineral]);
+								o.range = Game.map.getRoomLinearDistance(o.roomName, this.name, true);
+								o.transactionAmount = Math.min(o.amount, this.terminal.store[mineral]);
 								o.transactionCost = Game.market.calcTransactionCost(
 									o.transactionAmount,
-									that.name,
+									this.name,
 									o.roomName,
 								);
 								if (
-									o.transactionCost > that.terminal.store.energy &&
+									o.transactionCost > this.terminal.store.energy &&
 									o.transactionAmount > MIN_MINERAL_SELL_AMOUNT
 								) {
 									// cant afford. try min amount
 									o.transactionAmount = MIN_MINERAL_SELL_AMOUNT;
 									o.transactionCost = Game.market.calcTransactionCost(
 										o.transactionAmount,
-										that.name,
+										this.name,
 										o.roomName,
 									);
 								}
@@ -691,7 +709,7 @@ class OrdersManager extends RoomManager {
 									terminalFull ||
 									(o.ratio >= buyRatio &&
 										// o.range <= MAX_SELL_RANGE &&
-										o.transactionCost <= that.terminal.store.energy)
+										o.transactionCost <= this.terminal.store.energy)
 								);
 							});
 
@@ -701,10 +719,10 @@ class OrdersManager extends RoomManager {
 									console.log('selected order: ');
 									Util.logStringify(order);
 								}
-								let result = Game.market.deal(order.id, order.transactionAmount, that.name);
+								let result = Game.market.deal(order.id, order.transactionAmount, this.name);
 								if (DEBUG || SELL_NOTIFICATION)
 									Util.logSystem(
-										that.name,
+										this.name,
 										`Selling ${order.transactionAmount} ${mineral} for ${Util.roundUp(
 											order.credits,
 										)} (${order.price} ¢/${mineral}, ${
@@ -714,7 +732,7 @@ class OrdersManager extends RoomManager {
 								if (SELL_NOTIFICATION)
 									Game.notify(
 										`<h2>Room ${
-											that.name
+											this.name
 										} rund an order!</h2><br/>Result: ${Util.translateErrorCode(
 											result,
 										)}<br/>Details:<br/>${JSON.stringify(order).replace(',', ',<br/>')}`,
@@ -762,7 +780,7 @@ class OrdersManager extends RoomManager {
 							);
 							if (DEBUG)
 								Util.logSystem(
-									that.name,
+									this.name,
 									`Transferring ${Util.formatNumber(ENERGY_BALANCE_TRANSFER_AMOUNT)} energy to ${
 										targetRoom.name
 									}: ${Util.translateErrorCode(response)}`,
