@@ -5,8 +5,8 @@ class FortifyingAction extends CreepAction {
 		super('fortifying');
 	}
 
-	maxPerTarget = 1;
-	maxPerAction = 1;
+	maxPerTarget = 2;
+	maxPerAction = 3;
 	targetRange = 3;
 	isValidAction = creep => {
 		return (

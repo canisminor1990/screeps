@@ -55,6 +55,7 @@ class WorkerSetup extends CreepSetup {
 		let count = 0;
 		if (room.structures.fortifyable.length > 0 || room.isCriticallyFortifyable) {
 			count++;
+			if (room.storage && room.storage.store.energy > 400000) count = count + 2;
 		}
 		// no hauler and no miner => 1
 		// if there is a miner it should be no problem to spawn a hauler, and vice versa.
@@ -65,14 +66,14 @@ class WorkerSetup extends CreepSetup {
 			const numPioneers = (room.population && room.population.typeCount.pioneer) || 0;
 			return max - numPioneers;
 		}
-		if (!this.hasMinerOrHauler(room)) count = count + 1;
+		if (!this.hasMinerOrHauler(room)) count++;
 		// constructionsites present & no strorage or storage > min
 		if (
 			room.myConstructionSites.length > 0 &&
 			(!room.storage || !room.storage.active || (room.storage.store && room.storage.charge > 0)) &&
 			count <= 1
 		)
-			count = count + 1;
+			count++;
 		return count;
 	};
 	// validates if there is a miner or a hauler present
