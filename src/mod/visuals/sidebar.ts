@@ -18,8 +18,13 @@ class Sidebar extends VisualsBase {
 		color: 'rgba(0,0,0,.7)',
 		backgroundPadding: '0.2',
 	};
+	subStyle = {
+		align: 'left',
+		font: '0.4 Menlo',
+		opacity: '0.7',
+	};
 	yPading = 3;
-	yMargin = 1;
+	yMargin = 1.2;
 	yListMargin = 1;
 
 	drawRoomOrders = room => {
@@ -37,7 +42,7 @@ class Sidebar extends VisualsBase {
 			y += this.yPading + _.size(room.terminal.store) * this.yListMargin;
 		}
 		vis.text('Room Orders', x, ++y, this.infoStyle);
-		this._roomOrdersObject(vis, room.memory.resources.orders, x, y + this.yMargin);
+		this._roomOrdersObject(vis, room.memory.resources.orders, x, y + this.yMargin - 0.5);
 	};
 	drawRoomOffers = room => {
 		const vis = new RoomVisual(room.name);
@@ -56,14 +61,19 @@ class Sidebar extends VisualsBase {
 			y += this.yPading + _.size(room.memory.resources.orders) * this.yListMargin;
 		}
 		vis.text('Room Offerings', x, ++y, this.infoStyle);
-		this._roomOrdersObject(vis, room.memory.resources.offers, x, y + this.yMargin);
+		this._roomOrdersObject(vis, room.memory.resources.offers, x, y + this.yMargin - 0.5);
 	};
 	drawStorageInfo = storage => {
 		if (!storage || !_.size(storage.store)) return;
 		const vis = new RoomVisual(storage.room.name);
 		const x = 1;
 		let y = 1;
-		vis.text('Storage Contents', x, ++y, this.infoStyle);
+		vis.text(`Storage Contents`, x, ++y, this.infoStyle);
+		const sum = storage.sum;
+		const capacity = storage.storeCapacity;
+		const text1 = `L: ${Util.formatNumber(capacity - sum)}`;
+		const text2 = `${Util.formatNumber(sum)}/${Util.formatNumber(capacity)}`;
+		vis.text(`${text1} (${text2})`, x, y + 1.2, this.subStyle);
 		this._storageObject(vis, storage.store, x, y + this.yMargin);
 	};
 	drawTerminalInfo = terminal => {
@@ -75,6 +85,11 @@ class Sidebar extends VisualsBase {
 			y += this.yPading + _.size(terminal.room.storage.store) * this.yListMargin;
 		}
 		vis.text('Terminal Contents', x, ++y, this.infoStyle);
+		const sum = terminal.sum;
+		const capacity = terminal.storeCapacity;
+		const text1 = `L: ${Util.formatNumber(capacity - sum)}`;
+		const text2 = `${Util.formatNumber(sum)}/${Util.formatNumber(capacity)}`;
+		vis.text(`${text1} (${text2})`, x, y + 1.2, this.subStyle);
 		this._storageObject(vis, terminal.store, x, y + this.yMargin);
 	};
 
