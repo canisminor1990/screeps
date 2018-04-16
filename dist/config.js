@@ -77,7 +77,7 @@ module.exports = {
 	MAX_STORAGE_MINERAL: 200000, // keep a max of each type of minerals in store
 	ROOM_TRADING: true, // set this true to enable haulers within your colony to request resources from other rooms in your colony
 	FILL_POWERSPAWN: true,
-	MIN_MINERAL_SELL_AMOUNT: 20000,
+	MIN_MINERAL_SELL_AMOUNT: 10000,
 	ENERGY_VALUE_CREDITS: 0.05, // assumed energy exchange rate (in credits) to determine best mineral sell offer
 	//MAX_SELL_RANGE: 60,
 	TERMINAL_ENERGY: 100000,
@@ -141,16 +141,16 @@ module.exports = {
 	GAP_REPAIR_DECAYABLE: 800, // decayables (e.g. roads) only get repaired when that much hits are missing
 	MEMORY_RESYNC_INTERVAL: 500, // interval to reload spawns & towers present in a room
 	PROCESS_ORDERS_INTERVAL: 500, // interval to process room orders and run terminalBroker
-	TIME_REPORT: 28000, // ticks between room reports
-	REPORT_MAX_LENGTH: 500,
-	REPORTS_PER_LOOP: 18,
-	SEND_STATISTIC_REPORTS: true, // Set to true to receive room statistics per mail, otherwise set to false.
+	TIME_REPORT: 50000, // ticks between room reports
+	REPORT_MAX_LENGTH: 100,
+	REPORTS_PER_LOOP: 100,
+	SEND_STATISTIC_REPORTS: false, // Set to true to receive room statistics per mail, otherwise set to false.
 	ROAD_CONSTRUCTION_ENABLE: false, // Set to False to disable automatic road construction, or to a number to enable for owned rooms reaching that RC Level. WARNING: HIGH MEMORY USAGE
 	ROAD_CONSTRUCTION_FORCED_ROOMS: { shard0: [] }, //Add room names to force automatic road construction regardless of ROAD_CONSTRUCTION_ENABLE e.g. {'shard0':['W0N0','W1N0'],'shard1':['W0N0', 'W1N0']}.
 	ROAD_CONSTRUCTION_INTERVAL: 500,
 	ROAD_CONSTRUCTION_MIN_DEVIATION: 1.2,
 	ROAD_CONSTRUCTION_ABS_MIN: 3,
-	TIME_ZONE: 1, // zone offset in hours (-12 through +12) from UTC
+	TIME_ZONE: 8, // zone offset in hours (-12 through +12) from UTC
 	USE_SUMMERTIME: true, // Please define isSummerTime in global.js to suit to your local summertime rules
 	SPAWN_DEFENSE_ON_ATTACK: true, // This will attempt to store enough to have a defense and spawn troops when invaded.
 	MANAGED_CONTAINER_TRIGGER: 0.25, // managed containers get filled below this relative energy amount and emptied when above 1-this value
