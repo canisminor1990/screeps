@@ -22,16 +22,11 @@ const Style = {
 	room: { color: Color[COLOR_PURPLE], fontSize: '9px' },
 };
 
-export const Dye = (style: string | number, ...text: any[]): string => {
+export default (style: string | number, ...text: any[]): string => {
 	const applyStyle = Style[style] as string | Object;
 	const msg = text.join(' ');
 	if (_.isObject(applyStyle)) {
-		let css = '';
-		const format = (value: string | number, key: string) => {
-			css += `${_.kebabCase(key)}: ${value};`;
-		};
-		_.forEach(applyStyle, format);
-		return `<span style="${css}">${msg}</span>`;
+		return `<span style="${Util.css(applyStyle)}">${msg}</span>`;
 	} else {
 		return `<span style="color: ${applyStyle}">${msg}</span>`;
 	}

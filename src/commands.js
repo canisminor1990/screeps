@@ -1,5 +1,5 @@
-// 存储一些常用的快捷指令
-// ======================================================
+_.forEach(Memory, (value, key) => {
+	delete Memory[key];
+});
 
-// 清空所有内存
-_.forEach(Memory, (value, key) => delete Memory[key]);
+_.forEach(Game.creeps, c => c.suicide());

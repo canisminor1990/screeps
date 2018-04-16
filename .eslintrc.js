@@ -29,5 +29,10 @@ module.exports = {
     'no-unused-expressions': [0],
     'no-fallthrough': [0],
     'no-useless-constructor': [0],
+    'eqeqeq': [0],
+    'camelcase': [0],
+    'no-unreachable':[1],
+    'one-var':[1],
+    'no-extend-native':[1],
   },
 };

@@ -1,24 +1,26 @@
-import { Configuration, DefinePlugin } from 'webpack';
+import { Configuration, DefinePlugin, optimize } from 'webpack';
 import { join, resolve } from 'path';
-
+import * as moment from 'moment';
+import * as PackageData from '../package.json';
 export default (options: EnvOptions): Configuration => {
 	const ENV = options.ENV || 'dev';
 	const ROOT = options.ROOT || __dirname;
+	const PRODUCTION = options.ENV === 'production';
+	const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 	const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
 	const CleanWebpackPlugin = require('clean-webpack-plugin');
 	const CopyWebpackPlugin = require('copy-webpack-plugin');
 	const ScreepsSourceMapToJson = require('../lib/screeps-webpack-sources').default;
 	const DefineConfig = {
-		PRODUCTION: JSON.stringify(options.ENV === 'production'),
-		__BUILD_TIME__: JSON.stringify(Date.now()),
+		ENV: JSON.stringify(ENV),
+		BUILD_TIME: JSON.stringify(moment().format('MMMM Do YYYY, h:mm:ss a')),
+		BUILD_VERSION: JSON.stringify(PackageData.version),
 	};
 	return {
-		entry: {
-			main: ['screeps-regenerator-runtime/runtime', './src/main.js'],
-		},
+		entry: './src/main.ts',
 		output: {
 			devtoolModuleFilenameTemplate: '[resource-path]',
-			filename: 'main.js',
+			filename: '[name].js',
 			libraryTarget: 'commonjs2',
 			path: join(ROOT, 'dist', ENV),
 			pathinfo: false,
@@ -39,11 +41,11 @@ export default (options: EnvOptions): Configuration => {
 		resolve: {
 			alias: {
 				// 这里需要个app.js里保持一致
-				Enums: resolve(ROOT, 'enmus'),
+				Enum: resolve(ROOT, 'enmu'),
 			},
 			extensions: ['.webpack.js', '.web.js', '.ts', '.tsx', '.js'],
 		},
-		devtool: 'source-map',
+		devtool: PRODUCTION ? false : 'source-map',
 		target: 'node',
 		module: {
 			rules: [
@@ -63,7 +65,6 @@ export default (options: EnvOptions): Configuration => {
 				},
 				{
 					test: /\.tsx?$/,
-					exclude: [join(ROOT, 'src/snippets')],
 					loader: 'ts-loader',
 					options: {
 						transpileOnly: true,
@@ -73,8 +74,9 @@ export default (options: EnvOptions): Configuration => {
 		},
 		plugins: [
 			new CleanWebpackPlugin([`dist/${options.ENV}/*`], { root: options.ROOT }),
-			new ForkTsCheckerWebpackPlugin({ ignoreDiagnostics: [2451, 2687, 6133] }),
+			// new ForkTsCheckerWebpackPlugin({ ignoreDiagnostics: [2451, 2687, 6133] }),
 			new CopyWebpackPlugin([{ from: join(ROOT, 'src/config.js') }, { from: join(ROOT, 'src/commands.js') }]),
+			new UglifyJsPlugin({ sourceMap: !PRODUCTION }),
 			new DefinePlugin(DefineConfig),
 			new ScreepsSourceMapToJson(),
 		].filter(Boolean),
