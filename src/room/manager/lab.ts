@@ -715,11 +715,11 @@ class LabManager extends RoomManager {
 					data.reactions.seed_a = seed_a_id;
 					data.reactions.seed_b = seed_b_id;
 
-					data_a = data.lab.find(l => l.id === seed_a_id);
+					const data_a = data.lab.find(l => l.id === seed_a_id);
 					if (data_a) {
 						data_a.reactionState = LAB_SEED;
 					}
-					data_b = data.lab.find(l => l.id === seed_b_id);
+					const data_b = data.lab.find(l => l.id === seed_b_id);
 					if (data_b) {
 						data_b.reactionState = LAB_SEED;
 					}
