@@ -7,7 +7,7 @@ const Color = {
 	[COLOR_YELLOW]: '#E6DB74',
 	[COLOR_ORANGE]: '#FD971F',
 	[COLOR_BROWN]: '#75715E',
-	[COLOR_GREY]: '#888888',
+	[COLOR_GREY]: '#999999',
 	[COLOR_WHITE]: '#F8F8F0',
 };
 const Style = {

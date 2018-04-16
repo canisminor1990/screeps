@@ -623,7 +623,7 @@ class OrdersManager extends RoomManager {
 							if (AUTOMATED_RATIO_COUNT) {
 								buyRatio = Util.countPrices('buy', mineral, this.name);
 
-								if (buyRatio === 0) Log.warn(`there is no buy order for ${mineral}`);
+								if (buyRatio === 0) Log.warn(this.print, `there is no buy order for ${mineral}`);
 								else Log.info(`average buyRatio: ${this.name} ${mineral} ${buyRatio}`);
 							} else buyRatio = MIN_SELL_RATIO[mineral];
 

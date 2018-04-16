@@ -87,6 +87,16 @@ class Log {
 		console.log(Dye('room', title), ...content);
 	}
 
+	flag(flag: Flag | string, ...content: any[]) {
+		if (_.isString(flag)) {
+			flag = Util.makeFlagUrl(flag);
+		} else {
+			flag = flag.print;
+		}
+		const title = this.Emoji ? `${Emoji.flag} ${flag}` : `[${flag}]`;
+		console.log(Dye('room', title), ...content);
+	}
+
 	stringify(content: any): void {
 		console.log(JSON.stringify(content, null, 2));
 	}

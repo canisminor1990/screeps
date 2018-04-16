@@ -210,7 +210,7 @@ class TaskClass extends Component {
 		}
 		const oldCheck = _.get(flag.memory, ['nextCheck', task], Infinity);
 		if (flag && nextCheck - Game.time > 0 && nextCheck < oldCheck) {
-			Log.module('Task', 'Queued:', Emoji.flag, flag.name, task, `... next-check: ${nextCheck - Game.time}s later`);
+			Log.flag(flag, Dye(COLOR_PURPLE, 'Task Queued:', task, `(next-check: ${nextCheck - Game.time}s later)`));
 			_.set(flag.memory, ['nextCheck', task], nextCheck);
 		}
 	};
@@ -247,7 +247,7 @@ class TaskClass extends Component {
 		}
 		const oldCheck = _.get(flag.memory, ['nextCheck', task], Infinity);
 		if (flag && nextCheck - Game.time > 0 && nextCheck < oldCheck) {
-			Log.module('Task', 'Spawning:', Emoji.flag, flag.name, task, `... next-check: ${nextCheck - Game.time}s later.`);
+			Log.flag(flag, Dye(COLOR_YELLOW, 'Task Spawning:', task, `(next-check: ${nextCheck - Game.time}s later)`));
 			_.set(flag.memory, ['nextCheck', task], nextCheck);
 		}
 	};
@@ -292,7 +292,7 @@ class TaskClass extends Component {
 		}
 		const oldCheck = _.get(flag.memory, ['nextCheck', task], Infinity);
 		if (flag && nextCheck - Game.time > 0 && nextCheck < oldCheck) {
-			Log.module('Task', 'Running:', Emoji.flag, flag.name, task, `... next-check: ${nextCheck - Game.time}s later.`);
+			Log.flag(flag, Dye(COLOR_GREEN, 'Task Running:', task, `(next-check: ${nextCheck - Game.time}s later)`));
 			_.set(flag.memory, ['nextCheck', task], nextCheck);
 		}
 	};

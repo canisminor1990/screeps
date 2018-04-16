@@ -142,9 +142,12 @@ class DefenseTask extends TaskComponent {
 						order: creepSetup.destiny.order,
 					});
 
-					Log.module(
+					Log.room(
 						creepSetup.queueRoom,
-						`Defender queued for hostile creep ${creepSetup.destiny.order} in ${creepSetup.destiny.spottedIn}`,
+						Dye(
+							COLOR_ORANGE,
+							`Defender queued for hostile creep ${creepSetup.destiny.order} in ${creepSetup.destiny.spottedIn}`,
+						),
 					);
 				},
 			);

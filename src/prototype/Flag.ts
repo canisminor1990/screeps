@@ -1,4 +1,9 @@
 Object.defineProperties(Flag.prototype, {
+	print: {
+		get(): string {
+			return Util.makeFlagUrl(this.name);
+		},
+	},
 	cloaking: {
 		get() {
 			return this.memory.cloaking || '0';

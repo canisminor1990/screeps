@@ -305,7 +305,7 @@ class RoomClass extends Component {
 		return xDif + yDif; // count diagonal as 2
 	};
 	rebuildCostMatrix = roomName => {
-		Log.module(roomName, 'Invalidating costmatrix to force a rebuild when we have vision.');
+		Log.room(roomName, 'Invalidating costmatrix to force a rebuild when we have vision.');
 		_.set(Room, ['pathfinderCache', roomName, 'stale'], true);
 		_.set(Room, ['pathfinderCache', roomName, 'updated'], Game.time);
 		this.pathfinderCacheDirty = true;

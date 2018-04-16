@@ -27,7 +27,7 @@ class DefenseManager extends RoomManager {
 		// create notification
 		const bodyCount = JSON.stringify(_.countBy(creep.body, 'type'));
 		if (NOTIFICATE_INVADER || (NOTIFICATE_INTRUDER && creep.room.my) || NOTIFICATE_HOSTILES)
-			Log.module(creep.pos.roomName, `Hostile intruder (${bodyCount}) from "${creep.owner.username}".`);
+			Log.room(creep.pos.roomName, Dye(COLOR_RED, `Hostile intruder (${bodyCount}) from "${creep.owner.username}".`));
 		if (
 			NOTIFICATE_INVADER ||
 			(NOTIFICATE_INTRUDER && creep.owner.username !== ('Invader' && 'Source Keeper') && creep.room.my) ||

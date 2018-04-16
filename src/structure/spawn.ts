@@ -1,4 +1,5 @@
 import { Component } from '../class';
+import { Emoji } from '../util';
 
 class StructureSpawnClass extends Component {
 	priorityHigh = [Creep.setup.worker, Creep.setup.miner, Creep.setup.hauler, Creep.setup.upgrader];
@@ -14,7 +15,7 @@ class StructureSpawnClass extends Component {
 				creepName: creep.name,
 				Spawn: 'Creep.spawningCompleted',
 			});
-		if (CENSUS_ANNOUNCEMENTS) Log.room(creep.pos.roomName, Dye(COLOR_GREEN, creep.name + ' was born!'));
+		if (CENSUS_ANNOUNCEMENTS) Log.room(creep.pos.roomName, Dye(COLOR_GREEN, Emoji.tick, creep.name, 'was born!'));
 	};
 	run = () => {
 		let run = spawn => {
