@@ -109,6 +109,10 @@ export const roomUtils = {
 		return '<a href="#!/room/' + Game.shard.name + '/' + name + '">' + name + '</a>';
 	},
 	makeFlagUrl(name) {
-		return '<a href="#!/room/' + Game.shard.name + '/' + Game.flags[name].room.name + '">' + name + '</a>';
+		let roomName = '';
+		if (Game.flags[name].room && Game.flags[name].room.name) {
+			roomName = Game.flags[name].room.name;
+		}
+		return '<a href="#!/room/' + Game.shard.name + '/' + roomName + '">' + name + '</a>';
 	},
 };
