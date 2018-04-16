@@ -47,10 +47,10 @@ Game.rooms["W2N41"].placeReactionOrder(
 	"9000"
 );
 
-// E14N49: X | GH2O + X => GH2OX
+// E14N49: X | X + GH2O => XGH2O
 Game.rooms["E14N49"].placeReactionOrder(
 	Game.rooms["E14N49"].terminal.id,
-	"GH2OX",
+	"XGH2O",
 	"9000"
 );
 ```

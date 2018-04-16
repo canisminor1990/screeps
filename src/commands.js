@@ -18,8 +18,8 @@ Game.rooms['E3N38'].placeReactionOrder(Game.rooms['E3N38'].terminal.id, 'G', '20
 // W2N41: H | G + H => GH
 Game.rooms['W2N41'].placeReactionOrder(Game.rooms['W2N41'].terminal.id, 'GH', '9000');
 
-// E14N49: X | GH2O + X => GH2OX
-Game.rooms['E14N49'].placeReactionOrder(Game.rooms['E14N49'].terminal.id, 'GH2OX', '9000');
+// E14N49: X | X + GH2O => GH2OX
+Game.rooms['E14N49'].placeReactionOrder(Game.rooms['E14N49'].terminal.id, 'XGH2O', '9000');
 
 // powerSpawn /////////////////////////////////////////////////////////////////////////
 Game.rooms['E8N45'].setStore(Game.rooms['E8N45'].structures.powerSpawn.id, RESOURCE_ENERGY, 5000);
