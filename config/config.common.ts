@@ -15,9 +15,7 @@ export default (options: EnvOptions): Configuration => {
 		BUILD_TIME: JSON.stringify(Date.now()),
 	};
 	return {
-		entry: {
-			main: ['screeps-regenerator-runtime/runtime', './src/main.js'],
-		},
+		entry: './src/main.ts',
 		output: {
 			devtoolModuleFilenameTemplate: '[resource-path]',
 			filename: '[name].js',

@@ -3,7 +3,7 @@ import Process from './Process';
 
 const cpuAtLoad = Game.cpu.getUsed();
 let cpuAtFirstLoop;
-const Loop = () => {
+const Core = () => {
 	const cpuAtLoop = Game.cpu.getUsed();
 	if (Memory.pause) return;
 	if (_.isUndefined(global.isRoot)) Process.install();
@@ -20,4 +20,5 @@ const Loop = () => {
 			main: 'cpu',
 		});
 };
-export default (ENV === 'production' ? Loop : ErrorMapper.wrapLoop(Loop));
+
+export const loop = ENV === 'production' ? Core : ErrorMapper.wrapLoop(Core);
