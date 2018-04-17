@@ -22,8 +22,10 @@ class Traveler {
 	constructor() {
 		this.opts = _.defaults(
 			{
-				defaultStuckValue: TRAVELER_STUCK_TICKS,
-				reportThreshold: TRAVELER_THRESHOLD,
+				maxOps: 2000,
+				defaultStuckValue: 3,
+				reportThreshold: 50,
+				roomRange: 22,
 			},
 			this.opts,
 		);
@@ -32,14 +34,14 @@ class Traveler {
 	}
 
 	opts = {
-		maxOps: 10000,
-		defaultStuckValue: 3,
-		reportThreshold: 50,
-		roomRange: 16,
+		maxOps: 2000,
+		defaultStuckValue: TRAVELER_STUCK_TICKS,
+		reportThreshold: TRAVELER_THRESHOLD,
+		roomRange: TRAVELLING_BORDER_RANGE,
 	};
 
 	findAllowedRooms = (origin, destination, options = {}) => {
-		_.defaults(options, { restrictDistance: 16 });
+		_.defaults(options, { restrictDistance: 10 });
 		if (Game.map.getRoomLinearDistance(origin, destination) > options.restrictDistance) {
 			return;
 		}

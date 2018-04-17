@@ -123,7 +123,7 @@ module.exports = {
 		5: 0,
 		6: 0,
 		7: 0,
-		8: 1000000, // focus is usually RCL growth, so 0 until 8
+		8: 10000000, // focus is usually RCL growth, so 0 until 8
 	},
 	MAX_FORTIFY_LIMIT: {
 		// Limits how high structures get repaired by creeps, regarding RCL
