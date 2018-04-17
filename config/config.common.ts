@@ -2,6 +2,7 @@ import { Configuration, DefinePlugin, optimize } from 'webpack';
 import { join, resolve } from 'path';
 import * as moment from 'moment';
 import * as PackageData from '../package.json';
+
 export default (options: EnvOptions): Configuration => {
 	const ENV = options.ENV || 'dev';
 	const ROOT = options.ROOT || __dirname;
@@ -29,6 +30,7 @@ export default (options: EnvOptions): Configuration => {
 		externals: {
 			'main.js.map': 'main.js.map',
 			config: 'config',
+			commands: 'commands',
 		},
 		node: {
 			Buffer: false,
@@ -75,7 +77,11 @@ export default (options: EnvOptions): Configuration => {
 		plugins: [
 			new CleanWebpackPlugin([`dist/*`], { root: options.ROOT }),
 			// new ForkTsCheckerWebpackPlugin({ ignoreDiagnostics: [2451, 2687, 6133] }),
-			new CopyWebpackPlugin([{ from: join(ROOT, 'src/config.js') }, { from: join(ROOT, 'src/commands.js') }]),
+			new CopyWebpackPlugin([
+				{ from: join(ROOT, 'src/config.js') },
+				{ from: join(ROOT, 'src/commands.js') },
+				{ from: join(ROOT, 'src/doc.js') },
+			]),
 			new UglifyJsPlugin({ sourceMap: !PRODUCTION }),
 			new DefinePlugin(DefineConfig),
 			new ScreepsSourceMapToJson(),

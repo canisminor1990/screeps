@@ -1,7 +1,7 @@
-import { Component, EventClass } from '../class';
+import { Component, EventConstructor } from '../class';
 import { Install } from '../util';
 
-class RoomClass extends Component {
+class RoomConstructor extends Component {
 	pathfinderCache = {};
 	pathfinderCacheDirty = false;
 	pathfinderCacheLoaded = false;
@@ -17,21 +17,21 @@ class RoomClass extends Component {
 		Install(Room, {
 			// ocurrs when a new invader has been spotted for the first time
 			// param: invader creep
-			newInvader: new EventClass(),
+			newInvader: new EventConstructor(),
 			// ocurrs every tick since an invader has been spotted until its not in that room anymore (will also occur when no sight until validated its gone)
 			// param: invader creep id
-			knownInvader: new EventClass(),
+			knownInvader: new EventConstructor(),
 			// ocurrs when an invader is not in the same room anymore (or died). will only occur when (or as soon as) there is sight in the room.
 			// param: invader creep id
-			goneInvader: new EventClass(),
+			goneInvader: new EventConstructor(),
 			// ocurrs when a room is considered to have collapsed. Will occur each tick until solved.
 			// param: room
-			collapsed: new EventClass(),
+			collapsed: new EventConstructor(),
 			// occurs when a room needs to rebuild its costMatrix
-			costMatrixInvalid: new EventClass(),
+			costMatrixInvalid: new EventConstructor(),
 			// occurs when a room's level has increased or decreased
 			// param: room
-			RCLChange: new EventClass(),
+			RCLChange: new EventConstructor(),
 		});
 		// run fresh in each of our submodules
 		for (const key of Object.keys(Room.manager)) {
@@ -416,7 +416,7 @@ class RoomClass extends Component {
 			structure.hits < structure.hitsMax &&
 			// not owned room or hits below RCL repair limit
 			(!room.my ||
-				structure.hits < MAX_REPAIR_LIMIT[room.controller.level] ||
+				structure.hits < MAX_REPAIR_LIMIT[room.RCL] ||
 				structure.hits < LIMIT_URGENT_REPAIRING + (2 * DECAY_AMOUNT[structure.structureType] || 0)) &&
 			// not decayable or below threshold
 			(!DECAYABLES.includes(structure.structureType) || structure.hitsMax - structure.hits > GAP_REPAIR_DECAYABLE) &&
@@ -435,4 +435,4 @@ class RoomClass extends Component {
 	};
 }
 
-export default new RoomClass();
+export default new RoomConstructor();

@@ -1,46 +1,48 @@
-import { Component, EventClass } from '../class';
+import { Component, EventConstructor } from '../class';
 import { Install } from '../util';
 
-class FlagClass extends Component {
-	list = [];
-	stale = [];
-
-	public fresh = () => {
+class FlagConstructor extends Component {
+	list: obj[] = [];
+	stale: string[] = [];
+	private _hasInvasionFlag: boolean;
+	/// ////////////////////////////////////////////
+	// Loop
+	/// ////////////////////////////////////////////
+	public fresh = (): void => {
 		Install(Flag, {
 			// occurs when a flag is found (each tick)
 			// param: flag
-			found: new EventClass(),
+			found: new EventConstructor(),
 			// occurs when a flag memory if found for which no flag exists (before memory removal)
 			// param: flagName
-			FlagRemoved: new EventClass(),
+			FlagRemoved: new EventConstructor(),
 		});
-		const clear = flag => delete flag.targetOf;
+		const clear = (flag: Flag) => delete flag.targetOf;
 		_.forEach(Game.flags, clear);
 		this.list = [];
 		this.stale = [];
 		delete this._hasInvasionFlag;
 	};
-	public analyze = () => {
-		let register = flag => {
-			try {
-				flag.creeps = {};
-				if (flag.cloaking && flag.cloaking > 0) flag.cloaking--;
-				this.list.push({
-					name: flag.name,
-					color: flag.color,
-					secondaryColor: flag.secondaryColor,
-					roomName: flag.pos.roomName,
-					x: flag.pos.x,
-					y: flag.pos.y,
-					cloaking: flag.cloaking,
-				});
-			} catch (e) {
-				Log.error(e.stack || e.message);
-			}
-		};
-		_.forEach(Game.flags, register);
-
-		let findStaleFlags = (entry, flagName) => {
+	public register = (flag: Flag): void => {
+		try {
+			flag.creeps = {};
+			if (flag.cloaking > 0) flag.cloaking--;
+			this.list.push({
+				name: flag.name,
+				color: flag.color,
+				secondaryColor: flag.secondaryColor,
+				roomName: flag.pos.roomName,
+				x: flag.pos.x,
+				y: flag.pos.y,
+				cloaking: flag.cloaking,
+			});
+		} catch (e) {
+			Log.error(e.stack || e.message);
+		}
+	};
+	public analyze = (): boolean => {
+		_.forEach(Game.flags, this.register);
+		const findStaleFlags = (entry: obj, flagName: string) => {
 			try {
 				if (!Game.flags[flagName]) {
 					this.stale.push(flagName);
@@ -53,10 +55,10 @@ class FlagClass extends Component {
 		const specialFlag = this.specialFlag(true);
 		return !!specialFlag;
 	};
-	public run = () => {
-		let triggerFound = entry => {
+	public run = (): void => {
+		const triggerFound = (entry: FlagList) => {
 			try {
-				if (!entry.cloaking || entry.cloaking == 0) {
+				if (!entry.cloaking || entry.cloaking === 0) {
 					const flag = Game.flags[entry.name];
 					Flag.found.trigger(flag);
 				}
@@ -66,15 +68,17 @@ class FlagClass extends Component {
 		};
 		this.list.forEach(triggerFound);
 
-		let triggerRemoved = flagName => Flag.FlagRemoved.trigger(flagName);
+		const triggerRemoved = (flagName: string) => Flag.FlagRemoved.trigger(flagName);
 		this.stale.forEach(triggerRemoved);
 	};
 	public cleanup = () => {
-		let clearMemory = flagName => delete Memory.flags[flagName];
+		const clearMemory = (flagName: string) => delete Memory.flags[flagName];
 		this.stale.forEach(clearMemory);
 	};
-
-	flagFilter = flagColour => {
+	/// ////////////////////////////////////////////
+	// Extend
+	/// ////////////////////////////////////////////
+	public flagFilter = (flagColour: FlagList): FlagFilter => {
 		if (!flagColour) return;
 		let filter;
 		if (flagColour.filter) {
@@ -84,13 +88,19 @@ class FlagClass extends Component {
 		}
 		return filter;
 	};
-	findName = (flagColor, pos, local = true, mod, modArgs) => {
+	public findName = (
+		flagColor: Function | FlagList,
+		pos: Room | RoomPosition,
+		local: boolean = true,
+		mod?: Function,
+		modArgs?: any,
+	) => {
 		let list = this.list;
 		if (!flagColor || list.length === 0) return null;
-		let filter;
+		let filter: Function | FlagFilter;
 		if (pos instanceof Room) pos = pos.getPositionAt(25, 25);
-		if (typeof flagColor === 'function') {
-			filter = flagEntry => {
+		if (_.isFunction(flagColor)) {
+			filter = (flagEntry: FlagList): boolean => {
 				if (flagColor(flagEntry) && flagEntry.cloaking == 0) {
 					if (!local) return true;
 					if (pos && pos.roomName && flagEntry.roomName === pos.roomName) return true;
@@ -101,7 +111,7 @@ class FlagClass extends Component {
 			filter = this.flagFilter(flagColor);
 			_.assign(filter, { cloaking: '0' });
 			if (local && pos && pos.roomName) {
-				const room = Game.rooms[pos.roomName];
+				const room: Room = Game.rooms[pos.roomName];
 				if (room) {
 					list = room.flags;
 				} else {
@@ -266,4 +276,4 @@ class FlagClass extends Component {
 	};
 }
 
-export default new FlagClass();
+export default new FlagConstructor();

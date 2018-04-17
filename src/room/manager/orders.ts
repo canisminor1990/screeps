@@ -5,7 +5,7 @@ class OrdersManager extends RoomManager {
 		super('orders');
 	}
 
-	analyzeRoom = (room, needMemoryResync) => {
+	analyzeRoom = (room: Room, needMemoryResync?: boolean): void => {
 		if (Game.time % PROCESS_ORDERS_INTERVAL === 0 || room.name === 'sim') {
 			room.updateResourceOrders();
 			let orderingRoom = Util.orderingRoom();
@@ -22,8 +22,6 @@ class OrdersManager extends RoomManager {
 					let data = this.memory.resources;
 					if (!this.my || !data) return;
 
-					let rcl = this.controller.level;
-
 					// go through reallacation orders and reset completed orders
 					for (let structureType in data) {
 						for (let i = 0; i < data[structureType].length; i++) {
@@ -35,7 +33,7 @@ class OrdersManager extends RoomManager {
 								let order = structure.orders[j];
 								if (order.orderRemaining <= 0) {
 									let baseAmount = 0;
-									let rcl = this.controller.level;
+									let rcl = this.RCL;
 									if (structureType == STRUCTURE_STORAGE)
 										baseAmount = order.type == RESOURCE_ENERGY ? MIN_STORAGE_ENERGY[rcl] : MAX_STORAGE_MINERAL;
 									else if (structureType == STRUCTURE_TERMINAL)
@@ -136,10 +134,8 @@ class OrdersManager extends RoomManager {
 								}
 								if (!room.memory.resources.offers) room.memory.resources.offers = [];
 								let remoteOffers = room.memory.resources.offers;
-								// let offered = Util.sumCompoundType(remoteOffers);
-								// let available = (room.resourcesStorage[order.type] || 0) + (room.resourcesTerminal[order.type] || 0) - (room.resourcesReactions[order.type] || 0) - (offered[order.type] || 0);
 								let available = room.resourcesAll[order.type] || 0;
-								// Log.module(room.name, `${room.name} ${available} ${order.type}`);
+								Log.room(room.name, `available: ${available} ${order.type}`);
 								if (available < MIN_OFFER_AMOUNT) continue;
 
 								// for COMPOUNDS_TO_ALLOCATE
@@ -184,7 +180,7 @@ class OrdersManager extends RoomManager {
 											resourceType: order.type,
 											amount: available,
 										});
-									Log.module(
+									Log.room(
 										this.name,
 										`Room offer from ${room.name} with id ${order.id} placed for ${available} ${order.type}.`,
 									);
@@ -228,7 +224,7 @@ class OrdersManager extends RoomManager {
 							return o.room == this.name;
 						});
 						if (targetOfferIdx == -1) {
-							Log.module(this.name, 'Orphaned offer found and deleted');
+							Log.room(this.name, 'Orphaned offer found and deleted');
 							offers.splice(i--, 1);
 							continue;
 						}
@@ -277,7 +273,7 @@ class OrdersManager extends RoomManager {
 									resourceType: offer.type,
 									amount: amount,
 								});
-							Log.module(this.name, `Room order filled to ${targetRoom.name} for ${amount} ${offer.type}.`);
+							Log.room(this.name, `Send ${offer.type} ${amount} to ${Util.makeRoomUrl(targetRoom.name)}.`);
 							offer.amount -= amount;
 							if (offer.amount > 0) {
 								order.offers[targetOfferIdx].amount = offer.amount;
@@ -289,6 +285,12 @@ class OrdersManager extends RoomManager {
 							}
 							order.amount -= amount;
 							return true;
+						} else {
+							Log.error(
+								`Send Error: ${Util.translateErrorCode(ret)} | ${this.name} send ${
+									offer.type
+								} ${amount} to ${Util.makeRoomUrl(targetRoom.name)}.`,
+							);
 						}
 					}
 
@@ -597,7 +599,7 @@ class OrdersManager extends RoomManager {
 								resourceType: resourceType,
 								amount: amount,
 							});
-						Log.module(this.name, `New room order with id ${orderId} placed for ${amount} ${resourceType}.`);
+						Log.room(this.name, `New room order with id ${orderId} placed for ${amount} ${resourceType}.`);
 						orders.push({
 							id: orderId,
 							type: resourceType,
@@ -610,6 +612,7 @@ class OrdersManager extends RoomManager {
 			},
 			terminalBroker: {
 				value() {
+					Log.module('TerminalBroker', 'Checking...');
 					if (!this.my || !this.terminal || !this.storage) return;
 					if (this.terminal.cooldown && this.terminal.cooldown > 0) return;
 					let transacting = false;
@@ -660,7 +663,7 @@ class OrdersManager extends RoomManager {
 								Log.stringify(order);
 								let result = Game.market.deal(order.id, order.transactionAmount, this.name);
 								if (SELL_NOTIFICATION)
-									Log.module(
+									Log.room(
 										this.name,
 										`Selling ${order.transactionAmount} ${mineral} for ${Util.roundUp(order.credits)} (${
 											order.price
@@ -695,7 +698,7 @@ class OrdersManager extends RoomManager {
 							room.terminal.sum < room.terminal.storeCapacity - ENERGY_BALANCE_TRANSFER_AMOUNT &&
 							room.storage.sum < room.storage.storeCapacity * TARGET_STORAGE_SUM_RATIO &&
 							!room._isReceivingEnergy &&
-							room.storage.store[RESOURCE_ENERGY] < MAX_STORAGE_ENERGY[room.controller.level];
+							room.storage.store[RESOURCE_ENERGY] < MAX_STORAGE_ENERGY[room.RCL];
 						let targetRoom = _.min(_.filter(Game.rooms, requiresEnergy), 'storage.store.energy');
 						if (
 							targetRoom instanceof Room &&
@@ -704,7 +707,7 @@ class OrdersManager extends RoomManager {
 						) {
 							targetRoom._isReceivingEnergy = true;
 							let response = this.terminal.send('energy', ENERGY_BALANCE_TRANSFER_AMOUNT, targetRoom.name, 'have fun');
-							Log.module(
+							Log.room(
 								this.name,
 								`Transferring ${Util.formatNumber(ENERGY_BALANCE_TRANSFER_AMOUNT)} energy to ${
 									targetRoom.name
@@ -713,9 +716,9 @@ class OrdersManager extends RoomManager {
 							transacting = response == OK;
 						}
 					}
-					if (!transacting && !Memory.boostTiming) {
-						transacting = this.fillARoomOrder();
-						if (transacting !== true) transacting = false;
+					if (transacting !== true && _.isUndefined(Memory.boostTiming)) {
+						Log.module('TerminalBroker', 'FillARoomOrder...');
+						this.fillARoomOrder();
 					}
 				},
 			},

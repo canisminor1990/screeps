@@ -32,10 +32,10 @@ class Traveler {
 	}
 
 	opts = {
-		maxOps: 20000,
+		maxOps: 10000,
 		defaultStuckValue: 3,
 		reportThreshold: 50,
-		roomRange: 22,
+		roomRange: 16,
 	};
 
 	findAllowedRooms = (origin, destination, options = {}) => {

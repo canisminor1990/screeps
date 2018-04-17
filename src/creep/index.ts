@@ -1,8 +1,8 @@
-import { Component, EventClass } from '../class';
+import { Component, EventConstructor } from '../class';
 import { Install } from '../util';
 import { Strategy } from '../util/strategy';
 
-class CreepClass extends Component {
+class CreepConstructor extends Component {
 	public extend = (): void => {
 		Strategy.decorateAgent(
 			Creep.prototype,
@@ -24,19 +24,19 @@ class CreepClass extends Component {
 		Install(Creep, {
 			// ocurrs when a creep starts spawning
 			// param: { spawn: spawn.name, name: creep.name, destiny: creep.destiny }
-			spawningStarted: new EventClass(),
+			spawningStarted: new EventConstructor(),
 			// ocurrs when a creep completes spawning
 			// param: creep
-			spawningCompleted: new EventClass(),
+			spawningCompleted: new EventConstructor(),
 			// ocurrs when a creep will die in the amount of ticks required to renew it
 			// param: creep
-			predictedRenewal: new EventClass(),
+			predictedRenewal: new EventConstructor(),
 			// ocurrs when a creep dies
 			// param: creep name
-			died: new EventClass(),
+			died: new EventConstructor(),
 			// after a creep error
 			// param: {creep, tryAction, tryTarget, workResult}
-			error: new EventClass(),
+			error: new EventConstructor(),
 		});
 	};
 	public register = () => {
@@ -188,4 +188,4 @@ class CreepClass extends Component {
 	};
 }
 
-export default new CreepClass();
+export default new CreepConstructor();

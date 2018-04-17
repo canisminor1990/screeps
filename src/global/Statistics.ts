@@ -1,6 +1,6 @@
 import { Component } from '../class';
 
-class StatisticsClass extends Component {
+class StatisticsConstructor extends Component {
 	storedStatisticsTime = Memory.statistics && Memory.statistics.time ? Memory.statistics.time : 0;
 	run = () => {
 		if (_.isUndefined(Memory.statistics)) {
@@ -64,7 +64,7 @@ class StatisticsClass extends Component {
 						let step = (totalDif / (Game.time - Memory.statistics.tick)).toFixed(2);
 						message +=
 							'<li>Level ' +
-							room.controller.level +
+							room.RCL +
 							', ' +
 							filledPercent +
 							'% of ' +
@@ -158,4 +158,4 @@ class StatisticsClass extends Component {
 	};
 }
 
-export default new StatisticsClass();
+export default new StatisticsConstructor();

@@ -5,15 +5,15 @@ Object.defineProperties(Flag.prototype, {
 		},
 	},
 	cloaking: {
-		get() {
-			return this.memory.cloaking || '0';
+		get(): number {
+			return this.memory.cloaking || 0;
 		},
-		set(value) {
+		set(value: number) {
 			this.memory.cloaking = value;
 		},
 	},
 	compareTo: {
-		value(flag) {
+		value(flag: Flag): boolean {
 			return Flag.compare(this, flag);
 		},
 	},

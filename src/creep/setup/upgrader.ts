@@ -75,7 +75,7 @@ class UpgraderSetup extends CreepSetup {
 		if (!room.storage || (room.storage.active && charge > 0)) multi++;
 		if (!room.storage || (room.storage.active && charge > 0.5)) multi++;
 		if (room.storage && room.storage.active && charge >= 1) {
-			let surplus = room.storage.store.energy - MAX_STORAGE_ENERGY[room.controller.level];
+			let surplus = room.storage.store.energy - MAX_STORAGE_ENERGY[room.RCL];
 			multi += Math.ceil(surplus / 20000); // one more multi for each 20k surplus (+1)
 		}
 		return Math.min(11, multi);
@@ -96,7 +96,7 @@ class UpgraderSetup extends CreepSetup {
 			(room.myConstructionSites.length > 0 && !room.storage)
 		)
 			return 0;
-		if (room.controller.level == 8) return 1;
+		if (room.RCL == 8) return 1;
 		// if there is no energy for the upgrader return 0
 		let upgraderEnergy = 0;
 		let sumCont = cont => (upgraderEnergy += cont.store.energy);
@@ -105,9 +105,7 @@ class UpgraderSetup extends CreepSetup {
 		room.structures.links.controller.forEach(sumLink);
 		if (upgraderEnergy === 0) return 0;
 		if (room.storage && room.storage.active) {
-			return (
-				add + Math.max(1, Math.floor((room.storage.store.energy - MAX_STORAGE_ENERGY[room.controller.level]) / 350000))
-			);
+			return add + Math.max(1, Math.floor((room.storage.store.energy - MAX_STORAGE_ENERGY[room.RCL]) / 350000));
 		}
 		// if energy on the ground next to source > 700 return 3
 		if (room.droppedResources) {

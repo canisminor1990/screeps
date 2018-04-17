@@ -21,7 +21,7 @@ class WorkerBehaviour extends CreepBehaviour {
 		return priority;
 	};
 	outflowActions = creep => {
-		if (creep.room.situation.invasion && creep.room.controller && creep.room.controller.level > 2) {
+		if (creep.room.situation.invasion && creep.room.controller && creep.room.RCL > 2) {
 			return [Creep.action.fueling, Creep.action.feeding, Creep.action.repairing];
 		} else {
 			let priority = [

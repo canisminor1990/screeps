@@ -8,7 +8,7 @@ const WHITE = '#FFFFFF';
 const YELLOW = '#FFFF00';
 const CYAN = '#00FFFF';
 
-class VisualsClass extends VisualsExtends {
+class VisualsConstructor extends VisualsExtends {
 	sparklineStyle = [
 		{
 			key: 'limit',
@@ -271,7 +271,7 @@ class VisualsClass extends VisualsExtends {
 			y++;
 			let text;
 			let RCL_PERCENTAGE;
-			if (room.controller.level === 8) {
+			if (room.RCL === 8) {
 				RCL_PERCENTAGE = 1;
 				text = 'RCL: 8';
 			} else if (room.controller.reservation) {
@@ -279,7 +279,7 @@ class VisualsClass extends VisualsExtends {
 				text = `Reserved: ${room.controller.reservation.ticksToEnd}`;
 			} else if (room.controller.owner) {
 				RCL_PERCENTAGE = Math.min(1, room.controller.progress / room.controller.progressTotal);
-				text = `RCL: ${room.controller.level} (${(RCL_PERCENTAGE * 100).toFixed(2)}%)`;
+				text = `RCL: ${room.RCL} (${(RCL_PERCENTAGE * 100).toFixed(2)}%)`;
 			} else {
 				RCL_PERCENTAGE = 0;
 				text = `Unowned`;
@@ -327,7 +327,7 @@ class VisualsClass extends VisualsExtends {
 			let max;
 			let title = 'RCL';
 			let inner;
-			if (room.controller.level === 8) {
+			if (room.RCL === 8) {
 				val = 1;
 				max = 1;
 				inner = ' ';
@@ -337,7 +337,7 @@ class VisualsClass extends VisualsExtends {
 			} else if (room.controller.owner) {
 				val = Math.min(room.controller.progress, room.controller.progressTotal);
 				max = room.controller.progressTotal;
-				title += ` ${room.controller.level}`;
+				title += ` ${room.RCL}`;
 			} else {
 				val = 0;
 				max = 1;
@@ -397,4 +397,4 @@ class VisualsClass extends VisualsExtends {
 	};
 }
 
-export default new VisualsClass();
+export default new VisualsConstructor();

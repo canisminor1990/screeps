@@ -1,7 +1,7 @@
 import { Component } from '../class';
 import { Emoji } from '../util';
 
-class PopulationClass extends Component {
+class PopulationConstructor extends Component {
 	typeCount = {};
 	typeWeight = {};
 	actionCount = {};
@@ -379,4 +379,4 @@ class PopulationClass extends Component {
 	};
 }
 
-export default new PopulationClass();
+export default new PopulationConstructor();

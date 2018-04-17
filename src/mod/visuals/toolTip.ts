@@ -2,29 +2,35 @@ import { Emoji } from '../../util/Emoji';
 import { VisualsBase } from './base';
 
 class ToolTip extends VisualsBase {
-	toolTipStyle = {
+	toolTipStyle: TextStyle = {
 		align: 'left',
 		font: '0.4 Menlo',
 		backgroundColor: 'rgba(0,0,0,.5)',
 	};
-	weakestStyle = { radius: 0.4, fill: '#FF0000', opacity: 0.3, strokeWidth: 0 };
+	weakestStyle: CircleStyle = {
+		radius: 0.4,
+		fill: '#FF0000',
+		opacity: 0.3,
+		strokeWidth: 0,
+	};
 
-	drawSpawnInfo = spawn => {
+	drawSpawnInfo = (spawn: StructureSpawn): void => {
 		if (!spawn.spawning) return;
 		const vis = new RoomVisual(spawn.room.name);
 		vis.text(`${Emoji.baby} ${spawn.spawning.name}`, spawn.pos.x - 0.5, spawn.pos.y, this.toolTipStyle);
 	};
-	drawMineralInfo = mineral => {
+	drawMineralInfo = (mineral: Mineral): void => {
+		if (!mineral.room) return;
 		const vis = new RoomVisual(mineral.room.name);
 		const x = mineral.pos.x + 0.5;
 		const y = mineral.pos.y;
 		if (mineral.mineralAmount) {
-			vis.text(`${Emoji.harvest} ${Util.formatNumber(mineral.mineralAmount)}`, x, y, this.toolTipStyle);
+			vis.text(`${Emoji.harvest} ${Math.floor(mineral.mineralAmount)}`, x, y, this.toolTipStyle);
 		} else {
 			vis.text(`${Emoji.reload} ${Util.formatNumber(mineral.ticksToRegeneration)}`, x, y, this.toolTipStyle);
 		}
 	};
-	drawSourceInfo = source => {
+	drawSourceInfo = (source: Source): void => {
 		const vis = new RoomVisual(source.room.name);
 		const x = source.pos.x + 0.5;
 		const y = source.pos.y;
@@ -34,7 +40,7 @@ class ToolTip extends VisualsBase {
 			vis.text(`${Emoji.reload} ${source.ticksToRegeneration}`, x, y, this.toolTipStyle);
 		}
 	};
-	drawControllerInfo = controller => {
+	drawControllerInfo = (controller: StructureController): void => {
 		const vis = new RoomVisual(controller.room.name);
 		const BASE_X = controller.pos.x + 0.5;
 		let y = controller.pos.y;
@@ -47,16 +53,15 @@ class ToolTip extends VisualsBase {
 		).toFixed(2)}%)`;
 		let line2 = `${Emoji.reload} ${Util.formatNumber(controller.ticksToDowngrade)}`;
 		if (controller.level === 8) {
-			line1 = undefined;
+			line1 = '';
 		} else if (controller.reservation) {
 			line0 = `${Emoji.flag} Reserved`;
-			line1 = undefined;
+			line1 = '';
 			line2 = `${Emoji.reload} ${controller.reservation.ticksToEnd}`;
 		} else if (!controller.owner) {
 			return;
 		}
-
-		if (line1) {
+		if (line1 !== '') {
 			vis.text(line0 + ': ' + line1, BASE_X, y, style);
 		} else {
 			vis.text(line0, BASE_X, y, style);
@@ -66,7 +71,7 @@ class ToolTip extends VisualsBase {
 			vis.text(line2, BASE_X, (y += 1.2), downgradeStyle);
 		}
 	};
-	drawLabInfo = lab => {
+	drawLabInfo = (lab: StructureLab): void => {
 		const vis = new RoomVisual(lab.room.name);
 		if (!lab.energy && !lab.mineralAmount && !lab.cooldown) return;
 		const x = lab.pos.x + 0.8;
@@ -83,12 +88,12 @@ class ToolTip extends VisualsBase {
 			vis.text(`C: ${lab.cooldown}`, x, (y += 0.4), Object.assign({ color: '#FF0000' }, this.toolTipStyle));
 		}
 	};
-	drawTowerInfo = tower => {
+	drawTowerInfo = (tower: StructureTower): void => {
 		const vis = new RoomVisual(tower.room.name);
 		const needEnergy = tower.energyCapacity - tower.energy;
 		if (needEnergy > 0) vis.text(`${Emoji.fuel} ${needEnergy}`, tower.pos.x, tower.pos.y, this.toolTipStyle);
 	};
-	drawTransactions = room => {
+	drawTransactions = (room: Room): void => {
 		if (!room.terminal) return;
 		const vis = new RoomVisual(room.name);
 		const x = room.terminal.pos.x;
@@ -104,8 +109,8 @@ class ToolTip extends VisualsBase {
 		if (transactions.length === 0) return;
 		if (transactions.length === 2) y -= 0.4;
 
-		transactions.forEach(transaction => {
-			const outgoing = transaction.sender.username === room.controller.owner.username;
+		transactions.forEach((transaction: Transaction) => {
+			const outgoing = transaction.sender ? transaction.sender.username === room.controller.owner.username : false;
 			const toSelf = transaction.recipient ? transaction.sender.username === transaction.recipient.username : false;
 			const receiving = room.name === transaction.to;
 			const colour = outgoing || receiving ? '#00FF00' : '#FF0000';

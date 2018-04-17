@@ -2,11 +2,11 @@ import { Emoji } from '../util';
 
 Object.defineProperties(StructureSpawn.prototype, {
 	run: {
-		value() {
+		value(): void | boolean {
 			if (this.spawning) return;
 			let room = this.room;
 			// old spawning system
-			let probe = setup => {
+			const probe = (setup: obj) => {
 				return setup.isValidSetup(room) && this.createCreepBySetup(setup);
 			};
 
@@ -29,26 +29,26 @@ Object.defineProperties(StructureSpawn.prototype, {
 		},
 	},
 	createCreepBySetup: {
-		value(setup) {
+		value(setup: obj): obj | null {
 			if (LOG_TRACE)
 				Log.trace(
 					'Spawn',
 					{
 						setupType: this.type,
-						rcl: this.room.controller.level,
+						rcl: this.room.RCL,
 						energy: this.room.energyAvailable,
 						maxEnergy: this.room.energyCapacityAvailable,
 						Spawn: 'createCreepBySetup',
 					},
 					'creating creep',
 				);
-			let params = setup.buildParams(this);
+			const params = setup.buildParams(this);
 			if (this.create(params.parts, params.name, params.setup)) return params;
 			return null;
 		},
 	},
 	createCreepByQueue: {
-		value(queue, level) {
+		value(queue: obj, level: string): null | boolean | number {
 			const spawnDelay = Util.get(this.room.memory, 'spawnDelay', {});
 			if (!queue) return null;
 			else if (Memory.CPU_CRITICAL && spawnDelay[level] === queue.length) return null;
@@ -69,7 +69,7 @@ Object.defineProperties(StructureSpawn.prototype, {
 			}
 			delete spawnDelay[level];
 			let cost = 0;
-			params.parts.forEach(function(part) {
+			params.parts.forEach((part: string) => {
 				cost += BODYPART_COST[part];
 			});
 			// no parts
@@ -101,7 +101,7 @@ Object.defineProperties(StructureSpawn.prototype, {
 		},
 	},
 	create: {
-		value(body, name, behaviour, destiny) {
+		value(body: string[], name: string, behaviour: string, destiny: string): boolean {
 			if (body.length == 0) return false;
 			let newName = this.createCreep(body, name, null);
 			if (name == newName || Util.translateErrorCode(newName) === undefined) {

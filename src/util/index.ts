@@ -4,6 +4,35 @@ import { roomUtils } from './room';
 import { marketUtils } from './market';
 
 const utils = {
+	getGame: {
+		objById(id: string): RoomObject | null {
+			return Game.getObjectById(id);
+		},
+
+		objsByIdArray(idArray: string[]) {
+			const GameObjects = [] as any[];
+			_.forEach(idArray, id => GameObjects.push(Game.getObjectById(id)));
+			return _.compact(GameObjects);
+		},
+
+		objsToIdArray(objs: any[]): string[] {
+			return _.map(objs, 'id');
+		},
+
+		flagByName(name: string): Flag {
+			return Game.flags[name];
+		},
+
+		flagsByNameArray(nameArray: string[]) {
+			const Flags = [] as Flag[];
+			_.forEach(nameArray, name => Flags.push(Game.flags[name]));
+			return _.compact(Flags);
+		},
+
+		flagsToNameArray(flags: Flag[]): string[] {
+			return _.map(flags, 'name');
+		},
+	},
 	/**
 	 * 格式化数字单位
 	 */
@@ -195,7 +224,7 @@ const utils = {
 			if (roomName === undefined || room.name === roomName) {
 				data = room.memory.resources;
 
-				Log.room(room);
+				Log.success(room.name, 'reset!');
 
 				if (!_.isUndefined(data)) {
 					data.offers = [];
@@ -213,8 +242,8 @@ const utils = {
 							.filter((i: Structure) => i.structureType === 'lab')
 							.map((i: StructureLab) => i.room.setStore(i.id, RESOURCE_ENERGY, 2000));
 					}
-					delete data.boostTiming;
-				} else Log.room(room, `has no memory.resources`);
+					data.boostTiming = { roomState: '' };
+				} else Log.warn(room.name, `has no memory.resources`);
 			}
 		}
 		if (roomName === undefined) delete Memory.boostTiming;

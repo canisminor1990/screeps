@@ -32,7 +32,7 @@ class WorkerSetup extends CreepSetup {
 			},
 			minMulti: 1,
 			maxMulti: 8,
-			maxWeight: room => (room.controller.level === 2 ? 14400 : 4000),
+			maxWeight: room => (room.RCL === 2 ? 14400 : 4000),
 			maxCount: room => this.maxWorker(room),
 			minEnergyAvailable: room => this.minEnergyAvailable(room),
 		};
@@ -60,9 +60,9 @@ class WorkerSetup extends CreepSetup {
 		// no hauler and no miner => 1
 		// if there is a miner it should be no problem to spawn a hauler, and vice versa.
 		// if none of them are present spawn a worker first
-		if (room.controller.level < 4) {
+		if (room.RCL < 4) {
 			if (room.situation.invasion) return 1;
-			let max = room.controller.level === 2 ? 3 * room.sources.length : 2 * room.sources.length;
+			let max = room.RCL === 2 ? 3 * room.sources.length : 2 * room.sources.length;
 			const numPioneers = (room.population && room.population.typeCount.pioneer) || 0;
 			return max - numPioneers;
 		}
@@ -92,7 +92,7 @@ class WorkerSetup extends CreepSetup {
 		}
 	};
 	minEnergyAvailable = room => {
-		switch (room.controller.level) {
+		switch (room.RCL) {
 			case 1:
 				return this.byPopulation(room, 0, 1, 1);
 			case 2:

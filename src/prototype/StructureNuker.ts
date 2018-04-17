@@ -15,9 +15,9 @@ Object.defineProperties(StructureNuker.prototype, {
 			let unloadTarget = 0;
 
 			// look up resource and calculate needs
-			let containerData = this.room.memory.resources.nuker.find(s => s.id == this.id);
+			let containerData = this.room.memory.resources.nuker.find((s: obj) => s.id == this.id);
 			if (containerData) {
-				let order = containerData.orders.find(o => {
+				let order = containerData.orders.find((o: obj) => {
 					return o.type == resourceType;
 				});
 				if (order) {

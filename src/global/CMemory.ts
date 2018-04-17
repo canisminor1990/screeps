@@ -1,6 +1,6 @@
 import { Component } from '../class';
 
-class CMemoryClass extends Component {
+class CMemoryConstructor extends Component {
 	numSaved = 0;
 	toActivate = {};
 	extend = () => {
@@ -132,4 +132,4 @@ class CMemoryClass extends Component {
 	};
 }
 
-export default new CMemoryClass();
+export default new CMemoryConstructor();

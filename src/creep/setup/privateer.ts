@@ -14,7 +14,7 @@ class PrivateerSetup extends CreepSetup {
 			minAbsEnergyAvailable: 400,
 			minEnergyAvailable: 0.8,
 			maxMulti: 15,
-			minMulti: room => room.controller.level,
+			minMulti: room => room.RCL,
 			maxWeight: room => room.privateerMaxWeight,
 		};
 	}

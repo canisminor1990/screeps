@@ -1,0 +1,178 @@
+[
+	{
+		"alias": "energy",
+		"color": "#FFE56D"
+	},
+	{
+		"alias": "power",
+		"color": "#FF0000"
+	},
+	{
+		"alias": "H",
+		"color": "#CCCCCC"
+	},
+	{
+		"alias": "O",
+		"color": "#CCCCCC"
+	},
+	{
+		"alias": "OH",
+		"color": "#CCCCCC"
+	},
+	{
+		"alias": "ZK",
+		"color": "#CCCCCC"
+	},
+	{
+		"alias": "UL",
+		"color": "#CCCCCC"
+	},
+	{
+		"alias": "G",
+		"color": "#FFFFFF"
+	},
+	{
+		"alias": "GH",
+		"color": "#FFFFFF"
+	},
+	{
+		"alias": "GO",
+		"color": "#FFFFFF"
+	},
+	{
+		"alias": "GH2O",
+		"color": "#FFFFFF"
+	},
+	{
+		"alias": "GHO2",
+		"color": "#FFFFFF"
+	},
+	{
+		"alias": "XGH2O",
+		"color": "#FFFFFF"
+	},
+	{
+		"alias": "XGHO2",
+		"color": "#FFFFFF"
+	},
+	{
+		"alias": "GH2O",
+		"color": "#FFFFFF"
+	},
+	{
+		"alias": "U",
+		"color": "#88D6F7"
+	},
+	{
+		"alias": "UH",
+		"color": "#88D6F7"
+	},
+	{
+		"alias": "UO",
+		"color": "#88D6F7"
+	},
+	{
+		"alias": "UH2O",
+		"color": "#88D6F7"
+	},
+	{
+		"alias": "UHO2",
+		"color": "#88D6F7"
+	},
+	{
+		"alias": "XUH2O",
+		"color": "#88D6F7"
+	},
+	{
+		"alias": "XUHO2",
+		"color": "#88D6F7"
+	},
+	{
+		"alias": "L",
+		"color": "#89F4A5"
+	},
+	{
+		"alias": "LH",
+		"color": "#89F4A5"
+	},
+	{
+		"alias": "LO",
+		"color": "#89F4A5"
+	},
+	{
+		"alias": "LH2O",
+		"color": "#89F4A5"
+	},
+	{
+		"alias": "LHO2",
+		"color": "#89F4A5"
+	},
+	{
+		"alias": "XLH2O",
+		"color": "#89F4A5"
+	},
+	{
+		"alias": "XLHO2",
+		"color": "#89F4A5"
+	},
+	{
+		"alias": "K",
+		"color": "#9370FF"
+	},
+	{
+		"alias": "KH",
+		"color": "#9370FF"
+	},
+	{
+		"alias": "KO",
+		"color": "#9370FF"
+	},
+	{
+		"alias": "KH2O",
+		"color": "#9370FF"
+	},
+	{
+		"alias": "KHO2",
+		"color": "#9370FF"
+	},
+	{
+		"alias": "XKH2O",
+		"color": "#9370FF"
+	},
+	{
+		"alias": "XKHO2",
+		"color": "#9370FF"
+	},
+	{
+		"alias": "Z",
+		"color": "#F2D28B"
+	},
+	{
+		"alias": "ZH",
+		"color": "#F2D28B"
+	},
+	{
+		"alias": "ZO",
+		"color": "#F2D28B"
+	},
+	{
+		"alias": "ZH2O",
+		"color": "#F2D28B"
+	},
+	{
+		"alias": "ZHO2",
+		"color": "#F2D28B"
+	},
+	{
+		"alias": "XZH2O",
+		"color": "#F2D28B"
+	},
+	{
+		"alias": "XZHO2",
+		"color": "#F2D28B"
+	},
+	{
+		"alias": "X",
+		"color": "#FF7A7A"
+	}
+]

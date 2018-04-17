@@ -37,18 +37,6 @@ class RobbingAction extends CreepAction {
 				return (type, amount, capacity) => {
 					if (amount === 0) return { amount: 0, score: 0 };
 					const multiplier = resourceValue(type);
-					Log.debug(
-						'[Action]',
-						'Robbing',
-						creep.name,
-						'resourceScore',
-						type,
-						amount,
-						multiplier,
-						range,
-						logBase,
-						adjacentValue,
-					);
 					return {
 						amount,
 						score: multiplier * amount * (adjacentValue - Math.log1p(range) * logBase),
@@ -95,8 +83,6 @@ class RobbingAction extends CreepAction {
 				.value();
 
 			const target = _.get(targets, [0, 'target'], null);
-			// after scoring iterate thru top candidates and do pathfinding to find an accessible target!
-			Log.debug('[Action]', 'Robbing', creep.name, targets.length, target);
 			return target;
 		}
 		return false;
@@ -112,11 +98,8 @@ class RobbingAction extends CreepAction {
 		// KARL YOU NEED TO DOCUMENT THIS, RESULTS OF WITHDRAW ARE NOT HANDLED INTUITIVELY
 		return this.targetCall(creep, resourcesDescending, target => {
 			return (type, amount, capacity) => {
-				Log.debug('[Action]', 'Robbing', creep.name, target);
 				const score = amount ? creep.withdraw(target, type, amount) : 0;
-				if (score) {
-					return { amount: capacity, score };
-				}
+				if (score) return { amount: capacity, score };
 				return { amount, score };
 			};
 		})(creep.target);

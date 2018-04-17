@@ -6,7 +6,7 @@ Object.defineProperties(StructureWall.prototype, {
 	},
 	isCriticallyFortifyable: {
 		get(): boolean {
-			return this.hits <= MIN_FORTIFY_LIMIT[this.room.controller.level];
+			return this.hits <= MIN_FORTIFY_LIMIT[this.room.RCL];
 		},
 	},
 });

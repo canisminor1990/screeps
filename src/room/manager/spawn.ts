@@ -61,7 +61,7 @@ class SpawnManager extends RoomManager {
 					(params.minEnergyCapacity === undefined || params.minEnergyCapacity <= room.energyCapacityAvailable) &&
 					(params.minEnergyAvailable === undefined || params.minEnergyAvailable <= room.energyAvailable) &&
 					(room.name != params.targetRoom || params.allowTargetRoom === true) &&
-					(params.minRCL === undefined || room.controller.level >= params.minRCL) &&
+					(params.minRCL === undefined || room.RCL >= params.minRCL) &&
 					(params.callBack === undefined || params.callBack(room));
 				let validRooms = _.filter(Game.rooms, isValidRoom);
 				if (validRooms.length == 0) return null;
@@ -76,7 +76,7 @@ class SpawnManager extends RoomManager {
 				let evaluation = room => {
 					return (
 						Util.routeRange(room.name, params.targetRoom) +
-						(8 - room.controller.level) / (params.rangeRclRatio || 3) +
+						(8 - room.RCL) / (params.rangeRclRatio || 3) +
 						roomTime(room) / (params.rangeQueueRatio || 51)
 					);
 				};

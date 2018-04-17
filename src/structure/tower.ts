@@ -1,11 +1,11 @@
 import { Component } from '../class';
 
-class StructureTowerClass extends Component {
-	loop = room => {
-		let run = tower => this.run(tower);
+class StructureTowerConstructor extends Component {
+	loop = (room: Room): void => {
+		const run = (tower: StructureTower) => this.run(tower);
 		_.forEach(room.structures.towers, run);
 	};
-	run = tower => {
+	run = (tower: StructureTower): void => {
 		if (tower) {
 			// TODO: convert to action pattern
 			if (tower.room.casualties.length > 0) {
@@ -27,26 +27,13 @@ class StructureTowerClass extends Component {
 				return;
 			}
 
-			let closestHostile = tower.pos.findClosestByRange(tower.room.hostiles);
+			let closestHostile = tower.pos.findClosestByRange(tower.room.hostiles) as Creep;
 			if (closestHostile) {
 				// Attack
 				tower.attack(closestHostile);
 			}
-			/*
-					else if( (tower.room.structures.repairable.length > 0) && (tower.energy > (tower.energyCapacity * 0.8)) ) {
-							// Repair
-							let isAddable = target => (target.towers === undefined || target.towers.length == 0);
-							let target = _.find(tower.room.structures.repairable, isAddable);
-							if( !_.isUndefined(target) ){
-									tower.repair(target);
-									if( target.towers === undefined )
-											target.towers = [];
-									target.towers.push(tower.id);
-							}
-					}
-					*/
 		}
 	};
 }
 
-export default new StructureTowerClass();
+export default new StructureTowerConstructor();

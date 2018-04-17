@@ -1,3 +1,5 @@
+import { FindType } from '../enum/find';
+
 import { RoomStructures } from './RoomStructures';
 // save original API functions
 Room.prototype._find = Room.prototype.find;
@@ -11,10 +13,30 @@ Object.defineProperties(Room.prototype, {
 		value(c, opt) {
 			if (_.isArray(c)) {
 				return _(c)
-					.map(type => this._find(type, opt))
+					.map(type => this.cacheFind(type, opt))
 					.flatten()
 					.value();
-			} else return this._find(c, opt);
+			} else return this.cacheFind(c, opt);
+		},
+	},
+	cacheFind: {
+		value(type: number, opt?: obj, timeout: number = 1): any[] {
+			const isExit = type <= 10;
+			if (!opt) {
+				if (type === FIND_SOURCES || type === FIND_MINERALS) timeout = Infinity;
+				const cacheResult = _.get(this.memory, ['_find', FindType[type]]) as FindCache;
+				if (cacheResult && cacheResult.time && Game.time - cacheResult.time <= timeout) {
+					return isExit ? cacheResult.value : Util.getGame.objsByIdArray(cacheResult.value);
+				}
+			}
+			// 重新find
+			const result = _.compact(this._find(type, opt));
+			const resultCache = {
+				time: Game.time,
+				value: isExit ? result : Util.getGame.objsToIdArray(result),
+			};
+			_.set(this.memory, ['_find', FindType[type]], resultCache);
+			return result;
 		},
 	},
 	structures: {

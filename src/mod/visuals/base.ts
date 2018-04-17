@@ -26,6 +26,11 @@ export class VisualsBase {
 			RESOURCE_HYDROGEN,
 			RESOURCE_OXYGEN,
 		].find(type => resourceType.includes(type));
+
+		if (resourceType === RESOURCE_ZYNTHIUM_KEANITE || resourceType === RESOURCE_UTRIUM_LEMERGITE) {
+			return this.resourcesColor[RESOURCE_OXYGEN];
+		}
+
 		return this.resourcesColor[compoundType];
 	};
 	getColourByPercentage = (percentage, reverse) => {

@@ -1,6 +1,6 @@
 import { Component } from '../class';
 
-class GrafanaClass extends Component {
+class GrafanaConstructor extends Component {
 	run = () => {
 		Memory.stats = { tick: Game.time };
 
@@ -46,7 +46,7 @@ class GrafanaClass extends Component {
 	controller = (room, object) => {
 		if (room.controller) {
 			object.controller = {
-				level: room.controller.level,
+				level: room.RCL,
 				progress: room.controller.progress,
 				progressTotal: room.controller.progressTotal,
 			};
@@ -119,4 +119,4 @@ class GrafanaClass extends Component {
 	};
 }
 
-export default new GrafanaClass();
+export default new GrafanaConstructor();

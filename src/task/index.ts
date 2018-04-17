@@ -1,7 +1,7 @@
 import { Component } from '../class/Component';
 import { Emoji } from '../util';
 
-class TaskClass extends Component {
+class TaskConstructor extends Component {
 	private cache: obj = {};
 	private runCache: obj = {};
 	private tasks: any[] = [];
@@ -318,4 +318,4 @@ class TaskClass extends Component {
 	};
 }
 
-export default new TaskClass();
+export default new TaskConstructor();

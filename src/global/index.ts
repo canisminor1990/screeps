@@ -213,11 +213,39 @@ class Constants {
 			end: 95,
 		},
 	};
-	CRAYON = {
-		death: { color: 'black', 'font-weight': 'bold' },
-		birth: '#e6de99',
-		error: '#e79da7',
-		system: { color: '#999', 'font-size': '10px' },
+	ACTION_SAY = {
+		// what gets said on creep.action.*.onAssignment
+		ATTACK_CONTROLLER: String.fromCodePoint(0x1f680), // Ã°ÂÂÂ
+		AVOIDING: String.fromCodePoint(0x1f440), // Ã°ÂÂÂ
+		BOOSTING: String.fromCodePoint(0x1f525), // Ã°ÂÂÂ¥
+		BUILDING: String.fromCodePoint(0x1f3d7), // Ã°ÂÂÂ
+		BULLDOZING: String.fromCodePoint(0x1f69c), // Ã°ÂÂÂ
+		CHARGING: String.fromCodePoint(0x1f50c), // Ã°ÂÂÂ
+		CLAIMING: String.fromCodePoint(0x26f3), // Ã¢ÂÂ³
+		DEFENDING: String.fromCodePoint(0x2694), // Ã¢ÂÂ
+		DISMANTLING: String.fromCodePoint(0x26d1), // Ã¢ÂÂ
+		DROPPING: String.fromCodePoint(0x1f4a9), // Ã°ÂÂÂ©
+		FEEDING: String.fromCodePoint(0x1f355), // Ã°ÂÂÂ
+		FORTIFYING: String.fromCodePoint(0x1f6a7), // Ã°ÂÂÂ§
+		FUELING: String.fromCodePoint(0x26fd), // Ã¢ÂÂ½
+		GUARDING: String.fromCodePoint(0x1f6e1), // Ã°ÂÂÂ¡
+		HARVESTING: String.fromCodePoint(0x26cf), // Ã¢ÂÂ
+		HEALING: String.fromCodePoint(0x1f48a), // Ã°ÂÂÂ
+		IDLE: String.fromCodePoint(0x1f3b5), // Ã°ÂÂÂµ
+		INVADING: String.fromCodePoint(0x1f52b), // Ã°ÂÂÂ«
+		MINING: String.fromCodePoint(0x26cf), // Ã¢ÂÂ
+		PICKING: String.fromCodePoint(0x1f9e4), // Ã°ÂÂ§Â¤
+		REALLOCATING: String.fromCodePoint(0x1f52e), // Ã°ÂÂÂ®
+		RECYCLING: String.fromCodePoint(0x1f504), // Ã°ÂÂÂ
+		REPAIRING: String.fromCodePoint(0x1f527), // Ã°ÂÂÂ§
+		RESERVING: String.fromCodePoint(0x1f6a9), // Ã°ÂÂÂ©
+		ROBBING: String.fromCodePoint(0x1f47b), // Ã°ÂÂÂ»
+		STORING: String.fromCodePoint(0x23ec), // Ã¢ÂÂ¬
+		TRAVELLING: String.fromCodePoint(0x1f3c3), // Ã°ÂÂÂ
+		UNCHARGING: String.fromCodePoint(0x1f50b), // Ã°ÂÂÂ
+		UPGRADING: String.fromCodePoint(0x1f64f), // Ã°ÂÂÂ
+		WITHDRAWING: String.fromCodePoint(0x23eb), // Ã¢ÂÂ«
+		SAFEGEN: String.fromCodePoint(0x1f512), // Ã°ÂÂÂ
 	};
 }
 

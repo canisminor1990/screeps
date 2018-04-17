@@ -64,7 +64,7 @@ export class RoomStructures {
 								structure =>
 									this.room.my &&
 									structure.hits < structure.hitsMax &&
-									structure.hits < MAX_FORTIFY_LIMIT[this.room.controller.level] &&
+									structure.hits < MAX_FORTIFY_LIMIT[this.room.RCL] &&
 									(structure.structureType != STRUCTURE_CONTAINER || structure.hits < MAX_FORTIFY_CONTAINER) &&
 									(!DECAYABLES.includes(structure.structureType) ||
 										structure.hitsMax - structure.hits > GAP_REPAIR_DECAYABLE * 3) &&

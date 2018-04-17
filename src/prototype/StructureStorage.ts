@@ -11,11 +11,8 @@ Object.defineProperties(StructureStorage.prototype, {
 	charge: {
 		get(): number {
 			// TODO per-room strategy
-			return Util.chargeScale(
-				this.store.energy,
-				MIN_STORAGE_ENERGY[this.room.controller.level],
-				MAX_STORAGE_ENERGY[this.room.controller.level],
-			);
+			const rcl = this.room.RCL;
+			return Util.chargeScale(this.store.energy, MIN_STORAGE_ENERGY[rcl], MAX_STORAGE_ENERGY[rcl]);
 		},
 	},
 	getNeeds: {
@@ -23,7 +20,7 @@ Object.defineProperties(StructureStorage.prototype, {
 			let ret = 0;
 			if (!this.room.memory.resources) return 0;
 
-			let storageData = this.room.memory.resources.storage[0];
+			const storageData = this.room.memory.resources.storage[0];
 			// look up resource and calculate needs
 			let order = null;
 			if (storageData)
@@ -31,8 +28,8 @@ Object.defineProperties(StructureStorage.prototype, {
 					return o.type === resourceType;
 				});
 			if (!order) order = { orderAmount: 0, orderRemaining: 0, storeAmount: 0 };
-			let rcl = this.room.controller.level;
-			let loadTarget = Math.max(
+			const rcl = this.room.RCL;
+			const loadTarget = Math.max(
 				order.orderRemaining + (this.store[resourceType] || 0),
 				order.storeAmount + (resourceType === RESOURCE_ENERGY ? MIN_STORAGE_ENERGY[rcl] : MAX_STORAGE_MINERAL),
 			);

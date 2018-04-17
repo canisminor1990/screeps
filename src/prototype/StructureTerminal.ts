@@ -19,7 +19,7 @@ Object.defineProperties(StructureTerminal.prototype, {
 		value(resourceType: string): number {
 			let ret = 0;
 			if (!this.room.memory.resources) return 0;
-			let terminalData = this.room.memory.resources.terminal[0];
+			const terminalData = this.room.memory.resources.terminal[0];
 			// look up resource and calculate needs
 			let order = null;
 			if (terminalData)
@@ -27,7 +27,7 @@ Object.defineProperties(StructureTerminal.prototype, {
 					return o.type === resourceType;
 				});
 			if (!order) order = { orderAmount: 0, orderRemaining: 0, storeAmount: 0 };
-			let loadTarget = Math.max(
+			const loadTarget = Math.max(
 				order.orderRemaining + (this.store[resourceType] || 0),
 				order.storeAmount + (resourceType === RESOURCE_ENERGY ? TERMINAL_ENERGY : 0),
 			);

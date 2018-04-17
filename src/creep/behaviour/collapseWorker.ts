@@ -25,7 +25,7 @@ class CollapseWorkerBehaviour extends CreepBehaviour {
 		return priority;
 	};
 	outflowActions = creep => {
-		const invasion = creep.room.situation.invasion && creep.room.controller && creep.room.controller.level > 2;
+		const invasion = creep.room.situation.invasion && creep.room.controller && creep.room.RCL > 2;
 		if (invasion) {
 			return [Creep.action.feeding, Creep.action.fueling, Creep.action.repairing];
 		} else {

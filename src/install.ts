@@ -145,6 +145,7 @@ export const install = () => {
 	Install(global, {
 		Grafana: GRAFANA ? require('./mod/grafana').default : undefined,
 		Visuals: require('./mod/visuals').default,
+		Command: require('commands'),
 	});
 
 	// Install Done

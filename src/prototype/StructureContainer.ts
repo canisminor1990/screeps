@@ -16,9 +16,9 @@ Object.defineProperties(StructureContainer.prototype, {
 			if (!this.room.memory.resources) return 0;
 
 			// look up resource and calculate needs
-			let containerData = this.room.memory.resources.container.find(s => s.id == this.id);
+			let containerData = this.room.memory.resources.container.find((s: obj) => s.id == this.id);
 			if (containerData) {
-				let order = containerData.orders.find(o => {
+				let order = containerData.orders.find((o: obj) => {
 					return o.type == resourceType;
 				});
 				if (order) {

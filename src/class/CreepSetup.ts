@@ -64,14 +64,14 @@ export class CreepSetup {
 		return memory;
 	};
 	isValidSetup = room => {
-		if (room.controller.level < this.minControllerLevel) {
+		if (room.RCL < this.minControllerLevel) {
 			if (LOG_TRACE)
 				Log.trace(
 					'Setup',
 					{
 						setupType: this.type,
 						room: room.name,
-						rcl: room.controller.level,
+						rcl: room.RCL,
 						Setup: 'isValidSetup',
 					},
 					'low RCL',
@@ -240,12 +240,12 @@ export class CreepSetup {
 	};
 
 	getRCL = (room, property) => {
-		const prop = this.RCL[room.controller.level][property];
+		const prop = this.RCL[room.RCL][property];
 		if (_.isFunction(prop)) {
-			// console.log(this.type, room.controller.level, property, prop(room))
+			// console.log(this.type, room.RCL, property, prop(room))
 			return prop(room);
 		}
-		// console.log(this.type, room.controller.level, property, prop)
+		// console.log(this.type, room.RCL, property, prop)
 		return prop;
 	};
 }

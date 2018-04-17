@@ -7,7 +7,7 @@ class PioneerBehaviour extends CreepBehaviour {
 	inflowActions = creep => Creep.behaviour.worker.inflowActions(creep);
 	outflowActions = creep => {
 		let priority;
-		if (creep.room.controller && creep.room.controller.level < 2) {
+		if (creep.room.controller && creep.room.RCL < 2) {
 			priority = [
 				Creep.action.feeding,
 				Creep.action.upgrading,
