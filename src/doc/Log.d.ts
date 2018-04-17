@@ -15,7 +15,9 @@ interface LogConstructor {
 
 	module(title: string, ...content: any[]): void;
 
-	room(room: Room, ...content: any[]): void;
+	room(room: Room | string, ...content: any[]): void;
+
+	flag(flag: Flag | string, ...content: any[]): void;
 
 	stringify(content: any): void;
 

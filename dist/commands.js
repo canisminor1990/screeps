@@ -9,28 +9,28 @@ Game.rooms['E8N45'].setStore(Game.rooms['E8N45'].terminal.id, 'OH', 10000);
 Game.rooms['E8N45'].setStore(Game.rooms['E8N45'].terminal.id, 'GH2O', 10000);
 // Market
 Game.market.createOrder(ORDER_SELL, 'OH', 2.5, 10000, 'E8N45');
-Game.market.extendOrder('5ad4ca0af7b7cd0aa4f926ad')
+Game.market.extendOrder('5ad4ca0af7b7cd0aa4f926ad');
 
 // E9N47: U | U + L => UL
 Game.rooms['E9N47'].placeReactionOrder(Game.rooms['E9N47'].terminal.id, 'UL', '20000');
 Game.rooms['E9N47'].setStore(Game.rooms['E9N47'].terminal.id, 'UL', 10000);
 // Market
 Game.market.createOrder(ORDER_SELL, 'UL', 2.5, 10000, 'E9N47');
-Game.market.extendOrder('5ad4ca0df7b7cd0aa4f92723')
+Game.market.extendOrder('5ad4ca0df7b7cd0aa4f92723');
 
 // E12N42: Z | Z + K => ZK
 Game.rooms['E12N42'].placeReactionOrder(Game.rooms['E12N42'].terminal.id, 'ZK', '20000');
 Game.rooms['E12N42'].setStore(Game.rooms['E12N42'].terminal.id, 'ZK', 10000);
 // Market
 Game.market.createOrder(ORDER_SELL, 'ZK', 2.5, 10000, 'E12N42');
-Game.market.extendOrder('5ad4ca13f7b7cd0aa4f9280c')
+Game.market.extendOrder('5ad4ca13f7b7cd0aa4f9280c');
 
 // E12N42: U | UL + ZK => G
 Game.rooms['E3N38'].placeReactionOrder(Game.rooms['E3N38'].terminal.id, 'G', '20000');
 Game.rooms['E3N38'].setStore(Game.rooms['E3N38'].terminal.id, 'G', 10000);
 // Market
 Game.market.createOrder(ORDER_SELL, 'G', 5, 10000, 'E3N38');
-Game.market.extendOrder('5ad4ca18f7b7cd0aa4f928f1')
+Game.market.extendOrder('5ad4ca18f7b7cd0aa4f928f1');
 
 // W2N41: H | G + H => GH
 Game.rooms['W2N41'].placeReactionOrder(Game.rooms['W2N41'].terminal.id, 'GH', '9000');

@@ -1,3 +1,6 @@
+/// ////////////////////////////////////
+// Structure
+/// ////////////////////////////////////
 interface Structure {
 	_towersSet: number;
 	_towers: string[];
@@ -5,60 +8,128 @@ interface Structure {
 	active: boolean;
 }
 
-interface StructureTower {
+/// ////////////////////////////////////
+// StructureContainer
+/// ////////////////////////////////////
+interface StructureContainer {
 	active: boolean;
+	_sumSet: number;
+	_sum: number;
+	sun: number;
+
+	getNeeds(resourceType: string): number;
 }
 
-interface StructureWall {
-	active: boolean;
-	isCriticallyFortifyable: boolean;
+/// ////////////////////////////////////
+// StructureController
+/// ////////////////////////////////////
+interface StructureController {
+	memory: any;
 }
 
+/// ////////////////////////////////////
+// StructureLab
+/// ////////////////////////////////////
+interface StructureLab {
+	active: boolean;
+
+	getNeeds(resourceType: string): number;
+}
+
+/// ////////////////////////////////////
+// StructureNuker
+/// ////////////////////////////////////
+interface StructureNuker {
+	getNeeds(resourceType: string): number;
+}
+
+/// ////////////////////////////////////
+// StructurePowerSpawn
+/// ////////////////////////////////////
+interface StructurePowerSpawn {
+	getNeeds(resourceType: string): number;
+}
+
+/// ////////////////////////////////////
+// StructureRampart
+/// ////////////////////////////////////
 interface StructureRampart {
 	active: boolean;
 	isCriticallyFortifyable: boolean;
 }
 
-interface StructureContainer {
-	active: boolean;
-}
-
+/// ////////////////////////////////////
+// StructureRoad
+/// ////////////////////////////////////
 interface StructureRoad {
 	active: boolean;
 }
 
-interface StructureController {
-	memory: any;
+/// ////////////////////////////////////
+// StructureSpawn
+/// ////////////////////////////////////
+interface StructureSpawnConstructor {
+	priorityHigh: string[];
+	priorityLow: string[];
+
+	register(): void;
+
+	handleSpawningCompleted(creep: Creep): void;
+
+	run(): void;
 }
 
+interface StructureSpawn {
+	run(): void | boolean;
+
+	createCreepBySetup(setup: obj): obj | null;
+
+	createCreepByQueue(queue: obj, level: string): null | boolean | number;
+
+	create(body: string[], name: string, behaviour: string, destiny: string): boolean;
+}
+
+/// ////////////////////////////////////
+// StructureStorage
+/// ////////////////////////////////////
 interface StructureStorage {
 	_sumSet: number;
 	_sum: number;
 	sun: number;
 	charge: number;
+
 	getNeeds(resourceType: string): number;
 }
 
+/// ////////////////////////////////////
+// StructureTerminal
+/// ////////////////////////////////////
 interface StructureTerminal {
 	_sumSet: number;
 	_sum: number;
 	sun: number;
 	charge: number;
+
 	getNeeds(resourceType: string): number;
 }
 
-interface StructureContainer {
-	_sumSet: number;
-	_sum: number;
-	sun: number;
-	getNeeds(resourceType: string): number;
+/// ////////////////////////////////////
+// StructureTower
+/// ////////////////////////////////////
+interface StructureTowerConstructor {
+	loop(room: Room): void;
+
+	run(tower: StructureTower): void;
 }
 
-interface StructureLab {
+interface StructureTower {
 	active: boolean;
-	getNeeds(resourceType: string): number;
 }
 
-interface StructurePowerSpawn {
-	getNeeds(resourceType: string): number;
+/// ////////////////////////////////////
+// StructureWall
+/// ////////////////////////////////////
+interface StructureWall {
+	active: boolean;
+	isCriticallyFortifyable: boolean;
 }

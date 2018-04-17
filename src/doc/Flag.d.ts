@@ -1,9 +1,38 @@
-declare const Flag: FlagConstructor;
+interface FlagList {
+	name: string;
+	color: string;
+	secondaryColor: string;
+	roomName: string;
+	x: number;
+	y: number;
+	cloaking: number;
+	filter?: FlagFilter;
+}
+interface FlagFilter {
+	color: string;
+	secondaryColor: string;
+}
 
 interface FlagConstructor {
-	stale: obj;
-	list: Flag[];
+	list: FlagList[];
+	stale: string[];
 
+	// Event
+	found: Event;
+	FlagRemoved: Event;
+
+	// Loop
+	fresh(): void;
+
+	register(): void;
+
+	analyze(): boolean;
+
+	run(): void;
+
+	cleanup(): void;
+
+	// Extend
 	flagFilter(flagColour: obj): obj | void;
 
 	findName(flagColor: Function | obj, pos: RoomPosition | Room, local?: boolean, mod?: Function, modArgs?: any): any;
@@ -39,4 +68,13 @@ interface FlagConstructor {
 	specialFlag(create: boolean): Flag;
 
 	isSpecialFlag(object: Flag): boolean;
+}
+
+interface Flag {
+	targetOf: CreepMemory[];
+	creeps: obj;
+	print: string;
+	cloaking: number;
+
+	compareTo(flag: Flag): boolean;
 }

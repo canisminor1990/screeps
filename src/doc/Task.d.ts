@@ -1,4 +1,4 @@
-interface TaskClass {
+interface TaskConstructor {
 	attackController: any;
 	claim: any;
 	defense: any;
@@ -14,4 +14,4 @@ interface TaskClass {
 	scheduler: any;
 }
 
-declare const Task: TaskClass;
+declare const Task: TaskConstructor;
