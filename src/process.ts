@@ -2,11 +2,27 @@ import { install } from './install';
 
 class Process {
 	public loop = () => {
+		CPU.fresh();
+
+		CPU.start('fresh');
 		this.fresh();
+		CPU.end('fresh');
+
+		CPU.start('register');
 		this.register();
+		CPU.end('register');
+
+		CPU.start('run');
 		this.run();
+		CPU.end('run');
+
+		CPU.start('cleanup');
 		this.cleanup();
+		CPU.end('cleanup');
+
+		CPU.start('addon');
 		this.addon();
+		CPU.end('addon');
 	};
 	public install = () => {
 		install();
@@ -29,9 +45,11 @@ class Process {
 		CMemory.fresh();
 	};
 	private analyze = () => {
+		CPU.start('analyze');
 		Flag.analyze();
 		Room.analyze();
 		Population.analyze();
+		CPU.end('analyze');
 	};
 	private register = () => {
 		// Room event hooks must be registered before analyze for costMatrixInvalid
@@ -44,12 +62,29 @@ class Process {
 	};
 	private run = () => {
 		// Execution
+		CPU.start('run', 'Room');
 		Room.run();
+		CPU.end('run', 'Room');
+
+		CPU.start('run', 'Flag');
 		Flag.run();
+		CPU.end('run', 'Flag');
+
+		CPU.start('run', 'Task');
 		Task.run();
+		CPU.end('run', 'Task');
+
+		CPU.start('run', 'Population');
 		Population.run();
+		CPU.end('run', 'Population');
+
+		CPU.start('run', 'Creep');
 		Creep.run();
+		CPU.end('run', 'Creep');
+
+		CPU.start('run', 'StructureSpawn');
 		StructureSpawn.run();
+		CPU.end('run', 'StructureSpawn');
 	};
 	private cleanup = () => {
 		Room.cleanup();

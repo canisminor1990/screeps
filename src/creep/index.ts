@@ -56,14 +56,16 @@ class CreepConstructor extends Component {
 				'Creep',
 				`${Game.time}: CPU Bucket level is critical (${Game.cpu.bucket}). Skipping non critical creep roles.`,
 			);
-		let run = creep => {
+		const work = (creep: Creep) => {
+			CPU.start('Creep', creep.name);
 			try {
 				creep.run();
 			} catch (e) {
 				Log.error(`[Creep] ${creep.name} ${e.stack || e.toString()}`, Log.stack());
 			}
+			CPU.end('Creep', creep.name);
 		};
-		_.forEach(Game.creeps, run);
+		_.forEach(Game.creeps, work);
 	};
 
 	isWorkingAge = creepData => {
@@ -73,21 +75,7 @@ class CreepConstructor extends Component {
 			(creepData.predictedRenewal || creepData.spawningTime || CREEP_LIFE_TIME) <= (c.ticksToLive || CREEP_LIFE_TIME)
 		);
 	};
-	run = () => {
-		if (Memory.CPU_CRITICAL)
-			Log.module(
-				'Creep',
-				`${Game.time}: CPU Bucket level is critical (${Game.cpu.bucket}). Skipping non critical creep roles.`,
-			);
-		const start = creep => {
-			try {
-				creep.run();
-			} catch (e) {
-				Log.error('[Creep]', creep.name, e.stack || e.toString(), Log.stack());
-			}
-		};
-		_.forEach(Game.creeps, start);
-	};
+
 	bodyCosts = body => {
 		let costs = 0;
 		if (body) {

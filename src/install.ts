@@ -18,6 +18,7 @@ export const install = () => {
 	ProtoypeInstall();
 	TravelerInstall();
 	Install(global, require('./global').default, {
+		CPU: require('./global/cpu').default,
 		Dye: require('./global/Dye').default,
 		Log: require('./global/Log').default,
 		CMemory: require('./global/CMemory').default,

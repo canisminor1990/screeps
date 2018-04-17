@@ -23,14 +23,7 @@ const Core = () => {
 	// start process
 	Process.loop();
 	Game.cacheTime = Game.time;
-	if (LOG_TRACE)
-		Log.trace('main', {
-			cpuAtLoad,
-			cpuAtFirstLoop,
-			cpuAtLoop,
-			cpuTick: Game.cpu.getUsed(),
-			main: 'cpu',
-		});
+	if (LOG_TRACE) Log.trace('main', Memory.cpu, `total-usage: ${Game.cpu.getUsed().toFixed(3)}`);
 };
 
 export const loop = ENV === 'production' ? Core : ErrorMapper.wrapLoop(Core);

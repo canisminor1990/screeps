@@ -130,7 +130,7 @@ class Log {
 				}
 			}
 		}
-		console.log(Dye(COLOR_ORANGE, `[${category}`), ...msg, '<br/>', Util.jsonToTable(entityWhere), this.stack());
+		console.log(Dye(COLOR_ORANGE, `[${category}]`), ...msg, '<br/>', Util.jsonToTable(entityWhere), this.stack());
 	}
 }
 
