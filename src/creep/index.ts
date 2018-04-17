@@ -57,7 +57,7 @@ class CreepConstructor extends Component {
 				`${Game.time}: CPU Bucket level is critical (${Game.cpu.bucket}). Skipping non critical creep roles.`,
 			);
 		const work = (creep: Creep) => {
-			CPU.start('Creep', creep.name);
+			CPU.check('Creep', creep.name);
 			try {
 				creep.run();
 			} catch (e) {

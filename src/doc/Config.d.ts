@@ -29,7 +29,7 @@ declare const ME: string;
 // new
 declare const LOG_LEVEL: string;
 declare const LOG_EMOJI: boolean;
-
+declare const CPU_CHECK: boolean;
 // old
 declare const CHATTY: boolean;
 declare const HONK: boolean;

@@ -4,23 +4,23 @@ class Process {
 	public loop = () => {
 		CPU.fresh();
 
-		CPU.start('fresh');
+		CPU.check('fresh');
 		this.fresh();
 		CPU.end('fresh');
 
-		CPU.start('register');
+		CPU.check('register');
 		this.register();
 		CPU.end('register');
 
-		CPU.start('run');
+		CPU.check('run');
 		this.run();
 		CPU.end('run');
 
-		CPU.start('cleanup');
+		CPU.check('cleanup');
 		this.cleanup();
 		CPU.end('cleanup');
 
-		CPU.start('addon');
+		CPU.check('addon');
 		this.addon();
 		CPU.end('addon');
 	};
@@ -45,7 +45,7 @@ class Process {
 		CMemory.fresh();
 	};
 	private analyze = () => {
-		CPU.start('analyze');
+		CPU.check('analyze');
 		Flag.analyze();
 		Room.analyze();
 		Population.analyze();
@@ -62,27 +62,27 @@ class Process {
 	};
 	private run = () => {
 		// Execution
-		CPU.start('run', 'Room');
+		CPU.check('run', 'Room');
 		Room.run();
 		CPU.end('run', 'Room');
 
-		CPU.start('run', 'Flag');
+		CPU.check('run', 'Flag');
 		Flag.run();
 		CPU.end('run', 'Flag');
 
-		CPU.start('run', 'Task');
+		CPU.check('run', 'Task');
 		Task.run();
 		CPU.end('run', 'Task');
 
-		CPU.start('run', 'Population');
+		CPU.check('run', 'Population');
 		Population.run();
 		CPU.end('run', 'Population');
 
-		CPU.start('run', 'Creep');
+		CPU.check('run', 'Creep');
 		Creep.run();
 		CPU.end('run', 'Creep');
 
-		CPU.start('run', 'StructureSpawn');
+		CPU.check('run', 'StructureSpawn');
 		StructureSpawn.run();
 		CPU.end('run', 'StructureSpawn');
 	};
