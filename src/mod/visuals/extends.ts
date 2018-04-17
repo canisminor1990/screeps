@@ -2,6 +2,22 @@ import { VisualsBase } from './base';
 
 export class VisualsExtends extends VisualsBase {
 	barStyle = { fill: '#2B2B2B', opacity: 0.8, stroke: '#000000' };
+	pieStyle = {
+		radius: 1.2,
+		fill: 'rgba(0,0,0,.5)',
+		stroke: 'rgba(255,255,255,.5)',
+	};
+	pieFontStyle = {
+		color: '#FFFFFF',
+		font: '0.8 Hack',
+		align: 'center',
+		stroke: 'rgba(0,0,0,0.8)',
+	};
+	pieTitleStyle = {
+		color: '#FFFFFF',
+		font: '0.6 Hack',
+		align: 'center',
+	};
 	creepPathStyle = creep => {
 		function randomColour() {
 			let c = '#';
@@ -34,11 +50,7 @@ export class VisualsExtends extends VisualsBase {
 		if (max !== 0) p = val / max;
 		const r = 1; // radius
 		center = { x: center.x, y: center.y * r * 4.5 };
-		vis.circle(center, {
-			radius: r + 0.1,
-			fill: '#000000',
-			stroke: 'rgba(255, 255, 255, 0.8)',
-		});
+		vis.circle(center, this.pieStyle);
 		const poly = [center];
 		const tau = 2 * Math.PI;
 		const surf = tau * (p + 0.1);
@@ -57,31 +69,10 @@ export class VisualsExtends extends VisualsBase {
 			stroke: colour,
 			strokeWidth: 0.05,
 		});
-		vis.text(Number.isFinite(inner) ? Util.formatNumber(inner) : inner, center.x, center.y + 0.33, {
-			color: '#FFFFFF',
-			font: '1 monospace',
-			align: 'center',
-			stroke: 'rgba(0, 0, 0, 0.8)',
-			strokeWidth: 0.08,
-		});
+		vis.text(Number.isFinite(inner) ? Util.formatNumber(inner) : inner, center.x, center.y + 0.3, this.pieFontStyle);
 		let yoff = 0.7;
 		if (p > 0.35 && p < 0.65) yoff += 0.3;
-		vis.text(title, center.x, center.y + r + yoff, {
-			color: '#FFFFFF',
-			font: '0.6 monospace',
-			align: 'center',
-		});
-		const lastpol = poly[poly.length - 2];
-		vis.text(
-			'' + Math.floor(p * 100) + '%',
-			lastpol.x + (lastpol.x - center.x) * 0.7,
-			lastpol.y + (lastpol.y - center.y) * 0.4 + 0.1,
-			{
-				color: WHITE,
-				font: '0.4 monospace',
-				align: 'center',
-			},
-		);
+		vis.text(title, center.x, center.y + 1.5 + yoff, this.pieTitleStyle);
 	};
 	drawLine = (from, to, style) => {
 		if (from instanceof RoomObject) from = from.pos;

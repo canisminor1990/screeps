@@ -22,13 +22,11 @@ module.exports = {
 	SELL_NOTIFICATION: true, // send mail when selling minerals
 	SPAWN_INTERVAL: 5, // loops between regular spawn probe
 	ROOM_VISUALS: true, // display basic room statistics with RoomVisuals
-	ROOM_VISUALS_ALL: true, // displays visuals in all rooms you have vision in. Only your rooms when false.
+	ROOM_VISUALS_ALL: false, // displays visuals in all rooms you have vision in. Only your rooms when false.
 	VISUALS: {
 		// if ROOM_VISUALS is enabled, you can select what you want to display - All is a bit much for some people.
 		VISIBLE_ONLY: false, // depends on userscript: https://github.com/Esryok/screeps-browser-ext/blob/master/visible-room-tracker.user.js
-		ROOM: false, // displays basic info relative to the room
-		ROOM_GLOBAL: false, // displays basic info relative to your account - requires ROOM: true
-		INFO_PIE_CHART: false, // replaces the info bars with pie charts
+		ROOM: true, // displays basic info relative to the room
 		CPU: false, // display a graph containing CPU used, CPU limit, and bucket
 		ROOM_ORDERS: true, // display orders the room creates
 		ROOM_OFFERS: true, // display what a room will offer another
@@ -188,20 +186,20 @@ module.exports = {
 	MINER_WORK_THRESHOLD: 50, // how long to wait before a miner checks for repairs/construction sites nearby again
 	REMOTE_HAULER: {
 		ALLOW_OVER_CAPACITY: 2450, // Hauler capacity rounds up by MIN_WEIGHT, or this number value.
-		DRIVE_BY_BUILD_ALL: false, // If REMOTE_HAULER.DRIVE_BY_BUILDING is enabled then this option will allow remote haulers will drive-by-build any of your structures.
-		DRIVE_BY_BUILD_RANGE: 2, // A creep's max build distance is 3 but cpu can be saved by dropping the search distance to 1.
+		DRIVE_BY_BUILD_ALL: true, // If REMOTE_HAULER.DRIVE_BY_BUILDING is enabled then this option will allow remote haulers will drive-by-build any of your structures.
+		DRIVE_BY_BUILD_RANGE: 1, // A creep's max build distance is 3 but cpu can be saved by dropping the search distance to 1.
 		DRIVE_BY_BUILDING: true, // Allows remote haulers to build roads and containers. Consider setting REMOTE_WORKER_MULTIPLIER to 0.
 		DRIVE_BY_REPAIR_RANGE: 2, // range that remote haulers should search when trying to repair and move
 		MIN_LOAD: 0.75, // Haulers will return home as long as their ratio of carrying/capacity is above this amount.
 		MIN_WEIGHT: 800, // Small haulers are a CPU drain.
-		MULTIPLIER: 4, // Max number of haulers spawned per source in a remote mining room.
+		MULTIPLIER: 3, // Max number of haulers spawned per source in a remote mining room.
 		REHOME: true, // May haulers choose closer storage for delivery?
 	},
 	TASK_CREEP_CHECK_INTERVAL: 250, // Maximum number of ticks before a task checks to see if it needs to spawn new creeps
 	REMOTE_RESERVE_HAUL_CAPACITY: 0.1, // Percent of allocated haul capacity before sending reservers.
 	PIONEER_UNOWNED: false, // True: pioneers may attempt to work in unowned rooms.
 	DRIVE_BY_REPAIR_RANGE: 2, // range that creeps should search when trying to repair and move
-	REMOTE_WORKER_MULTIPLIER: 1, // Number of workers spawned per remote mining room.
+	REMOTE_WORKER_MULTIPLIER: 0, // Number of workers spawned per remote mining room.
 	PLAYER_WHITELIST: ['sourwafer', 'Ruonyy', 'CaptainMuscles'],
 	// Don't attack. Must be a member of CCC for permanent whitelisting in git repository. But you can change your own copy... Please ask if you are interested in joining CCC :)
 	DEFENSE_BLACKLIST: [], // Don't defend those rooms (add room names). Blocks spawning via defense task (will not prevent offensive actions at all)

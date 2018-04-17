@@ -1,10 +1,9 @@
+import { Emoji } from '../../util';
 import { VisualsExtends } from './extends';
 import Sidebar from './sidebar';
 import ToolTip from './toolTip';
 import HeatMap from './heatMap';
 
-const BLACK = '#000000';
-const WHITE = '#FFFFFF';
 const YELLOW = '#FFFF00';
 const CYAN = '#00FFFF';
 
@@ -80,169 +79,9 @@ class VisualsConstructor extends VisualsExtends {
 
 		if (VISUALS.ROOM_GLOBAL) {
 			if (VISUALS.CPU) this.collectSparklineStats();
-			this.drawGlobal();
 		}
 	};
 
-	drawGlobal = () => {
-		const vis = this.vis;
-		const bufferWidth = 1;
-		if (!VISUALS.INFO_PIE_CHART) {
-			const sectionWidth = 49 / 5;
-			const BAR_STYLE = this.barStyle;
-
-			let x = bufferWidth;
-			let y = 2;
-			const BAR_Y = y - 0.75;
-			if (VISUALS.ROOM) {
-				// GCL
-				x = bufferWidth * 2 + sectionWidth;
-				const GCL_PERCENTAGE = Game.gcl.progress / Game.gcl.progressTotal;
-				this.drawBar(
-					vis,
-					GCL_PERCENTAGE,
-					x,
-					BAR_Y,
-					sectionWidth,
-					1,
-					`GCL: ${Game.gcl.level} (${(GCL_PERCENTAGE * 100).toFixed(2)}%)`,
-					{
-						fill: this.getColourByPercentage(GCL_PERCENTAGE, true),
-						opacity: BAR_STYLE.opacity,
-					},
-				);
-
-				// CPU
-				x += sectionWidth + bufferWidth;
-				const CPU_PERCENTAGE = Game.cpu.getUsed() / Game.cpu.limit;
-				const FUNCTIONAL_CPU_PERCENTAGE = Math.min(1, CPU_PERCENTAGE);
-				this.drawBar(
-					vis,
-					FUNCTIONAL_CPU_PERCENTAGE,
-					x,
-					BAR_Y,
-					sectionWidth,
-					1,
-					`CPU: ${(CPU_PERCENTAGE * 100).toFixed(2)}%`,
-					{
-						fill: this.getColourByPercentage(FUNCTIONAL_CPU_PERCENTAGE),
-						opacity: BAR_STYLE.opacity,
-					},
-				);
-
-				// BUCKET
-				x += sectionWidth + bufferWidth;
-				const BUCKET_PERCENTAGE = Math.min(1, Game.cpu.bucket / 10000);
-				this.drawBar(vis, BUCKET_PERCENTAGE, x, BAR_Y, sectionWidth, 1, `Bucket: ${Game.cpu.bucket}`, {
-					fill: this.getColourByPercentage(BUCKET_PERCENTAGE, true),
-					opacity: BAR_STYLE.opacity,
-				});
-
-				// TICK
-				x += sectionWidth + bufferWidth;
-				vis.text(`Tick: ${Game.time}`, x, y, { align: 'left' });
-
-				//  Second Row
-				x = bufferWidth * 2 + sectionWidth;
-				y += 1.5;
-
-				//  SPAWN CAPACITY UTILIZATION (SCU)
-				const spawnCount = _.size(Game.spawns);
-				let count = _(Game.spawns)
-					.filter('spawning')
-					.size();
-				count += _(Game.rooms)
-					.map(r => r.spawnQueueHigh.concat(r.spawnQueueMedium, r.spawnQueueLow))
-					.flatten()
-					.size();
-				const SCU_PERCENTAGE = count / spawnCount;
-				this.drawBar(
-					vis,
-					Math.min(1, SCU_PERCENTAGE),
-					x,
-					y - 0.75,
-					sectionWidth,
-					1,
-					`SCU: ${(SCU_PERCENTAGE * 100).toFixed(2)}%`,
-					{
-						fill: this.getColourByPercentage(Math.min(1, SCU_PERCENTAGE)),
-						opacity: BAR_STYLE.opacity,
-					},
-				);
-			}
-		} else {
-			let x = bufferWidth + 1;
-			let y = 0.5;
-			// GCL
-			this.drawPie(
-				vis,
-				Math.round(Game.gcl.progress),
-				Game.gcl.progressTotal,
-				`GCL ${Game.gcl.level}`,
-				this.getColourByPercentage(Game.gcl.progress / Game.gcl.progressTotal, true),
-				{ x, y: y++ },
-			);
-
-			// CPU
-			const CPU_PERCENTAGE = Game.cpu.getUsed() / Game.cpu.limit;
-			const FUNCTIONAL_CPU_PERCENTAGE = Math.min(1, CPU_PERCENTAGE);
-			this.drawPie(
-				vis,
-				Math.round(Game.cpu.getUsed()),
-				Game.cpu.limit,
-				'CPU',
-				this.getColourByPercentage(FUNCTIONAL_CPU_PERCENTAGE),
-				{ x, y: y++ },
-			);
-
-			// BUCKET
-			this.drawPie(
-				vis,
-				Game.cpu.bucket,
-				10000,
-				'Bucket',
-				this.getColourByPercentage(Math.min(1, Game.cpu.bucket / 10000), true),
-				{ x, y: y++ },
-			);
-
-			//  SPAWN CAPACITY UTILIZATION (SCU)
-			const spawnCount = _.size(Game.spawns);
-			let count = _(Game.spawns)
-				.filter('spawning')
-				.size();
-			count += _(Game.rooms)
-				.map(r => r.spawnQueueHigh.concat(r.spawnQueueMedium, r.spawnQueueLow))
-				.flatten()
-				.size();
-			const SCU_PERCENTAGE = count / spawnCount;
-			this.drawPie(vis, SCU_PERCENTAGE, 1, 'SCU', this.getColourByPercentage(SCU_PERCENTAGE), {
-				x,
-				y: y++,
-			});
-
-			// TICK
-			y += 15;
-			vis.text('Tick', x, y++, {
-				color: WHITE,
-				align: 'center',
-			});
-			vis.text(Game.time, x, y++, {
-				color: WHITE,
-				align: 'center',
-			});
-		}
-		if (VISUALS.CPU) {
-			this.drawSparkline(
-				undefined,
-				1.5,
-				46.5,
-				20,
-				2,
-				_.map(Memory.visualStats.cpu, (v, i) => Memory.visualStats.cpu[i]),
-				this.sparklineStyle,
-			);
-		}
-	};
 	collectSparklineStats = () => {
 		Util.set(Memory, 'visualStats.cpu', []);
 		Memory.visualStats.cpu.push({
@@ -256,107 +95,54 @@ class VisualsConstructor extends VisualsExtends {
 	};
 	drawRoomInfo = room => {
 		const vis = new RoomVisual(room.name);
-		let x;
-		let y = 0;
+		const color = '#62e6ac';
 		// Room Name: centered middle
-		vis.text(`Room: ${vis.roomName}`, 24.5, ++y);
-		// Displays bars: RCL, Room Energy
-		const bufferWidth = 1;
-		if (!VISUALS.INFO_PIE_CHART) {
-			const sectionWidth = 49 / 5;
-			const BAR_STYLE = this.barStyle;
+		vis.text(`${Emoji.home}${vis.roomName}`, 24.5, 1.5, {
+			font: '1 Hack',
+			backgroundColor: 'rgba(0,0,0,.5)',
+		});
 
-			// RCL
-			x = bufferWidth;
-			y++;
-			let text;
-			let RCL_PERCENTAGE;
-			if (room.RCL === 8) {
-				RCL_PERCENTAGE = 1;
-				text = 'RCL: 8';
-			} else if (room.controller.reservation) {
-				RCL_PERCENTAGE = 0;
-				text = `Reserved: ${room.controller.reservation.ticksToEnd}`;
-			} else if (room.controller.owner) {
-				RCL_PERCENTAGE = Math.min(1, room.controller.progress / room.controller.progressTotal);
-				text = `RCL: ${room.RCL} (${(RCL_PERCENTAGE * 100).toFixed(2)}%)`;
-			} else {
-				RCL_PERCENTAGE = 0;
-				text = `Unowned`;
-			}
-			this.drawBar(vis, RCL_PERCENTAGE, x, y - 0.75, sectionWidth, 1, text, {
-				fill: this.getColourByPercentage(RCL_PERCENTAGE, true),
-				opacity: BAR_STYLE.opacity,
-			});
+		let x = 47;
+		let y = 0.5;
 
-			if (VISUALS.ROOM_GLOBAL) {
-				// New line
-				y += 1.5;
+		// CPU
+		const CPU_PERCENTAGE = Game.cpu.getUsed() / Game.cpu.limit;
+		const FUNCTIONAL_CPU_PERCENTAGE = Math.min(1, CPU_PERCENTAGE);
+		this.drawPie(vis, Math.round(Game.cpu.getUsed()), Game.cpu.limit, 'CPU', color, { x, y: y++ });
 
-				x = bufferWidth;
-			} else {
-				x += sectionWidth + bufferWidth;
-			}
+		// BUCKET
+		this.drawPie(vis, Game.cpu.bucket, 10000, 'Bucket', color, { x, y: y++ });
 
-			// Display Energy Available
-			if (!room.controller.reservation && room.controller.owner) {
-				const ENERGY_PERCENTAGE = room.energyAvailable / room.energyCapacityAvailable || 0;
-				this.drawBar(
-					vis,
-					ENERGY_PERCENTAGE,
-					x,
-					y - 0.75,
-					sectionWidth,
-					1,
-					`Energy: ${room.energyAvailable}/${room.energyCapacityAvailable} (${(ENERGY_PERCENTAGE * 100).toFixed(2)}%)`,
-					{
-						fill: this.getColourByPercentage(ENERGY_PERCENTAGE, true),
-						opacity: BAR_STYLE.opacity,
-					},
-				);
-			}
+		// GCL
+		this.drawPie(vis, Math.round(Game.gcl.progress), Game.gcl.progressTotal, `GCL ${Game.gcl.level}`, color, {
+			x,
+			y: y++,
+		});
+
+		// RCL
+		let val;
+		let max;
+		let title = 'RCL';
+		let inner = room.RCL;
+		let display = true;
+		if (room.RCL === 8) {
+			val = 1;
+			max = 1;
+		} else if (room.controller.reservation) {
+			val = room.controller.reservation.ticksToEnd;
+			max = 5000;
+		} else if (room.controller.owner) {
+			val = Math.min(room.controller.progress, room.controller.progressTotal);
+			max = room.controller.progressTotal;
+			title += ` ${room.RCL}`;
 		} else {
-			let x = bufferWidth + 1;
-			let y = 0.5;
-			if (VISUALS.ROOM_GLOBAL) {
-				x += 4;
-			}
+			display = false;
+		}
+		if (display) this.drawPie(vis, val, max, title, color, { x, y: y++ }, inner);
 
-			// RCL
-			let val;
-			let max;
-			let title = 'RCL';
-			let inner;
-			if (room.RCL === 8) {
-				val = 1;
-				max = 1;
-				inner = ' ';
-			} else if (room.controller.reservation) {
-				val = room.controller.reservation.ticksToEnd;
-				max = 5000;
-			} else if (room.controller.owner) {
-				val = Math.min(room.controller.progress, room.controller.progressTotal);
-				max = room.controller.progressTotal;
-				title += ` ${room.RCL}`;
-			} else {
-				val = 0;
-				max = 1;
-				inner = 'N/A';
-			}
-			this.drawPie(vis, val, max, title, this.getColourByPercentage(val / max, true), { x, y: y++ }, inner);
-
-			// Energy Available
-			if (!room.controller.reservation && room.controller.owner) {
-				const PERCENTAGE = room.energyAvailable / room.energyCapacityAvailable || 0;
-				this.drawPie(
-					vis,
-					room.energyAvailable,
-					room.energyCapacityAvailable,
-					'Energy',
-					this.getColourByPercentage(PERCENTAGE, true),
-					{ x, y: y++ },
-				);
-			}
+		// Energy Available
+		if (!room.controller.reservation && room.controller.owner) {
+			this.drawPie(vis, room.storage.sum, room.storage.storeCapacity, 'Store', color, { x, y: y++ });
 		}
 	};
 

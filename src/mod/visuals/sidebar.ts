@@ -3,24 +3,24 @@ import { VisualsBase } from './base';
 class Sidebar extends VisualsBase {
 	infoStyle = {
 		align: 'left',
-		font: '0.8 Menlo',
+		font: '0.8 Hack',
 		backgroundColor: 'rgba(0,0,0,.5)',
 	};
 	objectStyle = {
 		align: 'left',
-		font: '0.6 Menlo',
+		font: '0.6 Hack',
 		backgroundColor: 'rgba(0,0,0,.1)',
 		backgroundPadding: '0.2',
 	};
 	titleStyle = {
 		align: 'left',
-		font: 'bold 0.5 Menlo',
+		font: 'bold 0.5 Hack',
 		color: 'rgba(0,0,0,.7)',
 		backgroundPadding: '0.2',
 	};
 	subStyle = {
 		align: 'left',
-		font: '0.4 Menlo',
+		font: '0.4 Hack',
 		opacity: '0.7',
 	};
 	yPading = 3;

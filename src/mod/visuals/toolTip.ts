@@ -4,7 +4,7 @@ import { VisualsBase } from './base';
 class ToolTip extends VisualsBase {
 	toolTipStyle: TextStyle = {
 		align: 'left',
-		font: '0.4 Menlo',
+		font: '0.4 Hack',
 		backgroundColor: 'rgba(0,0,0,.5)',
 	};
 	weakestStyle: CircleStyle = {
