@@ -1,9 +1,9 @@
 declare const CPU: CPUConstructor;
 
 interface CPUConstructor {
-	check(n: string): void;
+	check(n: string, ...module?: string[]): void;
 
-	end(n: string): void;
+	end(n: string, ...module?: string[]): void;
 
 	fresh(): void;
 

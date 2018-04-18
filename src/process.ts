@@ -16,9 +16,7 @@ class Process {
 		this.cleanup();
 		CPU.end('cleanup');
 
-		CPU.check('addon');
 		this.addon();
-		CPU.end('addon');
 
 		CPU.handleData();
 	};
