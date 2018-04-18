@@ -61,8 +61,12 @@ class RoomConstructor extends Component {
 	analyze = () => {
 		// run analyze in each of our submodules
 		for (const key of Object.keys(Room.manager)) {
+			CPU.check('analyze', 'Room', key);
 			if (Room.manager[key].analyze) Room.manager[key].analyze();
+			CPU.end('analyze', 'Room', key);
 		}
+
+		CPU.check('analyze', 'Room', 'getEnvironment');
 		const getEnvironment = room => {
 			try {
 				// run analyzeRoom in each of our submodules
@@ -91,6 +95,7 @@ class RoomConstructor extends Component {
 			if (r.skip) return;
 			getEnvironment(r);
 		});
+		CPU.end('analyze', 'Room', 'getEnvironment');
 	};
 	run = () => {
 		// run run in each of our submodules
