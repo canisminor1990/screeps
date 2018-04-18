@@ -60,11 +60,11 @@ class RoomConstructor extends Component {
 	};
 	analyze = () => {
 		// run analyze in each of our submodules
+		CPU.check('analyze', 'Room', 'Manager');
 		for (const key of Object.keys(Room.manager)) {
-			CPU.check('analyze', 'Room', key);
 			if (Room.manager[key].analyze) Room.manager[key].analyze();
-			CPU.end('analyze', 'Room', key);
 		}
+		CPU.end('analyze', 'Room', 'Manager');
 
 		CPU.check('analyze', 'Room', 'getEnvironment');
 		const getEnvironment = room => {
@@ -99,11 +99,15 @@ class RoomConstructor extends Component {
 	};
 	run = () => {
 		// run run in each of our submodules
+		CPU.check('run', 'Room', 'Manager');
 		for (const key of Object.keys(Room.manager)) {
 			if (CPU_CHECK_CONFIG.MANAGER) CPU.check('Manager', key);
 			if (Room.manager[key].run) Room.manager[key].run();
 			if (CPU_CHECK_CONFIG.MANAGER) CPU.end('Manager', key);
 		}
+		CPU.check('run', 'Room', 'Manager');
+
+		CPU.check('run', 'Room', 'Work');
 		const work = (memory, roomName) => {
 			try {
 				// run runRoom in each of our submodules
@@ -134,6 +138,7 @@ class RoomConstructor extends Component {
 				delete Memory.rooms[roomName];
 			}
 		});
+		CPU.check('run', 'Room', 'Work');
 	};
 	cleanup = () => {
 		// run cleanup in each of our submodules
