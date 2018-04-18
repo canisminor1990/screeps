@@ -67,7 +67,7 @@ class RoomConstructor extends Component {
 		const getEnvironment = room => {
 			try {
 				const roomName = room.name;
-				const check = CPU_CHECK && _.includes(CPU_CHECK_CONFIG.ROOM, roomName);
+				const check = _.includes(CPU_CHECK_CONFIG.ROOM, roomName);
 				// run analyzeRoom in each of our submodules
 				for (const key of Object.keys(Room.manager)) {
 					if (check) CPU.check('analyze', roomName, key);
@@ -109,7 +109,7 @@ class RoomConstructor extends Component {
 		}
 		const work = (memory, roomName) => {
 			try {
-				const check = CPU_CHECK && _.includes(CPU_CHECK_CONFIG.ROOM, roomName);
+				const check = _.includes(CPU_CHECK_CONFIG.ROOM, roomName);
 				// run runRoom in each of our submodules
 				for (const key of Object.keys(Room.manager)) {
 					if (check) CPU.check('run', roomName, key);
