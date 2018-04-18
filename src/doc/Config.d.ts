@@ -18,6 +18,7 @@ interface baseMineralNumber {
 	Z: number;
 	X: number;
 }
+
 // webpack
 declare const BUILD_TIME: string;
 declare const ENV: string;
@@ -30,6 +31,10 @@ declare const ME: string;
 declare const LOG_LEVEL: string;
 declare const LOG_EMOJI: boolean;
 declare const CPU_CHECK: boolean;
+declare const CPU_CHECK_CONFIG: {
+	CREEP: boolean;
+	ROOM: string[];
+};
 // old
 declare const CHATTY: boolean;
 declare const HONK: boolean;
