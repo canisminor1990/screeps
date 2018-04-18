@@ -1,41 +1,5 @@
 // save original API functions
-RoomPosition.prototype._lookFor = RoomPosition.prototype.lookFor;
 Object.defineProperties(RoomPosition.prototype, {
-	lookFor: {
-		value(type: LookConstant, timeout: number = 1): any[] {
-			if (type === LOOK_TERRAIN) timeout = 10000;
-			const pos = `X${this.x}Y${this.y}`;
-			const cacheResult = _.get(Memory.rooms[this.roomName], ['_lookFor', pos, type]) as LookForCache;
-			if (!_.isUndefined(cacheResult) && Game.time - cacheResult.time <= timeout) {
-				switch (type) {
-					case LOOK_TERRAIN:
-						return cacheResult.value;
-					case LOOK_FLAGS:
-						return Util.getGame.flagsByNameArray(cacheResult.value);
-					default:
-						return Util.getGame.objsByIdArray(cacheResult.value);
-				}
-			}
-			const result = this._lookFor(type);
-			let value: any[];
-			switch (type) {
-				case LOOK_TERRAIN:
-					value = result[0];
-					break;
-				case LOOK_FLAGS:
-					value = Util.getGame.flagsToNameArray(result);
-					break;
-				default:
-					value = Util.getGame.objsToIdArray(result);
-					break;
-			}
-			_.set(Memory.rooms[this.roomName], ['_lookFor', pos, type], {
-				time: Game.time,
-				value: value,
-			});
-			return result;
-		},
-	},
 	adjacent: {
 		get(): number {
 			if (_.isUndefined(this._adjacent)) {

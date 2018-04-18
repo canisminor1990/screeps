@@ -8,29 +8,33 @@ class StructureTowerConstructor extends Component {
 	run = (tower: StructureTower): void => {
 		if (tower) {
 			// TODO: convert to action pattern
-			if (tower.room.casualties.length > 0) {
+			const room = tower.room;
+			const casualties = room.casualties;
+			if (casualties.length > 0) {
 				// Heal
-				let target = tower.room.casualties[0];
-				if (target.hitsMax - target.hits >= 400 || !tower.room.situation.invasion) {
+				let target = casualties[0];
+				if (target.hitsMax - target.hits >= 400 || !room.situation.invasion) {
 					tower.heal(target);
-					if (target.towers === undefined) target.towers = [];
+					if (_.isUndefined(target.towers)) target.towers = [];
 					target.towers.push(tower.id);
 					return;
 				}
 			}
-			if (tower.room.structures.urgentRepairable.length > 0) {
+			const urgentRepairable = room.structures.urgentRepairable;
+			if (urgentRepairable.length > 0) {
 				// urgent Repair
-				let target = tower.room.structures.urgentRepairable[0];
+				let target = urgentRepairable[0];
 				tower.repair(target);
-				if (target.towers === undefined) target.towers = [];
+				if (_.isUndefined(target.towers)) target.towers = [];
 				target.towers.push(tower.id);
 				return;
 			}
 
-			let closestHostile = tower.pos.findClosestByRange(tower.room.hostiles) as Creep;
-			if (closestHostile) {
-				// Attack
-				tower.attack(closestHostile);
+			const hostiles = room.hostiles;
+			if (hostiles.length > 0) {
+				// attack
+				let closestHostile = tower.pos.findClosestByRange(room.hostiles) as Creep;
+				if (closestHostile) tower.attack(closestHostile);
 			}
 		}
 	};

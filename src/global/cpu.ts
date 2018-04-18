@@ -81,7 +81,7 @@ export default {
 		Log.trace('CPU', report, `usage: ${cpuRepot} | avg: ${cpus.length} ticks`);
 	},
 	reportOnce(): void {
-		if (Object.keys(Memory.cpu).length === 0) {
+		if (Object.keys(Memory.cpu.loop).length === 0) {
 			if (!CPU.status()) CPU.start();
 			Log.info('CPU wait data...');
 			return;
