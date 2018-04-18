@@ -7,8 +7,7 @@ module.exports = {
 	CPU_CHECK: false,
 	CPU_CHECK_CONFIG: {
 		CREEP: false,
-		ROOM: false,
-		MANAGER: false,
+		ROOM: ['E8N45'],
 	},
 	// Old
 	CHATTY: false, // creeps say their current action

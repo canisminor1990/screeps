@@ -66,16 +66,21 @@ class RoomConstructor extends Component {
 
 		const getEnvironment = room => {
 			try {
+				const roomName = room.name;
+				const check = CPU_CHECK && _.includes(CPU_CHECK_CONFIG.MANAGER, roomName);
 				// run analyzeRoom in each of our submodules
 				for (const key of Object.keys(Room.manager)) {
-					CPU.check('analyze', room.name, key);
+					if (check) CPU.check('analyze', roomName, key);
 					if (Room.manager[key].analyzeRoom) Room.manager[key].analyzeRoom(room, this.needMemoryResync(room));
-					CPU.end('analyze', room.name, key);
+					if (check) CPU.end('analyze', roomName, key);
 				}
-				CPU.check('analyze', room.name, 'SitesChanged');
+				if (check) CPU.check('analyze', roomName, 'countMySites');
 				if (this.totalSitesChanged()) room.countMySites();
+				if (check) CPU.end('analyze', room.name, 'countMySites');
+
+				if (check) CPU.check('analyze', roomName, 'countMyStructures');
 				if (this.totalStructuresChanged()) room.countMyStructures();
-				CPU.end('analyze', room.name, 'SitesChanged');
+				if (check) CPU.end('analyze', room.name, 'countMyStructures');
 				room.checkRCL();
 			} catch (err) {
 				Game.notify(
@@ -100,19 +105,18 @@ class RoomConstructor extends Component {
 	run = () => {
 		// run run in each of our submodules
 		for (const key of Object.keys(Room.manager)) {
-			if (CPU_CHECK_CONFIG.MANAGER) CPU.check('Manager', key);
 			if (Room.manager[key].run) Room.manager[key].run();
-			if (CPU_CHECK_CONFIG.MANAGER) CPU.end('Manager', key);
 		}
 		const work = (memory, roomName) => {
 			try {
+				const check = CPU_CHECK && _.includes(CPU_CHECK_CONFIG.MANAGER, roomName);
 				// run runRoom in each of our submodules
 				for (const key of Object.keys(Room.manager)) {
-					CPU.check('run', roomName, key);
+					if (check) CPU.check('run', roomName, key);
 					if (Room.manager[key].runRoom) Room.manager[key].runRoom(memory, roomName);
-					CPU.end('run', roomName, key);
+					if (check) CPU.end('run', roomName, key);
 				}
-				CPU.check('run', roomName, 'collapsed');
+				if (check) CPU.check('run', roomName, 'collapsed');
 				const room = Game.rooms[roomName];
 				if (room) {
 					// has sight
@@ -120,7 +124,7 @@ class RoomConstructor extends Component {
 						Room.collapsed.trigger(room);
 					}
 				}
-				CPU.end('run', roomName, 'collapsed');
+				if (check) CPU.end('run', roomName, 'collapsed');
 			} catch (e) {
 				Log.error(e.stack || e.message);
 			}
