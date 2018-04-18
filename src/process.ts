@@ -8,13 +8,9 @@ class Process {
 		this.fresh();
 		CPU.end('fresh');
 
-		CPU.check('register');
 		this.register();
-		CPU.end('register');
 
-		CPU.check('run');
 		this.run();
-		CPU.end('run');
 
 		CPU.check('cleanup');
 		this.cleanup();
@@ -47,20 +43,38 @@ class Process {
 		CMemory.fresh();
 	};
 	private analyze = () => {
-		CPU.check('analyze');
+		CPU.check('analyze', 'Flag');
 		Flag.analyze();
+		CPU.end('analyze', 'Flag');
+
+		CPU.check('analyze', 'Room');
 		Room.analyze();
+		CPU.check('analyze', 'Room');
+
+		CPU.check('analyze', 'Population');
 		Population.analyze();
-		CPU.end('analyze');
+		CPU.end('analyze', 'Population');
 	};
 	private register = () => {
+		CPU.check('register', 'Room');
 		// Room event hooks must be registered before analyze for costMatrixInvalid
 		Room.register();
+		CPU.end('register', 'Room');
+
 		this.analyze();
 		// Register event hooks
+
+		CPU.check('register', 'Task');
 		Task.register();
+		CPU.end('register', 'Task');
+
+		CPU.check('register', 'Creep');
 		Creep.register();
+		CPU.end('register', 'Creep');
+
+		CPU.check('register', 'StructureSpawn');
 		StructureSpawn.register();
+		CPU.end('register', 'StructureSpawn');
 	};
 	private run = () => {
 		// Execution
@@ -104,8 +118,13 @@ class Process {
 			Util.processReports();
 		}
 		// Mod
+		CPU.check('addon', 'Visuals');
 		if (ROOM_VISUALS && !Memory.CPU_CRITICAL) Visuals.run();
+		CPU.end('addon', 'Visuals');
+
+		CPU.check('addon', 'Grafana');
 		if (GRAFANA && Game.time % GRAFANA_INTERVAL === 0) Grafana.run();
+		CPU.end('addon', 'Grafana');
 	};
 }
 

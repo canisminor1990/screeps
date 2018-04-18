@@ -14,4 +14,6 @@ interface CPUConstructor {
 	status(): void;
 
 	report(): void;
+
+	handleData: void;
 }

@@ -95,9 +95,9 @@ class RoomConstructor extends Component {
 	run = () => {
 		// run run in each of our submodules
 		for (const key of Object.keys(Room.manager)) {
-			CPU.check('Manager', key);
+			if (CPU_CHECK_CONFIG.MANAGER) CPU.check('Manager', key);
 			if (Room.manager[key].run) Room.manager[key].run();
-			CPU.end('Manager', key);
+			if (CPU_CHECK_CONFIG.MANAGER) CPU.end('Manager', key);
 		}
 		const work = (memory, roomName) => {
 			try {
@@ -117,9 +117,9 @@ class RoomConstructor extends Component {
 			}
 		};
 		_.forEach(Memory.rooms, (memory, roomName) => {
-			CPU.check('Room', roomName);
+			if (CPU_CHECK_CONFIG.ROOM) CPU.check('Room', roomName);
 			work(memory, roomName);
-			CPU.end('Room', roomName);
+			if (CPU_CHECK_CONFIG.ROOM) CPU.end('Room', roomName);
 			if (
 				Game.time % MEMORY_RESYNC_INTERVAL === 0 &&
 				!Game.rooms[roomName] &&

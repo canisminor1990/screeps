@@ -5,6 +5,11 @@ module.exports = {
 	LOG_EMOJI: true,
 	LOG_TRACE: false, // use Memory.debugTrace for low-level information,
 	CPU_CHECK: false,
+	CPU_CHECK_CONFIG: {
+		CREEP: false,
+		ROOM: false,
+		MANAGER: false,
+	},
 	// Old
 	CHATTY: false, // creeps say their current action
 	HONK: true, // HONK when stored path is blocked by other creeps
