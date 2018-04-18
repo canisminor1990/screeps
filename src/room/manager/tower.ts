@@ -4,18 +4,13 @@ class TowerManager extends RoomManager {
 	constructor() {
 		super('tower');
 	}
+
 	analyzeRoom = (room, needMemoryResync) => {
-		if (needMemoryResync) {
-			room.saveTowers();
-		}
+		if (needMemoryResync) room.saveTowers();
 	};
 	runRoom = (memory, roomName) => {
 		const room = Game.rooms[roomName];
-		if (room) {
-			if (room.structures.towers.length > 0) {
-				StructureTower.loop(room);
-			}
-		}
+		if (room && room.structures.towers.length > 0) StructureTower.loop(room);
 	};
 	prototypeExtend = () => {
 		this.assignRoomPrototype({

@@ -9,6 +9,11 @@ class Process {
 		this.cleanup();
 		this.addon();
 		CPU.handleData();
+		// if (Game.time % 20 === 0) {
+		// 	CPU.report()
+		// 	CPU.stop()
+		// 	CPU.start()
+		// }
 	};
 	public install = () => {
 		install();

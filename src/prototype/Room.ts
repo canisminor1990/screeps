@@ -1,5 +1,3 @@
-import { FindType } from '../enum/find';
-
 import { RoomStructures } from './RoomStructures';
 // save original API functions
 Room.prototype._find = Room.prototype.find;

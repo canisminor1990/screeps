@@ -1,7 +1,10 @@
 export class RoomStructures {
+	room: Room;
 	constructor(room) {
 		this.room = room;
-
+		this.extend();
+	}
+	extend = () => {
 		Object.defineProperties(this, {
 			all: {
 				get() {
@@ -42,7 +45,7 @@ export class RoomStructures {
 			urgentRepairable: {
 				get() {
 					if (_.isUndefined(this._urgentRepairableSites)) {
-						let isUrgent = site => site.hits < LIMIT_URGENT_REPAIRING + (DECAY_AMOUNT[site.structureType] || 0);
+						const isUrgent = site => site.hits < LIMIT_URGENT_REPAIRING + (DECAY_AMOUNT[site.structureType] || 0);
 						this._urgentRepairableSites = _.filter(this.repairable, isUrgent);
 					}
 					return this._urgentRepairableSites;
@@ -210,5 +213,5 @@ export class RoomStructures {
 				},
 			},
 		});
-	}
+	};
 }

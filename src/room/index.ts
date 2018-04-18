@@ -173,19 +173,35 @@ class RoomConstructor extends Component {
 		}
 	};
 
-	totalSitesChanged = () => {
-		const numSites = _.size(Game.constructionSites);
-		const oldSites = Memory.rooms.myTotalSites || 0;
-		if (numSites > 0) Memory.rooms.myTotalSites = numSites;
-		else delete Memory.rooms.myTotalSites;
-		return oldSites && oldSites !== numSites;
+	private totalSitesChanged = () => {
+		let isChange: boolean;
+		if (Game.time !== Memory.rooms.myTotalSitesChangeTime) {
+			const numSites = _.size(Game.constructionSites);
+			const oldSites = Memory.rooms.myTotalSites || 0;
+			isChange = oldSites && oldSites !== numSites;
+			Memory.rooms.myTotalSitesChange = isChange;
+			Memory.rooms.myTotalSitesChangeTime = Game.time;
+			if (numSites > 0) Memory.rooms.myTotalSites = numSites;
+			else delete Memory.rooms.myTotalSites;
+		} else {
+			isChange = Memory.rooms.myTotalSitesChange;
+		}
+		return isChange;
 	};
-	totalStructuresChanged = () => {
-		const numStructures = _.size(Game.structures);
-		const oldStructures = Memory.rooms.myTotalStructures || 0;
-		if (numStructures > 0) Memory.rooms.myTotalStructures = numStructures;
-		else delete Memory.rooms.myTotalStructures;
-		return oldStructures && oldStructures !== numStructures;
+	private totalStructuresChanged = () => {
+		let isChange: boolean;
+		if (Game.time !== Memory.rooms.myTotalStructuresChangeTime) {
+			const numStructures = Object.keys(Game.structures).length;
+			const oldStructures = Memory.rooms.myTotalStructures || 0;
+			isChange = oldStructures && oldStructures !== numStructures;
+			Memory.rooms.myTotalStructuresChange = isChange;
+			Memory.rooms.myTotalStructuresChangeTime = Game.time;
+			if (numStructures > 0) Memory.rooms.myTotalStructures = numStructures;
+			else delete Memory.rooms.myTotalStructures;
+		} else {
+			isChange = Memory.rooms.myTotalStructuresChange;
+		}
+		return isChange;
 	};
 	needMemoryResync = room => {
 		if (_.isUndefined(room.memory.initialized)) {
