@@ -23,6 +23,8 @@ class Process {
 		CPU.check('addon');
 		this.addon();
 		CPU.end('addon');
+
+		CPU.handleData();
 	};
 	public install = () => {
 		install();
