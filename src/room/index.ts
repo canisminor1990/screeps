@@ -105,7 +105,7 @@ class RoomConstructor extends Component {
 			if (Room.manager[key].run) Room.manager[key].run();
 			if (CPU_CHECK_CONFIG.MANAGER) CPU.end('Manager', key);
 		}
-		CPU.check('run', 'Room', 'Manager');
+		CPU.end('run', 'Room', 'Manager');
 
 		CPU.check('run', 'Room', 'Work');
 		const work = (memory, roomName) => {
@@ -138,7 +138,7 @@ class RoomConstructor extends Component {
 				delete Memory.rooms[roomName];
 			}
 		});
-		CPU.check('run', 'Room', 'Work');
+		CPU.end('run', 'Room', 'Work');
 	};
 	cleanup = () => {
 		// run cleanup in each of our submodules

@@ -3,21 +3,11 @@ import { install } from './install';
 class Process {
 	public loop = () => {
 		CPU.fresh();
-
-		CPU.check('fresh');
 		this.fresh();
-		CPU.end('fresh');
-
 		this.register();
-
 		this.run();
-
-		CPU.check('cleanup');
 		this.cleanup();
-		CPU.end('cleanup');
-
 		this.addon();
-
 		CPU.handleData();
 	};
 	public install = () => {
@@ -32,6 +22,7 @@ class Process {
 		CMemory.extend();
 	};
 	private fresh = () => {
+		CPU.check('fresh');
 		// Flush cache
 		Room.fresh();
 		Flag.fresh();
@@ -39,6 +30,7 @@ class Process {
 		Population.fresh();
 		Creep.fresh();
 		CMemory.fresh();
+		CPU.end('fresh');
 	};
 	private analyze = () => {
 		CPU.check('analyze', 'Flag');
@@ -47,7 +39,7 @@ class Process {
 
 		CPU.check('analyze', 'Room');
 		Room.analyze();
-		CPU.check('analyze', 'Room');
+		CPU.end('analyze', 'Room');
 
 		CPU.check('analyze', 'Population');
 		Population.analyze();
@@ -101,11 +93,13 @@ class Process {
 		CPU.end('run', 'StructureSpawn');
 	};
 	private cleanup = () => {
+		CPU.check('cleanup');
 		Room.cleanup();
 		Flag.cleanup();
 		Population.cleanup();
 		// must come last
 		CMemory.cleanup();
+		CPU.end('cleanup');
 	};
 	private addon = () => {
 		// Postprocessing
