@@ -60,21 +60,22 @@ class RoomConstructor extends Component {
 	};
 	analyze = () => {
 		// run analyze in each of our submodules
-		CPU.check('analyze', 'Room', 'Manager');
 		for (const key of Object.keys(Room.manager)) {
 			if (Room.manager[key].analyze) Room.manager[key].analyze();
 		}
-		CPU.end('analyze', 'Room', 'Manager');
 
-		CPU.check('analyze', 'Room', 'getEnvironment');
 		const getEnvironment = room => {
 			try {
 				// run analyzeRoom in each of our submodules
 				for (const key of Object.keys(Room.manager)) {
+					CPU.check('analyze', room.name, key);
 					if (Room.manager[key].analyzeRoom) Room.manager[key].analyzeRoom(room, this.needMemoryResync(room));
+					CPU.end('analyze', room.name, key);
 				}
+				CPU.check('analyze', room.name, 'SitesChanged');
 				if (this.totalSitesChanged()) room.countMySites();
 				if (this.totalStructuresChanged()) room.countMyStructures();
+				CPU.end('analyze', room.name, 'SitesChanged');
 				room.checkRCL();
 			} catch (err) {
 				Game.notify(
@@ -95,25 +96,23 @@ class RoomConstructor extends Component {
 			if (r.skip) return;
 			getEnvironment(r);
 		});
-		CPU.end('analyze', 'Room', 'getEnvironment');
 	};
 	run = () => {
 		// run run in each of our submodules
-		CPU.check('run', 'Room', 'Manager');
 		for (const key of Object.keys(Room.manager)) {
 			if (CPU_CHECK_CONFIG.MANAGER) CPU.check('Manager', key);
 			if (Room.manager[key].run) Room.manager[key].run();
 			if (CPU_CHECK_CONFIG.MANAGER) CPU.end('Manager', key);
 		}
-		CPU.end('run', 'Room', 'Manager');
-
-		CPU.check('run', 'Room', 'Work');
 		const work = (memory, roomName) => {
 			try {
 				// run runRoom in each of our submodules
 				for (const key of Object.keys(Room.manager)) {
+					CPU.check('run', roomName, key);
 					if (Room.manager[key].runRoom) Room.manager[key].runRoom(memory, roomName);
+					CPU.end('run', roomName, key);
 				}
+				CPU.check('run', roomName, 'collapsed');
 				const room = Game.rooms[roomName];
 				if (room) {
 					// has sight
@@ -121,6 +120,7 @@ class RoomConstructor extends Component {
 						Room.collapsed.trigger(room);
 					}
 				}
+				CPU.end('run', roomName, 'collapsed');
 			} catch (e) {
 				Log.error(e.stack || e.message);
 			}
@@ -138,7 +138,6 @@ class RoomConstructor extends Component {
 				delete Memory.rooms[roomName];
 			}
 		});
-		CPU.end('run', 'Room', 'Work');
 	};
 	cleanup = () => {
 		// run cleanup in each of our submodules
