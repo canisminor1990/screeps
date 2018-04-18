@@ -130,9 +130,7 @@ class RoomConstructor extends Component {
 			}
 		};
 		_.forEach(Memory.rooms, (memory, roomName) => {
-			if (CPU_CHECK_CONFIG.ROOM) CPU.check('Room', roomName);
 			work(memory, roomName);
-			if (CPU_CHECK_CONFIG.ROOM) CPU.end('Room', roomName);
 			if (
 				Game.time % MEMORY_RESYNC_INTERVAL === 0 &&
 				!Game.rooms[roomName] &&
