@@ -1,4 +1,7 @@
 export const roomUtils = {
+	setRoomCenter(roomName: string, x: number, y: number): void {
+		Memory.rooms[roomName].center = { x, y };
+	},
 	/**
 	 * 获取当前可见房间
 	 */

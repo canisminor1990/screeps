@@ -40,6 +40,8 @@ interface RoomMemory {
 	initialized: number;
 	spawns: string[];
 	RCL: number;
+	RBL: number;
+	center: Pos;
 	spawnDelay: {
 		High: number;
 		Medium: number;
@@ -61,4 +63,5 @@ interface RoomMemory {
 	// TODO
 	resources: any;
 	lastViewed: any;
+	heatmap: obj;
 }

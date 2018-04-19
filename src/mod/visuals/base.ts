@@ -1,6 +1,6 @@
 export class VisualsBase {
-	vis = new RoomVisual();
-	resourcesColor = {
+	vis: RoomVisual;
+	private resourcesColor: obj = {
 		[RESOURCE_ENERGY]: '#FFE56D',
 		[RESOURCE_POWER]: '#FF0000',
 		[RESOURCE_CATALYST]: '#FF7A7A',
@@ -12,9 +12,8 @@ export class VisualsBase {
 		[RESOURCE_UTRIUM]: '#88D6F7',
 		[RESOURCE_ZYNTHIUM]: '#F2D28B',
 	};
-
-	getResourceColour = resourceType => {
-		let colour = this.resourcesColor[resourceType];
+	public getResourceColour = (resourceType: string): string => {
+		const colour = this.resourcesColor[resourceType];
 		if (colour) return colour;
 
 		let compoundType = [
@@ -27,15 +26,25 @@ export class VisualsBase {
 			RESOURCE_OXYGEN,
 		].find(type => resourceType.includes(type));
 
-		if (resourceType === RESOURCE_ZYNTHIUM_KEANITE || resourceType === RESOURCE_UTRIUM_LEMERGITE) {
-			return this.resourcesColor[RESOURCE_OXYGEN];
-		}
+		if (_.include([RESOURCE_UTRIUM_LEMERGITE, RESOURCE_ZYNTHIUM_KEANITE], resourceType)) compoundType = RESOURCE_OXYGEN;
 
-		return this.resourcesColor[compoundType];
+		return this.resourcesColor[compoundType as string];
 	};
-	getColourByPercentage = (percentage, reverse) => {
-		const value = reverse ? percentage : 1 - percentage;
-		const hue = (value * 120).toString(10);
-		return `hsl(${hue}, 100%, 50%)`;
+	private randomColour = (): string => {
+		let c = '#';
+		while (c.length < 7)
+			c += Math.random()
+				.toString(16)
+				.substr(-7)
+				.substr(-1);
+		return c;
+	};
+	public creepPathStyle = (creep: Creep): LineStyle => {
+		Util.set(creep.data, 'pathColour', this.randomColour);
+		return {
+			width: 0.15,
+			color: creep.data.pathColour,
+			lineStyle: 'dashed',
+		};
 	};
 }

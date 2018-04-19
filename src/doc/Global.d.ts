@@ -32,17 +32,23 @@ declare namespace NodeJS {
 	}
 }
 
-declare const Population: any;
-declare const Statistics: {
+interface Component {
+	extend(): void;
+	fresh(): void;
+	analyze(): void;
+	register(): void;
 	run(): void;
-};
-declare const Tower: any;
-declare const Util: any;
-declare const Events: any;
-declare const CMemory: any;
-declare const Grafana: any;
-declare const Traveler: any;
-declare const traveler: any;
+	cleanup(): void;
+}
 
-// declare const Visuals: any
-// declare const CompressedMatrix: any
+declare const Task: Component;
+declare const Room: Component;
+declare const Creep: Component;
+declare const Population: Component;
+declare const Statistics: Component;
+declare const Layout: Component;
+declare const CMemory: Component;
+declare const Grafana: Component;
+declare const Traveler: Component;
+declare const traveler: Component;
+declare const Util: any;

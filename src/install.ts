@@ -18,10 +18,11 @@ export const install = () => {
 	ProtoypeInstall();
 	TravelerInstall();
 	Install(global, require('./global').default, {
-		CPU: require('./global/cpu').default,
+		CPU: require('./global/Cpu').default,
 		Dye: require('./global/Dye').default,
 		Log: require('./global/Log').default,
 		CMemory: require('./global/CMemory').default,
+		Layout: require('./global/Layout').default,
 		Population: require('./global/Population').default,
 		Statistics: require('./global/Statistics').default,
 	});

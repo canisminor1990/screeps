@@ -72,7 +72,10 @@ class Process {
 		CPU.end('register', 'StructureSpawn');
 	};
 	private run = () => {
-		// Execution
+		CPU.check('run', 'Layout');
+		Layout.run();
+		CPU.end('run', 'Layout');
+
 		CPU.check('run', 'Room');
 		Room.run();
 		CPU.end('run', 'Room');
