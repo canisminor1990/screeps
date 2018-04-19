@@ -86,7 +86,7 @@ module.exports = {
 	TERMINAL_ENERGY: 100000,
 	ENERGY_BALANCE_TRANSFER_AMOUNT: 50000, // amount to transfer when balancing empire energy
 	TARGET_STORAGE_SUM_RATIO: 0.6,
-	AUTOMATED_RATIO_COUNT: true,
+	AUTOMATED_RATIO_COUNT: false,
 	MIN_SELL_RATIO: {
 		H: 0.2,
 		O: 0.2,
