@@ -23,7 +23,7 @@ class ContainerManager extends RoomManager {
 							let minerals = this.find(FIND_MINERALS);
 							let source = cont.pos.findInRange(this.sources, 2);
 							let mineral = cont.pos.findInRange(minerals, 2);
-							let isControllerContainer = !!(this.my && cont.pos.getRangeTo(this.controller) <= 4);
+							let isControllerContainer = !!(this.my && cont.pos.getRangeTo(this.controller) <= 3);
 							this.memory.container.push({
 								id: cont.id,
 								source: source.length > 0,
