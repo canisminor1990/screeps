@@ -74,10 +74,10 @@ export class Sidebar extends VisualsBase {
 		this.vis.text(`${title}`, x, y, _.assign({ backgroundColor }, this.titleStyle));
 		this.vis.text(`${Util.formatNumber(amount)}`, x + 2, y, _.assign({ backgroundColor }, this.objectStyle));
 	};
-	private _roomOrdersObject = (vis, store, x, startY) => {
-		for (let order of store) this._drawList(x, (startY += this.Y_LIST_MARGIN), order.type, order.amount);
+	private _roomOrdersObject = (store: obj, x: number, startY: number) => {
+		_.forEach(store, order => this._drawList(x, (startY += this.Y_LIST_MARGIN), order.type, order.amount));
 	};
 	private _storageObject = (store: obj, x: number, startY: number) => {
-		Object.keys(store).forEach(type => this._drawList(x, (startY += this.Y_LIST_MARGIN), type, store[type]));
+		_.forEach(Object.keys(store), type => this._drawList(x, (startY += this.Y_LIST_MARGIN), type, store[type]));
 	};
 }
