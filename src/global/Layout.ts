@@ -1,10 +1,46 @@
 import { Component } from '../class';
 
 class LayoutConstructor extends Component {
-	x: number;
-	y: number;
-	room: Room;
-	structureType = {
+	private x: number;
+	private y: number;
+	private RCL: number;
+	private room: Room;
+	public run = (): void => {
+		if (Game.time % 10 !== 0) return;
+		_.forEach(Memory.rooms, (roomMemory: RoomMemory, roomName: string) => {
+			this.RCL = roomMemory.RCL;
+			if (!this.RCL || this.RCL < 1 || !roomMemory.center) return;
+			if (!roomMemory.RBL) roomMemory.RBL = 0;
+			if (!roomMemory.RDL) roomMemory.RDL = 0;
+			const RBL = roomMemory.RBL;
+			const RDL = roomMemory.RDL;
+			const center = roomMemory.center;
+			this.x = center.x - 6;
+			this.y = center.y - 6;
+			this.room = Game.rooms[roomName];
+			if (RBL !== this.RCL) return this.build(this.layout[RBL]);
+			if (RDL !== this.RCL && _.size(Game.constructionSites) === 0) return this.build(this.defendLayout[RDL], true);
+		});
+	};
+
+	private build = (layout: number[][], defence?: boolean): void => {
+		if (layout === null) defence ? (this.room.memory.RDL = this.RCL) : (this.room.memory.RBL = this.RCL);
+		let creatDone = true;
+		_.forEach(layout, (row: number[], _y: number) => {
+			_.forEach(row, (type: number, _x: number) => {
+				if (type === 0) return;
+				const cb = this.room.createConstructionSite(
+					this.x + _x,
+					this.y + _y,
+					defence ? STRUCTURE_RAMPART : this.structureType[type],
+				);
+				if (!_.include([ERR_INVALID_TARGET, ERR_RCL_NOT_ENOUGH] || cb === ERR_FULL, cb)) creatDone = false;
+			});
+		});
+		if (creatDone) defence ? (this.room.memory.RDL = this.RCL) : (this.room.memory.RBL = this.RCL);
+	};
+
+	private structureType = {
 		1: STRUCTURE_ROAD,
 		2: STRUCTURE_EXTENSION,
 		3: STRUCTURE_TOWER,
@@ -16,30 +52,115 @@ class LayoutConstructor extends Component {
 		9: STRUCTURE_LAB,
 		10: STRUCTURE_NUKER,
 	};
-	public run = (): void => {
-		if (Game.time % 10 !== 0) return;
-		_.forEach(Memory.rooms, (roomMemory: RoomMemory, roomName: string) => {
-			if (!roomMemory.RCL || roomMemory.RCL < 1 || !roomMemory.center) return;
-			if (!roomMemory.RBL) roomMemory.RBL = 0;
-			if (roomMemory.RBL === roomMemory.RCL) return;
-			this.x = roomMemory.center.x - 6;
-			this.y = roomMemory.center.y - 6;
-			this.room = Game.rooms[roomName];
-			this.build(this.layout[roomMemory.RBL]);
-		});
-	};
 
-	private build = (layout: number[][]): void => {
-		if (!layout) return;
-		let creatDone = true;
-		_.forEach(layout, (row: number[], _y: number) => {
-			_.forEach(row, (type: number, _x: number) => {
-				if (type === 0) return;
-				const cb = this.room.createConstructionSite(this.x + _x, this.y + _y, this.structureType[type]);
-				if (!_.include([ERR_INVALID_TARGET, ERR_RCL_NOT_ENOUGH] || cb === ERR_FULL, cb)) creatDone = false;
-			});
-		});
-		if (creatDone) this.room.memory.RBL++;
+	private defendLayout = {
+		0: null,
+		1: [
+			// rcl 1
+			[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+			[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+			[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+			[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+			[0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0],
+			[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+			[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+			[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+			[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+			[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+			[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+			[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+			[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+		],
+		2: [
+			[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+			[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+			[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+			[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+			[0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0],
+			[0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0],
+			[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+			[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+			[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+			[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+			[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+			[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+			[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+		],
+		3: [
+			[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+			[0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0],
+			[0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0],
+			[0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0],
+			[0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0],
+			[0, 1, 0, 0, 0, 1, 1, 1, 0, 0, 0, 1, 0],
+			[0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0],
+			[0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0],
+			[0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0],
+			[0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0],
+			[0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0],
+			[0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0],
+			[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+		],
+		4: [
+			[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+			[0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0],
+			[0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0],
+			[0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0],
+			[0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0],
+			[0, 1, 0, 0, 0, 1, 1, 1, 0, 0, 0, 1, 0],
+			[0, 1, 0, 0, 1, 1, 1, 1, 1, 0, 0, 1, 0],
+			[0, 1, 0, 0, 0, 1, 1, 1, 0, 0, 0, 1, 0],
+			[0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0],
+			[0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0],
+			[0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0],
+			[0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0],
+			[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+		],
+		5: [
+			[0, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 0],
+			[0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0],
+			[1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1],
+			[0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0],
+			[1, 1, 0, 0, 0, 1, 1, 1, 0, 0, 0, 1, 1],
+			[0, 1, 0, 0, 1, 1, 1, 1, 1, 0, 0, 1, 0],
+			[1, 1, 0, 0, 1, 1, 1, 1, 1, 0, 0, 1, 1],
+			[0, 1, 0, 0, 1, 1, 1, 1, 1, 0, 0, 1, 0],
+			[1, 1, 0, 0, 0, 1, 1, 1, 0, 0, 0, 1, 1],
+			[0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0],
+			[1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1],
+			[0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0],
+			[0, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 0],
+		],
+		6: [
+			[0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0],
+			[1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+			[1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1],
+			[1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1],
+			[1, 1, 0, 0, 1, 1, 1, 1, 1, 0, 0, 1, 1],
+			[1, 1, 0, 0, 1, 1, 1, 1, 1, 0, 0, 1, 1],
+			[1, 1, 0, 0, 1, 1, 1, 1, 1, 0, 0, 1, 1],
+			[1, 1, 0, 0, 1, 1, 1, 1, 1, 0, 0, 1, 1],
+			[1, 1, 0, 0, 1, 1, 1, 1, 1, 0, 0, 1, 1],
+			[1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1],
+			[1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1],
+			[1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+			[0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0],
+		],
+		7: [
+			[0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0],
+			[1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+			[1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1],
+			[1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1],
+			[1, 1, 0, 0, 1, 1, 1, 1, 1, 0, 0, 1, 1],
+			[1, 1, 0, 0, 1, 1, 1, 1, 1, 0, 0, 1, 1],
+			[1, 1, 0, 0, 1, 1, 1, 1, 1, 0, 0, 1, 1],
+			[1, 1, 0, 0, 1, 1, 1, 1, 1, 0, 0, 1, 1],
+			[1, 1, 0, 0, 1, 1, 1, 1, 1, 0, 0, 1, 1],
+			[1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1],
+			[1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1],
+			[1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+			[0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0],
+		],
 	};
 
 	private layout = {

@@ -41,6 +41,7 @@ interface RoomMemory {
 	spawns: string[];
 	RCL: number;
 	RBL: number;
+	RDL: number;
 	center: Pos;
 	spawnDelay: {
 		High: number;
