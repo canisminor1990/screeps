@@ -1,5 +1,4 @@
 import { VisualsBase } from './base';
-import { Emoji } from '../../util';
 
 export class Piechart extends VisualsBase {
 	private pieStyle: CircleStyle = {
@@ -63,7 +62,7 @@ export class Piechart extends VisualsBase {
 
 	private drawRoomInfo = (room: Room): void => {
 		// Room Name: centered middle
-		this.vis.text(`${Emoji.home}${room.name}`, 24.5, 1.5, {
+		this.vis.text(`${Util.emoji.home}${room.name}`, 24.5, 1.5, {
 			font: '1 Hack',
 			backgroundColor: 'rgba(0,0,0,.5)',
 		});

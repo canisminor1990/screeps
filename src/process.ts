@@ -72,10 +72,6 @@ class Process {
 		CPU.end('register', 'StructureSpawn');
 	};
 	private run = () => {
-		CPU.check('run', 'Layout');
-		Layout.run();
-		CPU.end('run', 'Layout');
-
 		CPU.check('run', 'Room');
 		Room.run();
 		CPU.end('run', 'Room');
@@ -121,6 +117,10 @@ class Process {
 		CPU.check('addon', 'Visuals');
 		if (ROOM_VISUALS && !Memory.CPU_CRITICAL) Visuals.run();
 		CPU.end('addon', 'Visuals');
+
+		CPU.check('run', 'Layout');
+		if (AUTO_LAYOUT && Game.time % AUTO_LAYOUT_INTERVAL === 0) Layout.run();
+		CPU.end('run', 'Layout');
 
 		CPU.check('addon', 'Grafana');
 		if (GRAFANA && Game.time % GRAFANA_INTERVAL === 0) Grafana.run();

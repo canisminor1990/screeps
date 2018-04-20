@@ -9,11 +9,6 @@ export class HeatMap extends VisualsBase {
 			if (Memory.heatmap) this.drawHeatMapData(room);
 		}
 	};
-	private getColourByPercentage = (percentage: number, reverse?: boolean): string => {
-		const value = reverse ? percentage : 1 - percentage;
-		const hue = (value * 120).toString(10);
-		return `hsl(${hue}, 100%, 50%)`;
-	};
 	private setHeatMapData = (room: Room): void => {
 		Util.set(room.memory, 'heatmap', () => {
 			const r = {};

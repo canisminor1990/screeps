@@ -35,34 +35,3 @@ interface Memory {
 	heatmap: boolean;
 	pavementArt: obj;
 }
-
-interface RoomMemory {
-	initialized: number;
-	spawns: string[];
-	RCL: number;
-	RBL: number;
-	RDL: number;
-	center: Pos;
-	spawnDelay: {
-		High: number;
-		Medium: number;
-		Low: number;
-	};
-	spawnQueueHigh: string[];
-	spawnQueueMedium: string[];
-	spawnQueueLow: string[];
-	sources: string[];
-	myTotalStructures: number;
-	statistics: {
-		tick: number;
-		time: number;
-		store: any;
-		controllerProgress: number;
-		controllerProgressTotal: number;
-		invaders: string[];
-	};
-	// TODO
-	resources: any;
-	lastViewed: any;
-	heatmap: obj;
-}

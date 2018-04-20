@@ -1,9 +1,9 @@
 import { ProtoypeInstall } from './prototype';
 import { TravelerInstall } from './traveler';
-import { Install, getUsername, Emoji } from './util';
+import { Install, getUsername } from './util';
 
 export const install = () => {
-	console.log(Emoji.reload, 'Code Reloading ...');
+	console.log(String.fromCodePoint(0x231b), 'Code Reloading ...');
 	const cpuBeforeInstall = Game.cpu.getUsed();
 	// Config
 	Install('_ME', getUsername);
@@ -22,7 +22,6 @@ export const install = () => {
 		Dye: require('./global/Dye').default,
 		Log: require('./global/Log').default,
 		CMemory: require('./global/CMemory').default,
-		Layout: require('./global/Layout').default,
 		Population: require('./global/Population').default,
 		Statistics: require('./global/Statistics').default,
 	});
@@ -145,8 +144,9 @@ export const install = () => {
 
 	// Addon
 	Install(global, {
-		Grafana: GRAFANA ? require('./mod/grafana').default : undefined,
-		Visuals: require('./mod/visuals').default,
+		Layout: AUTO_LAYOUT ? require('./mod/Layout').default : undefined,
+		Grafana: GRAFANA ? require('./mod/Grafana').default : undefined,
+		Visuals: require('./mod/Visuals').default,
 		Command: require('commands'),
 	});
 

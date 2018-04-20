@@ -4,7 +4,7 @@ class StructureTowerConstructor extends Component {
 	state = {};
 	loop = (room: Room): void => {
 		this.state = {
-			casualties: room.casualties,
+			hurtCreeps: room.hurtCreeps,
 			urgentRepairable: room.structures.urgentRepairable,
 			hostiles: room.hostiles,
 			invasion: room.situation.invasion,
@@ -14,15 +14,15 @@ class StructureTowerConstructor extends Component {
 
 	run = (tower: StructureTower): void => {
 		if (!tower) return;
-		if (this.runHeal(tower, this.state.casualties, this.state.invasion) === OK) return;
+		if (this.runHeal(tower, this.state.hurtCreeps, this.state.invasion) === OK) return;
 		if (this.runRepair(tower, this.state.urgentRepairable) === OK) return;
 		this.runAttack(tower, this.state.hostiles);
 	};
 
-	private runHeal = (tower, casualties, invasion) => {
-		if (casualties.length === 0) return;
+	private runHeal = (tower, hurtCreeps, invasion) => {
+		if (hurtCreeps.length === 0) return;
 		// Heal
-		let target = casualties[0];
+		let target = hurtCreeps[0];
 		if (target.hitsMax - target.hits >= 400 || !invasion) {
 			const callback = tower.heal(target);
 			if (_.isUndefined(target.towers)) target.towers = [];

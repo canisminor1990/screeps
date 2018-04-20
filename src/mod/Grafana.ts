@@ -1,7 +1,7 @@
 import { Component } from '../class';
 
 class GrafanaConstructor extends Component {
-	run = () => {
+	public run = () => {
 		Memory.stats = { tick: Game.time };
 
 		Memory.stats.cpu = Game.cpu;

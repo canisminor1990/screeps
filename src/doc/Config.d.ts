@@ -35,6 +35,8 @@ declare const CPU_CHECK_CONFIG: {
 	CREEP: boolean;
 	ROOM: string[];
 };
+declare const AUTO_LAYOUT: boolean;
+declare const AUTO_LAYOUT_INTERVAL: number;
 // old
 declare const CHATTY: boolean;
 declare const HONK: boolean;

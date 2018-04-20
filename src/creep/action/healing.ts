@@ -41,8 +41,8 @@ class HealingAction extends CreepAction {
 		return false;
 	};
 	newTarget = creep => {
-		if (creep.room.casualties.length > 0) {
-			for (const target of creep.room.casualties) {
+		if (creep.room.hurtCreeps.length > 0) {
+			for (const target of creep.room.hurtCreeps) {
 				if (target.name !== creep.name) {
 					creep.data.healRoom = target.pos.roomName;
 					return target;

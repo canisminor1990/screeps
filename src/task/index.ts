@@ -1,5 +1,4 @@
 import { Component } from '../class/Component';
-import { Emoji } from '../util';
 
 class TaskConstructor extends Component {
 	private cache: obj = {};

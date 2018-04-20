@@ -9,6 +9,8 @@ module.exports = {
 		CREEP: false,
 		ROOM: ['E8N45', 'W8N3'],
 	},
+	AUTO_LAYOUT: true,
+	AUTO_LAYOUT_INTERVAL: 5,
 	// Old
 	CHATTY: false, // creeps say their current action
 	HONK: true, // HONK when stored path is blocked by other creeps

@@ -9,6 +9,7 @@ export const Emoji = {
 	reload: String.fromCodePoint(0x231b), // ⌛
 	flag: String.fromCodePoint(0x1f6a9), //
 	baby: String.fromCodePoint(0x1f476), // 👶
+	order: String.fromCodePoint(0x1f4e6), // 📦
 	// Action
 	walk: String.fromCodePoint(0x1f45f), // 👟
 	wait: String.fromCodePoint(0x1f6ac), // 🚬

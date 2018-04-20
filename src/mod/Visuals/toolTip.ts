@@ -1,4 +1,3 @@
-import { Emoji } from '../../util/Emoji';
 import { VisualsBase } from './base';
 
 export class ToolTip extends VisualsBase {
@@ -36,44 +35,44 @@ export class ToolTip extends VisualsBase {
 
 	private drawSpawnInfo = (spawn: StructureSpawn): void => {
 		if (!spawn.spawning) return;
-		this.vis.text(`${Emoji.baby} ${spawn.spawning.name}`, spawn.pos.x - 0.5, spawn.pos.y, this.toolTipStyle);
+		this.vis.text(`${Util.emoji.baby} ${spawn.spawning.name}`, spawn.pos.x - 0.5, spawn.pos.y, this.toolTipStyle);
 	};
 	private drawMineralInfo = (mineral: Mineral): void => {
 		if (!mineral || !mineral.room) return;
 		const x = mineral.pos.x + 0.5;
 		const y = mineral.pos.y;
 		if (mineral.mineralAmount) {
-			this.vis.text(`${Emoji.harvest} ${Math.floor(mineral.mineralAmount)}`, x, y, this.toolTipStyle);
+			this.vis.text(`${Util.emoji.harvest} ${Math.floor(mineral.mineralAmount)}`, x, y, this.toolTipStyle);
 		} else {
-			this.vis.text(`${Emoji.reload} ${Util.formatNumber(mineral.ticksToRegeneration)}`, x, y, this.toolTipStyle);
+			this.vis.text(`${Util.emoji.reload} ${Util.formatNumber(mineral.ticksToRegeneration)}`, x, y, this.toolTipStyle);
 		}
 	};
 	private drawSourceInfo = (source: Source): void => {
 		const x = source.pos.x + 0.5;
 		const y = source.pos.y;
 		if (source.energy) {
-			this.vis.text(`${Emoji.harvest} ${source.energy}`, x, y, this.toolTipStyle);
+			this.vis.text(`${Util.emoji.harvest} ${source.energy}`, x, y, this.toolTipStyle);
 		} else {
-			this.vis.text(`${Emoji.reload} ${source.ticksToRegeneration}`, x, y, this.toolTipStyle);
+			this.vis.text(`${Util.emoji.reload} ${source.ticksToRegeneration}`, x, y, this.toolTipStyle);
 		}
 	};
 	private drawControllerInfo = (controller: StructureController): void => {
 		const BASE_X = controller.pos.x + 0.5;
 		let y = controller.pos.y;
 		const style = this.toolTipStyle;
-		let line0 = `${Emoji.upgrade} Lv${controller.level}`;
+		let line0 = `${Util.emoji.upgrade} Lv${controller.level}`;
 		let line1 = `${Util.formatNumber(controller.progress)}/${Util.formatNumber(controller.progressTotal)} (${(
 			controller.progress /
 			controller.progressTotal *
 			100
 		).toFixed(2)}%)`;
-		let line2 = `${Emoji.reload} ${Util.formatNumber(controller.ticksToDowngrade)}`;
+		let line2 = `${Util.emoji.reload} ${Util.formatNumber(controller.ticksToDowngrade)}`;
 		if (controller.level === 8) {
 			line1 = '';
 		} else if (controller.reservation) {
-			line0 = `${Emoji.flag} Reserved`;
+			line0 = `${Util.emoji.flag} Reserved`;
 			line1 = '';
-			line2 = `${Emoji.reload} ${controller.reservation.ticksToEnd}`;
+			line2 = `${Util.emoji.reload} ${controller.reservation.ticksToEnd}`;
 		} else if (!controller.owner) {
 			return;
 		}
@@ -105,7 +104,7 @@ export class ToolTip extends VisualsBase {
 	};
 	private drawTowerInfo = (tower: StructureTower): void => {
 		const needEnergy = tower.energyCapacity - tower.energy;
-		if (needEnergy > 0) this.vis.text(`${Emoji.fuel} ${needEnergy}`, tower.pos.x, tower.pos.y, this.toolTipStyle);
+		if (needEnergy > 0) this.vis.text(`${Util.emoji.fuel} ${needEnergy}`, tower.pos.x, tower.pos.y, this.toolTipStyle);
 	};
 	private drawTransactions = (room: Room): void => {
 		if (!room.terminal) return;

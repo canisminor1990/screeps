@@ -1,5 +1,3 @@
-import { Emoji } from '../util';
-
 Object.defineProperties(StructureSpawn.prototype, {
 	run: {
 		value(): void | boolean {
@@ -120,7 +118,7 @@ Object.defineProperties(StructureSpawn.prototype, {
 					spawnTime: body.length * CREEP_SPAWN_TIME,
 				});
 				if (CENSUS_ANNOUNCEMENTS)
-					Log.room(this.pos.roomName, Dye(COLOR_YELLOW, Emoji.baby, 'Spawning ' + newName + '!'));
+					Log.room(this.pos.roomName, Dye(COLOR_YELLOW, Util.emoji.baby, 'Spawning ' + newName + '!'));
 				return true;
 			}
 			if (CENSUS_ANNOUNCEMENTS)

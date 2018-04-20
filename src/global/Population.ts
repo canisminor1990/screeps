@@ -1,5 +1,4 @@
 import { Component } from '../class';
-import { Emoji } from '../util';
 
 class PopulationConstructor extends Component {
 	typeCount = {};
@@ -43,7 +42,7 @@ class PopulationConstructor extends Component {
 		let register = entry => {
 			let creep = Game.creeps[entry.creepName];
 			if (!creep) {
-				Log.room(entry.homeRoom, Emoji.skull, Dye('black', entry.creepName, 'was dead'));
+				Log.room(entry.homeRoom, Util.emoji.skull, Dye('black', entry.creepName, 'was dead'));
 				this.died.push(entry.creepName);
 			} else {
 				creep.data = entry;
@@ -64,7 +63,8 @@ class PopulationConstructor extends Component {
 				) {
 					// will die in ticks equal to spawning time or custom
 					creep.data.nearDeath = true;
-					if (CENSUS_ANNOUNCEMENTS) console.log(Emoji.skull, Dye('black', entry.creepName, 'Farewell!'), Log.stack());
+					if (CENSUS_ANNOUNCEMENTS)
+						console.log(Util.emoji.skull, Dye('black', entry.creepName, 'Farewell!'), Log.stack());
 					this.predictedRenewal.push(creep.name);
 					if (
 						!this.spawnsToProbe.includes(entry.motherSpawn) &&

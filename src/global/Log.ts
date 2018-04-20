@@ -1,6 +1,5 @@
 import { LogLevel } from '../enum/log';
 import { ErrorType } from '../enum/error';
-import { Emoji } from '../util';
 import { ConvertJsonToTable } from '../lib/json-to-table';
 class Log {
 	LogLevel: number;
@@ -12,13 +11,13 @@ class Log {
 	}
 
 	success(...content: any[]): void {
-		const title = this.Emoji ? Emoji.tick : '[SUCCESS]';
+		const title = this.Emoji ? Util.emoji.tick : '[SUCCESS]';
 		console.log(Dye('success', title) + ' ' + Dye(COLOR_GREEN, ...content));
 	}
 
 	error(...content: any[]): void {
 		if (this.LogLevel < 2) return;
-		const title = this.Emoji ? Emoji.cross : '[ERROR]';
+		const title = this.Emoji ? Util.emoji.cross : '[ERROR]';
 		console.log(Dye('error', title) + ' ' + Dye(COLOR_RED, ...content));
 	}
 
@@ -57,19 +56,19 @@ class Log {
 
 	warn(...content: any[]) {
 		if (this.LogLevel < 3) return;
-		const title = this.Emoji ? Emoji.warn : '[WARN]';
+		const title = this.Emoji ? Util.emoji.warn : '[WARN]';
 		console.log(Dye('warn', title) + ' ' + Dye(COLOR_ORANGE, ...content));
 	}
 
 	info(...content: any[]): void {
 		if (this.LogLevel < 4) return;
-		const title = this.Emoji ? Emoji.info : '[INFO]';
+		const title = this.Emoji ? Util.emoji.info : '[INFO]';
 		console.log(Dye('info', title) + ' ' + Dye(COLOR_BLUE, ...content));
 	}
 
 	debug(...content: any[]): void {
 		if (this.LogLevel < 5) return;
-		const title = this.Emoji ? Emoji.debug : '[DEBUG]';
+		const title = this.Emoji ? Util.emoji.debug : '[DEBUG]';
 		console.log(Dye('debug', title), ...content);
 	}
 
@@ -83,7 +82,7 @@ class Log {
 		} else {
 			room = room.print;
 		}
-		const title = this.Emoji ? `${Emoji.home} ${room}` : `[${room}]`;
+		const title = this.Emoji ? `${Util.emoji.home} ${room}` : `[${room}]`;
 		console.log(Dye('room', title), ...content);
 	}
 
@@ -93,7 +92,7 @@ class Log {
 		} else {
 			flag = flag.print;
 		}
-		const title = this.Emoji ? `${Emoji.flag} ${flag}` : `[${flag}]`;
+		const title = this.Emoji ? `${Util.emoji.flag} ${flag}` : `[${flag}]`;
 		console.log(Dye('room', title), ...content);
 	}
 

@@ -2,35 +2,39 @@ import { dateUtils } from './date';
 import { logUtils } from './log';
 import { roomUtils } from './room';
 import { marketUtils } from './market';
+import { Emoji } from './emoji';
 
 const utils = {
+	emoji: Emoji,
+
+	define(main: ClassDecorator, extend: ClassDecorator): void {
+		Object.defineProperties(main.prototype, Object.getOwnPropertyDescriptors(extend.prototype));
+	},
 	getGame: {
-		objById(id: string): RoomObject | null {
-			return Game.getObjectById(id);
+		obj(id: string): RoomObject | null {
+			return Game.getObjectById(id) || Game.creeps[id] || Game.rooms[id] || Game.flags[id];
 		},
 
-		objsByIdArray(idArray: string[]) {
+		objs(idArray: string[]) {
 			const GameObjects = [] as any[];
-			_.forEach(idArray, id => GameObjects.push(Game.getObjectById(id)));
+			_.forEach(idArray, id => GameObjects.push(Util.getGame.obj(id)));
 			return _.compact(GameObjects);
 		},
 
+		objsToNameArray(objs: any[]): string[] {
+			return _.compact(_.map(objs, 'name'));
+		},
+
 		objsToIdArray(objs: any[]): string[] {
-			return _.map(objs, 'id');
+			return _.compact(_.map(objs, 'id'));
 		},
 
-		flagByName(name: string): Flag {
-			return Game.flags[name];
-		},
-
-		flagsByNameArray(nameArray: string[]) {
-			const Flags = [] as Flag[];
-			_.forEach(nameArray, name => Flags.push(Game.flags[name]));
-			return _.compact(Flags);
-		},
-
-		flagsToNameArray(flags: Flag[]): string[] {
-			return _.map(flags, 'name');
+		objsToArray(objs: any[]): string[] {
+			let array = Util.getGame.objsToIdArray(objs);
+			if (array.length === 0) {
+				array = Util.getGame.objsToNameArray(objs);
+			}
+			return array;
 		},
 	},
 	/**
@@ -202,6 +206,10 @@ const utils = {
 		return x || 0;
 	},
 
+	/*
+	* 填充率百分比 (设置最大值 - 设置最小值)
+	* 低于最小值为负数
+	* */
 	chargeScale(amount: number, min: number, max: number): number {
 		// TODO per-room strategy
 		if (max === min) {
@@ -252,7 +260,7 @@ const utils = {
 
 export default _.assign(utils, roomUtils, logUtils, dateUtils, marketUtils);
 
-export function Install(name, main, extend: obj | boolean = false) {
+export const Install = (name, main, extend: obj | boolean = false) => {
 	if (_.isString(name)) {
 		global[name] = main;
 		if (extend) _.assign(global[name], extend);
@@ -260,9 +268,7 @@ export function Install(name, main, extend: obj | boolean = false) {
 		_.assign(name, main);
 		if (extend) _.assign(name, extend);
 	}
-}
-
-export { Emoji } from './Emoji';
+};
 
 export const getUsername = _(Game.rooms)
 	.map('controller')

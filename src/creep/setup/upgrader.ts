@@ -87,7 +87,7 @@ class UpgraderSetup extends CreepSetup {
 			// Room under attack
 			room.situation.invasion ||
 			// Energy reserves are low
-			room.conserveForDefense ||
+			room.lowDefenseEnergy ||
 			// No energy structures built near controller
 			room.structures.container.controller.length + room.structures.links.controller.length === 0 ||
 			// Upgrading blocked -> http://support.screeps.com/hc/en-us/articles/207711889-StructureController#upgradeBlocked

@@ -1,10 +1,14 @@
 import { VisualsBase } from './base';
 
 export class RoomVis extends VisualsBase {
+	private shapeStyle: PolyStyle = {
+		fill: '#66D9EF',
+		opacity: 0.03,
+		stroke: 'rgba(0,0,0,0)',
+	};
 	private lineStyle: PolyStyle = {
-		fill: 'rgba(255,255,255,.5)',
 		opacity: 0.1,
-		stroke: 'rgba(255,255,255,0)',
+		stroke: '#666',
 	};
 	public run = (room: Room): void => {
 		this.vis = new RoomVisual(room.name);
@@ -80,9 +84,12 @@ export class RoomVis extends VisualsBase {
 				point.bottomLeftB,
 				point.topLeftA,
 			],
-			this.lineStyle,
+			this.shapeStyle,
 		);
-		this.vis.poly([point.centerTop, point.centerRight, point.centerBottom, point.centerLeft, point.centerTop]);
+		this.vis.poly(
+			[point.centerTop, point.centerRight, point.centerBottom, point.centerLeft, point.centerTop],
+			_.assign(this.lineStyle, { opacity: 0.3 }),
+		);
 		this.vis.poly(
 			[
 				point.centerLeft,
@@ -99,7 +106,7 @@ export class RoomVis extends VisualsBase {
 				point.centerLeftB,
 				point.centerLeft,
 			],
-			{ opacity: 0.3 },
+			_.assign(this.lineStyle, { opacity: 0.2 }),
 		);
 
 		this.vis.poly(
@@ -138,7 +145,7 @@ export class RoomVis extends VisualsBase {
 				point.topLeftB,
 				point.topA,
 			],
-			{ opacity: 0.2 },
+			_.assign(this.lineStyle, { opacity: 0.1 }),
 		);
 	};
 }

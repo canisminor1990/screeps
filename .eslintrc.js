@@ -34,5 +34,6 @@ module.exports = {
     'no-unreachable':[1],
     'one-var':[1],
     'no-extend-native':[1],
+    'constructor-super':[1],
   },
 };

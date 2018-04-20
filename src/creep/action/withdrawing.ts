@@ -10,7 +10,7 @@ class WithdrawingAction extends CreepAction {
 						(creep.room.terminal && creep.room.terminal.store[RESOURCE_ENERGY])) &&
 					creep.data.creepType !== 'privateer' &&
 					creep.sum < creep.carryCapacity &&
-					(!creep.room.conserveForDefense || creep.room.relativeEnergyAvailable < 0.8)
+					(!creep.room.lowDefenseEnergy || creep.room.relativeEnergyAvailable < 0.8)
 				);
 			},
 		});

@@ -1,5 +1,10 @@
 export class VisualsBase {
 	vis: RoomVisual;
+	public getColourByPercentage = (percentage: number, reverse?: boolean): string => {
+		const value = reverse ? percentage : 1 - percentage;
+		const hue = (value * 120).toString(10);
+		return `hsl(${hue}, 100%, 50%)`;
+	};
 	private resourcesColor: obj = {
 		[RESOURCE_ENERGY]: '#FFE56D',
 		[RESOURCE_POWER]: '#FF0000',

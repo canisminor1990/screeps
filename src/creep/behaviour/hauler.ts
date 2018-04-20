@@ -20,7 +20,7 @@ class HaulerBehaviour extends CreepBehaviour {
 			creep.sum > creep.carry.energy ||
 			(!creep.room.situation.invasion &&
 				SPAWN_DEFENSE_ON_ATTACK &&
-				creep.room.conserveForDefense &&
+				creep.room.lowDefenseEnergy &&
 				creep.room.relativeEnergyAvailable > 0.8)
 		) {
 			priority.unshift(Creep.action.storing);
