@@ -37,7 +37,7 @@ class LayoutConstructor extends Component {
 			_.forEach(row, (type: number, _x: number) => {
 				if (type === 0) return;
 				const cb = this.room.createConstructionSite(this.x + _x, this.y + _y, this.structureType[type]);
-				if (cb !== ERR_INVALID_TARGET) creatDone = false;
+				if (!_.include([ERR_INVALID_TARGET, ERR_RCL_NOT_ENOUGH] || cb === ERR_FULL, cb)) creatDone = false;
 			});
 		});
 		if (creatDone) this.room.memory.RBL++;
