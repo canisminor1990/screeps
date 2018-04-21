@@ -55,7 +55,7 @@ class AvoidingAction extends CreepAction {
 					// TODO react to players? getStrategyHandler
 					let score = 0;
 					const range = creep.pos.getRangeTo(target);
-					if (creep.owner.username === ('Invader' || 'Source Keeper')) {
+					if (creep.owner.username === 'Invader' || creep.owner.username === 'Source Keeper') {
 						score = range - 51;
 					} else if (range < 10) {
 						score = range - 11;

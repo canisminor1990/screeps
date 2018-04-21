@@ -30,8 +30,11 @@ class DefenseManager extends RoomManager {
 			Log.room(creep.pos.roomName, Dye(COLOR_RED, `Hostile intruder (${bodyCount}) from "${creep.owner.username}".`));
 		if (
 			NOTIFICATE_INVADER ||
-			(NOTIFICATE_INTRUDER && creep.owner.username !== ('Invader' && 'Source Keeper') && creep.room.my) ||
-			(NOTIFICATE_HOSTILES && creep.owner.username !== ('Invader' && 'Source Keeper'))
+			(NOTIFICATE_INTRUDER &&
+				creep.owner.username !== 'Invader' &&
+				creep.owner.username !== 'Source Keeper' &&
+				creep.room.my) ||
+			(NOTIFICATE_HOSTILES && creep.owner.username !== 'Invader' && creep.owner.username !== 'Source Keeper')
 		) {
 			Game.notify(
 				`Hostile intruder ${creep.id} (${bodyCount}) from "${creep.owner.username}" in room ${
