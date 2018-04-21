@@ -27,6 +27,7 @@ class GuardingAction extends CreepAction {
 		return flag;
 	};
 	work = creep => {
+		if (creep.room.hostiles.length > 0) return ERR_INVALID_ARGS;
 		if (creep.data.flagName) return OK;
 		else return ERR_INVALID_ARGS;
 	};

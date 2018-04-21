@@ -230,16 +230,17 @@ class FlagConstructor extends Component {
 		}
 		return range;
 	};
-	hasInvasionFlag = () => {
+	hasInvasionFlag = (): boolean => {
+		Log.debug(1);
 		if (_.isUndefined(this._hasInvasionFlag)) {
-			this._hasInvasionFlag = this.findName(FLAG_COLOR.invade) != null || this.findName(FLAG_COLOR.destroy) != null;
+			this._hasInvasionFlag = this.findName(FLAG_COLOR.invade) !== null || this.findName(FLAG_COLOR.destroy) !== null;
 		}
 		return this._hasInvasionFlag;
 	};
-	compare = (flagA, flagB) => {
+	compare = (flagA: Flag, flagB: Flag): boolean => {
 		return flagA.color === flagB.color && flagA.secondaryColor === flagB.secondaryColor;
 	};
-	flagType = flag => {
+	flagType = (flag: Flag) => {
 		if (this.isSpecialFlag(flag)) return '_OCS';
 		for (const primary in FLAG_COLOR) {
 			const type = FLAG_COLOR[primary];
@@ -254,7 +255,7 @@ class FlagConstructor extends Component {
 		Log.error(`Unknown flag type for flag: ${flag ? flag.name : 'undefined flag'}.`);
 		return 'undefined';
 	};
-	specialFlag = create => {
+	specialFlag = (create: boolean): boolean => {
 		const name = '_OCS';
 		const flag = Game.flags[name];
 		if (create) {
@@ -271,7 +272,7 @@ class FlagConstructor extends Component {
 		}
 		return flag;
 	};
-	isSpecialFlag = object => {
+	isSpecialFlag = (object: obj): boolean => {
 		return object.name === '_OCS';
 	};
 }

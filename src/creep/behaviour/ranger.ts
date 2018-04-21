@@ -27,7 +27,7 @@ class RangerBehaviour extends CreepBehaviour {
 		}
 	};
 	actions = creep => {
-		return [Creep.action.defending, Creep.action.invading, Creep.action.guarding];
+		return [Creep.action.defending, Creep.action.healing, Creep.action.invading, Creep.action.guarding];
 	};
 }
 

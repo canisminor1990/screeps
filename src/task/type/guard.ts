@@ -7,12 +7,11 @@ class GuardTask extends TaskComponent {
 		this.minControllerLevel = 3;
 		this.creep = {
 			guard: {
-				fixedBody: [RANGED_ATTACK, MOVE],
+				fixedBody: [HEAL, RANGED_ATTACK, MOVE],
 				multiBody: {
 					[HEAL]: 1,
 					[MOVE]: 2,
-					[RANGED_ATTACK]: 2,
-					[TOUGH]: 1,
+					[RANGED_ATTACK]: 3,
 				},
 				name: 'guard',
 				behaviour: 'ranger',

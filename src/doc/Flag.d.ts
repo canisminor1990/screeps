@@ -8,6 +8,7 @@ interface FlagList {
 	cloaking: number;
 	filter?: FlagFilter;
 }
+
 interface FlagFilter {
 	color: string;
 	secondaryColor: string;
@@ -63,9 +64,13 @@ interface FlagConstructor {
 
 	cleanup(): void;
 
-	flagType(flag: Flag): string;
+	hasInvasionFlag(): boolean;
 
-	specialFlag(create: boolean): Flag;
+	compare(flagA: Flag, flagB: Flag): boolean;
+
+	flagType(flag: Flag);
+
+	specialFlag(create: boolean): boolean;
 
 	isSpecialFlag(object: Flag): boolean;
 }

@@ -8,7 +8,12 @@ class LayoutConstructor extends Component {
 	public run = (): void => {
 		_.forEach(Memory.rooms, (roomMemory: RoomMemory, roomName: string) => {
 			this.RCL = roomMemory.RCL;
-			if (!this.RCL || this.RCL < 1 || !roomMemory.center) return;
+			if (!this.RCL || this.RCL < 1) return;
+			if (!roomMemory.center) {
+				const storage = Game.rooms[roomName].storage;
+				if (!storage) return;
+				Util.setRoomCenter(roomName, storage.pos.x, storage.pos.y);
+			}
 			if (!roomMemory.RBL) roomMemory.RBL = 0;
 			if (!roomMemory.RDL) roomMemory.RDL = 0;
 			const RBL = roomMemory.RBL;
