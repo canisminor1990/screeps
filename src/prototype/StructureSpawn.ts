@@ -101,31 +101,31 @@ Object.defineProperties(StructureSpawn.prototype, {
 	create: {
 		value(body: string[], name: string, behaviour: string, destiny: string): boolean {
 			if (body.length == 0) return false;
-			let newName = this.createCreep(body, name, null);
-			if (name == newName || Util.translateErrorCode(newName) === undefined) {
+			let cb = this.spawnCreep(body, name);
+			if (cb === OK) {
 				let cost = 0;
 				body.forEach(function(part) {
 					cost += BODYPART_COST[part];
 				});
 				this.room.reservedSpawnEnergy += cost;
-				Population.registerCreep(newName, behaviour, cost, this.room, this.name, body, destiny);
-				this.newSpawn = { name: newName };
+				Population.registerCreep(name, behaviour, cost, this.room, this.name, body, destiny);
+				this.newSpawn = { name: name };
 				Creep.spawningStarted.trigger({
 					spawn: this.name,
-					name: newName,
+					name: name,
 					body: body,
 					destiny: destiny,
 					spawnTime: body.length * CREEP_SPAWN_TIME,
 				});
 				if (CENSUS_ANNOUNCEMENTS)
-					Log.room(this.pos.roomName, Dye(COLOR_YELLOW, Util.emoji.baby, 'Spawning ' + newName + '!'));
+					Log.room(this.pos.roomName, Dye(COLOR_YELLOW, Util.emoji.baby, 'Spawning ' + name + '!'));
 				return true;
 			}
 			if (CENSUS_ANNOUNCEMENTS)
 				Log.error(
 					`[${this.pos.roomName}]`,
 					'Offspring failed: ' +
-						Util.translateErrorCode(newName) +
+						Util.translateErrorCode(cb) +
 						'<br/> - body: ' +
 						JSON.stringify(_.countBy(body)) +
 						'<br/> - name: ' +
