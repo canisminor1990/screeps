@@ -1,4 +1,4 @@
-import { RoomManager } from '../../class';
+import { RoomManager } from '../Manager';
 
 class LinkManager extends RoomManager {
 	constructor() {

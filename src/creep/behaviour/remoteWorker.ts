@@ -1,4 +1,4 @@
-import { CreepBehaviour } from '../../class';
+import { CreepBehaviour } from '../Behaviour';
 
 class RemoteWorkerBehaviour extends CreepBehaviour {
 	constructor() {

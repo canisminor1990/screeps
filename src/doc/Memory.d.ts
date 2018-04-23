@@ -34,4 +34,5 @@ interface Memory {
 	};
 	heatmap: boolean;
 	pavementArt: obj;
+	pathfinder?: obj;
 }

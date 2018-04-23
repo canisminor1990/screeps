@@ -1,5 +1,5 @@
 // This task will react on pioneer flags - 4 for Green/White, 1 for Green/Red
-import { TaskComponent } from '../../class/Task';
+import { TaskComponent } from '../Task';
 
 class PioneerTask extends TaskComponent {
 	constructor() {

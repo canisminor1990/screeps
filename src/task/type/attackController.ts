@@ -1,5 +1,5 @@
 // This task will react on Red/Cyan flags, sending a giant (RCL7 Req) claiming creep to the flags position.
-import { TaskComponent } from '../../class/Task';
+import { TaskComponent } from '../Task';
 
 class AttackControllerTask extends TaskComponent {
 	constructor() {

@@ -1,4 +1,4 @@
-import { CreepAction } from '../../class';
+import { CreepAction } from '../Action';
 
 class ChargingAction extends CreepAction {
 	constructor() {

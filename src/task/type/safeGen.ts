@@ -1,4 +1,4 @@
-import { TaskComponent } from '../../class/Task';
+import { TaskComponent } from '../Task';
 
 // This task will react on safeGen flags white/brown
 class SafeGenTask extends TaskComponent {

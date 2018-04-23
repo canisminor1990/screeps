@@ -1,5 +1,5 @@
 // This task will react on claim flags (Green/Green), sending a claiming creep to the flags position.
-import { TaskComponent } from '../../class/Task';
+import { TaskComponent } from '../Task';
 
 class ClaimTask extends TaskComponent {
 	constructor() {

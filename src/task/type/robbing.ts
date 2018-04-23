@@ -1,4 +1,4 @@
-import { TaskComponent } from '../../class/Task';
+import { TaskComponent } from '../Task';
 
 // This task will react on robbing flags (invade/rob or red/yellow), sending 2 creeps to rob that room
 

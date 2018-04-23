@@ -1,4 +1,4 @@
-import { TaskComponent } from '../../class/Task';
+import { TaskComponent } from '../Task';
 
 const NPC = {
 	'Source Keeper': true,

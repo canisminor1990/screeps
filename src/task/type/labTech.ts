@@ -1,5 +1,5 @@
 // This task will react on labTech flags purple/white
-import { TaskComponent } from '../../class/Task';
+import { TaskComponent } from '../Task';
 
 class LabTechTask extends TaskComponent {
 	constructor() {

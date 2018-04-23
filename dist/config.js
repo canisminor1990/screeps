@@ -199,7 +199,7 @@ module.exports = {
 		MIN_LOAD: 0.75, // Haulers will return home as long as their ratio of carrying/capacity is above this amount.
 		MIN_WEIGHT: 800, // Small haulers are a CPU drain.
 		MULTIPLIER: 3, // Max number of haulers spawned per source in a remote mining room.
-		REHOME: true, // May haulers choose closer storage for delivery?
+		REHOME: false, // May haulers choose closer storage for delivery?
 	},
 	TASK_CREEP_CHECK_INTERVAL: 250, // Maximum number of ticks before a task checks to see if it needs to spawn new creeps
 	REMOTE_RESERVE_HAUL_CAPACITY: 0.1, // Percent of allocated haul capacity before sending reservers.

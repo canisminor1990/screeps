@@ -1,10 +1,10 @@
 // Wrapper class for PathFinder.CostMatrix to define our own compression
 export class CompressedMatrix {
-	state = {
+	state: obj = {
 		nSize: 0,
 		cSize: 0,
 	};
-	serialize = costMatrix => {
+	serialize = (costMatrix: CostMatrix): number => {
 		let ret = `${costMatrix._bits[0]}x`;
 		let count = 1;
 		for (let i = 1; i < costMatrix._bits.length; i++) {
@@ -19,7 +19,7 @@ export class CompressedMatrix {
 		ret += `${count}`;
 		return ret;
 	};
-	deserialize = data => {
+	deserialize = (data: string): CostMatrix => {
 		const matrix = new PathFinder.CostMatrix();
 		const entries = data.split(',');
 		let total = 0;
@@ -39,7 +39,11 @@ export class CompressedMatrix {
 		});
 		return matrix;
 	};
-	compareEfficiency = (count, costMatrix = new PathFinder.CostMatrix(), verbose = true) => {
+	compareEfficiency = (
+		count: number,
+		costMatrix: CostMatrix = new PathFinder.CostMatrix(),
+		verbose: boolean = true,
+	): void => {
 		let serialized, stringified, normalStringified, compressedStringified;
 		for (let i = 0; i < count; i++) {
 			serialized = costMatrix.serialize();

@@ -1,4 +1,4 @@
-import { TaskComponent } from '../../class/Task';
+import { TaskComponent } from '../Task';
 
 // In this example I prefered to hardcode the example process, but mod.register
 // can be used with mod.registerProcess to avoid hardcoding.

@@ -1,3 +1,8 @@
+interface CreepMemory {
+	creepType: string;
+	creepName: string;
+}
+
 interface CreepConstructor {
 	resolvingError: any;
 	error: obj;
@@ -82,9 +87,4 @@ interface Creep {
 	staticCustomStrategy(actionName: string, behaviourName: string, taskName: string): any;
 
 	customStrategy(actionName: string, behaviourName: string, taskName: string): any;
-}
-
-interface CreepMemory {
-	creepType: string;
-	creepName: string;
 }

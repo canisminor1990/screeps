@@ -1,4 +1,4 @@
-import { TaskComponent } from '../../class/Task';
+import { TaskComponent } from '../Task';
 
 // This task will react on exploit, reserve and remotemine flags, sending a reserving creep to the flags position.
 class ReserveTask extends TaskComponent {

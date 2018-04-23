@@ -1,4 +1,4 @@
-import { RoomManager } from '../../class';
+import { RoomManager } from '../Manager';
 
 class ExtensionManager extends RoomManager {
 	constructor() {

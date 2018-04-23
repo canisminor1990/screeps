@@ -32,6 +32,29 @@ interface RoomMemory {
 	heatmap: obj;
 }
 
+interface RoomConstructor {
+	manager: obj;
+
+	newInvader: Event;
+	knownInvader: Event;
+	goneInvader: Event;
+	collapsed: Event;
+	costMatrixInvalid: Event;
+	RCLChange: Event;
+
+	extend(): void;
+
+	fresh(): void;
+
+	analyze(): void;
+
+	register(): void;
+
+	run(): void;
+
+	cleanup(): void;
+}
+
 interface Room {
 	print: string;
 
@@ -106,8 +129,6 @@ interface Room {
 	situation: RoomSituation;
 
 	collapsed: boolean;
-
-	adjacentRooms: string[];
 
 	adjacentRooms: string[];
 

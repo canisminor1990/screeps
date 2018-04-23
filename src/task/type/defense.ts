@@ -1,5 +1,5 @@
 // Defense task handles spotted invaders. Spawns defenders and gives them special behaviour.
-import { TaskComponent } from '../../class/Task';
+import { TaskComponent } from '../Task';
 
 class DefenseTask extends TaskComponent {
 	constructor() {

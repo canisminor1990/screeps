@@ -1,9 +1,9 @@
 import { Component } from '../class';
 
 class CMemoryConstructor extends Component {
-	numSaved = 0;
-	toActivate = {};
-	extend = () => {
+	numSaved: number = 0;
+	toActivate: { [type: number]: any } = {};
+	extend = (): void => {
 		// custom extend
 		this.activateSegment(MEM_SEGMENTS.COSTMATRIX_CACHE, true);
 		// ensure required memory namespaces
@@ -13,21 +13,21 @@ class CMemoryConstructor extends Component {
 			pavementArt: {},
 		});
 	};
-	fresh = () => {
+	fresh = (): void => {
 		Memory.CPU_CRITICAL = Memory.CPU_CRITICAL
 			? Game.cpu.bucket < CRITICAL_BUCKET_LEVEL + CRITICAL_BUCKET_OVERFILL
 			: Game.cpu.bucket < CRITICAL_BUCKET_LEVEL;
 		// loaded memory segments
 		this.processSegments();
 	};
-	cleanup = () => {
+	cleanup = (): void => {
 		if (_.size(this.toActivate) > 0) {
-			RawMemory.setActiveSegments(Object.keys(this.toActivate));
+			RawMemory.setActiveSegments(Object.keys(this.toActivate) as number[]);
 		}
 		this.toActivate = {};
 		this.numSaved = 0;
 	};
-	activateSegment = (id, reset = false) => {
+	activateSegment = (id: obj | number, reset = false): void => {
 		if (id.start && id.end) {
 			for (let i = id.start; i >= id.end; i--) {
 				this.activateSegment(i, reset);
@@ -48,15 +48,15 @@ class CMemoryConstructor extends Component {
 		}
 		this.toActivate[id] = true;
 	};
-	deactivateSegment = id => {
+	deactivateSegment = (id: number): void => {
 		if (id < 0 || id > 99) return Log.error('[CMemory]', 'cannot deactivate invalid segment ', id);
 		if (_.size(this.toActivate) === 0) Object.keys(RawMemory.segments).forEach(id => (this.toActivate[id] = true));
 		delete this.toActivate[id];
 	};
-	cacheValid = id => {
+	cacheValid = (id: number): boolean => {
 		return Util.cacheValid[id] === Memory.cacheValid[id];
 	};
-	processSegment = (id, process) => {
+	processSegment = (id: number, process: Function): void => {
 		if (_.isUndefined(Memory.cacheValid[id])) Memory.cacheValid[id] = false;
 		const segment = RawMemory.segments[id];
 		if (!this.cacheValid(id)) {
@@ -72,7 +72,7 @@ class CMemoryConstructor extends Component {
 			}
 		}
 	};
-	processSegments = () => {
+	processSegments = (): void => {
 		if (_.isUndefined(Util.cacheValid)) Util.cacheValid = {};
 		if (_.isUndefined(Memory.cacheValid)) Memory.cacheValid = {};
 
@@ -80,7 +80,7 @@ class CMemoryConstructor extends Component {
 			this.processSegment(id, Room.loadCostMatrixCache);
 		}
 	};
-	saveSegment = (range, inputData) => {
+	saveSegment = (range: obj, inputData: obj): void => {
 		const numActive = _.size(RawMemory.segments);
 		const keys = Object.keys(inputData);
 		let keyNum = 0;

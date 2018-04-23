@@ -1,4 +1,4 @@
-import { CreepSetup } from '../../class';
+import { CreepSetup } from '../Setup';
 
 class MinerSetup extends CreepSetup {
 	constructor() {

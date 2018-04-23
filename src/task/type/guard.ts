@@ -1,5 +1,5 @@
 // This task will react on yellow/yellow flags, sending a guarding creep to the flags position.
-import { TaskComponent } from '../../class/Task';
+import { TaskComponent } from '../Task';
 
 class GuardTask extends TaskComponent {
 	constructor() {

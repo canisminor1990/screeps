@@ -2,18 +2,18 @@ import { Component, EventConstructor } from '../class';
 import { Install } from '../util';
 
 class RoomConstructor extends Component {
-	pathfinderCache = {};
-	pathfinderCacheDirty = false;
-	pathfinderCacheLoaded = false;
-	COSTMATRIX_CACHE_VERSION = COMPRESS_COST_MATRICES ? 4 : 5; // change this to invalidate previously cached costmatrices
+	pathfinderCache: obj = {};
+	pathfinderCacheDirty: boolean = false;
+	pathfinderCacheLoaded: boolean = false;
+	COSTMATRIX_CACHE_VERSION: number = COMPRESS_COST_MATRICES ? 4 : 5; // change this to invalidate previously cached costmatrices
 
-	extend = () => {
+	extend = (): void => {
 		// run extend in each of our submodules
 		for (const key of Object.keys(Room.manager)) {
 			if (Room.manager[key].extend) Room.manager[key].extend();
 		}
 	};
-	fresh = () => {
+	fresh = (): void => {
 		Install(Room, {
 			// ocurrs when a new invader has been spotted for the first time
 			// param: invader creep
@@ -37,20 +37,20 @@ class RoomConstructor extends Component {
 		for (const key of Object.keys(Room.manager)) {
 			if (Room.manager[key].fresh) Room.manager[key].fresh();
 		}
-		let clean = room => {
-			for (const key of Object.keys(Room.manager)) {
-				if (Room.manager[key].freshRoom) Room.manager[key].freshRoom(room);
-			}
+		const freshRoom = (room: Room) => {
+			_.forEach(Room.manager, manager => {
+				if (manager.freshRoom) manager.freshRoom(room);
+			});
 		};
-		_.forEach(Game.rooms, clean);
+		_.forEach(Game.rooms, freshRoom);
 	};
-	register = () => {
+	register = (): void => {
 		// run register in each of our submodules
-		for (const key of Object.keys(Room.manager)) {
-			if (Room.manager[key].register) Room.manager[key].register();
-		}
-		Room.costMatrixInvalid.on(room => this.rebuildCostMatrix(room.name || room));
-		Room.RCLChange.on(room =>
+		_.forEach(Room.manager, manager => {
+			if (manager.register) manager.register();
+		});
+		Room.costMatrixInvalid.on((room: Room) => this.rebuildCostMatrix(room.name || room));
+		Room.RCLChange.on((room: Room) =>
 			room.structures.all
 				.filter(s => ![STRUCTURE_ROAD, STRUCTURE_WALL, STRUCTURE_RAMPART].includes(s.structureType))
 				.forEach(s => {
@@ -58,13 +58,13 @@ class RoomConstructor extends Component {
 				}),
 		);
 	};
-	analyze = () => {
+	analyze = (): void => {
 		// run analyze in each of our submodules
-		for (const key of Object.keys(Room.manager)) {
-			if (Room.manager[key].analyze) Room.manager[key].analyze();
-		}
+		_.forEach(Room.manager, manager => {
+			if (manager.analyze) manager.analyze();
+		});
 
-		const getEnvironment = room => {
+		const getEnvironment = (room: Room) => {
 			try {
 				const roomName = room.name;
 				const check = _.includes(CPU_CHECK_CONFIG.ROOM, roomName);
@@ -97,19 +97,19 @@ class RoomConstructor extends Component {
 				);
 			}
 		};
-		_.forEach(Game.rooms, r => {
-			if (r.skip) return;
-			getEnvironment(r);
+		_.forEach(Game.rooms, (room: Room) => {
+			if (room.skip) return;
+			getEnvironment(room);
 		});
 	};
-	run = () => {
+	run = (): void => {
 		// run run in each of our submodules
-		for (const key of Object.keys(Room.manager)) {
-			if (Room.manager[key].run) Room.manager[key].run();
-		}
-		const work = (memory, roomName) => {
+		_.forEach(Room.manager, manager => {
+			if (manager.run) manager.run();
+		});
+		const work = (memory: RoomMemory, roomName: string) => {
 			try {
-				const check = _.includes(CPU_CHECK_CONFIG.ROOM, roomName);
+				const check: boolean = _.includes(CPU_CHECK_CONFIG.ROOM, roomName);
 				// run runRoom in each of our submodules
 				for (const key of Object.keys(Room.manager)) {
 					if (check) CPU.check('run', roomName, key);
@@ -134,18 +134,18 @@ class RoomConstructor extends Component {
 			if (
 				Game.time % MEMORY_RESYNC_INTERVAL === 0 &&
 				!Game.rooms[roomName] &&
-				typeof Memory.rooms[roomName].hostile !== 'boolean'
+				!_.isBoolean(Memory.rooms[roomName].hostile)
 			) {
 				// clean up stale room memory for rooms no longer in use, but preserve manually set 'hostile' entries
 				delete Memory.rooms[roomName];
 			}
 		});
 	};
-	cleanup = () => {
+	cleanup = (): void => {
 		// run cleanup in each of our submodules
-		for (const key of Object.keys(Room.manager)) {
-			if (Room.manager[key].cleanup) Room.manager[key].cleanup();
-		}
+		_.forEach(Room.manager, manager => {
+			if (manager.cleanup) manager.cleanup();
+		});
 		// fresh changes to the pathfinderCache but wait until load
 		if (!_.isUndefined(Memory.pathfinder)) {
 			CMemory.saveSegment(MEM_SEGMENTS.COSTMATRIX_CACHE, Memory.pathfinder);
@@ -203,7 +203,7 @@ class RoomConstructor extends Component {
 		}
 		return isChange;
 	};
-	needMemoryResync = room => {
+	needMemoryResync = (room: Room) => {
 		if (_.isUndefined(room.memory.initialized)) {
 			room.memory.initialized = Game.time;
 			return true;
@@ -211,13 +211,13 @@ class RoomConstructor extends Component {
 		return Game.time % MEMORY_RESYNC_INTERVAL === 0 || room.name == 'sim';
 	};
 
-	routeCallback = (origin, destination, options) => {
+	routeCallback = (origin: string, destination: string, options: obj) => {
 		if (_.isUndefined(origin) || _.isUndefined(destination))
 			Log.error(
 				'Room.routeCallback',
 				'both origin and destination must be defined - origin:' + origin + ' destination:' + destination,
 			);
-		return roomName => {
+		return (roomName: string) => {
 			if (Game.map.getRoomLinearDistance(origin, roomName) > options.restrictDistance) return false;
 			if (roomName !== destination && ROUTE_ROOM_COST[Game.shard.name] && ROUTE_ROOM_COST[Game.shard.name][roomName]) {
 				return ROUTE_ROOM_COST[Game.shard.name][roomName];
@@ -245,59 +245,59 @@ class RoomConstructor extends Component {
 			return Number.POSITIVE_INFINITY;
 		};
 	};
-	getCostMatrix = roomName => {
+	getCostMatrix = (roomName: string) => {
 		let room = Game.rooms[roomName];
 		if (!room) return;
 		return room.costMatrix;
 	};
-	isMine = roomName => {
+	isMine = (roomName: string) => {
 		let room = Game.rooms[roomName];
 		return room && room.my;
 	};
 
-	calcCardinalDirection = roomName => {
+	calcCardinalDirection = (roomName: string) => {
 		const parsed = /^([WE])[0-9]+([NS])[0-9]+$/.exec(roomName);
 		return [parsed[1], parsed[2]];
 	};
-	calcGlobalCoordinates = (roomName, callBack) => {
+	calcGlobalCoordinates = (roomName: string, callBack: Function) => {
 		if (!callBack) return null;
 		const parsed = /^[WE]([0-9]+)[NS]([0-9]+)$/.exec(roomName);
 		const x = +parsed[1];
 		const y = +parsed[2];
 		return callBack(x, y);
 	};
-	calcCoordinates = (roomName, callBack) => {
+	calcCoordinates = (roomName: string, callBack: Function) => {
 		if (!callBack) return null;
 		return this.calcGlobalCoordinates(roomName, (x, y) => {
 			return callBack(x % 10, y % 10);
 		});
 	};
-	isCenterRoom = roomName => {
+	isCenterRoom = (roomName: string) => {
 		return Room.calcCoordinates(roomName, (x, y) => {
 			return x === 5 && y === 5;
 		});
 	};
-	isCenterNineRoom = roomName => {
+	isCenterNineRoom = (roomName: string) => {
 		return Room.calcCoordinates(roomName, (x, y) => {
 			return x > 3 && x < 7 && y > 3 && y < 7;
 		});
 	};
-	isControllerRoom = roomName => {
+	isControllerRoom = (roomName: string) => {
 		return Room.calcCoordinates(roomName, (x, y) => {
 			return x !== 0 && y !== 0 && (x < 4 || x > 6 || y < 4 || y > 6);
 		});
 	};
-	isSKRoom = roomName => {
+	isSKRoom = (roomName: string) => {
 		return Room.calcCoordinates(roomName, (x, y) => {
 			return x > 3 && x < 7 && y > 3 && y < 7 && (x !== 5 || y !== 5);
 		});
 	};
-	isHighwayRoom = roomName => {
+	isHighwayRoom = (roomName: string) => {
 		return Room.calcCoordinates(roomName, (x, y) => {
 			return x === 0 || y === 0;
 		});
 	};
-	adjacentRooms = roomName => {
+	adjacentRooms = (roomName: string) => {
 		let parts = roomName.split(/([NESW])/);
 		let dirs = ['N', 'E', 'S', 'W'];
 		let toggle = q => dirs[(dirs.indexOf(q) + 2) % 4];
@@ -309,7 +309,7 @@ class RoomConstructor extends Component {
 		}
 		return names;
 	};
-	adjacentAccessibleRooms = (roomName, diagonal = true) => {
+	adjacentAccessibleRooms = (roomName: string, diagonal: boolean = true) => {
 		let validRooms = [];
 		let exits = Game.map.describeExits(roomName);
 		let addValidRooms = (roomName, direction) => {
@@ -325,7 +325,7 @@ class RoomConstructor extends Component {
 		_.forEach(exits, addValidRooms);
 		return validRooms;
 	};
-	roomDistance = (roomName1, roomName2, diagonal, continuous) => {
+	roomDistance = (roomName1: string, roomName2: string, diagonal: boolean, continuous: boolean) => {
 		if (diagonal) return Game.map.getRoomLinearDistance(roomName1, roomName2, continuous);
 		if (roomName1 == roomName2) return 0;
 		let posA = roomName1.split(/([NESW])/);
@@ -335,13 +335,13 @@ class RoomConstructor extends Component {
 		// if( diagonal ) return Math.max(xDif, yDif); // count diagonal as 1
 		return xDif + yDif; // count diagonal as 2
 	};
-	rebuildCostMatrix = roomName => {
+	rebuildCostMatrix = (roomName: string) => {
 		Log.room(roomName, 'Invalidating costmatrix to force a rebuild when we have vision.');
 		_.set(Room, ['pathfinderCache', roomName, 'stale'], true);
 		_.set(Room, ['pathfinderCache', roomName, 'updated'], Game.time);
 		this.pathfinderCacheDirty = true;
 	};
-	loadCostMatrixCache = cache => {
+	loadCostMatrixCache = (cache: obj) => {
 		let count = 0;
 		for (const key in cache) {
 			if (!this.pathfinderCache[key] || this.pathfinderCache[key].updated < cache[key].updated) {
@@ -352,8 +352,8 @@ class RoomConstructor extends Component {
 		if (count > 0) Log.module('CMemory', 'loading pathfinder cache.. updated ' + count + ' stale entries.');
 		this.pathfinderCacheLoaded = true;
 	};
-	getCachedStructureMatrix = roomName => {
-		const cacheValid = roomName => {
+	getCachedStructureMatrix = (roomName: string) => {
+		const cacheValid = (roomName: string) => {
 			if (_.isUndefined(this.pathfinderCache)) {
 				this.pathfinderCache = {};
 				this.pathfinderCache[roomName] = {};
@@ -398,7 +398,7 @@ class RoomConstructor extends Component {
 			}
 		}
 	};
-	getStructureMatrix = (roomName, options) => {
+	getStructureMatrix = (roomName: string, options: obj) => {
 		const room = Game.rooms[roomName];
 		let matrix;
 		if (this.isSKRoom(roomName) && options.avoidSKCreeps) {
@@ -413,7 +413,15 @@ class RoomConstructor extends Component {
 
 		return matrix;
 	};
-	validFields = (roomName, minX, maxX, minY, maxY, checkWalkable = false, where = null) => {
+	validFields = (
+		roomName: string,
+		minX: number,
+		maxX: number,
+		minY: number,
+		maxY: number,
+		checkWalkable: boolean = false,
+		where: Function | null = null,
+	) => {
 		const room = Game.rooms[roomName];
 		const look = checkWalkable ? room.lookAtArea(minY, minX, maxY, maxX) : null;
 		let fields = [];
@@ -441,7 +449,7 @@ class RoomConstructor extends Component {
 		let maxY = Math.min(...plusRangeY);
 		return this.validFields(args.roomName, minX, maxX, minY, maxY, args.checkWalkable, args.where);
 	};
-	shouldRepair = (room, structure) => {
+	shouldRepair = (room: Room, structure: Structure): boolean => {
 		return (
 			// is not at 100%
 			structure.hits < structure.hitsMax &&

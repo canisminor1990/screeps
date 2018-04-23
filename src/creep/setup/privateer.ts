@@ -1,4 +1,4 @@
-import { CreepSetup } from '../../class';
+import { CreepSetup } from '../Setup';
 
 class PrivateerSetup extends CreepSetup {
 	constructor() {
