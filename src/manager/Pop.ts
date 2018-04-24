@@ -42,7 +42,11 @@ class PopulationConstructor extends Component {
 		let register = entry => {
 			let creep = Game.creeps[entry.creepName];
 			if (!creep) {
-				Log.room(entry.roomName, Util.emoji.skull, Dye(COLOR_RED, entry.creepName, 'has been killed...'));
+				if (entry.ttl > 1) {
+					Log.room(entry.roomName, Util.emoji.skull, Dye(COLOR_RED, entry.creepName, 'has been killed...'));
+				} else {
+					Log.room(entry.roomName, Util.emoji.skull, Dye('black', entry.creepName, 'was dead...'));
+				}
 				this.died.push(entry.creepName);
 			} else {
 				creep.data = entry;
@@ -64,7 +68,7 @@ class PopulationConstructor extends Component {
 					// will die in ticks equal to spawning time or custom
 					creep.data.nearDeath = true;
 					if (CENSUS_ANNOUNCEMENTS)
-						Log.room(entry.roomName, Util.emoji.skull, Dye('black', entry.creepName, 'was dead...'));
+						Log.room(entry.roomName, Util.emoji.skull, Dye('black', entry.creepName, 'was near death...'));
 					this.predictedRenewal.push(creep.name);
 					if (
 						!this.spawnsToProbe.includes(entry.motherSpawn) &&
