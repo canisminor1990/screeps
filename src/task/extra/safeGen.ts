@@ -20,7 +20,7 @@ class SafeGenTask extends TaskComponent {
 	// for each flag
 	handleFlagFound = flag => {
 		// if it is a safeGen flag
-		if (flag.compareTo(FLAG_COLOR.command.safeGen) && Task.nextCreepCheck(flag, this.name)) {
+		if (flag.compareTo(FLAG_COLOR.command.safeGen) && TaskManager.nextCreepCheck(flag, this.name)) {
 			const room = Game.rooms[flag.pos.roomName];
 			const valid =
 				room &&
@@ -40,12 +40,12 @@ class SafeGenTask extends TaskComponent {
 		// get task memory
 		const memory = this.memory(flag);
 		// re-validate if too much time has passed
-		Task.validateAll(memory, flag, this.name, { roomName: flag.pos.roomName, checkValid: true });
+		TaskManager.validateAll(memory, flag, this.name, { roomName: flag.pos.roomName, checkValid: true });
 		// count creeps assigned to task
 		const count = memory.queued.length + memory.spawning.length + memory.running.length;
 		// if creep count below requirement spawn a new creep creep
 		if (count < 1) {
-			Task.spawn(
+			TaskManager.spawn(
 				this.creep.safeGen, // creepDefinition
 				{
 					// destiny
@@ -84,7 +84,7 @@ class SafeGenTask extends TaskComponent {
 			// save spawning creep to task memory
 			memory.spawning.push(params);
 			// clean/validate task memory queued creeps
-			Task.validateQueued(memory, flag, this.name);
+			TaskManager.validateQueued(memory, flag, this.name);
 		}
 	};
 	// when a creep completed spawning
@@ -106,7 +106,7 @@ class SafeGenTask extends TaskComponent {
 			memory.running.push(creep.name);
 
 			// clean/validate task memory spawning creeps
-			Task.validateSpawning(memory, flag, this.name);
+			TaskManager.validateSpawning(memory, flag, this.name);
 		}
 	};
 	// when a creep died (or will die soon)
@@ -120,7 +120,7 @@ class SafeGenTask extends TaskComponent {
 		const flag = Game.flags[mem.destiny.targetName || mem.destiny.flagName];
 		if (flag) {
 			const memory = this.memory(flag);
-			Task.validateRunning(memory, flag, this.name, {
+			TaskManager.validateRunning(memory, flag, this.name, {
 				roomName: flag.pos.roomName,
 				deadCreep: name,
 			});

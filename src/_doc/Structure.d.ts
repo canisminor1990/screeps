@@ -68,17 +68,6 @@ interface StructureRoad {
 /// ////////////////////////////////////
 // StructureSpawn
 /// ////////////////////////////////////
-declare const SpawnManager: {
-	priorityHigh: string[];
-	priorityLow: string[];
-
-	register(): void;
-
-	handleSpawningCompleted(creep: Creep): void;
-
-	run(): void;
-};
-
 interface StructureSpawn {
 	run(): void | boolean;
 
@@ -116,12 +105,6 @@ interface StructureTerminal {
 /// ////////////////////////////////////
 // StructureTower
 /// ////////////////////////////////////
-declare const TowerManager: {
-	loop(room: Room): void;
-
-	run(tower: StructureTower): void;
-};
-
 interface StructureTower {
 	active: boolean;
 }

@@ -48,13 +48,13 @@ class InvadingAction extends CreepAction {
 	newTarget = creep => {
 		let destroy = this.getFlaggedStructure(FLAG_COLOR.destroy, creep.pos);
 		if (destroy) {
-			if (destroy.destroyFlag) Population.registerCreepFlag(creep, destroy.destroyFlag);
+			if (destroy.destroyFlag) PopManager.registerCreepFlag(creep, destroy.destroyFlag);
 			return destroy;
 		}
 		// move to invasion room
 		let flag = FlagManager.find(FLAG_COLOR.invade, creep.pos, false);
 		if (flag && (!flag.room || flag.pos.roomName != creep.pos.roomName)) {
-			Population.registerCreepFlag(creep, flag);
+			PopManager.registerCreepFlag(creep, flag);
 			return flag; // other room
 		}
 		if (!flag) {

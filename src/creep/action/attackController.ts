@@ -16,7 +16,7 @@ class AttackControllerAction extends CreepAction {
 		return true;
 	};
 	isValidTarget = (target, creep) => {
-		return target && (!target.reservation || !Task.reputation.allyOwner(target.reservation)) && creep.flag;
+		return target && (!target.reservation || !TaskManager.reputation.allyOwner(target.reservation)) && creep.flag;
 	};
 	isAddableAction = () => {
 		return true;
@@ -35,7 +35,7 @@ class AttackControllerAction extends CreepAction {
 		if (!flag) flag = FlagManager.find(validColor, creep.pos, false, FlagManager.reserveMod, creep.name);
 
 		if (flag) {
-			Population.registerCreepFlag(creep, flag);
+			PopManager.registerCreepFlag(creep, flag);
 		} else return null;
 
 		// not there, go to flagged room
@@ -77,7 +77,7 @@ class AttackControllerAction extends CreepAction {
 
 		if (
 			(creep.target.owner && !creep.target.my) ||
-			(creep.target.reservation && !Task.reputation.allyOwner(creep.target.reservation))
+			(creep.target.reservation && !TaskManager.reputation.allyOwner(creep.target.reservation))
 		) {
 			workResult = creep.attackController(creep.target);
 		} else {

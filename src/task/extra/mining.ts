@@ -61,18 +61,18 @@ class MiningTask extends TaskComponent {
 			if (population < REMOTE_RESERVE_HAUL_CAPACITY) {
 				// TODO if this room & all exits are currently reserved (by anyone) then use default to prevent Invaders?
 				if (LOG_TRACE)
-					Log.trace('Task', {
+					Log.trace('TaskManager', {
 						flagName: flag.name,
 						pos: flag.pos,
 						population,
 						spawnParams: 'population',
 						[this.name]: 'spawnParams',
-						Task: this.name,
+						TaskManager: this.name,
 					});
 				return { count: 0, priority: 'Low' };
 			}
 
-			return Task.reserve.state.default.spawnParams(flag);
+			return TaskManager.reserve.state.default.spawnParams(flag);
 		},
 	};
 	miner = {
@@ -119,8 +119,8 @@ class MiningTask extends TaskComponent {
 			const neededCarry = ept * travel * 2 + (memory.carryParts || 0) - existingCarry - queuedCarry;
 			const maxWeight = this._haulerCarryToWeight(neededCarry);
 			if (LOG_TRACE)
-				Log.trace('Task', {
-					Task: this.name,
+				Log.trace('TaskManager', {
+					TaskManager: this.name,
 					room: flagRoomName,
 					homeRoom: homeRoomName,
 					haulers: existingHaulers.length + queuedHaulers.length,
@@ -145,11 +145,11 @@ class MiningTask extends TaskComponent {
 			if (flags && flags.length > 0) return;
 		}
 		// no more mining in that room.
-		Task.cleanup(['remoteMiner', 'remoteWorker', 'remoteHauler'], this.name, flagMem.roomName);
+		TaskManager.cleanup(['remoteMiner', 'remoteWorker', 'remoteHauler'], this.name, flagMem.roomName);
 	};
 	handleFlagFound = flag => {
 		// Analyze FlagManager
-		if (flag.compareTo(FLAG_COLOR.claim.mining) && Task.nextCreepCheck(flag, this.name)) {
+		if (flag.compareTo(FLAG_COLOR.claim.mining) && TaskManager.nextCreepCheck(flag, this.name)) {
 			Util.set(flag.memory, 'roomName', flag.pos.roomName);
 			Util.set(flag.memory, 'task', this.name);
 			// check if a new creep has to be spawned
@@ -164,7 +164,7 @@ class MiningTask extends TaskComponent {
 		if (flag) {
 			// validate currently queued entries and clean out spawned creep
 			const priority = _.find(this.creep, { behaviour: params.destiny.type }).queue;
-			Task.validateQueued(memory, flag, this.name, {
+			TaskManager.validateQueued(memory, flag, this.name, {
 				subKey: params.destiny.type,
 				queues: [priority],
 			});
@@ -190,7 +190,7 @@ class MiningTask extends TaskComponent {
 			// save running creep to task memory
 			memory.running[creep.data.destiny.type].push(creep.name);
 			// clean/validate task memory spawning creeps
-			Task.validateSpawning(memory, flag, this.name, {
+			TaskManager.validateSpawning(memory, flag, this.name, {
 				roomName: creep.data.destiny.room,
 				subKey: creep.data.destiny.type,
 			});
@@ -206,7 +206,7 @@ class MiningTask extends TaskComponent {
 		if (flag) {
 			// clean/validate task memory running creeps
 			const memory = this.memory(mem.destiny.room);
-			Task.validateRunning(memory, flag, this.name, {
+			TaskManager.validateRunning(memory, flag, this.name, {
 				subKey: mem.creepType,
 				roomName: mem.destiny.room,
 				deadCreep: name,
@@ -222,7 +222,7 @@ class MiningTask extends TaskComponent {
 	checkForRequiredCreeps = flag => {
 		const roomName = flag.pos.roomName;
 		const room = Game.rooms[roomName];
-		// Use the roomName as key in Task.memory?
+		// Use the roomName as key in TaskManager.memory?
 		// Prevents accidentally processing same room multiple times if flags > 1
 		const memory = this.memory(roomName);
 
@@ -239,7 +239,7 @@ class MiningTask extends TaskComponent {
 
 		const countExisting = type => {
 			const priority = _.find(this.creep, { behaviour: type }).queue;
-			Task.validateAll(memory, flag, this.name, {
+			TaskManager.validateAll(memory, flag, this.name, {
 				roomName,
 				subKey: type,
 				queues: [priority],
@@ -255,9 +255,9 @@ class MiningTask extends TaskComponent {
 
 		if (LOG_TRACE)
 			Log.trace(
-				'Task',
+				'TaskManager',
 				{
-					Task: this.name,
+					TaskManager: this.name,
 					flagName: flag.name,
 					sourceCount,
 					haulerCount,
@@ -271,8 +271,8 @@ class MiningTask extends TaskComponent {
 
 		if (this.state.miner.shouldSpawn(minerCount, sourceCount)) {
 			if (LOG_TRACE)
-				Log.trace('Task', {
-					Task: this.name,
+				Log.trace('TaskManager', {
+					TaskManager: this.name,
 					room: roomName,
 					minerCount,
 					minerTTLs: _.map(_.map(memory.running.remoteMiner, n => Game.creeps[n]), 'ticksToLive'),
@@ -280,7 +280,7 @@ class MiningTask extends TaskComponent {
 				});
 			const miner = this.state.miner.setup(roomName);
 			for (let i = minerCount; i < sourceCount; i++) {
-				Task.spawn(
+				TaskManager.spawn(
 					miner, // creepDefinition
 					{
 						// destiny
@@ -321,7 +321,7 @@ class MiningTask extends TaskComponent {
 
 				// haulers set homeRoom if closer storage exists
 				const storageRoomName = REMOTE_HAULER.REHOME ? this.state.hauler.homeRoomName(roomName) : spawnRoom.name;
-				let maxWeight = this.state.hauler.maxWeight(roomName, storageRoomName, memory); // TODO Task.state
+				let maxWeight = this.state.hauler.maxWeight(roomName, storageRoomName, memory); // TODO TaskManager.state
 				if (!maxWeight || (!REMOTE_HAULER.ALLOW_OVER_CAPACITY && maxWeight < minWeight)) {
 					memory.capacityLastChecked = Game.time;
 					break;
@@ -339,7 +339,7 @@ class MiningTask extends TaskComponent {
 				const creepDefinition = _.create(this.creep.hauler);
 				creepDefinition.maxWeight = maxWeight;
 				if (minWeight) creepDefinition.minWeight = minWeight;
-				Task.spawn(
+				TaskManager.spawn(
 					creepDefinition,
 					{
 						// destiny
@@ -366,7 +366,7 @@ class MiningTask extends TaskComponent {
 		}
 		if (room && room.myConstructionSites.length > 0 && workerCount < REMOTE_WORKER_MULTIPLIER) {
 			for (let i = workerCount; i < REMOTE_WORKER_MULTIPLIER; i++) {
-				Task.spawn(
+				TaskManager.spawn(
 					this.creep.worker, // creepDefinition
 					{
 						// destiny
@@ -395,7 +395,7 @@ class MiningTask extends TaskComponent {
 		const spawning = [];
 		_.forEach(Game.spawns, s => {
 			if (s.spawning && (_.includes(s.spawning.name, type) || (s.newSpawn && _.includes(s.newSpawn.name, type)))) {
-				const c = Population.getCreep(s.spawning.name);
+				const c = PopManager.getCreep(s.spawning.name);
 				if (c && c.destiny.room === roomName) {
 					const params = {
 						spawn: s.name,
@@ -418,7 +418,7 @@ class MiningTask extends TaskComponent {
 		return running;
 	};
 	memory = key => {
-		const memory = Task.memory(this.name, key);
+		const memory = TaskManager.memory(this.name, key);
 		if (!memory.hasOwnProperty('queued')) {
 			memory.queued = {
 				remoteMiner: [],
@@ -511,10 +511,10 @@ class MiningTask extends TaskComponent {
 		memory.carryParts = (memory.carryParts || 0) + (partChange || 0);
 		const population = Math.round(this._carryPopulation(roomName) * 100);
 		if (partChange) {
-			Task.forceCreepCheck(this.getFlag(roomName), this.name);
+			TaskManager.forceCreepCheck(this.getFlag(roomName), this.name);
 			delete memory.capacityLastChecked;
 		}
-		return `Task.${this.name}: hauler carry capacity for ${roomName} ${
+		return `TaskManager.${this.name}: hauler carry capacity for ${roomName} ${
 			memory.carryParts >= 0 ? 'increased' : 'decreased'
 		} by ${Math.abs(memory.carryParts)}. Currently at ${population}% of desired capacity`;
 	};
@@ -522,7 +522,7 @@ class MiningTask extends TaskComponent {
 	harvest = (roomName, partChange) => {
 		const memory = this.memory(roomName);
 		memory.harvestSize = (memory.harvestSize || 0) + (partChange || 0);
-		return `Task.${this.name}: harvesting work capacity for ${roomName} ${
+		return `TaskManager.${this.name}: harvesting work capacity for ${roomName} ${
 			memory.harvestSize >= 0 ? 'increased' : 'decreased'
 		} by ${Math.abs(memory.harvestSize)} per miner.`;
 	};
@@ -532,15 +532,15 @@ class MiningTask extends TaskComponent {
 		if (storageRoom) {
 			const was = memory.storageRoom;
 			memory.storageRoom = storageRoom;
-			return `Task.${this.name}: room ${miningRoom}, now sending haulers to ${storageRoom}, (was ${was})`;
+			return `TaskManager.${this.name}: room ${miningRoom}, now sending haulers to ${storageRoom}, (was ${was})`;
 		} else if (!memory.storageRoom) {
-			return `Task.${this.name}: room ${miningRoom}, no custom storage destination`;
+			return `TaskManager.${this.name}: room ${miningRoom}, no custom storage destination`;
 		} else if (storageRoom === false) {
 			const was = memory.storageRoom;
 			delete memory.storageRoom;
-			return `Task.${this.name}: room ${miningRoom}, cleared custom storage room (was ${was})`;
+			return `TaskManager.${this.name}: room ${miningRoom}, cleared custom storage room (was ${was})`;
 		} else {
-			return `Task.${this.name}: room ${miningRoom}, sending haulers to ${memory.storageRoom}`;
+			return `TaskManager.${this.name}: room ${miningRoom}, sending haulers to ${memory.storageRoom}`;
 		}
 	};
 }

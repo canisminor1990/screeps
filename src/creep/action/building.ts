@@ -34,7 +34,7 @@ class BuildingAction extends CreepAction {
 	isValidTarget = target => {
 		return (
 			target != null &&
-			(target.my || Task.reputation.allyOwner(target)) &&
+			(target.my || TaskManager.reputation.allyOwner(target)) &&
 			target.progress &&
 			target.progress < target.progressTotal
 		);
@@ -43,7 +43,7 @@ class BuildingAction extends CreepAction {
 		//  our site?
 		return (
 			target &&
-			(target.my || Task.reputation.allyOwner(target)) &&
+			(target.my || TaskManager.reputation.allyOwner(target)) &&
 			(!target.targetOf || target.targetOf.length < this.maxPerTarget)
 		);
 	};

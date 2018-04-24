@@ -58,7 +58,7 @@ class CreepExtend extends Creep {
 				let breeding = this.memory.breeding;
 				if (type && weight && home && spawn && breeding) {
 					Log.module('Creep', 'Fixing corrupt creep without population entry: ' + this.name);
-					let entry = Population.setCreep({
+					let entry = PopManager.setCreep({
 						creepName: this.name,
 						creepType: type,
 						weight: weight,
@@ -71,7 +71,7 @@ class CreepExtend extends Creep {
 						flagName: null,
 						body: _.countBy(this.body, 'type'),
 					});
-					Population.countCreep(this.room, entry);
+					PopManager.countCreep(this.room, entry);
 				} else {
 					Log.error('[Creep] Corrupt creep without population entry! : ' + this.name, Log.stack());
 					// trying to import creep
@@ -81,7 +81,7 @@ class CreepExtend extends Creep {
 							counts[WORK] * BODYPART_COST[WORK] +
 							counts[CARRY] * BODYPART_COST[CARRY] +
 							counts[MOVE] * BODYPART_COST[MOVE];
-						let entry = Population.setCreep({
+						let entry = PopManager.setCreep({
 							creepName: this.name,
 							creepType: 'worker',
 							weight: weight,
@@ -94,7 +94,7 @@ class CreepExtend extends Creep {
 							flagName: null,
 							body: _.countBy(this.body, 'type'),
 						});
-						Population.countCreep(this.room, entry);
+						PopManager.countCreep(this.room, entry);
 					} else this.suicide();
 				}
 			}

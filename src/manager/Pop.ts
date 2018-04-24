@@ -25,7 +25,7 @@ class PopulationConstructor extends Component {
 		},
 	};
 
-	fresh = () => {
+	fresh = (): void => {
 		this.typeCount = {};
 		this.typeWeight = {};
 		this.actionCount = {};
@@ -38,7 +38,7 @@ class PopulationConstructor extends Component {
 			Memory.population = {};
 		}
 	};
-	analyze = () => {
+	analyze = (): void => {
 		let register = entry => {
 			let creep = Game.creeps[entry.creepName];
 			if (!creep) {
@@ -136,7 +136,7 @@ class PopulationConstructor extends Component {
 			validateAssignment(c);
 		});
 	};
-	run = () => {
+	run = (): void => {
 		let triggerCompleted = name => CreepManager.spawningCompleted.trigger(Game.creeps[name]);
 		this.spawned.forEach(triggerCompleted);
 
@@ -158,7 +158,7 @@ class PopulationConstructor extends Component {
 			this.spawnsToProbe.forEach(probeSpawn);
 		}
 	};
-	cleanup = () => {
+	cleanup = (): void => {
 		let unregister = name => this.unregisterCreep(name);
 		this.died.forEach(unregister);
 		// TODO consider clearing target here
@@ -194,11 +194,11 @@ class PopulationConstructor extends Component {
 	};
 	registerAction = (creep, action, target, entry) => {
 		if (LOG_TRACE)
-			Log.trace('Population', {
+			Log.trace('PopManager', {
 				creepName: this.name,
 				registerAction: action.name,
 				target: target.name || target.id,
-				Population: 'registerAction',
+				PopManager: 'registerAction',
 			});
 
 		if (creep === target) throw new Error('attempt to register self target');

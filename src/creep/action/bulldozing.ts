@@ -8,7 +8,7 @@ class BulldozingAction extends CreepAction {
 	maxPerTarget = 1;
 	isValidTarget = target => {
 		if (!target.room.my && target.room.controller && target.room.controller.safeMode) return false;
-		return target instanceof ConstructionSite && Task.reputation.notAlly(target.owner.username);
+		return target instanceof ConstructionSite && TaskManager.reputation.notAlly(target.owner.username);
 	};
 	newTarget = creep => {
 		const target = _(creep.room.constructionSites)

@@ -1,3 +1,26 @@
+declare const RoomManager: {
+	manager: obj;
+
+	newInvader: Event;
+	knownInvader: Event;
+	goneInvader: Event;
+	collapsed: Event;
+	costMatrixInvalid: Event;
+	RCLChange: Event;
+
+	extend(): void;
+
+	fresh(): void;
+
+	analyze(): void;
+
+	register(): void;
+
+	run(): void;
+
+	cleanup(): void;
+};
+
 interface RoomMemory {
 	hostile?: boolean | number;
 	hostileIds: string[];
@@ -35,29 +58,6 @@ interface RoomMemory {
 	extensions: string[];
 	observer: string;
 }
-
-declare const RoomManager: {
-	manager: obj;
-
-	newInvader: Event;
-	knownInvader: Event;
-	goneInvader: Event;
-	collapsed: Event;
-	costMatrixInvalid: Event;
-	RCLChange: Event;
-
-	extend(): void;
-
-	fresh(): void;
-
-	analyze(): void;
-
-	register(): void;
-
-	run(): void;
-
-	cleanup(): void;
-};
 
 interface Room {
 	structures: {

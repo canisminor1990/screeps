@@ -23,7 +23,7 @@ class GuardingAction extends CreepAction {
 		}
 
 		if (creep.action === this && creep.flag) return creep.flag;
-		if (flag) Population.registerCreepFlag(creep, flag);
+		if (flag) PopManager.registerCreepFlag(creep, flag);
 		return flag;
 	};
 	work = creep => {

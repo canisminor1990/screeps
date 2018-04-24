@@ -46,7 +46,6 @@ interface Component {
 	cleanup(): void;
 }
 
-declare const Population: Component;
 declare const Statistics: Component;
 declare const Layout: Component;
 declare const Grafana: Component;
@@ -55,18 +54,6 @@ declare const Util: any;
 
 declare const observerRequests: any[];
 declare const cacheValid: obj;
-
-declare const CMemory: {
-	extend(): void;
-	fresh(): void;
-	cleanup(): void;
-	activateSegment(id: obj | number, reset?: boolean): void;
-	deactivateSegment(id: number): void;
-	cacheValid(id: number): boolean;
-	processSegment(id: number, process: Function): void;
-	processSegments(): void;
-	saveSegment(range: obj, inputData: obj): void;
-};
 
 declare const CompressedMatrix: {
 	state: obj;

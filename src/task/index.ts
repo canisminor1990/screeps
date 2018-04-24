@@ -7,19 +7,19 @@ class TaskConstructor extends Component {
 
 	public extend = (): void => {
 		this.tasks = [
-			Task.attackController,
-			Task.claim,
-			Task.defense,
-			Task.delivery,
-			Task.guard,
-			Task.labTech,
-			Task.mining,
-			Task.pioneer,
-			Task.reputation,
-			Task.reserve,
-			Task.robbing,
-			Task.safeGen,
-			Task.scheduler,
+			TaskManager.attackController,
+			TaskManager.claim,
+			TaskManager.defense,
+			TaskManager.delivery,
+			TaskManager.guard,
+			TaskManager.labTech,
+			TaskManager.mining,
+			TaskManager.pioneer,
+			TaskManager.reputation,
+			TaskManager.reserve,
+			TaskManager.robbing,
+			TaskManager.safeGen,
+			TaskManager.scheduler,
 		];
 	};
 	public fresh = (): void => {
@@ -56,7 +56,7 @@ class TaskConstructor extends Component {
 			try {
 				n.run();
 			} catch (e) {
-				Log.error(`Error executing Task "${k}"<br>${e.stack || e.toString()}`);
+				Log.error(`Error executing TaskManager "${k}"<br>${e.stack || e.toString()}`);
 			}
 		});
 	};
@@ -130,7 +130,7 @@ class TaskConstructor extends Component {
 		if (creepSetup.parts.length === 0) {
 			// creep has no body.
 			Log.error(
-				'[Task]',
+				'[TaskManager]',
 				`${destiny.task} task tried to queue a zero parts body ${creepDefinition.behaviour} creep. Aborted.`,
 			);
 			return null;
@@ -209,7 +209,7 @@ class TaskConstructor extends Component {
 		}
 		const oldCheck = _.get(flag.memory, ['nextCheck', task], Infinity);
 		if (flag && nextCheck - Game.time > 0 && nextCheck < oldCheck) {
-			Log.flag(flag, Dye(COLOR_PURPLE, 'Task Queued:', task, `(next-check: ${nextCheck - Game.time}s later)`));
+			Log.flag(flag, Dye(COLOR_PURPLE, 'TaskManager Queued:', task, `(next-check: ${nextCheck - Game.time}s later)`));
 			_.set(flag.memory, ['nextCheck', task], nextCheck);
 		}
 	};
@@ -246,7 +246,7 @@ class TaskConstructor extends Component {
 		}
 		const oldCheck = _.get(flag.memory, ['nextCheck', task], Infinity);
 		if (flag && nextCheck - Game.time > 0 && nextCheck < oldCheck) {
-			Log.flag(flag, Dye(COLOR_YELLOW, 'Task Spawning:', task, `(next-check: ${nextCheck - Game.time}s later)`));
+			Log.flag(flag, Dye(COLOR_YELLOW, 'TaskManager Spawning:', task, `(next-check: ${nextCheck - Game.time}s later)`));
 			_.set(flag.memory, ['nextCheck', task], nextCheck);
 		}
 	};
@@ -291,13 +291,13 @@ class TaskConstructor extends Component {
 		}
 		const oldCheck = _.get(flag.memory, ['nextCheck', task], Infinity);
 		if (flag && nextCheck - Game.time > 0 && nextCheck < oldCheck) {
-			Log.flag(flag, Dye(COLOR_GREEN, 'Task Running:', task, `(next-check: ${nextCheck - Game.time}s later)`));
+			Log.flag(flag, Dye(COLOR_GREEN, 'TaskManager Running:', task, `(next-check: ${nextCheck - Game.time}s later)`));
 			_.set(flag.memory, ['nextCheck', task], nextCheck);
 		}
 	};
 	validateAll = (memory: obj, flag: Flag, task: string, options: obj = {}): void => {
 		if (_.isUndefined(options.roomName))
-			return Log.error('Task.validateAll', 'roomName undefined' + flag + options.subKey);
+			return Log.error('TaskManager.validateAll', 'roomName undefined' + flag + options.subKey);
 		this.validateQueued(memory, flag, task, options);
 		this.validateSpawning(memory, flag, task, options);
 		this.validateRunning(memory, flag, task, options);

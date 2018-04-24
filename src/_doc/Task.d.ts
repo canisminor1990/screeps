@@ -1,4 +1,4 @@
-interface TaskConstructor {
+declare const TaskManager: {
 	attackController: any;
 	claim: any;
 	defense: any;
@@ -12,6 +12,4 @@ interface TaskConstructor {
 	robbing: any;
 	safeGen: any;
 	scheduler: any;
-}
-
-declare const Task: TaskConstructor;
+};

@@ -23,7 +23,7 @@ class AttackControllerTask extends TaskComponent {
 	// for each flag
 	handleFlagFound = flag => {
 		// if it is a Green/Purple flag
-		if (flag.compareTo(FLAG_COLOR.invade.attackController) && Task.nextCreepCheck(flag, this.name)) {
+		if (flag.compareTo(FLAG_COLOR.invade.attackController) && TaskManager.nextCreepCheck(flag, this.name)) {
 			Util.set(flag.memory, 'task', this.name);
 			// check if a new creep has to be spawned
 			this.checkForRequiredCreeps(flag);
@@ -36,12 +36,12 @@ class AttackControllerTask extends TaskComponent {
 		// get task memory
 		let memory = this.memory(flag);
 		// re-validate if too much time has passed
-		Task.validateAll(memory, flag, this.name, { roomName, checkValid: true });
+		TaskManager.validateAll(memory, flag, this.name, { roomName, checkValid: true });
 		// count creeps assigned to task
 		let count = memory.queued.length + memory.spawning.length + memory.running.length;
 		// if creep count below requirement spawn a new creep creep
 		if (count < 1) {
-			Task.spawn(
+			TaskManager.spawn(
 				this.creep.attackController, // creepDefinition
 				{
 					// destiny
@@ -78,7 +78,7 @@ class AttackControllerTask extends TaskComponent {
 			memory.spawning.push(params);
 
 			// clean/validate task memory queued creeps
-			Task.validateQueued(memory, flag, this.name);
+			TaskManager.validateQueued(memory, flag, this.name);
 		}
 	};
 	// when a creep completed spawning
@@ -100,7 +100,7 @@ class AttackControllerTask extends TaskComponent {
 			memory.running.push(creep.name);
 
 			// clean/validate task memory spawning creeps
-			Task.validateSpawning(memory, flag, this.name);
+			TaskManager.validateSpawning(memory, flag, this.name);
 		}
 	};
 	// when a creep died (or will die soon)
@@ -113,7 +113,7 @@ class AttackControllerTask extends TaskComponent {
 		let flag = Game.flags[mem.destiny.targetName];
 		if (flag) {
 			const memory = this.memory(flag);
-			Task.validateRunning(memory, flag, this.name, {
+			TaskManager.validateRunning(memory, flag, this.name, {
 				roomName: flag.pos.roomName,
 				deadCreep: name,
 			});

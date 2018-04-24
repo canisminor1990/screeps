@@ -50,7 +50,7 @@ class PioneerBehaviour extends CreepBehaviour {
 			if (!flag.room || flag.pos.roomName != creep.pos.roomName) {
 				// travel to target room
 				if (CreepManager.action.travelling.assignRoom(creep, flag.pos.roomName)) {
-					Population.registerCreepFlag(creep, flag);
+					PopManager.registerCreepFlag(creep, flag);
 					return true;
 				}
 			}

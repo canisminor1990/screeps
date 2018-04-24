@@ -126,10 +126,10 @@ export class CreepBehaviour {
 			if (
 				creep.data.destiny &&
 				creep.data.destiny.task &&
-				Task[creep.data.destiny.task] &&
-				Task[creep.data.destiny.task].nextAction
+				TaskManager[creep.data.destiny.task] &&
+				TaskManager[creep.data.destiny.task].nextAction
 			) {
-				Task[creep.data.destiny.task].nextAction(creep);
+				TaskManager[creep.data.destiny.task].nextAction(creep);
 			} else {
 				this.nextAction(creep);
 			}

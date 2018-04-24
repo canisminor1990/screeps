@@ -1,4 +1,4 @@
-import { CompressedMatrix } from './compressedMatrix';
+import { CompressedMatrix } from './CompressedMatrix';
 
 /**
  * To start using Traveler, require it in main.js:

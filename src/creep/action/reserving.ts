@@ -28,7 +28,7 @@ class ReservingAction extends CreepAction {
 		if (!flag) flag = FlagManager.find(validColor, creep.pos, false, FlagManager.reserveMod, creep.name);
 
 		if (flag) {
-			Population.registerCreepFlag(creep, flag);
+			PopManager.registerCreepFlag(creep, flag);
 		} else return null;
 
 		// not there, go to flagged room

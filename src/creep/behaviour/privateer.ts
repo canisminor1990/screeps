@@ -119,7 +119,7 @@ class PrivateerBehaviour extends CreepBehaviour {
 						let action = actions[iAction];
 						if (action.isValidAction(creep) && action.isAddableAction(creep) && action.assign(creep)) return;
 					}
-					Population.registerCreepFlag(creep, null);
+					PopManager.registerCreepFlag(creep, null);
 					CreepManager.action.travelling.assignRoom(creep, creep.data.homeRoom);
 				}
 			} else {
@@ -145,14 +145,14 @@ class PrivateerBehaviour extends CreepBehaviour {
 			if (flag) {
 				// travelling
 				if (CreepManager.action.travelling.assignRoom(creep, flag.pos.roomName)) {
-					Population.registerCreepFlag(creep, flag);
+					PopManager.registerCreepFlag(creep, flag);
 					return true;
 				}
 			}
 		}
 		// no new flag
 		// go home
-		Population.registerCreepFlag(creep, null);
+		PopManager.registerCreepFlag(creep, null);
 		if (creep.room.name !== creep.data.homeRoom) {
 			CreepManager.action.travelling.assignRoom(creep, creep.data.homeRoom);
 		}

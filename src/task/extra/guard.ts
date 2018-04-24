@@ -1,24 +1,29 @@
-// This task will react on claim flags (Green/Green), sending a claiming creep to the flags position.
+// This task will react on yellow/yellow flags, sending a guarding creep to the flags position.
 import { TaskComponent } from '../Task';
 
-class ClaimTask extends TaskComponent {
+class GuardTask extends TaskComponent {
 	constructor() {
-		super('claim');
+		super('guard');
 		this.minControllerLevel = 3;
 		this.creep = {
-			claimer: {
-				fixedBody: [CLAIM, MOVE],
-				multiBody: [],
-				name: 'claimer',
-				behaviour: 'claimer',
+			guard: {
+				fixedBody: [HEAL, RANGED_ATTACK, MOVE],
+				multiBody: {
+					[HEAL]: 1,
+					[MOVE]: 2,
+					[RANGED_ATTACK]: 3,
+				},
+				name: 'guard',
+				behaviour: 'ranger',
 				queue: 'Low',
 			},
 		};
 	}
 
+	// for each flag
 	handleFlagFound = flag => {
 		// if it is a yellow/yellow flag
-		if (flag.compareTo(FLAG_COLOR.claim) && Task.nextCreepCheck(flag, this.name)) {
+		if (flag.compareTo(FLAG_COLOR.defense) && TaskManager.nextCreepCheck(flag, this.name)) {
 			Util.set(flag.memory, 'task', this.name);
 			// check if a new creep has to be spawned
 			this.checkForRequiredCreeps(flag);
@@ -29,23 +34,25 @@ class ClaimTask extends TaskComponent {
 		// get task memory
 		let memory = this.memory(flag);
 		// re-validate if too much time has passed
-		Task.validateAll(memory, flag, this.name, { roomName: flag.pos.roomName, checkValid: true });
+		TaskManager.validateAll(memory, flag, this.name, { roomName: flag.pos.roomName, checkValid: true });
 		// count creeps assigned to task
 		let count = memory.queued.length + memory.spawning.length + memory.running.length;
 		// if creep count below requirement spawn a new creep creep
 		if (count < 1) {
-			Task.spawn(
-				this.creep.claimer, // creepDefinition
+			TaskManager.spawn(
+				this.creep.guard, // creepDefinition
 				{
 					// destiny
-					task: 'claim', // taskName
+					task: 'guard', // taskName
 					targetName: flag.name, // targetName
 					flagName: flag.name, // custom
 				},
 				{
 					// spawn room selection params
 					targetRoom: flag.pos.roomName,
-					minEnergyCapacity: 650,
+					minEnergyCapacity: 200,
+					rangeRclRatio: 1.8, // stronger preference of higher RCL rooms
+					allowTargetRoom: true,
 				},
 				creepSetup => {
 					// callback onQueued
@@ -63,7 +70,7 @@ class ClaimTask extends TaskComponent {
 	handleSpawningStarted = params => {
 		// params: {spawn: spawn.name, name: creep.name, destiny: creep.destiny}
 		// ensure it is a creep which has been queued by this task (else return)
-		if (!params.destiny || !params.destiny.task || params.destiny.task != 'claim') return;
+		if (!params.destiny || !params.destiny.task || params.destiny.task != 'guard') return;
 		// get flag which caused queueing of that creep
 		let flag = Game.flags[params.destiny.flagName];
 		if (flag) {
@@ -72,13 +79,13 @@ class ClaimTask extends TaskComponent {
 			// save spawning creep to task memory
 			memory.spawning.push(params);
 			// clean/validate task memory queued creeps
-			Task.validateQueued(memory, flag, this.name);
+			TaskManager.validateQueued(memory, flag, this.name);
 		}
 	};
 	// when a creep completed spawning
 	handleSpawningCompleted = creep => {
 		// ensure it is a creep which has been requested by this task (else return)
-		if (!creep.data || !creep.data.destiny || !creep.data.destiny.task || creep.data.destiny.task != 'claim') return;
+		if (!creep.data || !creep.data.destiny || !creep.data.destiny.task || creep.data.destiny.task != 'guard') return;
 		// get flag which caused request of that creep
 		let flag = Game.flags[creep.data.destiny.flagName];
 		if (flag) {
@@ -93,7 +100,7 @@ class ClaimTask extends TaskComponent {
 			memory.running.push(creep.name);
 
 			// clean/validate task memory spawning creeps
-			Task.validateSpawning(memory, flag, this.name);
+			TaskManager.validateSpawning(memory, flag, this.name);
 		}
 	};
 	// when a creep died (or will die soon)
@@ -101,12 +108,12 @@ class ClaimTask extends TaskComponent {
 		// get creep memory
 		let mem = Memory.population[name];
 		// ensure it is a creep which has been requested by this task (else return)
-		if (!mem || !mem.destiny || !mem.destiny.task || mem.destiny.task != 'claim') return;
+		if (!mem || !mem.destiny || !mem.destiny.task || mem.destiny.task != 'guard') return;
 		// get flag which caused request of that creep
 		let flag = Game.flags[mem.destiny.flagName];
 		if (flag) {
 			const memory = this.memory(flag);
-			Task.validateRunning(memory, flag, this.name, {
+			TaskManager.validateRunning(memory, flag, this.name, {
 				roomName: flag.pos.roomName,
 				deadCreep: name,
 			});
@@ -115,28 +122,15 @@ class ClaimTask extends TaskComponent {
 	// get task memory
 	memory = flag => {
 		if (!flag.memory.tasks) flag.memory.tasks = {};
-		if (!flag.memory.tasks.claim) {
-			flag.memory.tasks.claim = {
+		if (!flag.memory.tasks.guard) {
+			flag.memory.tasks.guard = {
 				queued: [],
 				spawning: [],
 				running: [],
 			};
 		}
-		return flag.memory.tasks.claim;
-	};
-	nextAction = creep => {
-		// override behaviours nextAction function
-		// this could be a global approach to manipulate creep behaviour
-
-		// Claim - once claimed, recycle
-		let priority = [CreepManager.action.claiming, CreepManager.action.recycling];
-		for (let iAction = 0; iAction < priority.length; iAction++) {
-			let action = priority[iAction];
-			if (action.isValidAction(creep) && action.isAddableAction(creep) && action.assign(creep)) {
-				return;
-			}
-		}
+		return flag.memory.tasks.guard;
 	};
 }
 
-export default new ClaimTask();
+export default new GuardTask();

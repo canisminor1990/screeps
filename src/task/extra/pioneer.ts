@@ -37,7 +37,7 @@ class PioneerTask extends TaskComponent {
 			// fresh high queue
 			room.spawnQueueHigh.splice(0, room.spawnQueueHigh.length);
 			const definition = this.creep.worker;
-			pioneer = !Task.spawn(
+			pioneer = !TaskManager.spawn(
 				definition, // creepDefinition
 				{
 					// destiny
@@ -62,7 +62,7 @@ class PioneerTask extends TaskComponent {
 	// for each flag
 	handleFlagFound = flag => {
 		// if it is a pioneer single or spawn
-		if (flag.compareTo(FLAG_COLOR.claim.pioneer) && Task.nextCreepCheck(flag, this.name)) {
+		if (flag.compareTo(FLAG_COLOR.claim.pioneer) && TaskManager.nextCreepCheck(flag, this.name)) {
 			Util.set(flag.memory, 'task', this.name);
 			// check if a new creep has to be spawned
 			this.checkForRequiredCreeps(flag);
@@ -76,7 +76,7 @@ class PioneerTask extends TaskComponent {
 				return Log.error('Pioneer room not owned:', flag.room, Log.stack());
 			}
 			const owner = flag.room.owner || flag.room.reservation;
-			if (owner && !Task.reputation.isAlly(owner)) {
+			if (owner && !TaskManager.reputation.isAlly(owner)) {
 				return Log.error(`Pioneer target room ${flag.room} owned by ${owner}`);
 			}
 		}
@@ -85,7 +85,7 @@ class PioneerTask extends TaskComponent {
 		let memory = this.memory(flag);
 
 		// re-validate if too much time has passed in the queue
-		Task.validateAll(memory, flag, this.name, {
+		TaskManager.validateAll(memory, flag, this.name, {
 			roomName: flag.pos.roomName,
 			subKey: 'pioneer',
 			checkValid: true,
@@ -98,7 +98,7 @@ class PioneerTask extends TaskComponent {
 		// if creep count below requirement spawn a new creep creep
 		if (count < 1) {
 			const definition = this.creep.pioneer;
-			Task.spawn(
+			TaskManager.spawn(
 				definition, // creepDefinition
 				{
 					// destiny
@@ -142,7 +142,7 @@ class PioneerTask extends TaskComponent {
 			const type = params.destiny.type;
 			// default to both as temporary migration
 			const priority = type ? _.find(this.creep, { behaviour: type }).queue : ['Low', 'High'];
-			Task.validateQueued(memory, flag, this.name, { queues: [priority] });
+			TaskManager.validateQueued(memory, flag, this.name, { queues: [priority] });
 		}
 	};
 	// when a creep completed spawning
@@ -162,7 +162,7 @@ class PioneerTask extends TaskComponent {
 			// save running creep to task memory
 			memory.running.push(creep.name);
 			// clean/validate task memory spawning creeps
-			Task.validateSpawning(memory, flag, this.name);
+			TaskManager.validateSpawning(memory, flag, this.name);
 		}
 	};
 	// when a creep died (or will die soon)
@@ -175,7 +175,7 @@ class PioneerTask extends TaskComponent {
 		let flag = Game.flags[mem.destiny.flagName];
 		if (flag) {
 			let memory = this.memory(flag);
-			Task.validateRunning(memory, flag, this.name, {
+			TaskManager.validateRunning(memory, flag, this.name, {
 				roomName: flag.pos.roomName,
 				deadCreep: name,
 			});

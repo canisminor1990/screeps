@@ -1,5 +1,5 @@
 import { ProtoypeInstall } from './prototype';
-import { TravelerInstall } from './traveler';
+import { TravelerInstall } from './global/Traveler';
 import { Install, getUsername } from './util';
 
 export const install = () => {
@@ -21,27 +21,27 @@ export const install = () => {
 		CPU: require('./global/Cpu').default,
 		Dye: require('./global/Dye').default,
 		Log: require('./global/Log').default,
-		CMemory: require('./global/CMemory').default,
-		Population: require('./global/Population').default,
 		Statistics: require('./global/Statistics').default,
-		FlagManager: require('./flag/index').default,
+		PopManager: require('./manager/Pop').default,
+		MemoryManager: require('./manager/Memory').default,
+		FlagManager: require('./manager/Flag').default,
 	});
 
-	// Task
-	Install('Task', require('./task').default, {
-		guard: require('./task/type/guard').default,
-		defense: require('./task/type/defense').default,
-		mining: require('./task/type/mining').default,
-		claim: require('./task/type/claim').default,
-		reserve: require('./task/type/reserve').default,
-		pioneer: require('./task/type/pioneer').default,
-		attackController: require('./task/type/attackController').default,
-		robbing: require('./task/type/robbing').default,
-		reputation: require('./task/type/reputation').default,
-		delivery: require('./task/type/delivery').default,
-		labTech: require('./task/type/labTech').default,
-		safeGen: require('./task/type/safeGen').default,
-		scheduler: require('./task/type/scheduler').default,
+	// TaskManager
+	Install('TaskManager', require('./task').default, {
+		guard: require('./task/extra/guard').default,
+		defense: require('./task/extra/defense').default,
+		mining: require('./task/extra/mining').default,
+		claim: require('./task/extra/claim').default,
+		reserve: require('./task/extra/reserve').default,
+		pioneer: require('./task/extra/pioneer').default,
+		attackController: require('./task/extra/attackController').default,
+		robbing: require('./task/extra/robbing').default,
+		reputation: require('./task/extra/reputation').default,
+		delivery: require('./task/extra/delivery').default,
+		labTech: require('./task/extra/labTech').default,
+		safeGen: require('./task/extra/safeGen').default,
+		scheduler: require('./task/extra/scheduler').default,
 	});
 
 	// CreepManager
@@ -135,8 +135,8 @@ export const install = () => {
 	});
 
 	Install(global, {
-		SpawnManager: require('./structure/spawn').default,
-		TowerManager: require('./structure/tower').default,
+		SpawnManager: require('./manager/Spawn').default,
+		TowerManager: require('./manager/Tower').default,
 	});
 
 	// Addon

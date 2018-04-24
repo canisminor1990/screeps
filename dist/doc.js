@@ -143,11 +143,7 @@ Game.rooms['<roomName>'].spawnQueueLow.push({
 // or
 TaskManager.forceSpawn(TaskManager.claim.creep.claimer, 'W0N0');
 // or
-TaskManager.forceSpawn(
-	TaskManager.guard.creep.guard,
-	{ targetRoom: 'W0N0', allowTargetRoom: true },
-	'Flag22',
-);
+TaskManager.forceSpawn(TaskManager.guard.creep.guard, { targetRoom: 'W0N0', allowTargetRoom: true }, 'Flag22');
 // clear spawn queues for a room
 // clear low priority queue
 Memory.rooms['<roomName>'].spawnQueueLow = [0];

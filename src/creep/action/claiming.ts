@@ -24,7 +24,7 @@ class ClaimingAction extends CreepAction {
 		if (!flag) flag = FlagManager.find(FLAG_COLOR.claim, creep.pos, false, FlagManager.claimMod, creep.name);
 
 		if (flag) {
-			Population.registerCreepFlag(creep, flag);
+			PopManager.registerCreepFlag(creep, flag);
 		} else return null;
 
 		// not there, go to flagged room

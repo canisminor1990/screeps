@@ -41,9 +41,11 @@ class RobbingTask extends TaskComponent {
 	};
 
 	checkFlag = flag => {
-		// robbing own rooms is handled by Task.delivery
+		// robbing own rooms is handled by TaskManager.delivery
 		return (
-			!(flag.room && flag.room.my) && flag.compareTo(FLAG_COLOR.invade.robbing) && Task.nextCreepCheck(flag, this.name)
+			!(flag.room && flag.room.my) &&
+			flag.compareTo(FLAG_COLOR.invade.robbing) &&
+			TaskManager.nextCreepCheck(flag, this.name)
 		);
 	};
 	// for each flag
@@ -60,7 +62,7 @@ class RobbingTask extends TaskComponent {
 		// get task memory
 		let memory = this.memory(flag);
 		// re-validate if too much time has passed
-		Task.validateAll(memory, flag, this.name, { roomName: flag.pos.roomName, checkValid: true });
+		TaskManager.validateAll(memory, flag, this.name, { roomName: flag.pos.roomName, checkValid: true });
 		// count creeps assigned to task
 		const count = memory.queued.length + memory.spawning.length + memory.running.length;
 		const roomName = flag.pos.roomName;
@@ -73,7 +75,7 @@ class RobbingTask extends TaskComponent {
 			}
 			// robbers set homeRoom if closer storage exists
 			const storageRoom = ROBBER_REHOME ? this.robber.homeRoom(flag) : spawnRoom;
-			Task.spawn(
+			TaskManager.spawn(
 				this.creep.robbing, // creepDefinition
 				{
 					// destiny
@@ -111,7 +113,7 @@ class RobbingTask extends TaskComponent {
 			// save spawning creep to task memory
 			memory.spawning.push(params);
 			// clean/validate task memory queued creeps
-			Task.validateQueued(memory, flag, this.name);
+			TaskManager.validateQueued(memory, flag, this.name);
 		}
 	};
 	// when a creep completed spawning
@@ -135,7 +137,7 @@ class RobbingTask extends TaskComponent {
 			// save running creep to task memory
 			memory.running.push(creep.name);
 			// clean/validate task memory spawning creeps
-			Task.validateSpawning(memory, flag, this.name);
+			TaskManager.validateSpawning(memory, flag, this.name);
 		}
 	};
 	// when a creep died (or will die soon)
@@ -149,7 +151,7 @@ class RobbingTask extends TaskComponent {
 		let flag = Game.flags[mem.destiny.targetName || mem.destiny.flagName];
 		if (flag) {
 			const memory = this.memory(flag);
-			Task.validateRunning(memory, flag, this.name, {
+			TaskManager.validateRunning(memory, flag, this.name, {
 				roomName: flag.pos.roomName,
 				deadCreep: name,
 			});
@@ -175,12 +177,12 @@ class RobbingTask extends TaskComponent {
 			// carrier filled
 			if (carrySum > 0) {
 				if (LOG_TRACE)
-					Log.trace('Task', {
+					Log.trace('TaskManager', {
 						creepName: creep.name,
 						pos: creep.pos,
 						nextAction: 'storing?',
 						robbing: 'nextAction',
-						Task: 'robbing',
+						TaskManager: 'robbing',
 					});
 				let deposit = []; // deposit energy in...
 				// links?
@@ -204,26 +206,26 @@ class RobbingTask extends TaskComponent {
 			}
 			// empty
 			// travelling
-			if (Task[creep.data.destiny.task].exploitNextRoom(creep)) {
+			if (TaskManager[creep.data.destiny.task].exploitNextRoom(creep)) {
 				if (LOG_TRACE)
-					Log.trace('Task', {
+					Log.trace('TaskManager', {
 						creepName: creep.name,
 						pos: creep.pos,
 						nextAction: 'travelling',
 						robbing: 'nextAction',
-						Task: 'robbing',
+						TaskManager: 'robbing',
 					});
 				return;
 			} else {
 				// no new flag
 				// behave as worker
 				if (LOG_TRACE)
-					Log.trace('Task', {
+					Log.trace('TaskManager', {
 						creepName: creep.name,
 						pos: creep.pos,
 						nextAction: 'working',
 						robbing: 'nextAction',
-						Task: 'robbing',
+						TaskManager: 'robbing',
 					});
 				CreepManager.behaviour.worker.nextAction(creep);
 				return;
@@ -233,12 +235,12 @@ class RobbingTask extends TaskComponent {
 			// at target room
 			if (creep.flag && creep.flag.pos.roomName === creep.pos.roomName) {
 				if (LOG_TRACE)
-					Log.trace('Task', {
+					Log.trace('TaskManager', {
 						creepName: creep.name,
 						pos: creep.pos,
 						nextAction: 'robbing',
 						robbing: 'nextAction',
-						Task: 'robbing',
+						TaskManager: 'robbing',
 					});
 				// get some energy
 				if (creep.sum < creep.carryCapacity * 0.4) {
@@ -252,7 +254,7 @@ class RobbingTask extends TaskComponent {
 					if (creep.flag) {
 						creep.flag.cloaking = 50;
 					}
-					Task[creep.data.destiny.task].exploitNextRoom(creep);
+					TaskManager[creep.data.destiny.task].exploitNextRoom(creep);
 					return;
 				} else {
 					// carrier full
@@ -262,14 +264,14 @@ class RobbingTask extends TaskComponent {
 			} else {
 				// not at target room
 				if (LOG_TRACE)
-					Log.trace('Task', {
+					Log.trace('TaskManager', {
 						creepName: creep.name,
 						pos: creep.pos,
 						nextAction: 'travelling2',
 						robbing: 'nextAction',
-						Task: 'robbing',
+						TaskManager: 'robbing',
 					});
-				Task[creep.data.destiny.task].exploitNextRoom(creep);
+				TaskManager[creep.data.destiny.task].exploitNextRoom(creep);
 				return;
 			}
 		}
@@ -292,7 +294,7 @@ class RobbingTask extends TaskComponent {
 		return this.goHome(creep);
 	};
 	goHome = creep => {
-		Population.registerCreepFlag(creep, null);
+		PopManager.registerCreepFlag(creep, null);
 		CreepManager.action.travelling.assignRoom(creep, creep.data.homeRoom);
 		return false;
 	};
@@ -307,20 +309,20 @@ class RobbingTask extends TaskComponent {
 		if (storageRoom) {
 			const was = memory.storageRoom;
 			memory.storageRoom = storageRoom;
-			return `Task.${this.name}: room ${roomName}, now sending haulers to ${storageRoom}, (was ${was})`;
+			return `TaskManager.${this.name}: room ${roomName}, now sending haulers to ${storageRoom}, (was ${was})`;
 		} else if (!memory.storageRoom) {
-			return `Task.${this.name}: room ${roomName}, no custom storage destination`;
+			return `TaskManager.${this.name}: room ${roomName}, no custom storage destination`;
 		} else if (storageRoom === false) {
 			const was = memory.storageRoom;
 			delete memory.storageRoom;
-			return `Task.${this.name}: room ${roomName}, cleared custom storage room (was ${was})`;
+			return `TaskManager.${this.name}: room ${roomName}, cleared custom storage room (was ${was})`;
 		} else {
-			return `Task.${this.name}: room ${roomName}, sending haulers to ${memory.storageRoom}`;
+			return `TaskManager.${this.name}: room ${roomName}, sending haulers to ${memory.storageRoom}`;
 		}
 	};
 	gotoTargetRoom = (creep, flag) => {
 		if (CreepManager.action.travelling.assignRoom(creep, flag.pos.roomName)) {
-			Population.registerCreepFlag(creep, flag);
+			PopManager.registerCreepFlag(creep, flag);
 			return true;
 		}
 	};

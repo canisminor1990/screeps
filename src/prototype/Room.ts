@@ -37,7 +37,7 @@ class RoomExtend extends Room {
 			if (this.reserved) {
 				ally = true;
 			} else if (this.controller) {
-				ally = Task.reputation.isAlly(this.owner) || Task.reputation.isAlly(this.reservation);
+				ally = TaskManager.reputation.isAlly(this.owner) || TaskManager.reputation.isAlly(this.reservation);
 			}
 			return ally;
 		});
@@ -189,7 +189,7 @@ class RoomExtend extends Room {
 
 	get hostiles(): Creep[] {
 		return this.cache('hostiles', () => {
-			return this.find(FIND_HOSTILE_CREEPS, { filter: Task.reputation.hostileOwner });
+			return this.find(FIND_HOSTILE_CREEPS, { filter: TaskManager.reputation.hostileOwner });
 		});
 	}
 
@@ -244,7 +244,7 @@ class RoomExtend extends Room {
 
 		const registerHostileLeave = (id: string) => {
 			const creep: Creep = Game.getObjectById(id);
-			const stillHostile = creep && Task.reputation.hostileOwner(creep);
+			const stillHostile = creep && TaskManager.reputation.hostileOwner(creep);
 			// for each known invader
 			if (!stillHostile) {
 				// save to trigger subscribers later
@@ -715,18 +715,18 @@ class RoomExtend extends Room {
 				const setCosts = (structure: Structure) => {
 					const site = structure instanceof ConstructionSite;
 					// don't walk on allied construction sites.
-					if (site && !structure.my && Task.reputation.allyOwner(structure))
+					if (site && !structure.my && TaskManager.reputation.allyOwner(structure))
 						return costMatrix.set(structure.pos.x, structure.pos.y, 0xff);
 					if (structure.structureType === STRUCTURE_ROAD) {
 						if (!site || USE_UNBUILT_ROADS) return costMatrix.set(structure.pos.x, structure.pos.y, 1);
 					} else if (structure.structureType === STRUCTURE_PORTAL) {
 						return costMatrix.set(structure.pos.x, structure.pos.y, 0xff); // only take final step onto portals
 					} else if (OBSTACLE_OBJECT_TYPES.includes(structure.structureType)) {
-						if (!site || Task.reputation.allyOwner(structure))
+						if (!site || TaskManager.reputation.allyOwner(structure))
 							// don't set for hostile construction sites
 							return costMatrix.set(structure.pos.x, structure.pos.y, 0xff);
 					} else if (structure.structureType === STRUCTURE_RAMPART && !structure.my && !structure.isPublic) {
-						if (!site || Task.reputation.allyOwner(structure))
+						if (!site || TaskManager.reputation.allyOwner(structure))
 							// don't set for hostile construction sites
 							return costMatrix.set(structure.pos.x, structure.pos.y, 0xff);
 					}

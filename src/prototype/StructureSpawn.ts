@@ -106,7 +106,7 @@ class StructureSpawnExtend extends StructureSpawn {
 				cost += BODYPART_COST[part];
 			});
 			this.room.reservedSpawnEnergy += cost;
-			Population.registerCreep(name, behaviour, cost, this.room, this.name, body, destiny);
+			PopManager.registerCreep(name, behaviour, cost, this.room, this.name, body, destiny);
 			this.newSpawn = { name: name };
 			CreepManager.spawningStarted.trigger({
 				spawn: this.name,

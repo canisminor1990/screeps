@@ -148,7 +148,7 @@ export class CreepAction {
 				creep.target.id !== target.id ||
 				creep.target.name != target.name
 			) {
-				Population.registerAction(creep, this, target);
+				PopManager.registerAction(creep, this, target);
 				this.onAssignment(creep, target);
 			}
 			return true;

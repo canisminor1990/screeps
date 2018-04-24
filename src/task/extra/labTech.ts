@@ -31,7 +31,7 @@ class LabTechTask extends TaskComponent {
 	// for each flag
 	handleFlagFound = flag => {
 		// if it is a labTech flag
-		if (flag.compareTo(FLAG_COLOR.labs.labTech) && Task.nextCreepCheck(flag, this.name)) {
+		if (flag.compareTo(FLAG_COLOR.labs.labTech) && TaskManager.nextCreepCheck(flag, this.name)) {
 			Util.set(flag.memory, 'task', this.name);
 			// check if a new creep has to be spawned
 			this.checkForRequiredCreeps(flag);
@@ -42,13 +42,13 @@ class LabTechTask extends TaskComponent {
 		// get task memory
 		const memory = this.memory(flag);
 		// re-validate if too much time has passed
-		Task.validateAll(memory, flag, this.name, { roomName: flag.pos.roomName, checkValid: true });
+		TaskManager.validateAll(memory, flag, this.name, { roomName: flag.pos.roomName, checkValid: true });
 		// count creeps assigned to task
 		const count = memory.queued.length + memory.spawning.length + memory.running.length;
 
 		// if creep count below requirement spawn a new creep creep
 		if (count < 1) {
-			Task.spawn(
+			TaskManager.spawn(
 				this.creep.labTech, // creepDefinition
 				{
 					// destiny
@@ -87,7 +87,7 @@ class LabTechTask extends TaskComponent {
 			// save spawning creep to task memory
 			memory.spawning.push(params);
 			// clean/validate task memory queued creeps
-			Task.validateQueued(memory, flag, this.name);
+			TaskManager.validateQueued(memory, flag, this.name);
 		}
 	};
 	// when a creep completed spawning
@@ -109,7 +109,7 @@ class LabTechTask extends TaskComponent {
 			memory.running.push(creep.name);
 
 			// clean/validate task memory spawning creeps
-			Task.validateSpawning(memory, flag, this.name);
+			TaskManager.validateSpawning(memory, flag, this.name);
 		}
 	};
 	// when a creep died (or will die soon)
@@ -123,7 +123,7 @@ class LabTechTask extends TaskComponent {
 		const flag = Game.flags[mem.destiny.targetName || mem.destiny.flagName];
 		if (flag) {
 			const memory = this.memory(flag);
-			Task.validateRunning(memory, flag, this.name, {
+			TaskManager.validateRunning(memory, flag, this.name, {
 				roomName: flag.pos.roomName,
 				deadCreep: name,
 			});

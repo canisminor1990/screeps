@@ -119,7 +119,7 @@ export class CreepSetup {
 			};
 			_.forEach(Memory.population, count);
 		} else {
-			let population = this.globalMeasurement ? Population : room.population;
+			let population = this.globalMeasurement ? PopManager : room.population;
 			if (!population || !population.typeCount[this.type]) return true;
 			existingCount = population.typeCount[this.type] || 0;
 			existingWeight = population.typeWeight[this.type] || 0;
@@ -151,7 +151,7 @@ export class CreepSetup {
 			};
 			_.forEach(Memory.population, count);
 		} else {
-			let population = this.globalMeasurement ? Population : room.population;
+			let population = this.globalMeasurement ? PopManager : room.population;
 			existingWeight = population ? population.typeWeight[this.type] || 0 : 0;
 		}
 		return existingWeight;

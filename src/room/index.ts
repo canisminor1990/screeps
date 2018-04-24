@@ -148,7 +148,7 @@ class RoomConstructor extends Component {
 		});
 		// fresh changes to the pathfinderCache but wait until load
 		if (!_.isUndefined(Memory.pathfinder)) {
-			CMemory.saveSegment(MEM_SEGMENTS.COSTMATRIX_CACHE, Memory.pathfinder);
+			MemoryManager.saveSegment(MEM_SEGMENTS.COSTMATRIX_CACHE, Memory.pathfinder);
 			delete Memory.pathfinder;
 		}
 		if (this.pathfinderCacheDirty && this.pathfinderCacheLoaded) {
@@ -168,7 +168,7 @@ class RoomConstructor extends Component {
 					if (entry.stale) encodedCache[key].stale = true;
 				}
 			}
-			CMemory.saveSegment(MEM_SEGMENTS.COSTMATRIX_CACHE, encodedCache);
+			MemoryManager.saveSegment(MEM_SEGMENTS.COSTMATRIX_CACHE, encodedCache);
 			this.pathfinderCacheDirty = false;
 		}
 	};
@@ -349,7 +349,7 @@ class RoomConstructor extends Component {
 				this.pathfinderCache[key] = cache[key];
 			}
 		}
-		if (count > 0) Log.module('CMemory', 'loading pathfinder cache.. updated ' + count + ' stale entries.');
+		if (count > 0) Log.module('MemoryManager', 'loading pathfinder cache.. updated ' + count + ' stale entries.');
 		this.pathfinderCacheLoaded = true;
 	};
 	getCachedStructureMatrix = (roomName: string) => {

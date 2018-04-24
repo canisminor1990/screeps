@@ -1,8 +1,3 @@
-interface CreepMemory {
-	creepType: string;
-	creepName: string;
-}
-
 declare const CreepManager: {
 	resolvingError: any;
 	error: obj;
@@ -42,6 +37,11 @@ interface CreepAction {
 
 interface CreepBehaviour {
 	assign(creep: Creep): boolean;
+}
+
+interface CreepMemory {
+	creepType: string;
+	creepName: string;
 }
 
 interface Creep {

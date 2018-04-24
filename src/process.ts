@@ -22,19 +22,19 @@ class Process {
 	private extend = () => {
 		RoomManager.extend();
 		FlagManager.extend();
-		Task.extend();
+		TaskManager.extend();
 		CreepManager.extend();
-		CMemory.extend();
+		MemoryManager.extend();
 	};
 	private fresh = () => {
 		CPU.check('fresh');
 		// Flush cache
 		FlagManager.fresh();
-		Population.fresh();
+		PopManager.fresh();
 		RoomManager.fresh();
-		Task.fresh();
+		TaskManager.fresh();
 		CreepManager.fresh();
-		CMemory.fresh();
+		MemoryManager.fresh();
 		CPU.end('fresh');
 	};
 	private analyze = () => {
@@ -46,9 +46,9 @@ class Process {
 		RoomManager.analyze();
 		CPU.end('analyze', 'RoomManager');
 
-		CPU.check('analyze', 'Population');
-		Population.analyze();
-		CPU.end('analyze', 'Population');
+		CPU.check('analyze', 'PopManager');
+		PopManager.analyze();
+		CPU.end('analyze', 'PopManager');
 	};
 	private register = () => {
 		CPU.check('register', 'RoomManager');
@@ -67,14 +67,14 @@ class Process {
 		SpawnManager.register();
 		CPU.end('register', 'SpawnManager');
 
-		CPU.check('register', 'Task');
-		Task.register();
-		CPU.end('register', 'Task');
+		CPU.check('register', 'TaskManager');
+		TaskManager.register();
+		CPU.end('register', 'TaskManager');
 	};
 	private run = () => {
-		CPU.check('run', 'Population');
-		Population.run();
-		CPU.end('run', 'Population');
+		CPU.check('run', 'PopManager');
+		PopManager.run();
+		CPU.end('run', 'PopManager');
 
 		CPU.check('run', 'FlagManager');
 		FlagManager.run();
@@ -92,17 +92,17 @@ class Process {
 		SpawnManager.run();
 		CPU.end('run', 'StructureSpawn');
 
-		CPU.check('run', 'Task');
-		Task.run();
-		CPU.end('run', 'Task');
+		CPU.check('run', 'TaskManager');
+		TaskManager.run();
+		CPU.end('run', 'TaskManager');
 	};
 	private cleanup = () => {
 		CPU.check('cleanup');
 		FlagManager.cleanup();
-		Population.cleanup();
+		PopManager.cleanup();
 		RoomManager.cleanup();
 		// must come last
-		CMemory.cleanup();
+		MemoryManager.cleanup();
 		CPU.end('cleanup');
 	};
 	private addon = () => {

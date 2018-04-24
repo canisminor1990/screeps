@@ -1,6 +1,6 @@
 import { Component } from '../class';
 
-class CMemoryConstructor extends Component {
+class MemoryManagerConstructor extends Component {
 	numSaved: number = 0;
 	toActivate: { [type: number]: any } = {};
 	extend = (): void => {
@@ -34,14 +34,14 @@ class CMemoryConstructor extends Component {
 			}
 			return;
 		}
-		if (id < 0 || id > 99) return Log.error('[CMemory]', 'cannot activate invalid segment ', id);
+		if (id < 0 || id > 99) return Log.error('[MemoryManager]', 'cannot activate invalid segment ', id);
 		const numActive = _.size(RawMemory.segments);
-		if (this.numSaved >= 10) return Log.error('[CMemory]', '10 segments saved, cannot activate segment ', id);
+		if (this.numSaved >= 10) return Log.error('[MemoryManager]', '10 segments saved, cannot activate segment ', id);
 		if (!reset) {
-			if (numActive >= 10) return Log.error('[CMemory]', '10 segments loaded, cannot activate segment ', id);
+			if (numActive >= 10) return Log.error('[MemoryManager]', '10 segments loaded, cannot activate segment ', id);
 			if (numActive + this.numSaved >= 10)
 				return Log.error(
-					'[CMemory] RawMemory',
+					'[MemoryManager] RawMemory',
 					'combined loaded and saved exceeds limit(10), cannot activate segment ',
 					id,
 				);
@@ -49,7 +49,7 @@ class CMemoryConstructor extends Component {
 		this.toActivate[id] = true;
 	};
 	deactivateSegment = (id: number): void => {
-		if (id < 0 || id > 99) return Log.error('[CMemory]', 'cannot deactivate invalid segment ', id);
+		if (id < 0 || id > 99) return Log.error('[MemoryManager]', 'cannot deactivate invalid segment ', id);
 		if (_.size(this.toActivate) === 0) Object.keys(RawMemory.segments).forEach(id => (this.toActivate[id] = true));
 		delete this.toActivate[id];
 	};
@@ -65,7 +65,7 @@ class CMemoryConstructor extends Component {
 				process(data);
 				Util.cacheValid[id] = Memory.cacheValid[id];
 			} catch (e) {
-				Log.error('[CMemory] Error loading segment', id, ' caused by ', e.stack || e.toString());
+				Log.error('[MemoryManager] Error loading segment', id, ' caused by ', e.stack || e.toString());
 				RawMemory.segments[id] = '';
 				delete Util.cacheValid[id];
 				delete Memory.cacheValid[id];
@@ -102,11 +102,11 @@ class CMemoryConstructor extends Component {
 					}
 					if (!encodedData && temp && temp.length > 0) {
 						const size = _.round((temp.length + 2) / 1024, 2);
-						return Log.error('[CMemory]', `Cannot save data at key ${keyNum}, exceeds 100kb limit ${size}kb`);
+						return Log.error('[MemoryManager]', `Cannot save data at key ${keyNum}, exceeds 100kb limit ${size}kb`);
 					}
 
 					Log.module(
-						'CMemory',
+						'MemoryManager',
 						'Segment: Saving ' + _.round(encodedData.length / 1024, 2) + 'kb of data to segment ' + id,
 					);
 					RawMemory.segments[id] = encodedData + '}';
@@ -115,16 +115,16 @@ class CMemoryConstructor extends Component {
 					if (_.isUndefined(RawMemory.segments[id])) this.numSaved++;
 				} else if (numActive > 10) {
 					// TODO: also defer? (This should be impossible)
-					return Log.error('[CMemory]', 'cannot save segment ' + id + ' too many active segments.');
+					return Log.error('[MemoryManager]', 'cannot save segment ' + id + ' too many active segments.');
 				} else if (numActive + this.numSaved > 10) {
 					// TODO: defer one tick?
-					return Log.error('[CMemory]', 'cannot save segment ' + id + ' loaded + saved exceeds limit(10).');
+					return Log.error('[MemoryManager]', 'cannot save segment ' + id + ' loaded + saved exceeds limit(10).');
 				} else {
-					Log.error('[CMemory] RawMemory', 'should not be here.');
+					Log.error('[MemoryManager] RawMemory', 'should not be here.');
 				}
 			} else if (Memory.cacheValid[id]) {
 				// no more data, clear this segment
-				Log.module('CMemory', 'Segment: clearing unused segment ' + id);
+				Log.module('MemoryManager', 'Segment: clearing unused segment ' + id);
 				RawMemory.segments[id] = '';
 				delete Memory.cacheValid[id];
 			}
@@ -132,4 +132,4 @@ class CMemoryConstructor extends Component {
 	};
 }
 
-export default new CMemoryConstructor();
+export default new MemoryManagerConstructor();

@@ -34,7 +34,7 @@ class DefenseTask extends TaskComponent {
 		// check room threat balance
 		if (invaderCreep.room.defenseLevel.sum > invaderCreep.room.hostileThreatLevel) {
 			// room can handle that
-			Log.room(invaderCreep.room, 'Task Defense: room can handle that');
+			Log.room(invaderCreep.room, 'TaskManager Defense: room can handle that');
 		} else {
 			// order a defender for each invader (if not happened yet)
 			invaderCreep.room.hostiles.forEach(this.orderDefenses);
@@ -63,7 +63,7 @@ class DefenseTask extends TaskComponent {
 			}
 
 			// cleanup task memory
-			Task.clearMemory('defense', invaderId);
+			TaskManager.clearMemory('defense', invaderId);
 			// other existing creeps will recycle themself via nextAction (see below)
 		}
 	};
@@ -94,7 +94,7 @@ class DefenseTask extends TaskComponent {
 		this.orderDefenses(invader);
 	};
 	memory = invaderId => {
-		return Task.memory('defense', invaderId);
+		return TaskManager.memory('defense', invaderId);
 	};
 	// spawn defenses against an invader creep
 	orderDefenses = invaderCreep => {
@@ -117,7 +117,7 @@ class DefenseTask extends TaskComponent {
 			this.creep.defender.queue = 'High';
 			this.creep.defender.minThreat = remainingThreat * 1.1;
 
-			let queued = Task.spawn(
+			let queued = TaskManager.spawn(
 				this.creep.defender,
 				{
 					// destiny
@@ -159,7 +159,7 @@ class DefenseTask extends TaskComponent {
 				// Can't spawn. Invader will not get handled!
 				if (LOG_TRACE)
 					Log.trace(
-						'Task',
+						'TaskManager',
 						{ task: 'defense', invaderId: invaderId, targetRoom: invaderCreep.pos.roomName },
 						'Unable to spawn. Invader will not get handled!',
 					);

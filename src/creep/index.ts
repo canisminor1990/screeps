@@ -17,7 +17,7 @@ class CreepConstructor extends Component {
 			},
 			{
 				default: (creep: Creep) => creep.data.destiny && creep.data.destiny.task,
-				selector: (taskName: string) => Task[taskName] && Task[taskName],
+				selector: (taskName: string) => TaskManager[taskName] && TaskManager[taskName],
 			},
 		);
 	};

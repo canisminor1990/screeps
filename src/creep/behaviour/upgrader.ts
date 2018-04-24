@@ -36,7 +36,7 @@ class UpgraderBehaviour extends CreepBehaviour {
 			return;
 		}
 		if (!creep.action || creep.action.name !== 'upgrading')
-			Population.registerAction(creep, CreepManager.action.upgrading, creep.room.controller);
+			PopManager.registerAction(creep, CreepManager.action.upgrading, creep.room.controller);
 		if (!creep.data.determinatedSpot) {
 			let determineSpots = (ignoreSources = false) => {
 				let spots = [];

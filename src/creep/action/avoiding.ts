@@ -23,10 +23,10 @@ class AvoidingAction extends CreepAction {
 		return true;
 	};
 	isValidTarget = (target, creep) => {
-		if (Task.reputation.npcOwner(target)) {
+		if (TaskManager.reputation.npcOwner(target)) {
 			// not a lair(creep most likely), or an active lair
 			return _.isUndefined(target.ticksToSpawn) || this.isActiveLair(target);
-		} else if (Task.reputation.hostileOwner(target) && target.hasActiveBodyparts) {
+		} else if (TaskManager.reputation.hostileOwner(target) && target.hasActiveBodyparts) {
 			return target.hasActiveBodyparts([ATTACK, RANGED_ATTACK]);
 		}
 		return false;

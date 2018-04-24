@@ -16,7 +16,7 @@ class DeliveryTask extends TaskComponent {
 	}
 
 	memory = roomName => {
-		let memory = Task.memory(this.name, roomName);
+		let memory = TaskManager.memory(this.name, roomName);
 		if (!memory.hasOwnProperty('queued')) {
 			memory.queued = [];
 		}
@@ -34,7 +34,10 @@ class DeliveryTask extends TaskComponent {
 	};
 	checkFlag = flag => {
 		return (
-			flag.room && flag.room.my && flag.compareTo(FLAG_COLOR.invade.robbing) && Task.nextCreepCheck(flag, this.name)
+			flag.room &&
+			flag.room.my &&
+			flag.compareTo(FLAG_COLOR.invade.robbing) &&
+			TaskManager.nextCreepCheck(flag, this.name)
 		);
 	};
 	handleFlagFound = flag => {
@@ -49,7 +52,7 @@ class DeliveryTask extends TaskComponent {
 		// check for delivery en route, and spawn a new one if the last was successful
 		const memory = this.memory(flag.pos.roomName);
 
-		Task.validateAll(memory, flag, this.name, { roomName: flag.pos.roomName, checkValid: true });
+		TaskManager.validateAll(memory, flag, this.name, { roomName: flag.pos.roomName, checkValid: true });
 		if (memory.queued.length + memory.spawning.length > 0) {
 			return;
 		}
@@ -69,7 +72,7 @@ class DeliveryTask extends TaskComponent {
 				targetRoom = room.name;
 			}
 
-			Task.spawn(
+			TaskManager.spawn(
 				this.creep.recycler, // creepDefinition
 				{
 					// destiny
@@ -104,7 +107,7 @@ class DeliveryTask extends TaskComponent {
 			let memory = this.memory(flag.pos.roomName);
 			// save spawning creep to task memory
 			memory.spawning.push(params);
-			Task.validateQueued(memory, flag, this.name);
+			TaskManager.validateQueued(memory, flag, this.name);
 		}
 
 		// assign destination flag?
@@ -120,7 +123,7 @@ class DeliveryTask extends TaskComponent {
 		if (flag) {
 			// get task memory
 			let memory = this.memory(flag.pos.roomName);
-			Task.validateSpawning(memory, flag, this.name);
+			TaskManager.validateSpawning(memory, flag, this.name);
 			creep.data.predictedRenewal =
 				creep.data.spawningTime + Util.routeRange(creep.data.homeRoom, flag.pos.roomName) * 50;
 
@@ -137,7 +140,7 @@ class DeliveryTask extends TaskComponent {
 		const flag = Game.flags[mem.destiny.targetName];
 		if (flag) {
 			const memory = this.memory(flag.pos.roomName);
-			Task.validateRunning(memory, flag, this.name, {
+			TaskManager.validateRunning(memory, flag, this.name, {
 				roomName: flag.pos.roomName,
 				deadCreep: name,
 			});

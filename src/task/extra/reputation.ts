@@ -52,17 +52,17 @@ class ReputationTask extends TaskComponent {
 		this._loadWhitelist();
 		this._loadScore();
 	};
-	cache = table => Task.cache(this.name, table);
+	cache = table => TaskManager.cache(this.name, table);
 	killScoreCache = () => {
-		Task.clearCache(this.name, 'score');
+		TaskManager.clearCache(this.name, 'score');
 		return this.score();
 	};
 	killWhitelistCache = () => {
-		Task.clearCache(this.name, 'score');
-		Task.clearCache(this.name, 'whitelist');
+		TaskManager.clearCache(this.name, 'score');
+		TaskManager.clearCache(this.name, 'whitelist');
 		return this.whitelist();
 	};
-	memory = table => Task.memory(this.name, table);
+	memory = table => TaskManager.memory(this.name, table);
 	playerMemory = username => {
 		const playerMemory = this.memory('players');
 		const name = username && username.toLowerCase();

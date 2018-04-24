@@ -35,12 +35,12 @@ class ReserveTask extends TaskComponent {
 				hasFlag && (RoomManager.isControllerRoom(flag.pos.roomName) || (flag.room && flag.room.controller));
 			if (!hasFlag || !hasController) {
 				if (LOG_TRACE)
-					Log.trace('Task', {
+					Log.trace('TaskManager', {
 						hasFlag,
 						hasController,
 						checkForRequiredCreeps: 'skipping room, missing flag or controller',
 						[this.name]: 'checkForRequiredCreeps',
-						Task: this.name,
+						TaskManager: this.name,
 					});
 				return params;
 			}
@@ -53,12 +53,12 @@ class ReserveTask extends TaskComponent {
 				const isOwned = !!flag.room.controller.owner;
 				if (isOwned || validReservation) {
 					if (LOG_TRACE)
-						Log.trace('Task', {
+						Log.trace('TaskManager', {
 							validReservation,
 							isOwned,
 							checkForRequiredCreeps: 'skipping room, reserved or owned',
 							[this.name]: 'checkForRequiredCreeps',
-							Task: this.name,
+							TaskManager: this.name,
 						});
 					return params;
 				}
@@ -67,13 +67,13 @@ class ReserveTask extends TaskComponent {
 				if (urgent) params.queue = 'Medium';
 				if (LOG_TRACE) {
 					const type = urgent ? 'urgent' : ' ';
-					Log.trace('Task', {
+					Log.trace('TaskManager', {
 						validReservation,
 						isOwned,
 						urgent,
 						checkForRequiredCreeps: `sending${type}reserver`,
 						[this.name]: 'checkForRequiredCreeps',
-						Task: this.name,
+						TaskManager: this.name,
 					});
 				}
 			} else if (
@@ -83,12 +83,12 @@ class ReserveTask extends TaskComponent {
 				params.count = 1;
 				params.queue = 'Medium';
 				if (LOG_TRACE)
-					Log.trace('Task', {
+					Log.trace('TaskManager', {
 						lastVisible: flag.memory.lastVisible,
 						tickToEnd: flag.memory.ticksToEnd,
 						checkForRequiredCreeps: 'sending urgent reserver, no visibility',
 						[this.name]: 'checkForRequiredCreeps',
-						Task: this.name,
+						TaskManager: this.name,
 					});
 			}
 			return params;
@@ -119,7 +119,7 @@ class ReserveTask extends TaskComponent {
 					}
 				}
 			}
-			if (Task.nextCreepCheck(flag, this.name)) {
+			if (TaskManager.nextCreepCheck(flag, this.name)) {
 				delete memory.waitForCreeps;
 				Util.set(flag.memory, 'task', this.name);
 				// check if a new creep has to be spawned
@@ -152,7 +152,7 @@ class ReserveTask extends TaskComponent {
 					}
 				}
 			}
-			if (Task.nextCreepCheck(flag, this.name)) {
+			if (TaskManager.nextCreepCheck(flag, this.name)) {
 				delete memory.waitForCreeps;
 				Util.set(flag.memory, 'task', this.name);
 				// check if a new creep has to be spawned
@@ -164,7 +164,7 @@ class ReserveTask extends TaskComponent {
 	checkForRequiredCreeps = flag => {
 		let spawnParams;
 		if (flag.compareTo(FLAG_COLOR.claim.mining)) {
-			spawnParams = Task.mining.state.reserve.spawnParams(flag);
+			spawnParams = TaskManager.mining.state.reserve.spawnParams(flag);
 		} else if (flag.compareTo(FLAG_COLOR.invade.exploit)) {
 			spawnParams = this.state.default.spawnParams(flag);
 			spawnParams.queue = 'Low'; // privateer reserve is always low queue
@@ -175,7 +175,7 @@ class ReserveTask extends TaskComponent {
 		// get task memory
 		let memory = this.memory(flag);
 		// clean/validate task memory queued creeps
-		Task.validateAll(memory, flag, this.name, {
+		TaskManager.validateAll(memory, flag, this.name, {
 			roomName: flag.pos.roomName,
 			queues: ['Low', 'Medium'],
 			checkValid: true,
@@ -201,7 +201,7 @@ class ReserveTask extends TaskComponent {
 		// if creep count below requirement spawn a new creep creep
 		if (count < spawnParams.count) {
 			this.creep.reserver.queue = spawnParams.queue;
-			Task.spawn(
+			TaskManager.spawn(
 				this.creep.reserver, // creepDefinition
 				{
 					// destiny
@@ -237,7 +237,7 @@ class ReserveTask extends TaskComponent {
 			// get task memory
 			let memory = this.memory(flag);
 			// clean/validate task memory queued creeps
-			Task.validateQueued(memory, flag, this.name, { queues: ['Low', 'Medium'] });
+			TaskManager.validateQueued(memory, flag, this.name, { queues: ['Low', 'Medium'] });
 			// save spawning creep to task memory
 			memory.spawning.push(params);
 		}
@@ -256,7 +256,7 @@ class ReserveTask extends TaskComponent {
 			// get task memory
 			let memory = this.memory(flag);
 			// clean/validate task memory spawning creeps
-			Task.validateSpawning(memory, flag, this.name);
+			TaskManager.validateSpawning(memory, flag, this.name);
 			// save running creep to task memory
 			memory.running.push(creep.name);
 		}
@@ -271,7 +271,7 @@ class ReserveTask extends TaskComponent {
 		let flag = Game.flags[mem.destiny.targetName];
 		if (flag) {
 			const memory = this.memory(flag);
-			Task.validateRunning(memory, flag, this.name, {
+			TaskManager.validateRunning(memory, flag, this.name, {
 				roomName: flag.pos.roomName,
 				deadCreep: name,
 			});
@@ -293,11 +293,11 @@ class ReserveTask extends TaskComponent {
 			}
 		}
 		if (LOG_TRACE)
-			Log.trace('Task', {
+			Log.trace('TaskManager', {
 				creepName: creep.name,
 				nextAction: creep.action.name,
 				[this.name]: 'nextAction',
-				Task: this.name,
+				TaskManager: this.name,
 			});
 	};
 	// get task memory
