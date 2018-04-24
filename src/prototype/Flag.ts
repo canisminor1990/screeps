@@ -14,7 +14,7 @@ class FlagExtend extends Flag {
 	}
 
 	compareTo(flag: Flag): boolean {
-		return Flag.compare(this, flag);
+		return FlagManager.compare(this, flag);
 	}
 }
 

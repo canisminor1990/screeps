@@ -129,7 +129,7 @@ class ClaimTask extends TaskComponent {
 		// this could be a global approach to manipulate creep behaviour
 
 		// Claim - once claimed, recycle
-		let priority = [Creep.action.claiming, Creep.action.recycling];
+		let priority = [CreepManager.action.claiming, CreepManager.action.recycling];
 		for (let iAction = 0; iAction < priority.length; iAction++) {
 			let action = priority[iAction];
 			if (action.isValidAction(creep) && action.isAddableAction(creep) && action.assign(creep)) {

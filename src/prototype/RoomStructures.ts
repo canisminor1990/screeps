@@ -48,15 +48,15 @@ class RoomStructuresExtend {
 	}
 
 	get container(): StructureContainer[] {
-		return this.cache('container', () => new Room.Containers(this.room));
+		return this.cache('container', () => new RoomManager.Containers(this.room));
 	}
 
 	get links(): StructureLink[] {
-		return this.cache('links', () => new Room.Links(this.room));
+		return this.cache('links', () => new RoomManager.Links(this.room));
 	}
 
 	get labs(): StructureLab[] {
-		return this.cache('labs', () => new Room.Labs(this.room));
+		return this.cache('labs', () => new RoomManager.Labs(this.room));
 	}
 
 	get extensions(): StructureExtension[] {
@@ -70,7 +70,7 @@ class RoomStructuresExtend {
 	}
 
 	get powerSpawns(): StructurePowerSpawn[] {
-		return this.cache('powerSpawns', () => new Room.PowerSpawn(this.room));
+		return this.cache('powerSpawns', () => new RoomManager.PowerSpawn(this.room));
 	}
 
 	get nuker(): StructureNuker {
@@ -82,7 +82,7 @@ class RoomStructuresExtend {
 	}
 
 	get nukers(): StructureNuker[] {
-		return this.cache('nukers', () => new Room.Nuker(this.room));
+		return this.cache('nukers', () => new RoomManager.Nuker(this.room));
 	}
 
 	get observer(): StructureObserver {
@@ -99,7 +99,7 @@ class RoomStructuresExtend {
 
 	get repairable(): Structure[] {
 		return this.cache('repairable', () =>
-			_.sortBy(this.all.filter((s: Structure) => Room.shouldRepair(this.room, s)), 'hits'),
+			_.sortBy(this.all.filter((s: Structure) => RoomManager.shouldRepair(this.room, s)), 'hits'),
 		);
 	}
 
@@ -124,7 +124,7 @@ class RoomStructuresExtend {
 							structure.hitsMax - structure.hits > GAP_REPAIR_DECAYABLE * 3) &&
 						(Memory.pavementArt[this.room.name] === undefined ||
 							Memory.pavementArt[this.room.name].indexOf('x' + structure.pos.x + 'y' + structure.pos.y + 'x') < 0) &&
-						!Flag.list.some(
+						!FlagManager.list.some(
 							f =>
 								f.roomName == structure.pos.roomName &&
 								f.color == COLOR_ORANGE &&
@@ -148,7 +148,7 @@ class RoomStructuresExtend {
 	get piles(): Flag[] {
 		return this.cache('piles', () => {
 			const room = this.room;
-			return Flag.filter(FLAG_COLOR.command.drop, room.getPositionAt(25, 25), true).map((f: Flag) => {
+			return FlagManager.filter(FLAG_COLOR.command.drop, room.getPositionAt(25, 25), true).map((f: Flag) => {
 				const flag = Game.flags[f.name];
 				const piles = room.lookForAt(LOOK_ENERGY, flag.pos.x, flag.pos.y);
 				return (piles.length && piles[0]) || flag;

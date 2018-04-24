@@ -1,6 +1,6 @@
-import { RoomManager } from '../Manager';
+import { RoomExtra } from '../Extra';
 
-class ObserverManager extends RoomManager {
+class ObserverExtra extends RoomExtra {
 	constructor() {
 		super('observer');
 	}
@@ -76,8 +76,8 @@ class ObserverManager extends RoomManager {
 			initObserverRooms: {
 				value() {
 					const OBSERVER_RANGE = OBSERVER_OBSERVE_RANGE > 10 ? 10 : OBSERVER_OBSERVE_RANGE; // can't be > 10
-					const [x, y] = Room.calcGlobalCoordinates(this.name, (x, y) => [x, y]); // hacky get x,y
-					const [HORIZONTAL, VERTICAL] = Room.calcCardinalDirection(this.name);
+					const [x, y] = RoomManager.calcGlobalCoordinates(this.name, (x, y) => [x, y]); // hacky get x,y
+					const [HORIZONTAL, VERTICAL] = RoomManager.calcCardinalDirection(this.name);
 					this.memory.observer.rooms = [];
 
 					for (let a = x - OBSERVER_RANGE; a < x + OBSERVER_RANGE; a++) {
@@ -98,7 +98,7 @@ class ObserverManager extends RoomManager {
 							}
 							vert += n;
 							const room = hor + vert;
-							if (OBSERVER_OBSERVE_HIGHWAYS_ONLY && !Room.isHighwayRoom(room)) continue; // we only want highway rooms
+							if (OBSERVER_OBSERVE_HIGHWAYS_ONLY && !RoomManager.isHighwayRoom(room)) continue; // we only want highway rooms
 							if (room in Game.rooms && Game.rooms[room].my) continue; // don't bother adding the room to the array if it's owned by us
 							if (!Game.map.isRoomAvailable(room)) continue; // not an available room
 							this.memory.observer.rooms.push(room);
@@ -119,4 +119,4 @@ class ObserverManager extends RoomManager {
 	};
 }
 
-export default new ObserverManager();
+export default new ObserverExtra();

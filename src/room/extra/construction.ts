@@ -1,12 +1,12 @@
-import { RoomManager } from '../Manager';
+import { RoomExtra } from '../Extra';
 
-class ConstructionManager extends RoomManager {
+class ConstructionExtra extends RoomExtra {
 	constructor() {
 		super('construction');
 	}
 
 	register = () => {
-		Flag.found.on(flag => Room.roomLayout(flag));
+		FlagManager.found.on(flag => RoomManager.roomLayout(flag));
 	};
 	analyzeRoom = (room, needMemoryResync) => {
 		if (needMemoryResync) {
@@ -142,7 +142,7 @@ class ConstructionManager extends RoomManager {
 						(this.structures.extensions.length +
 							_.filter(this.constructionSites, s => s.structureType === STRUCTURE_EXTENSION).length);
 					if (shortAmount > 0) {
-						Flag.filter(FLAG_COLOR.construct, ...ARGS)
+						FlagManager.filter(FLAG_COLOR.construct, ...ARGS)
 							.splice(0, shortAmount)
 							.forEach(flag => {
 								CONSTRUCT(flag, STRUCTURE_EXTENSION);
@@ -155,7 +155,7 @@ class ConstructionManager extends RoomManager {
 						(this.structures.spawns.length +
 							_.filter(this.constructionSites, s => s.structureType === STRUCTURE_SPAWN).length);
 					if (shortAmount > 0) {
-						Flag.filter(FLAG_COLOR.construct.spawn, ...ARGS)
+						FlagManager.filter(FLAG_COLOR.construct.spawn, ...ARGS)
 							.splice(0, shortAmount)
 							.forEach(flag => {
 								CONSTRUCT(flag, STRUCTURE_SPAWN);
@@ -168,7 +168,7 @@ class ConstructionManager extends RoomManager {
 						(this.structures.towers.length +
 							_.filter(this.constructionSites, s => s.structureType === STRUCTURE_TOWER).length);
 					if (shortAmount > 0) {
-						Flag.filter(FLAG_COLOR.construct.tower, ...ARGS)
+						FlagManager.filter(FLAG_COLOR.construct.tower, ...ARGS)
 							.splice(0, shortAmount)
 							.forEach(flag => {
 								CONSTRUCT(flag, STRUCTURE_TOWER);
@@ -181,7 +181,7 @@ class ConstructionManager extends RoomManager {
 						(this.structures.links.all.length +
 							_.filter(this.constructionSites, s => s.structureType === STRUCTURE_LINK).length);
 					if (shortAmount > 0) {
-						Flag.filter(FLAG_COLOR.construct.link, ...ARGS)
+						FlagManager.filter(FLAG_COLOR.construct.link, ...ARGS)
 							.splice(0, shortAmount)
 							.forEach(flag => {
 								CONSTRUCT(flag, STRUCTURE_LINK);
@@ -194,7 +194,7 @@ class ConstructionManager extends RoomManager {
 						(this.structures.labs.all.length +
 							_.filter(this.constructionSites, s => s.structureType === STRUCTURE_LAB).length);
 					if (shortAmount > 0) {
-						Flag.filter(FLAG_COLOR.construct.lab, ...ARGS)
+						FlagManager.filter(FLAG_COLOR.construct.lab, ...ARGS)
 							.splice(0, shortAmount)
 							.forEach(flag => {
 								CONSTRUCT(flag, STRUCTURE_LAB);
@@ -203,7 +203,7 @@ class ConstructionManager extends RoomManager {
 
 					// Storage
 					if (!this.storage && CONTROLLER_STRUCTURES[STRUCTURE_STORAGE][LEVEL] > 0) {
-						Flag.filter(FLAG_COLOR.construct.storage, ...ARGS)
+						FlagManager.filter(FLAG_COLOR.construct.storage, ...ARGS)
 							.splice(0, 1)
 							.forEach(flag => {
 								CONSTRUCT(flag, STRUCTURE_STORAGE);
@@ -212,7 +212,7 @@ class ConstructionManager extends RoomManager {
 
 					// Terminal
 					if (!this.terminal && CONTROLLER_STRUCTURES[STRUCTURE_TERMINAL][LEVEL] > 0) {
-						Flag.filter(FLAG_COLOR.construct.terminal, ...ARGS)
+						FlagManager.filter(FLAG_COLOR.construct.terminal, ...ARGS)
 							.splice(0, 1)
 							.forEach(flag => {
 								CONSTRUCT(flag, STRUCTURE_TERMINAL);
@@ -221,7 +221,7 @@ class ConstructionManager extends RoomManager {
 
 					// Observer
 					if (!this.structures.observer && CONTROLLER_STRUCTURES[STRUCTURE_OBSERVER][LEVEL] > 0) {
-						Flag.filter(FLAG_COLOR.construct.observer, ...ARGS)
+						FlagManager.filter(FLAG_COLOR.construct.observer, ...ARGS)
 							.splice(0, 1)
 							.forEach(flag => {
 								CONSTRUCT(flag, STRUCTURE_OBSERVER);
@@ -230,7 +230,7 @@ class ConstructionManager extends RoomManager {
 
 					// Nuker
 					if (!this.structures.nuker && CONTROLLER_STRUCTURES[STRUCTURE_NUKER][LEVEL] > 0) {
-						Flag.filter(FLAG_COLOR.construct.nuker, ...ARGS)
+						FlagManager.filter(FLAG_COLOR.construct.nuker, ...ARGS)
 							.splice(0, 1)
 							.forEach(flag => {
 								CONSTRUCT(flag, STRUCTURE_NUKER);
@@ -239,7 +239,7 @@ class ConstructionManager extends RoomManager {
 
 					// Power Spawn
 					if (!this.structures.powerSpawn && CONTROLLER_STRUCTURES[STRUCTURE_POWER_SPAWN][LEVEL] > 0) {
-						Flag.filter(FLAG_COLOR.construct.powerSpawn, ...ARGS)
+						FlagManager.filter(FLAG_COLOR.construct.powerSpawn, ...ARGS)
 							.splice(0, 1)
 							.forEach(flag => {
 								CONSTRUCT(flag, STRUCTURE_POWER_SPAWN);
@@ -257,8 +257,8 @@ class ConstructionManager extends RoomManager {
 			},
 		});
 	};
-	roomExtend = () => {
-		this.assignRoom({
+	roomManagerExtend = () => {
+		this.assignRoomManager({
 			roomLayoutArray: [
 				[null, null, null, null, null, STRUCTURE_EXTENSION, STRUCTURE_ROAD, STRUCTURE_EXTENSION],
 				[
@@ -415,11 +415,11 @@ class ConstructionManager extends RoomManager {
 				[null, null, null, null, null, STRUCTURE_EXTENSION, STRUCTURE_ROAD, STRUCTURE_EXTENSION],
 			],
 			roomLayout: flag => {
-				if (!Flag.compare(flag, FLAG_COLOR.command.roomLayout)) return;
+				if (!FlagManager.compare(flag, FLAG_COLOR.command.roomLayout)) return;
 				flag = Game.flags[flag.name];
 				const room = flag.room;
 				if (!room) return;
-				const layout = Room.roomLayoutArray;
+				const layout = RoomManager.roomLayoutArray;
 				const constructionFlags = {
 					[STRUCTURE_SPAWN]: FLAG_COLOR.construct.spawn,
 					[STRUCTURE_TOWER]: FLAG_COLOR.construct.tower,
@@ -479,4 +479,4 @@ class ConstructionManager extends RoomManager {
 	};
 }
 
-export default new ConstructionManager();
+export default new ConstructionExtra();

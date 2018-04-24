@@ -12,10 +12,20 @@ class HaulerBehaviour extends CreepBehaviour {
 	}
 
 	inflowActions = creep => {
-		return [Creep.action.uncharging, Creep.action.picking, Creep.action.withdrawing, Creep.action.reallocating];
+		return [
+			CreepManager.action.uncharging,
+			CreepManager.action.picking,
+			CreepManager.action.withdrawing,
+			CreepManager.action.reallocating,
+		];
 	};
 	outflowActions = creep => {
-		let priority = [Creep.action.feeding, Creep.action.charging, Creep.action.fueling, Creep.action.storing];
+		let priority = [
+			CreepManager.action.feeding,
+			CreepManager.action.charging,
+			CreepManager.action.fueling,
+			CreepManager.action.storing,
+		];
 		if (
 			creep.sum > creep.carry.energy ||
 			(!creep.room.situation.invasion &&
@@ -23,10 +33,10 @@ class HaulerBehaviour extends CreepBehaviour {
 				creep.room.lowDefenseEnergy &&
 				creep.room.relativeEnergyAvailable > 0.8)
 		) {
-			priority.unshift(Creep.action.storing);
+			priority.unshift(CreepManager.action.storing);
 		}
 		if (creep.room.structures.urgentRepairable.length > 0) {
-			priority.unshift(Creep.action.fueling);
+			priority.unshift(CreepManager.action.fueling);
 		}
 		return priority;
 	};
@@ -36,7 +46,7 @@ class HaulerBehaviour extends CreepBehaviour {
 			Game.rooms[creep.data.homeRoom] &&
 			Game.rooms[creep.data.homeRoom].controller
 		) {
-			return Creep.action.travelling.assignRoom(creep, creep.data.homeRoom);
+			return CreepManager.action.travelling.assignRoom(creep, creep.data.homeRoom);
 		}
 		return this.nextEnergyAction(creep);
 	};

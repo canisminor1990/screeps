@@ -1,6 +1,6 @@
-import { RoomManager } from '../Manager';
+import { RoomExtra } from '../Extra';
 
-class PowerManager extends RoomManager {
+class PowerExtra extends RoomExtra {
 	constructor() {
 		super('power');
 	}
@@ -75,8 +75,8 @@ class PowerManager extends RoomManager {
 			},
 		});
 	};
-	roomExtend = () => {
-		this.assignRoom({
+	roomManagerExtend = () => {
+		this.assignRoomManager({
 			PowerSpawn: function(room) {
 				this.room = room;
 				Object.defineProperties(this, {
@@ -102,4 +102,4 @@ class PowerManager extends RoomManager {
 	};
 }
 
-export default new PowerManager();
+export default new PowerExtra();

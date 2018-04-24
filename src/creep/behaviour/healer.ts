@@ -10,7 +10,7 @@ class HealerBehaviour extends CreepBehaviour {
 	}
 
 	actions = creep => {
-		return [Creep.action.healing, Creep.action.guarding];
+		return [CreepManager.action.healing, CreepManager.action.guarding];
 	};
 }
 

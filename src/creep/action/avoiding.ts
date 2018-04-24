@@ -16,7 +16,7 @@ class AvoidingAction extends CreepAction {
 		return (
 			creep.data.destiny &&
 			creep.data.destiny.room === creep.room.name &&
-			(Room.isSKRoom(creep.room.name) || creep.room.situation.invasion)
+			(RoomManager.isSKRoom(creep.room.name) || creep.room.situation.invasion)
 		);
 	};
 	isAddableAction = creep => {
@@ -32,7 +32,7 @@ class AvoidingAction extends CreepAction {
 		return false;
 	};
 	newTarget = creep => {
-		if (Room.isSKRoom(creep.pos.roomName)) {
+		if (RoomManager.isSKRoom(creep.pos.roomName)) {
 			const target = _.first(
 				creep.room.find(FIND_STRUCTURES, {
 					filter: t => {

@@ -37,10 +37,10 @@ export const roomUtils = {
 
 		return Util.get(Memory, `routeRange.${fromRoom}.${toRoom}`, () => {
 			const room = fromRoom instanceof Room ? fromRoom : Game.rooms[fromRoom];
-			if (!room) return Room.roomDistance(fromRoom, toRoom, false);
+			if (!room) return RoomManager.roomDistance(fromRoom, toRoom, false);
 
 			const route = room.findRoute(toRoom, false, false);
-			if (!route) return Room.roomDistance(fromRoom, toRoom, false);
+			if (!route) return RoomManager.roomDistance(fromRoom, toRoom, false);
 
 			return route === ERR_NO_PATH ? Infinity : route.length;
 		});

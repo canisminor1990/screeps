@@ -36,7 +36,7 @@ interface RoomMemory {
 	observer: string;
 }
 
-interface RoomConstructor {
+declare const RoomManager: {
 	manager: obj;
 
 	newInvader: Event;
@@ -57,7 +57,7 @@ interface RoomConstructor {
 	run(): void;
 
 	cleanup(): void;
-}
+};
 
 interface Room {
 	structures: {
@@ -78,7 +78,7 @@ interface Room {
 		fortifyable: Structure[];
 		fuelable: StructureTower[];
 		piles(): Flag[];
-		virtual(): (Structure | Flag)[];
+		virtual(): (Structure | FlagManager)[];
 	};
 
 	print: string;

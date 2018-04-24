@@ -1,6 +1,6 @@
-import { RoomManager } from '../Manager';
+import { RoomExtra } from '../Extra';
 
-class BoostProductionManager extends RoomManager {
+class BoostProductionExtra extends RoomExtra {
 	constructor() {
 		super('boostProduction');
 	}
@@ -153,4 +153,4 @@ class BoostProductionManager extends RoomManager {
 	};
 }
 
-export default new BoostProductionManager();
+export default new BoostProductionExtra();

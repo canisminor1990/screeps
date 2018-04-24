@@ -32,7 +32,7 @@ class ReserveTask extends TaskComponent {
 			const params = { count: 0, queue: 'Low' }; // default to no spawn
 			const hasFlag = !!flag;
 			const hasController =
-				hasFlag && (Room.isControllerRoom(flag.pos.roomName) || (flag.room && flag.room.controller));
+				hasFlag && (RoomManager.isControllerRoom(flag.pos.roomName) || (flag.room && flag.room.controller));
 			if (!hasFlag || !hasController) {
 				if (LOG_TRACE)
 					Log.trace('Task', {
@@ -101,7 +101,7 @@ class ReserveTask extends TaskComponent {
 			(flag.compareTo(FLAG_COLOR.claim.reserve) ||
 				flag.compareTo(FLAG_COLOR.invade.exploit) ||
 				flag.compareTo(FLAG_COLOR.claim.mining)) &&
-			(Room.isControllerRoom(flag.pos.roomName) || (flag.room && flag.room.controller))
+			(RoomManager.isControllerRoom(flag.pos.roomName) || (flag.room && flag.room.controller))
 		) {
 			const memory = this.memory(flag);
 			if (flag.room) {
@@ -134,7 +134,7 @@ class ReserveTask extends TaskComponent {
 			(flag.compareTo(FLAG_COLOR.claim.reserve) ||
 				flag.compareTo(FLAG_COLOR.invade.exploit) ||
 				flag.compareTo(FLAG_COLOR.claim.mining)) &&
-			(Room.isControllerRoom(flag.pos.roomName) || (flag.room && flag.room.controller))
+			(RoomManager.isControllerRoom(flag.pos.roomName) || (flag.room && flag.room.controller))
 		) {
 			const memory = this.memory(flag);
 			if (flag.room) {
@@ -282,10 +282,10 @@ class ReserveTask extends TaskComponent {
 		// this could be a global approach to manipulate creep behaviour
 		if (creep.data.destiny && creep.data.destiny.room !== creep.room.name) {
 			// go to target room
-			return Creep.action.travelling.assignRoom(creep, creep.data.destiny.room);
+			return CreepManager.action.travelling.assignRoom(creep, creep.data.destiny.room);
 		}
 		// Reserve if possible, if not (should be never) then recycle
-		let priority = [Creep.action.reserving, Creep.action.recycling];
+		let priority = [CreepManager.action.reserving, CreepManager.action.recycling];
 		for (let iAction = 0; iAction < priority.length; iAction++) {
 			let action = priority[iAction];
 			if (action.isValidAction(creep) && action.isAddableAction(creep) && action.assign(creep)) {

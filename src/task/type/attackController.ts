@@ -136,7 +136,7 @@ class AttackControllerTask extends TaskComponent {
 		// this could be a global approach to manipulate creep behaviour
 
 		// Attack, then claim, then recycle
-		let priority = [Creep.action.attackController, Creep.action.recycling];
+		let priority = [CreepManager.action.attackController, CreepManager.action.recycling];
 		for (let iAction = 0; iAction < priority.length; iAction++) {
 			let action = priority[iAction];
 			if (action.isValidAction(creep) && action.isAddableAction(creep) && action.assign(creep)) {

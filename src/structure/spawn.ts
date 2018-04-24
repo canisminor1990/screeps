@@ -1,17 +1,22 @@
 import { Component } from '../class';
 
-class StructureSpawnConstructor extends Component {
-	priorityHigh = [Creep.setup.worker, Creep.setup.miner, Creep.setup.hauler, Creep.setup.upgrader];
-	priorityLow = [Creep.setup.mineralMiner, Creep.setup.privateer];
+class SpawnConstructor extends Component {
+	priorityHigh = [
+		CreepManager.setup.worker,
+		CreepManager.setup.miner,
+		CreepManager.setup.hauler,
+		CreepManager.setup.upgrader,
+	];
+	priorityLow = [CreepManager.setup.mineralMiner, CreepManager.setup.privateer];
 	register = () => {
-		Creep.spawningCompleted.on((creep: Creep) => this.handleSpawningCompleted(creep));
+		CreepManager.spawningCompleted.on((creep: Creep) => this.handleSpawningCompleted(creep));
 	};
 	handleSpawningCompleted = (creep: Creep) => {
 		if (LOG_TRACE)
 			Log.trace('Spawn', {
 				behaviour: creep.data.creepType,
 				creepName: creep.name,
-				Spawn: 'Creep.spawningCompleted',
+				Spawn: 'CreepManager.spawningCompleted',
 			});
 		if (CENSUS_ANNOUNCEMENTS) Log.room(creep.pos.roomName, Dye(COLOR_GREEN, Util.emoji.tick, creep.name, 'was born!'));
 	};
@@ -23,4 +28,4 @@ class StructureSpawnConstructor extends Component {
 	};
 }
 
-export default new StructureSpawnConstructor();
+export default new SpawnConstructor();

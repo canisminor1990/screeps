@@ -28,11 +28,11 @@ class AttackControllerAction extends CreepAction {
 		);
 	};
 	newTarget = creep => {
-		let validColor = flagEntry => Flag.compare(flagEntry, FLAG_COLOR.invade.attackController);
+		let validColor = flagEntry => FlagManager.compare(flagEntry, FLAG_COLOR.invade.attackController);
 
 		let flag;
 		if (creep.data.destiny) flag = Game.flags[creep.data.destiny.targetName];
-		if (!flag) flag = Flag.find(validColor, creep.pos, false, Flag.reserveMod, creep.name);
+		if (!flag) flag = FlagManager.find(validColor, creep.pos, false, FlagManager.reserveMod, creep.name);
 
 		if (flag) {
 			Population.registerCreepFlag(creep, flag);

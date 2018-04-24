@@ -36,7 +36,7 @@ class UpgraderBehaviour extends CreepBehaviour {
 			return;
 		}
 		if (!creep.action || creep.action.name !== 'upgrading')
-			Population.registerAction(creep, Creep.action.upgrading, creep.room.controller);
+			Population.registerAction(creep, CreepManager.action.upgrading, creep.room.controller);
 		if (!creep.data.determinatedSpot) {
 			let determineSpots = (ignoreSources = false) => {
 				let spots = [];
@@ -58,7 +58,7 @@ class UpgraderBehaviour extends CreepBehaviour {
 							(ignoreSources || pos.findInRange(creep.room.sources, 1).length === 0),
 						roomName: creep.pos.roomName,
 					};
-					return Room.fieldsInRange(args);
+					return RoomManager.fieldsInRange(args);
 				};
 				let linkSpots = creep.room.structures.links.controller
 					? _.flatten(_.map(creep.room.structures.links.controller, getSpots))

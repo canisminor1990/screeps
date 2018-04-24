@@ -83,7 +83,7 @@ class MiningAction extends CreepAction {
 					pos: source.link.pos,
 					range: 1,
 				});
-			spots = Room.fieldsInRange(args);
+			spots = RoomManager.fieldsInRange(args);
 		}
 		if (containerSpot || spots.length > 0) {
 			let spot = containerSpot;

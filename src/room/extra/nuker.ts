@@ -1,6 +1,6 @@
-import { RoomManager } from '../Manager';
+import { RoomExtra } from '../Extra';
 
-class NukerManager extends RoomManager {
+class NukerExtra extends RoomExtra {
 	constructor() {
 		super('nuker');
 	}
@@ -34,8 +34,8 @@ class NukerManager extends RoomManager {
 			},
 		});
 	};
-	roomExtend = () => {
-		this.assignRoom({
+	roomManagerExtend = () => {
+		this.assignRoomManager({
 			Nuker: function(room) {
 				this.room = room;
 				Object.defineProperties(this, {
@@ -60,4 +60,4 @@ class NukerManager extends RoomManager {
 		});
 	};
 }
-export default new NukerManager();
+export default new NukerExtra();

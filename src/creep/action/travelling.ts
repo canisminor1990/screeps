@@ -6,7 +6,7 @@ class TravellingAction extends CreepAction {
 		this.setDefault({
 			newTarget: creep => {
 				if (creep.data.travelPos || creep.data.travelRoom) {
-					return Flag.specialFlag();
+					return FlagManager.specialFlag();
 				}
 				return null;
 			},
@@ -30,7 +30,7 @@ class TravellingAction extends CreepAction {
 		if (CHATTY) creep.say(this.name, SAY_PUBLIC);
 		let targetRange = _.get(creep, ['data', 'travelRange'], this.targetRange);
 		let target = creep.target;
-		if (Flag.isSpecialFlag(creep.target)) {
+		if (FlagManager.isSpecialFlag(creep.target)) {
 			if (creep.data.travelRoom) {
 				const room = Game.rooms[creep.data.travelRoom];
 				if (room && room.name === creep.pos.roomName) {
@@ -42,7 +42,9 @@ class TravellingAction extends CreepAction {
 					target = new RoomPosition(25, 25, creep.data.travelRoom);
 				}
 			} else {
-				Log.error(creep.name + 'Creep.action.travelling called with specialFlag target and travelRoom undefined.');
+				Log.error(
+					creep.name + 'CreepManager.action.travelling called with specialFlag target and travelRoom undefined.',
+				);
 				target = null;
 			}
 		}
@@ -64,7 +66,7 @@ class TravellingAction extends CreepAction {
 	};
 	assignRoom = (creep, roomName) => {
 		if (!roomName) {
-			Log.error(creep.name + 'Creep.action.travelling.assignRoom called with no room.');
+			Log.error(creep.name + 'CreepManager.action.travelling.assignRoom called with no room.');
 			return;
 		}
 		if (_.isUndefined(creep.data.travelRange)) creep.data.travelRange = TRAVELLING_BORDER_RANGE || 22;
@@ -76,7 +78,7 @@ class TravellingAction extends CreepAction {
 				roomName,
 				Action: 'assign',
 			});
-		return this.assign(creep, Flag.specialFlag());
+		return this.assign(creep, FlagManager.specialFlag());
 	};
 	unregister = creep => {
 		delete creep.action;

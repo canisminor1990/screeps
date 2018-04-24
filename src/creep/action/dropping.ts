@@ -25,7 +25,7 @@ class DroppingAction extends CreepAction {
 			drop = creep.pos.findClosestByRange(creep.room.structures.spawns);
 		}
 		if (!drop) {
-			drop = creep.pos.findClosestByRange(creep.room.find(FIND_FLAGS, Flag.flagFilter(FLAG_COLOR.claim.spawn)));
+			drop = creep.pos.findClosestByRange(creep.room.find(FIND_FLAGS, FlagManager.flagFilter(FLAG_COLOR.claim.spawn)));
 		}
 		if (!drop) {
 			drop = creep.pos.findClosestByRange(_.filter(creep.room.constructionSites, { structureType: STRUCTURE_SPAWN }));
@@ -37,7 +37,7 @@ class DroppingAction extends CreepAction {
 	};
 	work = creep => {
 		let ret = OK;
-		let isSpawnFlag = f => f && Flag.compare(f, FLAG_COLOR.claim.spawn);
+		let isSpawnFlag = f => f && FlagManager.compare(f, FLAG_COLOR.claim.spawn);
 		if (
 			!(
 				creep.target instanceof StructureSpawn ||

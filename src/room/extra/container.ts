@@ -1,6 +1,6 @@
-import { RoomManager } from '../Manager';
+import { RoomExtra } from '../Extra';
 
-class ContainerManager extends RoomManager {
+class ContainerExtra extends RoomExtra {
 	constructor() {
 		super('container');
 	}
@@ -44,7 +44,7 @@ class ContainerManager extends RoomManager {
 						let minerSpots = [];
 						let findValidFields = s => {
 							minerSpots = _(minerSpots).concat(
-								Room.validFields(this.name, s.pos.x - 1, s.pos.x + 1, s.pos.y - 1, s.pos.y + 1, true),
+								RoomManager.validFields(this.name, s.pos.x - 1, s.pos.x + 1, s.pos.y - 1, s.pos.y + 1, true),
 							);
 						};
 						_.forEach(this.sources, findValidFields);
@@ -106,8 +106,8 @@ class ContainerManager extends RoomManager {
 			},
 		});
 	};
-	roomExtend = () => {
-		this.assignRoom({
+	roomManagerExtend = () => {
+		this.assignRoomManager({
 			Containers: function(room) {
 				this.room = room;
 				Object.defineProperties(this, {
@@ -189,4 +189,4 @@ class ContainerManager extends RoomManager {
 	};
 }
 
-export default new ContainerManager();
+export default new ContainerExtra();

@@ -20,87 +20,87 @@ class Process {
 		this.extend();
 	};
 	private extend = () => {
-		Room.extend();
-		Flag.extend();
+		RoomManager.extend();
+		FlagManager.extend();
 		Task.extend();
-		Creep.extend();
+		CreepManager.extend();
 		CMemory.extend();
 	};
 	private fresh = () => {
 		CPU.check('fresh');
 		// Flush cache
-		Room.fresh();
-		Flag.fresh();
-		Task.fresh();
+		FlagManager.fresh();
 		Population.fresh();
-		Creep.fresh();
+		RoomManager.fresh();
+		Task.fresh();
+		CreepManager.fresh();
 		CMemory.fresh();
 		CPU.end('fresh');
 	};
 	private analyze = () => {
-		CPU.check('analyze', 'Flag');
-		Flag.analyze();
-		CPU.end('analyze', 'Flag');
+		CPU.check('analyze', 'FlagManager');
+		FlagManager.analyze();
+		CPU.end('analyze', 'FlagManager');
 
-		CPU.check('analyze', 'Room');
-		Room.analyze();
-		CPU.end('analyze', 'Room');
+		CPU.check('analyze', 'RoomManager');
+		RoomManager.analyze();
+		CPU.end('analyze', 'RoomManager');
 
 		CPU.check('analyze', 'Population');
 		Population.analyze();
 		CPU.end('analyze', 'Population');
 	};
 	private register = () => {
-		CPU.check('register', 'Room');
+		CPU.check('register', 'RoomManager');
 		// Room event hooks must be registered before analyze for costMatrixInvalid
-		Room.register();
-		CPU.end('register', 'Room');
+		RoomManager.register();
+		CPU.end('register', 'RoomManager');
 
 		this.analyze();
 		// Register event hooks
 
+		CPU.check('register', 'CreepManager');
+		CreepManager.register();
+		CPU.end('register', 'CreepManager');
+
+		CPU.check('register', 'SpawnManager');
+		SpawnManager.register();
+		CPU.end('register', 'SpawnManager');
+
 		CPU.check('register', 'Task');
 		Task.register();
 		CPU.end('register', 'Task');
-
-		CPU.check('register', 'Creep');
-		Creep.register();
-		CPU.end('register', 'Creep');
-
-		CPU.check('register', 'StructureSpawn');
-		StructureSpawn.register();
-		CPU.end('register', 'StructureSpawn');
 	};
 	private run = () => {
-		CPU.check('run', 'Room');
-		Room.run();
-		CPU.end('run', 'Room');
-
-		CPU.check('run', 'Flag');
-		Flag.run();
-		CPU.end('run', 'Flag');
-
-		CPU.check('run', 'Task');
-		Task.run();
-		CPU.end('run', 'Task');
-
 		CPU.check('run', 'Population');
 		Population.run();
 		CPU.end('run', 'Population');
 
-		CPU.check('run', 'Creep');
-		Creep.run();
-		CPU.end('run', 'Creep');
+		CPU.check('run', 'FlagManager');
+		FlagManager.run();
+		CPU.end('run', 'FlagManager');
+
+		CPU.check('run', 'RoomManager');
+		RoomManager.run();
+		CPU.end('run', 'RoomManager');
+
+		CPU.check('run', 'CreepManager');
+		CreepManager.run();
+		CPU.end('run', 'CreepManager');
 
 		CPU.check('run', 'StructureSpawn');
-		StructureSpawn.run();
+		SpawnManager.run();
 		CPU.end('run', 'StructureSpawn');
+
+		CPU.check('run', 'Task');
+		Task.run();
+		CPU.end('run', 'Task');
 	};
 	private cleanup = () => {
 		CPU.check('cleanup');
-		Room.cleanup();
-		Flag.cleanup();
+		FlagManager.cleanup();
 		Population.cleanup();
+		RoomManager.cleanup();
 		// must come last
 		CMemory.cleanup();
 		CPU.end('cleanup');

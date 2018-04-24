@@ -77,7 +77,7 @@ class CMemoryConstructor extends Component {
 		if (_.isUndefined(Memory.cacheValid)) Memory.cacheValid = {};
 
 		for (let id = MEM_SEGMENTS.COSTMATRIX_CACHE.start; id >= MEM_SEGMENTS.COSTMATRIX_CACHE.end; id--) {
-			this.processSegment(id, Room.loadCostMatrixCache);
+			this.processSegment(id, RoomManager.loadCostMatrixCache);
 		}
 	};
 	saveSegment = (range: obj, inputData: obj): void => {

@@ -6,7 +6,7 @@ class MinerBehaviour extends CreepBehaviour {
 	}
 
 	actions = creep => {
-		return [Creep.action.mining, Creep.action.recycling];
+		return [CreepManager.action.mining, CreepManager.action.recycling];
 	};
 }
 

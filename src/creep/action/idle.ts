@@ -19,7 +19,7 @@ class IdleAction extends CreepAction {
 		return true;
 	};
 	newTarget = creep => {
-		return Flag.specialFlag();
+		return FlagManager.specialFlag();
 	};
 	step = creep => {
 		if (CHATTY) creep.say(this.name, SAY_PUBLIC);

@@ -1,8 +1,8 @@
 import { Component } from '../class';
 
-class StructureTowerConstructor extends Component {
+class TowerConstructor extends Component {
 	state = {};
-	loop = (room: Room): void => {
+	public loop = (room: Room): void => {
 		this.state = {
 			hurtCreeps: room.hurtCreeps,
 			urgentRepairable: room.structures.urgentRepairable,
@@ -12,7 +12,7 @@ class StructureTowerConstructor extends Component {
 		_.forEach(room.structures.towers, this.run);
 	};
 
-	run = (tower: StructureTower): void => {
+	private run = (tower: StructureTower): void => {
 		if (!tower) return;
 		if (this.runHeal(tower, this.state.hurtCreeps, this.state.invasion) === OK) return;
 		if (this.runRepair(tower, this.state.urgentRepairable) === OK) return;
@@ -47,4 +47,4 @@ class StructureTowerConstructor extends Component {
 	};
 }
 
-export default new StructureTowerConstructor();
+export default new TowerConstructor();

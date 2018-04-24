@@ -17,7 +17,7 @@ class DismantlingAction extends CreepAction {
 	};
 	newTarget = creep => {
 		let target;
-		let flag = Flag.find(FLAG_COLOR.destroy.dismantle, creep.pos, true);
+		let flag = FlagManager.find(FLAG_COLOR.destroy.dismantle, creep.pos, true);
 		if (flag) {
 			if (flag.room !== undefined) {
 				// room is visible
@@ -26,15 +26,15 @@ class DismantlingAction extends CreepAction {
 				else {
 					// remove flag. try next flag
 					let oldName = flag.name;
-					Room.costMatrixInvalid.trigger(flag.room);
-					Flag.removeFromDir(flag.name);
+					RoomManager.costMatrixInvalid.trigger(flag.room);
+					FlagManager.removeFromDir(flag.name);
 					flag.remove();
 
 					let otherFlagMod = (range, flagItem, args) => {
 						if (flagItem.name == args) return Infinity;
 						return range;
 					};
-					flag = Flag.find(FLAG_COLOR.destroy.dismantle, creep.pos, true, otherFlagMod, oldName);
+					flag = FlagManager.find(FLAG_COLOR.destroy.dismantle, creep.pos, true, otherFlagMod, oldName);
 					if (oldName == flag.name) Log.error('Removed flag found again in dismantling.newTarget!');
 					if (flag) {
 						if (flag.room !== undefined) {
@@ -43,8 +43,8 @@ class DismantlingAction extends CreepAction {
 							if (targets && targets.length > 0) return targets[0];
 							else {
 								// remove flag. try next flag
-								Room.costMatrixInvalid.trigger(flag.room);
-								Flag.removeFromDir(flag.name);
+								RoomManager.costMatrixInvalid.trigger(flag.room);
+								FlagManager.removeFromDir(flag.name);
 								flag.remove();
 							}
 						} else target = flag; // target in other room

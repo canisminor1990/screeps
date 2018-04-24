@@ -6,10 +6,20 @@ class LabTechBehaviour extends CreepBehaviour {
 	}
 
 	inflowActions = creep => {
-		return [Creep.action.reallocating, Creep.action.withdrawing, Creep.action.uncharging, Creep.action.picking];
+		return [
+			CreepManager.action.reallocating,
+			CreepManager.action.withdrawing,
+			CreepManager.action.uncharging,
+			CreepManager.action.picking,
+		];
 	};
 	outflowActions = creep => {
-		let priority = [Creep.action.storing, Creep.action.charging, Creep.action.fueling, Creep.action.feeding];
+		let priority = [
+			CreepManager.action.storing,
+			CreepManager.action.charging,
+			CreepManager.action.fueling,
+			CreepManager.action.feeding,
+		];
 		if (
 			creep.sum > creep.carry.energy ||
 			(!creep.room.situation.invasion &&
@@ -17,15 +27,15 @@ class LabTechBehaviour extends CreepBehaviour {
 				creep.room.lowDefenseEnergy &&
 				creep.room.relativeEnergyAvailable > 0.8)
 		) {
-			priority.unshift(Creep.action.storing);
+			priority.unshift(CreepManager.action.storing);
 		}
 		if (creep.room.structures.urgentRepairable.length > 0) {
-			priority.unshift(Creep.action.fueling);
+			priority.unshift(CreepManager.action.fueling);
 		}
 		return priority;
 	};
 	nextAction = creep => {
-		return Creep.behaviour.hauler.nextAction(creep);
+		return CreepManager.behaviour.hauler.nextAction(creep);
 	};
 }
 

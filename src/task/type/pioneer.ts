@@ -53,7 +53,7 @@ class PioneerTask extends TaskComponent {
 		}
 		if (pioneer) {
 			// ensure room has a pioneer flag
-			let flag = Flag.find(FLAG_COLOR.claim.pioneer, room);
+			let flag = FlagManager.find(FLAG_COLOR.claim.pioneer, room);
 			if (!flag) {
 				room.newFlag(FLAG_COLOR.claim.pioneer);
 			}

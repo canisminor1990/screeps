@@ -67,15 +67,15 @@ class RecyclerBehaviour extends CreepBehaviour {
 	}
 	actions = creep => {
 		return [
-			Creep.action.picking,
-			Creep.action.withdrawing,
-			Creep.action.uncharging,
-			Creep.action.travelling,
-			Creep.action.storing,
-			Creep.action.feeding,
-			Creep.action.dropping,
-			Creep.action.recycling,
-			Creep.action.idle,
+			CreepManager.action.picking,
+			CreepManager.action.withdrawing,
+			CreepManager.action.uncharging,
+			CreepManager.action.travelling,
+			CreepManager.action.storing,
+			CreepManager.action.feeding,
+			CreepManager.action.dropping,
+			CreepManager.action.recycling,
+			CreepManager.action.idle,
 		];
 	};
 }

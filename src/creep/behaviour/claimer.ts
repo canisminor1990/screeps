@@ -11,13 +11,13 @@ class ClaimerBehaviour extends CreepBehaviour {
 				// creep injured. move to next owned room
 				if (creep.data) {
 					if (!creep.data.nearestHome || !Game.rooms[creep.data.nearestHome]) {
-						const nearestSpawnRoom = Room.bestSpawnRoomFor(creep.pos.roomName);
+						const nearestSpawnRoom = RoomManager.bestSpawnRoomFor(creep.pos.roomName);
 						if (nearestSpawnRoom) {
 							creep.data.nearestHome = nearestSpawnRoom.name;
 						}
 					}
 					if (creep.data.nearestHome) {
-						Creep.action.travelling.assignRoom(creep, creep.data.nearestHome);
+						CreepManager.action.travelling.assignRoom(creep, creep.data.nearestHome);
 					}
 				}
 			}
@@ -31,7 +31,7 @@ class ClaimerBehaviour extends CreepBehaviour {
 		};
 	}
 	actions = creep => {
-		return [Creep.action.claiming, Creep.action.reserving, Creep.action.bulldozing];
+		return [CreepManager.action.claiming, CreepManager.action.reserving, CreepManager.action.bulldozing];
 	};
 }
 

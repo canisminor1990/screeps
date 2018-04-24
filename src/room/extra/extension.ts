@@ -1,6 +1,6 @@
-import { RoomManager } from '../Manager';
+import { RoomExtra } from '../Extra';
 
-class ExtensionManager extends RoomManager {
+class ExtensionExtra extends RoomExtra {
 	constructor() {
 		super('extension');
 	}
@@ -24,4 +24,4 @@ class ExtensionManager extends RoomManager {
 	};
 }
 
-export default new ExtensionManager();
+export default new ExtensionExtra();

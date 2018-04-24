@@ -35,7 +35,7 @@ class MeleeBehaviour extends CreepBehaviour {
 		}
 	};
 	actions = creep => {
-		return [Creep.action.defending, Creep.action.invading, Creep.action.guarding];
+		return [CreepManager.action.defending, CreepManager.action.invading, CreepManager.action.guarding];
 	};
 }
 

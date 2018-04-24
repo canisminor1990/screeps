@@ -5,7 +5,7 @@ class SafeGenBehaviour extends CreepBehaviour {
 		super('safeGen');
 	}
 	actions = creep => {
-		return [Creep.action.safeGen, Creep.action.recycling];
+		return [CreepManager.action.safeGen, CreepManager.action.recycling];
 	};
 }
 

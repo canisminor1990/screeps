@@ -13,7 +13,7 @@ class InvadingAction extends CreepAction {
 	}
 
 	isValidAction = creep => {
-		return Flag.hasInvasionFlag();
+		return FlagManager.hasInvasionFlag();
 	};
 	isAddableAction = () => {
 		return true;
@@ -22,7 +22,7 @@ class InvadingAction extends CreepAction {
 		return true;
 	};
 	getFlaggedStructure = (flagColor, pos) => {
-		let flagsEntries = Flag.filter(flagColor, pos, true);
+		let flagsEntries = FlagManager.filter(flagColor, pos, true);
 		let target = [];
 		let checkFlag = flagEntry => {
 			let flag = Game.flags[flagEntry.name];
@@ -52,7 +52,7 @@ class InvadingAction extends CreepAction {
 			return destroy;
 		}
 		// move to invasion room
-		let flag = Flag.find(FLAG_COLOR.invade, creep.pos, false);
+		let flag = FlagManager.find(FLAG_COLOR.invade, creep.pos, false);
 		if (flag && (!flag.room || flag.pos.roomName != creep.pos.roomName)) {
 			Population.registerCreepFlag(creep, flag);
 			return flag; // other room

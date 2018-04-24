@@ -26,9 +26,9 @@ class DefenseTask extends TaskComponent {
 		if (!invaderCreep.room.my && !invaderCreep.room.reserved) {
 			// if it is not our exploiting target
 			let validColor = flagEntry =>
-				Flag.compare(flagEntry, FLAG_COLOR.invade.exploit) ||
+				FlagManager.compare(flagEntry, FLAG_COLOR.invade.exploit) ||
 				flagEntry.color == (FLAG_COLOR.claim.color || FLAG_COLOR.claim.mining);
-			let flag = Flag.find(validColor, invaderCreep.pos, true);
+			let flag = FlagManager.find(validColor, invaderCreep.pos, true);
 			if (!flag) return; // ignore invader
 		}
 		// check room threat balance
@@ -153,7 +153,7 @@ class DefenseTask extends TaskComponent {
 			);
 
 			if (queued) {
-				let bodyThreat = Creep.bodyThreat(queued.parts);
+				let bodyThreat = CreepManager.bodyThreat(queued.parts);
 				remainingThreat -= bodyThreat;
 			} else {
 				// Can't spawn. Invader will not get handled!
@@ -180,33 +180,33 @@ class DefenseTask extends TaskComponent {
 
 		// defend current room
 		if (
-			Creep.action.defending.isValidAction(creep) &&
-			Creep.action.defending.isAddableAction(creep) &&
-			Creep.action.defending.assign(creep)
+			CreepManager.action.defending.isValidAction(creep) &&
+			CreepManager.action.defending.isAddableAction(creep) &&
+			CreepManager.action.defending.assign(creep)
 		) {
 			return;
 		}
 		// travel to invader
 		let invader = Game.getObjectById(creep.data.destiny.invaderId);
 		if (invader && creep.pos.roomName === invader.pos.roomName) {
-			Creep.action.travelling.assign(creep, invader);
+			CreepManager.action.travelling.assign(creep, invader);
 			return;
 		}
 		// travel to initial calling room
 		let callingRoom = Game.rooms[creep.data.destiny.spottedIn];
 		if (!callingRoom || callingRoom.hostiles.length > 0) {
-			return Creep.action.travelling.assignRoom(creep, creep.data.destiny.spottedIn);
+			return CreepManager.action.travelling.assignRoom(creep, creep.data.destiny.spottedIn);
 		}
 		// check adjacent rooms for invasion
 		let hasHostile = roomName => Game.rooms[roomName] && Game.rooms[roomName].hostiles.length > 0;
 		let invasionRoom = creep.room.adjacentRooms.find(hasHostile);
 		if (invasionRoom) {
-			return Creep.action.travelling.assignRoom(creep, invasionRoom);
+			return CreepManager.action.travelling.assignRoom(creep, invasionRoom);
 		}
 		// recycle self
 		let mother = Game.spawns[creep.data.motherSpawn];
 		if (mother) {
-			Creep.action.recycling.assign(creep, mother);
+			CreepManager.action.recycling.assign(creep, mother);
 		}
 	};
 }

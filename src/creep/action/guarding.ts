@@ -16,7 +16,7 @@ class GuardingAction extends CreepAction {
 		let flag;
 		if (creep.data.destiny) flag = Game.flags[creep.data.destiny.flagName];
 		if (!flag) {
-			flag = Flag.find(FLAG_COLOR.defense, creep.pos, false, Flag.rangeMod, {
+			flag = FlagManager.find(FLAG_COLOR.defense, creep.pos, false, FlagManager.rangeMod, {
 				rangeModPerCrowd: 400,
 				// rangeModByType: creep.data.creepType
 			});

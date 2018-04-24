@@ -20,7 +20,7 @@ export class CreepBehaviour {
 	inflowActions = creep => []; // priority list of actions for getting resources
 	outflowActions = creep => []; // priority list of actions for using resources
 	assignAction = (creep, action, target, debouncePriority) => {
-		if (typeof action === 'string') action = Creep.action[action];
+		if (typeof action === 'string') action = CreepManager.action[action];
 		const valid = action.isValidAction(creep);
 		if (LOG_TRACE)
 			Log.trace('Action', {
@@ -85,7 +85,7 @@ export class CreepBehaviour {
 				if (this.assignAction(creep, action, undefined, outflowActions)) return;
 			}
 		}
-		return Creep.action.idle.assign(creep);
+		return CreepManager.action.idle.assign(creep);
 	};
 	selectAction = (creep, actions) => {
 		const actionChecked = {};
@@ -95,7 +95,7 @@ export class CreepBehaviour {
 				if (this.assignAction(creep, action)) return;
 			}
 		}
-		return Creep.action.idle.assign(creep);
+		return CreepManager.action.idle.assign(creep);
 	};
 	nextAction = creep => {
 		return this.selectAction(creep, this.actions(creep));
@@ -106,7 +106,7 @@ export class CreepBehaviour {
 			return this.selectInflowAction(creep);
 		} else {
 			if (creep.data.nextAction && creep.data.nextTarget) {
-				const action = Creep.action[creep.data.nextAction];
+				const action = CreepManager.action[creep.data.nextAction];
 				const target = Game.getObjectById(creep.data.nextTarget);
 				delete creep.data.nextAction;
 				delete creep.data.nextTarget;

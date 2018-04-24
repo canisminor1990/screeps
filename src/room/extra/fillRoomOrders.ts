@@ -1,6 +1,6 @@
-import { RoomManager } from '../Manager';
+import { RoomExtra } from '../Extra';
 
-class FillRoomOrdersManager extends RoomManager {
+class FillRoomOrdersExtra extends RoomExtra {
 	constructor() {
 		super('fillRoomOrders');
 	}
@@ -180,4 +180,4 @@ class FillRoomOrdersManager extends RoomManager {
 	};
 }
 
-export default new FillRoomOrdersManager();
+export default new FillRoomOrdersExtra();

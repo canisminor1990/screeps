@@ -1,4 +1,4 @@
-export class RoomManager {
+export class RoomExtra {
 	name: string;
 
 	constructor(name: string) {
@@ -7,14 +7,14 @@ export class RoomManager {
 
 	extend = () => {
 		this.prototypeExtend();
-		this.roomExtend();
+		this.roomManagerExtend();
 	};
 	prototypeExtend = () => {};
-	roomExtend = () => {};
+	roomManagerExtend = () => {};
 	assignRoomPrototype = (value: obj) => {
 		Object.defineProperties(Room.prototype, value);
 	};
-	assignRoom = (value: obj) => {
-		_.assign(Room, value);
+	assignRoomManager = (value: obj) => {
+		_.assign(RoomManager, value);
 	};
 }

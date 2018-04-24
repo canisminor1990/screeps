@@ -17,10 +17,10 @@ class StructureSpawnExtend extends StructureSpawn {
 			(room.spawnQueueHigh.length === 0 || room.spawnQueueHigh.length === spawnDelay.High) &&
 			Game.time % SPAWN_INTERVAL === 0
 		) {
-			busy = _.some(StructureSpawn.priorityHigh, probe);
+			busy = _.some(SpawnManager.priorityHigh, probe);
 			if (!busy) busy = this.createCreepByQueue(room.spawnQueueMedium, 'Medium');
 			if (!busy && (room.spawnQueueMedium.length === 0 || room.spawnQueueMedium.length === spawnDelay.Medium)) {
-				busy = _.some(StructureSpawn.priorityLow, probe);
+				busy = _.some(SpawnManager.priorityLow, probe);
 				if (!busy) busy = this.createCreepByQueue(room.spawnQueueLow, 'Low');
 			}
 		}
@@ -108,7 +108,7 @@ class StructureSpawnExtend extends StructureSpawn {
 			this.room.reservedSpawnEnergy += cost;
 			Population.registerCreep(name, behaviour, cost, this.room, this.name, body, destiny);
 			this.newSpawn = { name: name };
-			Creep.spawningStarted.trigger({
+			CreepManager.spawningStarted.trigger({
 				spawn: this.name,
 				name: name,
 				body: body,

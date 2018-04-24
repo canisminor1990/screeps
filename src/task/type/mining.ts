@@ -95,10 +95,10 @@ class MiningTask extends TaskComponent {
 			const memory = this.memory(flagRoomName);
 			if (memory.storageRoom) return memory.storageRoom;
 			// Otherwise, score it
-			return Room.bestSpawnRoomFor(flagRoomName).name;
+			return RoomManager.bestSpawnRoomFor(flagRoomName).name;
 		},
 		spawnRoom: (flagRoomName, minWeight) => {
-			return Room.findSpawnRoom({
+			return RoomManager.findSpawnRoom({
 				targetRoom: flagRoomName,
 				minEnergyCapacity: minWeight || 500,
 			});
@@ -141,14 +141,14 @@ class MiningTask extends TaskComponent {
 		const flagMem = Memory.flags[flagName];
 		if (flagMem && flagMem.task === this.name && flagMem.roomName) {
 			// if there is still a mining flag in that room ignore.
-			const flags = Flag.filter(FLAG_COLOR.claim.mining, new RoomPosition(25, 25, flagMem.roomName), true);
+			const flags = FlagManager.filter(FLAG_COLOR.claim.mining, new RoomPosition(25, 25, flagMem.roomName), true);
 			if (flags && flags.length > 0) return;
 		}
 		// no more mining in that room.
 		Task.cleanup(['remoteMiner', 'remoteWorker', 'remoteHauler'], this.name, flagMem.roomName);
 	};
 	handleFlagFound = flag => {
-		// Analyze Flag
+		// Analyze FlagManager
 		if (flag.compareTo(FLAG_COLOR.claim.mining) && Task.nextCreepCheck(flag, this.name)) {
 			Util.set(flag.memory, 'roomName', flag.pos.roomName);
 			Util.set(flag.memory, 'task', this.name);
@@ -263,7 +263,7 @@ class MiningTask extends TaskComponent {
 					haulerCount,
 					minerCount,
 					workerCount,
-					[this.name]: 'Flag.found',
+					[this.name]: 'FlagManager.found',
 				},
 				'checking flag@',
 				flag.pos,
@@ -503,7 +503,7 @@ class MiningTask extends TaskComponent {
 	// commands
 
 	getFlag = roomName => {
-		return Flag.find(FLAG_COLOR.claim.mining, new RoomPosition(25, 25, roomName));
+		return FlagManager.find(FLAG_COLOR.claim.mining, new RoomPosition(25, 25, roomName));
 	};
 
 	carry = (roomName, partChange) => {

@@ -9,12 +9,12 @@ class RoomConstructor extends Component {
 
 	extend = (): void => {
 		// run extend in each of our submodules
-		for (const key of Object.keys(Room.manager)) {
-			if (Room.manager[key].extend) Room.manager[key].extend();
+		for (const key of Object.keys(RoomManager.extra)) {
+			if (RoomManager.extra[key].extend) RoomManager.extra[key].extend();
 		}
 	};
 	fresh = (): void => {
-		Install(Room, {
+		Install(RoomManager, {
 			// ocurrs when a new invader has been spotted for the first time
 			// param: invader creep
 			newInvader: new EventConstructor(),
@@ -34,11 +34,11 @@ class RoomConstructor extends Component {
 			RCLChange: new EventConstructor(),
 		});
 		// run fresh in each of our submodules
-		for (const key of Object.keys(Room.manager)) {
-			if (Room.manager[key].fresh) Room.manager[key].fresh();
+		for (const key of Object.keys(RoomManager.extra)) {
+			if (RoomManager.extra[key].fresh) RoomManager.extra[key].fresh();
 		}
 		const freshRoom = (room: Room) => {
-			_.forEach(Room.manager, manager => {
+			_.forEach(RoomManager.extra, manager => {
 				if (manager.freshRoom) manager.freshRoom(room);
 			});
 		};
@@ -46,11 +46,11 @@ class RoomConstructor extends Component {
 	};
 	register = (): void => {
 		// run register in each of our submodules
-		_.forEach(Room.manager, manager => {
+		_.forEach(RoomManager.extra, manager => {
 			if (manager.register) manager.register();
 		});
-		Room.costMatrixInvalid.on((room: Room) => this.rebuildCostMatrix(room.name || room));
-		Room.RCLChange.on((room: Room) =>
+		RoomManager.costMatrixInvalid.on((room: Room) => this.rebuildCostMatrix(room.name || room));
+		RoomManager.RCLChange.on((room: Room) =>
 			room.structures.all
 				.filter(s => ![STRUCTURE_ROAD, STRUCTURE_WALL, STRUCTURE_RAMPART].includes(s.structureType))
 				.forEach(s => {
@@ -60,7 +60,7 @@ class RoomConstructor extends Component {
 	};
 	analyze = (): void => {
 		// run analyze in each of our submodules
-		_.forEach(Room.manager, manager => {
+		_.forEach(RoomManager.extra, manager => {
 			if (manager.analyze) manager.analyze();
 		});
 
@@ -69,9 +69,9 @@ class RoomConstructor extends Component {
 				const roomName = room.name;
 				const check = _.includes(CPU_CHECK_CONFIG.ROOM, roomName);
 				// run analyzeRoom in each of our submodules
-				for (const key of Object.keys(Room.manager)) {
+				for (const key of Object.keys(RoomManager.extra)) {
 					if (check) CPU.check('analyze', roomName, key);
-					if (Room.manager[key].analyzeRoom) Room.manager[key].analyzeRoom(room, this.needMemoryResync(room));
+					if (RoomManager.extra[key].analyzeRoom) RoomManager.extra[key].analyzeRoom(room, this.needMemoryResync(room));
 					if (check) CPU.end('analyze', roomName, key);
 				}
 				if (check) CPU.check('analyze', roomName, 'countMySites');
@@ -84,12 +84,12 @@ class RoomConstructor extends Component {
 				room.checkRCL();
 			} catch (err) {
 				Game.notify(
-					'Error in room.js (Room.prototype.loop) for "' + room.name + '" : ' + err.stack
+					'Error in room.js (RoomManager.prototype.loop) for "' + room.name + '" : ' + err.stack
 						? err + '<br/>' + err.stack
 						: err,
 				);
 				Log.error(
-					`Error in room.js (Room.prototype.loop) for "${room.name}":`,
+					`Error in room.js (RoomManager.prototype.loop) for "${room.name}":`,
 					'<br/>',
 					err.stack || err.toString(),
 					'<br/>',
@@ -104,16 +104,16 @@ class RoomConstructor extends Component {
 	};
 	run = (): void => {
 		// run run in each of our submodules
-		_.forEach(Room.manager, manager => {
+		_.forEach(RoomManager.extra, manager => {
 			if (manager.run) manager.run();
 		});
 		const work = (memory: RoomMemory, roomName: string) => {
 			try {
 				const check: boolean = _.includes(CPU_CHECK_CONFIG.ROOM, roomName);
 				// run runRoom in each of our submodules
-				for (const key of Object.keys(Room.manager)) {
+				for (const key of Object.keys(RoomManager.extra)) {
 					if (check) CPU.check('run', roomName, key);
-					if (Room.manager[key].runRoom) Room.manager[key].runRoom(memory, roomName);
+					if (RoomManager.extra[key].runRoom) RoomManager.extra[key].runRoom(memory, roomName);
 					if (check) CPU.end('run', roomName, key);
 				}
 				if (check) CPU.check('run', roomName, 'collapsed');
@@ -121,7 +121,7 @@ class RoomConstructor extends Component {
 				if (room) {
 					// has sight
 					if (room.collapsed) {
-						Room.collapsed.trigger(room);
+						RoomManager.collapsed.trigger(room);
 					}
 				}
 				if (check) CPU.end('run', roomName, 'collapsed');
@@ -143,7 +143,7 @@ class RoomConstructor extends Component {
 	};
 	cleanup = (): void => {
 		// run cleanup in each of our submodules
-		_.forEach(Room.manager, manager => {
+		_.forEach(RoomManager.extra, manager => {
 			if (manager.cleanup) manager.cleanup();
 		});
 		// fresh changes to the pathfinderCache but wait until load
@@ -214,7 +214,7 @@ class RoomConstructor extends Component {
 	routeCallback = (origin: string, destination: string, options: obj) => {
 		if (_.isUndefined(origin) || _.isUndefined(destination))
 			Log.error(
-				'Room.routeCallback',
+				'RoomManager.routeCallback',
 				'both origin and destination must be defined - origin:' + origin + ' destination:' + destination,
 			);
 		return (roomName: string) => {
@@ -273,27 +273,27 @@ class RoomConstructor extends Component {
 		});
 	};
 	isCenterRoom = (roomName: string) => {
-		return Room.calcCoordinates(roomName, (x, y) => {
+		return RoomManager.calcCoordinates(roomName, (x, y) => {
 			return x === 5 && y === 5;
 		});
 	};
 	isCenterNineRoom = (roomName: string) => {
-		return Room.calcCoordinates(roomName, (x, y) => {
+		return RoomManager.calcCoordinates(roomName, (x, y) => {
 			return x > 3 && x < 7 && y > 3 && y < 7;
 		});
 	};
 	isControllerRoom = (roomName: string) => {
-		return Room.calcCoordinates(roomName, (x, y) => {
+		return RoomManager.calcCoordinates(roomName, (x, y) => {
 			return x !== 0 && y !== 0 && (x < 4 || x > 6 || y < 4 || y > 6);
 		});
 	};
 	isSKRoom = (roomName: string) => {
-		return Room.calcCoordinates(roomName, (x, y) => {
+		return RoomManager.calcCoordinates(roomName, (x, y) => {
 			return x > 3 && x < 7 && y > 3 && y < 7 && (x !== 5 || y !== 5);
 		});
 	};
 	isHighwayRoom = (roomName: string) => {
-		return Room.calcCoordinates(roomName, (x, y) => {
+		return RoomManager.calcCoordinates(roomName, (x, y) => {
 			return x === 0 || y === 0;
 		});
 	};
@@ -390,7 +390,7 @@ class RoomConstructor extends Component {
 				return costMatrix;
 			} else {
 				Log.error(
-					'Room.getCachedStructureMatrix',
+					'RoomManager.getCachedStructureMatrix',
 
 					`Cached costmatrix for ${roomName} is invalid ${cache}`,
 				);
@@ -463,7 +463,7 @@ class RoomConstructor extends Component {
 			(Memory.pavementArt[room.name] === undefined ||
 				Memory.pavementArt[room.name].indexOf('x' + structure.pos.x + 'y' + structure.pos.y + 'x') < 0) &&
 			// not flagged for removal
-			!Flag.list.some(
+			!FlagManager.list.some(
 				f =>
 					f.roomName == structure.pos.roomName &&
 					f.color == COLOR_ORANGE &&

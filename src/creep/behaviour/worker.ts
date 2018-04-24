@@ -7,48 +7,48 @@ class WorkerBehaviour extends CreepBehaviour {
 
 	inflowActions = creep => {
 		let priority = [
-			Creep.action.bulldozing,
-			Creep.action.picking,
-			Creep.action.dismantling,
-			Creep.action.withdrawing,
-			Creep.action.uncharging,
-			Creep.action.harvesting,
-			Creep.action.reallocating,
+			CreepManager.action.bulldozing,
+			CreepManager.action.picking,
+			CreepManager.action.dismantling,
+			CreepManager.action.withdrawing,
+			CreepManager.action.uncharging,
+			CreepManager.action.harvesting,
+			CreepManager.action.reallocating,
 		];
 		if (creep.sum > creep.carry.energy) {
-			priority.unshift(Creep.action.storing);
+			priority.unshift(CreepManager.action.storing);
 		}
 		return priority;
 	};
 	outflowActions = creep => {
 		if (creep.room.situation.invasion && creep.room.controller && creep.room.RCL > 2) {
-			return [Creep.action.fueling, Creep.action.feeding, Creep.action.repairing];
+			return [CreepManager.action.fueling, CreepManager.action.feeding, CreepManager.action.repairing];
 		} else {
 			let priority = [
-				Creep.action.repairing,
-				Creep.action.feeding,
-				Creep.action.building,
-				Creep.action.fueling,
-				Creep.action.fortifying,
-				Creep.action.charging,
-				Creep.action.upgrading,
-				Creep.action.storing,
+				CreepManager.action.repairing,
+				CreepManager.action.feeding,
+				CreepManager.action.building,
+				CreepManager.action.fueling,
+				CreepManager.action.fortifying,
+				CreepManager.action.charging,
+				CreepManager.action.upgrading,
+				CreepManager.action.storing,
 			];
 			const needMinersOrHaulers = room => {
 				const typeCount = room.population && room.population.typeCount;
 				return !typeCount.hauler || typeCount.hauler < 1 || !typeCount.miner || typeCount.miner < 1;
 			};
 			if (creep.room.relativeEnergyAvailable < 1 && needMinersOrHaulers(creep.room)) {
-				priority.unshift(Creep.action.feeding);
+				priority.unshift(CreepManager.action.feeding);
 			}
 			if (creep.room.controller && creep.room.controller.ticksToDowngrade < 2000) {
 				// urgent upgrading
-				priority.unshift(Creep.action.upgrading);
+				priority.unshift(CreepManager.action.upgrading);
 			}
 			if (creep.sum > creep.carry.energy) {
-				priority.unshift(Creep.action.storing);
+				priority.unshift(CreepManager.action.storing);
 			}
-			priority.unshift(Creep.action.bulldozing);
+			priority.unshift(CreepManager.action.bulldozing);
 			return priority;
 		}
 	};
@@ -68,7 +68,7 @@ class WorkerBehaviour extends CreepBehaviour {
 					Behaviour: 'nextAction',
 					Action: 'assign',
 				});
-			Creep.action.travelling.assignRoom(creep, creep.data.homeRoom);
+			CreepManager.action.travelling.assignRoom(creep, creep.data.homeRoom);
 			return true;
 		}
 		return this.nextEnergyAction(creep);

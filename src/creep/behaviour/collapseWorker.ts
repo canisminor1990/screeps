@@ -12,44 +12,44 @@ class CollapseWorkerBehaviour extends CreepBehaviour {
 
 	inflowActions = creep => {
 		let priority = [
-			Creep.action.picking,
-			Creep.action.withdrawing,
-			Creep.action.uncharging,
-			Creep.action.harvesting,
-			Creep.action.dismantling,
-			Creep.action.reallocating,
+			CreepManager.action.picking,
+			CreepManager.action.withdrawing,
+			CreepManager.action.uncharging,
+			CreepManager.action.harvesting,
+			CreepManager.action.dismantling,
+			CreepManager.action.reallocating,
 		];
 		if (creep.sum > creep.carry.energy) {
-			priority.unshift(Creep.action.storing);
+			priority.unshift(CreepManager.action.storing);
 		}
 		return priority;
 	};
 	outflowActions = creep => {
 		const invasion = creep.room.situation.invasion && creep.room.controller && creep.room.RCL > 2;
 		if (invasion) {
-			return [Creep.action.feeding, Creep.action.fueling, Creep.action.repairing];
+			return [CreepManager.action.feeding, CreepManager.action.fueling, CreepManager.action.repairing];
 		} else {
 			let priority = [
-				Creep.action.feeding,
-				Creep.action.fueling,
-				Creep.action.charging,
-				Creep.action.repairing,
-				Creep.action.building,
-				Creep.action.fortifying,
-				Creep.action.upgrading,
+				CreepManager.action.feeding,
+				CreepManager.action.fueling,
+				CreepManager.action.charging,
+				CreepManager.action.repairing,
+				CreepManager.action.building,
+				CreepManager.action.fortifying,
+				CreepManager.action.upgrading,
 			];
 			if (!invasion) {
-				priority.push(Creep.action.storing);
-				priority.push(Creep.action.dropping);
+				priority.push(CreepManager.action.storing);
+				priority.push(CreepManager.action.dropping);
 			}
 			if (creep.room.controller && creep.room.controller.ticksToDowngrade < 500) {
 				// urgent upgrading
-				priority.unshift(Creep.action.upgrading);
+				priority.unshift(CreepManager.action.upgrading);
 			}
 			return priority;
 		}
 	};
-	needEnergy = creep => Creep.behaviour.worker.needEnergy(creep);
+	needEnergy = creep => CreepManager.behaviour.worker.needEnergy(creep);
 	nextAction = creep => {
 		if (creep.pos.roomName !== creep.data.homeRoom) {
 			if (LOG_TRACE)
@@ -61,7 +61,7 @@ class CollapseWorkerBehaviour extends CreepBehaviour {
 					Behaviour: 'nextAction',
 					Action: 'assign',
 				});
-			Creep.action.travelling.assignRoom(creep, creep.data.homeRoom);
+			CreepManager.action.travelling.assignRoom(creep, creep.data.homeRoom);
 			return true;
 		}
 		if (!creep.room.collapsed) {
@@ -79,7 +79,7 @@ class CollapseWorkerBehaviour extends CreepBehaviour {
 				return this.assignAction(creep, 'recycling');
 			}
 		}
-		return Creep.behaviour.worker.nextAction(creep);
+		return CreepManager.behaviour.worker.nextAction(creep);
 	};
 }
 

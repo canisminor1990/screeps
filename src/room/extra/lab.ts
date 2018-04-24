@@ -1,6 +1,6 @@
-import { RoomManager } from '../Manager';
+import { RoomExtra } from '../Extra';
 
-class LabManager extends RoomManager {
+class LabExtra extends RoomExtra {
 	constructor() {
 		super('lab');
 	}
@@ -729,8 +729,8 @@ class LabManager extends RoomManager {
 			},
 		});
 	};
-	roomExtend = () => {
-		this.assignRoom({
+	roomManagerExtend = () => {
+		this.assignRoomManager({
 			Labs: function(room) {
 				this.room = room;
 				Object.defineProperties(this, {
@@ -765,4 +765,4 @@ class LabManager extends RoomManager {
 	};
 }
 
-export default new LabManager();
+export default new LabExtra();

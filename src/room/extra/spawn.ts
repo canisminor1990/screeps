@@ -1,6 +1,6 @@
-import { RoomManager } from '../Manager';
+import { RoomExtra } from '../Extra';
 
-class SpawnManager extends RoomManager {
+class SpawnExtra extends RoomExtra {
 	constructor() {
 		super('spawn');
 	}
@@ -46,8 +46,8 @@ class SpawnManager extends RoomManager {
 			},
 		});
 	};
-	roomExtend = () => {
-		this.assignRoom({
+	roomManagerExtend = () => {
+		this.assignRoomManager({
 			bestSpawnRoomFor: targetRoomName => {
 				let range = room => (room.my ? Util.routeRange(room.name, targetRoomName) : Infinity);
 				return _.min(Game.rooms, range);
@@ -86,4 +86,4 @@ class SpawnManager extends RoomManager {
 	};
 }
 
-export default new SpawnManager();
+export default new SpawnExtra();

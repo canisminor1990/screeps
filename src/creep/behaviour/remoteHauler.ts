@@ -14,7 +14,7 @@ class RemoteHaulerBehaviour extends CreepBehaviour {
 		const flag = creep.data.destiny && Game.flags[creep.data.destiny.targetName];
 		if (!flag) {
 			// TODO: in the future look for a nearby room we can support
-			return Creep.action.recycling.assign(creep);
+			return CreepManager.action.recycling.assign(creep);
 		}
 
 		// at home
@@ -62,7 +62,7 @@ class RemoteHaulerBehaviour extends CreepBehaviour {
 			}
 			// picking last until we have state that can compare cost vs benefit otherwise remoteHaulers bounce between piles of dropped energy
 			if (this.assignAction(creep, 'uncharging')) return;
-			// if (this.assignAction(creep, Creep.action.robbing)) return;
+			// if (this.assignAction(creep, CreepManager.action.robbing)) return;
 			if (this.assignAction(creep, 'picking')) return;
 			// wait
 			if (creep.sum === 0) {
@@ -87,15 +87,15 @@ class RemoteHaulerBehaviour extends CreepBehaviour {
 		// recycle self
 		let mother = Game.spawns[creep.data.motherSpawn];
 		if (mother) {
-			this.assignAction(creep, Creep.action.recycling, mother);
+			this.assignAction(creep, CreepManager.action.recycling, mother);
 		}
 	};
 	gotoTargetRoom = creep => {
 		const targetFlag = creep.data.destiny ? Game.flags[creep.data.destiny.targetName] : null;
-		if (targetFlag) return Creep.action.travelling.assignRoom(creep, targetFlag.pos.roomName);
+		if (targetFlag) return CreepManager.action.travelling.assignRoom(creep, targetFlag.pos.roomName);
 	};
 	goHome = creep => {
-		return Creep.action.travelling.assignRoom(creep, creep.data.homeRoom);
+		return CreepManager.action.travelling.assignRoom(creep, creep.data.homeRoom);
 	};
 }
 

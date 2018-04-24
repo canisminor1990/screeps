@@ -55,7 +55,7 @@ export class CreepSetup {
 		};
 		memory.setup = this.type;
 		memory.parts = this.parts(spawn.room);
-		memory.cost = Creep.bodyCosts(memory.parts);
+		memory.cost = CreepManager.bodyCosts(memory.parts);
 		memory.mother = spawn.name;
 		memory.home = spawn.pos.roomName;
 		for (let son = 1; memory.name == null || Game.creeps[memory.name] || Memory.population[memory.name]; son++) {
@@ -112,7 +112,7 @@ export class CreepSetup {
 		if (this.measureByHome) {
 			let home = room.name;
 			let count = entry => {
-				if (entry.creepType == this.type && entry.homeRoom == home && Creep.isWorkingAge(entry)) {
+				if (entry.creepType == this.type && entry.homeRoom == home && CreepManager.isWorkingAge(entry)) {
 					existingCount++;
 					existingWeight += entry.weight;
 				}
@@ -176,7 +176,7 @@ export class CreepSetup {
 				minMulti,
 				maxMulti,
 			});
-		return Creep.compileBody(room, {
+		return CreepManager.compileBody(room, {
 			fixedBody,
 			multiBody,
 			minMulti,
@@ -203,7 +203,10 @@ export class CreepSetup {
 		return mix;
 	};
 	maxCost = room => {
-		return Creep.bodyCosts(this._multiBody(room)) * this._maxMulti(room) + Creep.bodyCosts(this._fixedBody(room));
+		return (
+			CreepManager.bodyCosts(this._multiBody(room)) * this._maxMulti(room) +
+			CreepManager.bodyCosts(this._fixedBody(room))
+		);
 	};
 	maxPerFlag = (flagFilter, maxRoomRange, measureByHome) => {
 		if (!flagFilter) {
@@ -225,7 +228,7 @@ export class CreepSetup {
 						.filter(c => {
 							return !measureByHome || c.homeRoom === room.name;
 						})
-						.every(Creep.isWorkingAge)
+						.every(CreepManager.isWorkingAge)
 						.value()
 				) {
 					max++;
@@ -233,7 +236,7 @@ export class CreepSetup {
 					max = max + 2;
 				}
 			};
-			let flagEntries = Flag.filter(flagFilter);
+			let flagEntries = FlagManager.filter(flagFilter);
 			flagEntries.forEach(calcMax);
 			return max;
 		};

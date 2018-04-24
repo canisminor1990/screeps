@@ -1,6 +1,6 @@
-import { RoomManager } from '../Manager';
+import { RoomExtra } from '../Extra';
 
-class LinkManager extends RoomManager {
+class LinkExtra extends RoomExtra {
 	constructor() {
 		super('link');
 	}
@@ -97,8 +97,8 @@ class LinkManager extends RoomManager {
 			},
 		});
 	};
-	roomExtend = () => {
-		this.assignRoom({
+	roomManagerExtend = () => {
+		this.assignRoomManager({
 			Links: function(room) {
 				this.room = room;
 
@@ -165,4 +165,4 @@ class LinkManager extends RoomManager {
 	};
 }
 
-export default new LinkManager();
+export default new LinkExtra();

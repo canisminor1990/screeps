@@ -22,13 +22,13 @@ class PrivateerBehaviour extends CreepBehaviour {
 				// creep injured. move to next owned room
 				if (creep.data) {
 					if (!creep.data.nearestHome || !Game.rooms[creep.data.nearestHome]) {
-						const nearestSpawnRoom = Room.bestSpawnRoomFor(creep.pos.roomName);
+						const nearestSpawnRoom = RoomManager.bestSpawnRoomFor(creep.pos.roomName);
 						if (nearestSpawnRoom) {
 							creep.data.nearestHome = nearestSpawnRoom.name;
 						}
 					}
 					if (creep.data.nearestHome) {
-						Creep.action.travelling.assignRoom(creep, creep.data.nearestHome);
+						CreepManager.action.travelling.assignRoom(creep, creep.data.nearestHome);
 					}
 				}
 			}
@@ -61,10 +61,10 @@ class PrivateerBehaviour extends CreepBehaviour {
 					if (target.structureType === STRUCTURE_STORAGE && this.assignAction(creep, 'storing', target)) return;
 					else if (this.assignAction(creep, 'charging', target)) return;
 				}
-				// if( Creep.action.storing.assign(creep) ) return;
+				// if( CreepManager.action.storing.assign(creep) ) return;
 				if (this.assignAction(creep, 'charging')) return;
 				if (!creep.room.ally && this.assignAction(creep, 'storing')) return;
-				Creep.behaviour.worker.nextAction(creep);
+				CreepManager.behaviour.worker.nextAction(creep);
 				return;
 			}
 			// empty
@@ -73,7 +73,7 @@ class PrivateerBehaviour extends CreepBehaviour {
 			} else {
 				// no new flag
 				// behave as worker
-				Creep.behaviour.worker.nextAction(creep);
+				CreepManager.behaviour.worker.nextAction(creep);
 			}
 		} else {
 			// not at home
@@ -98,10 +98,10 @@ class PrivateerBehaviour extends CreepBehaviour {
 						// energy available
 						// harvesting or picking
 						let actions = [
-							Creep.action.dismantling,
-							Creep.action.picking,
-							Creep.action.robbing,
-							Creep.action.harvesting,
+							CreepManager.action.dismantling,
+							CreepManager.action.picking,
+							CreepManager.action.robbing,
+							CreepManager.action.harvesting,
 						];
 						// TODO: Add extracting (if extractor present) ?
 						for (let iAction = 0; iAction < actions.length; iAction++) {
@@ -114,13 +114,13 @@ class PrivateerBehaviour extends CreepBehaviour {
 					}
 				} else {
 					// carrier full
-					const actions = [Creep.action.building];
+					const actions = [CreepManager.action.building];
 					for (let iAction = 0; iAction < actions.length; iAction++) {
 						let action = actions[iAction];
 						if (action.isValidAction(creep) && action.isAddableAction(creep) && action.assign(creep)) return;
 					}
 					Population.registerCreepFlag(creep, null);
-					Creep.action.travelling.assignRoom(creep, creep.data.homeRoom);
+					CreepManager.action.travelling.assignRoom(creep, creep.data.homeRoom);
 				}
 			} else {
 				// not at target room
@@ -132,18 +132,19 @@ class PrivateerBehaviour extends CreepBehaviour {
 		if (creep.sum < creep.carryCapacity * 0.4) {
 			// calc by distance to home room
 			const validColor = flagEntry =>
-				Flag.compare(flagEntry, FLAG_COLOR.invade.exploit) || Flag.compare(flagEntry, FLAG_COLOR.invade.robbing);
-			const flag = Flag.find(
+				FlagManager.compare(flagEntry, FLAG_COLOR.invade.exploit) ||
+				FlagManager.compare(flagEntry, FLAG_COLOR.invade.robbing);
+			const flag = FlagManager.find(
 				validColor,
 				new RoomPosition(25, 25, creep.data.homeRoom),
 				false,
-				Flag.exploitMod,
+				FlagManager.exploitMod,
 				creep.name,
 			);
 			// new flag found
 			if (flag) {
 				// travelling
-				if (Creep.action.travelling.assignRoom(creep, flag.pos.roomName)) {
+				if (CreepManager.action.travelling.assignRoom(creep, flag.pos.roomName)) {
 					Population.registerCreepFlag(creep, flag);
 					return true;
 				}
@@ -153,7 +154,7 @@ class PrivateerBehaviour extends CreepBehaviour {
 		// go home
 		Population.registerCreepFlag(creep, null);
 		if (creep.room.name !== creep.data.homeRoom) {
-			Creep.action.travelling.assignRoom(creep, creep.data.homeRoom);
+			CreepManager.action.travelling.assignRoom(creep, creep.data.homeRoom);
 		}
 		return false;
 	};

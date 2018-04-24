@@ -131,9 +131,9 @@ FlagDir.filter(FLAG_COLOR.defense)
 // kill all creeps
 _.forEach(Game.creeps, c => c.suicide());
 // Recycle a creep
-Creep.action.recycling.assign(Game.creeps['<creepName>']);
+CreepManager.action.recycling.assign(Game.creeps['<creepName>']);
 // spawn something...
-Game.spawns['<spawnName>'].createCreepBySetup(Creep.setup.worker);
+Game.spawns['<spawnName>'].createCreepBySetup(CreepManager.setup.worker);
 // or
 Game.rooms['<roomName>'].spawnQueueLow.push({
 	parts: [MOVE, WORK, CARRY],

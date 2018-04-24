@@ -21,7 +21,7 @@ class ClaimingAction extends CreepAction {
 		let flag;
 		// TODO: remove  || creep.data.destiny.flagName (temporary backward compatibility)
 		if (creep.data.destiny) flag = Game.flags[creep.data.destiny.targetName || creep.data.destiny.flagName];
-		if (!flag) flag = Flag.find(FLAG_COLOR.claim, creep.pos, false, Flag.claimMod, creep.name);
+		if (!flag) flag = FlagManager.find(FLAG_COLOR.claim, creep.pos, false, FlagManager.claimMod, creep.name);
 
 		if (flag) {
 			Population.registerCreepFlag(creep, flag);
@@ -38,7 +38,7 @@ class ClaimingAction extends CreepAction {
 			creep.flag.setColor(FLAG_COLOR.claim.spawn.color, FLAG_COLOR.claim.spawn.secondaryColor);
 			// TODO: remove exploit flags
 			let remove = f => Game.flags[f.name].remove();
-			_.forEach(Flag.filter(FLAG_COLOR.invade.exploit, creep.flag.pos, true), remove);
+			_.forEach(FlagManager.filter(FLAG_COLOR.invade.exploit, creep.flag.pos, true), remove);
 			// no valid target for claimer
 			return null;
 		} else {

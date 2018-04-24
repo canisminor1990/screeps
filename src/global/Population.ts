@@ -76,7 +76,7 @@ class PopulationConstructor extends Component {
 				}
 				entry.ttl = creep.ticksToLive;
 
-				if (entry.creepType && (creep.ticksToLive === undefined || Creep.isWorkingAge(entry))) {
+				if (entry.creepType && (creep.ticksToLive === undefined || CreepManager.isWorkingAge(entry))) {
 					this.countCreep(creep.room, entry);
 				}
 
@@ -89,13 +89,14 @@ class PopulationConstructor extends Component {
 						creep.flag = flag;
 					}
 				}
-				let action = entry.actionName && Creep.action[entry.actionName] ? Creep.action[entry.actionName] : null;
+				let action =
+					entry.actionName && CreepManager.action[entry.actionName] ? CreepManager.action[entry.actionName] : null;
 				let target =
 					action && entry.targetId
 						? Game.getObjectById(entry.targetId) || Game.spawns[entry.targetId] || Game.flags[entry.targetId]
 						: null;
 				if (target && target.id === creep.id) {
-					target = Flag.specialFlag();
+					target = FlagManager.specialFlag();
 				}
 				if (action && target) this.registerAction(creep, action, target, entry);
 				else {
@@ -136,20 +137,20 @@ class PopulationConstructor extends Component {
 		});
 	};
 	run = () => {
-		let triggerCompleted = name => Creep.spawningCompleted.trigger(Game.creeps[name]);
+		let triggerCompleted = name => CreepManager.spawningCompleted.trigger(Game.creeps[name]);
 		this.spawned.forEach(triggerCompleted);
 
-		// Creep.died.on(n => console.log(`Creep ${n} died!`));
-		Creep.died.on(c => {
+		// CreepManager.died.on(n => console.log(`Creep ${n} died!`));
+		CreepManager.died.on(c => {
 			const data = Memory.population[c];
 			if (data && data.determinatedSpot && data.roomName) {
-				Room.costMatrixInvalid.trigger(data.roomName);
+				RoomManager.costMatrixInvalid.trigger(data.roomName);
 			}
 		});
-		let triggerDied = name => Creep.died.trigger(name);
+		let triggerDied = name => CreepManager.died.trigger(name);
 		this.died.forEach(triggerDied);
 
-		let triggerRenewal = name => Creep.predictedRenewal.trigger(Game.creeps[name]);
+		let triggerRenewal = name => CreepManager.predictedRenewal.trigger(Game.creeps[name]);
 		this.predictedRenewal.forEach(triggerRenewal);
 
 		if (Game.time % SPAWN_INTERVAL != 0) {
@@ -258,7 +259,7 @@ class PopulationConstructor extends Component {
 		}
 		// register target
 		entry.targetId = targetId;
-		if (target && !Flag.isSpecialFlag(target)) {
+		if (target && !FlagManager.isSpecialFlag(target)) {
 			if (target.targetOf === undefined) target.targetOf = [entry];
 			else target.targetOf.push(entry);
 		}

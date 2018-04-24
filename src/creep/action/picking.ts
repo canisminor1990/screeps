@@ -70,10 +70,10 @@ class PickingAction extends CreepAction {
 			// Check for containers to uncharge
 			if (creep.sum < creep.carryCapacity) {
 				let containers = creep.pos.findInRange(creep.room.structures.container.in, 2, {
-					filter: o => Creep.action.uncharging.isValidTarget(o, creep),
+					filter: o => CreepManager.action.uncharging.isValidTarget(o, creep),
 				});
 				if (containers && containers.length > 0) {
-					Creep.action.uncharging.assign(creep, containers[0]);
+					CreepManager.action.uncharging.assign(creep, containers[0]);
 					return result;
 				}
 			}

@@ -49,7 +49,7 @@ class HaulerSetup extends CreepSetup {
 		let contSum = _.sum(room.structures.container.in, 'sum');
 		contSum += _.sum(room.droppedResources, 'amount');
 		max += Math.floor(contSum / 1000);
-		max += Creep.setup.upgrader._maxMulti(room);
+		max += CreepManager.setup.upgrader._maxMulti(room);
 		return Math.min(max, 16);
 	};
 	maxCount = room => {
@@ -59,9 +59,9 @@ class HaulerSetup extends CreepSetup {
 		let workers = room.population.typeCount.worker || 0;
 		let mineralMiners = room.population.typeCount.mineralMiner || 0;
 		let cont = room.structures.container.in.length + room.structures.links.storage.length;
-		if (miners > 0 || (cont > 0 && workers > Creep.setup.worker._maxCount(room))) {
+		if (miners > 0 || (cont > 0 && workers > CreepManager.setup.worker._maxCount(room))) {
 			if (!room.storage || room.storage.id !== room.controller.memory.storage)
-				count += Math.round(Creep.setup.upgrader._maxCount(room) / 2);
+				count += Math.round(CreepManager.setup.upgrader._maxCount(room) / 2);
 			if (
 				room.structures.links.all.length < 3 ||
 				(room.storage &&

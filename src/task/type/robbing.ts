@@ -30,10 +30,10 @@ class RobbingTask extends TaskComponent {
 			const memory = this.memory(flag);
 			if (memory.storageRoom) return Game.rooms[memory.storageRoom];
 			// Otherwise, score it
-			return Room.bestSpawnRoomFor(flag.pos.roomName);
+			return RoomManager.bestSpawnRoomFor(flag.pos.roomName);
 		},
 		spawnRoom: ({ roomName, minWeight }) => {
-			return Room.findSpawnRoom({
+			return RoomManager.findSpawnRoom({
 				targetRoom: roomName,
 				minEnergyCapacity: minWeight || 250,
 			});
@@ -192,14 +192,14 @@ class RobbingTask extends TaskComponent {
 				// Choose the closest
 				if (deposit.length > 0) {
 					let target = creep.pos.findClosestByRange(deposit);
-					if (target.structureType == STRUCTURE_STORAGE && Creep.action.storing.assign(creep, target)) return;
-					else if (Creep.action.charging.assign(creep, target)) return;
+					if (target.structureType == STRUCTURE_STORAGE && CreepManager.action.storing.assign(creep, target)) return;
+					else if (CreepManager.action.charging.assign(creep, target)) return;
 				}
-				// if( Creep.action.storing.assign(creep) ) return;
-				if (Creep.action.charging.assign(creep)) return;
-				if (!creep.room.ally && Creep.action.storing.assign(creep)) return;
-				if (Creep.action.dropping.assign(creep)) return;
-				Creep.behaviour.worker.nextAction(creep);
+				// if( CreepManager.action.storing.assign(creep) ) return;
+				if (CreepManager.action.charging.assign(creep)) return;
+				if (!creep.room.ally && CreepManager.action.storing.assign(creep)) return;
+				if (CreepManager.action.dropping.assign(creep)) return;
+				CreepManager.behaviour.worker.nextAction(creep);
 				return;
 			}
 			// empty
@@ -225,7 +225,7 @@ class RobbingTask extends TaskComponent {
 						robbing: 'nextAction',
 						Task: 'robbing',
 					});
-				Creep.behaviour.worker.nextAction(creep);
+				CreepManager.behaviour.worker.nextAction(creep);
 				return;
 			}
 		} else {
@@ -243,7 +243,7 @@ class RobbingTask extends TaskComponent {
 				// get some energy
 				if (creep.sum < creep.carryCapacity * 0.4) {
 					// harvesting or picking
-					let actions = [Creep.action.picking, Creep.action.robbing];
+					let actions = [CreepManager.action.picking, CreepManager.action.robbing];
 					for (let iAction = 0; iAction < actions.length; iAction++) {
 						let action = actions[iAction];
 						if (action.isValidAction(creep) && action.isAddableAction(creep) && action.assign(creep)) return;
@@ -274,7 +274,7 @@ class RobbingTask extends TaskComponent {
 			}
 		}
 		// fallback
-		Creep.action.recycling.assign(creep);
+		CreepManager.action.recycling.assign(creep);
 	};
 	exploitNextRoom = creep => {
 		if (creep.sum < creep.carryCapacity * 0.4) {
@@ -293,14 +293,14 @@ class RobbingTask extends TaskComponent {
 	};
 	goHome = creep => {
 		Population.registerCreepFlag(creep, null);
-		Creep.action.travelling.assignRoom(creep, creep.data.homeRoom);
+		CreepManager.action.travelling.assignRoom(creep, creep.data.homeRoom);
 		return false;
 	};
 	getFlag = roomName => {
 		let validColor = flagEntry =>
 			flagEntry.color == FLAG_COLOR.invade.robbing.color &&
 			flagEntry.secondaryColor == FLAG_COLOR.invade.robbing.secondaryColor;
-		return Flag.find(validColor, new RoomPosition(25, 25, roomName), false);
+		return FlagManager.find(validColor, new RoomPosition(25, 25, roomName), false);
 	};
 	storage = (roomName, storageRoom) => {
 		const memory = this.memory(this.getFlag(roomName));
@@ -319,7 +319,7 @@ class RobbingTask extends TaskComponent {
 		}
 	};
 	gotoTargetRoom = (creep, flag) => {
-		if (Creep.action.travelling.assignRoom(creep, flag.pos.roomName)) {
+		if (CreepManager.action.travelling.assignRoom(creep, flag.pos.roomName)) {
 			Population.registerCreepFlag(creep, flag);
 			return true;
 		}

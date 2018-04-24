@@ -1,6 +1,6 @@
-import { RoomManager } from '../Manager';
+import { RoomExtra } from '../Extra';
 
-class DefenseManager extends RoomManager {
+class DefenseExtra extends RoomExtra {
 	constructor() {
 		super('defense');
 	}
@@ -43,10 +43,10 @@ class DefenseManager extends RoomManager {
 			);
 		}
 		// trigger subscribers
-		Room.newInvader.trigger(creep);
+		RoomManager.newInvader.trigger(creep);
 	};
-	private _triggerKnownInvaders = id => Room.knownInvader.trigger(id);
-	private _triggerGoneInvaders = id => Room.goneInvader.trigger(id);
+	private _triggerKnownInvaders = id => RoomManager.knownInvader.trigger(id);
+	private _triggerGoneInvaders = id => RoomManager.goneInvader.trigger(id);
 }
 
-export default new DefenseManager();
+export default new DefenseExtra();

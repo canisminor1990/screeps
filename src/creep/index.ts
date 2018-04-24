@@ -8,11 +8,12 @@ class CreepConstructor extends Component {
 			Creep.prototype,
 			{
 				default: (creep: Creep) => creep.action && creep.action.name,
-				selector: (actionName: string) => Creep.action[actionName],
+				selector: (actionName: string) => CreepManager.action[actionName],
 			},
 			{
 				default: (creep: Creep) => creep.data.creepType,
-				selector: (behaviourName: string) => Creep.behaviour[behaviourName] && Creep.behaviour[behaviourName],
+				selector: (behaviourName: string) =>
+					CreepManager.behaviour[behaviourName] && CreepManager.behaviour[behaviourName],
 			},
 			{
 				default: (creep: Creep) => creep.data.destiny && creep.data.destiny.task,
@@ -21,7 +22,7 @@ class CreepConstructor extends Component {
 		);
 	};
 	public fresh = () => {
-		Install(Creep, {
+		Install(CreepManager, {
 			// ocurrs when a creep starts spawning
 			// param: { spawn: spawn.name, name: creep.name, destiny: creep.destiny }
 			spawningStarted: new EventConstructor(),
@@ -40,14 +41,14 @@ class CreepConstructor extends Component {
 		});
 	};
 	public register = () => {
-		for (const action in Creep.action) {
-			if (Creep.action[action].register) Creep.action[action].register(this);
+		for (const action in CreepManager.action) {
+			if (CreepManager.action[action].register) CreepManager.action[action].register(this);
 		}
-		for (const behaviour in Creep.behaviour) {
-			if (Creep.behaviour[behaviour].register) Creep.behaviour[behaviour].register(this);
+		for (const behaviour in CreepManager.behaviour) {
+			if (CreepManager.behaviour[behaviour].register) CreepManager.behaviour[behaviour].register(this);
 		}
-		for (const setup in Creep.setup) {
-			if (Creep.setup[setup].register) Creep.setup[setup].register(this);
+		for (const setup in CreepManager.setup) {
+			if (CreepManager.setup[setup].register) CreepManager.setup[setup].register(this);
 		}
 	};
 	public run = () => {

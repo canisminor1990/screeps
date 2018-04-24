@@ -14,7 +14,7 @@ interface FlagFilter {
 	secondaryColor: string;
 }
 
-interface FlagConstructor {
+declare const FlagManager: {
 	list: FlagList[];
 	stale: string[];
 
@@ -73,7 +73,7 @@ interface FlagConstructor {
 	specialFlag(create: boolean): boolean;
 
 	isSpecialFlag(object: Flag): boolean;
-}
+};
 
 interface Flag {
 	targetOf: CreepMemory[];

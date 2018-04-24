@@ -51,13 +51,13 @@ class RoomExtend extends Room {
 	checkRCL(): void {
 		if (!this.controller) return;
 		if (this.memory.RCL !== this.controller.level) {
-			Room.RCLChange.trigger(this);
+			RoomManager.RCLChange.trigger(this);
 			this.memory.RCL = this.controller.level;
 		}
 	}
 
 	get skip(): boolean {
-		return this.cache('skip', () => !!Flag.find(FLAG_COLOR.command.skipRoom, this));
+		return this.cache('skip', () => !!FlagManager.find(FLAG_COLOR.command.skipRoom, this));
 	}
 
 	get reservation(): string | boolean {
@@ -123,7 +123,7 @@ class RoomExtend extends Room {
 	countMySites(): void {
 		const numSites = _.size(this.myConstructionSites);
 		if (!_.isUndefined(this.memory.myTotalSites) && numSites !== this.memory.myTotalSites) {
-			Room.costMatrixInvalid.trigger(this);
+			RoomManager.costMatrixInvalid.trigger(this);
 		}
 		if (numSites > 0) this.memory.myTotalSites = numSites;
 		else delete this.memory.myTotalSites;
@@ -132,7 +132,7 @@ class RoomExtend extends Room {
 	countMyStructures(): void {
 		const numStructures = _.size(this.structures.my);
 		if (!_.isUndefined(this.memory.myTotalStructures) && numStructures !== this.memory.myTotalStructures) {
-			Room.costMatrixInvalid.trigger(this);
+			RoomManager.costMatrixInvalid.trigger(this);
 			// these are vital for feeding
 			this.saveExtensions();
 			this.saveSpawns();
@@ -140,7 +140,7 @@ class RoomExtend extends Room {
 	}
 
 	get flags(): Flag[] {
-		return Util.get(this, '_flags', _.filter(Flag.list, { roomName: this.name }));
+		return this.cache('flags', () => _.filter(FlagManager.list, { roomName: this.name }));
 	}
 
 	newFlag(flagColour: obj, pos: RoomPosition, name: string): string | number | void {
@@ -218,7 +218,7 @@ class RoomExtend extends Room {
 		else if (_.isUndefined(this.memory.statistics)) this.memory.statistics = {};
 
 		const registerHostile = (creep: Creep) => {
-			if (Room.isCenterNineRoom(this.name)) return;
+			if (RoomManager.isCenterNineRoom(this.name)) return;
 			// if invader id unregistered
 			if (!this.memory.hostileIds.includes(creep.id)) {
 				// handle new invader
@@ -344,14 +344,14 @@ class RoomExtend extends Room {
 	* 相邻的房间
 	* */
 	get adjacentRooms(): string[] {
-		return this.memoryCache('adjacentRooms', () => Room.adjacentRooms(this.name));
+		return this.memoryCache('adjacentRooms', () => RoomManager.adjacentRooms(this.name));
 	}
 
 	/*
 	* 相邻有出口的房间
 	* */
 	get adjacentAccessibleRooms(): string[] {
-		return this.memoryCache('adjacentAccessibleRooms', () => Room.adjacentAccessibleRooms(this.name));
+		return this.memoryCache('adjacentAccessibleRooms', () => RoomManager.adjacentAccessibleRooms(this.name));
 	}
 
 	_find: Function;
@@ -370,14 +370,14 @@ class RoomExtend extends Room {
 			let privateerMaxWeight: number = 0;
 			if (!this.situation.invasion && !this.lowDefenseEnergy) {
 				const base: number = this.controller.level * 1000;
-				const flagEntries: FlagMemory[] = Flag.filter(FLAG_COLOR.invade.exploit);
+				const flagEntries: FlagMemory[] = FlagManager.filter(FLAG_COLOR.invade.exploit);
 				let adjacent: string[];
 				let ownNeighbor: number;
 				let room: Room;
 				let mult: number;
 				const countOwn = (roomName: string) => {
 					if (roomName == this.name) return;
-					if (Room.isMine(roomName)) ownNeighbor++;
+					if (RoomManager.isMine(roomName)) ownNeighbor++;
 				};
 				const calcWeight = (flagEntry: FlagMemory) => {
 					if (!this.adjacentAccessibleRooms.includes(flagEntry.roomName)) return;
@@ -386,7 +386,7 @@ class RoomExtend extends Room {
 						adjacent = room.adjacentAccessibleRooms;
 						mult = room.sources.length;
 					} else {
-						adjacent = Room.adjacentAccessibleRooms(flagEntry.roomName);
+						adjacent = RoomManager.adjacentAccessibleRooms(flagEntry.roomName);
 						mult = 1;
 					}
 					ownNeighbor = 1;
@@ -402,7 +402,7 @@ class RoomExtend extends Room {
 	get claimerMaxWeight(): number {
 		return this.cache('claimerMaxWeight', () => {
 			const base: number = 1250;
-			const flagEntries: FlagMemory[] = Flag.filter([
+			const flagEntries: FlagMemory[] = FlagManager.filter([
 				FLAG_COLOR.claim,
 				FLAG_COLOR.claim.reserve,
 				FLAG_COLOR.invade.exploit,
@@ -419,7 +419,7 @@ class RoomExtend extends Room {
 					this.RCL > 3 ||
 					(flagEntry.color == FLAG_COLOR.claim.color && flagEntry.secondaryColor == FLAG_COLOR.claim.secondaryColor)
 				) {
-					distance = Room.roomDistance(this.name, flagEntry.roomName);
+					distance = RoomManager.roomDistance(this.name, flagEntry.roomName);
 					if (distance > maxRange) return;
 					flag = Game.flags[flagEntry.name];
 					if (
@@ -451,7 +451,7 @@ class RoomExtend extends Room {
 		if (this.name == dest) return [];
 		const options = { checkOwner, preferHighway, allowSK };
 		return Game.map.findRoute(this, dest, {
-			routeCallback: Room.routeCallback(this.name, dest, options),
+			routeCallback: RoomManager.routeCallback(this.name, dest, options),
 		});
 	}
 
@@ -520,7 +520,7 @@ class RoomExtend extends Room {
 
 	get highwayHasWalls(): boolean {
 		return this.cache('highwayHasWalls', () => {
-			if (!Room.isHighwayRoom(this.name)) return false;
+			if (!RoomManager.isHighwayRoom(this.name)) return false;
 			return !!_.find(this.getPositionAt(25, 25).lookFor(LOOK_STRUCTURES), s => s instanceof StructureWall);
 		});
 	}
@@ -554,10 +554,10 @@ class RoomExtend extends Room {
 			if (!Reflect.has(object, prop) || !Reflect.has(target, prop)) return false;
 		}
 
-		if (!Room.isHighwayRoom(this.name)) return false;
+		if (!RoomManager.isHighwayRoom(this.name)) return false;
 		if (!this.highwayHasWalls) return true;
 
-		const [x, y] = Room.calcCoordinates(this.name, (x, y) => [x, y]);
+		const [x, y] = RoomManager.calcCoordinates(this.name, (x, y) => [x, y]);
 
 		const getVerHalf = o => (Math.floor(o.x / 25) === 0 ? LEFT : RIGHT);
 
@@ -644,7 +644,7 @@ class RoomExtend extends Room {
 			if (!Reflect.has(target, prop)) return false;
 		}
 
-		if (!Room.isHighwayRoom(this.name)) return false;
+		if (!RoomManager.isHighwayRoom(this.name)) return false;
 		if (!this.highwayHasWalls) return true;
 
 		const closestRoom = _(Game.rooms)
@@ -652,8 +652,8 @@ class RoomExtend extends Room {
 			.min(r => Game.map.getRoomLinearDistance(r.name, this.name));
 		if (closestRoom === Infinity) return false;
 
-		const [x1, y1] = Room.calcGlobalCoordinates(this.name, (x, y) => [x, y]);
-		const [x2, y2] = Room.calcGlobalCoordinates(closestRoom, (x, y) => [x, y]);
+		const [x1, y1] = RoomManager.calcGlobalCoordinates(this.name, (x, y) => [x, y]);
+		const [x2, y2] = RoomManager.calcGlobalCoordinates(closestRoom, (x, y) => [x, y]);
 		let dir = '';
 		if (y1 - y2 < 0) {
 			dir += 'south';
@@ -706,7 +706,7 @@ class RoomExtend extends Room {
 	get structureMatrix(): CostMatrix {
 		return this.cache('structureMatrix', () => {
 			let structureMatrix: CostMatrix;
-			const cachedMatrix = Room.getCachedStructureMatrix(this.name);
+			const cachedMatrix = RoomManager.getCachedStructureMatrix(this.name);
 			if (cachedMatrix) {
 				structureMatrix = cachedMatrix;
 			} else {
@@ -735,13 +735,13 @@ class RoomExtend extends Room {
 				this.structures.all.forEach(setCosts);
 				this.constructionSites.forEach(setCosts);
 				this.immobileCreeps.forEach(setCreepCosts);
-				const prevTime = _.get(Room.pathfinderCache, [this.name, 'updated']);
-				Room.pathfinderCache[this.name] = {
+				const prevTime = _.get(RoomManager.pathfinderCache, [this.name, 'updated']);
+				RoomManager.pathfinderCache[this.name] = {
 					costMatrix: costMatrix,
 					updated: Game.time,
-					version: Room.COSTMATRIX_CACHE_VERSION,
+					version: RoomManager.COSTMATRIX_CACHE_VERSION,
 				};
-				Room.pathfinderCacheDirty = true;
+				RoomManager.pathfinderCacheDirty = true;
 				if (LOG_TRACE)
 					Log.trace(
 						'PathFinder',
@@ -771,7 +771,7 @@ class RoomExtend extends Room {
 	}
 
 	invalidateCostMatrix(): void {
-		Room.costMatrixInvalid.trigger(this.name);
+		RoomManager.costMatrixInvalid.trigger(this.name);
 	}
 
 	/*

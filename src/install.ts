@@ -24,10 +24,8 @@ export const install = () => {
 		CMemory: require('./global/CMemory').default,
 		Population: require('./global/Population').default,
 		Statistics: require('./global/Statistics').default,
+		FlagManager: require('./flag/index').default,
 	});
-
-	// Flag
-	Install(Flag, require('./flag/index').default);
 
 	// Task
 	Install('Task', require('./task').default, {
@@ -46,13 +44,13 @@ export const install = () => {
 		scheduler: require('./task/type/scheduler').default,
 	});
 
-	// Creep
-	Install(Creep, {
+	// CreepManager
+	Install('CreepManager', require('./creep').default, {
 		Action: require('./class').CreepAction,
 		Behaviour: require('./class').Behaviour,
 		Setup: require('./class').CreepSetup,
 	});
-	Install((Creep.action = {}), {
+	Install((CreepManager.action = {}), {
 		attackController: require('./creep/action/attackController').default,
 		avoiding: require('./creep/action/avoiding').default,
 		boosting: require('./creep/action/boosting').default,
@@ -85,7 +83,7 @@ export const install = () => {
 		upgrading: require('./creep/action/upgrading').default,
 		withdrawing: require('./creep/action/withdrawing').default,
 	});
-	Install((Creep.behaviour = {}), {
+	Install((CreepManager.behaviour = {}), {
 		claimer: require('./creep/behaviour/claimer').default,
 		collapseWorker: require('./creep/behaviour/collapseWorker').default,
 		hauler: require('./creep/behaviour/hauler').default,
@@ -105,7 +103,7 @@ export const install = () => {
 		worker: require('./creep/behaviour/worker').default,
 		safeGen: require('./creep/behaviour/safeGen').default,
 	});
-	Install((Creep.setup = {}), {
+	Install((CreepManager.setup = {}), {
 		hauler: require('./creep/setup/hauler').default,
 		healer: require('./creep/setup/healer').default,
 		miner: require('./creep/setup/miner').default,
@@ -115,32 +113,31 @@ export const install = () => {
 		worker: require('./creep/setup/worker').default,
 	});
 
-	Install(Creep, require('./creep').default);
-
 	// Room
-	Install(Room, require('./room').default, {
-		manager: {
-			construction: require('./room/manager/construction').default,
-			containers: require('./room/manager/container').default,
-			defense: require('./room/manager/defense').default,
-			extensions: require('./room/manager/extension').default,
-			labs: require('./room/manager/lab').default,
-			links: require('./room/manager/link').default,
-			nuker: require('./room/manager/nuker').default,
-			observers: require('./room/manager/observer').default,
-			orders: require('./room/manager/orders').default,
-			power: require('./room/manager/power').default,
-			resources: require('./room/manager/resources').default,
-			spawns: require('./room/manager/spawn').default,
-			towers: require('./room/manager/tower').default,
-			fillRoomOrders: require('./room/manager/fillRoomOrders').default,
-			boostProduction: require('./room/manager/boostProduction').default,
+	Install('RoomManager', require('./room').default, {
+		extra: {
+			construction: require('./room/extra/construction').default,
+			containers: require('./room/extra/container').default,
+			defense: require('./room/extra/defense').default,
+			extensions: require('./room/extra/extension').default,
+			labs: require('./room/extra/lab').default,
+			links: require('./room/extra/link').default,
+			nuker: require('./room/extra/nuker').default,
+			observers: require('./room/extra/observer').default,
+			orders: require('./room/extra/orders').default,
+			power: require('./room/extra/power').default,
+			resources: require('./room/extra/resources').default,
+			spawns: require('./room/extra/spawn').default,
+			towers: require('./room/extra/tower').default,
+			fillRoomOrders: require('./room/extra/fillRoomOrders').default,
+			boostProduction: require('./room/extra/boostProduction').default,
 		},
 	});
 
-	// Structure
-	Install(StructureTower, require('./structure/tower').default);
-	Install(StructureSpawn, require('./structure/spawn').default);
+	Install(global, {
+		SpawnManager: require('./structure/spawn').default,
+		TowerManager: require('./structure/tower').default,
+	});
 
 	// Addon
 	Install(global, {

@@ -18,15 +18,15 @@ class LabTechTask extends TaskComponent {
 	// hook into events
 	register = () => {
 		// when a new flag has been found (occurs every tick, for each flag)
-		Flag.found.on(flag => this.handleFlagFound(flag));
+		FlagManager.found.on(flag => this.handleFlagFound(flag));
 		// a creep starts spawning
-		Creep.spawningStarted.on(params => this.handleSpawningStarted(params));
+		CreepManager.spawningStarted.on(params => this.handleSpawningStarted(params));
 		// a creep completed spawning
-		Creep.spawningCompleted.on(creep => this.handleSpawningCompleted(creep));
+		CreepManager.spawningCompleted.on(creep => this.handleSpawningCompleted(creep));
 		// a creep will die soon
-		Creep.predictedRenewal.on(creep => this.handleCreepDied(creep.name));
+		CreepManager.predictedRenewal.on(creep => this.handleCreepDied(creep.name));
 		// a creep died
-		Creep.died.on(name => this.handleCreepDied(name));
+		CreepManager.died.on(name => this.handleCreepDied(name));
 	};
 	// for each flag
 	handleFlagFound = flag => {

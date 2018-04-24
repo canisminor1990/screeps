@@ -29,7 +29,7 @@ class CreepExtend extends Creep {
 	run(behaviour: any): void {
 		if (!this.spawning) {
 			if (!behaviour && this.data && this.data.creepType) {
-				behaviour = Creep.behaviour[this.data.creepType];
+				behaviour = CreepManager.behaviour[this.data.creepType];
 				if (this.room.skip) return;
 				if (Memory.CPU_CRITICAL && !CRITICAL_ROLES.includes(this.data.creepType)) {
 					return;
@@ -100,7 +100,7 @@ class CreepExtend extends Creep {
 			}
 			if (this.flee) {
 				this.fleeMove();
-				Creep.behaviour.ranger.heal(this);
+				CreepManager.behaviour.ranger.heal(this);
 				if (SAY_ASSIGNMENT) this.say(String.fromCharCode(10133), SAY_PUBLIC);
 			}
 		}
@@ -119,8 +119,8 @@ class CreepExtend extends Creep {
 			debug: DEBUG,
 			reportThreshold: TRAVELER_THRESHOLD,
 			useFindRoute: _.get(global, 'ROUTE_PRECALCULATION', true),
-			routeCallback: Room.routeCallback(this.pos.roomName, destination.roomName, options),
-			getStructureMatrix: (room: Room) => Room.getStructureMatrix(room.name || room, options),
+			routeCallback: RoomManager.routeCallback(this.pos.roomName, destination.roomName, options),
+			getStructureMatrix: (room: Room) => RoomManager.getStructureMatrix(room.name || room, options),
 			getCreepMatrix: (room: Room) => room.getCreepMatrix(options.getStructureMatrix(room)),
 		});
 		if (
@@ -197,7 +197,7 @@ class CreepExtend extends Creep {
 				!this.data.idle.path.length ||
 				this.pos.isEqualTo(this.data.idle.lastPos)
 			) {
-				const idleFlag = Flag.find(FLAG_COLOR.command.idle, this.pos, true, (r, flagEntry: obj) => {
+				const idleFlag = FlagManager.find(FLAG_COLOR.command.idle, this.pos, true, (r, flagEntry: obj) => {
 					const flag = Game.flags[flagEntry.name];
 					const occupied = flag.pos.lookFor(LOOK_CREEPS);
 					if (occupied && occupied.length) {
@@ -312,22 +312,22 @@ class CreepExtend extends Creep {
 	}
 
 	get threat(): number {
-		return this.cache('threat', () => Creep.bodyThreat(this.body));
+		return this.cache('threat', () => CreepManager.bodyThreat(this.body));
 	}
 
 	get behaviour(): obj {
-		return Creep.behaviour[this.data.creepType];
+		return CreepManager.behaviour[this.data.creepType];
 	}
 
 	assignAction(action: CreepAction | string, target: RoomObject): boolean {
-		if (_.isString(action)) action = Creep.action[action];
-		if (!action || !(action instanceof Creep.Action)) return;
+		if (_.isString(action)) action = CreepManager.action[action];
+		if (!action || !(action instanceof CreepManager.Action)) return;
 		return action.assign(this, target);
 	}
 
 	assignBehaviour(behaviour: CreepBehaviour | string): boolean {
-		if (_.isString(behaviour)) behaviour = Creep.behaviour[behaviour];
-		if (!behaviour || !(behaviour instanceof Creep.Behaviour)) return;
+		if (_.isString(behaviour)) behaviour = CreepManager.behaviour[behaviour];
+		if (!behaviour || !(behaviour instanceof CreepManager.Behaviour)) return;
 		return behaviour.assign(this);
 	}
 
@@ -343,7 +343,7 @@ class CreepExtend extends Creep {
 				.find(findFunc) as CreepMemory;
 			return ret ? ret.creepName : null;
 		} else {
-			Log.error(`${this.name} - Invalid arguments for Creep.findGroupMemberBy ${flagName} ${findFunc}`);
+			Log.error(`${this.name} - Invalid arguments for CreepManager.findGroupMemberBy ${flagName} ${findFunc}`);
 		}
 		return null;
 	}
@@ -426,7 +426,7 @@ class CreepExtend extends Creep {
 					? REMOTE_HAULER.DRIVE_BY_REPAIR_RANGE
 					: DRIVE_BY_REPAIR_RANGE;
 			const repairTarget = _(this.pos.findInRange(FIND_STRUCTURES, repairRange)).find((s: Structure) =>
-				Room.shouldRepair(this.room, s),
+				RoomManager.shouldRepair(this.room, s),
 			) as Structure;
 			if (repairTarget) {
 				if (LOG_TRACE)
@@ -474,20 +474,20 @@ class CreepExtend extends Creep {
 	}
 
 	handleError(errorData: obj): void {
-		if (Creep.resolvingError) return;
+		if (CreepManager.resolvingError) return;
 
 		this.resolvingError = errorData;
 		errorData.preventDefault = () => {
-			Creep.resolvingError = null;
+			CreepManager.resolvingError = null;
 		};
 
-		Creep.error.trigger(errorData);
+		CreepManager.error.trigger(errorData);
 
-		if (Creep.resolvingError) {
+		if (CreepManager.resolvingError) {
 			Log.errorCode(this, errorData.errorCode);
 			delete this.data.actionName;
 			delete this.data.targetId;
-			Creep.resolvingError = null;
+			CreepManager.resolvingError = null;
 		}
 	}
 

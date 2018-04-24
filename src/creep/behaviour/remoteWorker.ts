@@ -5,17 +5,22 @@ class RemoteWorkerBehaviour extends CreepBehaviour {
 		super('remoteWorker');
 		this._run = this.run;
 		this.run = creep => {
-			if (!Creep.action.avoiding.run(creep)) {
+			if (!CreepManager.action.avoiding.run(creep)) {
 				this._run(creep);
 			}
 		};
 	}
 
 	inflowActions = creep => {
-		return [Creep.action.picking, Creep.action.uncharging, Creep.action.withdrawing, Creep.action.harvesting];
+		return [
+			CreepManager.action.picking,
+			CreepManager.action.uncharging,
+			CreepManager.action.withdrawing,
+			CreepManager.action.harvesting,
+		];
 	};
 	outflowActions = creep => {
-		return [Creep.action.repairing, Creep.action.building, Creep.action.recycling];
+		return [CreepManager.action.repairing, CreepManager.action.building, CreepManager.action.recycling];
 	};
 	needEnergy = creep => creep.sum < creep.carryCapacity * 0.8;
 	nextAction = creep => {
@@ -32,7 +37,7 @@ class RemoteWorkerBehaviour extends CreepBehaviour {
 	};
 	gotoTargetRoom = creep => {
 		const targetFlag = creep.data.destiny ? Game.flags[creep.data.destiny.targetName] : null;
-		if (targetFlag) return Creep.action.travelling.assignRoom(creep, targetFlag.pos.roomName);
+		if (targetFlag) return CreepManager.action.travelling.assignRoom(creep, targetFlag.pos.roomName);
 	};
 }
 

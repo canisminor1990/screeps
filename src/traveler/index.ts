@@ -8,7 +8,7 @@ import { CompressedMatrix } from './compressedMatrix';
  *
  *   exportTraveler:    boolean    Whether the require() should return the Traveler class. Defaults to true.
  *   installTraveler:   boolean    Whether the Traveler class should be stored in `global.Traveler`. Defaults to false.
- *   installPrototype:  boolean    Whether Creep.prototype.travelTo() should be created. Defaults to true.
+ *   installPrototype:  boolean    Whether CreepManager.prototype.travelTo() should be created. Defaults to true.
  *   hostileLocation:   string     Where in Memory a list of hostile rooms can be found. If it can be found in
  *                                   Memory.empire, use 'empire'. Defaults to 'empire'.
  *   maxOps:            integer    The maximum number of operations PathFinder should use. Defaults to 20000

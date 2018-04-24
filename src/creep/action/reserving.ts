@@ -19,12 +19,13 @@ class ReservingAction extends CreepAction {
 	};
 	newTarget = creep => {
 		let validColor = flagEntry =>
-			Flag.compare(flagEntry, FLAG_COLOR.claim.reserve) || Flag.compare(flagEntry, FLAG_COLOR.invade.exploit);
+			FlagManager.compare(flagEntry, FLAG_COLOR.claim.reserve) ||
+			FlagManager.compare(flagEntry, FLAG_COLOR.invade.exploit);
 
 		let flag;
 		// TODO: remove  || creep.data.destiny.flagName (temporary backward compatibility)
 		if (creep.data.destiny) flag = Game.flags[creep.data.destiny.targetName || creep.data.destiny.flagName];
-		if (!flag) flag = Flag.find(validColor, creep.pos, false, Flag.reserveMod, creep.name);
+		if (!flag) flag = FlagManager.find(validColor, creep.pos, false, FlagManager.reserveMod, creep.name);
 
 		if (flag) {
 			Population.registerCreepFlag(creep, flag);

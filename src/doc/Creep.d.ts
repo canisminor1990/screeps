@@ -3,7 +3,7 @@ interface CreepMemory {
 	creepName: string;
 }
 
-interface CreepConstructor {
+declare const CreepManager: {
 	resolvingError: any;
 	error: obj;
 	Setup: obj;
@@ -34,7 +34,7 @@ interface CreepConstructor {
 	compileBody(room: Room, params: obj, sort: boolean = true): string[];
 
 	bodyThreat(body: obj): number;
-}
+};
 
 interface CreepAction {
 	assign(creep: Creep, target: RoomObject): boolean;

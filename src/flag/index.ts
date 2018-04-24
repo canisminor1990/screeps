@@ -2,14 +2,14 @@ import { Component, EventConstructor } from '../class';
 import { Install } from '../util';
 
 class FlagConstructor extends Component {
-	list: obj[] = [];
-	stale: string[] = [];
+	public list: obj[] = [];
+	public stale: string[] = [];
 	private _hasInvasionFlag: boolean;
 	/// ////////////////////////////////////////////
 	// Loop
 	/// ////////////////////////////////////////////
 	public fresh = (): void => {
-		Install(Flag, {
+		Install(FlagManager, {
 			// occurs when a flag is found (each tick)
 			// param: flag
 			found: new EventConstructor(),
@@ -60,7 +60,7 @@ class FlagConstructor extends Component {
 			try {
 				if (!entry.cloaking || entry.cloaking === 0) {
 					const flag = Game.flags[entry.name];
-					Flag.found.trigger(flag);
+					FlagManager.found.trigger(flag);
 				}
 			} catch (e) {
 				Log.error(e.stack || e.message);
@@ -68,7 +68,7 @@ class FlagConstructor extends Component {
 		};
 		this.list.forEach(triggerFound);
 
-		const triggerRemoved = (flagName: string) => Flag.FlagRemoved.trigger(flagName);
+		const triggerRemoved = (flagName: string) => FlagManager.FlagRemoved.trigger(flagName);
 		this.stale.forEach(triggerRemoved);
 	};
 	public cleanup = () => {
@@ -101,7 +101,7 @@ class FlagConstructor extends Component {
 		if (pos instanceof Room) pos = pos.getPositionAt(25, 25);
 		if (_.isFunction(flagColor)) {
 			filter = (flagEntry: FlagList): boolean => {
-				if (flagColor(flagEntry) && flagEntry.cloaking == 0) {
+				if (flagColor(flagEntry) && flagEntry.cloaking === 0) {
 					if (!local) return true;
 					if (pos && pos.roomName && flagEntry.roomName === pos.roomName) return true;
 				}
@@ -109,7 +109,8 @@ class FlagConstructor extends Component {
 			};
 		} else {
 			filter = this.flagFilter(flagColor);
-			_.assign(filter, { cloaking: '0' });
+
+			_.assign(filter, { cloaking: 0 });
 			if (local && pos && pos.roomName) {
 				const room: Room = Game.rooms[pos.roomName];
 				if (room) {
@@ -121,6 +122,7 @@ class FlagConstructor extends Component {
 		}
 		let flags = _.filter(list, filter);
 
+		// Log.stringify(list)
 		if (flags.length === 0) return null;
 		if (flags.length === 1) return flags[0].name;
 
@@ -231,7 +233,6 @@ class FlagConstructor extends Component {
 		return range;
 	};
 	hasInvasionFlag = (): boolean => {
-		Log.debug(1);
 		if (_.isUndefined(this._hasInvasionFlag)) {
 			this._hasInvasionFlag = this.findName(FLAG_COLOR.invade) !== null || this.findName(FLAG_COLOR.destroy) !== null;
 		}

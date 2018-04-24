@@ -1,6 +1,6 @@
-import { RoomManager } from '../Manager';
+import { RoomExtra } from '../Extra';
 
-class TowerManager extends RoomManager {
+class TowerExtra extends RoomExtra {
 	constructor() {
 		super('tower');
 	}
@@ -10,7 +10,7 @@ class TowerManager extends RoomManager {
 	};
 	runRoom = (memory, roomName) => {
 		const room = Game.rooms[roomName];
-		if (room && room.structures.towers.length > 0) StructureTower.loop(room);
+		if (room && room.structures.towers.length > 0) TowerManager.loop(room);
 	};
 	prototypeExtend = () => {
 		this.assignRoomPrototype({
@@ -39,4 +39,4 @@ class TowerManager extends RoomManager {
 	};
 }
 
-export default new TowerManager();
+export default new TowerExtra();

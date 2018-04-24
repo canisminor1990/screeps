@@ -17,13 +17,13 @@ class MineralMinerBehaviour extends CreepBehaviour {
 	}
 
 	actions = creep => {
-		return Creep.behaviour.miner.actions(creep);
+		return CreepManager.behaviour.miner.actions(creep);
 	};
 	getEnergy = creep => {
-		return Creep.behaviour.miner.getEnergy(creep);
+		return CreepManager.behaviour.miner.getEnergy(creep);
 	};
 	maintain = creep => {
-		return Creep.behaviour.miner.maintain(creep);
+		return CreepManager.behaviour.miner.maintain(creep);
 	};
 }
 

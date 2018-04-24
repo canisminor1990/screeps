@@ -31,24 +31,24 @@ class TaskConstructor extends Component {
 		this.tasks.forEach(task => {
 			// Extending of any other kind
 			if (task.register) task.register();
-			// Flag Events
+			// FlagManager Events
 			if (task.run && !this.runCache[task.name]) this.runCache[task.name] = { run: task.run };
-			if (task.handleFlagFound) Flag.found.on(flag => task.handleFlagFound(flag));
-			if (task.handleFlagRemoved) Flag.FlagRemoved.on(flagName => task.handleFlagRemoved(flagName));
+			if (task.handleFlagFound) FlagManager.found.on(flag => task.handleFlagFound(flag));
+			if (task.handleFlagRemoved) FlagManager.FlagRemoved.on(flagName => task.handleFlagRemoved(flagName));
 			// Creep Events
-			if (task.handleSpawningStarted) Creep.spawningStarted.on(params => task.handleSpawningStarted(params));
-			if (task.handleSpawningCompleted) Creep.spawningCompleted.on(creep => task.handleSpawningCompleted(creep));
+			if (task.handleSpawningStarted) CreepManager.spawningStarted.on(params => task.handleSpawningStarted(params));
+			if (task.handleSpawningCompleted) CreepManager.spawningCompleted.on(creep => task.handleSpawningCompleted(creep));
 			if (task.handleCreepDied) {
-				Creep.predictedRenewal.on(creep => task.handleCreepDied(creep.name));
-				Creep.died.on(name => task.handleCreepDied(name));
+				CreepManager.predictedRenewal.on(creep => task.handleCreepDied(creep.name));
+				CreepManager.died.on(name => task.handleCreepDied(name));
 			}
-			if (task.handleCreepError) Creep.error.on(errorData => task.handleCreepError(errorData));
+			if (task.handleCreepError) CreepManager.error.on(errorData => task.handleCreepError(errorData));
 			// Room events
 
-			if (task.handleNewInvader) Room.newInvader.on(invader => task.handleNewInvader(invader));
-			if (task.handleKnownInvader) Room.knownInvader.on(invaderID => task.handleKnownInvader(invaderID));
-			if (task.handleGoneInvader) Room.goneInvader.on(invaderID => task.handleGoneInvader(invaderID));
-			if (task.handleRoomDied) Room.collapsed.on(room => task.handleRoomDied(room));
+			if (task.handleNewInvader) RoomManager.newInvader.on(invader => task.handleNewInvader(invader));
+			if (task.handleKnownInvader) RoomManager.knownInvader.on(invaderID => task.handleKnownInvader(invaderID));
+			if (task.handleGoneInvader) RoomManager.goneInvader.on(invaderID => task.handleGoneInvader(invaderID));
+			if (task.handleRoomDied) RoomManager.collapsed.on(room => task.handleRoomDied(room));
 		});
 	};
 	public run = (): void => {
@@ -111,13 +111,13 @@ class TaskConstructor extends Component {
 	};
 	spawn = (creepDefinition: obj, destiny: obj, roomParams: obj, onQueued?: Function) => {
 		// get nearest room
-		let room = roomParams.explicit ? Game.rooms[roomParams.explicit] : Room.findSpawnRoom(roomParams);
+		let room = roomParams.explicit ? Game.rooms[roomParams.explicit] : RoomManager.findSpawnRoom(roomParams);
 		if (!room) return null;
 		// define new creep
 		if (!destiny) destiny = {};
 		if (!destiny.room && roomParams.targetRoom) destiny.room = roomParams.targetRoom;
 
-		let parts = Creep.compileBody(room, creepDefinition);
+		let parts = CreepManager.compileBody(room, creepDefinition);
 
 		let name = `${creepDefinition.name || creepDefinition.behaviour}-${destiny.targetName}`;
 		let creepSetup = {
@@ -156,7 +156,7 @@ class TaskConstructor extends Component {
 	forceSpawn = (creepDef: obj, roomParams: obj, target: obj) => {
 		if (roomParams.link) roomParams = { targetRoom: roomParams };
 		if (!roomParams.targetRoom) return;
-		const room = roomParams.explicit ? Game.rooms[roomParams.explicit] : Room.findSpawnRoom(roomParams);
+		const room = roomParams.explicit ? Game.rooms[roomParams.explicit] : RoomManager.findSpawnRoom(roomParams);
 		if (!room) return;
 
 		const destiny: obj = {};
@@ -166,7 +166,7 @@ class TaskConstructor extends Component {
 			destiny.targetName = roomParams.targetRoom;
 		}
 
-		const parts = Creep.compileBody(room, creepDef);
+		const parts = CreepManager.compileBody(room, creepDef);
 		if (!parts.length) return;
 		const name = `${creepDef.name || creepDef.behaviour}-${destiny.targetName}`;
 		const creepSetup = {
