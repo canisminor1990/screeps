@@ -7,8 +7,28 @@ import { Emoji } from './emoji';
 const utils = {
 	emoji: Emoji,
 
-	define(main: ClassDecorator, extend: ClassDecorator): void {
-		Object.defineProperties(main.prototype, Object.getOwnPropertyDescriptors(extend.prototype));
+	root: {
+		all() {
+			Util.root.killAll();
+			Util.root.memory();
+		},
+		killAll() {
+			_.forEach(Game.creeps, c => c.suicide());
+		},
+		memory() {
+			_.forEach(Memory, (value, key) => delete Memory[key]);
+		},
+		memorySafe() {
+			_.forEach(Memory, (v, k) => !['population'].includes(k) && delete Memory[k]);
+		},
+	},
+
+	define(main: ClassDecorator, extend: ClassDecorator, isPrototype: boolean = false): void {
+		if (!isPrototype) {
+			Object.defineProperties(main.prototype, Object.getOwnPropertyDescriptors(extend.prototype));
+		} else {
+			Object.defineProperties(main, Object.getOwnPropertyDescriptors(extend.prototype));
+		}
 	},
 	getGame: {
 		obj(id: string): RoomObject | null {

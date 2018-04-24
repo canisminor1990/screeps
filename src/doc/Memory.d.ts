@@ -1,12 +1,4 @@
-interface profilerMemory {
-	totalCPU: number;
-	totalTicks: number;
-	types: obj;
-	validTick: number;
-}
-
 interface Memory {
-	profiler: profilerMemory;
 	CPU_CRITICAL: boolean;
 	debugTrace: {
 		error: boolean;

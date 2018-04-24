@@ -49,6 +49,9 @@ declare const Grafana: Component;
 declare const Traveler: Component;
 declare const Util: any;
 
+declare const observerRequests: any[];
+declare const cacheValid: obj;
+
 declare const CMemory: {
 	extend(): void;
 	fresh(): void;

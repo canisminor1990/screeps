@@ -26,10 +26,14 @@ interface RoomMemory {
 		controllerProgressTotal: number;
 		invaders: string[];
 	};
-	// TODO
 	resources: any;
 	lastViewed: any;
 	heatmap: obj;
+	towers: string[];
+	nukers: string[];
+	spawns: string[];
+	extensions: string[];
+	observer: string;
 }
 
 interface RoomConstructor {
@@ -56,6 +60,27 @@ interface RoomConstructor {
 }
 
 interface Room {
+	structures: {
+		all: Structure[];
+		my: Structure[];
+		towers: StructureTower[];
+		container: StructureContainer[];
+		links: StructureLink[];
+		labs: StructureLab[];
+		spawns: StructureSpawn[];
+		powerSpawns: StructurePowerSpawn[];
+		nuker: StructureNuker;
+		nukers: StructureNuker[];
+		observer: StructureObserver;
+		feedable: (StructureExtension | StructureSpawn)[];
+		repairable: Structure[];
+		urgentRepairable: Structure[];
+		fortifyable: Structure[];
+		fuelable: StructureTower[];
+		piles(): Flag[];
+		virtual(): (Structure | Flag)[];
+	};
+
 	print: string;
 
 	my: boolean;
@@ -81,8 +106,6 @@ interface Room {
 	allCreeps: Creep[];
 
 	immobileCreeps: Creep[];
-
-	structures: obj;
 
 	combatCreeps: Creep[];
 

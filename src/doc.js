@@ -129,7 +129,6 @@ FlagDir.filter(FLAG_COLOR.defense)
 /////////////////////////////////////////////////////////////////////////
 
 // kill all creeps
-_.forEach(Memory, (value, key) => delete Memory[key]);
 _.forEach(Game.creeps, c => c.suicide());
 // Recycle a creep
 Creep.action.recycling.assign(Game.creeps['<creepName>']);

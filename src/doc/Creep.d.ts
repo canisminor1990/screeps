@@ -12,6 +12,7 @@ interface CreepConstructor {
 	setup: obj;
 	action: obj;
 	behaviour: obj;
+
 	extend(): void;
 
 	bodyCosts(body: obj): number;
@@ -29,26 +30,33 @@ interface CreepConstructor {
 	bodyThreat(body: obj): number;
 }
 
+interface CreepAction {
+	assign(creep: Creep, target: RoomObject): boolean;
+}
+
+interface CreepBehaviour {
+	assign(creep: Creep): boolean;
+}
+
 interface Creep {
 	// prototype
-	data: obj;
-	flee: number | void;
-	_sumSet: number;
-	_sum: number;
-	sum: number;
-	_carrySet: number;
-	_carries: obj;
-	carries: obj;
-	_threat: number;
-	threat: number;
+	data: {
+		flee: boolean;
+		creepType: string;
+		flagName: string;
+	};
 	trace: boolean;
+	flee: number | void;
+	sum: number;
+	carries: obj;
+	threat: number;
 	action: obj;
 	behaviour: obj;
 	resolvingError: obj;
 
-	assignAction(action: any, target: any): any;
+	assignAction(action: CreepAction | string, target: RoomObject): boolean;
 
-	assignBehaviour(behaviour: any): any;
+	assignBehaviour(behaviour: CreepBehaviour | string): boolean;
 
 	findGroupMemberByType(creepType: string, flagName: string): string | null;
 
@@ -87,4 +95,6 @@ interface Creep {
 	staticCustomStrategy(actionName: string, behaviourName: string, taskName: string): any;
 
 	customStrategy(actionName: string, behaviourName: string, taskName: string): any;
+
+	getStrategyHandler(ids: string[], method: string, ...args: any[]);
 }
