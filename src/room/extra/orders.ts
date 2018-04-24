@@ -6,10 +6,10 @@ class OrdersExtra extends RoomExtra {
 	}
 
 	analyzeRoom = (room: Room, needMemoryResync?: boolean): void => {
-		if (Game.time % PROCESS_ORDERS_INTERVAL === 0 || room.name === 'sim') {
+		if (Game.time % PROCESS_ORDERS_INTERVAL === 0) {
 			room.updateResourceOrders();
 			let orderingRoom = Util.orderingRoom();
-			if (orderingRoom.length === 1 && room.name !== orderingRoom[0].name) {
+			if (orderingRoom.length > 1) {
 				room.updateRoomOrders();
 				room.terminalBroker();
 			}

@@ -145,7 +145,7 @@ module.exports = {
 	LIMIT_URGENT_REPAIRING: 750, // urgent repair when hits below
 	GAP_REPAIR_DECAYABLE: 800, // decayables (e.g. roads) only get repaired when that much hits are missing
 	MEMORY_RESYNC_INTERVAL: 500, // interval to reload spawns & towers present in a room
-	PROCESS_ORDERS_INTERVAL: 500, // interval to process room orders and run terminalBroker
+	PROCESS_ORDERS_INTERVAL: 100, // interval to process room orders and run terminalBroker
 	TIME_REPORT: 50000, // ticks between room reports
 	REPORT_MAX_LENGTH: 100,
 	REPORTS_PER_LOOP: 100,
