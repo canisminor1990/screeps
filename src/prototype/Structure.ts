@@ -29,7 +29,7 @@ class StructureExtend extends Structure {
 			return _.get(this.room.memory, ['structures', this.id, 'active'], true);
 		} else {
 			if (!this.room.owner) return false;
-			if (this.room.owner !== this.owner.username) return false;
+			if (this.owner && this.room.owner !== this.owner.username) return false;
 			return _.get(this.room.memory, ['structures', this.id, 'active'], true);
 		}
 	}
