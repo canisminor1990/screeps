@@ -13,6 +13,12 @@ interface CreepConstructor {
 	action: obj;
 	behaviour: obj;
 
+	spawningStarted: Event;
+	spawningCompleted: Event;
+	predictedRenewal: Event;
+	died: Event;
+	error: Event;
+
 	extend(): void;
 
 	bodyCosts(body: obj): number;

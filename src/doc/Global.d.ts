@@ -4,6 +4,10 @@ declare namespace NodeJS {
 	}
 }
 
+interface ObjectConstructor {
+	getOwnPropertyDescriptors(prototype: any): PropertyDescriptorMap;
+}
+
 interface obj {
 	[type: string]: any;
 
