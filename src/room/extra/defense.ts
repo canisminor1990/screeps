@@ -25,7 +25,7 @@ class DefenseExtra extends RoomExtra {
 	};
 	private _triggerNewInvaders = creep => {
 		// create notification
-		const bodyCount = JSON.stringify(_.countBy(creep.body, 'type'));
+		const bodyCount = _.countBy(creep.body, 'type');
 		if (NOTIFICATE_INVADER || (NOTIFICATE_INTRUDER && creep.room.my) || NOTIFICATE_HOSTILES) {
 			Log.room(creep.pos.roomName, Dye(COLOR_RED, `Hostile intruder from "${creep.owner.username}".`));
 			Log.table(bodyCount);
@@ -39,7 +39,7 @@ class DefenseExtra extends RoomExtra {
 			(NOTIFICATE_HOSTILES && creep.owner.username !== 'Invader' && creep.owner.username !== 'Source Keeper')
 		) {
 			Game.notify(
-				`Hostile intruder ${creep.id} (${bodyCount}) from "${creep.owner.username}" in room ${
+				`Hostile intruder ${creep.id} (${JSON.stringify(bodyCount)}) from "${creep.owner.username}" in room ${
 					creep.pos.roomName
 				} at ${Util.toDateTimeString(Util.toLocalDate(new Date()))}`,
 			);

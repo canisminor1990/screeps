@@ -279,13 +279,13 @@ class Traveler {
 							to: destPos,
 						});
 					} else {
-						Log.module('Traveler', Dye(COLOR_ORANGE, `incomplete path . Route length ${route}...${creep.room.print}`));
-						Log.table({
-							creep: creep.name,
-							from: creep.pos,
-							to: destPos,
-							range: options.range,
-						});
+						// Log.module('Traveler', Dye(COLOR_ORANGE, `incomplete path . Route length ${route}...${creep.room.print}`));
+						// Log.table({
+						// 	creep: creep.name,
+						// 	from: creep.pos,
+						// 	to: destPos,
+						// 	range: options.range,
+						// });
 					}
 				}
 				if (route > 1) {
