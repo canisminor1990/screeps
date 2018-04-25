@@ -1405,7 +1405,7 @@ class RoomOrderExtend extends Room {
 		for (const mineral in this.terminal.store) {
 			if (mineral === RESOURCE_ENERGY || mineral === RESOURCE_POWER) continue;
 			if ((MAKE_COMPOUNDS || ALLOCATE_COMPOUNDS) && mineral !== this.memory.mineralType) continue;
-			let terminalFull = this.terminal.sum / this.terminal.storeCapacity > 0.8;
+			let terminalFull = this.terminal.sum === this.terminal.storeCapacity > 0.8;
 
 			if (this.terminal.store[mineral] >= MIN_MINERAL_SELL_AMOUNT) {
 				let buyRatio;
