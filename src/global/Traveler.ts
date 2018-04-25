@@ -22,7 +22,7 @@ class Traveler {
 	constructor() {
 		this.opts = _.defaults(
 			{
-				maxOps: 2000,
+				maxOps: 1000,
 				defaultStuckValue: 3,
 				reportThreshold: 50,
 				roomRange: 22,
@@ -34,7 +34,7 @@ class Traveler {
 	}
 
 	opts = {
-		maxOps: 2000,
+		maxOps: TRAVELER_MAX_OPS,
 		defaultStuckValue: TRAVELER_STUCK_TICKS,
 		reportThreshold: TRAVELER_THRESHOLD,
 		roomRange: TRAVELLING_BORDER_RANGE,
@@ -255,7 +255,7 @@ class Traveler {
 			travelData.avg = _.round(travelData.cpu / travelData.count, 2);
 			if (travelData.count > 25 && travelData.avg > options.reportThreshold) {
 				if (options.debug) {
-					Log.module('Traveler', Dye(COLOR_ORANGE, 'heavy cpu use: '));
+					Log.module('Traveler', Dye(COLOR_ORANGE, `heavy cpu use...${creep.room.print}`));
 					Log.table({
 						creep: creep.name,
 						avg: travelData.cpu / travelData.count,
@@ -269,14 +269,17 @@ class Traveler {
 				const route = ret.route && ret.route.length;
 				if (options.debug) {
 					if (options.range === 0) {
-						Log.module('Traveler', Dye(COLOR_ORANGE, 'incomplete path, destination may be blocked.'));
+						Log.module(
+							'Traveler',
+							Dye(COLOR_ORANGE, `incomplete path, destination may be blocked...${creep.room.print}`),
+						);
 						Log.table({
 							creep: creep.name,
 							from: creep.pos,
 							to: destPos,
 						});
 					} else {
-						Log.module('Traveler', Dye(COLOR_ORANGE, `incomplete path . Route length ${route}.`));
+						Log.module('Traveler', Dye(COLOR_ORANGE, `incomplete path . Route length ${route}...${creep.room.print}`));
 						Log.table({
 							creep: creep.name,
 							from: creep.pos,

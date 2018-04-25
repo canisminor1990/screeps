@@ -46,6 +46,7 @@ declare const SAY_PUBLIC: boolean;
 declare const DEBUG: boolean;
 declare const DEBUG_STACKS: boolean;
 declare const LOG_TRACE: boolean;
+declare const TRAVELER_MAX_OPS: number;
 declare const TRAVELER_STUCK_TICKS: number;
 declare const TRAVELER_THRESHOLD: number;
 declare const USE_UNBUILT_ROADS: boolean;
