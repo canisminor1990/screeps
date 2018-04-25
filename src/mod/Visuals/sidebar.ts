@@ -38,11 +38,8 @@ export class Sidebar extends VisualsBase {
 	private drawReactionsOrders = (room: Room) => {
 		const x = 1;
 		let y = 1;
-		if (
-			!room.memory.resources ||
-			!room.memory.resources.reactions ||
-			room.memory.resources.reactions.orders.length === 0
-		) {
+		const resources = room.memory.resources;
+		if (!resources || !resources.reactions || resources.reactions.orders.length === 0) {
 			return;
 		}
 		if (VISUALS.STORAGE && room.storage) {
@@ -51,20 +48,21 @@ export class Sidebar extends VisualsBase {
 		if (VISUALS.TERMINAL && room.terminal) {
 			y += this.Y_PADDING + _.size(room.terminal.store) * this.Y_LIST_MARGIN;
 		}
-		if (VISUALS.ROOM_ORDERS && room.memory.resources.orders) {
-			y += this.Y_PADDING + _.size(room.memory.resources.orders) * this.Y_LIST_MARGIN;
+		if (VISUALS.ROOM_ORDERS && resources.orders && resources.orders.length > 0) {
+			y += this.Y_PADDING + _.size(resources.orders) * this.Y_LIST_MARGIN;
 		}
-		if (VISUALS.ROOM_OFFERS && room.memory.resources.offers) {
-			y += this.Y_PADDING + _.size(room.memory.resources.offers) * this.Y_LIST_MARGIN;
+		if (VISUALS.ROOM_OFFERS && resources.offers && resources.offers.length > 0) {
+			y += this.Y_PADDING + _.size(resources.offers) * this.Y_LIST_MARGIN;
 		}
 		this.vis.text(`Reactions Orders`, x, ++y, this.infoStyle);
-		this._roomOrdersObject(room.memory.resources.reactions.orders, x, y + this.Y_MAEGIN - 0.5);
+		this._roomOrdersObject(resources.reactions.orders, x, y + this.Y_MAEGIN - 0.5);
 	};
 
 	private drawRoomOrders = (room: Room, type: string) => {
 		const x = 1;
 		let y = 1;
-		if (!room.memory.resources || !room.memory.resources[type] || !_.size(room.memory.resources[type])) {
+		const resources = room.memory.resources;
+		if (!resources || !resources[type] || !_.size(resources[type])) {
 			return;
 		}
 		if (VISUALS.STORAGE && room.storage) {
@@ -73,11 +71,11 @@ export class Sidebar extends VisualsBase {
 		if (VISUALS.TERMINAL && room.terminal) {
 			y += this.Y_PADDING + _.size(room.terminal.store) * this.Y_LIST_MARGIN;
 		}
-		if (type === 'offers' && VISUALS.ROOM_ORDERS && room.memory.resources.orders) {
-			y += this.Y_PADDING + _.size(room.memory.resources.orders) * this.Y_LIST_MARGIN;
+		if (type === 'offers' && VISUALS.ROOM_ORDERS && resources.orders && resources.orders.length > 0) {
+			y += this.Y_PADDING + _.size(resources.orders) * this.Y_LIST_MARGIN;
 		}
 		this.vis.text(`Room ${_.capitalize(type)}`, x, ++y, this.infoStyle);
-		this._roomOrdersObject(room.memory.resources[type], x, y + this.Y_MAEGIN - 0.5);
+		this._roomOrdersObject(resources[type], x, y + this.Y_MAEGIN - 0.5);
 	};
 	private drawStoreInfo = (room: Room, type: string): void => {
 		const structure: StructureStorage | StructureTerminal = room[type];
