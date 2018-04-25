@@ -295,8 +295,12 @@ class Traveler {
 						}),
 					);
 					if (options.debug) {
-						Log.info(
-							`attempting path through next room using known route was ${ret.incomplete ? 'not' : ''} successful`,
+						Log.module(
+							'Traveler',
+							Dye(
+								ret.incomplete ? COLOR_RED : COLOR_GREEN,
+								`attempting path through next room using known route was ${ret.incomplete ? 'not ' : ''}successful`,
+							),
 						);
 					}
 				}
