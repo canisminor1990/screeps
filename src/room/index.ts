@@ -336,7 +336,7 @@ class RoomConstructor extends Component {
 		return xDif + yDif; // count diagonal as 2
 	};
 	rebuildCostMatrix = (roomName: string) => {
-		Log.room(roomName, 'Invalidating costmatrix to force a rebuild when we have vision.');
+		Log.room(roomName, Dye(COLOR_ORANGE, 'Invalidating costmatrix to force a rebuild when we have vision.'));
 		_.set(Room, ['pathfinderCache', roomName, 'stale'], true);
 		_.set(Room, ['pathfinderCache', roomName, 'updated'], Game.time);
 		this.pathfinderCacheDirty = true;
@@ -349,7 +349,8 @@ class RoomConstructor extends Component {
 				this.pathfinderCache[key] = cache[key];
 			}
 		}
-		if (count > 0) Log.module('Memory', Dye(COLOR_BLUE, `Loading pathfinder cache...Updated ${count} stale entries.`));
+		if (count > 0)
+			Log.module('Memory', 'Loading pathfinder cache...updated ', Dye(COLOR_BLUE, `${count} stale`), ' entries.');
 		this.pathfinderCacheLoaded = true;
 	};
 	getCachedStructureMatrix = (roomName: string) => {
