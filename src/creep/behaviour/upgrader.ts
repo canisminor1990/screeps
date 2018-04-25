@@ -38,7 +38,7 @@ class UpgraderBehaviour extends CreepBehaviour {
 
 		if (creep.room.RCL < 6) return this.upgrading(creep);
 		const boostCreep = creep.room.memory.boostCreep;
-		if (boostCreep && boostCreep.creepType === creep.data.creepType && boostCreep.ready) {
+		if (creep.ticksToLive > 1200 && boostCreep && boostCreep.creepType === creep.data.creepType && boostCreep.ready) {
 			if (creep.data.boost && creep.data.boost.done) return this.upgrading(creep);
 			return this.boosting(creep, boostCreep.id);
 		}
