@@ -30,11 +30,50 @@ class UpgraderBehaviour extends CreepBehaviour {
 		}
 		return range;
 	};
-	run = creep => {
+	run = (creep: Creep) => {
 		if (creep.room.controller.upgradeBlocked) {
 			creep.data.creepType = 'recycler';
 			return;
 		}
+
+		if (creep.room.RCL < 6) return this.upgrading(creep);
+		const boostCreep = creep.room.memory.boostCreep;
+		if (boostCreep && boostCreep.creepType === creep.data.creepType && boostCreep.ready) {
+			if (creep.data.boost && creep.data.boost.done) return this.upgrading(creep);
+			return this.boosting(creep, boostCreep.id);
+		}
+		return this.upgrading(creep);
+	};
+
+	boosting = (creep: Creep, targetId: string) => {
+		if (!creep.action || creep.action.name !== 'boosting' || !creep.data.boost) {
+			const target = Game.getObjectById(targetId);
+			PopManager.registerAction(creep, CreepManager.action.boosting, target);
+			creep.data.boost = {
+				done: false,
+			};
+		}
+		const lab: StructureLab = creep.target;
+		if (_.isUndefined(creep.data.boost.x)) {
+			creep.data.boost.x = lab.pos.x;
+			creep.data.boost.y = lab.pos.y;
+		}
+		const targetPos = new RoomPosition(creep.data.boost.x, creep.data.boost.y, creep.pos.roomName);
+		creep.travelTo(targetPos);
+		const boostPartsCount = _.filter(creep.body, part => !_.isUndefined(part.boost)).length;
+		if (boostPartsCount === 0) {
+			CreepManager.action.boosting.work(creep);
+		} else {
+			Log.success(
+				creep.room,
+				Util.emoji.boosting,
+				Dye(COLOR_GREEN, this.name, `boost ${lab.mineralType} to ${boostPartsCount} parts successfull`),
+			);
+			creep.data.boost.done = true;
+		}
+	};
+
+	upgrading = (creep: Creep) => {
 		if (!creep.action || creep.action.name !== 'upgrading')
 			PopManager.registerAction(creep, CreepManager.action.upgrading, creep.room.controller);
 		if (!creep.data.determinatedSpot) {
@@ -112,9 +151,8 @@ class UpgraderBehaviour extends CreepBehaviour {
 			}
 			if (!creep.data.determinatedSpot) {
 				Log.error('Unable to determine working location for upgrader in room ' + creep.pos.roomName);
-			} else if (SAY_ASSIGNMENT) creep.say(String.fromCharCode(9962), SAY_PUBLIC);
-		}
-		if (creep.data.determinatedSpot) {
+			} else if (SAY_ASSIGNMENT) creep.say(Util.emoji.reload, SAY_PUBLIC);
+		} else {
 			if (CHATTY) creep.say('upgrading', SAY_PUBLIC);
 			let range = this.approach(creep);
 			if (creep.room.controller && creep.pos.getRangeTo(creep.room.controller) <= 3) {

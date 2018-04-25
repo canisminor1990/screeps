@@ -118,10 +118,6 @@ class Process {
 		if (ROOM_VISUALS && !Memory.CPU_CRITICAL) Visuals.run();
 		CPU.end('addon', 'Visuals');
 
-		CPU.check('run', 'Layout');
-		if (AUTO_LAYOUT && Game.time % AUTO_LAYOUT_INTERVAL === 0) Layout.run();
-		CPU.end('run', 'Layout');
-
 		CPU.check('addon', 'Grafana');
 		if (GRAFANA && Game.time % GRAFANA_INTERVAL === 0) Grafana.run();
 		CPU.end('addon', 'Grafana');

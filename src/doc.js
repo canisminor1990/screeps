@@ -1,57 +1,24 @@
 /////////////////////////////////////////////////////////////////////////
-// Layout
-/////////////////////////////////////////////////////////////////////////
-
-Util.setRoomCenter('W8N3', 15, 15);
-Util.resetRoomLayout('W8N3');
-
-/////////////////////////////////////////////////////////////////////////
 // Room
 /////////////////////////////////////////////////////////////////////////
 
-// W8N45: O | O + H => OH | GH + OH => GH2O
-Game.rooms['E8N45'].placeReactionOrder(Game.rooms['E8N45'].terminal.id, 'OH', 20000);
-Game.rooms['E8N45'].placeReactionOrder(Game.rooms['E8N45'].terminal.id, 'GH2O', 20000);
-Game.rooms['E8N45'].setStore(Game.rooms['E8N45'].terminal.id, 'OH', 20000);
-Game.rooms['E8N45'].setStore(Game.rooms['E8N45'].terminal.id, 'GH2O', 20000);
-Game.rooms['E8N45'].terminal.send('GH2O', 20000, 'E14N49');
-// Market
-Game.market.createOrder(ORDER_SELL, 'OH', 2.5, 10000, 'E8N45');
-Game.market.extendOrder('5ad4ca0af7b7cd0aa4f926ad');
+// boostCreep
+Game.rooms['W8N3'].setBoost('3d8b0ae633fc0a1', 'XGH2O', 'upgrader');
 
-// E9N47: U | U + L => UL
-Game.rooms['E9N47'].placeReactionOrder(Game.rooms['E9N47'].terminal.id, 'UL', 20000);
-Game.rooms['E9N47'].setStore(Game.rooms['E9N47'].terminal.id, 'UL', 20000);
-// Market
-Game.market.createOrder(ORDER_SELL, 'UL', 2.5, 20000, 'E9N47');
-Game.market.extendOrder('5ad4ca0df7b7cd0aa4f92723');
+// layout
+Game.rooms['E8N45'].setCenter(15, 15);
+Util.setRoomCenter('W8N3', 15, 15);
+Util.resetRoomLayout('W8N3');
 
-// E12N42: Z | Z + K => ZK
-Game.rooms['E12N42'].placeReactionOrder(Game.rooms['E12N42'].terminal.id, 'ZK', 20000);
-Game.rooms['E12N42'].setStore(Game.rooms['E12N42'].terminal.id, 'ZK', 20000);
-// Market
-Game.market.createOrder(ORDER_SELL, 'ZK', 2.5, 20000, 'E12N42');
-Game.market.extendOrder('5ad4ca13f7b7cd0aa4f9280c');
+// reset production
+Util.resetBoostProduction();
+Util.resetBoostProduction('roomName');
 
-// E12N42: U | UL + ZK => G
-Game.rooms['E3N38'].placeReactionOrder(Game.rooms['E3N38'].terminal.id, 'G', 20000);
-Game.rooms['E3N38'].setStore(Game.rooms['E3N38'].terminal.id, 'G', 20000);
-// Market
-Game.market.createOrder(ORDER_SELL, 'G', 5, 10000, 'E3N38');
-Game.market.extendOrder('5ad4ca18f7b7cd0aa4f928f1');
-
-// W2N41: H | G + H => GH
-Game.rooms['W2N41'].placeReactionOrder(Game.rooms['W2N41'].terminal.id, 'GH', 20000);
-Game.rooms['W2N41'].setStore(Game.rooms['W2N41'].terminal.id, 'GH', 20000);
-
-// E14N49: X | X + GH2O => GH2OX
-Game.rooms['E14N49'].placeReactionOrder(Game.rooms['E14N49'].terminal.id, 'XGH2O', 20000);
-Game.rooms['E14N49'].setStore(Game.rooms['E14N49'].terminal.id, 'GH', 20000);
-
-// powerSpawn /////////////////////////////////////////////////////////////////////////
+// powerSpawn
 Game.rooms['E8N45'].setStore(Game.rooms['E8N45'].structures.powerSpawn.id, RESOURCE_ENERGY, 5000);
 Game.rooms['E8N45'].setStore(Game.rooms['E8N45'].structures.powerSpawn.id, 'power', 100);
-// nuker /////////////////////////////////////////////////////////////////////////
+
+// nuker
 Game.rooms['E8N45'].setStore(Game.rooms['E8N45'].structures.nuker.id, RESOURCE_ENERGY, 300000);
 Game.rooms['E8N45'].setStore(Game.rooms['E8N45'].structures.nuker.id, RESOURCE_GHODIUM, 5000);
 

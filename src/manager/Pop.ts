@@ -264,13 +264,12 @@ class PopulationConstructor extends Component {
 		// register target
 		entry.targetId = targetId;
 		if (target && !FlagManager.isSpecialFlag(target)) {
-			if (target.targetOf === undefined) target.targetOf = [entry];
-			else target.targetOf.push(entry);
+			if (target.targetOf === undefined) {
+				_.set(target.targetOf, [entry]);
+			} else target.targetOf.push(entry);
 		}
 		// clear saved path
-		if (targetId != oldTargetId) {
-			delete entry.path;
-		}
+		if (targetId !== oldTargetId) delete entry.path;
 
 		creep.action = action;
 		creep.target = target;

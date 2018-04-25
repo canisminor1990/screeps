@@ -28,6 +28,9 @@ class BoostingAction extends CreepAction {
 		};
 	}
 
+	// max allowed creeps per target
+	maxPerTarget = 1;
+	// max allowed creeps per action (and room)
 	maxPerAction = 1;
 
 	isValidMineralType = mineralType => {
@@ -95,7 +98,10 @@ class BoostingAction extends CreepAction {
 	};
 
 	work = creep => {
-		return creep.target.boostCreep(creep);
+		if (creep.target instanceof StructureLab) {
+			return creep.target.boostCreep(creep);
+		}
+		return ERR_INVALID_TARGET;
 	};
 
 	onAssignment = creep => {

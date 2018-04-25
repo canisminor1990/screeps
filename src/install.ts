@@ -131,6 +131,8 @@ export const install = () => {
 			towers: require('./room/extra/tower').default,
 			fillRoomOrders: require('./room/extra/fillRoomOrders').default,
 			boostProduction: require('./room/extra/boostProduction').default,
+			boostCreep: require('./room/extra/boostCreep').default,
+			layout: require('./room/extra/layout').default,
 		},
 	});
 
