@@ -301,7 +301,7 @@ class Traveler {
 						Log.module(
 							'Traveler',
 							Dye(
-								ret.incomplete ? COLOR_RED : COLOR_GREEN,
+								ret.incomplete ? COLOR_GREY : COLOR_GREEN,
 								`attempting path through next room using known route was ${ret.incomplete ? 'not ' : ''}successful`,
 							),
 						);
