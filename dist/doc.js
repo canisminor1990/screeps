@@ -3,10 +3,10 @@
 /////////////////////////////////////////////////////////////////////////
 
 // boostCreep
-Game.rooms['W8N3'].setBoost('3d8b0ae633fc0a1','XGH2O','upgrader')
+Game.rooms['W8N3'].setBoost('3d8b0ae633fc0a1', 'XGH2O', 'upgrader');
 
 // layout
-Game.rooms['E8N45'].setCenter(15,15)
+Game.rooms['E8N45'].setCenter(15, 15);
 Util.setRoomCenter('W8N3', 15, 15);
 Util.resetRoomLayout('W8N3');
 

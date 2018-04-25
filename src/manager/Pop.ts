@@ -264,9 +264,13 @@ class PopulationConstructor extends Component {
 		// register target
 		entry.targetId = targetId;
 		if (target && !FlagManager.isSpecialFlag(target)) {
-			if (target.targetOf === undefined) {
-				_.set(target.targetOf, [entry]);
-			} else target.targetOf.push(entry);
+			try {
+				if (target.targetOf === undefined) {
+					target.targetOf = [entry];
+				} else target.targetOf.push(entry);
+			} catch (e) {
+				target.targetOf = undefined;
+			}
 		}
 		// clear saved path
 		if (targetId !== oldTargetId) delete entry.path;
