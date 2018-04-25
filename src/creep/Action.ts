@@ -156,8 +156,7 @@ export class CreepAction {
 		return false;
 	};
 	showAssignment = (creep, target) => {
-		if (SAY_ASSIGNMENT && ACTION_SAY[this.name.toUpperCase()])
-			creep.say(ACTION_SAY[this.name.toUpperCase()], SAY_PUBLIC);
+		if (SAY_ASSIGNMENT && Util.emoji[_.snakeCase(this.name)]) creep.say(Util.emoji[_.snakeCase(this.name)], SAY_PUBLIC);
 		if (target instanceof RoomObject || (target instanceof RoomPosition && VISUALS.ACTION_ASSIGNMENT)) {
 			Visuals.drawArrow(creep, target);
 		}

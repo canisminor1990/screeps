@@ -63,12 +63,12 @@ class RoomOrderExtend extends Room {
 		}
 
 		if (!this.ordersWithOffers()) {
-			Log.room(this.name, `not enough or no offers found. Updating room orders in room ${this.name}`);
+			Log.room(this.name, Util.emoji.order, `not enough or no offers found.`);
 			if (_.isUndefined(data.boostTiming.getOfferAttempts)) data.boostTiming.getOfferAttempts = 0;
 			else data.boostTiming.getOfferAttempts++;
 
 			// GCAllRoomOffers
-			Log.room(this.name, `${this.name} running GCAllRoomOffers`);
+			Log.room(this.name, Util.emoji.order, `${this.name} running room offers...`);
 			for (let room of myRooms) {
 				if (!room.memory.resources) continue;
 				const offers = room.memory.resources.offers;
@@ -90,7 +90,7 @@ class RoomOrderExtend extends Room {
 					}
 
 					if (!order || targetOfferIdx === -1) {
-						Log.room(room.name, `Orphaned offer found and deleted in ${room.name}`);
+						Log.room(this.name, Util.emoji.order, `Orphaned offer found and deleted in ${room.print}.`);
 						offers.splice(i, 1);
 						i--;
 					}
@@ -105,7 +105,7 @@ class RoomOrderExtend extends Room {
 				data.orders = [];
 				data.reactions.orders[0].amount = 0;
 				delete data.boostTiming.getOfferAttempts;
-				Log.room(this.name, `${this.name} no offers found. Reaction and orders DELETED`);
+				Log.room(this.name, Util.emoji.order, `no offers found, Reaction and orders deleted.`);
 			}
 		} else {
 			data.boostTiming.checkRoomAt = Game.time + CHECK_ORDERS_INTERVAL;
@@ -119,7 +119,7 @@ class RoomOrderExtend extends Room {
 		let readyOffersFound = 0;
 
 		if (_.isUndefined(data)) {
-			Log.room(this.name, `there is no ${this.name}.memory.resources.`);
+			Log.room(this.name, Util.emoji.order, Dye(COLOR_RED, `there is no ${this.name}.memory.resources.`));
 			return {
 				readyOffersFound: readyOffersFound,
 				terminalOrderPlaced: terminalOrderPlaced,
@@ -132,7 +132,7 @@ class RoomOrderExtend extends Room {
 				terminalOrderPlaced: terminalOrderPlaced,
 			};
 
-		Log.room(this.name, `garbage collecting ${this.name} roomOffers`);
+		Log.room(this.name, Util.emoji.order, `Garbage collecting for room offers`);
 
 		// garbage collecting room.offers
 		data.offers = _.filter(data.offers, offer => {
@@ -157,15 +157,19 @@ class RoomOrderExtend extends Room {
 			for (let offer of data.offers) {
 				let readyAmount = this.terminal.store[offer.type] || 0;
 
-				Log.room(this.name, `${readyAmount} / ${offer.amount} ${offer.type} are in ${this.name} terminal`);
+				Log.room(this.name, Util.emoji.order, `${readyAmount} / ${offer.amount} ${offer.type} are in terminal`);
 
 				if (
 					(readyAmount >= offer.amount * 0.5 && readyAmount < offer.amount - MIN_OFFER_AMOUNT) ||
 					readyAmount >= offer.amount
 				) {
 					Log.room(
-						offer.room,
-						`${Math.min(readyAmount, offer.amount)} ${offer.type} are ready to send from ${this.name}`,
+						this.name,
+						Util.emoji.order,
+						Dye(
+							COLOR_GREEN,
+							`${Math.min(readyAmount, offer.amount)} ${offer.type} are ready to send from ${offer.room}`,
+						),
 					);
 					readyOffersFound++;
 				} else {
@@ -204,19 +208,27 @@ class RoomOrderExtend extends Room {
 						if (offer.amount > allResources) {
 							Log.room(
 								this.name,
-								`no / not enough terminal order found in ${this.name} for ${offer.amount} ${offer.type}`,
+								Util.emoji.order,
+								`no / not enough terminal order found for ${offer.amount} ${offer.type}`,
 							);
 							Log.room(
 								this.name,
+								Util.emoji.order,
 								`terminal stores: ${terminal.store[offer.type] || 0} ordered: ${ordered[offer.type] || 0}`,
 							);
 							Log.room(
 								this.name,
+								Util.emoji.order,
 								`terminal order placed for ${Math.max(offer.amount, MIN_OFFER_AMOUNT)} ${offer.type}`,
 							);
 							this.placeOrder(terminalId, offer.type, Math.max(offer.amount, MIN_OFFER_AMOUNT));
 							terminalOrderPlaced = true;
-						} else Log.room(this.name, `${this.name} terminal orders for ${offer.amount} ${offer.type} is OK.`);
+						} else
+							Log.room(
+								this.name,
+								Util.emoji.order,
+								Dye(COLOR_GREEN, `Terminal orders for ${offer.amount} ${offer.type} is OK.`),
+							);
 					}
 				}
 			}
@@ -229,7 +241,7 @@ class RoomOrderExtend extends Room {
 	}
 
 	GCLabs() {
-		Log.room(this.name, `garbage collecting labOrders in ${this.name}`);
+		Log.room(this.name, Util.emoji.lab, `Garbage collecting lab orders.`);
 
 		const data = this.memory.resources;
 		const labs = data.lab;
@@ -263,7 +275,7 @@ class RoomOrderExtend extends Room {
 
 				if (lab.orders.length > order.length) {
 					this.memory.resources.lab[i].orders = order;
-					Log.room(this.name, `lab orders fixed in ${this.name}, ${lab.id}`);
+					Log.room(this.name, Util.emoji.lab, `Lab orders fixed in ${this.name}, ${lab.id}`);
 				}
 			}
 		}
@@ -271,7 +283,7 @@ class RoomOrderExtend extends Room {
 
 	checkOffers() {
 		if (Memory.boostTiming.multiOrderingRoomName === this) {
-			Log.room(this.name, `${this.name} early roomCheck, multiOrdering in progress`);
+			Log.room(this.name, Util.emoji.order, `Early room check, multiOrdering in progress`);
 			return true;
 		}
 
@@ -309,34 +321,58 @@ class RoomOrderExtend extends Room {
 			let currentRoom = Game.rooms[candidates[0].room];
 			Log.room(
 				this.name,
-				`${candidates[0].room} there is only one offersReady for ${this.name}, running fillARoomOrder()`,
+				Util.emoji.order,
+				`There is only one offersReady from ${candidates[0].room}, running fill room order...`,
 			);
 			let fillARoomOrdersReturn = false;
 			if (currentRoom.terminal.cooldown === 0) {
 				fillARoomOrdersReturn = currentRoom.fillARoomOrder();
 				if ((fillARoomOrdersReturn === true && data.orders.length === 0) || _.sum(data.orders, 'amount') === 0) {
 					data.boostTiming.checkRoomAt = Game.time + 1;
-					Log.room(currentRoom.name, `${currentRoom.name} terminal send was successful. And there are no more orders`);
-					Log.room(this.name, `${this.name} time: ${Game.time} boostTiming:`);
-					Log.stringify(data.boostTiming);
+					Log.room(
+						this.name,
+						Util.emoji.order,
+						`${currentRoom.name} terminal send was successful. And there are no more orders`,
+					);
+					Log.room(
+						this.name,
+						Util.emoji.order,
+						`time: ${Game.time} boost timing:`,
+						'<br/>',
+						Util.jsonToTable(data.boostTiming),
+					);
 
 					return true;
 				} else if (fillARoomOrdersReturn === true) {
 					data.boostTiming.checkRoomAt = Game.time + CHECK_ORDERS_INTERVAL;
 					Log.room(
-						currentRoom.name,
+						this.name,
+						Util.emoji.order,
 						`${currentRoom.name} terminal send was successful. BTW, there are orders remained to fulfill`,
 					);
-					Log.room(this.name, `${this.name} time: ${Game.time}, boostTiming:`);
-					Log.stringify(data.boostTiming);
-
+					Log.room(
+						this.name,
+						Util.emoji.order,
+						`time: ${Game.time}, boostTiming:`,
+						'<br/>',
+						Util.jsonToTable(data.boostTiming),
+					);
 					return true;
 				}
 			} else {
 				data.boostTiming.checkRoomAt = Game.time + currentRoom.terminal.cooldown + 1;
-				Log.room(currentRoom.name, `${currentRoom.name} terminal cooldown is: ${currentRoom.terminal.cooldown}`);
-				Log.room(this.name, `${this.name} time: ${Game.time}, boosTiming:`);
-				Log.stringify(data.boostTiming);
+				Log.room(
+					this.name,
+					Util.emoji.order,
+					`${currentRoom.name} terminal cooldown is: ${currentRoom.terminal.cooldown}`,
+				);
+				Log.room(
+					this.name,
+					Util.emoji.order,
+					`time: ${Game.time}, boosTiming:`,
+					'<br/>',
+					Util.jsonToTable(data.boostTiming),
+				);
 
 				return false;
 			}
@@ -344,7 +380,7 @@ class RoomOrderExtend extends Room {
 			(candidates.length >= 1 || (candidates.length === 1 && candidates[0].readyOffers > 1)) &&
 			_.isUndefined(data.boostTiming.ordersReady)
 		) {
-			Log.room(this.name, `${this.name} has more than one offers ready, boostTiming.ordersReady created`);
+			Log.room(this.name, Util.emoji.order, `has more than one offers ready, boostTiming.ordersReady created`);
 			Log.stringify(candidates);
 			data.boostTiming.ordersReady = {
 				time: Game.time,
@@ -355,11 +391,11 @@ class RoomOrderExtend extends Room {
 			data.boostTiming.checkRoomAt = Game.time + _.sum(candidates, 'readyOffers') + 1;
 			return true;
 		} else if (returnValue.terminalOrderPlaced) {
-			Log.room(this.name, `terminal orders placed for room ${this.name}`);
+			Log.room(this.name, Util.emoji.order, `terminal orders placed.`);
 			data.boostTiming.checkRoomAt = Game.time + CHECK_ORDERS_INTERVAL;
 			return false;
 		} else {
-			Log.room(this.name, `${this.name} no readyOffers found`);
+			Log.room(this.name, Util.emoji.order, `${this.name} no ready offers found.`);
 			data.boostTiming.checkRoomAt = Game.time + CHECK_ORDERS_INTERVAL;
 			return false;
 		}
@@ -492,15 +528,16 @@ class RoomOrderExtend extends Room {
 					return false;
 				}
 
-				Log.success(`buying ${amount} ${mineral} in ${roomName}`);
+				Log.room(this.name, Util.emoji.terminal, Dye(COLOR_GREEN, `buying ${amount} ${mineral} in ${roomName}.`));
 
 				let sellRatio;
 
 				if (AUTOMATED_RATIO_COUNT) {
-					sellRatio = Util.countPrices('sell', mineral, roomName);
-					Log.info(`average sellRatio: ${roomName} ${mineral} ${sellRatio}`);
-				} else sellRatio = MAX_BUY_RATIO[mineral];
-
+					sellRatio = Util.countPrices(ORDER_SELL, mineral, roomName);
+					Log.room(this.name, Util.emoji.terminal, `avg sell ratio: ${roomName} ${mineral} ${sellRatio}`);
+				} else {
+					sellRatio = MAX_BUY_RATIO[mineral];
+				}
 				let order;
 				let returnValue;
 				const resOrders = Game.market.getAllOrders(o => {
@@ -508,7 +545,7 @@ class RoomOrderExtend extends Room {
 					let transactionCost;
 					let credits;
 
-					if (o.type !== 'sell') return false;
+					if (o.type !== ORDER_SELL) return false;
 					if (o.resourceType !== mineral) return false;
 
 					o.transactionAmount = Math.min(o.amount, amount);
@@ -532,23 +569,29 @@ class RoomOrderExtend extends Room {
 
 				if (resOrders.length > 0) {
 					order = _.min(resOrders, 'ratio');
-					Log.info('selected order: ');
-					Log.table(order);
-
+					Log.room(this.name, Util.emoji.order, 'selected order: ', '<br/>', Util.jsonToTable(order));
 					if (order) {
-						Log.info(`Game.market.deal("${order.id}", ${order.transactionAmount}, "${roomName}");`);
+						Log.room(
+							this.name,
+							Util.emoji.terminal,
+							Dye(COLOR_BLUE, `Market deal: ${order.id} ${order.transactionAmount} from ${roomName}`),
+						);
 					}
 					returnValue = Game.market.deal(order.id, order.transactionAmount, roomName);
 					if (returnValue === OK) {
-						Log.success(
-							`Purchased ${order.transactionAmount} ${mineral} at price: ${
-								order.price
-							} it costs: ${order.transactionAmount * order.price}`,
+						Log.room(
+							this.name,
+							Util.emoji.terminal,
+							Dye(
+								COLOR_GREEN,
+								`Purchased ${order.transactionAmount} ${mineral} at price: ${
+									order.price
+								} it costs: ${order.transactionAmount * order.price}`,
+							),
 						);
 						return true;
 					} else {
 						Log.error(`purchase was FAILED error code: ${Util.translateErrorCode(returnValue)}`);
-						Log.error(returnValue);
 						return false;
 					}
 				} else {
@@ -568,11 +611,8 @@ class RoomOrderExtend extends Room {
 				}
 			};
 			const makeIngredient = (roomName, ingredient, amount) => {
-				if (_.isUndefined(data)) {
-					Log.warn(`labs in room ${roomName} are not registered as flower`);
-					return false;
-				} else if (data.reactorType !== 'flower') {
-					Log.warn(`labs in room ${roomName} are not registered as flower`);
+				if (_.isUndefined(data) || data.reactorType !== 'flower') {
+					Log.room(roomName, Util.emoji.lab, Dye(COLOR_ORANGE, `labs are not registered as flower`));
 					return false;
 				}
 
@@ -580,7 +620,11 @@ class RoomOrderExtend extends Room {
 				let returnValue = false;
 
 				if (data.reactorMode === 'idle') {
-					Log.room(roomName, `${currentRoom.name} - placeReactionOrder(${ingredient}, ${ingredient}, ${amount})`);
+					Log.room(
+						roomName,
+						Util.emoji.lab,
+						`${currentRoom.name} - placeReactionOrder(${ingredient}, ${ingredient}, ${amount})`,
+					);
 
 					// garbage collecting labs
 					currentRoom.GCLabs();
@@ -1346,7 +1390,7 @@ class RoomOrderExtend extends Room {
 	}
 
 	terminalBroker() {
-		Log.module('TerminalBroker', 'Checking...');
+		Log.room(this.name, Util.emoji.terminal, 'Checking...');
 		if (!this.my || !this.terminal || !this.storage) return;
 		if (this.terminal.cooldown && this.terminal.cooldown > 0) return;
 		let transacting = false;
@@ -1358,14 +1402,22 @@ class RoomOrderExtend extends Room {
 			if (this.terminal.store[mineral] >= MIN_MINERAL_SELL_AMOUNT) {
 				let buyRatio;
 				if (AUTOMATED_RATIO_COUNT) {
-					buyRatio = Util.countPrices('buy', mineral, this.name);
-
-					if (buyRatio === 0) Log.warn(this.print, `there is no buy order for ${mineral}`);
-					else Log.info(`average buyRatio: ${this.name} ${mineral} ${buyRatio}`);
-				} else buyRatio = MIN_SELL_RATIO[mineral];
+					buyRatio = Util.countPrices(ORDER_BUY, mineral, this.name);
+					if (buyRatio === 0) {
+						Log.room(this.name, Util.emoji.terminal, Dye(COLOR_ORANGE, `there is no buy order for ${mineral}`));
+					} else {
+						Log.room(
+							this.name,
+							Util.emoji.terminal,
+							Dye(COLOR_BLUE, `auto-count avg buy ratio: ${mineral} ${buyRatio}`),
+						);
+					}
+				} else {
+					buyRatio = MIN_SELL_RATIO[mineral];
+				}
 
 				let orders = Game.market.getAllOrders(o => {
-					if (!o.roomName || o.resourceType != mineral || o.type != 'buy' || o.amount < MIN_MINERAL_SELL_AMOUNT)
+					if (!o.roomName || o.resourceType != mineral || o.type != ORDER_BUY || o.amount < MIN_MINERAL_SELL_AMOUNT)
 						return false;
 
 					o.range = Game.map.getRoomLinearDistance(o.roomName, this.name, true);
@@ -1393,15 +1445,18 @@ class RoomOrderExtend extends Room {
 
 				if (orders.length > 0) {
 					let order = _.max(orders, 'ratio');
-					Log.info('selected order: ');
-					Log.stringify(order);
+					Log.room(this.name, Util.emoji.terminal, 'selected order: ', '<br/>', Util.jsonToTable(order));
 					let result = Game.market.deal(order.id, order.transactionAmount, this.name);
 					if (SELL_NOTIFICATION)
 						Log.room(
 							this.name,
-							`Selling ${order.transactionAmount} ${mineral} for ${Util.roundUp(order.credits)} (${
-								order.price
-							} ¢/${mineral}, ${order.transactionCost} e): ${Util.translateErrorCode(result)}`,
+							Util.emoji.terminal,
+							Dye(
+								COLOR_GREEN,
+								`Selling ${order.transactionAmount} ${mineral} for ${Util.roundUp(order.credits)} (${
+									order.price
+								} ¢/${mineral}, ${order.transactionCost} e): ${Util.translateErrorCode(result)}`,
+							),
 						);
 					if (SELL_NOTIFICATION)
 						Game.notify(
@@ -1443,15 +1498,19 @@ class RoomOrderExtend extends Room {
 				let response = this.terminal.send('energy', ENERGY_BALANCE_TRANSFER_AMOUNT, targetRoom.name, 'have fun');
 				Log.room(
 					this.name,
-					`Transferring ${Util.formatNumber(ENERGY_BALANCE_TRANSFER_AMOUNT)} energy to ${
-						targetRoom.name
-					}: ${Util.translateErrorCode(response)}`,
+					Util.emoji.terminal,
+					Dye(
+						COLOR_GREEN,
+						`Transferring ${Util.formatNumber(ENERGY_BALANCE_TRANSFER_AMOUNT)} energy to ${
+							targetRoom.name
+						}: ${Util.translateErrorCode(response)}`,
+					),
 				);
 				transacting = response == OK;
 			}
 		}
 		if (transacting !== true && _.isUndefined(Memory.boostTiming)) {
-			Log.module('TerminalBroker', 'FillARoomOrder...');
+			Log.room(this.name, Util.emoji.order, 'Fill room order...');
 			this.fillARoomOrder();
 		}
 	}

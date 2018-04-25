@@ -99,7 +99,7 @@ class BoostingAction extends CreepAction {
 	};
 
 	onAssignment = creep => {
-		if (SAY_ASSIGNMENT) creep.say(ACTION_SAY.BOOSTING, SAY_PUBLIC);
+		if (SAY_ASSIGNMENT) creep.say(Util.emoji.boosting, SAY_PUBLIC);
 	};
 }
 

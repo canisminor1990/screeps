@@ -42,7 +42,7 @@ export class ToolTip extends VisualsBase {
 		const x = mineral.pos.x + 0.5;
 		const y = mineral.pos.y;
 		if (mineral.mineralAmount) {
-			this.vis.text(`${Util.emoji.harvest} ${Math.floor(mineral.mineralAmount)}`, x, y, this.toolTipStyle);
+			this.vis.text(`${Util.emoji.mining} ${Math.floor(mineral.mineralAmount)}`, x, y, this.toolTipStyle);
 		} else {
 			this.vis.text(`${Util.emoji.reload} ${Util.formatNumber(mineral.ticksToRegeneration)}`, x, y, this.toolTipStyle);
 		}
@@ -51,7 +51,7 @@ export class ToolTip extends VisualsBase {
 		const x = source.pos.x + 0.5;
 		const y = source.pos.y;
 		if (source.energy) {
-			this.vis.text(`${Util.emoji.harvest} ${source.energy}`, x, y, this.toolTipStyle);
+			this.vis.text(`${Util.emoji.mining} ${source.energy}`, x, y, this.toolTipStyle);
 		} else {
 			this.vis.text(`${Util.emoji.reload} ${source.ticksToRegeneration}`, x, y, this.toolTipStyle);
 		}
@@ -60,7 +60,7 @@ export class ToolTip extends VisualsBase {
 		const BASE_X = controller.pos.x + 0.5;
 		let y = controller.pos.y;
 		const style = this.toolTipStyle;
-		let line0 = `${Util.emoji.upgrade} Lv${controller.level}`;
+		let line0 = `${Util.emoji.upgrading} Lv${controller.level}`;
 		let line1 = `${Util.formatNumber(controller.progress)}/${Util.formatNumber(controller.progressTotal)} (${(
 			controller.progress /
 			controller.progressTotal *
@@ -104,7 +104,8 @@ export class ToolTip extends VisualsBase {
 	};
 	private drawTowerInfo = (tower: StructureTower): void => {
 		const needEnergy = tower.energyCapacity - tower.energy;
-		if (needEnergy > 0) this.vis.text(`${Util.emoji.fuel} ${needEnergy}`, tower.pos.x, tower.pos.y, this.toolTipStyle);
+		if (needEnergy > 0)
+			this.vis.text(`${Util.emoji.fueling} ${needEnergy}`, tower.pos.x, tower.pos.y, this.toolTipStyle);
 	};
 	private drawTransactions = (room: Room): void => {
 		if (!room.terminal) return;
