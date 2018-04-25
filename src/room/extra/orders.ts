@@ -6,6 +6,12 @@ class OrdersExtra extends RoomExtra {
 	}
 
 	analyzeRoom = (room: Room, needMemoryResync?: boolean): void => {
+		if (room.memory.resources) {
+			const orders = room.memory.resources.orders;
+			const offers = room.memory.resources.offers;
+			if (orders.length > 0 && orders[0].amount === 0) orders.shift();
+			if (offers.length > 0 && offers[0].amount === 0) orders.shift();
+		}
 		if (Game.time % PROCESS_ORDERS_INTERVAL === 0) {
 			room.updateResourceOrders();
 			let orderingRoom = Util.orderingRoom();
