@@ -64,10 +64,10 @@ class UpgraderBehaviour extends CreepBehaviour {
 		if (boostPartsCount === 0) {
 			CreepManager.action.boosting.work(creep);
 		} else {
-			Log.success(
+			Log.room(
 				creep.room,
 				Util.emoji.boosting,
-				Dye(COLOR_GREEN, this.name, `boost ${lab.mineralType} to ${boostPartsCount} parts successfull`),
+				Dye(COLOR_GREEN, this.name, `boost ${lab.mineralType} to ${boostPartsCount} parts!`),
 			);
 			creep.data.boost.done = true;
 		}
