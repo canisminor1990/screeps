@@ -112,8 +112,8 @@ class MemoryManagerConstructor extends Component {
 					Log.module(
 						'Memory',
 						'Saving ' +
-							Dye(COLOR_PURPLE, _.round(encodedData.length / 1024, 2)) +
-							'kb of data to ' +
+							Dye(COLOR_PURPLE, _.round(encodedData.length / 1024, 2), 'kb') +
+							' of data to ' +
 							Dye(COLOR_BLUE, `segment ${id}`),
 					);
 					RawMemory.segments[id] = encodedData + '}';

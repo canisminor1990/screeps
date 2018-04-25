@@ -349,7 +349,7 @@ class RoomConstructor extends Component {
 				this.pathfinderCache[key] = cache[key];
 			}
 		}
-		if (count > 0) Log.module('MemoryManager', 'loading pathfinder cache.. updated ' + count + ' stale entries.');
+		if (count > 0) Log.module('Memory', Dye(COLOR_BLUE, `Loading pathfinder cache...Updated ${count} stale entries.`));
 		this.pathfinderCacheLoaded = true;
 	};
 	getCachedStructureMatrix = (roomName: string) => {
