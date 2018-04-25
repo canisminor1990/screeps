@@ -29,8 +29,7 @@ class BoostCreepExtra extends RoomExtra {
 						creepType,
 						ready: false,
 					};
-					this.setStore(id, mineralType, 3000);
-					this.setStore(id, 'energy', 2000);
+					this.setStore(id, mineralType, lab.mineralCapacity);
 					Log.room(
 						this.name,
 						Util.emoji.boosting,
