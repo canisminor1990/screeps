@@ -69,6 +69,7 @@ declare const VISUALS: {
 	CONTROLLER: boolean;
 	STORAGE: boolean;
 	TERMINAL: boolean;
+	REACTIONS: boolean;
 	TOWER: boolean;
 	TRANSACTIONS: boolean;
 	LABS: boolean;

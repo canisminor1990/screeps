@@ -33,7 +33,34 @@ export class Sidebar extends VisualsBase {
 		if (VISUALS.ROOM_OFFERS) this.drawRoomOrders(room, 'offers');
 		if (VISUALS.STORAGE) this.drawStoreInfo(room, 'storage');
 		if (VISUALS.TERMINAL) this.drawStoreInfo(room, 'terminal');
+		if (VISUALS.REACTIONS) this.drawReactionsOrders(room);
 	};
+	private drawReactionsOrders = (room: Room) => {
+		const x = 1;
+		let y = 1;
+		if (
+			!room.memory.resources ||
+			!room.memory.resources.reactions ||
+			room.memory.resources.reactions.orders.length === 0
+		) {
+			return;
+		}
+		if (VISUALS.STORAGE && room.storage) {
+			y += this.Y_PADDING + _.size(room.storage.store) * this.Y_LIST_MARGIN;
+		}
+		if (VISUALS.TERMINAL && room.terminal) {
+			y += this.Y_PADDING + _.size(room.terminal.store) * this.Y_LIST_MARGIN;
+		}
+		if (VISUALS.ROOM_ORDERS && room.memory.resources.orders) {
+			y += this.Y_PADDING + _.size(room.memory.resources.orders) * this.Y_LIST_MARGIN;
+		}
+		if (VISUALS.ROOM_OFFERS && room.memory.resources.offers) {
+			y += this.Y_PADDING + _.size(room.memory.resources.offers) * this.Y_LIST_MARGIN;
+		}
+		this.vis.text(`Reactions Orders`, x, ++y, this.infoStyle);
+		this._roomOrdersObject(room.memory.resources.reactions.orders, x, y + this.Y_MAEGIN - 0.5);
+	};
+
 	private drawRoomOrders = (room: Room, type: string) => {
 		const x = 1;
 		let y = 1;

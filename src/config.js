@@ -41,6 +41,7 @@ module.exports = {
 		CONTROLLER: true, // displays level, progress, and ticks to downgrade if active
 		STORAGE: true, // displays storage contents
 		TERMINAL: true, // displays terminal contents
+		REACTIONS: true, // displays reactions orders
 		TOWER: false, // displays tower contents
 		TRANSACTIONS: false, // displays 2 most recent transactions over room terminal
 		LABS: false, // displays lab energy, mineral, or cooldown
