@@ -26,8 +26,10 @@ class DefenseExtra extends RoomExtra {
 	private _triggerNewInvaders = creep => {
 		// create notification
 		const bodyCount = JSON.stringify(_.countBy(creep.body, 'type'));
-		if (NOTIFICATE_INVADER || (NOTIFICATE_INTRUDER && creep.room.my) || NOTIFICATE_HOSTILES)
-			Log.room(creep.pos.roomName, Dye(COLOR_RED, `Hostile intruder (${bodyCount}) from "${creep.owner.username}".`));
+		if (NOTIFICATE_INVADER || (NOTIFICATE_INTRUDER && creep.room.my) || NOTIFICATE_HOSTILES) {
+			Log.room(creep.pos.roomName, Dye(COLOR_RED, `Hostile intruder from "${creep.owner.username}".`));
+			Log.table(bodyCount);
+		}
 		if (
 			NOTIFICATE_INVADER ||
 			(NOTIFICATE_INTRUDER &&
