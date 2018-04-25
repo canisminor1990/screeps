@@ -562,7 +562,8 @@ class RoomOrderExtend extends Room {
 					}
 					o.ratio = (credits - transactionCost * ENERGY_VALUE_CREDITS) / o.transactionAmount;
 
-					if (o.ratio > sellRatio || o.amount < 100) return false;
+					if (o.price > sellRatio || o.ratio > sellRatio || o.amount < 100) return false;
+					// if (o.ratio > sellRatio || o.amount < 100) return false;
 
 					return true;
 				});
@@ -1444,14 +1445,14 @@ class RoomOrderExtend extends Room {
 
 					return (
 						terminalFull ||
-						(o.ratio >= buyRatio &&
-							// o.range <= MAX_SELL_RANGE &&
-							o.transactionCost <= this.terminal.store.energy)
+						(o.price >= buyRatio && o.ratio >= buyRatio && o.transactionCost <= this.terminal.store.energy)
+						// (o.ratio >= buyRatio && o.transactionCost <= this.terminal.store.energy)
 					);
 				});
 
 				if (orders.length > 0) {
 					let order = _.max(orders, 'ratio');
+
 					Log.room(this.name, Util.emoji.terminal, 'selected order: ', '<br/>', Util.jsonToTable(order));
 					let result = Game.market.deal(order.id, order.transactionAmount, this.name);
 					if (SELL_NOTIFICATION)
@@ -1460,9 +1461,9 @@ class RoomOrderExtend extends Room {
 							Util.emoji.terminal,
 							Dye(
 								COLOR_GREEN,
-								`Selling ${order.transactionAmount} ${mineral} for ${Util.roundUp(order.credits)} (${
+								`Selling ${order.transactionAmount} ${mineral} for ${Util.roundUp(order.credits)} (C:${
 									order.price
-								} ¢/${mineral}, ${order.transactionCost} e): ${Util.translateErrorCode(result)}`,
+								}, E:${order.transactionCost}): ${Util.translateErrorCode(result)}`,
 							),
 						);
 					if (SELL_NOTIFICATION)
