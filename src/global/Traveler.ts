@@ -310,9 +310,6 @@ class Traveler {
 				if (ret.incomplete && ret.ops < 2000 && travelData.stuck < this.opts.defaultStuckValue) {
 					options.useFindRoute = false;
 					ret = this.findTravelPath(creep, destPos, options);
-					if (options.debug) {
-						Log.info(`attempting path without findRoute was ${ret.incomplete ? 'not ' : ''}successful`);
-					}
 				}
 			}
 			travelData.path = Traveler.serializePath(creep.pos, ret.path);
