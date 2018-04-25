@@ -924,7 +924,7 @@ class RoomOrderExtend extends Room {
 					if (!room.memory.resources.offers) room.memory.resources.offers = [];
 					let remoteOffers = room.memory.resources.offers;
 					let available = room.resourcesAll[order.type] || 0;
-					Log.room(room.name, `available: ${available} ${order.type}`);
+					if (available > 0) Log.room(room.name, Util.emoji.order, `available: ${available} ${order.type}`);
 					if (available < MIN_OFFER_AMOUNT) continue;
 
 					// for COMPOUNDS_TO_ALLOCATE
@@ -970,7 +970,11 @@ class RoomOrderExtend extends Room {
 							});
 						Log.room(
 							this.name,
-							`Room offer from ${room.name} with id ${order.id} placed for ${available} ${order.type}.`,
+							Util.emoji.order,
+							Dye(
+								COLOR_PURPLE,
+								`Room offer from ${room.print} with id ${order.id} placed for ${available} ${order.type}.`,
+							),
 						);
 						amountRemaining -= available;
 						order.offers.push({
@@ -1060,7 +1064,11 @@ class RoomOrderExtend extends Room {
 						resourceType: offer.type,
 						amount: amount,
 					});
-				Log.room(this.name, `Send ${offer.type} ${amount} to ${Util.makeRoomUrl(targetRoom.name)}.`);
+				Log.room(
+					this.name,
+					Util.emoji.order,
+					Dye(COLOR_GREEN, `Send ${offer.type} ${amount} to ${Util.makeRoomUrl(targetRoom.name)}.`),
+				);
 				offer.amount -= amount;
 				if (offer.amount > 0) {
 					order.offers[targetOfferIdx].amount = offer.amount;
@@ -1390,7 +1398,6 @@ class RoomOrderExtend extends Room {
 	}
 
 	terminalBroker() {
-		Log.room(this.name, Util.emoji.terminal, 'Checking...');
 		if (!this.my || !this.terminal || !this.storage) return;
 		if (this.terminal.cooldown && this.terminal.cooldown > 0) return;
 		let transacting = false;

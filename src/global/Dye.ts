@@ -12,6 +12,7 @@ const Color = {
 };
 const Style = {
 	...Color,
+	link: { color: '#428bca', fontSize: '9px' },
 	black: { color: 'black', fontWeight: 'bold' },
 	system: { color: Color[COLOR_GREY], fontSize: '9px' },
 	success: { color: Color[COLOR_GREEN], fontSize: '9px' },

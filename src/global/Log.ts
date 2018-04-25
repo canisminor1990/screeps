@@ -1,6 +1,7 @@
 import { LogLevel } from '../enum/log';
 import { ErrorType } from '../enum/error';
 import { ConvertJsonToTable } from '../lib/json-to-table';
+
 class Log {
 	LogLevel: number;
 	Emoji: boolean;
@@ -73,7 +74,8 @@ class Log {
 	}
 
 	module(title: string, ...content: any[]): void {
-		console.log(Dye('system', `[${title}]`), ...content);
+		title = this.Emoji ? `${Util.emoji.module} ${Dye('link', title)}` : `[${title}]`;
+		console.log(Dye('system', title), ...content);
 	}
 
 	room(room: Room | string, ...content: any[]) {

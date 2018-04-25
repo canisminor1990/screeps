@@ -150,5 +150,5 @@ export const install = () => {
 	// Install Done
 	Install('isRoot', true);
 	const cpuAfterInstall = Game.cpu.getUsed();
-	Log.success('Root Done', `[cpu-cost:${(cpuAfterInstall - cpuBeforeInstall).toFixed(2)}]`);
+	Log.success('Root Done', Dye(COLOR_GREY, `cpu-cost:${(cpuAfterInstall - cpuBeforeInstall).toFixed(2)}`));
 };

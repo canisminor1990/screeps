@@ -209,7 +209,10 @@ class TaskConstructor extends Component {
 		}
 		const oldCheck = _.get(flag.memory, ['nextCheck', task], Infinity);
 		if (flag && nextCheck - Game.time > 0 && nextCheck < oldCheck) {
-			Log.flag(flag, Dye(COLOR_PURPLE, 'TaskManager Queued:', task, `(next-check: ${nextCheck - Game.time}s later)`));
+			Log.flag(
+				flag,
+				Dye(COLOR_PURPLE, 'TaskManager Queued:', task, Dye(COLOR_GREY, `next-check: ${nextCheck - Game.time}s later`)),
+			);
 			_.set(flag.memory, ['nextCheck', task], nextCheck);
 		}
 	};
@@ -246,7 +249,15 @@ class TaskConstructor extends Component {
 		}
 		const oldCheck = _.get(flag.memory, ['nextCheck', task], Infinity);
 		if (flag && nextCheck - Game.time > 0 && nextCheck < oldCheck) {
-			Log.flag(flag, Dye(COLOR_YELLOW, 'TaskManager Spawning:', task, `(next-check: ${nextCheck - Game.time}s later)`));
+			Log.flag(
+				flag,
+				Dye(
+					COLOR_YELLOW,
+					'TaskManager Spawning:',
+					task,
+					Dye(COLOR_GREY, `next-check: ${nextCheck - Game.time}s later`),
+				),
+			);
 			_.set(flag.memory, ['nextCheck', task], nextCheck);
 		}
 	};
@@ -291,7 +302,10 @@ class TaskConstructor extends Component {
 		}
 		const oldCheck = _.get(flag.memory, ['nextCheck', task], Infinity);
 		if (flag && nextCheck - Game.time > 0 && nextCheck < oldCheck) {
-			Log.flag(flag, Dye(COLOR_GREEN, 'TaskManager Running:', task, `(next-check: ${nextCheck - Game.time}s later)`));
+			Log.flag(
+				flag,
+				Dye(COLOR_GREEN, 'TaskManager Running:', task, Dye(COLOR_GREY, `next-check: ${nextCheck - Game.time}s later`)),
+			);
 			_.set(flag.memory, ['nextCheck', task], nextCheck);
 		}
 	};

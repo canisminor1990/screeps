@@ -255,43 +255,34 @@ class Traveler {
 			travelData.avg = _.round(travelData.cpu / travelData.count, 2);
 			if (travelData.count > 25 && travelData.avg > options.reportThreshold) {
 				if (options.debug) {
-					Log.warn(
-						'[Traveler] heavy cpu use: ',
-						'<br>',
-						Util.jsonToTable({
-							creep: creep.name,
-							avg: travelData.cpu / travelData.count,
-							total: _.round(travelData.cpu, 2),
-							from: creep.pos,
-							to: destPos,
-						}),
-					);
+					Log.module('Traveler', Dye(COLOR_ORANGE, 'heavy cpu use: '));
+					Log.table({
+						creep: creep.name,
+						avg: travelData.cpu / travelData.count,
+						total: _.round(travelData.cpu, 2),
+						from: creep.pos,
+						to: destPos,
+					});
 				}
 			}
 			if (ret.incomplete) {
 				const route = ret.route && ret.route.length;
 				if (options.debug) {
 					if (options.range === 0) {
-						Log.warn(
-							`[Traveler] incomplete path, destination may be blocked.`,
-							'<br>',
-							Util.jsonToTable({
-								creep: creep.name,
-								from: creep.pos,
-								to: destPos,
-							}),
-						);
+						Log.module('Traveler', Dye(COLOR_ORANGE, 'incomplete path, destination may be blocked.'));
+						Log.table({
+							creep: creep.name,
+							from: creep.pos,
+							to: destPos,
+						});
 					} else {
-						Log.warn(
-							`[Traveler] incomplete path . Route length ${route}.`,
-							'<br>',
-							Util.jsonToTable({
-								creep: creep.name,
-								from: creep.pos,
-								to: destPos,
-								range: options.range,
-							}),
-						);
+						Log.module('Traveler', Dye(COLOR_ORANGE, `incomplete path . Route length ${route}.`));
+						Log.table({
+							creep: creep.name,
+							from: creep.pos,
+							to: destPos,
+							range: options.range,
+						});
 					}
 				}
 				if (route > 1) {
