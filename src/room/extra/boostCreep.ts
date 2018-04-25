@@ -25,7 +25,13 @@ class BoostCreepExtra extends RoomExtra {
 
 	prototypeExtend = () => {
 		this.assignRoomPrototype({
-			setBoost: {
+			resetBoostCreep: {
+				value(): void {
+					delete this.memory.boostCreep;
+					Log.room(this.name, Util.emoji.boosting, Dye(COLOR_GREEN, `boosting order is reset`));
+				},
+			},
+			setBoostCreep: {
 				value(id: string, mineralType: string, creepType: string): void {
 					const lab = Game.getObjectById(id);
 					if (_.isNull(lab) || !(lab instanceof StructureLab)) return Log.error('Wrong lab id');

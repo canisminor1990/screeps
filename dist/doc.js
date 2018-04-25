@@ -3,14 +3,16 @@
 /////////////////////////////////////////////////////////////////////////
 
 // boostCreep
-Game.rooms['W8N3'].setBoost('3d8b0ae633fc0a1', 'XGH2O', 'upgrader');
+Game.rooms['W8N3'].setBoostCreep('3d8b0ae633fc0a1', 'XGH2O', 'upgrader');
+Game.rooms['W8N3'].resetBoostCreep();
 
 // layout
 Game.rooms['E8N45'].setCenter(15, 15);
-Util.setRoomCenter('W8N3', 15, 15);
-Util.resetRoomLayout('W8N3');
+Game.rooms['E8N45'].resetCenter();
+Game.rooms['E8N45'].resetLayout();
 
 // reset production
+Game.rooms['E8N45'].resetBoostProduction();
 Util.resetBoostProduction();
 Util.resetBoostProduction('roomName');
 

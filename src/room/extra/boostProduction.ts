@@ -8,6 +8,17 @@ class BoostProductionExtra extends RoomExtra {
 	analyze = () => {
 		this.boostProduction();
 	};
+
+	prototypeExtend = () => {
+		this.assignRoomPrototype({
+			resetBoostProduction: {
+				value(): void {
+					Util.resetBoostProduction(this.name);
+				},
+			},
+		});
+	};
+
 	boostProduction = () => {
 		if (!MAKE_COMPOUNDS) return;
 

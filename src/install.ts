@@ -18,6 +18,12 @@ export const install = () => {
 	ProtoypeInstall();
 	TravelerInstall();
 	Install(global, require('./global').default, {
+		Rooms(name) {
+			return Game.rooms[name];
+		},
+		Creeps(name) {
+			return Game.creeps[name];
+		},
 		CPU: require('./global/Cpu').default,
 		Dye: require('./global/Dye').default,
 		Log: require('./global/Log').default,

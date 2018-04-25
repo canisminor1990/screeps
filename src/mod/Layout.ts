@@ -12,7 +12,7 @@ class LayoutConstructor extends Component {
 			if (!roomMemory.center) {
 				const storage = Game.rooms[roomName].storage;
 				if (!storage) return;
-				Util.setRoomCenter(roomName, storage.pos.x, storage.pos.y);
+				Game.rooms[roomName].setCenter(storage.pos.x, storage.pos.y);
 			}
 			if (!roomMemory.RBL) roomMemory.RBL = 0;
 			if (!roomMemory.RDL) roomMemory.RDL = 0;

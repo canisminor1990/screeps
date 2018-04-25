@@ -1,13 +1,4 @@
 export const roomUtils = {
-	resetRoomLayout(roomName: string): void {
-		Memory.rooms[roomName].RBL = 0;
-		Memory.rooms[roomName].RDL = 0;
-		Log.success(roomName, 'RBL/RDL are reseted.');
-	},
-	setRoomCenter(roomName: string, x: number, y: number): void {
-		Memory.rooms[roomName].center = { x, y };
-		Log.success(roomName, 'center set at', x, y);
-	},
 	/**
 	 * 获取当前可见房间
 	 */
