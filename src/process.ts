@@ -114,6 +114,10 @@ class Process {
 			Util.processReports();
 		}
 		// Mod
+		CPU.check('addon', 'Layout');
+		if (AUTO_LAYOUT && Game.time % AUTO_LAYOUT_INTERVAL === 0) Layout.run();
+		CPU.end('addon', 'Layout');
+
 		CPU.check('addon', 'Visuals');
 		if (ROOM_VISUALS && !Memory.CPU_CRITICAL) Visuals.run();
 		CPU.end('addon', 'Visuals');

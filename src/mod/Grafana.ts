@@ -27,6 +27,11 @@ class GrafanaConstructor extends Component {
 				terminal: {},
 				minerals: {},
 				sources: {},
+				controller: {},
+				energy: {},
+				labs: {},
+				walls: {},
+				ramparts: {},
 			};
 
 			this.init(room, Memory.stats.rooms[room.name]);
@@ -34,44 +39,80 @@ class GrafanaConstructor extends Component {
 	};
 
 	init = (room, object) => {
-		this.controller(room, object);
-		this.energy(room, object);
+		this.controller(room, object.controller);
+		this.energy(room, object.energy);
+		this.labs(room, object.labs);
 		this.spawns(room, object.spawns);
 		this.storage(room, object.storage);
 		this.terminal(room, object.terminal);
 		this.minerals(room, object.minerals);
 		this.sources(room, object.sources);
+		this.walls(room, object.walls);
+		this.ramparts(room, object.ramparts);
 	};
-
-	controller = (room, object) => {
-		if (room.controller) {
-			object.controller = {
-				level: room.RCL,
-				progress: room.controller.progress,
-				progressTotal: room.controller.progressTotal,
-			};
+	walls = (room: Room, object) => {
+		const walls: StructureWall[] = room.structures.walls;
+		if (walls && walls.length > 0) {
+			const hits = _.map(walls, 'hits');
+			object.max = _.max(hits);
+			object.avg = Math.floor(_.sum(hits / hits.length));
 		}
 	};
 
-	energy = (room, object) => {
-		object.energy = {
-			available: room.energyAvailable,
-			capacityAvailable: room.energyCapacityAvailable,
-		};
+	ramparts = (room: Room, object) => {
+		const ramparts: StructureRampart[] = room.structures.ramparts;
+		if (ramparts && ramparts.length > 0) {
+			const hits = _.map(ramparts, 'hits');
+			object.max = _.max(hits);
+			object.avg = Math.floor(_.sum(hits / hits.length));
+		}
 	};
 
-	spawns = (room, object) => {
-		if (room.structures.spawns) {
-			room.structures.spawns.forEach(spawn => {
-				object[spawn.name] = {
-					name: spawn.name,
-					spawning: spawn.spawning !== null ? 1 : 0,
+	labs = (room: Room, object) => {
+		const labs: StructureLab[] = room.structures.labs.all;
+		if (labs && labs.length > 0) {
+			_.forEach(labs, lab => {
+				object[lab.id] = {
+					structureType: lab.structureType,
+					energy: lab.energy,
+					mineralAmount: lab.mineralAmount,
 				};
 			});
 		}
 	};
 
-	storage = (room, object) => {
+	controller = (room: Room, object) => {
+		if (room.controller) {
+			object.level = room.RCL;
+			object.progress = room.controller.progress;
+			object.progressTotal = room.controller.progressTotal;
+		}
+	};
+
+	energy = (room: Room, object) => {
+		object.available = room.energyAvailable;
+		object.capacityAvailable = room.energyCapacityAvailable;
+	};
+
+	spawns = (room: Room, object) => {
+		const spawns: StructureSpawn[] = room.structures.spawns;
+		if (spawns && spawns.length > 0) {
+			_.forEach(spawns, spawn => {
+				object[spawn.name] = {
+					name: spawn.name,
+					energy: spawn.energy,
+					spawning: !!(spawn.spawning && spawn.spawning.name),
+				};
+				if (spawn.spawning && spawn.spawning.name) {
+					object[spawn.name].name = spawn.spawning.name;
+					object[spawn.name].remainingTime = spawn.spawning.remainingTime;
+					object[spawn.name].needTime = spawn.spawning.needTime;
+				}
+			});
+		}
+	};
+
+	storage = (room: Room, object) => {
 		if (room.storage) {
 			object.store = _.sum(room.storage.store);
 			object.resources = {};
@@ -79,7 +120,7 @@ class GrafanaConstructor extends Component {
 		}
 	};
 
-	terminal = (room, object) => {
+	terminal = (room: Room, object) => {
 		if (room.terminal) {
 			object.store = _.sum(room.terminal.store);
 			object.resources = {};
@@ -89,24 +130,25 @@ class GrafanaConstructor extends Component {
 		}
 	};
 
-	minerals = (room, object) => {
-		if (room.minerals) {
-			room.minerals.forEach(
-				mineral =>
-					(object[mineral.id] = {
-						id: mineral.id,
-						density: mineral.density,
-						mineralAmount: mineral.mineralAmount,
-						mineralType: mineral.mineralType,
-						ticksToRegeneration: mineral.ticksToRegeneration,
-					}),
-			);
+	minerals = (room: Room, object) => {
+		const minerals: Mineral[] = room.minerals;
+		if (minerals && minerals.length > 0) {
+			const mineral = minerals[0];
+			object[mineral.id] = {
+				id: mineral.id,
+				density: mineral.density,
+				mineralAmount: mineral.mineralAmount,
+				mineralType: mineral.mineralType,
+				ticksToRegeneration: mineral.ticksToRegeneration,
+			};
 		}
 	};
 
-	sources = (room, object) => {
-		if (room.sources) {
-			room.sources.forEach(
+	sources = (room: Room, object) => {
+		const sources: Source[] = room.sources;
+		if (sources && sources.length > 0) {
+			_.forEach(
+				sources,
 				source =>
 					(object[source.id] = {
 						id: source.id,

@@ -61,7 +61,17 @@ class RoomStructuresExtend {
 
 	get extensions(): StructureExtension[] {
 		return this.memoryCache('extensions', () =>
-			_.filter(this.all, (s: Structure) => s.structureType === STRUCTURE_EXTENSION),
+			_.filter(this.my, (s: Structure) => s.structureType === STRUCTURE_EXTENSION),
+		);
+	}
+
+	get walls(): StructureWall[] {
+		return this.memoryCache('walls', () => _.filter(this.all, (s: Structure) => s.structureType === STRUCTURE_WALL));
+	}
+
+	get ramparts(): StructureRampart[] {
+		return this.memoryCache('ramparts', () =>
+			_.filter(this.all, (s: Structure) => s.structureType === STRUCTURE_RAMPART),
 		);
 	}
 
