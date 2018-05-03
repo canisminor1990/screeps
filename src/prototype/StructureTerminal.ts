@@ -1,3 +1,5 @@
+StructureTerminal.prototype._send = StructureTerminal.prototype.send;
+
 class StructureTerminalExtend extends StructureTerminal {
 	constructor() {}
 
@@ -25,6 +27,21 @@ class StructureTerminalExtend extends StructureTerminal {
 	/// ///////////////////////////////////////////////////////////////////
 
 	active: boolean = true;
+
+	send(resourceType: ResourceConstant, amount: number, destination: string, description?: string): ScreepsReturnCode {
+		const cb: ScreepsReturnCode = this._send(resourceType, amount, destination, description);
+		if (cb === OK) {
+			if (!Memory.send) Memory.send = [];
+			if (Memory.send.length > 20) Memory.send.shift();
+			Memory.send.push({
+				from: this.room.name,
+				to: destination,
+				type: resourceType,
+				amount: amount,
+			});
+		}
+		return cb;
+	}
 
 	get sum(): number {
 		return this.cache('sum', () => _.sum(this.store), true);

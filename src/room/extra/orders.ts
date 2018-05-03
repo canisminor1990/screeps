@@ -1,4 +1,5 @@
 import { RoomExtra } from '../Extra';
+import * as moment from 'moment';
 
 class OrdersExtra extends RoomExtra {
 	constructor() {
@@ -1510,17 +1511,19 @@ class RoomOrderExtend extends Room {
 			) {
 				targetRoom._isReceivingEnergy = true;
 				let response = this.terminal.send('energy', ENERGY_BALANCE_TRANSFER_AMOUNT, targetRoom.name, 'have fun');
-				Log.room(
-					this.name,
-					Util.emoji.terminal,
-					Dye(
-						COLOR_GREEN,
-						`Transferring ${Util.formatNumber(ENERGY_BALANCE_TRANSFER_AMOUNT)} energy to ${
-							targetRoom.name
-						}: ${Util.translateErrorCode(response)}`,
-					),
-				);
 				transacting = response == OK;
+				if (transacting) {
+					Log.room(
+						this.name,
+						Util.emoji.terminal,
+						Dye(
+							COLOR_GREEN,
+							`Transferring ${Util.formatNumber(ENERGY_BALANCE_TRANSFER_AMOUNT)} energy to ${
+								targetRoom.name
+							}: ${Util.translateErrorCode(response)}`,
+						),
+					);
+				}
 			}
 		}
 		if (transacting !== true && _.isUndefined(Memory.boostTiming)) {

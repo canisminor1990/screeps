@@ -55,7 +55,7 @@ class GrafanaConstructor extends Component {
 		if (walls && walls.length > 0) {
 			const hits = _.map(walls, 'hits');
 			object.max = _.max(hits);
-			object.avg = Math.floor(_.sum(hits / hits.length));
+			object.avg = Math.floor(_.sum(hits) / hits.length);
 		}
 	};
 
@@ -64,7 +64,7 @@ class GrafanaConstructor extends Component {
 		if (ramparts && ramparts.length > 0) {
 			const hits = _.map(ramparts, 'hits');
 			object.max = _.max(hits);
-			object.avg = Math.floor(_.sum(hits / hits.length));
+			object.avg = Math.floor(_.sum(hits) / hits.length);
 		}
 	};
 
@@ -73,8 +73,8 @@ class GrafanaConstructor extends Component {
 		if (labs && labs.length > 0) {
 			_.forEach(labs, lab => {
 				object[lab.id] = {
-					structureType: lab.structureType,
 					energy: lab.energy,
+					mineralType: lab.mineralType,
 					mineralAmount: lab.mineralAmount,
 				};
 			});
