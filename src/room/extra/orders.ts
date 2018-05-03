@@ -1,5 +1,4 @@
 import { RoomExtra } from '../Extra';
-import * as moment from 'moment';
 
 class OrdersExtra extends RoomExtra {
 	constructor() {

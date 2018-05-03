@@ -1,3 +1,5 @@
+import * as moment from 'moment';
+
 StructureTerminal.prototype._send = StructureTerminal.prototype.send;
 
 class StructureTerminalExtend extends StructureTerminal {
@@ -34,6 +36,7 @@ class StructureTerminalExtend extends StructureTerminal {
 			if (!Memory.send) Memory.send = [];
 			if (Memory.send.length > 20) Memory.send.shift();
 			Memory.send.push({
+				time: moment().format(),
 				from: this.room.name,
 				to: destination,
 				type: resourceType,
