@@ -95,11 +95,11 @@ module.exports = {
 		power: 0.2,
 		H: 0.2,
 		O: 0.2,
-		U: 0.4,
-		L: 0.4,
-		K: 0.4,
-		Z: 0.4,
-		X: 0.5,
+		U: 0.25,
+		L: 0.25,
+		K: 0.25,
+		Z: 0.25,
+		X: 0.4,
 		OH: 1.5,
 		ZK: 2,
 		UL: 2,
@@ -271,7 +271,7 @@ module.exports = {
 		MIN_LOAD: 0.75, // Haulers will return home as long as their ratio of carrying/capacity is above this amount.
 		MIN_WEIGHT: 800, // Small haulers are a CPU drain.
 		MULTIPLIER: 3, // Max number of haulers spawned per source in a remote mining room.
-		REHOME: false, // May haulers choose closer storage for delivery?
+		REHOME: true, // May haulers choose closer storage for delivery?
 	},
 	TASK_CREEP_CHECK_INTERVAL: 250, // Maximum number of ticks before a task checks to see if it needs to spawn new creeps
 	REMOTE_RESERVE_HAUL_CAPACITY: 0.1, // Percent of allocated haul capacity before sending reservers.

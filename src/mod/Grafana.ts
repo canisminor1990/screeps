@@ -49,6 +49,11 @@ class GrafanaConstructor extends Component {
 		this.sources(room, object.sources);
 		this.walls(room, object.walls);
 		this.ramparts(room, object.ramparts);
+		object.extensions = room.memory.extensions ? room.memory.extensions.length : 0;
+		object.links = room.memory.links ? room.memory.links.length : 0;
+		object.towers = room.memory.towers ? room.memory.towers.length : 0;
+		object.observer = room.memory.observer ? 1 : 0;
+		object.roadConstructionTrace = null;
 	};
 	walls = (room: Room, object) => {
 		const walls: StructureWall[] = room.structures.walls;
