@@ -34,7 +34,6 @@ const config = {
 		// if ROOM_VISUALS is enabled, you can select what you want to display - All is a bit much for some people.
 		VISIBLE_ONLY: true, // depends on userscript: https://github.com/Esryok/screeps-browser-ext/blob/master/visible-room-tracker.user.js
 		ROOM: true, // displays basic info relative to the room
-		CPU: false, // display a graph containing CPU used, CPU limit, and bucket
 		ROOM_ORDERS: true, // display orders the room creates
 		ROOM_OFFERS: true, // display what a room will offer another
 		SPAWN: true, // displays creep name and spawn progress percentage when spawning

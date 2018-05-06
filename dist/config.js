@@ -1,4 +1,4 @@
-module.exports = {
+const config = {
 	ME: _ME,
 	// New
 	LOG_LEVEL: 'debug',
@@ -32,9 +32,8 @@ module.exports = {
 	ROOM_VISUALS_ALL: false, // displays visuals in all rooms you have vision in. Only your rooms when false.
 	VISUALS: {
 		// if ROOM_VISUALS is enabled, you can select what you want to display - All is a bit much for some people.
-		VISIBLE_ONLY: false, // depends on userscript: https://github.com/Esryok/screeps-browser-ext/blob/master/visible-room-tracker.user.js
+		VISIBLE_ONLY: true, // depends on userscript: https://github.com/Esryok/screeps-browser-ext/blob/master/visible-room-tracker.user.js
 		ROOM: true, // displays basic info relative to the room
-		CPU: false, // display a graph containing CPU used, CPU limit, and bucket
 		ROOM_ORDERS: true, // display orders the room creates
 		ROOM_OFFERS: true, // display what a room will offer another
 		SPAWN: true, // displays creep name and spawn progress percentage when spawning
@@ -223,7 +222,7 @@ module.exports = {
 	REPORTS_PER_LOOP: 100,
 	SEND_STATISTIC_REPORTS: false, // Set to true to receive room statistics per mail, otherwise set to false.
 	ROAD_CONSTRUCTION_ENABLE: false, // Set to False to disable automatic road construction, or to a number to enable for owned rooms reaching that RC Level. WARNING: HIGH MEMORY USAGE
-	ROAD_CONSTRUCTION_FORCED_ROOMS: { shard0: [] }, //Add room names to force automatic road construction regardless of ROAD_CONSTRUCTION_ENABLE e.g. {'shard0':['W0N0','W1N0'],'shard1':['W0N0', 'W1N0']}.
+	ROAD_CONSTRUCTION_FORCED_ROOMS: { shard2: [] }, //Add room names to force automatic road construction regardless of ROAD_CONSTRUCTION_ENABLE e.g. {'shard0':['W0N0','W1N0'],'shard1':['W0N0', 'W1N0']}.
 	ROAD_CONSTRUCTION_INTERVAL: 500,
 	ROAD_CONSTRUCTION_MIN_DEVIATION: 1.2,
 	ROAD_CONSTRUCTION_ABS_MIN: 3,
@@ -500,3 +499,10 @@ module.exports = {
 		},
 	},
 };
+
+config.ROAD_CONSTRUCTION_FORCED_ROOMS.shard2 = _.map(
+	_.filter(Memory.flags, o => o.task === 'mining'),
+	'roomName',
+);
+
+module.exports = config;
