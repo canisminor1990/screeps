@@ -32,7 +32,7 @@ const config = {
 	ROOM_VISUALS_ALL: false, // displays visuals in all rooms you have vision in. Only your rooms when false.
 	VISUALS: {
 		// if ROOM_VISUALS is enabled, you can select what you want to display - All is a bit much for some people.
-		VISIBLE_ONLY: false, // depends on userscript: https://github.com/Esryok/screeps-browser-ext/blob/master/visible-room-tracker.user.js
+		VISIBLE_ONLY: true, // depends on userscript: https://github.com/Esryok/screeps-browser-ext/blob/master/visible-room-tracker.user.js
 		ROOM: true, // displays basic info relative to the room
 		CPU: false, // display a graph containing CPU used, CPU limit, and bucket
 		ROOM_ORDERS: true, // display orders the room creates
