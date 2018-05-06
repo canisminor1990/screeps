@@ -9,7 +9,7 @@ class PowerExtra extends RoomExtra {
 		if (needMemoryResync) {
 			room.savePowerSpawn();
 		}
-		if (room.structures.powerSpawn) room.processPower();
+		if (room.structures.powerSpawns) room.processPower();
 	};
 	freshRoom = room => {
 		if (!room._powerBank) {

@@ -12,10 +12,11 @@ module.exports = {
 			E9N47: 'UL',
 			E12N42: 'ZK',
 			E3N38: 'G',
-			W2N41: 'GH',
+			E17N49: 'GH',
 			E8N45: 'OH',
 			E12N49: 'GH2O',
 			E14N49: 'XGH2O',
+			E12N49: 'ZO',
 		};
 
 		_.forEach(rooms, (mineral, room) => {
